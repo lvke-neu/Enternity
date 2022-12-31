@@ -8,6 +8,7 @@ Encapsulate  Shader
 
 #include "Interface/RendererInterface.h"
 #include <string>
+#include <unordered_map>
 
 BEGIN_ENTERNITY
 
@@ -31,6 +32,8 @@ private:
 	ShaderSourceCode ParseShaderFile(const std::string& filePath);
 	unsigned int CompileShader(unsigned int shaderType, const char* shaderSourceCode);
 	unsigned int CreateProgram(const std::string& vsShaderCode, const std::string& psShaderCode);
+
+	std::unordered_map<std::string, int> m_uniformLocationCache;
 };
 
 END_ENTERNITY

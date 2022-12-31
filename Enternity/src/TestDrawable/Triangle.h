@@ -4,6 +4,7 @@
 #include "Renderer/VertexArray.h"
 #include "Renderer/Shader.h"
 
+
 BEGIN_ENTERNITY
 class Triangle
 {

@@ -29,9 +29,17 @@ void Shader::UnBind() const
 
 void Shader::setFloat4(const std::string & name, float v0, float v1, float v2, float v3)
 {
-	CHECK_GL_CALL(unsigned int location = glGetUniformLocation(m_rendererId, name.c_str()));
-	if (location == -1)
-		LOG_ERROR("uniform: " + name + " doesn't exist");
+	unsigned int location;
+	if (m_uniformLocationCache.find(name) == m_uniformLocationCache.end())
+	{
+		CHECK_GL_CALL(location = glGetUniformLocation(m_rendererId, name.c_str()));
+		m_uniformLocationCache[name] = location;
+		if (location == -1)
+			LOG_ERROR("uniform: " + name + " doesn't exist (or never use)");
+	}
+	else
+		location = m_uniformLocationCache[name];
+
 	CHECK_GL_CALL(glUniform4f(location, v0, v1, v2, v3));
 }
 

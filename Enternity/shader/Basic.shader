@@ -12,7 +12,6 @@ settingcolor = vec4(color, 1.0f);
 
 #shader pixel
 #version 330 core 
-#extension GL_ARB_explicit_uniform_location : enable
 
 out vec4 pixelColor;
 in vec4 settingcolor;
@@ -22,5 +21,5 @@ uniform vec4 u_color2;
 uniform vec4 u_color3;
 void main() 
 {
-	pixelColor = u_color1;
+	pixelColor = settingcolor;
 };
