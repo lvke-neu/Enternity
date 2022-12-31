@@ -1,21 +1,12 @@
 #include <iostream>
-#include "Window/OpenglWindow.h"
-#include "Log/Log.h"
+#include "Engine/Engine.h"
 
 int main()
-{
-	LOG_INFO("startr");
-	LOG_DEBUG("startr");
-	LOG_WARN("startr");
-	LOG_ERROR("startr");
-
-
-	Enternity::OpenglWindow openglWindow({ 1024, 764, "hello, opengl" });
-	if (openglWindow.Initialize())
+{	
+	if (Enternity::Engine::GetInstance().Initialize())
 	{
-		openglWindow.Run();
+		Enternity::Engine::GetInstance().Run();
 	}
-
 
 	return 0;
 }
