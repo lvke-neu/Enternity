@@ -10,7 +10,7 @@ int main()
 	LOG_ERROR("startr");
 
 
-	Enternity::OpenglWindow openglWindow({ 1080, 764, "hello, opengl" });
+	Enternity::OpenglWindow openglWindow({ 1024, 764, "hello, opengl" });
 	if (openglWindow.Initialize())
 	{
 		openglWindow.Run();

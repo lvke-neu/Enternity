@@ -5,7 +5,9 @@ Description:
 Macro
 ****************************************************************************************/
 #pragma once
+#include <assert.h>
 
+//namespace
 #define BEGIN_ENTERNITY namespace Enternity {
 #define END_ENTERNITY }
 
@@ -16,3 +18,11 @@ Macro
 			static CLASS s_instance;\
 			return s_instance; \
 		}
+
+// singleton
+#define PRIVATE_FUCNTION(CLASS)\
+	private: \
+		CLASS() = default; \
+		virtual ~CLASS() = default; \
+		CLASS(const CLASS&) = default; \
+		CLASS& operator=(const CLASS&) = default;

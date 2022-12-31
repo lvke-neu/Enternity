@@ -5,12 +5,13 @@ Description:
 Opengl Window
 ****************************************************************************************/
 #pragma once
-#include <GLFW/glfw3.h>
+
 #include <string>
 #include "Macro/Macro.h"
 
-BEGIN_ENTERNITY
+struct GLFWwindow;
 
+BEGIN_ENTERNITY
 class OpenglWindow
 {
 public:
@@ -27,6 +28,7 @@ public:
 
 	bool Initialize();
 	void Run();
+
 private:
 	WindowDescription m_widowDesc{ 800, 600, "OpenglWindow" };
 	GLFWwindow* m_context{ nullptr };
