@@ -5,6 +5,8 @@ Description:
 Opengl Window
 ****************************************************************************************/
 #pragma once
+#include <GLFW/glfw3.h>
+#include <string>
 #include "Macro/Macro.h"
 
 BEGIN_ENTERNITY
@@ -12,17 +14,22 @@ BEGIN_ENTERNITY
 class OpenglWindow
 {
 public:
+	struct WindowDescription
+	{
+		unsigned int width;
+		unsigned int height;
+		std::string title;
+	};
+public:
 	OpenglWindow();
-	OpenglWindow(unsigned int width, unsigned int height, const char* title);
+	OpenglWindow(const WindowDescription& widowDesc);
 	~OpenglWindow();
 
+	bool Initialize();
 	void Run();
 private:
-	void Initialize();
-private:
-	unsigned int m_width;
-	unsigned int m_height;
-	const char* m_title;
+	WindowDescription m_widowDesc{ 800, 600, "OpenglWindow" };
+	GLFWwindow* m_context{ nullptr };
 };
 
 END_ENTERNITY
