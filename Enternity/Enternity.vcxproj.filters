@@ -68,17 +68,18 @@
     <ClInclude Include="src\Renderer\IndexBuffer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\Interface\RendererInterface.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Renderer\VertexArray.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Shader.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\Interface\BindableInterface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shader\Basic.shader" />
+    <None Include="..\README.md" />
   </ItemGroup>
 </Project>

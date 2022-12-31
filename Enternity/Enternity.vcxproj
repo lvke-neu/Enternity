@@ -104,7 +104,7 @@
     <ClInclude Include="src\Log\Log.h" />
     <ClInclude Include="src\Macro\Macro.h" />
     <ClInclude Include="src\Renderer\IndexBuffer.h" />
-    <ClInclude Include="src\Renderer\Interface\RendererInterface.h" />
+    <ClInclude Include="src\Renderer\Interface\BindableInterface.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Renderer\VertexArray.h" />
     <ClInclude Include="src\Renderer\VertexBuffer.h" />
@@ -112,6 +112,7 @@
     <ClInclude Include="src\Timer\GameTimer.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\README.md" />
     <None Include="shader\Basic.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

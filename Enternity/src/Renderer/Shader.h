@@ -6,7 +6,7 @@ Encapsulate  Shader
 ****************************************************************************************/
 #pragma once
 
-#include "Interface/RendererInterface.h"
+#include "Interface/BindableInterface.h"
 #include <string>
 #include <unordered_map>
 
@@ -18,7 +18,7 @@ struct ShaderSourceCode
 	std::string PixelShaderSourceCode;
 };
 
-class Shader : public IRenderer
+class Shader : public IBindable
 {
 public:
 	Shader(const std::string& filePath);

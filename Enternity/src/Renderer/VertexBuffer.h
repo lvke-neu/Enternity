@@ -6,11 +6,11 @@ Encapsulate  VertexBuffer
 ****************************************************************************************/
 #pragma once
 
-#include "Interface/RendererInterface.h"
+#include "Interface/BindableInterface.h"
 
 BEGIN_ENTERNITY
 
-class VertexBuffer : public IRenderer
+class VertexBuffer : public IBindable
 {
 public:
 	VertexBuffer(const void* vertices, unsigned int size);

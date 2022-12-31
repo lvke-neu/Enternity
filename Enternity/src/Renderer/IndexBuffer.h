@@ -6,11 +6,11 @@ Encapsulate  IndexBuffer
 ****************************************************************************************/
 #pragma once
 
-#include "Interface/RendererInterface.h"
+#include "Interface/BindableInterface.h"
 
 BEGIN_ENTERNITY
 
-class IndexBuffer : public IRenderer
+class IndexBuffer : public IBindable
 {
 public:
 	IndexBuffer(const unsigned int* indices, unsigned int count);

@@ -6,7 +6,7 @@ Vertex Array
 ****************************************************************************************/
 #pragma once
 
-#include "Interface/RendererInterface.h"
+#include "Interface/BindableInterface.h"
 #include "VertexBuffer.h"
 #include <vector>
 
@@ -39,7 +39,7 @@ private:
 };
 
 
-class VertexArray : public IRenderer
+class VertexArray : public IBindable
 {
 public:
 	VertexArray();
