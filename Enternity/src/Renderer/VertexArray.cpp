@@ -4,12 +4,12 @@ BEGIN_ENTERNITY
 
 VertexArray::VertexArray()
 {
-	glGenVertexArrays(1, &m_rendererId);
+	CHECK_GL_CALL(glGenVertexArrays(1, &m_rendererId));
 }
 
 VertexArray::~VertexArray()
 {
-	glDeleteVertexArrays(1, &m_rendererId);
+	CHECK_GL_CALL(glDeleteVertexArrays(1, &m_rendererId));
 }
 
 void VertexArray::Add(const VertexBuffer & vertexBuffer, const VertexBufferLayout & vertexBufferLayout)
@@ -19,19 +19,19 @@ void VertexArray::Add(const VertexBuffer & vertexBuffer, const VertexBufferLayou
 	const auto& elements = vertexBufferLayout.GetElements();
 	for (unsigned int i = 0; i < elements.size(); i++)
 	{
-		glEnableVertexAttribArray(elements[i].index);
-		glVertexAttribPointer(elements[i].index, elements[i].count, elements[i].type, elements[i].normalized, elements[i].stride, (void*)(elements[i].start));
+		CHECK_GL_CALL(glEnableVertexAttribArray(elements[i].index));
+		CHECK_GL_CALL(glVertexAttribPointer(elements[i].index, elements[i].count, elements[i].type, elements[i].normalized, elements[i].stride, (void*)(elements[i].start)));
 	}
 }
 
 void VertexArray::Bind() const
 {
-	glBindVertexArray(m_rendererId);
+	CHECK_GL_CALL(glBindVertexArray(m_rendererId));
 }
 
 void VertexArray::UnBind() const
 {
-	glBindVertexArray(0);
+	CHECK_GL_CALL(glBindVertexArray(0));
 }
 
 END_ENTERNITY
