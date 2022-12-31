@@ -93,10 +93,10 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Renderer\glad.c" />
     <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\TestDrawable\Triangle.cpp" />
     <ClCompile Include="src\Timer\GameTimer.cpp" />
-    <ClCompile Include="src\Window\OpenglWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Engine.h" />
@@ -104,10 +104,10 @@
     <ClInclude Include="src\Macro\Macro.h" />
     <ClInclude Include="src\Renderer\IndexBuffer.h" />
     <ClInclude Include="src\Renderer\Interface\RendererInterface.h" />
+    <ClInclude Include="src\Renderer\VertexArray.h" />
     <ClInclude Include="src\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\TestDrawable\Triangle.h" />
     <ClInclude Include="src\Timer\GameTimer.h" />
-    <ClInclude Include="src\Window\OpenglWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shader\Basic.shader" />

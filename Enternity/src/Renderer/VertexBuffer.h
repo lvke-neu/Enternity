@@ -14,7 +14,7 @@ class VertexBuffer : public IRenderer
 {
 public:
 	VertexBuffer(const void* vertices, unsigned int size);
-	~VertexBuffer();
+	virtual ~VertexBuffer();
 	
 	virtual void Bind() const override;
 	virtual void UnBind() const override;

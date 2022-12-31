@@ -14,7 +14,7 @@ class IndexBuffer : public IRenderer
 {
 public:
 	IndexBuffer(const unsigned int* indices, unsigned int count);
-	~IndexBuffer();
+	virtual ~IndexBuffer();
 
 	inline unsigned int GetCount() { return m_count; }
 	virtual void Bind() const override;

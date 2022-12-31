@@ -21,9 +21,6 @@
     <ClCompile Include="src\Renderer\glad.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Window\OpenglWindow.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Log\Log.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -42,12 +39,12 @@
     <ClCompile Include="src\Renderer\IndexBuffer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\VertexArray.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macro\Macro.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\OpenglWindow.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Log\Log.h">
@@ -69,6 +66,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Interface\RendererInterface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\VertexArray.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

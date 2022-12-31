@@ -108,26 +108,27 @@ unsigned int CreateProgram(const std::string& vsShaderCode, const std::string& p
 
 Triangle::Triangle()
 {
-	//vertex array
-	glGenVertexArrays(1, &vertexarray);
-	glBindVertexArray(vertexarray);
+
+
+	
+
 
 	//vertexbuff
 	float vertices[] =
 	{
-		-0.5f, -0.5f, 0.0f,
-		 0.5f, -0.5,  0.0f,
-		 0.5f, 0.5,  0.0f,
-		 -0.5f, 0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f, 1.0f,0.0f,0.0f,
+		 0.5f, -0.5,  0.0f, 0.0f,1.0f,0.0f,
+		 0.5f, 0.5,  0.0f,  0.0f,0.0f,1.0f,
+		 -0.5f, 0.5f, 0.0f, 0.0f,0.0f,1.0f
 	};
 	vertexbuffer = new VertexBuffer(vertices, sizeof(vertices));
 
-
-
-
-	//layout
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, false, 3 * sizeof(float), (void*)0);
+	//vertex array
+	vertexArray = new VertexArray;
+	VertexBufferLayout  vertexBufferLayout;
+	vertexBufferLayout.Push({ 0, 3, GL_FLOAT, false,  6 * sizeof(float) });
+	vertexBufferLayout.Push({ 1, 3, GL_FLOAT, false,  6 * sizeof(float) });
+	vertexArray->Add(*vertexbuffer, vertexBufferLayout);
 
 	//index buffer
 	unsigned int indices[] =
@@ -145,7 +146,7 @@ void Triangle::draw()
 {
 	CHECK_GL_CALL(glUseProgram(program));
 	CHECK_GL_CALL(glUniform4f(0, 1.0f, 0.0f, 0.0f, 1.0f));
-	CHECK_GL_CALL(glBindVertexArray(vertexarray));
+	vertexArray->Bind();
 	indexbuffer->Bind();
 	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
 }
@@ -154,6 +155,7 @@ Triangle::~Triangle()
 {
 	SAFE_DELETE_SET_NULL(vertexbuffer);
 	SAFE_DELETE_SET_NULL(indexbuffer);
+	SAFE_DELETE_SET_NULL(vertexArray);
 }
 
 END_ENTERNITY

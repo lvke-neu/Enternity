@@ -1,6 +1,7 @@
 #pragma once
 #include "Renderer/VertexBuffer.h"
 #include "Renderer/IndexBuffer.h"
+#include "Renderer/VertexArray.h"
 
 BEGIN_ENTERNITY
 class Triangle
@@ -10,7 +11,7 @@ public:
 	void draw();
 	~Triangle();
 private:
-	unsigned int vertexarray;
+	VertexArray* vertexArray;
 	VertexBuffer* vertexbuffer;
 	IndexBuffer* indexbuffer;
 	unsigned int program;
