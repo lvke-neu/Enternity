@@ -108,11 +108,6 @@ unsigned int CreateProgram(const std::string& vsShaderCode, const std::string& p
 
 Triangle::Triangle()
 {
-
-
-	
-
-
 	//vertexbuff
 	float vertices[] =
 	{
@@ -126,8 +121,8 @@ Triangle::Triangle()
 	//vertex array
 	vertexArray = new VertexArray;
 	VertexBufferLayout  vertexBufferLayout;
-	vertexBufferLayout.Push({ 0, 3, GL_FLOAT, false,  6 * sizeof(float) });
-	vertexBufferLayout.Push({ 1, 3, GL_FLOAT, false,  6 * sizeof(float) });
+	vertexBufferLayout.Push({ 0, 3, GL_FLOAT, false,  6 * sizeof(float), 0 });
+	vertexBufferLayout.Push({ 1, 3, GL_FLOAT, false,  6 * sizeof(float), 3 * sizeof(float) });
 	vertexArray->Add(*vertexbuffer, vertexBufferLayout);
 
 	//index buffer

@@ -20,6 +20,7 @@ struct LayouElement
 	unsigned int type;
 	bool normalized;
 	int stride;
+	long long start;
 };
 
 class VertexBufferLayout

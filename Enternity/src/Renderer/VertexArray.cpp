@@ -20,7 +20,7 @@ void VertexArray::Add(const VertexBuffer & vertexBuffer, const VertexBufferLayou
 	for (unsigned int i = 0; i < elements.size(); i++)
 	{
 		glEnableVertexAttribArray(elements[i].index);
-		glVertexAttribPointer(elements[i].index, elements[i].count, elements[i].type, elements[i].normalized, elements[i].stride, (void*)0);
+		glVertexAttribPointer(elements[i].index, elements[i].count, elements[i].type, elements[i].normalized, elements[i].stride, (void*)(elements[i].start));
 	}
 }
 
