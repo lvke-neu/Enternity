@@ -3,6 +3,7 @@
 #include "Renderer/IndexBuffer.h"
 #include "Renderer/VertexArray.h"
 #include "Renderer/Shader.h"
+#include "Renderer/Texture.h"
 
 
 BEGIN_ENTERNITY
@@ -17,5 +18,6 @@ private:
 	VertexBuffer* vertexbuffer;
 	IndexBuffer* indexbuffer;
 	Shader* shader;
+	Texture* texture;
 };
 END_ENTERNITY

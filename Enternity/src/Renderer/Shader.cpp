@@ -27,22 +27,30 @@ void Shader::UnBind() const
 	CHECK_GL_CALL(glUseProgram(0));
 }
 
-void Shader::setFloat4(const std::string & name, float v0, float v1, float v2, float v3)
-{
-	unsigned int location;
-	if (m_uniformLocationCache.find(name) == m_uniformLocationCache.end())
-	{
-		CHECK_GL_CALL(location = glGetUniformLocation(m_rendererId, name.c_str()));
-		m_uniformLocationCache[name] = location;
-		if (location == -1)
-		{
-			LOG_ERROR("uniform: " + name + " doesn't exist (or never use)");
-		}		
-	}
-	else
-		location = m_uniformLocationCache[name];
 
-	CHECK_GL_CALL(glUniform4f(location, v0, v1, v2, v3));
+void Shader::SetInteger1(const std::string & name, int value)
+{
+	CHECK_GL_CALL(glUniform1i(GetUniformLocation(name), value));
+}
+
+void Shader::SetFloat4(const std::string & name, float v0, float v1, float v2, float v3)
+{
+	CHECK_GL_CALL(glUniform4f(GetUniformLocation(name), v0, v1, v2, v3));
+}
+
+int Shader::GetUniformLocation(const std::string & name)
+{
+	if (m_uniformLocationCache.find(name) != m_uniformLocationCache.end())
+		return m_uniformLocationCache[name];
+
+	int location;
+	CHECK_GL_CALL(location = glGetUniformLocation(m_rendererId, name.c_str()));
+	m_uniformLocationCache[name] = location;
+	if (location == -1)
+	{
+		LOG_ERROR("uniform: " + name + " doesn't exist (or never use)");
+	}
+	return location;
 }
 
 
@@ -139,5 +147,6 @@ unsigned int Shader::CreateProgram(const std::string& vsShaderCode, const std::s
 
 	return program;
 }
+
 
 END_ENTERNITY

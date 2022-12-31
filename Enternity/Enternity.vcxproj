@@ -94,8 +94,10 @@
     <ClCompile Include="src\Renderer\glad.c" />
     <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Renderer\Texture.cpp" />
     <ClCompile Include="src\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
+    <ClCompile Include="src\Stb_Image\stb_image.cpp" />
     <ClCompile Include="src\TestDrawable\Triangle.cpp" />
     <ClCompile Include="src\Timer\GameTimer.cpp" />
   </ItemGroup>
@@ -106,14 +108,19 @@
     <ClInclude Include="src\Renderer\IndexBuffer.h" />
     <ClInclude Include="src\Renderer\Interface\BindableInterface.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
+    <ClInclude Include="src\Renderer\Texture.h" />
     <ClInclude Include="src\Renderer\VertexArray.h" />
     <ClInclude Include="src\Renderer\VertexBuffer.h" />
+    <ClInclude Include="src\Stb_Image\stb_image.h" />
     <ClInclude Include="src\TestDrawable\Triangle.h" />
     <ClInclude Include="src\Timer\GameTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
     <None Include="shader\Basic.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\striated.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
