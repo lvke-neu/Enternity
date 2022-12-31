@@ -31,10 +31,9 @@ Triangle::Triangle()
 	shader = new Shader("shader/Basic.shader");
 	shader->Bind();
 	shader->setFloat4("u_color1", 1.0f, 0.0f, 0.0f, 1.0f);
-	shader->setFloat4("u_color2", 0.0f, 1.0f, 0.0f, 1.0f);
+	shader->setFloat4("u_color13", 1.0f, 0.0f, 0.0f, 1.0f);
 	
 	
-
 	//unbind
 	vertexbuffer->UnBind();
 	indexbuffer->UnBind();

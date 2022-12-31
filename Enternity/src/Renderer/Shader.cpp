@@ -8,7 +8,7 @@ BEGIN_ENTERNITY
 Shader::Shader(const std::string& filePath)
 {
 	ShaderSourceCode shaderSourceCode;
-	shaderSourceCode = ParseShaderFile("shader/Basic.shader");
+	shaderSourceCode = ParseShaderFile(filePath);
 	m_rendererId = CreateProgram(shaderSourceCode.VertexShaderSourceCode, shaderSourceCode.PixelShaderSourceCode);
 }
 
@@ -29,7 +29,10 @@ void Shader::UnBind() const
 
 void Shader::setFloat4(const std::string & name, float v0, float v1, float v2, float v3)
 {
-	CHECK_GL_CALL(glUniform4f(glGetUniformLocation(m_rendererId, name.c_str()), v0, v1, v2, v3));
+	CHECK_GL_CALL(unsigned int location = glGetUniformLocation(m_rendererId, name.c_str()));
+	if (location == -1)
+		LOG_ERROR("uniform: " + name + " doesn't exist");
+	CHECK_GL_CALL(glUniform4f(location, v0, v1, v2, v3));
 }
 
 
@@ -84,7 +87,7 @@ unsigned int Shader::CompileShader(unsigned int shaderType, const char* shaderSo
 
 		char* errorInfo = new char[infoLength];
 		CHECK_GL_CALL(glGetShaderInfoLog(shader, infoLength, &infoLength, errorInfo));
-		LOG_INFO(errorInfo);
+		LOG_ERROR(errorInfo);
 		delete[] errorInfo;
 
 		CHECK_GL_CALL(glDeleteShader(shader));
@@ -114,7 +117,7 @@ unsigned int Shader::CreateProgram(const std::string& vsShaderCode, const std::s
 
 		char* errorInfo = new char[infoLength];
 		CHECK_GL_CALL(glGetProgramInfoLog(program, infoLength, &infoLength, errorInfo));
-		LOG_INFO(errorInfo);
+		LOG_ERROR(errorInfo);
 		delete[] errorInfo;
 
 		CHECK_GL_CALL(glDeleteProgram(program));
