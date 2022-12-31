@@ -1,9 +1,17 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include "Log/Log.h"
 
 int main()
 {
+	LOG_INFO("startr");
+	LOG_DEBUG("startr");
+	LOG_WARN("startr");
+	LOG_ERROR("startr");
+
+
+
 	GLFWwindow* window;
 
 	/* Initialize the library */

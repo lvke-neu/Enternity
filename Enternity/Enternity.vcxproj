@@ -57,7 +57,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\Enternity\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
@@ -75,7 +75,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\Enternity\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -87,8 +87,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\3rdparty\glad\glad.c" />
+    <ClCompile Include="src\Log\Log.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Renderer\glad.c" />
+    <ClCompile Include="src\Window\OpenglWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Log\Log.h" />
+    <ClInclude Include="src\Macro\Macro.h" />
+    <ClInclude Include="src\Window\OpenglWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
