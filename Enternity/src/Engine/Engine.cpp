@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "TestDrawable/Triangle.h"
+
 BEGIN_ENTERNITY
 
 #define WINDOW_WIDHT 800
@@ -106,10 +107,11 @@ bool Engine::Initialize()
 
 void Engine::Run()
 {
-	m_timer.Tick();
+	
 	Triangle triangle;
 	while (!glfwWindowShouldClose(m_context))
 	{
+		m_timer.Tick();
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 

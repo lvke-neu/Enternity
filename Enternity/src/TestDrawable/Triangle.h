@@ -2,6 +2,7 @@
 #include "Renderer/VertexBuffer.h"
 #include "Renderer/IndexBuffer.h"
 #include "Renderer/VertexArray.h"
+#include "Renderer/Shader.h"
 
 BEGIN_ENTERNITY
 class Triangle
@@ -14,6 +15,6 @@ private:
 	VertexArray* vertexArray;
 	VertexBuffer* vertexbuffer;
 	IndexBuffer* indexbuffer;
-	unsigned int program;
+	Shader* shader;
 };
 END_ENTERNITY

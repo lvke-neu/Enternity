@@ -16,10 +16,11 @@ settingcolor = vec4(color, 1.0f);
 
 out vec4 pixelColor;
 in vec4 settingcolor;
-layout(location = 0) uniform vec4 u_color1;  
-layout(location = 1) uniform vec4 u_color2;
-layout(location = 2) uniform vec4 u_color3;
+
+uniform vec4 u_color1;
+uniform vec4 u_color2;
+uniform vec4 u_color3;
 void main() 
 {
-	pixelColor = settingcolor;
+	pixelColor = u_color1;
 };
