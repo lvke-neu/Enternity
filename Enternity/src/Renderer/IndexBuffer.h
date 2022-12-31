@@ -16,6 +16,7 @@ public:
 	IndexBuffer(const unsigned int* indices, unsigned int count);
 	~IndexBuffer();
 
+	inline unsigned int GetCount() { return m_count; }
 	virtual void Bind() const override;
 	virtual void UnBind() const override;
 private:

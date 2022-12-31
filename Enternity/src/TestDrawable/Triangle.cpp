@@ -147,12 +147,13 @@ void Triangle::draw()
 	CHECK_GL_CALL(glUniform4f(0, 1.0f, 0.0f, 0.0f, 1.0f));
 	CHECK_GL_CALL(glBindVertexArray(vertexarray));
 	indexbuffer->Bind();
-	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (void*)0));
+	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
 }
 
 Triangle::~Triangle()
 {
 	SAFE_DELETE_SET_NULL(vertexbuffer);
+	SAFE_DELETE_SET_NULL(indexbuffer);
 }
 
 END_ENTERNITY
