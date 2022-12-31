@@ -26,3 +26,13 @@ Macro
 		virtual ~CLASS() = default; \
 		CLASS(const CLASS&) = default; \
 		CLASS& operator=(const CLASS&) = default;
+
+//safe delete
+#define SAFE_DELETE_SET_NULL(p) \
+	if((p))\
+	{\
+		delete p;\
+		p = nullptr;\
+	}
+
+

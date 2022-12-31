@@ -39,7 +39,7 @@ void MouseButtonEvent(GLFWwindow* window, int button, int action, int mods)
 
 void MouseMoveEvent(GLFWwindow* window, double xpos, double ypos)
 {
-	LOG_INFO("mouse pos:" + std::to_string(xpos) + "," + std::to_string(ypos));
+	//LOG_INFO("mouse pos:" + std::to_string(xpos) + "," + std::to_string(ypos));
 }
 
 
@@ -66,9 +66,13 @@ bool OpenglWindow::Initialize()
 	//glfwInit
 	if (!glfwInit())
 	{
-		LOG_ERROR("glfw Init failed");
+		LOG_ERROR("glfw init failed");
 		return false;
 	}
+
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	//contex
 	m_context = glfwCreateWindow(m_widowDesc.width, m_widowDesc.height, m_widowDesc.title.c_str(), nullptr, nullptr);
@@ -82,8 +86,8 @@ bool OpenglWindow::Initialize()
 	//initialize glad
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		//std::cout << "Failed to initialize GLAD" << std::endl;
-		return -1;
+		LOG_ERROR("glad init failed");
+		return false;
 	}
 
 	//all kind of callback
@@ -93,7 +97,11 @@ bool OpenglWindow::Initialize()
 	glfwSetMouseButtonCallback(m_context, MouseButtonEvent);
 	glfwSetCursorPosCallback(m_context, MouseMoveEvent);
 
-	
+	//hardware info
+	LOG_INFO((char*)glGetString(GL_VERSION));
+	LOG_INFO((char*)glGetString(GL_VENDOR));
+	LOG_INFO((char*)glGetString(GL_RENDERER));
+
 	return true;
 }
 
