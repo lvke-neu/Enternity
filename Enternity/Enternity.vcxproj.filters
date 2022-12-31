@@ -33,6 +33,9 @@
     <ClCompile Include="src\Timer\GameTimer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\TestDrawable\Triangle.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macro\Macro.h">
@@ -50,5 +53,11 @@
     <ClInclude Include="src\Timer\GameTimer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\TestDrawable\Triangle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\Basic.shader" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #include "OpenglWindow.h"
 #include "Log/Log.h"
+#include "TestDrawable/Triangle.h"
 #include <GLFW/glfw3.h>
 
 BEGIN_ENTERNITY
@@ -7,6 +8,7 @@ BEGIN_ENTERNITY
 void OnResize(GLFWwindow* context, int width, int height)
 {
 	glViewport(0, 0, width, height);
+	LOG_INFO("Resize:" + std::to_string(width) + "," + std::to_string(height));
 }
 
 void KeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -77,6 +79,13 @@ bool OpenglWindow::Initialize()
 	}
 	glfwMakeContextCurrent(m_context);
 
+	//initialize glad
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		//std::cout << "Failed to initialize GLAD" << std::endl;
+		return -1;
+	}
+
 	//all kind of callback
 	glViewport(0, 0, m_widowDesc.width, m_widowDesc.height);
 	glfwSetFramebufferSizeCallback(m_context, OnResize);
@@ -84,18 +93,20 @@ bool OpenglWindow::Initialize()
 	glfwSetMouseButtonCallback(m_context, MouseButtonEvent);
 	glfwSetCursorPosCallback(m_context, MouseMoveEvent);
 
-
+	
 	return true;
 }
 
 void OpenglWindow::Run()
 {
+	Triangle triangle;
 	while (!glfwWindowShouldClose(m_context))
 	{
 		glClearColor(1.0f, 0.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//draw
+		triangle.draw();
 
 		glfwSwapBuffers(m_context);
 		glfwPollEvents();
