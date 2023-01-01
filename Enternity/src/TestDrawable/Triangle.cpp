@@ -43,8 +43,16 @@ Triangle::Triangle()
 	shader->Bind();
 	shader->SetInteger1("u_texture", 0);
 
+	glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 0.0f));
+
 	glm::mat4 projMat = glm::perspective<float>(glm::pi<float>() / 3, 800 / 600.0f, 1, 1000);
-	shader->SetMat4f("u_mvp", projMat);
+
+	glm::mat4 rot = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 trans = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+	glm::mat4 viewMat = rot * trans;
+	viewMat = glm::inverse(viewMat);
+
+	shader->SetMat4f("u_mvp", projMat * viewMat * modelMat);
 	
 	//unbind
 	vertexbuffer->UnBind();
