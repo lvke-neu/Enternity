@@ -70,6 +70,7 @@ bool Engine::Initialize()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_SAMPLES, 4);
 
 	//contex
 	m_context = glfwCreateWindow(WINDOW_WIDHT, WINDOW_HEIGHT, WINDOW_TITLE, nullptr, nullptr);
@@ -86,6 +87,9 @@ bool Engine::Initialize()
 		LOG_ERROR("glad init failed");
 		return false;
 	}
+
+	//antialiasing
+	CHECK_GL_CALL( glEnable(GL_MULTISAMPLE));
 
 	//hardware info
 	LOG_INFO((char*)glGetString(GL_VERSION));
