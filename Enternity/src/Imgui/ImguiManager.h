@@ -7,6 +7,9 @@ Imgui Manager
 #pragma once
 
 #include "Macro/Macro.h"
+#include "Imgui/ImguiImpl/imgui.h"
+#include "Imgui/ImguiImpl/imgui_impl_glfw.h"
+#include "Imgui/ImguiImpl/imgui_impl_opengl3.h"
 
 struct GLFWwindow;
 BEGIN_ENTERNITY

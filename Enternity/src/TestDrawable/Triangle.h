@@ -4,7 +4,8 @@
 #include "Renderer/VertexArray.h"
 #include "Renderer/Shader.h"
 #include "Renderer/Texture.h"
-
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 BEGIN_ENTERNITY
 class Triangle
@@ -13,6 +14,8 @@ public:
 	Triangle();
 	void draw();
 	~Triangle();
+private:
+	void operationScene(glm::vec3 modelPos, glm::vec3 modelRot, glm::vec3 modelScale, glm::vec3 camRot, glm::vec3 camPos);
 private:
 	VertexArray* vertexArray;
 	VertexBuffer* vertexbuffer;

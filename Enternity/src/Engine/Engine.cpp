@@ -10,7 +10,7 @@
 
 BEGIN_ENTERNITY
 
-#define WINDOW_WIDHT 800
+#define WINDOW_WIDHT 1200
 #define WINDOW_HEIGHT 600
 #define WINDOW_TITLE "Enternity Engine"
 
