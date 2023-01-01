@@ -51,25 +51,28 @@
     <ClCompile Include="src\Renderer\Texture.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Imgui\imgui.cpp">
+    <ClCompile Include="src\Imgui\ImguiImpl\imgui.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Imgui\imgui_demo.cpp">
+    <ClCompile Include="src\Imgui\ImguiImpl\imgui_demo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Imgui\imgui_draw.cpp">
+    <ClCompile Include="src\Imgui\ImguiImpl\imgui_draw.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Imgui\imgui_impl_glfw.cpp">
+    <ClCompile Include="src\Imgui\ImguiImpl\imgui_impl_glfw.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Imgui\imgui_impl_opengl3.cpp">
+    <ClCompile Include="src\Imgui\ImguiImpl\imgui_impl_opengl3.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Imgui\imgui_tables.cpp">
+    <ClCompile Include="src\Imgui\ImguiImpl\imgui_tables.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Imgui\imgui_widgets.cpp">
+    <ClCompile Include="src\Imgui\ImguiImpl\imgui_widgets.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Imgui\ImguiManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -110,31 +113,34 @@
     <ClInclude Include="src\Renderer\Texture.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Imgui\imconfig.h">
+    <ClInclude Include="src\Imgui\ImguiManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Imgui\imgui.h">
+    <ClInclude Include="src\Imgui\ImguiImpl\imconfig.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Imgui\imgui_impl_glfw.h">
+    <ClInclude Include="src\Imgui\ImguiImpl\imgui.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Imgui\imgui_impl_opengl3.h">
+    <ClInclude Include="src\Imgui\ImguiImpl\imgui_impl_glfw.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Imgui\imgui_internal.h">
+    <ClInclude Include="src\Imgui\ImguiImpl\imgui_impl_opengl3.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Imgui\imstb_rectpack.h">
+    <ClInclude Include="src\Imgui\ImguiImpl\imgui_impl_opengl3_loader.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Imgui\imstb_textedit.h">
+    <ClInclude Include="src\Imgui\ImguiImpl\imgui_internal.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Imgui\imstb_truetype.h">
+    <ClInclude Include="src\Imgui\ImguiImpl\imstb_rectpack.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Imgui\imgui_impl_opengl3_loader.h">
+    <ClInclude Include="src\Imgui\ImguiImpl\imstb_textedit.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Imgui\ImguiImpl\imstb_truetype.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

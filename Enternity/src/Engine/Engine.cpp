@@ -1,9 +1,12 @@
 #include "Engine.h"
 #include "Log/Log.h"
+#include "Imgui/ImguiManager.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include "TestDrawable/Triangle.h"
+
+
 
 BEGIN_ENTERNITY
 
@@ -51,6 +54,7 @@ void MouseMoveEvent(GLFWwindow* window, double xpos, double ypos)
 
 Engine::~Engine()
 {
+	ImguiManager::GetInstance().Release();
 	glfwTerminate();
 }
 
@@ -96,10 +100,10 @@ bool Engine::Initialize()
 	glfwSetMouseButtonCallback(m_context, MouseButtonEvent);
 	glfwSetCursorPosCallback(m_context, MouseMoveEvent);
 
+	ImguiManager::GetInstance().Initialize(m_context);
+
 	m_timer.Reset();
 	m_timer.Start();
-
-
 	LOG_INFO("Engine initialization is complete");
 
 	return true;
@@ -117,6 +121,9 @@ void Engine::Run()
 
 		//draw
 		triangle.draw();
+
+		//imgui
+		ImguiManager::GetInstance().Draw();
 
 		glfwSwapBuffers(m_context);
 		glfwPollEvents();
