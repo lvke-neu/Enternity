@@ -57,7 +57,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\Enternity\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\Enternity\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>
       </PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -76,7 +76,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\Enternity\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\Enternity\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

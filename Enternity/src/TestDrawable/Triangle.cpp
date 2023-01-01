@@ -1,5 +1,6 @@
 #include "Triangle.h"
-
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 BEGIN_ENTERNITY
 
@@ -8,10 +9,10 @@ Triangle::Triangle()
 	//vertexbuffer
 	float vertices[] =
 	{
-		-0.5f, -0.5f, 0.0f,		1.0f,0.0f,0.0f,		0.0f,0.0f,
-		 0.5f, -0.5,  0.0f,		0.0f,1.0f,0.0f,		1.0f,0.0f,
-		 0.5f, 0.5,  0.0f,		0.0f,0.0f,1.0f,		1.0f,1.0f,
-		 -0.5f, 0.5f, 0.0f,		0.0f,0.0f,1.0f,		0.0f,1.0f
+		-0.5f, -0.5f, -5.0f,		1.0f,0.0f,0.0f,		0.0f,0.0f,
+		 0.5f, -0.5,  -5.0f,		0.0f,1.0f,0.0f,		1.0f,0.0f,
+		 0.5f, 0.5,  -5.0f,		0.0f,0.0f,1.0f,		1.0f,1.0f,
+		 -0.5f, 0.5f, -5.0f,		0.0f,0.0f,1.0f,		0.0f,1.0f
 	};
 	vertexbuffer = new VertexBuffer(vertices, sizeof(vertices));
 
@@ -37,10 +38,13 @@ Triangle::Triangle()
 	//shader->SetFloat4("u_color13", 1.0f, 0.0f, 0.0f, 1.0f);
 	
 	//texture
-	texture = new Texture("res/skybox.jpeg");
+	texture = new Texture("res/atmosphere.png");
 	texture->Bind(0);
 	shader->Bind();
 	shader->SetInteger1("u_texture", 0);
+
+	glm::mat4 projMat = glm::perspective<float>(glm::pi<float>() / 3, 800 / 600.0f, 1, 1000);
+	shader->SetMat4f("u_mvp", projMat);
 	
 	//unbind
 	vertexbuffer->UnBind();
@@ -49,6 +53,8 @@ Triangle::Triangle()
 	shader->UnBind();
 	texture->UnBind();
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void Triangle::draw()

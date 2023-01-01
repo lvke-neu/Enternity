@@ -7,10 +7,10 @@ layout(location = 2) in vec2 texcoord;
 
 out vec4 settingcolor;
 out vec2 settingtexcoord;
-
+uniform mat4 u_mvp;
 void main() 
 {
-	gl_Position = vec4(position.xyz, 1.0);
+	gl_Position = u_mvp * vec4(position.xyz, 1.0);
 	settingcolor = vec4(color, 1.0f);
 	settingtexcoord = texcoord;
 };
@@ -31,4 +31,5 @@ void main()
 {
 	//pixelColor = vec4(settingtexcoord, 0.0f, 1.0f);
 	pixelColor = texture(u_texture, settingtexcoord);
+	//pixelColor = u_color1;
 };

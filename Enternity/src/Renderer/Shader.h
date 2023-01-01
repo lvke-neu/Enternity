@@ -9,6 +9,7 @@ Encapsulate  Shader
 #include "Interface/BindableInterface.h"
 #include <string>
 #include <unordered_map>
+#include <glm/glm.hpp>
 
 BEGIN_ENTERNITY
 
@@ -29,6 +30,7 @@ public:
 
 	void SetInteger1(const std::string& name, int value);
 	void SetFloat4(const std::string& name, float v0, float v1, float v2, float v3);
+	void SetMat4f(const std::string& name, const glm::mat4& mat4);
 private:
 	ShaderSourceCode ParseShaderFile(const std::string& filePath);
 	unsigned int CompileShader(unsigned int shaderType, const char* shaderSourceCode);
