@@ -86,7 +86,7 @@ Triangle::Triangle()
 	//shader->SetFloat4("u_color13", 1.0f, 0.0f, 0.0f, 1.0f);
 	
 	//texture
-	texture = new Texture("res/skybox.jpeg");
+	texture = new Texture("res/striated.png");
 	texture->Bind(0);
 	shader->Bind();
 	shader->SetInteger1("u_texture", 0);
@@ -102,6 +102,10 @@ Triangle::Triangle()
 
 	//glEnable(GL_BLEND);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	glEnable(GL_DEPTH_TEST);
+	//glDepthFunc(GL_LESS);
 }
 
 void Triangle::draw()
