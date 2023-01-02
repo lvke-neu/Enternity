@@ -8,6 +8,8 @@ BEGIN_ENTERNITY
 
 Triangle::Triangle()
 {
+	m_Transform.SetTranslation(vec3(0.0f, 0.0f, -10.0f));
+
 	//vertexbuffer
 	struct VertexPosTex
 	{
@@ -105,7 +107,6 @@ Triangle::Triangle()
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	glEnable(GL_DEPTH_TEST);
-	//glDepthFunc(GL_LESS);
 }
 
 void Triangle::draw()
@@ -123,18 +124,14 @@ void Triangle::draw()
 	ImGui::NewFrame();
 
 
-	static glm::vec3 modelPos(0.0f, 0.0f, -10.0f);
-	static glm::vec3 modelRot(0.0f, 0.0f, 0.0f);
-	static glm::vec3 modelScale(1.0f, 1.0f, 1.0f);
-
 	static bool b = true;
 	ImGui::ShowDemoWindow(&b);
 	ImGui::ShowMetricsWindow(&b);
 
 
-	ImGui::DragFloat3("ModelPos", &modelPos[0], 0.1f, -9999.0f, 9999.0f);
-	ImGui::DragFloat3("ModelRot", &modelRot[0], 0.1f, -9999.0f, 9999.0f);
-	ImGui::DragFloat3("ModelScale", &modelScale[0], 0.1f, -9999.0f, 9999.0f);
+	ImGui::DragFloat3("ModelPos", &m_Transform.GetTranslation()[0], 0.1f, -9999.0f, 9999.0f);
+	ImGui::DragFloat3("ModelRot", &m_Transform.GetRotation()[0], 0.1f, -9999.0f, 9999.0f);
+	ImGui::DragFloat3("ModelScale", &m_Transform.GetScale()[0], 0.1f, -9999.0f, 9999.0f);
 
 
 
@@ -143,7 +140,7 @@ void Triangle::draw()
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 
-	operationScene(modelPos, modelRot, modelScale);
+	operationScene();
 }
 
 Triangle::~Triangle()
@@ -155,15 +152,10 @@ Triangle::~Triangle()
 	SAFE_DELETE_SET_NULL(texture);
 }
 
-void Triangle::operationScene(glm::vec3 modelPos, glm::vec3 modelRot, glm::vec3 modelScale)
+void Triangle::operationScene()
 {
 	//model mat
-	glm::mat4 modelScaleMat = glm::scale(glm::mat4(1.0f), modelScale);
-	glm::mat4 modelRotXMat = glm::rotate(glm::mat4(1.0f), modelRot.x, glm::vec3(1.0f, 0.0f, 0.0f));
-	glm::mat4 modelRotYMat = glm::rotate(glm::mat4(1.0f), modelRot.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 modelRotZMat = glm::rotate(glm::mat4(1.0f), modelRot.z, glm::vec3(0.0f, 0.0f, 1.0f));
-	glm::mat4 modelPosMat = glm::translate(glm::mat4(1.0f), modelPos);
-	glm::mat4 modelMat = modelPosMat  * modelRotXMat* modelRotYMat* modelRotZMat* modelScaleMat;
+	glm::mat4 modelMat = m_Transform.GetWorldMatrix();
 
 	//view mat
 	glm::mat4 viewMat = PerspectiveCamera::GetInstance().GetViewMatrix();

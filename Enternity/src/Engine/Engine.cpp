@@ -26,13 +26,13 @@ void KeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (action == GLFW_RELEASE)
 	{
-		LOG_INFO(std::to_string(key) + " release");
+		//LOG_INFO(std::to_string(key) + " release");
 		InputEventManager::GetInstance().NotifyKeyRelease((Enternity::Keyboard)key);
 	}
 
 	if (action == GLFW_PRESS)
 	{
-		LOG_INFO(std::to_string(key) + " press");
+		//LOG_INFO(std::to_string(key) + " press");
 		InputEventManager::GetInstance().NotifyKeyPress((Enternity::Keyboard)key);
 	}
 }
@@ -41,7 +41,7 @@ void MouseButtonEvent(GLFWwindow* window, int button, int action, int mods)
 {
 	if (action == GLFW_RELEASE)
 	{
-		LOG_INFO(std::to_string(button) + " release");
+		//LOG_INFO(std::to_string(button) + " release");
 		double x, y;
 		glfwGetCursorPos(window, &x, &y);
 		InputEventManager::GetInstance().NotifyMouseRelease({ (MouseButton)button, (int)x, (int)y, 0 });
@@ -49,7 +49,7 @@ void MouseButtonEvent(GLFWwindow* window, int button, int action, int mods)
 
 	if (action == GLFW_PRESS)
 	{
-		LOG_INFO(std::to_string(button) + " press");
+		//LOG_INFO(std::to_string(button) + " press");
 		double x, y;
 		glfwGetCursorPos(window, &x, &y);
 		InputEventManager::GetInstance().NotifyMousePress({ (MouseButton)button, (int)x, (int)y, 0 });

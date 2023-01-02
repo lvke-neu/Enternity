@@ -4,8 +4,7 @@
 #include "Renderer/VertexArray.h"
 #include "Renderer/Shader.h"
 #include "Renderer/Texture.h"
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include "Transform/Transform.h"
 
 BEGIN_ENTERNITY
 class Triangle
@@ -15,12 +14,14 @@ public:
 	void draw();
 	~Triangle();
 private:
-	void operationScene(glm::vec3 modelPos, glm::vec3 modelRot, glm::vec3 modelScale);
+	void operationScene();
 private:
 	VertexArray* vertexArray;
 	VertexBuffer* vertexbuffer;
 	IndexBuffer* indexbuffer;
 	Shader* shader;
 	Texture* texture;
+
+	Transform m_Transform;
 };
 END_ENTERNITY
