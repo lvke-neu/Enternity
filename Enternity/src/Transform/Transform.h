@@ -35,9 +35,16 @@ public:
 	GET_SET(vec3, Rotation);
 	GET_SET(vec3, Scale);
 private:
+	void UpdateMatrix();
+
+private:
 	vec3 m_Translation{ 0.0f, 0.0f, 0.0f };
 	vec3 m_Rotation{ 0.0f, 0.0f, 0.0f };
 	vec3 m_Scale{ 1.0f, 1.0f, 1.0f };
+
+	mat4 m_TranslationMatrix{ 1.0f };
+	mat4 m_RotationMatrix{ 1.0f };
+	mat4 m_ScaleMatrix{ 1.0f };
 };
 
 

@@ -35,7 +35,7 @@ Macro
 		p = nullptr;\
 	}
 
-//get set
+//get set 
 #define GET_SET(variableType, variableName)\
 	inline variableType& Get##variableName() \
 	{\
