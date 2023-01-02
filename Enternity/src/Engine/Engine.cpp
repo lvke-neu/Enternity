@@ -58,7 +58,7 @@ void MouseButtonEvent(GLFWwindow* window, int button, int action, int mods)
 
 void MouseMoveEvent(GLFWwindow* window, double xpos, double ypos)
 {
-	LOG_INFO("mouse pos:" + std::to_string(xpos) + "," + std::to_string(ypos));
+	//LOG_INFO("mouse pos:" + std::to_string(xpos) + "," + std::to_string(ypos));
 	
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 	{

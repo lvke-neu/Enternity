@@ -37,7 +37,7 @@ Macro
 
 //get set 
 #define GET_SET(variableType, variableName)\
-	inline variableType& Get##variableName() \
+	variableType Get##variableName() const\
 	{\
 		return m_##variableName;\
 	}\
