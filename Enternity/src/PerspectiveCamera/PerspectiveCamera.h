@@ -27,6 +27,8 @@ public:
 
 	void MoveXAxis(float distance);
 	void MoveZAxis(float distance);
+	void RotateAlongXAxis(float angle);
+	void RotateAlongYAxis(float angle);
 
 	void SetTransform(const Transform& transform);
 	void SetFrustum(const Frustum& frustum);

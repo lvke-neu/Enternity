@@ -18,6 +18,16 @@ void PerspectiveCamera::MoveZAxis(float distance)
 	m_Transform.Move(distance, m_Transform.GetRotationMatrix()[2]);
 }
 
+void PerspectiveCamera::RotateAlongXAxis(float angle)
+{
+	m_Transform.RotateAlongXAxis(angle);
+}
+
+void PerspectiveCamera::RotateAlongYAxis(float angle)
+{
+	m_Transform.RotateAlongYAxis(angle);
+}
+
 void PerspectiveCamera::SetTransform(const Transform & transform)
 {
 	m_Transform = transform;

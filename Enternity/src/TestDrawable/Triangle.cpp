@@ -17,42 +17,42 @@ Triangle::Triangle()
 
 	std::vector<VertexPosTex> vertices;
 	vertices.resize(24);
-	vertices[0].position = glm::vec3(1, -1, -1);
-	vertices[1].position = glm::vec3(1, 1, -1);
-	vertices[2].position = glm::vec3(1, 1, 1);
-	vertices[3].position = glm::vec3(1, -1, 1);
+	vertices[0].position = glm::vec3(1, -1, 1);
+	vertices[1].position = glm::vec3(1, 1, 1);
+	vertices[2].position = glm::vec3(1, 1, -1);
+	vertices[3].position = glm::vec3(1, -1, -1);
 
-	vertices[4].position = glm::vec3(-1, -1, 1);
-	vertices[5].position = glm::vec3(-1, 1, 1);
-	vertices[6].position = glm::vec3(-1, 1, -1);
-	vertices[7].position = glm::vec3(-1, -1, -1);
+	vertices[4].position = glm::vec3(-1, -1, -1);
+	vertices[5].position = glm::vec3(-1, 1, -1);
+	vertices[6].position = glm::vec3(-1, 1, 1);
+	vertices[7].position = glm::vec3(-1, -1, 1);
 
-	vertices[8].position =  glm::vec3(-1, 1, -1);
-	vertices[9].position =  glm::vec3(-1, 1, 1);
-	vertices[10].position = glm::vec3(1, 1, 1);
-	vertices[11].position = glm::vec3(1, 1, -1);
+	vertices[8].position =  glm::vec3(-1, 1, 1);
+	vertices[9].position =  glm::vec3(-1, 1, -1);
+	vertices[10].position = glm::vec3(1, 1, -1);
+	vertices[11].position = glm::vec3(1, 1, 1);
 
-	vertices[12].position = glm::vec3(1, -1, -1);
-	vertices[13].position = glm::vec3(1, -1, 1);
-	vertices[14].position = glm::vec3(-1, -1, 1);
-	vertices[15].position = glm::vec3(-1, -1, -1);
+	vertices[12].position = glm::vec3(1, -1, 1);
+	vertices[13].position = glm::vec3(1, -1, -1);
+	vertices[14].position = glm::vec3(-1, -1, -1);
+	vertices[15].position = glm::vec3(-1, -1, 1);
 
-	vertices[16].position = glm::vec3(1, -1, 1);
-	vertices[17].position = glm::vec3(1, 1, 1);
-	vertices[18].position = glm::vec3(-1, 1, 1);
-	vertices[19].position = glm::vec3(-1, -1, 1);
+	vertices[16].position = glm::vec3(1, -1, -1);
+	vertices[17].position = glm::vec3(1, 1, -1);
+	vertices[18].position = glm::vec3(-1, 1, -1);
+	vertices[19].position = glm::vec3(-1, -1, -1);
 
-	vertices[20].position = glm::vec3(-1, -1, -1);
-	vertices[21].position = glm::vec3(-1, 1, -1);
-	vertices[22].position = glm::vec3(1, 1, -1);
-	vertices[23].position = glm::vec3(1, -1, -1);
+	vertices[20].position = glm::vec3(-1, -1, 1);
+	vertices[21].position = glm::vec3(-1, 1, 1);
+	vertices[22].position = glm::vec3(1, 1, 1);
+	vertices[23].position = glm::vec3(1, -1, 1);
 
 	for (UINT i = 0; i < 6; ++i)
 	{
-		vertices[i * 4].texcoord =     glm::vec2(0.0f, 1.0f);
-		vertices[i * 4 + 1].texcoord = glm::vec2(0.0f, 0.0f);
-		vertices[i * 4 + 2].texcoord = glm::vec2(1.0f, 0.0f);
-		vertices[i * 4 + 3].texcoord = glm::vec2(1.0f, 1.0f);
+		vertices[i * 4].texcoord =     glm::vec2(0.0f, 0.0f);
+		vertices[i * 4 + 1].texcoord = glm::vec2(0.0f, 1.0f);
+		vertices[i * 4 + 2].texcoord = glm::vec2(1.0f, 1.0f);
+		vertices[i * 4 + 3].texcoord = glm::vec2(1.0f, 0.0f);
 	}
 
 
@@ -86,7 +86,7 @@ Triangle::Triangle()
 	//shader->SetFloat4("u_color13", 1.0f, 0.0f, 0.0f, 1.0f);
 	
 	//texture
-	texture = new Texture("res/striated.png");
+	texture = new Texture("res/skybox.jpeg");
 	texture->Bind(0);
 	shader->Bind();
 	shader->SetInteger1("u_texture", 0);

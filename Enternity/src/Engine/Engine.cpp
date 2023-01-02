@@ -42,17 +42,33 @@ void MouseButtonEvent(GLFWwindow* window, int button, int action, int mods)
 	if (action == GLFW_RELEASE)
 	{
 		LOG_INFO(std::to_string(button) + " release");
+		double x, y;
+		glfwGetCursorPos(window, &x, &y);
+		InputEventManager::GetInstance().NotifyMouseRelease({ (MouseButton)button, (int)x, (int)y, 0 });
 	}
 
 	if (action == GLFW_PRESS)
 	{
 		LOG_INFO(std::to_string(button) + " press");
+		double x, y;
+		glfwGetCursorPos(window, &x, &y);
+		InputEventManager::GetInstance().NotifyMousePress({ (MouseButton)button, (int)x, (int)y, 0 });
 	}
 }
 
 void MouseMoveEvent(GLFWwindow* window, double xpos, double ypos)
 {
-	//LOG_INFO("mouse pos:" + std::to_string(xpos) + "," + std::to_string(ypos));
+	LOG_INFO("mouse pos:" + std::to_string(xpos) + "," + std::to_string(ypos));
+	
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	{
+		InputEventManager::GetInstance().NotifyMouseMove({ (MouseButton)GLFW_MOUSE_BUTTON_LEFT, (int)xpos, (int)ypos, 0 });
+	}
+
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+	{
+		InputEventManager::GetInstance().NotifyMouseMove({ (MouseButton)GLFW_MOUSE_BUTTON_RIGHT, (int)xpos, (int)ypos, 0 });
+	}
 }
 
 

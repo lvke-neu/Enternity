@@ -23,6 +23,8 @@ public:
 	Transform& operator=(const Transform&) = default;
 public:
 	void Move(float distance, const vec3& direction);
+	void RotateAlongXAxis(float angle);
+	void RotateAlongYAxis(float angle);
 public:
 	mat4 GetTranslationMatrix() const;
 	mat4 GetRotationMatrix() const;

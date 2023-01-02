@@ -13,6 +13,16 @@ void Transform::Move(float distance, const vec3& direction)
 	m_Translation += distance * direction;
 }
 
+void Transform::RotateAlongXAxis(float angle)
+{
+	m_Rotation.x -= angle;
+}
+
+void Transform::RotateAlongYAxis(float angle)
+{
+	m_Rotation.y -= angle;
+}
+
 mat4 Transform::GetTranslationMatrix() const
 {
 	return translate(mat4(1.0f), m_Translation);
