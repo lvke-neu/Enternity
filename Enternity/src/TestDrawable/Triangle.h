@@ -15,7 +15,7 @@ public:
 	void draw();
 	~Triangle();
 private:
-	void operationScene(glm::vec3 modelPos, glm::vec3 modelRot, glm::vec3 modelScale, glm::vec3 camRot, glm::vec3 camPos);
+	void operationScene(glm::vec3 modelPos, glm::vec3 modelRot, glm::vec3 modelScale);
 private:
 	VertexArray* vertexArray;
 	VertexBuffer* vertexbuffer;

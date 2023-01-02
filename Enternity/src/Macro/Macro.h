@@ -35,4 +35,18 @@ Macro
 		p = nullptr;\
 	}
 
+//get set
+#define GET_SET(variableType, variableName)\
+	inline variableType& Get##variableName() \
+	{\
+		return m_##variableName;\
+	}\
+	\
+	void Set##variableName(const variableType& variableName)\
+	{\
+		m_##variableName = variableName;\
+	}
+
+	
+
 

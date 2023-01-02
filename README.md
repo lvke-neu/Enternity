@@ -6,5 +6,7 @@ Blending:red is under the blue
 	source: ps shder output
 	destination: framebuffer
 
+Batch Rendering
+
 
 

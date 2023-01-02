@@ -1,5 +1,5 @@
 #include "Triangle.h"
-
+#include "PerspectiveCamera/PerspectiveCamera.h"
 #include "Imgui/ImguiManager.h"
 
 BEGIN_ENTERNITY
@@ -122,10 +122,8 @@ void Triangle::draw()
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	static glm::vec3 camPos(0.0f, 0.0f, 10.0f);
-	static glm::vec3 camRot(0.0f, 0.0f, 0.0f);
 
-	static glm::vec3 modelPos(0.0f, 0.0f, 0.0f);
+	static glm::vec3 modelPos(0.0f, 0.0f, -10.0f);
 	static glm::vec3 modelRot(0.0f, 0.0f, 0.0f);
 	static glm::vec3 modelScale(1.0f, 1.0f, 1.0f);
 
@@ -133,8 +131,6 @@ void Triangle::draw()
 	ImGui::ShowDemoWindow(&b);
 	ImGui::ShowMetricsWindow(&b);
 
-	ImGui::DragFloat3("CameraPos", &camPos[0], 0.1f, -9999.0f, 9999.0f);
-	ImGui::DragFloat3("CameraRot", &camRot[0], 0.1f, -9999.0f, 9999.0f);
 
 	ImGui::DragFloat3("ModelPos", &modelPos[0], 0.1f, -9999.0f, 9999.0f);
 	ImGui::DragFloat3("ModelRot", &modelRot[0], 0.1f, -9999.0f, 9999.0f);
@@ -147,7 +143,7 @@ void Triangle::draw()
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 
-	operationScene(modelPos, modelRot, modelScale, camRot, camPos);
+	operationScene(modelPos, modelRot, modelScale);
 }
 
 Triangle::~Triangle()
@@ -159,7 +155,7 @@ Triangle::~Triangle()
 	SAFE_DELETE_SET_NULL(texture);
 }
 
-void Triangle::operationScene(glm::vec3 modelPos, glm::vec3 modelRot, glm::vec3 modelScale, glm::vec3 camRot, glm::vec3 camPos)
+void Triangle::operationScene(glm::vec3 modelPos, glm::vec3 modelRot, glm::vec3 modelScale)
 {
 	//model mat
 	glm::mat4 modelScaleMat = glm::scale(glm::mat4(1.0f), modelScale);
@@ -170,16 +166,11 @@ void Triangle::operationScene(glm::vec3 modelPos, glm::vec3 modelRot, glm::vec3 
 	glm::mat4 modelMat = modelPosMat  * modelRotXMat* modelRotYMat* modelRotZMat* modelScaleMat;
 
 	//view mat
-	glm::mat4 cameraScaleMat = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-	glm::mat4 cameraRotXMat = glm::rotate(glm::mat4(1.0f), camRot.x, glm::vec3(1.0f, 0.0f, 0.0f));
-	glm::mat4 cameraRotYMat = glm::rotate(glm::mat4(1.0f), camRot.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 cameraRotZMat = glm::rotate(glm::mat4(1.0f), camRot.z, glm::vec3(0.0f, 0.0f, 1.0f));
-	glm::mat4 cameraPosMat = glm::translate(glm::mat4(1.0f), camPos);
-	glm::mat4 viewMat = glm::inverse(cameraPosMat  * cameraRotXMat* cameraRotYMat* cameraRotZMat* cameraScaleMat);
+	glm::mat4 viewMat = PerspectiveCamera::GetInstance().GetViewMatrix();
 
 
 	//proj mat
-	glm::mat4 projMat = glm::perspective<float>(glm::pi<float>() / 3, 1200 / 600.0f, 1, 1000);
+	glm::mat4 projMat = PerspectiveCamera::GetInstance().GetProjectMatrix();
 
 	shader->SetMat4f("u_mvp", projMat * viewMat * modelMat);
 }

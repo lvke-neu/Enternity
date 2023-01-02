@@ -1,11 +1,12 @@
 #include "Engine.h"
 #include "Log/Log.h"
 #include "Imgui/ImguiManager.h"
+#include "PerspectiveCamera/PerspectiveCamera.h"
+#include "Event/InputEventManager.h"
+#include "Event/TickEventManager.h"
+#include "Scene/SceneManager.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
-#include "TestDrawable/Triangle.h"
-
 
 
 BEGIN_ENTERNITY
@@ -17,6 +18,7 @@ BEGIN_ENTERNITY
 void OnResize(GLFWwindow* context, int width, int height)
 {
 	glViewport(0, 0, width, height);
+	PerspectiveCamera::GetInstance().SetFrustum({ glm::pi<float>() / 3, static_cast<float>(width) / height, 1, 1000 });
 	LOG_INFO("Resize:" + std::to_string(width) + "," + std::to_string(height));
 }
 
@@ -25,11 +27,13 @@ void KeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods)
 	if (action == GLFW_RELEASE)
 	{
 		LOG_INFO(std::to_string(key) + " release");
+		InputEventManager::GetInstance().NotifyKeyRelease((Enternity::Keyboard)key);
 	}
 
 	if (action == GLFW_PRESS)
 	{
 		LOG_INFO(std::to_string(key) + " press");
+		InputEventManager::GetInstance().NotifyKeyPress((Enternity::Keyboard)key);
 	}
 }
 
@@ -89,7 +93,7 @@ bool Engine::Initialize()
 	}
 
 	//antialiasing
-	CHECK_GL_CALL( glEnable(GL_MULTISAMPLE));
+	glEnable(GL_MULTISAMPLE);
 
 	//hardware info
 	LOG_INFO((char*)glGetString(GL_VERSION));
@@ -105,9 +109,8 @@ bool Engine::Initialize()
 	glfwSetCursorPosCallback(m_context, MouseMoveEvent);
 
 	ImguiManager::GetInstance().Initialize(m_context);
+	PerspectiveCamera::GetInstance().Initialize(Transform({0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f}), { glm::pi<float>() / 3, static_cast<float>(WINDOW_WIDHT) / WINDOW_HEIGHT, 1, 1000 });
 
-	m_timer.Reset();
-	m_timer.Start();
 	LOG_INFO("Engine initialization is complete");
 
 	return true;
@@ -115,16 +118,19 @@ bool Engine::Initialize()
 
 void Engine::Run()
 {
-	
-	Triangle triangle;
+
 	while (!glfwWindowShouldClose(m_context))
 	{
-		m_timer.Tick();
+		//clear
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//draw
-		triangle.draw();
+		//tick event,  The unit of deltaTime is second
+		ImGuiIO& io = ImGui::GetIO();
+		TickEventManager::GetInstance().NotifyTick(1000.0f / io.Framerate / 1000.0f);
+
+		//scene
+		SceneManager::GetInstance().Tick(1000.0f / io.Framerate / 1000.0f);
 
 		//imgui
 		ImguiManager::GetInstance().Draw();
