@@ -19,16 +19,16 @@ void main()
 #version 330 core 
 
 out vec4 pixelColor;
-
 in vec2 settingtexcoord;
-uniform vec4 u_color1;
-uniform vec4 u_color2;
-uniform vec4 u_color3;
+
+uniform vec4 u_lightColor;
+
 
 uniform sampler2D u_texture;
 
 void main() 
 {
-	pixelColor = texture(u_texture, settingtexcoord);
-	//pixelColor = vec4(0.2f, 0.3f, 0.4f, 1.0f);
+	//pixelColor = texture(u_texture, settingtexcoord);
+	pixelColor = texture(u_texture, settingtexcoord) * u_lightColor;
+
 };

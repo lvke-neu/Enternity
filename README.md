@@ -1,5 +1,5 @@
 # Enternity
-Ny GameEngine Based on OpenGL
+My GameEngine Based on OpenGL
 
 Blending:red is under the blue 
 	ps shder(blue) ----> framebuffer(red)

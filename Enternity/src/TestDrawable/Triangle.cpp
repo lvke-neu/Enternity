@@ -92,7 +92,7 @@ Triangle::Triangle()
 	texture->Bind(0);
 	shader->Bind();
 	shader->SetInteger1("u_texture", 0);
-
+	shader->SetFloat4("u_lightColor", 1.0f, 0.0f, 0.0f, 1.0f);
 
 	
 	//unbind
