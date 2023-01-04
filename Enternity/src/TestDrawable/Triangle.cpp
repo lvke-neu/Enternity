@@ -16,9 +16,10 @@ Triangle::Triangle()
 	struct VertexPosTex
 	{
 		glm::vec3 position;
+		glm::vec3 normal;
 		glm::vec2 texcoord;
 	};
-
+	
 	std::vector<VertexPosTex> vertices;
 	vertices.resize(24);
 	vertices[0].position = glm::vec3(1, -1, 1);
@@ -51,6 +52,20 @@ Triangle::Triangle()
 	vertices[22].position = glm::vec3(1, 1, 1);
 	vertices[23].position = glm::vec3(1, -1, 1);
 
+	for (UINT i = 0; i < 4; ++i)
+	{
+		vertices[i].normal = glm::vec3(1.0f, 0.0f, 0.0f);
+
+		vertices[i + 4].normal = glm::vec3(-1.0f, 0.0f, 0.0f);
+
+		vertices[i + 8].normal = glm::vec3(0.0f, 1.0f, 0.0f);
+
+		vertices[i + 12].normal = glm::vec3(0.0f, -1.0f, 0.0f);
+
+		vertices[i + 16].normal = glm::vec3(0.0f, 0.0f, -1.0f);
+
+		vertices[i + 20].normal = glm::vec3(0.0f, 0.0f, 1.0f);
+	}
 
 	for (UINT i = 0; i < 6; ++i)
 	{
@@ -66,8 +81,9 @@ Triangle::Triangle()
 	//vertex array
 	vertexArray = new VertexArray;
 	VertexBufferLayout  vertexBufferLayout;
-	vertexBufferLayout.Push({ 0, 3, GL_FLOAT, false,  5 * sizeof(float), 0 });
-	vertexBufferLayout.Push({ 1, 2, GL_FLOAT, false,  5 * sizeof(float), 3 * sizeof(float) });
+	vertexBufferLayout.Push({ 0, 3, GL_FLOAT, false,  8 * sizeof(float), 0 });
+	vertexBufferLayout.Push({ 1, 3, GL_FLOAT, false,  8 * sizeof(float), 3 * sizeof(float) });
+	vertexBufferLayout.Push({ 2, 2, GL_FLOAT, false,  8 * sizeof(float), 6 * sizeof(float) });
 	vertexArray->Add(*vertexbuffer, vertexBufferLayout);
 
 	//index buffer
@@ -102,7 +118,7 @@ Triangle::Triangle()
 		{1.0f, 1.0f, 1.0f, 1.0f },
 		{1.0f, 1.0f, 1.0f, 1.0f },
 		{1.0f, 1.0f, 1.0f, 1.0f },
-		{0.0f,-0.5f,-0.5f}
+		{0.0f,0.0f,-0.5f}
 	};
 	Material material
 	{
@@ -113,7 +129,10 @@ Triangle::Triangle()
 
 	shader->SetFloat4("u_lightAmbient", dirLight.ambient);
 	shader->SetFloat4("u_materialAmbient", material.ambient);
-
+	shader->SetFloat3("u_lightDir", dirLight.direction);
+	shader->SetFloat4("u_lightDiffuse", dirLight.diffuse);
+	shader->SetFloat4("u_materialDiffuse", material.diffuse);
+	
 	
 	//unbind
 	vertexbuffer->UnBind();
@@ -135,6 +154,7 @@ void Triangle::draw()
 	vertexArray->Bind();
 	indexbuffer->Bind();
 	texture->Bind(0);
+	operationScene();
 	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
 
 	
@@ -160,7 +180,7 @@ void Triangle::draw()
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 
-	operationScene();
+	
 }
 
 Triangle::~Triangle()
@@ -185,6 +205,7 @@ void Triangle::operationScene()
 	glm::mat4 projMat = PerspectiveCamera::GetInstance().GetProjectMatrix();
 
 	shader->SetMat4f("u_mvp", projMat * viewMat * modelMat);
+	shader->SetMat4f("u_m", transpose(inverse(modelMat))  );
 }
 
 END_ENTERNITY

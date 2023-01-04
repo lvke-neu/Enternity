@@ -33,6 +33,16 @@ void Shader::SetInteger1(const std::string & name, int value)
 	CHECK_GL_CALL(glUniform1i(GetUniformLocation(name), value));
 }
 
+void Shader::SetFloat3(const std::string& name, float v0, float v1, float v2)
+{
+	CHECK_GL_CALL(glUniform3f(GetUniformLocation(name), v0, v1, v2));
+}
+
+void Shader::SetFloat3(const std::string& name, const glm::vec3& v3)
+{
+	SetFloat3(name, v3.x, v3.y, v3.z);
+}
+
 void Shader::SetFloat4(const std::string & name, float v0, float v1, float v2, float v3)
 {
 	CHECK_GL_CALL(glUniform4f(GetUniformLocation(name), v0, v1, v2, v3));
@@ -116,6 +126,7 @@ unsigned int Shader::CompileShader(unsigned int shaderType, const char* shaderSo
 		char* errorInfo = new char[infoLength];
 		CHECK_GL_CALL(glGetShaderInfoLog(shader, infoLength, &infoLength, errorInfo));
 		LOG_ERROR(errorInfo);
+		//printf("%s\n", errorInfo);
 		delete[] errorInfo;
 
 		CHECK_GL_CALL(glDeleteShader(shader));
@@ -146,9 +157,11 @@ unsigned int Shader::CreateProgram(const std::string& vsShaderCode, const std::s
 		char* errorInfo = new char[infoLength];
 		CHECK_GL_CALL(glGetProgramInfoLog(program, infoLength, &infoLength, errorInfo));
 		LOG_ERROR(errorInfo);
+		//printf("%s\n", errorInfo);
 		delete[] errorInfo;
 
 		CHECK_GL_CALL(glDeleteProgram(program));
+
 		return 0;
 	}
 
