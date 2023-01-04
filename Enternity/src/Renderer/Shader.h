@@ -30,6 +30,7 @@ public:
 
 	void SetInteger1(const std::string& name, int value);
 	void SetFloat4(const std::string& name, float v0, float v1, float v2, float v3);
+	void SetFloat4(const std::string& name, const glm::vec4& v4);
 	void SetMat4f(const std::string& name, const glm::mat4& mat4);
 private:
 	ShaderSourceCode ParseShaderFile(const std::string& filePath);

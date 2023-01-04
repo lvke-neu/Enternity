@@ -21,7 +21,8 @@ void main()
 out vec4 pixelColor;
 in vec2 settingtexcoord;
 
-uniform vec4 u_lightColor;
+uniform vec4 u_lightAmbient;
+uniform vec4 u_materialAmbient;
 
 
 uniform sampler2D u_texture;
@@ -29,6 +30,7 @@ uniform sampler2D u_texture;
 void main() 
 {
 	//pixelColor = texture(u_texture, settingtexcoord);
-	pixelColor = texture(u_texture, settingtexcoord) * u_lightColor;
+	pixelColor = texture(u_texture, settingtexcoord); 
+	pixelColor = pixelColor * u_lightAmbient * u_materialAmbient * 0.5;
 
 };

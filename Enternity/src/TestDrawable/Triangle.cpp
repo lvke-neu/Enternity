@@ -1,6 +1,8 @@
 #include "Triangle.h"
 #include "PerspectiveCamera/PerspectiveCamera.h"
 #include "Imgui/ImguiManager.h"
+#include "Light/Light.h"
+#include "Material/Material.h"
 
 BEGIN_ENTERNITY
 
@@ -49,6 +51,7 @@ Triangle::Triangle()
 	vertices[22].position = glm::vec3(1, 1, 1);
 	vertices[23].position = glm::vec3(1, -1, 1);
 
+
 	for (UINT i = 0; i < 6; ++i)
 	{
 		vertices[i * 4].texcoord =     glm::vec2(0.0f, 0.0f);
@@ -92,7 +95,24 @@ Triangle::Triangle()
 	texture->Bind(0);
 	shader->Bind();
 	shader->SetInteger1("u_texture", 0);
-	shader->SetFloat4("u_lightColor", 1.0f, 0.0f, 0.0f, 1.0f);
+
+	//light and material
+	DirectionLight dirLight
+	{
+		{1.0f, 1.0f, 1.0f, 1.0f },
+		{1.0f, 1.0f, 1.0f, 1.0f },
+		{1.0f, 1.0f, 1.0f, 1.0f },
+		{0.0f,-0.5f,-0.5f}
+	};
+	Material material
+	{
+		{1.0f, 1.0f, 1.0f, 1.0f },
+		{1.0f, 1.0f, 1.0f, 1.0f },
+		{1.0f, 1.0f, 1.0f, 1.0f }
+	};
+
+	shader->SetFloat4("u_lightAmbient", dirLight.ambient);
+	shader->SetFloat4("u_materialAmbient", material.ambient);
 
 	
 	//unbind

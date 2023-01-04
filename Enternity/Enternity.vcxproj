@@ -14,19 +14,19 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{C07C824F-914A-4BAE-9E62-BBAB127FC59F}</ProjectGuid>
     <RootNamespace>Enternity</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -131,8 +131,10 @@
     <ClInclude Include="src\Imgui\ImguiImpl\imstb_rectpack.h" />
     <ClInclude Include="src\Imgui\ImguiImpl\imstb_textedit.h" />
     <ClInclude Include="src\Imgui\ImguiImpl\imstb_truetype.h" />
+    <ClInclude Include="src\Light\Light.h" />
     <ClInclude Include="src\Log\Log.h" />
     <ClInclude Include="src\Macro\Macro.h" />
+    <ClInclude Include="src\Material\Material.h" />
     <ClInclude Include="src\PerspectiveCamera\CameraController.h" />
     <ClInclude Include="src\PerspectiveCamera\PerspectiveCamera.h" />
     <ClInclude Include="src\Renderer\IndexBuffer.h" />

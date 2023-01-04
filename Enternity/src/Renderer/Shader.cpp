@@ -38,6 +38,11 @@ void Shader::SetFloat4(const std::string & name, float v0, float v1, float v2, f
 	CHECK_GL_CALL(glUniform4f(GetUniformLocation(name), v0, v1, v2, v3));
 }
 
+void Shader::SetFloat4(const std::string& name, const glm::vec4& v4)
+{
+	SetFloat4(name, v4.x, v4.y, v4.z, v4.w);
+}
+
 void Shader::SetMat4f(const std::string & name, const glm::mat4 & mat4)
 {
 	CHECK_GL_CALL(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &mat4[0][0]));
