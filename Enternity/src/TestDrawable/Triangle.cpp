@@ -121,8 +121,8 @@ Triangle::Triangle()
 	//light and material
 	DirectionLight dirLight
 	{
-		{1.0f, 1.0f, 1.0f, 1.0f },
-		{1.0f, 1.0f, 1.0f, 1.0f },
+		{0.2f, 0.2f, 0.2f, 1.0f },
+		{0.5f, 0.5f, 0.5f, 1.0f },
 		{1.0f, 1.0f, 1.0f, 1.0f },
 		{0.0f,0.0f,-0.5f}
 	};
@@ -142,6 +142,7 @@ Triangle::Triangle()
 	shader->SetFloat4("u_lightSpecular", dirLight.specular);
 	shader->SetFloat4("u_materialSpecular", material.specular);
 	
+
 	
 	//unbind
 	vertexbuffer->UnBind();

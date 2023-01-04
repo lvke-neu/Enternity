@@ -46,19 +46,19 @@ void main()
 	pixelColor = texture(u_texture, v_texcoord);
 	pixelColor = vec4(1, 1, 1, 1.0f);
 
-	vec4 ambient = u_lightAmbient * u_materialAmbient * 0.1;
+	vec4 ambient = u_lightAmbient * u_materialAmbient ;
 	
 	vec4 diffuse;
 	vec3 normalW = normalize(v_normalW);
 	vec3 lightDir = normalize(-u_lightDir);
 	float diff = max(dot(normalW, lightDir), 0.0);
-	diffuse = u_lightDiffuse * u_materialDiffuse * diff * 0.5;
+	diffuse = u_lightDiffuse * u_materialDiffuse * diff ;
 
 	vec4 specular;
 	vec3 viewDir = normalize(u_eyePos - v_position);
 	vec3 reflectDir = reflect(normalize(u_lightDir), normalW);
-	float spec = pow(max(dot(viewDir, reflectDir), 0.0f), 64);
-	specular = u_lightSpecular * u_materialSpecular * spec * 0.5;
+	float spec = pow(max(dot(viewDir, reflectDir), 0.0f), 32);
+	specular = u_lightSpecular * u_materialSpecular * spec ;
 
 	pixelColor = pixelColor * (ambient + diffuse + specular);
 	//pixelColor = pixelColor * ambient;
