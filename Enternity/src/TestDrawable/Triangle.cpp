@@ -3,6 +3,7 @@
 #include "Imgui/ImguiManager.h"
 #include "Light/Light.h"
 #include "Material/Material.h"
+#include "LightObject.h"
 
 BEGIN_ENTERNITY
 
@@ -10,6 +11,11 @@ BEGIN_ENTERNITY
 
 Triangle::Triangle()
 {
+	m_light = new LightObject;
+	PerspectiveCamera::GetInstance().GetTransform().SetTranslation(vec3(-11.769, 4.811, 1.297));
+	PerspectiveCamera::GetInstance().GetTransform().SetRotation(vec3(-0.330, -0.990, 0));
+
+
 	m_Transform.SetTranslation(vec3(0.0f, 0.0f, -10.0f));
 
 	//vertexbuffer
@@ -129,7 +135,7 @@ Triangle::Triangle()
 
 	shader->SetFloat4("u_lightAmbient", dirLight.ambient);
 	shader->SetFloat4("u_materialAmbient", material.ambient);
-	shader->SetFloat3("u_lightDir", dirLight.direction);
+	
 	shader->SetFloat4("u_lightDiffuse", dirLight.diffuse);
 	shader->SetFloat4("u_materialDiffuse", material.diffuse);
 	
@@ -146,6 +152,8 @@ Triangle::Triangle()
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	glEnable(GL_DEPTH_TEST);
+
+	
 }
 
 void Triangle::draw()
@@ -157,6 +165,7 @@ void Triangle::draw()
 	operationScene();
 	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
 
+	m_light->draw();
 	
 
 	ImGui_ImplOpenGL3_NewFrame();
@@ -172,9 +181,14 @@ void Triangle::draw()
 	ImGui::DragFloat3("ModelPos", &m_Transform.GetTranslation()[0], 0.1f, -9999.0f, 9999.0f);
 	ImGui::DragFloat3("ModelRot", &m_Transform.GetRotation()[0], 0.1f, -9999.0f, 9999.0f);
 	ImGui::DragFloat3("ModelScale", &m_Transform.GetScale()[0], 0.1f, -9999.0f, 9999.0f);
-	
+	ImGui::NewLine();
+
+
 	ImGui::DragFloat3("CameraPos", &PerspectiveCamera::GetInstance().GetTransform().GetTranslation()[0], 0.1f, -9999.0f, 9999.0f);
 	ImGui::DragFloat3("CameraRot", &PerspectiveCamera::GetInstance().GetTransform().GetRotation()[0], 0.1f, -9999.0f, 9999.0f);
+
+	ImGui::NewLine();
+	ImGui::DragFloat3("LightPos", &m_light->GetTransform().GetTranslation()[0], 0.1f, -9999.0f, 9999.0f);
 
 
 
@@ -189,6 +203,7 @@ Triangle::~Triangle()
 	SAFE_DELETE_SET_NULL(vertexArray);
 	SAFE_DELETE_SET_NULL(shader);
 	SAFE_DELETE_SET_NULL(texture);
+	SAFE_DELETE_SET_NULL(m_light);
 }
 
 void Triangle::operationScene()
@@ -205,6 +220,7 @@ void Triangle::operationScene()
 
 	shader->SetMat4f("u_mvp", projMat * viewMat * modelMat);
 	shader->SetMat4f("u_m", transpose(inverse(modelMat))  );
+	shader->SetFloat3("u_lightDir", m_Transform.GetTranslation() - m_light->GetTransform().GetTranslation());
 }
 
 END_ENTERNITY

@@ -7,6 +7,8 @@
 #include "Transform/Transform.h"
 
 BEGIN_ENTERNITY
+
+class LightObject;
 class Triangle
 {
 public:
@@ -23,5 +25,7 @@ private:
 	Texture* texture;
 
 	Transform m_Transform;
+
+	LightObject* m_light{ nullptr };
 };
 END_ENTERNITY

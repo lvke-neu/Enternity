@@ -112,6 +112,7 @@
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\Scene\SceneManager.cpp" />
     <ClCompile Include="src\Stb_Image\stb_image.cpp" />
+    <ClCompile Include="src\TestDrawable\LightObject.cpp" />
     <ClCompile Include="src\TestDrawable\Triangle.cpp" />
     <ClCompile Include="src\Timer\GameTimer.cpp" />
     <ClCompile Include="src\Transform\Transform.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="src\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
     <ClInclude Include="src\Stb_Image\stb_image.h" />
+    <ClInclude Include="src\TestDrawable\LightObject.h" />
     <ClInclude Include="src\TestDrawable\Triangle.h" />
     <ClInclude Include="src\Timer\GameTimer.h" />
     <ClInclude Include="src\Transform\Transform.h" />
@@ -152,6 +154,7 @@
   <ItemGroup>
     <None Include="..\README.md" />
     <None Include="shader\Basic.shader" />
+    <None Include="shader\Light.shader" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\striated.png" />
