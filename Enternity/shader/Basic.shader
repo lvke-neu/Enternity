@@ -16,7 +16,7 @@ void main()
 	gl_Position = u_mvp * vec4(position.xyz, 1.0);
 	
 	v_texcoord = texcoord;
-	v_normalW = (u_m * vec4(normal, 1.0)).xyz;
+	v_normalW = mat3(u_m) * normal;
 };
 
 #shader pixel
