@@ -172,15 +172,14 @@ void Triangle::draw()
 	ImGui::DragFloat3("ModelPos", &m_Transform.GetTranslation()[0], 0.1f, -9999.0f, 9999.0f);
 	ImGui::DragFloat3("ModelRot", &m_Transform.GetRotation()[0], 0.1f, -9999.0f, 9999.0f);
 	ImGui::DragFloat3("ModelScale", &m_Transform.GetScale()[0], 0.1f, -9999.0f, 9999.0f);
-
+	
+	ImGui::DragFloat3("CameraPos", &PerspectiveCamera::GetInstance().GetTransform().GetTranslation()[0], 0.1f, -9999.0f, 9999.0f);
+	ImGui::DragFloat3("CameraRot", &PerspectiveCamera::GetInstance().GetTransform().GetRotation()[0], 0.1f, -9999.0f, 9999.0f);
 
 
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-
-	
 }
 
 Triangle::~Triangle()

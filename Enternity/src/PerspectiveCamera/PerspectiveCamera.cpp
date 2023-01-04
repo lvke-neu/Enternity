@@ -28,6 +28,11 @@ void PerspectiveCamera::RotateAlongYAxis(float angle)
 	m_Transform.RotateAlongYAxis(angle);
 }
 
+Transform & PerspectiveCamera::GetTransform()
+{
+	return m_Transform;
+}
+
 void PerspectiveCamera::SetTransform(const Transform & transform)
 {
 	m_Transform = transform;

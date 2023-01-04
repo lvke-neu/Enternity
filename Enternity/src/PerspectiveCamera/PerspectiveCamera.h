@@ -30,6 +30,7 @@ public:
 	void RotateAlongXAxis(float angle);
 	void RotateAlongYAxis(float angle);
 
+	Transform& GetTransform();
 	void SetTransform(const Transform& transform);
 	void SetFrustum(const Frustum& frustum);
 
