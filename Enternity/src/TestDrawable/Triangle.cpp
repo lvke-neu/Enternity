@@ -138,6 +138,9 @@ Triangle::Triangle()
 	
 	shader->SetFloat4("u_lightDiffuse", dirLight.diffuse);
 	shader->SetFloat4("u_materialDiffuse", material.diffuse);
+
+	shader->SetFloat4("u_lightSpecular", dirLight.specular);
+	shader->SetFloat4("u_materialSpecular", material.specular);
 	
 	
 	//unbind
@@ -219,8 +222,10 @@ void Triangle::operationScene()
 	glm::mat4 projMat = PerspectiveCamera::GetInstance().GetProjectMatrix();
 
 	shader->SetMat4f("u_mvp", projMat * viewMat * modelMat);
-	shader->SetMat4f("u_m", transpose(inverse(modelMat))  );
+	shader->SetMat4f("u_mInvTrans", transpose(inverse(modelMat))  );
+	shader->SetMat4f("u_m", modelMat);
 	shader->SetFloat3("u_lightDir", m_Transform.GetTranslation() - m_light->GetTransform().GetTranslation());
+	shader->SetFloat3("u_eyePos", PerspectiveCamera::GetInstance().GetTransform().GetTranslation());
 }
 
 END_ENTERNITY

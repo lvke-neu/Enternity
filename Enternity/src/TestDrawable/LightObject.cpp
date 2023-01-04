@@ -1,8 +1,6 @@
 #include "LightObject.h"
 #include "PerspectiveCamera/PerspectiveCamera.h"
 #include "Imgui/ImguiManager.h"
-#include "Light/Light.h"
-#include "Material/Material.h"
 
 BEGIN_ENTERNITY
 
@@ -10,7 +8,7 @@ BEGIN_ENTERNITY
 
 LightObject::LightObject()
 {
-	m_Transform.SetTranslation(vec3(0.0f, 0.0f, -5.0f));
+	m_Transform.SetTranslation(vec3(0.0f, 0.0f, 0.0f));
 
 	//vertexbuffer
 	struct VertexPosTex
@@ -108,22 +106,6 @@ LightObject::LightObject()
 	
 	shader->Bind();
 
-
-	//light and material
-	DirectionLight dirLight
-	{
-		{1.0f, 1.0f, 1.0f, 1.0f },
-		{1.0f, 1.0f, 1.0f, 1.0f },
-		{1.0f, 1.0f, 1.0f, 1.0f },
-		{0.0f,0.0f,-0.5f}
-	};
-	Material material
-	{
-		{1.0f, 1.0f, 1.0f, 1.0f },
-		{1.0f, 1.0f, 1.0f, 1.0f },
-		{1.0f, 1.0f, 1.0f, 1.0f }
-	};
-	
 	//unbind
 	vertexbuffer->UnBind();
 	indexbuffer->UnBind();
