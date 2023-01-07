@@ -14,7 +14,6 @@ Imgui Manager
 struct GLFWwindow;
 BEGIN_ENTERNITY
 
-
 class ImguiManager
 {
 	SINGLETON(ImguiManager);

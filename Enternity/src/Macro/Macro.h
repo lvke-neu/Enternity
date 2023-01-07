@@ -37,7 +37,7 @@ Macro
 
 //get set 
 #define GET_SET(variableType, variableName)\
-	variableType& Get##variableName() \
+	const variableType& Get##variableName() const \
 	{\
 		return m_##variableName;\
 	}\
@@ -45,7 +45,7 @@ Macro
 	void Set##variableName(const variableType& variableName)\
 	{\
 		m_##variableName = variableName;\
-	}
+	}\
 
 	
 

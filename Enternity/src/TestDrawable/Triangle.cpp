@@ -12,11 +12,11 @@ BEGIN_ENTERNITY
 Triangle::Triangle()
 {
 	m_light = new LightObject;
-	PerspectiveCamera::GetInstance().GetTransform().SetTranslation(vec3(-11.769, 4.811, 1.297));
-	PerspectiveCamera::GetInstance().GetTransform().SetRotation(vec3(-0.330, -0.990, 0));
+	PerspectiveCamera::GetInstance().SetTranslation(glm::vec3(-11.769, 4.811, 1.297));
+	PerspectiveCamera::GetInstance().SetRotation(glm::vec3(-0.330, -0.990, 0));
 
 
-	m_Transform.SetTranslation(vec3(0.0f, 0.0f, -10.0f));
+	m_Transform.SetTranslation(glm::vec3(0.0f, 0.0f, -10.0f));
 
 	//vertexbuffer
 	struct VertexPosTex
@@ -181,19 +181,18 @@ void Triangle::draw()
 	ImGui::ShowDemoWindow(&b);
 	ImGui::ShowMetricsWindow(&b);
 
-
-	ImGui::DragFloat3("ModelPos", &m_Transform.GetTranslation()[0], 0.1f, -9999.0f, 9999.0f);
-	ImGui::DragFloat3("ModelRot", &m_Transform.GetRotation()[0], 0.1f, -9999.0f, 9999.0f);
-	ImGui::DragFloat3("ModelScale", &m_Transform.GetScale()[0], 0.1f, -9999.0f, 9999.0f);
+	
+	ImGui::DragFloat3("ModelPos", m_Transform.GetTranslationPointer(), 0.1f, -9999.0f, 9999.0f);
+	ImGui::DragFloat3("ModelRot", m_Transform.GetRotationPointer(), 0.1f, -9999.0f, 9999.0f);
+	ImGui::DragFloat3("ModelScale", m_Transform.GetScalePointer(), 0.1f, -9999.0f, 9999.0f);
 	ImGui::NewLine();
 
 
-	ImGui::DragFloat3("CameraPos", &PerspectiveCamera::GetInstance().GetTransform().GetTranslation()[0], 0.1f, -9999.0f, 9999.0f);
-	ImGui::DragFloat3("CameraRot", &PerspectiveCamera::GetInstance().GetTransform().GetRotation()[0], 0.1f, -9999.0f, 9999.0f);
+	ImGui::DragFloat3("CameraPos", PerspectiveCamera::GetInstance().GetTranslationPointer(), 0.1f, -9999.0f, 9999.0f);
+	ImGui::DragFloat3("CameraRot", PerspectiveCamera::GetInstance().GetRotationPointer(), 0.1f, -9999.0f, 9999.0f);
 
 	ImGui::NewLine();
-	ImGui::DragFloat3("LightPos", &m_light->GetTransform().GetTranslation()[0], 0.1f, -9999.0f, 9999.0f);
-
+	ImGui::DragFloat3("LightPos", m_light->GetTransform().GetTranslationPointer(), 0.1f, -9999.0f, 9999.0f);
 
 
 	ImGui::Render();

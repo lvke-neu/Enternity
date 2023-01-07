@@ -136,7 +136,6 @@ bool Engine::Initialize()
 
 void Engine::Run()
 {
-
 	while (!glfwWindowShouldClose(m_context))
 	{
 		//clear
@@ -157,6 +156,5 @@ void Engine::Run()
 		glfwPollEvents();
 	}
 }
-
 
 END_ENTERNITY

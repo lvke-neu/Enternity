@@ -8,5 +8,7 @@ Blending:red is under the blue
 
 Batch Rendering
 
+Ref的目的：为了不复制资源，我们用const T&，但是在多线程渲染或者其他场景下，在堆上创建的资源可能已经被释放了，所以使用Ref:addRef, Ref:release
+
 
 

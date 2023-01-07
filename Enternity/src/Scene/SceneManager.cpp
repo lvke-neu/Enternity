@@ -4,7 +4,6 @@
 
 BEGIN_ENTERNITY
 
-
 SceneManager::SceneManager()
 {
 	m_Triangle = new Triangle();
@@ -21,8 +20,6 @@ void SceneManager::Tick(float deltaTime)
 {
 	m_Triangle->draw();
 }
-
-
 
 END_ENTERNITY
 

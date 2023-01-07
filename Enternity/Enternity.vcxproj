@@ -159,9 +159,6 @@
   <ItemGroup>
     <Image Include="res\striated.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="src\Transform\tmp.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

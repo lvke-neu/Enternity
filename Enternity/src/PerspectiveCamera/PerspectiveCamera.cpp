@@ -28,29 +28,44 @@ void PerspectiveCamera::RotateAlongYAxis(float angle)
 	m_Transform.RotateAlongYAxis(angle);
 }
 
-Transform & PerspectiveCamera::GetTransform()
+const glm::vec3 & PerspectiveCamera::GetTranslation() const
 {
-	return m_Transform;
+	return m_Transform.GetTranslation();
 }
 
-void PerspectiveCamera::SetTransform(const Transform & transform)
+void PerspectiveCamera::SetTranslation(const glm::vec3 & translation)
 {
-	m_Transform = transform;
+	m_Transform.SetTranslation(translation);
 }
 
-void PerspectiveCamera::SetFrustum(const Frustum & frustum)
+const glm::vec3 & PerspectiveCamera::GetRotation() const
 {
-	m_Frustum = frustum;
+	return m_Transform.GetRotation();
 }
 
-mat4 PerspectiveCamera::GetViewMatrix() const
+void PerspectiveCamera::SetRotation(const glm::vec3 & rotation)
 {
-	return inverse(m_Transform.GetWorldMatrix());
+	m_Transform.SetRotation(rotation);
 }
 
-mat4 PerspectiveCamera::GetProjectMatrix() const
+const glm::vec3 & PerspectiveCamera::GetScale() const
 {
-	return perspective<float>(m_Frustum.FovAngleY, m_Frustum.AspectRatio, m_Frustum.NearZ, m_Frustum.FarZ);
+	return m_Transform.GetScale();
+}
+
+void PerspectiveCamera::SetScale(const glm::vec3 & scale)
+{
+	m_Transform.SetScale(scale);
+}
+
+glm::mat4 PerspectiveCamera::GetViewMatrix() const
+{
+	return glm::inverse(m_Transform.GetWorldMatrix());
+}
+
+glm::mat4 PerspectiveCamera::GetProjectMatrix() const
+{
+	return glm::perspective<float>(m_Frustum.FovAngleY, m_Frustum.AspectRatio, m_Frustum.NearZ, m_Frustum.FarZ);
 }
 
 

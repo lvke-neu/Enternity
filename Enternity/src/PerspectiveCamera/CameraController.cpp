@@ -76,5 +76,4 @@ void CameraController::tick(float deltaTime)
 	}
 }
 
-	
 END_ENTERNITY

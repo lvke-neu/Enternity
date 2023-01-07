@@ -12,7 +12,7 @@ BEGIN_ENTERNITY
 
 struct  Frustum
 {
-	float FovAngleY = pi<float>() / 3.0f;
+	float FovAngleY = glm::pi<float>() / 3.0f;
 	float AspectRatio = 0.5f;
 	float NearZ = 1.0f;
 	float FarZ = 1000.0f;
@@ -29,13 +29,25 @@ public:
 	void MoveZAxis(float distance);
 	void RotateAlongXAxis(float angle);
 	void RotateAlongYAxis(float angle);
+public:
+	GET_SET(Transform, Transform);
+	GET_SET(Frustum, Frustum);
 
-	Transform& GetTransform();
-	void SetTransform(const Transform& transform);
-	void SetFrustum(const Frustum& frustum);
+	const glm::vec3& GetTranslation() const;
+	void SetTranslation(const glm::vec3& translation);
 
-	mat4 GetViewMatrix() const;
-	mat4 GetProjectMatrix() const;
+	const glm::vec3& GetRotation() const;
+	void SetRotation(const glm::vec3& rotation);
+
+	const glm::vec3& GetScale() const;
+	void SetScale(const glm::vec3& scale);
+
+	glm::mat4 GetViewMatrix() const;
+	glm::mat4 GetProjectMatrix() const;
+
+	float* GetTranslationPointer() { return m_Transform.GetTranslationPointer(); }
+	float* GetRotationPointer() { return m_Transform.GetRotationPointer(); }
+	float* GetScalePointer() { return m_Transform.GetScalePointer(); }
 private:
 	Transform m_Transform;
 	Frustum m_Frustum;

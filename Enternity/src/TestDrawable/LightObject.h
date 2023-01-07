@@ -20,6 +20,10 @@ public:
 	}
 private:
 	void operationScene();
+
+	float* GetTranslationPointer() { return m_Transform.GetTranslationPointer(); }
+	float* GetRotationPointer() { return m_Transform.GetRotationPointer(); }
+	float* GetScalePointer() { return m_Transform.GetScalePointer(); }
 private:
 	VertexArray* vertexArray;
 	VertexBuffer* vertexbuffer;

@@ -8,7 +8,7 @@ BEGIN_ENTERNITY
 
 LightObject::LightObject()
 {
-	m_Transform.SetTranslation(vec3(0.0f, 0.0f, 0.0f));
+	m_Transform.SetTranslation(glm::vec3(0.0f, 0.0f, 0.0f));
 
 	//vertexbuffer
 	struct VertexPosTex
