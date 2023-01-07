@@ -24,6 +24,9 @@ private:
 	Shader* shader;
 	Texture* texture;
 
+	glm::vec3 m_color{ 1.0f,1.0f,1.0f };
+	bool m_useColor = true;
+
 	Transform m_Transform;
 
 	LightObject* m_light{ nullptr };

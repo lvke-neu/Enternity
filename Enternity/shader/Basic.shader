@@ -39,12 +39,17 @@ uniform vec4 u_lightSpecular;
 uniform vec4 u_materialSpecular;
 uniform vec3 u_eyePos;
 
+uniform int u_useColor;
+uniform vec3 u_Color;
+
 uniform sampler2D u_texture;
 
 void main() 
 {
-	pixelColor = texture(u_texture, v_texcoord);
-	pixelColor = vec4(1, 1, 1, 1.0f);
+	if(u_useColor == 1)
+		pixelColor = vec4(u_Color, 1.0f);
+	else
+		pixelColor = texture(u_texture, v_texcoord);
 
 	vec4 ambient = u_lightAmbient * u_materialAmbient ;
 	
@@ -57,7 +62,7 @@ void main()
 	vec4 specular;
 	vec3 viewDir = normalize(u_eyePos - v_position);
 	vec3 reflectDir = reflect(normalize(u_lightDir), normalW);
-	float spec = pow(max(dot(viewDir, reflectDir), 0.0f), 32);
+	float spec = pow(max(dot(viewDir, reflectDir), 0.0f), 128);
 	specular = u_lightSpecular * u_materialSpecular * spec ;
 
 	pixelColor = pixelColor * (ambient + diffuse + specular);

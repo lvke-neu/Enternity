@@ -28,6 +28,7 @@ public:
 	virtual void Bind() const override;
 	virtual void UnBind() const override;
 
+	
 	void SetInteger1(const std::string& name, int value);
 	void SetFloat3(const std::string& name, float v0, float v1, float v2);
 	void SetFloat3(const std::string& name, const glm::vec3& v3);

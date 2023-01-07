@@ -185,8 +185,13 @@ void Triangle::draw()
 	ImGui::DragFloat3("ModelPos", m_Transform.GetTranslationPointer(), 0.1f, -9999.0f, 9999.0f);
 	ImGui::DragFloat3("ModelRot", m_Transform.GetRotationPointer(), 0.1f, -9999.0f, 9999.0f);
 	ImGui::DragFloat3("ModelScale", m_Transform.GetScalePointer(), 0.1f, -9999.0f, 9999.0f);
-	ImGui::NewLine();
 
+
+	ImGui::Checkbox("Use", &m_useColor);
+	ImGui::SameLine();
+	ImGui::ColorEdit3("ModelColor", &m_color[0]);
+	
+	ImGui::NewLine();
 
 	ImGui::DragFloat3("CameraPos", PerspectiveCamera::GetInstance().GetTranslationPointer(), 0.1f, -9999.0f, 9999.0f);
 	ImGui::DragFloat3("CameraRot", PerspectiveCamera::GetInstance().GetRotationPointer(), 0.1f, -9999.0f, 9999.0f);
@@ -226,6 +231,9 @@ void Triangle::operationScene()
 	shader->SetMat4f("u_m", modelMat);
 	shader->SetFloat3("u_lightDir", m_Transform.GetTranslation() - m_light->GetTransform().GetTranslation());
 	shader->SetFloat3("u_eyePos", PerspectiveCamera::GetInstance().GetTransform().GetTranslation());
+
+	shader->SetInteger1("u_useColor", m_useColor);
+	shader->SetFloat3("u_Color", m_color);
 }
 
 END_ENTERNITY
