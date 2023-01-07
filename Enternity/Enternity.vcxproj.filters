@@ -199,12 +199,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shader\Basic.shader" />
     <None Include="..\README.md" />
-    <None Include="shader\Light.shader" />
+    <None Include="assets\shaders\Basic.shader" />
+    <None Include="assets\shaders\Light.shader" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\striated.png">
+    <Image Include="assets\textures\striated.png">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

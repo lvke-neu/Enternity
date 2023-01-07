@@ -105,7 +105,7 @@ Triangle::Triangle()
 	indexbuffer = new IndexBuffer(indices, 36);
 
 	//shader
-	shader = new Shader("shader/Basic.shader");
+	shader = new Shader("assets/shaders/Basic.shader");
 	shader->Bind();
 	//shader->Bind();
 	//shader->SetFloat4("u_color1", 1.0f, 0.0f, 0.0f, 1.0f);
@@ -114,8 +114,8 @@ Triangle::Triangle()
 	//shader->SetFloat4("u_color13", 1.0f, 0.0f, 0.0f, 1.0f);
 	
 	//texture
-	texture = new Texture("res/skybox.jpeg");
-	texture2 = new Texture("res/atmosphere.png");
+	texture = new Texture("assets/textures/skybox.jpeg");
+	texture2 = new Texture("assets/textures/atmosphere.png");
 
 	shader->SetInteger1("u_texture", 0);
 	shader->SetInteger1("u_texture2", 1);
@@ -144,23 +144,13 @@ Triangle::Triangle()
 
 	shader->SetFloat4("u_lightSpecular", dirLight.specular);
 	shader->SetFloat4("u_materialSpecular", material.specular);
-	
 
-	
 	//unbind
 	vertexbuffer->UnBind();
 	indexbuffer->UnBind();
 	vertexArray->UnBind();
 	shader->UnBind();
 	texture->UnBind();
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-	glEnable(GL_DEPTH_TEST);
-
-	
 }
 
 void Triangle::draw()

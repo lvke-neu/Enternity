@@ -97,7 +97,7 @@ LightObject::LightObject()
 	indexbuffer = new IndexBuffer(indices, 36);
 
 	//shader
-	shader = new Shader("shader/Light.shader");
+	shader = new Shader("assets/shaders/Light.shader");
 	//shader->Bind();
 	//shader->SetFloat4("u_color1", 1.0f, 0.0f, 0.0f, 1.0f);
 	//shader->SetFloat4("u_color1", 1.0f, 0.0f, 0.0f, 1.0f);

@@ -153,11 +153,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
-    <None Include="shader\Basic.shader" />
-    <None Include="shader\Light.shader" />
+    <None Include="assets\shaders\Basic.shader" />
+    <None Include="assets\shaders\Light.shader" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\striated.png" />
+    <Image Include="assets\textures\striated.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
