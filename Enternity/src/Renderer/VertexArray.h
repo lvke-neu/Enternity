@@ -46,7 +46,7 @@ public:
 	~VertexArray();
 
 	void Add(const VertexBuffer& vertexBuffer, const VertexBufferLayout& vertexBufferLayout);
-	virtual void Bind() const override;
+	virtual void Bind(unsigned int slot = 0) const override;
 	virtual void UnBind() const override;
 };
 

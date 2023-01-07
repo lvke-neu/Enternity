@@ -15,7 +15,7 @@ IndexBuffer::~IndexBuffer()
 	CHECK_GL_CALL(CHECK_GL_CALL(glDeleteBuffers(1, &m_rendererId)));
 }
 
-void IndexBuffer::Bind() const
+void IndexBuffer::Bind(unsigned int slot) const
 {
 	CHECK_GL_CALL(CHECK_GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_rendererId)));
 }

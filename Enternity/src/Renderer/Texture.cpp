@@ -28,7 +28,7 @@ Texture::~Texture()
 	CHECK_GL_CALL(glDeleteTextures(1, &m_rendererId));
 }
 
-void Texture::Bind(unsigned int slot)
+void Texture::Bind(unsigned int slot) const
 {
 	CHECK_GL_CALL(glActiveTexture(GL_TEXTURE0 + slot));
 	CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, m_rendererId));

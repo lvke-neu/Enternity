@@ -17,8 +17,7 @@ public:
 	Texture(const std::string& filePath);
 	virtual ~Texture();
 	
-	void Bind(unsigned int slot);
-	virtual void Bind() const {};
+	virtual void Bind(unsigned int slot = 0) const override;
 	virtual void UnBind() const override;
 private:
 	unsigned char* m_localBuffer{ nullptr };

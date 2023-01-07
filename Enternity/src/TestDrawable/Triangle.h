@@ -23,6 +23,7 @@ private:
 	IndexBuffer* indexbuffer;
 	Shader* shader;
 	Texture* texture;
+	Texture* texture2;
 
 	glm::vec3 m_color{ 1.0f,1.0f,1.0f };
 	bool m_useColor = true;

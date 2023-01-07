@@ -17,7 +17,7 @@ public:
 	virtual ~IndexBuffer();
 
 	inline unsigned int GetCount() { return m_count; }
-	virtual void Bind() const override;
+	virtual void Bind(unsigned int slot = 0) const override;
 	virtual void UnBind() const override;
 private:
 	unsigned int m_count;

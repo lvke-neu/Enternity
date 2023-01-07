@@ -14,7 +14,7 @@ BEGIN_ENTERNITY
 class IBindable
 {
 public:
-	virtual void Bind() const = 0;
+	virtual void Bind(unsigned int slot = 0) const = 0;
 	virtual void UnBind() const = 0;
 	virtual ~IBindable() = default;
 protected:

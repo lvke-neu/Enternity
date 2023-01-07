@@ -43,13 +43,14 @@ uniform int u_useColor;
 uniform vec3 u_Color;
 
 uniform sampler2D u_texture;
+uniform sampler2D u_texture2;
 
 void main() 
 {
 	if(u_useColor == 1)
-		pixelColor = vec4(u_Color, 1.0f);
-	else
 		pixelColor = texture(u_texture, v_texcoord);
+	else
+		pixelColor = texture(u_texture2, v_texcoord);
 
 	vec4 ambient = u_lightAmbient * u_materialAmbient ;
 	

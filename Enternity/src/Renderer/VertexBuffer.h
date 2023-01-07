@@ -16,7 +16,7 @@ public:
 	VertexBuffer(const void* vertices, unsigned int size);
 	virtual ~VertexBuffer();
 	
-	virtual void Bind() const override;
+	virtual void Bind(unsigned int slot = 0) const override;
 	virtual void UnBind() const override;
 };
 

@@ -106,6 +106,7 @@ Triangle::Triangle()
 
 	//shader
 	shader = new Shader("shader/Basic.shader");
+	shader->Bind();
 	//shader->Bind();
 	//shader->SetFloat4("u_color1", 1.0f, 0.0f, 0.0f, 1.0f);
 	//shader->SetFloat4("u_color1", 1.0f, 0.0f, 0.0f, 1.0f);
@@ -114,9 +115,11 @@ Triangle::Triangle()
 	
 	//texture
 	texture = new Texture("res/skybox.jpeg");
-	texture->Bind(0);
-	shader->Bind();
+	texture2 = new Texture("res/striated.png");
+
 	shader->SetInteger1("u_texture", 0);
+	shader->SetInteger1("u_texture2", 1);
+	
 
 	//light and material
 	DirectionLight dirLight
@@ -166,6 +169,7 @@ void Triangle::draw()
 	vertexArray->Bind();
 	indexbuffer->Bind();
 	texture->Bind(0);
+	texture2->Bind(1);
 	operationScene();
 	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
 

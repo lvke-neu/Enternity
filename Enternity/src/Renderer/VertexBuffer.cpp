@@ -14,7 +14,7 @@ VertexBuffer::~VertexBuffer()
 	CHECK_GL_CALL(glDeleteBuffers(1, &m_rendererId));
 }
 
-void VertexBuffer::Bind() const
+void VertexBuffer::Bind(unsigned int slot) const
 {
 	CHECK_GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, m_rendererId));
 }

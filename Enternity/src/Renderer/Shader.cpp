@@ -17,7 +17,7 @@ Shader::~Shader()
 	CHECK_GL_CALL(glDeleteProgram(m_rendererId));
 }
 
-void Shader::Bind() const
+void Shader::Bind(unsigned int slot) const
 {
 	CHECK_GL_CALL(glUseProgram(m_rendererId));
 }

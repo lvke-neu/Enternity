@@ -24,7 +24,7 @@ void VertexArray::Add(const VertexBuffer & vertexBuffer, const VertexBufferLayou
 	}
 }
 
-void VertexArray::Bind() const
+void VertexArray::Bind(unsigned int slot) const
 {
 	CHECK_GL_CALL(glBindVertexArray(m_rendererId));
 }
