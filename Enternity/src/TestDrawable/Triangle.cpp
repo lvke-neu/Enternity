@@ -105,7 +105,7 @@ Triangle::Triangle()
 	indexbuffer = new IndexBuffer(indices, 36);
 
 	//shader
-	shader = new Shader("assets/shaders/Basic.shader");
+	shader = new Shader("assets/shaders/Basic.glsl");
 	shader->Bind();
 	//shader->Bind();
 	//shader->SetFloat4("u_color1", 1.0f, 0.0f, 0.0f, 1.0f);

@@ -200,8 +200,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
-    <None Include="assets\shaders\Basic.shader" />
-    <None Include="assets\shaders\Light.shader" />
+    <None Include="assets\shaders\Basic.glsl" />
+    <None Include="assets\shaders\Light.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\striated.png">
