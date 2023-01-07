@@ -115,7 +115,7 @@ Triangle::Triangle()
 	
 	//texture
 	texture = new Texture("res/skybox.jpeg");
-	texture2 = new Texture("res/striated.png");
+	texture2 = new Texture("res/atmosphere.png");
 
 	shader->SetInteger1("u_texture", 0);
 	shader->SetInteger1("u_texture2", 1);
@@ -154,8 +154,8 @@ Triangle::Triangle()
 	shader->UnBind();
 	texture->UnBind();
 
-	//glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	glEnable(GL_DEPTH_TEST);

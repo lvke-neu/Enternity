@@ -6,7 +6,7 @@ BEGIN_ENTERNITY
 Texture::Texture(const std::string& filePath)
 {
 	stbi_set_flip_vertically_on_load(1);
-	m_localBuffer = stbi_load(filePath.c_str(), &m_width, &m_height, &m_bpp, 4);
+	m_localBuffer = stbi_load(filePath.c_str(), &m_width, &m_height, &m_channels, 0);
 
 	CHECK_GL_CALL(glGenTextures(1, &m_rendererId));
 	CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, m_rendererId));
@@ -16,9 +16,15 @@ Texture::Texture(const std::string& filePath)
 	CHECK_GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
 	CHECK_GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
 
-
-	CHECK_GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_localBuffer));
-
+	if (m_channels == 3)
+	{
+		CHECK_GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, m_localBuffer));
+	}
+	else if (m_channels == 4)
+	{
+		CHECK_GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_localBuffer));
+	}
+		
 	if (m_localBuffer)
 		stbi_image_free(m_localBuffer);
 }

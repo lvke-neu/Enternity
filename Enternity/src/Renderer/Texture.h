@@ -23,7 +23,7 @@ private:
 	unsigned char* m_localBuffer{ nullptr };
 	int m_width{ 0 };
 	int m_height{ 0 };
-	int m_bpp{ 0 };
+	int m_channels{ 0 };
 };
 
 END_ENTERNITY
