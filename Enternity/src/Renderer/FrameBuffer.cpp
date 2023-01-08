@@ -63,7 +63,13 @@ void FrameBuffer::Rebuild(unsigned int width, unsigned int height)
 	//	LOG_ERROR("Framebuffer is not complete!");
 
 	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
+	;
+	;
+	glDeleteFramebuffers(1, &m_rendererId);
+	glDeleteFramebuffers(1, &m_rendererIdTmp);
+	glDeleteTextures(1, &m_texRendererId);
+	glDeleteTextures(1, &m_texRendererIdTmp);
+	glDeleteRenderbuffers(1, &m_renderBufferId);
 
 	glGenFramebuffers(1, &m_rendererId);
 	glBindFramebuffer(GL_FRAMEBUFFER, m_rendererId);
