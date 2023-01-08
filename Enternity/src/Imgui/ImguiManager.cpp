@@ -130,8 +130,8 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 	auto viewport = ImGui::GetContentRegionAvail();
 	if (m_width != viewport.x || m_height != viewport.y)
 	{
-		m_width = viewport.x;
-		m_height = viewport.y;
+		m_width = (uint32_t)viewport.x;
+		m_height = (uint32_t)viewport.y;
 		Engine::GetInstance().Resize(m_width, m_height);
 	}
 	
