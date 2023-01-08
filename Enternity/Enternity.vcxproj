@@ -104,6 +104,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PerspectiveCamera\CameraController.cpp" />
     <ClCompile Include="src\PerspectiveCamera\PerspectiveCamera.cpp" />
+    <ClCompile Include="src\Renderer\FrameBuffer.cpp" />
     <ClCompile Include="src\Renderer\glad.c" />
     <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Shader.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="src\Material\Material.h" />
     <ClInclude Include="src\PerspectiveCamera\CameraController.h" />
     <ClInclude Include="src\PerspectiveCamera\PerspectiveCamera.h" />
+    <ClInclude Include="src\Renderer\FrameBuffer.h" />
     <ClInclude Include="src\Renderer\IndexBuffer.h" />
     <ClInclude Include="src\Renderer\Interface\BindableInterface.h" />
     <ClInclude Include="src\Renderer\Shader.h" />

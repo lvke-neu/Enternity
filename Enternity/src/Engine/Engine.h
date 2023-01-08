@@ -7,6 +7,7 @@ Engine
 #pragma once
 
 #include "Macro/Macro.h"
+#include "Renderer/FrameBuffer.h"
 #include "Timer/GameTimer.h"
 
 struct GLFWwindow;
@@ -19,6 +20,9 @@ public:
 	bool Initialize();
 	void Run();
 	void ShutDown();
+	inline FrameBuffer* GetFrameBuffer() { return m_framebuffer; }
+
+	void Resize(int width, int height);
 private:
 	Engine() = default; 
 	~Engine();
@@ -28,6 +32,8 @@ private:
 	GLFWwindow* m_context{ nullptr };
 	GameTimer m_timer;
 	bool m_userNeedShutDown = false;
+
+	FrameBuffer* m_framebuffer{ nullptr };
 };
 
 END_ENTERNITY

@@ -1,3 +1,5 @@
+#pragma warning(disable:4312) 
+
 #include "ImguiManager.h"
 #include "Engine/Engine.h"
 #include "Renderer/Texture.h"
@@ -120,9 +122,10 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 
 	//test image
 	ImGui::Begin("viewport");
-	static Texture* texture = new Texture("assets/textures/striated.png");
-	auto id = texture->GetRendererId();
-	ImGui::Image((void*)id, { 660,660 }, { 0, 1 }, { 1, 0 });
+	//Engine::GetInstance().Resize(ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
+	
+	auto id = Engine::GetInstance().GetFrameBuffer()->GetTextureRendererId();
+	ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
 	ImGui::End();
 
 	ImGui::End();

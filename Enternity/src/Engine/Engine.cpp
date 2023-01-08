@@ -76,6 +76,7 @@ void MouseMoveEvent(GLFWwindow* window, double xpos, double ypos)
 
 Engine::~Engine()
 {
+	SAFE_DELETE_SET_NULL(m_framebuffer);
 	ImguiManager::GetInstance().Release();
 	glfwTerminate();
 }
@@ -125,6 +126,10 @@ bool Engine::Initialize()
 	//viewport
 	glViewport(0, 0, WINDOW_WIDHT, WINDOW_HEIGHT);
 
+
+	//framebuffer
+	m_framebuffer = new FrameBuffer(WINDOW_WIDHT, WINDOW_HEIGHT);
+
 	//hardware info
 	LOG_INFO((char*)glGetString(GL_VERSION));
 	LOG_INFO((char*)glGetString(GL_VENDOR));
@@ -148,28 +153,50 @@ void Engine::Run()
 {
 	while (!glfwWindowShouldClose(m_context) && !m_userNeedShutDown)
 	{
-		//clear
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//render to my framebuffer
+		{
+			m_framebuffer->Bind();
+			//clear
+			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//tick event,  The unit of deltaTime is second
-		ImGuiIO& io = ImGui::GetIO();
-		TickEventManager::GetInstance().NotifyTick(1000.0f / io.Framerate / 1000.0f);
+			//tick event,  The unit of deltaTime is second
+			ImGuiIO& io = ImGui::GetIO();
+			TickEventManager::GetInstance().NotifyTick(1000.0f / io.Framerate / 1000.0f);
 
-		//scene
-		SceneManager::GetInstance().Tick(1000.0f / io.Framerate / 1000.0f);
+			//scene
+			SceneManager::GetInstance().Tick(1000.0f / io.Framerate / 1000.0f);
+		}
 
-		//imgui
-		ImguiManager::GetInstance().Draw();
+		//render imgui to screen or window
+		{
+			//imgui
+			m_framebuffer->UnBind();
+			//clear
+			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			ImguiManager::GetInstance().Draw();
 
-		glfwSwapBuffers(m_context);
-		glfwPollEvents();
+			glfwSwapBuffers(m_context);
+			glfwPollEvents();
+		}
 	}
 }
 
 void Engine::ShutDown()
 {
 	m_userNeedShutDown = true;
+}
+
+void Engine::Resize(int width, int height)
+{
+	glViewport(0, 0, width, height);
+	if (width == 0 && height == 0)
+		return;
+	PerspectiveCamera::GetInstance().SetFrustum({ glm::pi<float>() / 3, static_cast<float>(width) / height, 1, 1000 });
+	m_framebuffer->Rebuild(width, height);
+
+	LOG_INFO("Resize:" + std::to_string(width) + "," + std::to_string(height));
 }
 
 END_ENTERNITY

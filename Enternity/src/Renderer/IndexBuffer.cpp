@@ -4,7 +4,7 @@ BEGIN_ENTERNITY
 
 IndexBuffer::IndexBuffer(const unsigned int * indices, unsigned int count):
 	m_count(count)
-{
+{ 
 	CHECK_GL_CALL(glGenBuffers(1, &m_rendererId));
 	CHECK_GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_rendererId));
 	CHECK_GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), indices, GL_STATIC_DRAW));
