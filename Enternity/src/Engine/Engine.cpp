@@ -15,15 +15,6 @@ BEGIN_ENTERNITY
 #define WINDOW_HEIGHT 600
 #define WINDOW_TITLE "Enternity Engine"
 
-void OnResize(GLFWwindow* context, int width, int height)
-{
-	glViewport(0, 0, width, height);
-	if (width == 0 && height == 0)
-		return;
-	PerspectiveCamera::GetInstance().SetFrustum({ glm::pi<float>() / 3, static_cast<float>(width) / height, 1, 1000 });
-	LOG_INFO("Resize:" + std::to_string(width) + "," + std::to_string(height));
-}
-
 void KeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (action == GLFW_RELEASE)
@@ -136,7 +127,6 @@ bool Engine::Initialize()
 	LOG_INFO((char*)glGetString(GL_RENDERER));
 
 	//all kinds of callback	
-	glfwSetFramebufferSizeCallback(m_context, OnResize);
 	glfwSetKeyCallback(m_context, KeyEvent);
 	glfwSetMouseButtonCallback(m_context, MouseButtonEvent);
 	glfwSetCursorPosCallback(m_context, MouseMoveEvent);
@@ -174,8 +164,8 @@ void Engine::Run()
 			//imgui
 			m_framebuffer->UnBind();
 			//clear
-			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			ImguiManager::GetInstance().Draw();
 		}
 
