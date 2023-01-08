@@ -22,6 +22,8 @@ public:
 	void Initialize(GLFWwindow* context);
 	void Draw();
 	void Release();
+private:
+	void ShowDockSpace(bool* p_open);
 };
 
 END_ENTERNITY

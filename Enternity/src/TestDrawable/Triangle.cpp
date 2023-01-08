@@ -166,36 +166,36 @@ void Triangle::draw()
 	m_light->draw();
 	
 
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplGlfw_NewFrame();
-	ImGui::NewFrame();
+	//ImGui_ImplOpenGL3_NewFrame();
+	//ImGui_ImplGlfw_NewFrame();
+	//ImGui::NewFrame();
 
 
-	static bool b = true;
-	ImGui::ShowDemoWindow(&b);
-	ImGui::ShowMetricsWindow(&b);
+	//static bool b = true;
+	//ImGui::ShowDemoWindow(&b);
+	//ImGui::ShowMetricsWindow(&b);
 
-	
-	ImGui::DragFloat3("ModelPos", m_Transform.GetTranslationPointer(), 0.1f, -9999.0f, 9999.0f);
-	ImGui::DragFloat3("ModelRot", m_Transform.GetRotationPointer(), 0.1f, -9999.0f, 9999.0f);
-	ImGui::DragFloat3("ModelScale", m_Transform.GetScalePointer(), 0.1f, -9999.0f, 9999.0f);
-
-
-	ImGui::Checkbox("Use", &m_useColor);
-	ImGui::SameLine();
-	ImGui::ColorEdit3("ModelColor", &m_color[0]);
-	
-	ImGui::NewLine();
-
-	ImGui::DragFloat3("CameraPos", PerspectiveCamera::GetInstance().GetTranslationPointer(), 0.1f, -9999.0f, 9999.0f);
-	ImGui::DragFloat3("CameraRot", PerspectiveCamera::GetInstance().GetRotationPointer(), 0.1f, -9999.0f, 9999.0f);
-
-	ImGui::NewLine();
-	ImGui::DragFloat3("LightPos", m_light->GetTransform().GetTranslationPointer(), 0.1f, -9999.0f, 9999.0f);
+	//
+	//ImGui::DragFloat3("ModelPos", m_Transform.GetTranslationPointer(), 0.1f, -9999.0f, 9999.0f);
+	//ImGui::DragFloat3("ModelRot", m_Transform.GetRotationPointer(), 0.1f, -9999.0f, 9999.0f);
+	//ImGui::DragFloat3("ModelScale", m_Transform.GetScalePointer(), 0.1f, -9999.0f, 9999.0f);
 
 
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	//ImGui::Checkbox("Use", &m_useColor);
+	//ImGui::SameLine();
+	//ImGui::ColorEdit3("ModelColor", &m_color[0]);
+	//
+	//ImGui::NewLine();
+
+	//ImGui::DragFloat3("CameraPos", PerspectiveCamera::GetInstance().GetTranslationPointer(), 0.1f, -9999.0f, 9999.0f);
+	//ImGui::DragFloat3("CameraRot", PerspectiveCamera::GetInstance().GetRotationPointer(), 0.1f, -9999.0f, 9999.0f);
+
+	//ImGui::NewLine();
+	//ImGui::DragFloat3("LightPos", m_light->GetTransform().GetTranslationPointer(), 0.1f, -9999.0f, 9999.0f);
+
+
+	//ImGui::Render();
+	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 Triangle::~Triangle()

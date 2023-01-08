@@ -17,6 +17,7 @@ public:
 	virtual void Bind(unsigned int slot = 0) const = 0;
 	virtual void UnBind() const = 0;
 	virtual ~IBindable() = default;
+	inline unsigned int GetRendererId() const { return m_rendererId; }
 protected:
 	unsigned int m_rendererId;
 };

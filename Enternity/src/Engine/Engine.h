@@ -18,6 +18,7 @@ class Engine
 public:
 	bool Initialize();
 	void Run();
+	void ShutDown();
 private:
 	Engine() = default; 
 	~Engine();
@@ -26,6 +27,7 @@ private:
 private:
 	GLFWwindow* m_context{ nullptr };
 	GameTimer m_timer;
+	bool m_userNeedShutDown = false;
 };
 
 END_ENTERNITY

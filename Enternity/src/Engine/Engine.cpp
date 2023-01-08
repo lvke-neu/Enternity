@@ -122,14 +122,15 @@ bool Engine::Initialize()
 	//depth tes
 	glEnable(GL_DEPTH_TEST);
 
+	//viewport
+	glViewport(0, 0, WINDOW_WIDHT, WINDOW_HEIGHT);
+
 	//hardware info
 	LOG_INFO((char*)glGetString(GL_VERSION));
 	LOG_INFO((char*)glGetString(GL_VENDOR));
 	LOG_INFO((char*)glGetString(GL_RENDERER));
 
-
-	//all kind of callback
-	glViewport(0, 0, WINDOW_WIDHT, WINDOW_HEIGHT);
+	//all kinds of callback	
 	glfwSetFramebufferSizeCallback(m_context, OnResize);
 	glfwSetKeyCallback(m_context, KeyEvent);
 	glfwSetMouseButtonCallback(m_context, MouseButtonEvent);
@@ -145,7 +146,7 @@ bool Engine::Initialize()
 
 void Engine::Run()
 {
-	while (!glfwWindowShouldClose(m_context))
+	while (!glfwWindowShouldClose(m_context) && !m_userNeedShutDown)
 	{
 		//clear
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -164,6 +165,11 @@ void Engine::Run()
 		glfwSwapBuffers(m_context);
 		glfwPollEvents();
 	}
+}
+
+void Engine::ShutDown()
+{
+	m_userNeedShutDown = true;
 }
 
 END_ENTERNITY
