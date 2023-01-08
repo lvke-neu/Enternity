@@ -156,6 +156,7 @@ void Engine::Run()
 		//render to my framebuffer
 		{
 			m_framebuffer->Bind();
+
 			//clear
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -176,10 +177,10 @@ void Engine::Run()
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			ImguiManager::GetInstance().Draw();
-
-			glfwSwapBuffers(m_context);
-			glfwPollEvents();
 		}
+
+		glfwSwapBuffers(m_context);
+		glfwPollEvents();
 	}
 }
 

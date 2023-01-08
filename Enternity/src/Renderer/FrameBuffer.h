@@ -24,6 +24,7 @@ public:
 private:
 	unsigned int m_texRendererId;
 	unsigned int m_renderBufferId;
+
 };
 
 END_ENTERNITY

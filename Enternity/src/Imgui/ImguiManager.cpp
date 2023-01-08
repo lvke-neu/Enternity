@@ -121,12 +121,23 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 	ImGui::ShowMetricsWindow(p_open);
 
 	//test image
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0, 0 });
 	ImGui::Begin("viewport");
-	//Engine::GetInstance().Resize(ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
+
+	auto viewport = ImGui::GetContentRegionAvail();
+	if (m_width != viewport.x || m_height != viewport.y)
+	{
+		m_width = viewport.x;
+		m_height = viewport.y;
+		Engine::GetInstance().Resize(m_width, m_height);
+	}
+	
 	
 	auto id = Engine::GetInstance().GetFrameBuffer()->GetTextureRendererId();
 	ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
 	ImGui::End();
+	ImGui::PopStyleVar();
+
 
 	ImGui::End();
 }

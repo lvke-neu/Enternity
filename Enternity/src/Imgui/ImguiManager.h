@@ -24,6 +24,10 @@ public:
 	void Release();
 private:
 	void ShowDockSpace(bool* p_open);
+
+	unsigned int m_width;
+	unsigned int m_height;
+
 };
 
 END_ENTERNITY

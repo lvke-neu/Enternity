@@ -10,6 +10,8 @@ FrameBuffer::FrameBuffer(unsigned int width, unsigned int height)
 FrameBuffer::~FrameBuffer()
 {
 	glDeleteFramebuffers(1, &m_rendererId);
+	glDeleteTextures(1, &m_texRendererId);
+	glDeleteRenderbuffers(1, &m_renderBufferId);
 }
 
 void FrameBuffer::Bind(unsigned int slot) const
@@ -25,6 +27,8 @@ void FrameBuffer::UnBind() const
 void FrameBuffer::Rebuild(unsigned int width, unsigned int height)
 {
 	glDeleteFramebuffers(1, &m_rendererId);
+	glDeleteTextures(1, &m_texRendererId);
+	glDeleteRenderbuffers(1, &m_renderBufferId);
 
 	glGenFramebuffers(1, &m_rendererId);
 	glBindFramebuffer(GL_FRAMEBUFFER, m_rendererId);
