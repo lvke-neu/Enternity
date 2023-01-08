@@ -157,6 +157,8 @@ void Engine::Run()
 
 			//scene
 			SceneManager::GetInstance().Tick(1000.0f / io.Framerate / 1000.0f);
+
+			m_framebuffer->Resolve();
 		}
 
 		//render imgui to screen or window
@@ -164,8 +166,8 @@ void Engine::Run()
 			//imgui
 			m_framebuffer->UnBind();
 			//clear
-			//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-			//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			ImguiManager::GetInstance().Draw();
 		}
 

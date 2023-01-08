@@ -104,6 +104,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PerspectiveCamera\CameraController.cpp" />
     <ClCompile Include="src\PerspectiveCamera\PerspectiveCamera.cpp" />
+    <ClCompile Include="src\Renderer\111.cpp" />
     <ClCompile Include="src\Renderer\FrameBuffer.cpp" />
     <ClCompile Include="src\Renderer\glad.c" />
     <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
