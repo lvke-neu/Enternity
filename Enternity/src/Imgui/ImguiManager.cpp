@@ -2,6 +2,7 @@
 
 #include "ImguiManager.h"
 #include "Engine/Engine.h"
+#include "Event/InputEventManager.h"
 #include "Renderer/Texture.h"
 
 BEGIN_ENTERNITY
@@ -124,6 +125,8 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0, 0 });
 	ImGui::Begin("viewport");
 
+	InputEventManager::GetInstance().SetViewportFocused(ImGui::IsWindowHovered());
+
 	auto viewport = ImGui::GetContentRegionAvail();
 	if (m_width != viewport.x || m_height != viewport.y)
 	{
@@ -131,7 +134,6 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 		m_height = viewport.y;
 		Engine::GetInstance().Resize(m_width, m_height);
 	}
-	
 	
 	auto id = Engine::GetInstance().GetFrameBuffer()->GetTextureRendererId();
 	ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });

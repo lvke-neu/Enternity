@@ -5,7 +5,11 @@ BEGIN_ENTERNITY
 
 void InputEventManager::NotifyKeyPress(Keyboard key)
 {
+	if (!m_viewportFocused)
+		return;
+
 	m_keyPressMap[key] = true;
+
 	for (auto& event : m_events)
 	{
 		if (dynamic_cast<InputEvent*>(event))
@@ -18,6 +22,10 @@ void InputEventManager::NotifyKeyPress(Keyboard key)
 void InputEventManager::NotifyKeyRelease(Keyboard key)
 {
 	m_keyPressMap[key] = false;
+
+	if (!m_viewportFocused)
+		return;
+
 	for (auto& event : m_events)
 	{
 		if (dynamic_cast<InputEvent*>(event))
@@ -29,6 +37,9 @@ void InputEventManager::NotifyKeyRelease(Keyboard key)
 
 void InputEventManager::NotifyMousePress(MouseState mouseState)
 {
+	if (!m_viewportFocused)
+		return;
+
 	for (auto& event : m_events)
 	{
 		if (dynamic_cast<InputEvent*>(event))
@@ -40,6 +51,9 @@ void InputEventManager::NotifyMousePress(MouseState mouseState)
 
 void InputEventManager::NotifyMouseRelease(MouseState mouseState)
 {
+	if (!m_viewportFocused)
+		return;
+
 	for (auto& event : m_events)
 	{
 		if (dynamic_cast<InputEvent*>(event))
@@ -51,6 +65,9 @@ void InputEventManager::NotifyMouseRelease(MouseState mouseState)
 
 void InputEventManager::NotifyMouseMove(MouseState mouseState)
 {
+	if (!m_viewportFocused)
+		return;
+
 	for (auto& event : m_events)
 	{
 		if (dynamic_cast<InputEvent*>(event))
@@ -62,6 +79,9 @@ void InputEventManager::NotifyMouseMove(MouseState mouseState)
 
 void InputEventManager::NotifyMouseWheel(MouseState mouseState)
 {
+	if (!m_viewportFocused)
+		return;
+
 	for (auto& event : m_events)
 	{
 		if (dynamic_cast<InputEvent*>(event))

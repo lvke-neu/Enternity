@@ -194,8 +194,10 @@ public:
 	void NotifyMouseWheel(MouseState mouseState);
 
     bool IsKeyPress(Keyboard key);
+	void SetViewportFocused(bool flag) { m_viewportFocused = flag; }
 private:
     std::map<Keyboard, bool> m_keyPressMap;
+	bool m_viewportFocused = true;
 };
 
 END_ENTERNITY

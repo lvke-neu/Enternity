@@ -192,7 +192,7 @@ void Engine::ShutDown()
 void Engine::Resize(int width, int height)
 {
 	glViewport(0, 0, width, height);
-	if (width == 0 && height == 0)
+	if (width <= 0 || height <= 0)
 		return;
 	PerspectiveCamera::GetInstance().SetFrustum({ glm::pi<float>() / 3, static_cast<float>(width) / height, 1, 1000 });
 	m_framebuffer->Rebuild(width, height);
