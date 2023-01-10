@@ -229,6 +229,7 @@
     <None Include="..\README.md" />
     <None Include="assets\shaders\Basic.glsl" />
     <None Include="assets\shaders\Light.glsl" />
+    <None Include="assets\shaders\TestECS.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\striated.png">

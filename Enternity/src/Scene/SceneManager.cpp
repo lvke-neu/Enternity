@@ -105,7 +105,11 @@ void SceneManager::InitializeComponent()
 		meshComponent.m_Indexbuffer = new IndexBuffer(indices, 36);
 
 		//shader
-		meshComponent.m_Shader = new Shader("assets/shaders/Light.glsl");
+		meshComponent.m_Shader = new Shader("assets/shaders/TestECS.glsl");
+		meshComponent.m_Shader->Bind();
+		//texture
+		meshComponent.m_Texture = new Texture("assets/textures/skybox.jpeg");
+		meshComponent.m_Shader->SetInteger1("u_texture", 0);
 	}
 	
 }
@@ -153,7 +157,7 @@ void SceneManager::Tick(float deltaTime)
 	meshComponent.m_Shader->SetMat4f("u_mvp", projMat * viewMat * modelMat);
 	meshComponent.m_VertexArray->Bind();
 	meshComponent.m_Indexbuffer->Bind();
-
+	meshComponent.m_Texture->Bind(0);
 
 	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, meshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
 
