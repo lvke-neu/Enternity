@@ -3,6 +3,7 @@
 #include "ImguiManager.h"
 #include "Engine/Engine.h"
 #include "Event/InputEventManager.h"
+#include "Event/ImguiDrawEventManager.h"
 #include "Renderer/Texture.h"
 
 BEGIN_ENTERNITY
@@ -139,6 +140,9 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 	ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
 	ImGui::End();
 	ImGui::PopStyleVar();
+
+	//imgui draw
+	ImguiDrawEventManager::GetInstance().NotifyImguiDraw();
 
 
 	ImGui::End();

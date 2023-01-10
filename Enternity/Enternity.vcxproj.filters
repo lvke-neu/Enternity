@@ -108,6 +108,9 @@
     <ClCompile Include="src\Scene\ECS\Entity\Entity.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Event\ImguiDrawEventManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macro\Macro.h">
@@ -216,6 +219,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\ECS\Component\Component.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Event\ImguiDrawEventManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

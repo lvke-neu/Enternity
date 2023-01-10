@@ -3,6 +3,7 @@
 #include "TestDrawable/Triangle.h"
 #include "ECS/Component/Component.h"
 #include "PerspectiveCamera/PerspectiveCamera.h"
+#include "Imgui/ImguiManager.h"
 
 BEGIN_ENTERNITY
 
@@ -124,11 +125,14 @@ SceneManager::SceneManager()
 
 
 	InitializeComponent();
+
+	ImguiDrawEventManager::GetInstance().RegisterEvent(this);
 }
 
 SceneManager::~SceneManager()
 {
 	SAFE_DELETE_SET_NULL(m_CameraController);
+	ImguiDrawEventManager::GetInstance().UnRegisterEvent(this);
 }
 
 void SceneManager::Tick(float deltaTime)
@@ -152,6 +156,21 @@ void SceneManager::Tick(float deltaTime)
 
 
 	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, meshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
+
+}
+
+void SceneManager::ImguiDraw()
+{
+	auto& transformComponent = m_CubeEntity.GetComponent<TransformComponent>();
+
+	ImGui::Begin("Cube Property");
+
+	ImGui::DragFloat3("CubePos", &transformComponent.m_Translation[0], 0.1f, -9999.0f, 9999.0f);
+	ImGui::DragFloat3("CubeRot", &transformComponent.m_Rotation[0], 0.1f, -9999.0f, 9999.0f);
+	ImGui::DragFloat3("CubeScale", &transformComponent.m_Scale[0], 0.1f, -9999.0f, 9999.0f);
+
+	ImGui::End();
+
 
 }
 

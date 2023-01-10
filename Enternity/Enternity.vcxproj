@@ -91,6 +91,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Engine.cpp" />
+    <ClCompile Include="src\Event\ImguiDrawEventManager.cpp" />
     <ClCompile Include="src\Event\InputEventManager.cpp" />
     <ClCompile Include="src\Event\Interface\EventManagerInterface.cpp" />
     <ClCompile Include="src\Event\TickEventManager.cpp" />
@@ -124,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Engine.h" />
+    <ClInclude Include="src\Event\ImguiDrawEventManager.h" />
     <ClInclude Include="src\Event\InputEventManager.h" />
     <ClInclude Include="src\Event\Interface\EventManagerInterface.h" />
     <ClInclude Include="src\Event\TickEventManager.h" />

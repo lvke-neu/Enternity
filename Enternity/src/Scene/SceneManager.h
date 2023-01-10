@@ -8,15 +8,17 @@ SceneManager
 
 #include "Macro/Macro.h"
 #include "ECS/Entity/Entity.h"
+#include "Event/ImguiDrawEventManager.h"
 
 BEGIN_ENTERNITY
 
 class CameraController;
-class SceneManager
+class SceneManager : public ImguiDrawEvent
 {
 	SINGLETON(SceneManager);
 public:
 	void Tick(float deltaTime);
+	virtual void ImguiDraw() override;
 private:
 	SceneManager();
 	~SceneManager();
