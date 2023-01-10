@@ -13,6 +13,7 @@ BEGIN_ENTERNITY
 class IndexBuffer : public IBindable
 {
 public:
+	IndexBuffer() = default;
 	IndexBuffer(const unsigned int* indices, unsigned int count);
 	virtual ~IndexBuffer();
 

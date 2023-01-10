@@ -13,6 +13,7 @@ BEGIN_ENTERNITY
 class VertexBuffer : public IBindable
 {
 public:
+	VertexBuffer() = default;
 	VertexBuffer(const void* vertices, unsigned int size);
 	virtual ~VertexBuffer();
 	

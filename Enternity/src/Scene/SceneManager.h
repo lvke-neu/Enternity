@@ -11,11 +11,13 @@ SceneManager
 
 BEGIN_ENTERNITY
 
-class Triangle;
 class CameraController;
+class Entity;
 class SceneManager
 {
 	SINGLETON(SceneManager);
+public:
+	static entt::registry s_Registry;
 public:
 	void Tick(float deltaTime);
 private:
@@ -24,10 +26,10 @@ private:
 	SceneManager(const SceneManager&) = default;
 	SceneManager& operator=(const SceneManager&) = default;
 private:
-	Triangle* m_Triangle{nullptr};
 	CameraController* m_CameraController{ nullptr };
-public:
-	static entt::registry s_Registry;
+private:
+	void InitializeComponet();
+	Entity* m_CubeEntity;
 };
 
 END_ENTERNITY

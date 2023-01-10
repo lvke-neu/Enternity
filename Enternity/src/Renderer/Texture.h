@@ -14,6 +14,7 @@ BEGIN_ENTERNITY
 class Texture : public IBindable
 {
 public:
+	Texture() = default;
 	Texture(const std::string& filePath);
 	virtual ~Texture();
 	

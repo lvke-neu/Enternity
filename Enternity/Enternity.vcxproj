@@ -64,7 +64,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>NotSet</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)\3rdparty\glfw\lib-vc2017;</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -150,6 +150,7 @@
     <ClInclude Include="src\Renderer\Texture.h" />
     <ClInclude Include="src\Renderer\VertexArray.h" />
     <ClInclude Include="src\Renderer\VertexBuffer.h" />
+    <ClInclude Include="src\Scene\ECS\Component\Component.h" />
     <ClInclude Include="src\Scene\ECS\Entity\Entity.h" />
     <ClInclude Include="src\Scene\ECS\Scene.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />

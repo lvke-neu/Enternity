@@ -22,6 +22,7 @@ struct ShaderSourceCode
 class Shader : public IBindable
 {
 public:
+	Shader() = default;
 	Shader(const std::string& filePath);
 	virtual ~Shader();
 

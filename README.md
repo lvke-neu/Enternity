@@ -14,3 +14,4 @@ Ref的目的：为了不复制资源，我们用const T&，但是在多线程渲
 Entity Component System(ECS 实体对象系统):Data drived
 Scene---->GameObjects------>Components
 场景需要能够存储实体
+Entity:实体  Component:组件（数据） System: 方法/功能
