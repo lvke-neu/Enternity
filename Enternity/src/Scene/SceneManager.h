@@ -7,17 +7,14 @@ SceneManager
 #pragma once
 
 #include "Macro/Macro.h"
-#include <entt.hpp>
+#include "ECS/Entity/Entity.h"
 
 BEGIN_ENTERNITY
 
 class CameraController;
-class Entity;
 class SceneManager
 {
 	SINGLETON(SceneManager);
-public:
-	static entt::registry s_Registry;
 public:
 	void Tick(float deltaTime);
 private:
@@ -28,8 +25,10 @@ private:
 private:
 	CameraController* m_CameraController{ nullptr };
 private:
-	void InitializeComponet();
-	Entity* m_CubeEntity;
+	entt::registry m_Registry;
+private:
+	void InitializeComponent();
+	Entity m_CubeEntity;
 };
 
 END_ENTERNITY

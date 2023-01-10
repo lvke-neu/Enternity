@@ -1,22 +1,21 @@
 #include "SceneManager.h"
 #include "PerspectiveCamera/CameraController.h"
 #include "TestDrawable/Triangle.h"
-#include "ECS/Entity/Entity.h"
 #include "ECS/Component/Component.h"
 #include "PerspectiveCamera/PerspectiveCamera.h"
 
 BEGIN_ENTERNITY
 
-void SceneManager::InitializeComponet()
+void SceneManager::InitializeComponent()
 {
-	if (m_CubeEntity->HasComponent<TransformComponent>())
+	if (m_CubeEntity.HasComponent<TransformComponent>())
 	{
-		auto& transformComponent = m_CubeEntity->GetComponent<TransformComponent>();
+		auto& transformComponent = m_CubeEntity.GetComponent<TransformComponent>();
 	}
 	
-	if (m_CubeEntity->HasComponent<MeshComponent>())
+	if (m_CubeEntity.HasComponent<MeshComponent>())
 	{
-			auto& meshComponent = m_CubeEntity->GetComponent<MeshComponent>();
+		auto& meshComponent = m_CubeEntity.GetComponent<MeshComponent>();
 
 			//vertexbuffer
 		struct VertexPosTex
@@ -110,7 +109,7 @@ void SceneManager::InitializeComponet()
 	
 }
 
-entt::registry SceneManager::s_Registry;
+
 
 SceneManager::SceneManager()
 {
@@ -119,25 +118,24 @@ SceneManager::SceneManager()
 
 	m_CameraController = new CameraController();
 
-	m_CubeEntity = new Entity("Cube");
-	m_CubeEntity->AddComponent<TransformComponent>();
-	m_CubeEntity->AddComponent<MeshComponent>();
+	m_CubeEntity = Entity(&m_Registry, "Cube");
+	m_CubeEntity.AddComponent<TransformComponent>();
+	m_CubeEntity.AddComponent<MeshComponent>();
 
 
-	InitializeComponet();
+	InitializeComponent();
 }
 
 SceneManager::~SceneManager()
 {
 	SAFE_DELETE_SET_NULL(m_CameraController);
-	SAFE_DELETE_SET_NULL(m_CubeEntity)
 }
 
 void SceneManager::Tick(float deltaTime)
 {
 
-	auto& transformComponent = m_CubeEntity->GetComponent<TransformComponent>();
-	auto& meshComponent = m_CubeEntity->GetComponent<MeshComponent>();
+	auto& transformComponent = m_CubeEntity.GetComponent<TransformComponent>();
+	auto& meshComponent = m_CubeEntity.GetComponent<MeshComponent>();
 	meshComponent.m_Shader->Bind();
 	//model mat
 	glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), transformComponent.m_Translation) * glm::mat4_cast(glm::qua<float>(transformComponent.m_Rotation)) *glm::scale(glm::mat4(1.0f), transformComponent.m_Scale);

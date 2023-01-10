@@ -141,10 +141,8 @@ bool Engine::Initialize()
 
 void Engine::Run()
 {
-	while (!glfwWindowShouldClose(m_context) )
+	while (!glfwWindowShouldClose(m_context) && !m_userNeedShutDown)
 	{
-		if (m_userNeedShutDown)
-			break;
 		//render to my framebuffer
 		{
 			m_framebuffer->Bind();
