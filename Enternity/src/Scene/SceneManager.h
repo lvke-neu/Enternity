@@ -7,6 +7,7 @@ SceneManager
 #pragma once
 
 #include "Macro/Macro.h"
+#include <entt.hpp>
 
 BEGIN_ENTERNITY
 
@@ -25,6 +26,8 @@ private:
 private:
 	Triangle* m_Triangle{nullptr};
 	CameraController* m_CameraController{ nullptr };
+public:
+	static entt::registry s_Registry;
 };
 
 END_ENTERNITY

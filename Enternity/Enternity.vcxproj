@@ -57,7 +57,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\Enternity\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\Enternity\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>
       </PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -77,7 +77,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\Enternity\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\Enternity\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -113,6 +113,7 @@
     <ClCompile Include="src\Renderer\Texture.cpp" />
     <ClCompile Include="src\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
+    <ClCompile Include="src\Scene\ECS\Entity\Entity.cpp" />
     <ClCompile Include="src\Scene\ECS\Scene.cpp" />
     <ClCompile Include="src\Scene\SceneManager.cpp" />
     <ClCompile Include="src\Stb_Image\stb_image.cpp" />
@@ -149,7 +150,7 @@
     <ClInclude Include="src\Renderer\Texture.h" />
     <ClInclude Include="src\Renderer\VertexArray.h" />
     <ClInclude Include="src\Renderer\VertexBuffer.h" />
-    <ClInclude Include="src\Scene\ECS\Entt\entt.hpp" />
+    <ClInclude Include="src\Scene\ECS\Entity\Entity.h" />
     <ClInclude Include="src\Scene\ECS\Scene.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
     <ClInclude Include="src\Stb_Image\stb_image.h" />
