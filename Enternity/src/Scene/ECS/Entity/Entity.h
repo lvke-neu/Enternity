@@ -45,9 +45,9 @@ public:
 		return registry.has<T>(m_EntityUid);
 	}
 private:
-	entt::registry* m_pSceneRegistry;
-	entt::entity m_EntityUid;
-	std::string m_Name;
+	entt::registry* m_pSceneRegistry{ nullptr };
+	entt::entity m_EntityUid{ entt::null };
+	std::string m_Name{ "" };
 };
 
 END_ENTERNITY

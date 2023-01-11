@@ -33,6 +33,13 @@ struct TransformComponent
 		m_Rotation = rotation;
 		m_Scale = scale;
 	}
+
+	glm::mat4 GetWorldMatrix()
+	{
+		return glm::translate(glm::mat4(1.0f), m_Translation)
+			* glm::mat4_cast(glm::qua<float>(m_Rotation)) 
+			*glm::scale(glm::mat4(1.0f), m_Scale);
+	}
 };
 
 struct MeshComponent
@@ -61,6 +68,19 @@ struct MeshComponent
 		SAFE_DELETE_SET_NULL(m_Indexbuffer);
 		SAFE_DELETE_SET_NULL(m_Shader);
 		SAFE_DELETE_SET_NULL(m_Texture);
+	}
+};
+
+//only store the projectmatrix
+struct CameraComponent
+{
+	glm::mat4 m_ProjectMatrix{ 1.0f };
+
+	CameraComponent() = default;
+	CameraComponent(const CameraComponent&) = default;
+	CameraComponent(const glm::mat4& projectMatrix)
+	{
+		m_ProjectMatrix = projectMatrix;
 	}
 };
 

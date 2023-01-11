@@ -146,7 +146,7 @@ void SceneManager::Tick(float deltaTime)
 	auto& meshComponent = m_CubeEntity.GetComponent<MeshComponent>();
 	meshComponent.m_Shader->Bind();
 	//model mat
-	glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), transformComponent.m_Translation) * glm::mat4_cast(glm::qua<float>(transformComponent.m_Rotation)) *glm::scale(glm::mat4(1.0f), transformComponent.m_Scale);
+	
 
 	//view mat
 	glm::mat4 viewMat = PerspectiveCamera::GetInstance().GetViewMatrix();
@@ -154,7 +154,7 @@ void SceneManager::Tick(float deltaTime)
 
 	//proj mat
 	glm::mat4 projMat = PerspectiveCamera::GetInstance().GetProjectMatrix();
-	meshComponent.m_Shader->SetMat4f("u_mvp", projMat * viewMat * modelMat);
+	meshComponent.m_Shader->SetMat4f("u_mvp", projMat * viewMat * transformComponent.GetWorldMatrix());
 	meshComponent.m_VertexArray->Bind();
 	meshComponent.m_Indexbuffer->Bind();
 	meshComponent.m_Texture->Bind(0);
