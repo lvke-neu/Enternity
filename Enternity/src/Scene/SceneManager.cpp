@@ -15,7 +15,7 @@ void SceneManager::InitializeComponent()
 	{
 		auto& meshComponent = m_CubeEntity.GetComponent<MeshComponent>();
 
-			//vertexbuffer
+		//vertexbuffer
 		struct VertexPosTex
 		{
 			glm::vec3 position;
@@ -115,17 +115,18 @@ void SceneManager::InitializeComponent()
 SceneManager::~SceneManager()
 {
 	ImguiDrawEventManager::GetInstance().UnRegisterEvent(this);
+	SAFE_DELETE_SET_NULL(m_CameraController);
 }
 
 void SceneManager::Initialize()
 {
-	m_CameraEntity = Entity(&m_Registry, "Editor Camera");
-	m_CameraEntity.AddComponent<TransformComponent>();
+	m_CameraEntity = Entity(&m_Registry, "Camera Entity");
+	m_CameraEntity.AddComponent<TransformComponent>(glm::vec3(-2.944f, 2.843f, -1.980), glm::vec3(-0.570f, -0.740f, 0.000f), glm::vec3(1.0f));
 	m_CameraEntity.AddComponent<CameraComponent>();
 	
 	m_CameraController = new CameraController(&m_CameraEntity);
 
-	m_CubeEntity = Entity(&m_Registry, "Cube");
+	m_CubeEntity = Entity(&m_Registry, "Cube Entity");
 	m_CubeEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 	m_CubeEntity.AddComponent<MeshComponent>();
 
@@ -159,18 +160,24 @@ void SceneManager::OnResize(int width, int height)
 
 void SceneManager::ImguiDraw()
 {
-	auto& transformComponent = m_CubeEntity.GetComponent<TransformComponent>();
+	auto& cubeTransformComponent = m_CubeEntity.GetComponent<TransformComponent>();
+	auto& cameraTransformComponent = m_CameraEntity.GetComponent<TransformComponent>();
 
-	ImGui::Begin("Cube Property");
+	ImGui::Begin("Property");
 
-	ImGui::DragFloat3("CubePos", &transformComponent.m_Translation[0], 0.1f, -9999.0f, 9999.0f);
-	ImGui::DragFloat3("CubeRot", &transformComponent.m_Rotation[0], 0.1f, -9999.0f, 9999.0f);
-	ImGui::DragFloat3("CubeScale", &transformComponent.m_Scale[0], 0.1f, -9999.0f, 9999.0f);
+	ImGui::Text((m_CubeEntity.GetName() + ":").c_str());
+	ImGui::DragFloat3((m_CubeEntity.GetName() + " Translation").c_str(), &cubeTransformComponent.m_Translation[0], 0.1f, -9999.0f, 9999.0f);
+	ImGui::DragFloat3((m_CubeEntity.GetName() + " Rotation").c_str(), &cubeTransformComponent.m_Rotation[0], 0.1f, -9999.0f, 9999.0f);
+	ImGui::DragFloat3((m_CubeEntity.GetName() + " Scale").c_str(), &cubeTransformComponent.m_Scale[0], 0.1f, -9999.0f, 9999.0f);
+
+	ImGui::Separator();
+	ImGui::Text((m_CameraEntity.GetName() + ":").c_str());
+	ImGui::DragFloat3((m_CameraEntity.GetName() + " Translation").c_str(), &cameraTransformComponent.m_Translation[0], 0.1f, -9999.0f, 9999.0f);
+	ImGui::DragFloat3((m_CameraEntity.GetName() + " Rotation").c_str(), &cameraTransformComponent.m_Rotation[0], 0.1f, -9999.0f, 9999.0f);
+	ImGui::DragFloat3((m_CameraEntity.GetName() + " Scale").c_str(), &cameraTransformComponent.m_Scale[0], 0.1f, -9999.0f, 9999.0f);
 
 	ImGui::End();
 }
-
-
 
 END_ENTERNITY
 

@@ -44,6 +44,11 @@ public:
 		auto& registry = *m_pSceneRegistry;
 		return registry.has<T>(m_EntityUid);
 	}
+
+	const std::string& GetName() const
+	{
+		return m_Name;
+	}
 private:
 	entt::registry* m_pSceneRegistry{ nullptr };
 	entt::entity m_EntityUid{ entt::null };
