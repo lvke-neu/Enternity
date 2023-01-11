@@ -31,7 +31,10 @@ private:
 	void InitializeComponent();
 private:
 	entt::registry m_Registry;
-	Entity m_CameraEntity;
+	Entity m_MainCameraEntity;
+	Entity m_CameraEntity1;
+	Entity m_CameraEntity2;
+	
 	CameraController* m_CameraController{ nullptr };
 
 	Entity m_CubeEntity;	
