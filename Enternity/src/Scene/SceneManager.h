@@ -8,6 +8,7 @@ SceneManager
 
 #include "Macro/Macro.h"
 #include "ECS/Entity/Entity.h"
+#include "ECS/Component/Component.h"
 #include "Event/ImguiDrawEventManager.h"
 
 BEGIN_ENTERNITY
@@ -17,20 +18,23 @@ class SceneManager : public ImguiDrawEvent
 {
 	SINGLETON(SceneManager);
 public:
+	void Initialize();
 	void Tick(float deltaTime);
+	void OnResize(int width, int height);
 	virtual void ImguiDraw() override;
 private:
-	SceneManager();
+	SceneManager() = default;
 	~SceneManager();
 	SceneManager(const SceneManager&) = default;
 	SceneManager& operator=(const SceneManager&) = default;
 private:
-	CameraController* m_CameraController{ nullptr };
+	void InitializeComponent();
 private:
 	entt::registry m_Registry;
-private:
-	void InitializeComponent();
-	Entity m_CubeEntity;
+	Entity m_CameraEntity;
+	CameraController* m_CameraController{ nullptr };
+
+	Entity m_CubeEntity;	
 };
 
 END_ENTERNITY

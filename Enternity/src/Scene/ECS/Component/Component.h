@@ -34,11 +34,55 @@ struct TransformComponent
 		m_Scale = scale;
 	}
 
-	glm::mat4 GetWorldMatrix()
+	void Move(float distance, const glm::vec3& direction)
 	{
-		return glm::translate(glm::mat4(1.0f), m_Translation)
-			* glm::mat4_cast(glm::qua<float>(m_Rotation)) 
-			*glm::scale(glm::mat4(1.0f), m_Scale);
+		m_Translation += distance * direction;
+	}
+
+	void MoveXAxis(float distance)
+	{
+		Move(distance,GetRotationMatrix()[0]);
+	}
+
+	void MoveZAxis(float distance)
+	{
+		Move(distance, GetRotationMatrix()[2]);
+	}
+
+	void RotateAlongXAxis(float angle)
+	{
+		m_Rotation.x -= angle;
+	}
+
+	void RotateAlongYAxis(float angle)
+	{
+		m_Rotation.y -= angle;
+	}
+
+	glm::mat4 GetTranslationMatrix() const
+	{
+		return glm::translate(glm::mat4(1.0f), m_Translation);
+	}
+
+	glm::mat4 GetRotationMatrix() const
+	{
+		//RollPitchYaw to quaternion, quaternion to rotation matrix
+		return glm::mat4_cast(glm::qua<float>(m_Rotation));
+	}
+
+	glm::mat4 GetScaleMatrix() const
+	{
+		return glm::scale(glm::mat4(1.0f), m_Scale);
+	}
+
+	glm::mat4 GetWorldMatrix() const
+	{
+		return GetTranslationMatrix() * GetRotationMatrix() * GetScaleMatrix();
+	}
+
+	glm::mat4 GetInverseWorldMatrix() const
+	{
+		return glm::inverse(GetWorldMatrix());
 	}
 };
 

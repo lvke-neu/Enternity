@@ -105,8 +105,7 @@
     <ClCompile Include="src\Imgui\ImguiManager.cpp" />
     <ClCompile Include="src\Log\Log.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\PerspectiveCamera\CameraController.cpp" />
-    <ClCompile Include="src\PerspectiveCamera\PerspectiveCamera.cpp" />
+    <ClCompile Include="src\Scene\CameraController.cpp" />
     <ClCompile Include="src\Renderer\FrameBuffer.cpp" />
     <ClCompile Include="src\Renderer\glad.c" />
     <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
@@ -115,13 +114,11 @@
     <ClCompile Include="src\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\Scene\ECS\Entity\Entity.cpp" />
-    <ClCompile Include="src\Scene\ECS\Scene.cpp" />
     <ClCompile Include="src\Scene\SceneManager.cpp" />
     <ClCompile Include="src\Stb_Image\stb_image.cpp" />
     <ClCompile Include="src\TestDrawable\LightObject.cpp" />
     <ClCompile Include="src\TestDrawable\Triangle.cpp" />
     <ClCompile Include="src\Timer\GameTimer.cpp" />
-    <ClCompile Include="src\Transform\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Engine.h" />
@@ -143,8 +140,7 @@
     <ClInclude Include="src\Log\Log.h" />
     <ClInclude Include="src\Macro\Macro.h" />
     <ClInclude Include="src\Material\Material.h" />
-    <ClInclude Include="src\PerspectiveCamera\CameraController.h" />
-    <ClInclude Include="src\PerspectiveCamera\PerspectiveCamera.h" />
+    <ClInclude Include="src\Scene\CameraController.h" />
     <ClInclude Include="src\Renderer\FrameBuffer.h" />
     <ClInclude Include="src\Renderer\IndexBuffer.h" />
     <ClInclude Include="src\Renderer\Interface\BindableInterface.h" />
@@ -154,13 +150,11 @@
     <ClInclude Include="src\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\Scene\ECS\Component\Component.h" />
     <ClInclude Include="src\Scene\ECS\Entity\Entity.h" />
-    <ClInclude Include="src\Scene\ECS\Scene.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
     <ClInclude Include="src\Stb_Image\stb_image.h" />
     <ClInclude Include="src\TestDrawable\LightObject.h" />
     <ClInclude Include="src\TestDrawable\Triangle.h" />
     <ClInclude Include="src\Timer\GameTimer.h" />
-    <ClInclude Include="src\Transform\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

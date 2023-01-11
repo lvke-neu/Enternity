@@ -75,12 +75,6 @@
     <ClCompile Include="src\Imgui\ImguiManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Transform\Transform.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PerspectiveCamera\PerspectiveCamera.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Event\Interface\EventManagerInterface.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -88,9 +82,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Event\TickEventManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PerspectiveCamera\CameraController.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\SceneManager.cpp">
@@ -102,13 +93,13 @@
     <ClCompile Include="src\Renderer\FrameBuffer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\ECS\Scene.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Scene\ECS\Entity\Entity.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Event\ImguiDrawEventManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\CameraController.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -179,12 +170,6 @@
     <ClInclude Include="src\Imgui\ImguiImpl\imstb_truetype.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Transform\Transform.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PerspectiveCamera\PerspectiveCamera.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Event\Interface\EventManagerInterface.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -192,9 +177,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Event\TickEventManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PerspectiveCamera\CameraController.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\SceneManager.h">
@@ -212,9 +194,6 @@
     <ClInclude Include="src\Renderer\FrameBuffer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\ECS\Scene.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Scene\ECS\Entity\Entity.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -222,6 +201,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Event\ImguiDrawEventManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\CameraController.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

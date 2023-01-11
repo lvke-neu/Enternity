@@ -1,9 +1,11 @@
 #include "CameraController.h"
-#include "PerspectiveCamera.h"
+#include "ECS/Entity/Entity.h"
+#include "ECS/Component/Component.h"
 
 BEGIN_ENTERNITY
 
-CameraController::CameraController()
+CameraController::CameraController(Entity* cameraEntity):
+	m_CameraEntity(cameraEntity)
 {
 	InputEventManager::GetInstance().RegisterEvent(this);
 	TickEventManager::GetInstance().RegisterEvent(this);
@@ -40,8 +42,9 @@ void CameraController::onMouseMove(MouseState mouseState)
 		m_deltaMousePosX = mouseState.x - m_oldMousePosX;
 		m_deltaMousePosY = mouseState.y - m_oldMousePosY;
 
-		PerspectiveCamera::GetInstance().RotateAlongXAxis(m_deltaMousePosY * 0.01f);
-		PerspectiveCamera::GetInstance() .RotateAlongYAxis(m_deltaMousePosX * 0.01f);
+		
+		m_CameraEntity->GetComponent<TransformComponent>().RotateAlongXAxis(m_deltaMousePosY * 0.01f);
+		m_CameraEntity->GetComponent<TransformComponent>().RotateAlongYAxis(m_deltaMousePosX * 0.01f);
 
 		m_oldMousePosX = mouseState.x;
 		m_oldMousePosY = mouseState.y;
@@ -57,22 +60,22 @@ void CameraController::tick(float deltaTime)
 {
 	if (InputEventManager::GetInstance().IsKeyPress(GLFW_KEY_W))
 	{
-		PerspectiveCamera::GetInstance().MoveZAxis(-deltaTime * m_MoveSpeed);
+		m_CameraEntity->GetComponent<TransformComponent>().MoveZAxis(-deltaTime * m_MoveSpeed);
 	}
 
 	if (InputEventManager::GetInstance().IsKeyPress(GLFW_KEY_S))
 	{
-		PerspectiveCamera::GetInstance().MoveZAxis(deltaTime * m_MoveSpeed);
+		m_CameraEntity->GetComponent<TransformComponent>().MoveZAxis(deltaTime * m_MoveSpeed);
 	}
 
 	if (InputEventManager::GetInstance().IsKeyPress(GLFW_KEY_A))
 	{
-		PerspectiveCamera::GetInstance().MoveXAxis(-deltaTime * m_MoveSpeed);
+		m_CameraEntity->GetComponent<TransformComponent>().MoveXAxis(-deltaTime * m_MoveSpeed);
 	}
 
 	if (InputEventManager::GetInstance().IsKeyPress(GLFW_KEY_D))
 	{
-		PerspectiveCamera::GetInstance().MoveXAxis(deltaTime * m_MoveSpeed);
+		m_CameraEntity->GetComponent<TransformComponent>().MoveXAxis(deltaTime * m_MoveSpeed);
 	}
 }
 

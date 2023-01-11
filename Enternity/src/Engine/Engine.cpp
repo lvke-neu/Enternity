@@ -1,13 +1,11 @@
 #include "Engine.h"
 #include "Log/Log.h"
 #include "Imgui/ImguiManager.h"
-#include "PerspectiveCamera/PerspectiveCamera.h"
 #include "Event/InputEventManager.h"
 #include "Event/TickEventManager.h"
 #include "Scene/SceneManager.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
 
 BEGIN_ENTERNITY
 
@@ -132,8 +130,8 @@ bool Engine::Initialize()
 	glfwSetCursorPosCallback(m_context, MouseMoveEvent);
 
 	ImguiManager::GetInstance().Initialize(m_context);
-	PerspectiveCamera::GetInstance().Initialize(Transform({0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f}), { glm::pi<float>() / 3, static_cast<float>(WINDOW_WIDHT) / WINDOW_HEIGHT, 1, 1000 });
-
+	SceneManager::GetInstance().Initialize();
+	
 	LOG_INFO("Engine initialization is complete");
 
 	return true;
@@ -181,12 +179,16 @@ void Engine::ShutDown()
 	m_userNeedShutDown = true;
 }
 
+//imgui viewport resize
 void Engine::Resize(int width, int height)
 {
 	glViewport(0, 0, width, height);
+	
 	if (width <= 0 || height <= 0)
 		return;
-	PerspectiveCamera::GetInstance().SetFrustum({ glm::pi<float>() / 3, static_cast<float>(width) / height, 1, 1000 });
+	
+	SceneManager::GetInstance().OnResize(width, height);
+
 	m_framebuffer->Rebuild(width, height);
 
 	LOG_INFO("Resize:" + std::to_string(width) + "," + std::to_string(height));

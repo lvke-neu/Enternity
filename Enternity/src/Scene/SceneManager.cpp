@@ -1,8 +1,5 @@
 #include "SceneManager.h"
-#include "PerspectiveCamera/CameraController.h"
-#include "TestDrawable/Triangle.h"
-#include "ECS/Component/Component.h"
-#include "PerspectiveCamera/PerspectiveCamera.h"
+#include "CameraController.h"
 #include "Imgui/ImguiManager.h"
 
 BEGIN_ENTERNITY
@@ -115,52 +112,49 @@ void SceneManager::InitializeComponent()
 }
 
 
-
-SceneManager::SceneManager()
+SceneManager::~SceneManager()
 {
-	PerspectiveCamera::GetInstance().SetTranslation(glm::vec3(-11.769, 4.811, 1.297));
-	PerspectiveCamera::GetInstance().SetRotation(glm::vec3(-0.330, -0.990, 0));
+	ImguiDrawEventManager::GetInstance().UnRegisterEvent(this);
+}
 
-	m_CameraController = new CameraController();
+void SceneManager::Initialize()
+{
+	m_CameraEntity = Entity(&m_Registry, "Editor Camera");
+	m_CameraEntity.AddComponent<TransformComponent>();
+	m_CameraEntity.AddComponent<CameraComponent>();
+	
+	m_CameraController = new CameraController(&m_CameraEntity);
 
 	m_CubeEntity = Entity(&m_Registry, "Cube");
-	m_CubeEntity.AddComponent<TransformComponent>();
+	m_CubeEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 	m_CubeEntity.AddComponent<MeshComponent>();
-
 
 	InitializeComponent();
 
 	ImguiDrawEventManager::GetInstance().RegisterEvent(this);
 }
 
-SceneManager::~SceneManager()
-{
-	SAFE_DELETE_SET_NULL(m_CameraController);
-	ImguiDrawEventManager::GetInstance().UnRegisterEvent(this);
-}
-
 void SceneManager::Tick(float deltaTime)
 {
+	auto& cameraTransformComponent = m_CameraEntity.GetComponent<TransformComponent>();
+	auto& cameraCameraComponent = m_CameraEntity.GetComponent<CameraComponent>();
 
-	auto& transformComponent = m_CubeEntity.GetComponent<TransformComponent>();
-	auto& meshComponent = m_CubeEntity.GetComponent<MeshComponent>();
-	meshComponent.m_Shader->Bind();
-	//model mat
-	
+	auto& cubeTransformComponent = m_CubeEntity.GetComponent<TransformComponent>();
+	auto& cubeMeshComponent = m_CubeEntity.GetComponent<MeshComponent>();
+	cubeMeshComponent.m_Shader->Bind();
+	cubeMeshComponent.m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * cameraTransformComponent.GetInverseWorldMatrix() * cubeTransformComponent.GetWorldMatrix());
+	cubeMeshComponent.m_VertexArray->Bind();
+	cubeMeshComponent.m_Indexbuffer->Bind();
+	cubeMeshComponent.m_Texture->Bind(0);
 
-	//view mat
-	glm::mat4 viewMat = PerspectiveCamera::GetInstance().GetViewMatrix();
+	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, cubeMeshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
 
+}
 
-	//proj mat
-	glm::mat4 projMat = PerspectiveCamera::GetInstance().GetProjectMatrix();
-	meshComponent.m_Shader->SetMat4f("u_mvp", projMat * viewMat * transformComponent.GetWorldMatrix());
-	meshComponent.m_VertexArray->Bind();
-	meshComponent.m_Indexbuffer->Bind();
-	meshComponent.m_Texture->Bind(0);
-
-	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, meshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
-
+void SceneManager::OnResize(int width, int height)
+{
+	m_CameraEntity.GetComponent<CameraComponent>().m_ProjectMatrix =
+		glm::perspective<float>(glm::pi<float>() / 3, static_cast<float>(width) / height, 1, 1000);
 }
 
 void SceneManager::ImguiDraw()
@@ -174,8 +168,6 @@ void SceneManager::ImguiDraw()
 	ImGui::DragFloat3("CubeScale", &transformComponent.m_Scale[0], 0.1f, -9999.0f, 9999.0f);
 
 	ImGui::End();
-
-
 }
 
 

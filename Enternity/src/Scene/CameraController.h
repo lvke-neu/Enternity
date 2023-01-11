@@ -11,10 +11,11 @@ Camera Controller
 
 BEGIN_ENTERNITY
 
+class Entity;
 class CameraController : public InputEvent, public TickEvent
 {
 public:
-	CameraController();
+	CameraController(Entity* cameraEntity);
 	~CameraController();
 	CameraController(const CameraController&) = delete;
 	CameraController& operator=(const CameraController&) = delete;
@@ -32,6 +33,8 @@ private:
 	int m_oldMousePosY;
 	int m_deltaMousePosX = 0;
 	int m_deltaMousePosY = 0;
+
+	Entity* m_CameraEntity{ nullptr };
 };
 
 END_ENTERNITY
