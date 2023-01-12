@@ -15,7 +15,12 @@ class Entity
 {
 public:
 	Entity() = default;
+
+	//create an entity that does not exist
 	Entity(entt::registry* registry,const std::string& name = "");
+
+	//initialize an enitity that is exist
+	Entity(entt::registry* registry, entt::entity entityUid);
 
 	template<typename T, typename...Args>
 	T& AddComponent(Args&& ... args)
@@ -44,15 +49,9 @@ public:
 		auto& registry = *m_pSceneRegistry;
 		return registry.has<T>(m_EntityUid);
 	}
-
-	const std::string& GetName() const
-	{
-		return m_Name;
-	}
 private:
 	entt::registry* m_pSceneRegistry{ nullptr };
 	entt::entity m_EntityUid{ entt::null };
-	std::string m_Name{ "" };
 };
 
 END_ENTERNITY

@@ -19,6 +19,17 @@ Components
 
 BEGIN_ENTERNITY
 
+struct TagComponent
+{
+	TagComponent() = default;
+	TagComponent(const TagComponent&) = default;
+	TagComponent(const std::string& tag)
+	{
+		m_Tag = tag;
+	}
+	std::string m_Tag{ "" };
+};
+
 struct TransformComponent
 {
 	glm::vec3 m_Translation{ 0.0f, 0.0f, 0.0f };
