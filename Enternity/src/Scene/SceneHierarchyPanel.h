@@ -20,7 +20,11 @@ public:
 
 	virtual void ImguiDraw() override;
 private:
+	void DrawEntity(Entity entity);
+	void DrawComponent();
+private:
 	entt::registry* m_pSceneRegistry{ nullptr };
+	Entity m_SelectedEntity;
 };
 
 END_ENTERNITY

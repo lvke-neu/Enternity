@@ -49,6 +49,21 @@ public:
 		auto& registry = *m_pSceneRegistry;
 		return registry.has<T>(m_EntityUid);
 	}
+
+	uint32_t GetEntityUid()
+	{
+		return (uint32_t)m_EntityUid;
+	}
+
+	bool operator== (const Entity& entity)
+	{
+		return (m_pSceneRegistry == entity.m_pSceneRegistry) && (m_EntityUid == entity.m_EntityUid);
+	}
+
+	bool IsValidEntity()
+	{
+		return m_EntityUid != entt::null;
+	}
 private:
 	entt::registry* m_pSceneRegistry{ nullptr };
 	entt::entity m_EntityUid{ entt::null };

@@ -58,24 +58,26 @@ void CameraController::onMouseWheel(MouseState mouseState)
 
 void CameraController::tick(float deltaTime)
 {
+	auto moveSpeed = m_CameraEntity->GetComponent<CameraComponent>().m_MoveSpeed;
+
 	if (InputEventManager::GetInstance().IsKeyPress(GLFW_KEY_W))
 	{
-		m_CameraEntity->GetComponent<TransformComponent>().MoveZAxis(-deltaTime * m_MoveSpeed);
+		m_CameraEntity->GetComponent<TransformComponent>().MoveZAxis(-deltaTime * moveSpeed);
 	}
 
 	if (InputEventManager::GetInstance().IsKeyPress(GLFW_KEY_S))
 	{
-		m_CameraEntity->GetComponent<TransformComponent>().MoveZAxis(deltaTime * m_MoveSpeed);
+		m_CameraEntity->GetComponent<TransformComponent>().MoveZAxis(deltaTime * moveSpeed);
 	}
 
 	if (InputEventManager::GetInstance().IsKeyPress(GLFW_KEY_A))
 	{
-		m_CameraEntity->GetComponent<TransformComponent>().MoveXAxis(-deltaTime * m_MoveSpeed);
+		m_CameraEntity->GetComponent<TransformComponent>().MoveXAxis(-deltaTime * moveSpeed);
 	}
 
 	if (InputEventManager::GetInstance().IsKeyPress(GLFW_KEY_D))
 	{
-		m_CameraEntity->GetComponent<TransformComponent>().MoveXAxis(deltaTime * m_MoveSpeed);
+		m_CameraEntity->GetComponent<TransformComponent>().MoveXAxis(deltaTime * moveSpeed);
 	}
 }
 

@@ -27,8 +27,6 @@ public:
 
 	virtual void tick(float deltaTime) override;
 private:
-	float m_MoveSpeed = 10.0f;
-
 	int m_oldMousePosX;
 	int m_oldMousePosY;
 	int m_deltaMousePosX = 0;

@@ -115,6 +115,7 @@ void SceneManager::InitializeComponent()
 SceneManager::~SceneManager()
 {
 	SAFE_DELETE_SET_NULL(m_CameraController);
+	SAFE_DELETE_SET_NULL(m_SceneHierarchyPanel)
 }
 
 void SceneManager::Initialize()
@@ -128,7 +129,6 @@ void SceneManager::Initialize()
 	m_CubeEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 	m_CubeEntity.AddComponent<MeshComponent>();
 	InitializeComponent();
-
 
 	m_SceneHierarchyPanel = new SceneHierarchyPanel(&m_Registry);
 }
@@ -155,56 +155,6 @@ void SceneManager::OnResize(int width, int height)
 	m_MainCameraEntity.GetComponent<CameraComponent>().m_ProjectMatrix =
 		glm::perspective<float>(glm::pi<float>() / 3, static_cast<float>(width) / height, 1, 1000);
 }
-//
-//void SceneManager::ImguiDraw()
-//{
-//	auto& cubeTransformComponent = m_CubeEntity.GetComponent<TransformComponent>();
-//	auto& cameraTransformComponent = m_MainCameraEntity.GetComponent<TransformComponent>();
-//
-//	ImGui::Begin("Property");
-//
-//	ImGui::Text((m_CubeEntity.GetName() + ":").c_str());
-//	ImGui::DragFloat3((m_CubeEntity.GetName() + " Translation").c_str(), &cubeTransformComponent.m_Translation[0], 0.1f, -9999.0f, 9999.0f);
-//	ImGui::DragFloat3((m_CubeEntity.GetName() + " Rotation").c_str(), &cubeTransformComponent.m_Rotation[0], 0.1f, -9999.0f, 9999.0f);
-//	ImGui::DragFloat3((m_CubeEntity.GetName() + " Scale").c_str(), &cubeTransformComponent.m_Scale[0], 0.1f, -9999.0f, 9999.0f);
-//
-//	ImGui::Separator();
-//	ImGui::Text((m_MainCameraEntity.GetName() + ":").c_str());
-//	ImGui::DragFloat3((m_MainCameraEntity.GetName() + " Translation").c_str(), &cameraTransformComponent.m_Translation[0], 0.1f, -9999.0f, 9999.0f);
-//	ImGui::DragFloat3((m_MainCameraEntity.GetName() + " Rotation").c_str(), &cameraTransformComponent.m_Rotation[0], 0.1f, -9999.0f, 9999.0f);
-//	ImGui::DragFloat3((m_MainCameraEntity.GetName() + " Scale").c_str(), &cameraTransformComponent.m_Scale[0], 0.1f, -9999.0f, 9999.0f);
-//
-//	ImGui::Separator();
-//	static int e = 0;
-//	ImGui::RadioButton("CameraEntity1", &e, 0); ImGui::SameLine();
-//	ImGui::RadioButton("CameraEntity2", &e, 1); ImGui::SameLine();
-//
-//	if (e == 0)
-//	{
-//		if (m_MainCameraEntity.GetName() != "Camera Entity1")
-//		{
-//			glm::mat4 projectMat = m_MainCameraEntity.GetComponent<CameraComponent>().m_ProjectMatrix;
-//			m_MainCameraEntity = m_CameraEntity1;
-//			m_MainCameraEntity.GetComponent<CameraComponent>().m_ProjectMatrix = projectMat;
-//			SAFE_DELETE_SET_NULL(m_CameraController);
-//			m_CameraController = new CameraController(&m_MainCameraEntity);
-//		}
-//	}
-//
-//	if (e == 1)
-//	{
-//		if (m_MainCameraEntity.GetName() != "Camera Entity2")
-//		{
-//			glm::mat4 projectMat = m_MainCameraEntity.GetComponent<CameraComponent>().m_ProjectMatrix;
-//			m_MainCameraEntity = m_CameraEntity2;
-//			m_MainCameraEntity.GetComponent<CameraComponent>().m_ProjectMatrix = projectMat;
-//			SAFE_DELETE_SET_NULL(m_CameraController);
-//			m_CameraController = new CameraController(&m_MainCameraEntity);
-//		}
-//	}
-//
-//	ImGui::End();
-//}
 
 END_ENTERNITY
 
