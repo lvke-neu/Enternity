@@ -64,13 +64,16 @@ void SceneHierarchyPanel::DrawComponent()
 	//}
 
 	//tag component
-	auto& tagComponent = m_SelectedEntity.GetComponent<TagComponent>();
-	char buffer[256];
-	memset(buffer, 0, sizeof(buffer));
-	memcpy_s(buffer, sizeof(buffer), tagComponent.m_Tag.c_str(), sizeof(buffer));
-	if (ImGui::InputText("Name", buffer, sizeof(buffer)))
+	if (m_SelectedEntity.HasComponent<TagComponent>())
 	{
-		tagComponent.m_Tag = buffer;
+		auto& tagComponent = m_SelectedEntity.GetComponent<TagComponent>();
+		char buffer[256];
+		memset(buffer, 0, sizeof(buffer));
+		memcpy_s(buffer, sizeof(buffer), tagComponent.m_Tag.c_str(), sizeof(buffer));
+		if (ImGui::InputText("Name", buffer, sizeof(buffer)))
+		{
+			tagComponent.m_Tag = buffer;
+		}
 	}
 
 	//transform component
@@ -95,7 +98,14 @@ void SceneHierarchyPanel::DrawComponent()
 	{
 		if (ImGui::TreeNode("MeshComponent"))
 		{
-			ImGui::Text("TestMeshComponent");
+			auto& meshComponent = m_SelectedEntity.GetComponent<MeshComponent>();
+			char buffer[256];
+			memset(buffer, 0, sizeof(buffer));
+			memcpy_s(buffer, sizeof(buffer), meshComponent.m_MeshFilePath.c_str(), sizeof(buffer));
+			if (ImGui::InputText("MeshFilePath", buffer, sizeof(buffer)))
+			{
+				meshComponent.LoadMesh(buffer);
+			}
 
 			ImGui::TreePop();
 		}

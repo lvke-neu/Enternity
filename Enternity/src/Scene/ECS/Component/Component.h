@@ -104,13 +104,14 @@ struct MeshComponent
 	VertexBuffer* m_Vertexbuffer{ nullptr };
 	IndexBuffer* m_Indexbuffer{ nullptr };
 
+	std::string m_MeshFilePath{ "" };
+
 	MeshComponent() = default;
 	MeshComponent(const MeshComponent&) = default;
 
 	void LoadMesh(const std::string& meshFilePath)
 	{
-		
-
+		m_MeshFilePath = meshFilePath;
 		struct VertexPosTex
 		{
 			glm::vec3 position;
@@ -121,7 +122,6 @@ struct MeshComponent
 		Enternity::Blob blob2(4096);
 		if (!Enternity::FileOperation::ReadFile(blob2, meshFilePath))
 			return;
-
 
 		UnLoad();
 		unsigned int vertexcount2;
