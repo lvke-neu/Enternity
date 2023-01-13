@@ -13,6 +13,7 @@ public:
 		m_Length = length;
 	}
 public:
+	void* GetData(){ return m_Data; }
 	const void* GetData() const { return m_Data; }
 	const unsigned int GetLength() const { return m_Length; }
 private:

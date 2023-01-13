@@ -8,6 +8,7 @@ BEGIN_ENTERNITY
 
 class FileOperation
 {
+public:
 	static void ReadFile(Blob& blob, const std::string& filePath);
 	static void WriteFile(const Blob& blob, const std::string& filePath);
 };
