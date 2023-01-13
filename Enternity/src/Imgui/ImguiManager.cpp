@@ -120,7 +120,7 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 	}
 
 	ImGui::ShowDemoWindow(p_open);
-	ImGui::ShowMetricsWindow(p_open);
+	//ImGui::ShowMetricsWindow(p_open);
 
 	//test image
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0, 0 });

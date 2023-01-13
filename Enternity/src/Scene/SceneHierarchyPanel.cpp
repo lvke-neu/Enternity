@@ -39,6 +39,11 @@ void SceneHierarchyPanel::ImguiDraw()
 	DrawComponent();
 	ImGui::End();
 
+	ImGui::Begin("Stats");
+
+	ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	ImGui::End();
+
 }
 
 void SceneHierarchyPanel::DrawEntity(Entity entity)
@@ -145,7 +150,7 @@ void SceneHierarchyPanel::DrawComponent()
 	{
 		auto& cameraComponent = m_SelectedEntity.GetComponent<CameraComponent>();
 		ImGui::DragFloat("MoveSpeed", &cameraComponent.m_MoveSpeed, 1.0f, 0.0f, 9999.0f);
-
+		
 		if (ImGui::DragFloat("FovY", &cameraComponent.fovy, 1.0f, -9999.0f, 9999.0f) ||
 			ImGui::DragFloat("Aspect", &cameraComponent.aspect, 1.0f, -9999.0f, 9999.0f) ||
 			ImGui::DragFloat("NearZ", &cameraComponent.nearz, 1.0f, -9999.0f, 9999.0f) ||
