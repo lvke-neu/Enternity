@@ -12,6 +12,10 @@ public:
 		m_Data = new char[length];
 		m_Length = length;
 	}
+	~Blob()
+	{
+		SAFE_DELETE_SET_NULL(m_Data);
+	}
 public:
 	void* GetData(){ return m_Data; }
 	const void* GetData() const { return m_Data; }

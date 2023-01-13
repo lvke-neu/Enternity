@@ -227,6 +227,9 @@
     <None Include="assets\shaders\Basic.glsl" />
     <None Include="assets\shaders\Light.glsl" />
     <None Include="assets\shaders\TestECS.glsl" />
+    <None Include="assets\model\cube.bin">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\striated.png">

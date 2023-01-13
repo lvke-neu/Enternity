@@ -15,3 +15,10 @@ Entity Component System(ECS 实体对象系统):Data drived
 Scene---->GameObjects------>Components
 场景需要能够存储实体
 Entity:实体  Component:组件（数据） System: 方法/功能
+
+
+mesh.bin
+
+header:
+	unsigned int VertexCount(顶点类型 默认写死，float3:position, float3:normal, float2:texcoord)
+	unsigned int IndexCount(索引类型 默认写死，unsigned int)
