@@ -15,7 +15,7 @@ Components
 #include "Renderer/VertexArray.h"
 #include "Renderer/Shader.h"
 #include "Renderer/Texture.h"
-
+#include "File/FileOperation.h"
 
 BEGIN_ENTERNITY
 
@@ -105,16 +105,42 @@ struct MeshComponent
 	Shader* m_Shader{ nullptr };
 	Texture* m_Texture{ nullptr };
 
-	MeshComponent() = default;
-	MeshComponent( const MeshComponent&) = default;
-	MeshComponent(VertexArray* vertexArray,  VertexBuffer* vertexBuffer,  IndexBuffer* indexBuffer, 
-		 Shader* shader,  Texture* texture)
+	MeshComponent(const std::string& meshFilePath, const std::string& textureFilePath, const std::string& shaderFilePath)
 	{
-		m_VertexArray = vertexArray;
-		m_Vertexbuffer = vertexBuffer;
-		m_Indexbuffer = indexBuffer;
-		m_Shader = shader;
-		m_Texture = texture;
+		struct VertexPosTex
+		{
+			glm::vec3 position;
+			glm::vec3 normal;
+			glm::vec2 texcoord;
+		};
+
+		Enternity::Blob blob2(4096);
+		Enternity::FileOperation::ReadFile(blob2, meshFilePath);
+
+		unsigned int vertexcount2;
+		unsigned int indexcount2;
+		memcpy_s(&vertexcount2, sizeof(unsigned int), blob2.GetData(), sizeof(unsigned int));
+		memcpy_s(&indexcount2, sizeof(unsigned int), (char*)blob2.GetData() + sizeof(unsigned int), sizeof(unsigned int));
+
+		VertexPosTex* vpt = new VertexPosTex[vertexcount2];
+		unsigned int* indices2 = new unsigned int[indexcount2];
+		memcpy_s(vpt, vertexcount2 * sizeof(VertexPosTex), (char*)blob2.GetData() + 2 * sizeof(unsigned int), vertexcount2 * sizeof(VertexPosTex));
+		memcpy_s(indices2, indexcount2 * sizeof(unsigned int), (char*)blob2.GetData() + 2 * sizeof(unsigned int) + vertexcount2 * sizeof(VertexPosTex), indexcount2 * sizeof(unsigned int));
+
+
+		m_Vertexbuffer = new VertexBuffer(vpt, vertexcount2 * sizeof(VertexPosTex));
+		m_VertexArray = new VertexArray;
+		VertexBufferLayout  vertexBufferLayout;
+		vertexBufferLayout.Push({ 0, 3, GL_FLOAT, false,  8 * sizeof(float), 0 });
+		vertexBufferLayout.Push({ 1, 3, GL_FLOAT, false,  8 * sizeof(float), 3 * sizeof(float) });
+		vertexBufferLayout.Push({ 2, 2, GL_FLOAT, false,  8 * sizeof(float), 6 * sizeof(float) });
+		m_VertexArray->Add(*m_Vertexbuffer, vertexBufferLayout);
+		m_Indexbuffer = new IndexBuffer(indices2, indexcount2);
+		m_Shader = new Shader(shaderFilePath);
+		m_Texture = new Texture(textureFilePath);
+
+		delete[] vpt;
+		delete[] indices2;
 	}
 	~MeshComponent()
 	{

@@ -127,8 +127,10 @@ void SceneManager::Initialize()
 
 	m_CubeEntity = Entity(&m_Registry, "Cube Entity");
 	m_CubeEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-	m_CubeEntity.AddComponent<MeshComponent>();
-	InitializeComponent();
+	auto& cubeMeshComponent = m_CubeEntity.AddComponent<MeshComponent>("assets/model/cube_mesh.bin", "assets/textures/skybox.jpeg", "assets/shaders/TestECS.glsl");
+	cubeMeshComponent.m_Shader->Bind();
+	cubeMeshComponent.m_Shader->SetInteger1("u_texture", 0);
+	//InitializeComponent();
 
 	m_SceneHierarchyPanel = new SceneHierarchyPanel(&m_Registry);
 }
