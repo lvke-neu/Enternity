@@ -139,16 +139,19 @@ struct MeshComponent
 		m_Shader = new Shader(shaderFilePath);
 		m_Texture = new Texture(textureFilePath);
 
+
+
+
 		delete[] vpt;
 		delete[] indices2;
 	}
 	~MeshComponent()
 	{
-		SAFE_DELETE_SET_NULL(m_VertexArray);
-		SAFE_DELETE_SET_NULL(m_Vertexbuffer);
-		SAFE_DELETE_SET_NULL(m_Indexbuffer);
-		SAFE_DELETE_SET_NULL(m_Shader);
-		SAFE_DELETE_SET_NULL(m_Texture);
+		//SAFE_DELETE_SET_NULL(m_VertexArray);
+		//SAFE_DELETE_SET_NULL(m_Vertexbuffer);
+		//SAFE_DELETE_SET_NULL(m_Indexbuffer);
+		//SAFE_DELETE_SET_NULL(m_Shader);
+		//SAFE_DELETE_SET_NULL(m_Texture);
 	}
 };
 

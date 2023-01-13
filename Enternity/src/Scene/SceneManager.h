@@ -33,6 +33,7 @@ private:
 
 	Entity m_MainCameraEntity;
 	Entity m_CubeEntity;
+	Entity m_PlaneEntity;
 private:
 	CameraController* m_CameraController{ nullptr };	
 	SceneHierarchyPanel* m_SceneHierarchyPanel{ nullptr };

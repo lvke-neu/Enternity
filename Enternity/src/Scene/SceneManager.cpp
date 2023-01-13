@@ -125,12 +125,20 @@ void SceneManager::Initialize()
 	m_MainCameraEntity.AddComponent<CameraComponent>();
 	m_CameraController = new CameraController(&m_MainCameraEntity);
 
+
+
 	m_CubeEntity = Entity(&m_Registry, "Cube Entity");
 	m_CubeEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 	auto& cubeMeshComponent = m_CubeEntity.AddComponent<MeshComponent>("assets/model/cube_mesh.bin", "assets/textures/skybox.jpeg", "assets/shaders/TestECS.glsl");
 	cubeMeshComponent.m_Shader->Bind();
 	cubeMeshComponent.m_Shader->SetInteger1("u_texture", 0);
 	//InitializeComponent();
+
+	m_PlaneEntity = Entity(&m_Registry, "Plane Entity");
+	m_PlaneEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	auto& planeMeshComponent = m_PlaneEntity.AddComponent<MeshComponent>("assets/model/cube_mesh.bin", "assets/textures/skybox.jpeg", "assets/shaders/TestECS.glsl");
+	planeMeshComponent.m_Shader->Bind();
+	planeMeshComponent.m_Shader->SetInteger1("u_texture", 0);
 
 	m_SceneHierarchyPanel = new SceneHierarchyPanel(&m_Registry);
 }
@@ -147,8 +155,16 @@ void SceneManager::Tick(float deltaTime)
 	cubeMeshComponent.m_VertexArray->Bind();
 	cubeMeshComponent.m_Indexbuffer->Bind();
 	cubeMeshComponent.m_Texture->Bind(0);
-
 	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, cubeMeshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
+
+	auto& planeTransformComponent = m_PlaneEntity.GetComponent<TransformComponent>();
+	auto& planeMeshComponent = m_PlaneEntity.GetComponent<MeshComponent>();
+	planeMeshComponent.m_Shader->Bind();
+	planeMeshComponent.m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * cameraTransformComponent.GetInverseWorldMatrix() * planeTransformComponent.GetWorldMatrix());
+	planeMeshComponent.m_VertexArray->Bind();
+	planeMeshComponent.m_Indexbuffer->Bind();
+	planeMeshComponent.m_Texture->Bind(0);
+	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, planeMeshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
 
 }
 
