@@ -40,7 +40,7 @@ void SceneManager::Initialize()
 	auto& cubeMaterialComponent = m_CubeEntity.AddComponent<MaterialComponent>();
 	cubeMeshComponent.LoadMesh("assets/model/cube_mesh.bin");
 	cubeMaterialComponent.LoadMaterial("assets/textures/skybox.jpeg", "assets/shaders/TestECS.glsl");
-
+	cubeMaterialComponent.SetMaterialProperty(0, glm::vec4(1.0f), 0);
 
 	
 	m_PlaneEntity = Entity(&m_Registry, "plane Entity");
@@ -49,7 +49,7 @@ void SceneManager::Initialize()
 	auto& planeMaterialComponent = m_PlaneEntity.AddComponent<MaterialComponent>();
 	planeMeshComponent.LoadMesh("assets/model/plane_mesh.bin");
 	planeMaterialComponent.LoadMaterial("", "assets/shaders/TestECS.glsl");
-	
+	planeMaterialComponent.SetMaterialProperty(1, glm::vec4(65.0f / 255, 90.0f / 255, 20.0f / 255, 1.0f), 0);
 
 	m_SceneHierarchyPanel = new SceneHierarchyPanel(&m_Registry);
 }
@@ -61,29 +61,22 @@ void SceneManager::Tick(float deltaTime)
 
 	auto& cubeTransformComponent = m_CubeEntity.GetComponent<TransformComponent>();
 	auto& cubeMeshComponent = m_CubeEntity.GetComponent<MeshComponent>();
+	cubeMeshComponent.m_VertexArray->Bind();
+	cubeMeshComponent.m_Indexbuffer->Bind();
 	auto& cubeMaterialComponent = m_CubeEntity.GetComponent<MaterialComponent>();
 	cubeMaterialComponent.m_Shader->Bind();
 	cubeMaterialComponent.m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * cameraTransformComponent.GetInverseWorldMatrix() * cubeTransformComponent.GetWorldMatrix());
 	cubeMaterialComponent.m_Texture->Bind(0);
-	cubeMeshComponent.m_VertexArray->Bind();
-	cubeMeshComponent.m_Indexbuffer->Bind();
-	cubeMaterialComponent.m_Shader->SetInteger1("u_texture", 0);
-	cubeMaterialComponent.m_Shader->SetInteger1("b_useColor", 0);
-	
 	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, cubeMeshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
-
 
 	auto& planeTransformComponent = m_PlaneEntity.GetComponent<TransformComponent>();
 	auto& planMeshComponent = m_PlaneEntity.GetComponent<MeshComponent>();
+	planMeshComponent.m_VertexArray->Bind();
+	planMeshComponent.m_Indexbuffer->Bind();
 	auto& planMaterialComponent = m_PlaneEntity.GetComponent<MaterialComponent>();
 	planMaterialComponent.m_Shader->Bind();
 	planMaterialComponent.m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * cameraTransformComponent.GetInverseWorldMatrix() * planeTransformComponent.GetWorldMatrix());
-	planMeshComponent.m_VertexArray->Bind();
-	planMeshComponent.m_Indexbuffer->Bind();
-	planMaterialComponent.m_Shader->SetInteger1("b_useColor", 1);
-	planMaterialComponent.m_Shader->SetFloat4("u_baseColor", glm::vec4(65.0f / 255, 90.0f / 255, 20.0f / 255, 1.0f));
 	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, planMeshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
-
 }
 
 void SceneManager::OnResize(int width, int height)
