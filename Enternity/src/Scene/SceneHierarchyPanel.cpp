@@ -107,11 +107,9 @@ void SceneHierarchyPanel::DrawComponent()
 		auto& cameraComponent = m_SelectedEntity.GetComponent<CameraComponent>();
 		ImGui::DragFloat("MoveSpeed", &cameraComponent.m_MoveSpeed, 1.0f, 0.0f, 9999.0f);
 
-		static bool b_enableWireframe = false;
-		if (ImGui::Checkbox("Wireframe", &b_enableWireframe))
+		if (ImGui::Checkbox("Wireframe", &cameraComponent.m_EnableWireframe))
 		{
-			LOG_INFO("chekcbox");
-			if (b_enableWireframe)
+			if (cameraComponent.m_EnableWireframe)
 			{
 				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			}

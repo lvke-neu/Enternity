@@ -193,6 +193,7 @@ struct CameraComponent
 {
 	glm::mat4 m_ProjectMatrix{ 1.0f };
 	float m_MoveSpeed = 10.0f;
+	bool m_EnableWireframe = false;
 	CameraComponent() = default;
 	CameraComponent(const CameraComponent&) = default;
 	CameraComponent(const glm::mat4& projectMatrix)
