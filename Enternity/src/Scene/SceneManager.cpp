@@ -40,17 +40,16 @@ void SceneManager::Initialize()
 	auto& cubeMaterialComponent = m_CubeEntity.AddComponent<MaterialComponent>();
 	cubeMeshComponent.LoadMesh("assets/model/cube_mesh.bin");
 	cubeMaterialComponent.LoadMaterial("assets/textures/skybox.jpeg", "assets/shaders/TestECS.glsl");
-	cubeMaterialComponent.m_Shader->Bind();
-	cubeMaterialComponent.m_Shader->SetInteger1("u_texture", 0);
+
 
 	
 	m_PlaneEntity = Entity(&m_Registry, "plane Entity");
-	m_PlaneEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, -5.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(10.0f, 1.0f, 10.0f));
+	m_PlaneEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, -5.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(100.0f, 1.0f, 100.0f));
 	auto& planeMeshComponent = m_PlaneEntity.AddComponent<MeshComponent>();
 	auto& planeMaterialComponent = m_PlaneEntity.AddComponent<MaterialComponent>();
-	planeMeshComponent.LoadMesh("assets/model/cube_mesh.bin");
-	planeMaterialComponent.LoadMaterial("", "assets/shaders/Light.glsl");
-
+	planeMeshComponent.LoadMesh("assets/model/plane_mesh.bin");
+	planeMaterialComponent.LoadMaterial("", "assets/shaders/TestECS.glsl");
+	
 
 	m_SceneHierarchyPanel = new SceneHierarchyPanel(&m_Registry);
 }
@@ -68,6 +67,8 @@ void SceneManager::Tick(float deltaTime)
 	cubeMaterialComponent.m_Texture->Bind(0);
 	cubeMeshComponent.m_VertexArray->Bind();
 	cubeMeshComponent.m_Indexbuffer->Bind();
+	cubeMaterialComponent.m_Shader->SetInteger1("u_texture", 0);
+	cubeMaterialComponent.m_Shader->SetInteger1("b_useColor", 0);
 	
 	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, cubeMeshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
 
@@ -79,7 +80,8 @@ void SceneManager::Tick(float deltaTime)
 	planMaterialComponent.m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * cameraTransformComponent.GetInverseWorldMatrix() * planeTransformComponent.GetWorldMatrix());
 	planMeshComponent.m_VertexArray->Bind();
 	planMeshComponent.m_Indexbuffer->Bind();
-
+	planMaterialComponent.m_Shader->SetInteger1("b_useColor", 1);
+	planMaterialComponent.m_Shader->SetFloat4("u_baseColor", glm::vec4(65.0f / 255, 90.0f / 255, 20.0f / 255, 1.0f));
 	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, planMeshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
 
 }

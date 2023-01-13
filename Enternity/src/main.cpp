@@ -28,7 +28,7 @@ int main()
 
  //   for (UINT i = 0; i < 4; ++i)
  //   {
- //       vertices[i].normal = glm::vec3(10.0f, 1.0f, 0.0f);
+ //       vertices[i].normal = glm::vec3(0.0f, 1.0f, 0.0f);
  //   }
 
  //   vertices[0].texcoord = glm::vec2(0.0f, 0.0f);

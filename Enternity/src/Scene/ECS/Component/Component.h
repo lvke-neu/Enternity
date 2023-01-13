@@ -165,6 +165,19 @@ struct MaterialComponent
 	MaterialComponent() = default;
 	MaterialComponent(const MaterialComponent&) = default;
 
+	void UseBaseColor(const glm::vec4& color)
+	{
+		m_Shader->Bind();
+		m_Shader->SetInteger1("b_useColor", 1);
+		m_Shader->SetFloat4("u_baseColor", color);
+	}
+
+	void UseTexture()
+	{
+		m_Shader->Bind();
+		m_Shader->SetInteger1("b_useColor", 0);
+	}
+
 	void LoadMaterial(const std::string& textureFilePath, const std::string& shaderFilePath)
 	{
 		UnLoad();

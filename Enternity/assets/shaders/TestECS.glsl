@@ -19,12 +19,21 @@ void main()
 #version 330 core
 
 out vec4 pixelColor;
-
 in vec2 v_texcoord;
+
+uniform int b_useColor;
+uniform vec4 u_baseColor;
 uniform sampler2D u_texture;
 
 void main()
 {
 	//pixelColor = vec4(v_texcoord, 0, 1);
-	pixelColor = texture(u_texture, v_texcoord);
+	if(b_useColor == 1)
+	{
+		pixelColor = u_baseColor;
+	}
+	else if(b_useColor == 0)
+	{
+		pixelColor = texture(u_texture, v_texcoord);
+	}
 };
