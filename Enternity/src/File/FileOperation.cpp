@@ -3,11 +3,15 @@
 
 BEGIN_ENTERNITY
 
-void FileOperation::ReadFile(Blob& blob, const std::string& filePath)
+bool FileOperation::ReadFile(Blob& blob, const std::string& filePath)
 {
 	std::ifstream ifs(filePath, std::ios::out | std::ios::binary);
+	if (!ifs.is_open())
+		return false;
+
 	ifs.read((char*)blob.GetData(), blob.GetLength());
 	ifs.close();
+	return true;
 }
 
 void FileOperation::WriteFile(const Blob& blob, const std::string& filePath)

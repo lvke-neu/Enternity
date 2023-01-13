@@ -107,6 +107,20 @@ void SceneHierarchyPanel::DrawComponent()
 		auto& cameraComponent = m_SelectedEntity.GetComponent<CameraComponent>();
 		ImGui::DragFloat("MoveSpeed", &cameraComponent.m_MoveSpeed, 1.0f, 0.0f, 9999.0f);
 	}
+
+	//test
+	if (m_SelectedEntity.GetComponent<TagComponent>().m_Tag == "plane Entity")
+	{
+		static bool flag= true;
+		ImGui::Checkbox("test loadmesh", &flag);
+
+		if (!flag)
+		{
+			m_SelectedEntity.GetComponent<MeshComponent>().LoadMesh("assets/model/plane_mesh.bin");
+		}
+		else
+			m_SelectedEntity.GetComponent<MeshComponent>().LoadMesh("assets/model/cube_mesh.bin");
+	}
 }
 
 

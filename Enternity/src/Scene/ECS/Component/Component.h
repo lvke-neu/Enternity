@@ -97,16 +97,20 @@ struct TransformComponent
 	}
 };
 
+
 struct MeshComponent
 {
 	VertexArray* m_VertexArray{ nullptr };
 	VertexBuffer* m_Vertexbuffer{ nullptr };
 	IndexBuffer* m_Indexbuffer{ nullptr };
-	Shader* m_Shader{ nullptr };
-	Texture* m_Texture{ nullptr };
 
-	MeshComponent(const std::string& meshFilePath, const std::string& textureFilePath, const std::string& shaderFilePath)
+	MeshComponent() = default;
+	MeshComponent(const MeshComponent&) = default;
+
+	void LoadMesh(const std::string& meshFilePath)
 	{
+		
+
 		struct VertexPosTex
 		{
 			glm::vec3 position;
@@ -115,8 +119,11 @@ struct MeshComponent
 		};
 
 		Enternity::Blob blob2(4096);
-		Enternity::FileOperation::ReadFile(blob2, meshFilePath);
+		if (!Enternity::FileOperation::ReadFile(blob2, meshFilePath))
+			return;
 
+
+		UnLoad();
 		unsigned int vertexcount2;
 		unsigned int indexcount2;
 		memcpy_s(&vertexcount2, sizeof(unsigned int), blob2.GetData(), sizeof(unsigned int));
@@ -136,22 +143,39 @@ struct MeshComponent
 		vertexBufferLayout.Push({ 2, 2, GL_FLOAT, false,  8 * sizeof(float), 6 * sizeof(float) });
 		m_VertexArray->Add(*m_Vertexbuffer, vertexBufferLayout);
 		m_Indexbuffer = new IndexBuffer(indices2, indexcount2);
-		m_Shader = new Shader(shaderFilePath);
-		m_Texture = new Texture(textureFilePath);
-
-
-
 
 		delete[] vpt;
 		delete[] indices2;
 	}
-	~MeshComponent()
+
+	void UnLoad()
 	{
-		//SAFE_DELETE_SET_NULL(m_VertexArray);
-		//SAFE_DELETE_SET_NULL(m_Vertexbuffer);
-		//SAFE_DELETE_SET_NULL(m_Indexbuffer);
-		//SAFE_DELETE_SET_NULL(m_Shader);
-		//SAFE_DELETE_SET_NULL(m_Texture);
+		SAFE_DELETE_SET_NULL(m_VertexArray);
+		SAFE_DELETE_SET_NULL(m_Vertexbuffer);
+		SAFE_DELETE_SET_NULL(m_Indexbuffer);
+	}
+};
+
+
+struct MaterialComponent
+{
+	Shader* m_Shader{ nullptr };
+	Texture* m_Texture{ nullptr };
+
+	MaterialComponent() = default;
+	MaterialComponent(const MaterialComponent&) = default;
+
+	void LoadMaterial(const std::string& textureFilePath, const std::string& shaderFilePath)
+	{
+		UnLoad();
+		m_Shader = new Shader(shaderFilePath);
+		m_Texture = new Texture(textureFilePath);
+	}
+
+	void UnLoad()
+	{
+		SAFE_DELETE_SET_NULL(m_Shader);
+		SAFE_DELETE_SET_NULL(m_Texture);
 	}
 };
 

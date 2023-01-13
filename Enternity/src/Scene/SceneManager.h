@@ -27,8 +27,6 @@ private:
 	SceneManager(const SceneManager&) = default;
 	SceneManager& operator=(const SceneManager&) = default;
 private:
-	void InitializeComponent();
-private:
 	entt::registry m_Registry;
 
 	Entity m_MainCameraEntity;
