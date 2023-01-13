@@ -98,8 +98,8 @@ void SceneManager::Tick(float deltaTime)
 
 void SceneManager::OnResize(int width, int height)
 {
-	m_MainCameraEntity.GetComponent<CameraComponent>().m_ProjectMatrix =
-		glm::perspective<float>(glm::pi<float>() / 3, static_cast<float>(width) / height, 1, 1000);
+	m_MainCameraEntity.GetComponent<CameraComponent>().aspect = static_cast<float>(width) / height;
+	m_MainCameraEntity.GetComponent<CameraComponent>().ReCalculateProjectMatrix();
 }
 
 END_ENTERNITY

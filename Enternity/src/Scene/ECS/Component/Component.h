@@ -194,12 +194,20 @@ struct CameraComponent
 	glm::mat4 m_ProjectMatrix{ 1.0f };
 	float m_MoveSpeed = 10.0f;
 	bool m_EnableWireframe = false;
+
+	float fovy = glm::pi<float>() / 3;
+	float aspect = 1.0f;
+	float nearz = 1.0f;
+	float farz = 1000.0f;
+
+	void ReCalculateProjectMatrix()
+	{
+		m_ProjectMatrix = glm::perspective<float>(fovy, aspect, nearz, farz);
+	}
+
 	CameraComponent() = default;
 	CameraComponent(const CameraComponent&) = default;
-	CameraComponent(const glm::mat4& projectMatrix)
-	{
-		m_ProjectMatrix = projectMatrix;
-	}
+
 };
 
 END_ENTERNITY

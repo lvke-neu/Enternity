@@ -107,6 +107,14 @@ void SceneHierarchyPanel::DrawComponent()
 		auto& cameraComponent = m_SelectedEntity.GetComponent<CameraComponent>();
 		ImGui::DragFloat("MoveSpeed", &cameraComponent.m_MoveSpeed, 1.0f, 0.0f, 9999.0f);
 
+		if (ImGui::DragFloat("FovY", &cameraComponent.fovy, 1.0f, -9999.0f, 9999.0f) ||
+			ImGui::DragFloat("Aspect", &cameraComponent.aspect, 1.0f, -9999.0f, 9999.0f) ||
+			ImGui::DragFloat("NearZ", &cameraComponent.nearz, 1.0f, -9999.0f, 9999.0f) ||
+			ImGui::DragFloat("FarZ", &cameraComponent.farz, 1.0f, -9999.0f, 9999.0f))
+		{
+			cameraComponent.ReCalculateProjectMatrix();
+		}
+
 		if (ImGui::Checkbox("Wireframe", &cameraComponent.m_EnableWireframe))
 		{
 			if (cameraComponent.m_EnableWireframe)
