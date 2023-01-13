@@ -8,7 +8,8 @@ BEGIN_ENTERNITY
 Shader::Shader(const std::string& filePath)
 {
 	ShaderSourceCode shaderSourceCode;
-	shaderSourceCode = ParseShaderFile(filePath);
+	if (!ParseShaderFile(shaderSourceCode, filePath))
+		return;
 	m_rendererId = CreateProgram(shaderSourceCode.VertexShaderSourceCode, shaderSourceCode.PixelShaderSourceCode);
 }
 
@@ -74,9 +75,11 @@ int Shader::GetUniformLocation(const std::string & name)
 }
 
 
-ShaderSourceCode Shader::ParseShaderFile(const std::string& filePath)
+bool Shader::ParseShaderFile(ShaderSourceCode& shaderSourceCode, const std::string& filePath)
 {
 	std::ifstream ifs(filePath);
+	if (!ifs.is_open())
+		return false;
 
 	enum  class ShaderType
 	{
@@ -106,7 +109,9 @@ ShaderSourceCode Shader::ParseShaderFile(const std::string& filePath)
 			ss[(int)shaderType] << line << "\n";
 		}
 	}
-	return { ss[0].str(), ss[1].str() };
+
+	shaderSourceCode = { ss[0].str(), ss[1].str() };
+	return true;
 }
 
 unsigned int Shader::CompileShader(unsigned int shaderType, const char* shaderSourceCode)

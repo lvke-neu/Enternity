@@ -111,6 +111,35 @@ void SceneHierarchyPanel::DrawComponent()
 		}
 	}
 
+	//material component
+	if (m_SelectedEntity.HasComponent<MaterialComponent>())
+	{
+		if (ImGui::TreeNode("MaterialComponent"))
+		{
+			auto& materialComponent = m_SelectedEntity.GetComponent<MaterialComponent>();
+
+			if (ImGui::Checkbox("UseColor", &materialComponent.m_bUseColor))
+			{
+				materialComponent.SetIsUseColor(materialComponent.m_bUseColor);
+			}
+
+			if (ImGui::ColorEdit4("BaseColor", &materialComponent.m_BaseColor[0]))
+			{
+				materialComponent.SetBaseColor(materialComponent.m_BaseColor);
+			}
+
+			char buffer[256];
+			memset(buffer, 0, sizeof(buffer));
+			memcpy_s(buffer, sizeof(buffer), materialComponent.m_TextureFilePath.c_str(), sizeof(buffer));
+			if (ImGui::InputText("TextureFilePath", buffer, sizeof(buffer)))
+			{
+				materialComponent.LoadTexture(buffer);
+			}
+
+			ImGui::TreePop();
+		}
+	}
+
 	//camera component
 	if (m_SelectedEntity.HasComponent<CameraComponent>())
 	{

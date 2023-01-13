@@ -84,6 +84,7 @@ void SceneManager::Tick(float deltaTime)
 	auto& planMaterialComponent = m_PlaneEntity.GetComponent<MaterialComponent>();
 	planMaterialComponent.m_Shader->Bind();
 	planMaterialComponent.m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * cameraTransformComponent.GetInverseWorldMatrix() * planeTransformComponent.GetWorldMatrix());
+	planMaterialComponent.m_Texture->Bind(0);
 	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, planMeshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
 
 	auto& lightTransformComponent = m_LightEntity.GetComponent<TransformComponent>();
@@ -93,6 +94,7 @@ void SceneManager::Tick(float deltaTime)
 	auto& lightMaterialComponent = m_LightEntity.GetComponent<MaterialComponent>();
 	lightMaterialComponent.m_Shader->Bind();
 	lightMaterialComponent.m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * cameraTransformComponent.GetInverseWorldMatrix() * lightTransformComponent.GetWorldMatrix());
+	lightMaterialComponent.m_Texture->Bind(0);
 	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, lightMeshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
 }
 

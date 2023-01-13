@@ -37,7 +37,7 @@ public:
 	void SetFloat4(const std::string& name, const glm::vec4& v4);
 	void SetMat4f(const std::string& name, const glm::mat4& mat4);
 private:
-	ShaderSourceCode ParseShaderFile(const std::string& filePath);
+	bool ParseShaderFile(ShaderSourceCode& shaderSourceCode, const std::string& filePath);
 	unsigned int CompileShader(unsigned int shaderType, const char* shaderSourceCode);
 	unsigned int CreateProgram(const std::string& vsShaderCode, const std::string& psShaderCode);
 
