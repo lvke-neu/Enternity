@@ -91,9 +91,9 @@ void GenerateMeshFile()
 		}
 	}
 
-	unsigned int vertexcount = vertices.size();
-	unsigned int indexcount = indices.size();
-	Enternity::Blob blob(8 + vertices.size() * sizeof(VertexPosTex) + indices.size() * sizeof(unsigned int));
+	unsigned int vertexcount = (unsigned int)vertices.size();
+	unsigned int indexcount = (unsigned int)indices.size();
+	Enternity::Blob blob((unsigned int)(8 + vertices.size() * sizeof(VertexPosTex) + indices.size() * sizeof(unsigned int)));
 
 
 	memcpy_s(blob.GetData(), sizeof(unsigned int), &vertexcount, sizeof(unsigned int));

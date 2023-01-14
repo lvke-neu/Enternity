@@ -23,28 +23,4 @@ void FileOperation::WriteFile(const Blob& blob, const std::string& filePath)
 
 END_ENTERNITY
 
-//void writeBinFile()
-//{
-//	Student student;
-//	student.age = 16;
-//	student.n = 250;
-//
-//	std::ofstream outBinFile("student.dat", std::ios::out | std::ios::binary);
-//	outBinFile.write((char*)&student, sizeof(student));
-//
-//	outBinFile.close();
-//}
-//
-//void readBinFile()
-//{
-//	Student student;
-//	std::ifstream inBinFile("student.dat", std::ios::in | std::ios::binary);
-//
-//	while (inBinFile.read((char*)&student, sizeof(student))) {
-//		inBinFile.gcount();
-//		std::cout << student.age << " " << student.n << std::endl;
-//	}
-//
-//}
-
 

@@ -37,16 +37,16 @@ void SceneManager::Initialize()
 	cubeEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 	auto& cubeMeshComponent = cubeEntity.AddComponent<MeshComponent>();
 	auto& cubeMaterialComponent = cubeEntity.AddComponent<MaterialComponent>();
-	cubeMeshComponent.LoadMesh("assets/model/cube_mesh.bin");
+	cubeMeshComponent.LoadMesh("assets/model/cube.mesh");
 	cubeMaterialComponent.LoadMaterial("assets/textures/skybox.jpeg", "assets/shaders/TestECS.glsl");
 	cubeMaterialComponent.SetMaterialProperty(0, glm::vec4(1.0f), 0);
-
+	cubeEntity.AddComponent<MotorComponent>();
 	
 	Entity planeEntity(&m_Registry, "Plane Entity");
 	planeEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, -5.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(100.0f, 1.0f, 100.0f));
 	auto& planeMeshComponent = planeEntity.AddComponent<MeshComponent>();
 	auto& planeMaterialComponent = planeEntity.AddComponent<MaterialComponent>();
-	planeMeshComponent.LoadMesh("assets/model/plane_mesh.bin");
+	planeMeshComponent.LoadMesh("assets/model/plane.mesh");
 	planeMaterialComponent.LoadMaterial("", "assets/shaders/TestECS.glsl");
 	planeMaterialComponent.SetMaterialProperty(1, glm::vec4(65.0f / 255, 90.0f / 255, 20.0f / 255, 1.0f), 0);
 
@@ -55,7 +55,7 @@ void SceneManager::Initialize()
 	lightEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f));
 	auto& lightMeshComponent = lightEntity.AddComponent<MeshComponent>();
 	auto& lightMaterialComponent = lightEntity.AddComponent<MaterialComponent>();
-	lightMeshComponent.LoadMesh("assets/model/sphere_mesh.bin");
+	lightMeshComponent.LoadMesh("assets/model/sphere.mesh");
 	lightMaterialComponent.LoadMaterial("", "assets/shaders/TestECS.glsl");
 	lightMaterialComponent.SetMaterialProperty(1, glm::vec4(1.0f), 0);
 
@@ -67,8 +67,28 @@ void SceneManager::Initialize()
 	m_SceneHierarchyPanel = new SceneHierarchyPanel;
 }
 
+void SceneManager::Update(float deltaTime)
+{
+	for (auto& entity : m_Entities)
+	{
+		if (entity.second.HasComponent<MotorComponent>())
+		{
+			auto& motorComponent = entity.second.GetComponent<MotorComponent>();
+			if (entity.second.HasComponent<TransformComponent>())
+			{
+				auto& transformComponent = entity.second.GetComponent<TransformComponent>();
+				transformComponent.RotateAlongYAxis(glm::radians(motorComponent.m_RotationYAnglePerSecond * deltaTime));
+				transformComponent.RotateAlongXAxis(glm::radians(motorComponent.m_RotationXAnglePerSecond * deltaTime));
+			}
+		}
+	}
+}
+
+
 void SceneManager::Tick(float deltaTime)
 {
+	Update(deltaTime);
+
 	auto& cameraTransformComponent = m_MainCameraEntity.GetComponent<TransformComponent>();
 	auto& cameraCameraComponent = m_MainCameraEntity.GetComponent<CameraComponent>();
 	
@@ -106,6 +126,7 @@ void SceneManager::OnResize(int width, int height)
 	m_MainCameraEntity.GetComponent<CameraComponent>().aspect = static_cast<float>(width) / height;
 	m_MainCameraEntity.GetComponent<CameraComponent>().ReCalculateProjectMatrix();
 }
+
 
 END_ENTERNITY
 

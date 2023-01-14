@@ -11,7 +11,7 @@ BEGIN_ENTERNITY
 
 #define WINDOW_WIDHT 1600
 #define WINDOW_HEIGHT 800
-#define WINDOW_TITLE "Enternity Engine"
+#define WINDOW_TITLE "Enternity Engine, Version:0.0003, Author:lvke"
 
 void KeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -157,10 +157,12 @@ void Engine::Run()
 
 			//tick event,  The unit of deltaTime is second
 			ImGuiIO& io = ImGui::GetIO();
-			TickEventManager::GetInstance().NotifyTick(1.0f / io.Framerate);
+			if(io.Framerate)
+				TickEventManager::GetInstance().NotifyTick(1.0f / io.Framerate);
 
 			//scene
-			SceneManager::GetInstance().Tick(1.0f / io.Framerate);
+			if (io.Framerate)
+				SceneManager::GetInstance().Tick(1.0f / io.Framerate);
 
 			m_framebuffer->Resolve();
 		}
@@ -203,7 +205,9 @@ void Engine::Resize(int width, int height)
 float Engine::GetDeltaTime()
 {
 	ImGuiIO& io = ImGui::GetIO();
-	return 1.0f / io.Framerate;
+	if (io.Framerate)
+		return 1.0f / io.Framerate;
+	return 0.0f;
 }
 
 END_ENTERNITY

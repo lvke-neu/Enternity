@@ -193,6 +193,12 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			ImGui::CloseCurrentPopup();
 		}
 
+		if (ImGui::MenuItem("MotorComponent"))
+		{
+			m_SelectedEntity.AddComponent<MotorComponent>();
+			ImGui::CloseCurrentPopup();
+		}
+
 		ImGui::EndPopup();
 	}
 	ImGui::PopItemWidth();
@@ -258,6 +264,15 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 		}
 	);
 	
+	//motor component
+	DrawComponent<MotorComponent>("MotorComponent",
+		[&]()
+		{
+			auto& motorComponent = m_SelectedEntity.GetComponent<MotorComponent>();
+			ImGui::DragFloat("RotationXAnglePerSecond", &motorComponent.m_RotationXAnglePerSecond, 1.0f);
+			ImGui::DragFloat("RotationYAnglePerSecond", &motorComponent.m_RotationYAnglePerSecond, 1.0f);
+		});
+
 
 	//camera component
 	DrawComponent<CameraComponent>("CameraComponent",

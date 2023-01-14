@@ -30,6 +30,20 @@ struct TagComponent
 	std::string m_Tag{ "" };
 };
 
+//test 
+struct MotorComponent
+{
+	float m_RotationYAnglePerSecond = 45.0f;
+	float m_RotationXAnglePerSecond = 45.0f;
+	MotorComponent() = default;
+	MotorComponent(const MotorComponent&) = default;
+	MotorComponent(float angleY, float angleX)
+	{
+		m_RotationYAnglePerSecond = angleY;
+		m_RotationXAnglePerSecond = angleX;
+	}
+};
+
 struct TransformComponent
 {
 	glm::vec3 m_Translation{ 0.0f, 0.0f, 0.0f };
@@ -63,11 +77,29 @@ struct TransformComponent
 	void RotateAlongXAxis(float angle)
 	{
 		m_Rotation.x -= angle;
+		if (m_Rotation.x >= 2 * glm::pi<float>())
+		{
+			m_Rotation.x -= 2 * glm::pi<float>();
+		}
+
+		if (m_Rotation.x <= -2 * glm::pi<float>())
+		{
+			m_Rotation.x = m_Rotation.x + 2 * glm::pi<float>();
+		}
 	}
 
 	void RotateAlongYAxis(float angle)
 	{
 		m_Rotation.y -= angle;
+		if (m_Rotation.y >= 2 * glm::pi<float>())
+		{
+			m_Rotation.y -= 2 * glm::pi<float>();
+		}
+
+		if (m_Rotation.y <= -2 * glm::pi<float>())
+		{
+			m_Rotation.y = m_Rotation.y + 2 * glm::pi<float>();
+		}
 	}
 
 	glm::mat4 GetTranslationMatrix() const

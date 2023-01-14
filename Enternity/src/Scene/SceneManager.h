@@ -28,6 +28,8 @@ private:
 	~SceneManager();
 	SceneManager(const SceneManager&) = default;
 	SceneManager& operator=(const SceneManager&) = default;
+
+	void Update(float deltaTime);
 private:
 	entt::registry m_Registry;
 	Entity m_MainCameraEntity;
