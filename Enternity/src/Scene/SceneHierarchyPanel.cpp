@@ -44,6 +44,8 @@ void SceneHierarchyPanel::ImguiDraw()
 
 	ImGui::Begin("Entity Property");
 	DrawComponent();
+
+	//add component
 	if (m_SelectedEntity.IsValidEntity() && m_SelectedEntity !=SceneManager::GetInstance().m_MainCameraEntity && ImGui::Button("Add Component"))
 	{
 		ImGui::OpenPopup("AddComponent");
@@ -212,6 +214,23 @@ void SceneHierarchyPanel::DrawComponent()
 
 			ImGui::TreePop();
 		}
+
+		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 4,4 });
+		ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
+		if (ImGui::Button("+1"))
+		{
+			ImGui::OpenPopup("ComponentSettings1");
+		}
+		ImGui::PopStyleVar();
+		if (ImGui::BeginPopup("ComponentSettings1"))
+		{
+			if (ImGui::MenuItem("Remove Component1"))
+			{
+				m_SelectedEntity.RemoveComponent<TransformComponent>();
+			}
+
+			ImGui::EndPopup();
+		}
 	}
 
 	//mesh component
@@ -229,6 +248,23 @@ void SceneHierarchyPanel::DrawComponent()
 			}
 
 			ImGui::TreePop();
+		}
+
+		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 4,4 });
+		ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
+		if (ImGui::Button("+2"))
+		{
+			ImGui::OpenPopup("ComponentSettings2");
+		}
+		ImGui::PopStyleVar();
+		if (ImGui::BeginPopup("ComponentSettings2"))
+		{
+			if (ImGui::MenuItem("Remove Component2"))
+			{
+				m_SelectedEntity.RemoveComponent<MeshComponent>();
+			}
+
+			ImGui::EndPopup();
 		}
 	}
 
@@ -259,6 +295,23 @@ void SceneHierarchyPanel::DrawComponent()
 
 			ImGui::TreePop();
 		}
+
+		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 4,4 });
+		ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
+		if (ImGui::Button("+3"))
+		{
+			ImGui::OpenPopup("ComponentSettings3");
+		}
+		ImGui::PopStyleVar();
+		if (ImGui::BeginPopup("ComponentSettings3"))
+		{
+			if (ImGui::MenuItem("Remove Component3"))
+			{
+				m_SelectedEntity.RemoveComponent<MaterialComponent>();
+			}
+
+			ImGui::EndPopup();
+		}
 	}
 
 	//camera component
@@ -285,6 +338,8 @@ void SceneHierarchyPanel::DrawComponent()
 				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
 	}
+
+
 
 	////test
 	//if (m_SelectedEntity.GetComponent<TagComponent>().m_Tag == "plane Entity")

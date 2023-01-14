@@ -41,7 +41,7 @@ public:
 		if (!HasComponent<T>())
 		{
 			LOG_ERROR("Component doesn't exist in this Entity");
-			return GetComponent<T>();
+			return ;
 		}
 		auto& registry = *m_pSceneRegistry;
 		return registry.remove<T>(m_EntityUid);
