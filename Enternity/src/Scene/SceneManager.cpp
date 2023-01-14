@@ -55,7 +55,7 @@ void SceneManager::Initialize()
 	m_LightEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f));
 	auto& lightMeshComponent = m_LightEntity.AddComponent<MeshComponent>();
 	auto& lightMaterialComponent = m_LightEntity.AddComponent<MaterialComponent>();
-	lightMeshComponent.LoadMesh("assets/model/cube_mesh.bin");
+	lightMeshComponent.LoadMesh("assets/model/sphere_mesh.bin");
 	lightMaterialComponent.LoadMaterial("", "assets/shaders/TestECS.glsl");
 	lightMaterialComponent.SetMaterialProperty(1, glm::vec4(1.0f), 0);
 

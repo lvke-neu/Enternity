@@ -119,7 +119,7 @@ struct MeshComponent
 			glm::vec2 texcoord;
 		};
 
-		Enternity::Blob blob2(4096);
+		Enternity::Blob blob2(BLOB_LENGTH);
 		if (!Enternity::FileOperation::ReadFile(blob2, meshFilePath))
 			return;
 
