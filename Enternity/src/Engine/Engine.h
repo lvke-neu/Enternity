@@ -23,6 +23,7 @@ public:
 	inline FrameBuffer* GetFrameBuffer() { return m_framebuffer; }
 
 	void Resize(int width, int height);
+	float GetDeltaTime();
 private:
 	Engine() = default; 
 	~Engine();

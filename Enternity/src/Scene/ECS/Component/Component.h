@@ -236,14 +236,14 @@ struct CameraComponent
 	float m_MoveSpeed = 10.0f;
 	bool m_EnableWireframe = false;
 
-	float fovy = glm::pi<float>() / 3;
+	float fovy = 60.0f;
 	float aspect = 1.0f;
 	float nearz = 1.0f;
 	float farz = 1000.0f;
 
 	void ReCalculateProjectMatrix()
 	{
-		m_ProjectMatrix = glm::perspective<float>(fovy, aspect, nearz, farz);
+		m_ProjectMatrix = glm::perspective<float>(glm::radians(fovy), aspect, nearz, farz);
 	}
 
 	CameraComponent() = default;

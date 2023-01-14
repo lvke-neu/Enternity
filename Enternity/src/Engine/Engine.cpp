@@ -9,8 +9,8 @@
 
 BEGIN_ENTERNITY
 
-#define WINDOW_WIDHT 1200
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDHT 1600
+#define WINDOW_HEIGHT 800
 #define WINDOW_TITLE "Enternity Engine"
 
 void KeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -62,6 +62,11 @@ void MouseMoveEvent(GLFWwindow* window, double xpos, double ypos)
 	}
 }
 
+
+void MouseScrollEnvent(GLFWwindow* window, double xoffset, double yoffset)
+{
+	InputEventManager::GetInstance().NotifyMouseWheel({ (MouseButton)GLFW_MOUSE_BUTTON_MIDDLE, 0, 0, (int)yoffset * 10 });
+}
 
 Engine::~Engine()
 {
@@ -128,6 +133,7 @@ bool Engine::Initialize()
 	glfwSetKeyCallback(m_context, KeyEvent);
 	glfwSetMouseButtonCallback(m_context, MouseButtonEvent);
 	glfwSetCursorPosCallback(m_context, MouseMoveEvent);
+	glfwSetScrollCallback(m_context, MouseScrollEnvent);
 
 	ImguiManager::GetInstance().Initialize(m_context);
 	SceneManager::GetInstance().Initialize();
@@ -151,10 +157,10 @@ void Engine::Run()
 
 			//tick event,  The unit of deltaTime is second
 			ImGuiIO& io = ImGui::GetIO();
-			TickEventManager::GetInstance().NotifyTick(1000.0f / io.Framerate / 1000.0f);
+			TickEventManager::GetInstance().NotifyTick(1.0f / io.Framerate);
 
 			//scene
-			SceneManager::GetInstance().Tick(1000.0f / io.Framerate / 1000.0f);
+			SceneManager::GetInstance().Tick(1.0f / io.Framerate);
 
 			m_framebuffer->Resolve();
 		}
@@ -192,6 +198,12 @@ void Engine::Resize(int width, int height)
 	m_framebuffer->Rebuild(width, height);
 
 	LOG_INFO("Resize:" + std::to_string(width) + "," + std::to_string(height));
+}
+
+float Engine::GetDeltaTime()
+{
+	ImGuiIO& io = ImGui::GetIO();
+	return 1.0f / io.Framerate;
 }
 
 END_ENTERNITY

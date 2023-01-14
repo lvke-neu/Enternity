@@ -1,7 +1,5 @@
 #include "SceneHierarchyPanel.h"
-#include "Imgui/ImguiManager.h"
 #include "Log/Log.h"
-
 
 BEGIN_ENTERNITY
 
@@ -43,36 +41,7 @@ void SceneHierarchyPanel::ImguiDraw()
 
 
 	ImGui::Begin("Entity Property");
-	DrawComponent();
-
-	//add component
-	if (m_SelectedEntity.IsValidEntity() && m_SelectedEntity !=SceneManager::GetInstance().m_MainCameraEntity && ImGui::Button("Add Component"))
-	{
-		ImGui::OpenPopup("AddComponent");
-	}
-	if (ImGui::BeginPopup("AddComponent"))
-	{
-		if (ImGui::MenuItem("TransformComponent"))
-		{
-			m_SelectedEntity.AddComponent<TransformComponent>();
-			ImGui::CloseCurrentPopup();
-		}
-
-		if (ImGui::MenuItem("MeshComponent"))
-		{
-			m_SelectedEntity.AddComponent<MeshComponent>();
-			ImGui::CloseCurrentPopup();
-		}
-
-		if (ImGui::MenuItem("MaterialComponent"))
-		{
-			m_SelectedEntity.AddComponent<MaterialComponent>();
-			ImGui::CloseCurrentPopup();
-		}
-
-		ImGui::EndPopup();
-	}
-
+	DrawComponentOfSelectedEntity();
 	ImGui::End();
 
 	ImGui::Begin("Stats");
@@ -83,6 +52,9 @@ void SceneHierarchyPanel::ImguiDraw()
 
 void SceneHierarchyPanel::DrawVec3(const std::string & label, glm::vec3 & value, const glm::vec3 & resetValue, float columnWidth)
 {
+	ImGuiIO& io = ImGui::GetIO();
+	auto boldFont = io.Fonts->Fonts[0];
+
 	ImGui::PushID(label.c_str());
 
 	ImGui::Columns(2);
@@ -99,10 +71,12 @@ void SceneHierarchyPanel::DrawVec3(const std::string & label, glm::vec3 & value,
 	ImGui::PushStyleColor(ImGuiCol_Button, { 0.8f, 0.1f, 0.15f, 1.0f });
 	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 0.9f, 0.2f, 0.2f, 1.0f });
 	ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 0.8f, 0.1f, 0.15f, 1.0f });
+	ImGui::PushFont(boldFont);
 	if (ImGui::Button("X", buttonSize))
 	{
 		value.x = resetValue.x;
 	}
+	ImGui::PopFont();
 	ImGui::PopStyleColor(3);
 	ImGui::SameLine();
 	ImGui::DragFloat("##X", &value.x, 1.0f, 0.0f, 0.0f, "%.2f");
@@ -112,10 +86,12 @@ void SceneHierarchyPanel::DrawVec3(const std::string & label, glm::vec3 & value,
 	ImGui::PushStyleColor(ImGuiCol_Button, { 0.2f, 0.7f, 0.2f, 1.0f });
 	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 0.3f, 0.8f, 0.3f, 1.0f });
 	ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 0.2f, 0.7f, 0.2f, 1.0f });
+	ImGui::PushFont(boldFont);
 	if (ImGui::Button("Y", buttonSize))
 	{
 		value.y = resetValue.y;
 	}
+	ImGui::PopFont();
 	ImGui::PopStyleColor(3);
 	ImGui::SameLine();
 	ImGui::DragFloat("##Y", &value.y, 1.0f, 0.0f, 0.0f, "%.2f");
@@ -125,10 +101,12 @@ void SceneHierarchyPanel::DrawVec3(const std::string & label, glm::vec3 & value,
 	ImGui::PushStyleColor(ImGuiCol_Button, { 0.1f, 0.25f, 0.8f, 1.0f });
 	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 0.2f, 0.3f, 0.2f, 1.0f });
 	ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 0.1f, 0.25f, 0.8f, 1.0f });
+	ImGui::PushFont(boldFont);
 	if (ImGui::Button("Z", buttonSize))
 	{
 		value.z = resetValue.z;
 	}
+	ImGui::PopFont();
 	ImGui::PopStyleColor(3);
 	ImGui::SameLine();
 	ImGui::DragFloat("##Z", &value.z, 1.0f, 0.0f, 0.0f, "%.2f");
@@ -169,16 +147,10 @@ void SceneHierarchyPanel::DrawEntity(Entity entity, bool allowedDelete)
 	}
 }
 
-void SceneHierarchyPanel::DrawComponent()
+void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 {
 	if (!m_SelectedEntity.IsValidEntity())
 		return;
-
-	//auto& tagComponent = m_SelectedEntity.GetComponent<TagComponent>();
-	//if (ImGui::TreeNode(std::to_string(m_SelectedEntity.GetEntityUid()).c_str(), tagComponent.m_Tag.c_str()))
-	//{
-	//	ImGui::TreePop();
-	//}
 
 	//tag component
 	if (m_SelectedEntity.HasComponent<TagComponent>())
@@ -187,56 +159,65 @@ void SceneHierarchyPanel::DrawComponent()
 		char buffer[256];
 		memset(buffer, 0, sizeof(buffer));
 		memcpy_s(buffer, sizeof(buffer), tagComponent.m_Tag.c_str(), sizeof(buffer));
-		if (ImGui::InputText("Name", buffer, sizeof(buffer)))
+		if (ImGui::InputText("##Name", buffer, sizeof(buffer)))
 		{
 			tagComponent.m_Tag = buffer;
 		}
 	}
 
-	//transform component
-	if (m_SelectedEntity.HasComponent<TransformComponent>())
+
+	//add component
+	ImGui::SameLine();
+	ImGui::PushItemWidth(-1);
+	if (m_SelectedEntity.IsValidEntity() && m_SelectedEntity != SceneManager::GetInstance().m_MainCameraEntity && ImGui::Button("Add Component"))
 	{
-		if (ImGui::TreeNode("TransformComponent"))
+		ImGui::OpenPopup("AddComponent");
+	}
+	if (ImGui::BeginPopup("AddComponent"))
+	{
+		if (ImGui::MenuItem("TransformComponent"))
+		{
+			m_SelectedEntity.AddComponent<TransformComponent>();
+			ImGui::CloseCurrentPopup();
+		}
+
+		if (ImGui::MenuItem("MeshComponent"))
+		{
+			m_SelectedEntity.AddComponent<MeshComponent>();
+			ImGui::CloseCurrentPopup();
+		}
+
+		if (ImGui::MenuItem("MaterialComponent"))
+		{
+			m_SelectedEntity.AddComponent<MaterialComponent>();
+			ImGui::CloseCurrentPopup();
+		}
+
+		ImGui::EndPopup();
+	}
+	ImGui::PopItemWidth();
+
+	//transform component
+	bool allowedRemove = !m_SelectedEntity.HasComponent<CameraComponent>();
+	DrawComponent<TransformComponent>("TransformComponent",
+		[&]()
 		{
 			auto& transformComponent = m_SelectedEntity.GetComponent<TransformComponent>();
 			auto& translation = transformComponent.m_Translation;
 			auto& rotation = transformComponent.m_Rotation;
 			auto& scale = transformComponent.m_Scale;
-			//ImGui::DragFloat3("Translation", &translation[0], 0.1f, -9999.0f, 9999.0f);
-			//ImGui::DragFloat3("Rotation", &rotation[0], 0.1f, -9999.0f, 9999.0f);
-			//ImGui::DragFloat3("Scale", &scale[0], 0.1f, -9999.0f, 9999.0f);
 
 			DrawVec3("Translation", translation, glm::vec3(0.0f));
 			glm::vec3 angleRotation = glm::degrees(rotation);
 			DrawVec3("Rotation", angleRotation, glm::vec3(0.0f));
 			rotation = glm::radians(angleRotation);
 			DrawVec3("Scale", scale, glm::vec3(1.0f));
-
-			ImGui::TreePop();
-		}
-
-		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 4,4 });
-		ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
-		if (ImGui::Button("+1"))
-		{
-			ImGui::OpenPopup("ComponentSettings1");
-		}
-		ImGui::PopStyleVar();
-		if (ImGui::BeginPopup("ComponentSettings1"))
-		{
-			if (ImGui::MenuItem("Remove Component1"))
-			{
-				m_SelectedEntity.RemoveComponent<TransformComponent>();
-			}
-
-			ImGui::EndPopup();
-		}
-	}
+		}, allowedRemove);
+	
 
 	//mesh component
-	if (m_SelectedEntity.HasComponent<MeshComponent>())
-	{
-		if (ImGui::TreeNode("MeshComponent"))
+	DrawComponent<MeshComponent>("MeshComponent",
+		[&]()
 		{
 			auto& meshComponent = m_SelectedEntity.GetComponent<MeshComponent>();
 			char buffer[256];
@@ -247,31 +228,13 @@ void SceneHierarchyPanel::DrawComponent()
 				meshComponent.LoadMesh(buffer);
 			}
 
-			ImGui::TreePop();
 		}
-
-		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 4,4 });
-		ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
-		if (ImGui::Button("+2"))
-		{
-			ImGui::OpenPopup("ComponentSettings2");
-		}
-		ImGui::PopStyleVar();
-		if (ImGui::BeginPopup("ComponentSettings2"))
-		{
-			if (ImGui::MenuItem("Remove Component2"))
-			{
-				m_SelectedEntity.RemoveComponent<MeshComponent>();
-			}
-
-			ImGui::EndPopup();
-		}
-	}
+	);
+	
 
 	//material component
-	if (m_SelectedEntity.HasComponent<MaterialComponent>())
-	{
-		if (ImGui::TreeNode("MaterialComponent"))
+	DrawComponent<MaterialComponent>("MaterialComponent",
+		[&]()
 		{
 			auto& materialComponent = m_SelectedEntity.GetComponent<MaterialComponent>();
 
@@ -292,68 +255,36 @@ void SceneHierarchyPanel::DrawComponent()
 			{
 				materialComponent.LoadTexture(buffer);
 			}
-
-			ImGui::TreePop();
 		}
-
-		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 4,4 });
-		ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
-		if (ImGui::Button("+3"))
-		{
-			ImGui::OpenPopup("ComponentSettings3");
-		}
-		ImGui::PopStyleVar();
-		if (ImGui::BeginPopup("ComponentSettings3"))
-		{
-			if (ImGui::MenuItem("Remove Component3"))
-			{
-				m_SelectedEntity.RemoveComponent<MaterialComponent>();
-			}
-
-			ImGui::EndPopup();
-		}
-	}
+	);
+	
 
 	//camera component
-	if (m_SelectedEntity.HasComponent<CameraComponent>())
-	{
-		auto& cameraComponent = m_SelectedEntity.GetComponent<CameraComponent>();
-		ImGui::DragFloat("MoveSpeed", &cameraComponent.m_MoveSpeed, 1.0f, 0.0f, 9999.0f);
-		
-		if (ImGui::DragFloat("FovY", &cameraComponent.fovy, 1.0f, -9999.0f, 9999.0f) ||
-			ImGui::DragFloat("Aspect", &cameraComponent.aspect, 1.0f, -9999.0f, 9999.0f) ||
-			ImGui::DragFloat("NearZ", &cameraComponent.nearz, 1.0f, -9999.0f, 9999.0f) ||
-			ImGui::DragFloat("FarZ", &cameraComponent.farz, 1.0f, -9999.0f, 9999.0f))
+	DrawComponent<CameraComponent>("CameraComponent",
+		[&]()
 		{
-			cameraComponent.ReCalculateProjectMatrix();
-		}
+			auto& cameraComponent = m_SelectedEntity.GetComponent<CameraComponent>();
+			ImGui::DragFloat("MoveSpeed", &cameraComponent.m_MoveSpeed, 1.0f, 0.0f, 9999.0f);
 
-		if (ImGui::Checkbox("Wireframe", &cameraComponent.m_EnableWireframe))
-		{
-			if (cameraComponent.m_EnableWireframe)
+			if (ImGui::DragFloat("FovY", &cameraComponent.fovy, 1.0f, -9999.0f, 9999.0f) ||
+				ImGui::DragFloat("Aspect", &cameraComponent.aspect, 1.0f, -9999.0f, 9999.0f) ||
+				ImGui::DragFloat("NearZ", &cameraComponent.nearz, 1.0f, -9999.0f, 9999.0f) ||
+				ImGui::DragFloat("FarZ", &cameraComponent.farz, 1.0f, -9999.0f, 9999.0f))
 			{
-				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				cameraComponent.ReCalculateProjectMatrix();
 			}
-			else
-				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		}
-	}
 
-
-
-	////test
-	//if (m_SelectedEntity.GetComponent<TagComponent>().m_Tag == "plane Entity")
-	//{
-	//	static bool flag= true;
-	//	ImGui::Checkbox("test loadmesh", &flag);
-
-	//	if (!flag)
-	//	{
-	//		m_SelectedEntity.GetComponent<MeshComponent>().LoadMesh("assets/model/plane_mesh.bin");
-	//	}
-	//	else
-	//		m_SelectedEntity.GetComponent<MeshComponent>().LoadMesh("assets/model/cube_mesh.bin");
-	//}
+			if (ImGui::Checkbox("Wireframe", &cameraComponent.m_EnableWireframe))
+			{
+				if (cameraComponent.m_EnableWireframe)
+				{
+					glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				}
+				else
+					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			}
+		}, false);
+	
 }
 
 

@@ -1,5 +1,6 @@
 #include "CameraController.h"
 #include "ECS/Component/Component.h"
+#include "Engine/Engine.h"
 
 BEGIN_ENTERNITY
 
@@ -52,7 +53,7 @@ void CameraController::onMouseMove(MouseState mouseState)
 
 void CameraController::onMouseWheel(MouseState mouseState)
 {
-	/*Singleton<PerspectiveCamera>::GetInstance().moveZAxis(mouseState.delta * m_moveSpeed * 0.001f);*/
+	m_CameraEntity.GetComponent<TransformComponent>().MoveZAxis(-mouseState.delta * m_CameraEntity.GetComponent<CameraComponent>().m_MoveSpeed * Engine::GetInstance().GetDeltaTime());
 }
 
 void CameraController::tick(float deltaTime)

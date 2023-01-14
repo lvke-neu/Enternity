@@ -25,7 +25,7 @@ public:
 	void Release();
 private:
 	void ShowDockSpace(bool* p_open);
-
+	void SetDarkThemeColors();
 	unsigned int m_width;
 	unsigned int m_height;
 
