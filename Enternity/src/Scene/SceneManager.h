@@ -6,6 +6,7 @@ SceneManager
 ****************************************************************************************/
 #pragma once
 
+#include <map>
 #include "Macro/Macro.h"
 #include "ECS/Entity/Entity.h"
 #include "ECS/Component/Component.h"
@@ -16,6 +17,7 @@ class CameraController;
 class SceneHierarchyPanel;
 class SceneManager
 {
+	friend class SceneHierarchyPanel;
 	SINGLETON(SceneManager);
 public:
 	void Initialize();
@@ -28,11 +30,8 @@ private:
 	SceneManager& operator=(const SceneManager&) = default;
 private:
 	entt::registry m_Registry;
-
 	Entity m_MainCameraEntity;
-	Entity m_CubeEntity;
-	Entity m_PlaneEntity;
-	Entity m_LightEntity;
+	std::map<unsigned int, Entity> m_Entities;
 private:
 	CameraController* m_CameraController{ nullptr };	
 	SceneHierarchyPanel* m_SceneHierarchyPanel{ nullptr };

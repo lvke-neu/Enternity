@@ -18,6 +18,5 @@ Entity::Entity(entt::registry * registry, entt::entity entityUid)
 	m_EntityUid = entityUid;
 }
 
-
 END_ENTERNITY
 

@@ -1,10 +1,9 @@
 #include "CameraController.h"
-#include "ECS/Entity/Entity.h"
 #include "ECS/Component/Component.h"
 
 BEGIN_ENTERNITY
 
-CameraController::CameraController(Entity* cameraEntity):
+CameraController::CameraController(Entity cameraEntity):
 	m_CameraEntity(cameraEntity)
 {
 	InputEventManager::GetInstance().RegisterEvent(this);
@@ -43,8 +42,8 @@ void CameraController::onMouseMove(MouseState mouseState)
 		m_deltaMousePosY = mouseState.y - m_oldMousePosY;
 
 		
-		m_CameraEntity->GetComponent<TransformComponent>().RotateAlongXAxis(m_deltaMousePosY * 0.01f);
-		m_CameraEntity->GetComponent<TransformComponent>().RotateAlongYAxis(m_deltaMousePosX * 0.01f);
+		m_CameraEntity.GetComponent<TransformComponent>().RotateAlongXAxis(m_deltaMousePosY * 0.01f);
+		m_CameraEntity.GetComponent<TransformComponent>().RotateAlongYAxis(m_deltaMousePosX * 0.01f);
 
 		m_oldMousePosX = mouseState.x;
 		m_oldMousePosY = mouseState.y;
@@ -58,26 +57,26 @@ void CameraController::onMouseWheel(MouseState mouseState)
 
 void CameraController::tick(float deltaTime)
 {
-	auto moveSpeed = m_CameraEntity->GetComponent<CameraComponent>().m_MoveSpeed;
+	auto moveSpeed = m_CameraEntity.GetComponent<CameraComponent>().m_MoveSpeed;
 
 	if (InputEventManager::GetInstance().IsKeyPress(GLFW_KEY_W))
 	{
-		m_CameraEntity->GetComponent<TransformComponent>().MoveZAxis(-deltaTime * moveSpeed);
+		m_CameraEntity.GetComponent<TransformComponent>().MoveZAxis(-deltaTime * moveSpeed);
 	}
 
 	if (InputEventManager::GetInstance().IsKeyPress(GLFW_KEY_S))
 	{
-		m_CameraEntity->GetComponent<TransformComponent>().MoveZAxis(deltaTime * moveSpeed);
+		m_CameraEntity.GetComponent<TransformComponent>().MoveZAxis(deltaTime * moveSpeed);
 	}
 
 	if (InputEventManager::GetInstance().IsKeyPress(GLFW_KEY_A))
 	{
-		m_CameraEntity->GetComponent<TransformComponent>().MoveXAxis(-deltaTime * moveSpeed);
+		m_CameraEntity.GetComponent<TransformComponent>().MoveXAxis(-deltaTime * moveSpeed);
 	}
 
 	if (InputEventManager::GetInstance().IsKeyPress(GLFW_KEY_D))
 	{
-		m_CameraEntity->GetComponent<TransformComponent>().MoveXAxis(deltaTime * moveSpeed);
+		m_CameraEntity.GetComponent<TransformComponent>().MoveXAxis(deltaTime * moveSpeed);
 	}
 }
 

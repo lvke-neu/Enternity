@@ -8,6 +8,7 @@ Camera Controller
 #include "Macro/Macro.h"
 #include "Event/InputEventManager.h"
 #include "Event/TickEventManager.h"
+#include "ECS/Entity/Entity.h"
 
 BEGIN_ENTERNITY
 
@@ -15,7 +16,7 @@ class Entity;
 class CameraController : public InputEvent, public TickEvent
 {
 public:
-	CameraController(Entity* cameraEntity);
+	CameraController(Entity cameraEntity);
 	~CameraController();
 	CameraController(const CameraController&) = delete;
 	CameraController& operator=(const CameraController&) = delete;
@@ -32,7 +33,7 @@ private:
 	int m_deltaMousePosX = 0;
 	int m_deltaMousePosY = 0;
 
-	Entity* m_CameraEntity{ nullptr };
+	Entity m_CameraEntity;
 };
 
 END_ENTERNITY

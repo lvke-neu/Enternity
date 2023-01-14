@@ -5,8 +5,7 @@
 
 BEGIN_ENTERNITY
 
-SceneHierarchyPanel::SceneHierarchyPanel(entt::registry* registry):
-	m_pSceneRegistry(registry)
+SceneHierarchyPanel::SceneHierarchyPanel()
 {
 	ImguiDrawEventManager::GetInstance().RegisterEvent(this);
 }
@@ -20,17 +19,25 @@ void SceneHierarchyPanel::ImguiDraw()
 {
 	ImGui::Begin("Scene Hierarchy panel");
 	//traversal all entity in one registry
-	m_pSceneRegistry->each(
-		[&](entt::entity entityUid)
-		{
-			Entity entity(m_pSceneRegistry, entityUid);
-			DrawEntity(entity);
-		}
-	);
-
+	DrawEntity(SceneManager::GetInstance().m_MainCameraEntity, false);
+	for (auto& entity : SceneManager::GetInstance().m_Entities)
+	{
+		DrawEntity(entity.second);
+	}
 
 	if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
 		m_SelectedEntity = {};
+
+	//add entity
+	if (ImGui::BeginPopupContextWindow(0, 1, false))
+	{
+		if (ImGui::MenuItem("Create Entity"))
+		{
+			Entity cubeEntity(&SceneManager::GetInstance().m_Registry);
+			SceneManager::GetInstance().m_Entities.insert({ cubeEntity.GetEntityUid(), cubeEntity });
+		}
+		ImGui::EndPopup();
+	}
 
 	ImGui::End();
 
@@ -106,7 +113,7 @@ void SceneHierarchyPanel::DrawVec3(const std::string & label, glm::vec3 & value,
 	ImGui::PopID();
 }
 
-void SceneHierarchyPanel::DrawEntity(Entity entity)
+void SceneHierarchyPanel::DrawEntity(Entity entity, bool allowedDelete)
 {
 	auto& tagComponent = entity.GetComponent<TagComponent>();
 
@@ -114,6 +121,23 @@ void SceneHierarchyPanel::DrawEntity(Entity entity)
 	{
 		LOG_INFO("select " + entity.GetComponent<TagComponent>().m_Tag);
 		m_SelectedEntity = entity;
+	}
+
+	//delete entity
+	if (allowedDelete && ImGui::BeginPopupContextItem())
+	{
+		if (ImGui::MenuItem("Delete Entity"))
+		{
+			if (SceneManager::GetInstance().m_Entities.find(entity.GetEntityUid()) != SceneManager::GetInstance().m_Entities.end())
+			{
+				if(m_SelectedEntity == entity)
+					m_SelectedEntity = {};
+				SceneManager::GetInstance().m_Entities.erase(entity.GetEntityUid());
+				entity.Destroy();
+			}
+		}
+
+		ImGui::EndPopup();
 	}
 }
 
