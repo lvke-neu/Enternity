@@ -8,6 +8,7 @@ Entity : use singleton scenemanager's registry
 
 #include <entt.hpp>
 #include "Macro/Macro.h"
+#include "Log/Log.h"
 
 BEGIN_ENTERNITY
 
@@ -25,6 +26,11 @@ public:
 	template<typename T, typename...Args>
 	T& AddComponent(Args&& ... args)
 	{
+		if (HasComponent<T>())
+		{
+			LOG_ERROR("Component has exist in this Entity");
+			return GetComponent<T>();
+		}
 		auto& registry = *m_pSceneRegistry;
 		return registry.emplace<T>(m_EntityUid, std::forward<Args>(args)...);
 	}
@@ -32,6 +38,11 @@ public:
 	template<typename T, typename...Args>
 	void RemoveComponent(Args&& ... args)
 	{
+		if (!HasComponent<T>())
+		{
+			LOG_ERROR("Component doesn't exist in this Entity");
+			return GetComponent<T>();
+		}
 		auto& registry = *m_pSceneRegistry;
 		return registry.remove<T>(m_EntityUid);
 	}
@@ -58,6 +69,11 @@ public:
 	bool operator== (const Entity& entity)
 	{
 		return (m_pSceneRegistry == entity.m_pSceneRegistry) && (m_EntityUid == entity.m_EntityUid);
+	}
+
+	bool operator!= (const Entity& entity)
+	{
+		return ! operator== (entity);
 	}
 
 	bool IsValidEntity()

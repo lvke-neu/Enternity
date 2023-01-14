@@ -44,10 +44,36 @@ void SceneHierarchyPanel::ImguiDraw()
 
 	ImGui::Begin("Entity Property");
 	DrawComponent();
+	if (m_SelectedEntity.IsValidEntity() && m_SelectedEntity !=SceneManager::GetInstance().m_MainCameraEntity && ImGui::Button("Add Component"))
+	{
+		ImGui::OpenPopup("AddComponent");
+	}
+	if (ImGui::BeginPopup("AddComponent"))
+	{
+		if (ImGui::MenuItem("TransformComponent"))
+		{
+			m_SelectedEntity.AddComponent<TransformComponent>();
+			ImGui::CloseCurrentPopup();
+		}
+
+		if (ImGui::MenuItem("MeshComponent"))
+		{
+			m_SelectedEntity.AddComponent<MeshComponent>();
+			ImGui::CloseCurrentPopup();
+		}
+
+		if (ImGui::MenuItem("MaterialComponent"))
+		{
+			m_SelectedEntity.AddComponent<MaterialComponent>();
+			ImGui::CloseCurrentPopup();
+		}
+
+		ImGui::EndPopup();
+	}
+
 	ImGui::End();
 
 	ImGui::Begin("Stats");
-
 	ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	ImGui::End();
 

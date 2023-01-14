@@ -79,13 +79,24 @@ void SceneManager::Tick(float deltaTime)
 			auto& transformComponent = entity.second.GetComponent<TransformComponent>();
 			auto& meshComponent = entity.second.GetComponent<MeshComponent>();
 			auto& materialComponent = entity.second.GetComponent<MaterialComponent>();
+			
+			if(meshComponent.m_VertexArray)
+				meshComponent.m_VertexArray->Bind();
+			
+			if (materialComponent.m_Shader)
+			{
+				materialComponent.m_Shader->Bind();
+				materialComponent.m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * cameraTransformComponent.GetInverseWorldMatrix() * transformComponent.GetWorldMatrix());
+			}
+		
+			if (materialComponent.m_Texture)
+				materialComponent.m_Texture->Bind(0);
 
-			meshComponent.m_VertexArray->Bind();
-			meshComponent.m_Indexbuffer->Bind();
-			materialComponent.m_Shader->Bind();
-			materialComponent.m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * cameraTransformComponent.GetInverseWorldMatrix() * transformComponent.GetWorldMatrix());
-			materialComponent.m_Texture->Bind(0);
-			CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, meshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
+			if (meshComponent.m_Indexbuffer)
+			{
+				meshComponent.m_Indexbuffer->Bind();
+				CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, meshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
+			}
 		}
 	}
 }

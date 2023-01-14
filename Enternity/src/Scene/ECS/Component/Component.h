@@ -168,7 +168,11 @@ struct MaterialComponent
 	bool m_bUseColor = false;
 	glm::vec4 m_BaseColor{ 1.0f };
 
-	MaterialComponent() = default;
+	MaterialComponent()
+	{
+		LoadShader("assets/shaders/TestECS.glsl");
+		SetBaseColor(glm::vec4{ 1.0f });
+	}
 	MaterialComponent(const MaterialComponent&) = default;
 
 
