@@ -8,6 +8,7 @@ Imgui Manager
 
 #include "Macro/Macro.h"
 #include "Imgui/ImguiImpl/imgui.h"
+#include "Imgui/ImguiImpl/imgui_internal.h"
 #include "Imgui/ImguiImpl/imgui_impl_glfw.h"
 #include "Imgui/ImguiImpl/imgui_impl_opengl3.h"
 
