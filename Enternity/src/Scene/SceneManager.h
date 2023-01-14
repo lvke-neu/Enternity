@@ -18,6 +18,7 @@ class SceneHierarchyPanel;
 class SceneManager
 {
 	friend class SceneHierarchyPanel;
+	friend class SceneSerializer;
 	SINGLETON(SceneManager);
 public:
 	void Initialize();

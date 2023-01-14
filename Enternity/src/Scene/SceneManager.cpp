@@ -1,7 +1,7 @@
 #include "SceneManager.h"
 #include "CameraController.h"
 #include "SceneHierarchyPanel.h"
-
+#include "SceneSerializer.h"
 
 BEGIN_ENTERNITY
 
@@ -26,7 +26,6 @@ SceneManager::~SceneManager()
 
 void SceneManager::Initialize()
 {
-
 	m_MainCameraEntity = Entity(&m_Registry, "MainCamera Entity");
 	m_MainCameraEntity.AddComponent<TransformComponent>(glm::vec3(-5.684f, 2.305f, 3.188f), glm::vec3(-0.27f, -0.76f, 0.000f), glm::vec3(1.0f));
 	m_MainCameraEntity.AddComponent<CameraComponent>();
@@ -37,7 +36,7 @@ void SceneManager::Initialize()
 	cubeEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 	auto& cubeMeshComponent = cubeEntity.AddComponent<MeshComponent>();
 	auto& cubeMaterialComponent = cubeEntity.AddComponent<MaterialComponent>();
-	cubeMeshComponent.LoadMesh("assets/model/cube.mesh");
+	cubeMeshComponent.LoadMesh("assets/models/cube.mesh");
 	cubeMaterialComponent.LoadMaterial("assets/textures/skybox.jpeg", "assets/shaders/TestECS.glsl");
 	cubeMaterialComponent.SetMaterialProperty(0, glm::vec4(1.0f), 0);
 	cubeEntity.AddComponent<MotorComponent>();
@@ -46,7 +45,7 @@ void SceneManager::Initialize()
 	planeEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, -5.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(100.0f, 1.0f, 100.0f));
 	auto& planeMeshComponent = planeEntity.AddComponent<MeshComponent>();
 	auto& planeMaterialComponent = planeEntity.AddComponent<MaterialComponent>();
-	planeMeshComponent.LoadMesh("assets/model/plane.mesh");
+	planeMeshComponent.LoadMesh("assets/models/plane.mesh");
 	planeMaterialComponent.LoadMaterial("", "assets/shaders/TestECS.glsl");
 	planeMaterialComponent.SetMaterialProperty(1, glm::vec4(65.0f / 255, 90.0f / 255, 20.0f / 255, 1.0f), 0);
 
@@ -55,7 +54,7 @@ void SceneManager::Initialize()
 	lightEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f));
 	auto& lightMeshComponent = lightEntity.AddComponent<MeshComponent>();
 	auto& lightMaterialComponent = lightEntity.AddComponent<MaterialComponent>();
-	lightMeshComponent.LoadMesh("assets/model/sphere.mesh");
+	lightMeshComponent.LoadMesh("assets/models/sphere.mesh");
 	lightMaterialComponent.LoadMaterial("", "assets/shaders/TestECS.glsl");
 	lightMaterialComponent.SetMaterialProperty(1, glm::vec4(1.0f), 0);
 
@@ -65,6 +64,8 @@ void SceneManager::Initialize()
 	
 
 	m_SceneHierarchyPanel = new SceneHierarchyPanel;
+
+	//SceneSerializer::Serialize("assets/scenes/test.scene");
 }
 
 void SceneManager::Update(float deltaTime)
@@ -123,7 +124,7 @@ void SceneManager::Tick(float deltaTime)
 
 void SceneManager::OnResize(int width, int height)
 {
-	m_MainCameraEntity.GetComponent<CameraComponent>().aspect = static_cast<float>(width) / height;
+	m_MainCameraEntity.GetComponent<CameraComponent>().m_Aspect = static_cast<float>(width) / height;
 	m_MainCameraEntity.GetComponent<CameraComponent>().ReCalculateProjectMatrix();
 }
 

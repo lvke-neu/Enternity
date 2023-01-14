@@ -1,0 +1,16 @@
+Scene: Untitled
+Entities:
+  - Entity: 0
+    TagComponent:
+      m_Tag: 12sassssssssssssssssw
+    CameraComponent:
+      m_MoveSpeed: 140
+      m_EnableWireframe: false
+      m_Fovy: 30
+      m_Aspect: 1.18799996
+      m_NearZ: 1
+      m_FarZ: 2163
+    TransformComponent:
+      m_Translation: [-28.8587532, 28.697485, 1.06324399]
+      m_Rotation: [-0.870000541, -1.49000645, 0]
+      m_Scale: [1, 1, 1]
