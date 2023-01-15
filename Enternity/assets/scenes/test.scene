@@ -4,22 +4,22 @@ Entities:
     TagComponent:
       m_Tag: MainCamera Entity
     CameraComponent:
-      m_MoveSpeed: 10
+      m_MoveSpeed: 74
       m_EnableWireframe: false
       m_Fovy: 60
       m_Aspect: 1.18799996
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [-20.3619709, 14.8183889, 11.0887728]
-      m_Rotation: [-0.649999857, -0.940000057, 0]
+      m_Translation: [-21.2722492, 13.5072651, 11.2104006]
+      m_Rotation: [-0.379999965, -1.00999999, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
     TagComponent:
       m_Tag: Cube Entity
     TransformComponent:
       m_Translation: [0, 0, -5]
-      m_Rotation: [-5.22303295, -5.22303295, 0]
+      m_Rotation: [-5.14118385, -5.14118385, 0]
       m_Scale: [1, 1, 1]
     MeshComponent:
       m_MeshFilePath: assets/models/cube.mesh
