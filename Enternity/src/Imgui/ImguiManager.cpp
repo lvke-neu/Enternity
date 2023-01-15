@@ -115,19 +115,27 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 	}
 
 	if (ImGui::BeginMenuBar())
-	{
+	{	
+		if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_LEFT_CONTROL) && InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_N))
+			SceneManager::GetInstance().Clear();
+
+		if(InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_LEFT_CONTROL) && InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_O))
+			SceneSerializer::Deserialize(FileDialog::OpenFile(".scene"));
+
+		if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_LEFT_CONTROL) && InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_S))
+			SceneSerializer::Serialize(FileDialog::SaveFile(".scene"));
 
 		if (ImGui::BeginMenu("File"))
 		{
-			if (ImGui::MenuItem("New"))
+			if (ImGui::MenuItem("New", "CTRL+N"))
 			{
 				SceneManager::GetInstance().Clear();
 			}
-			if (ImGui::MenuItem("Open..."))
+			if (ImGui::MenuItem("Open...", "CTRL+O"))
 			{
 				SceneSerializer::Deserialize(FileDialog::OpenFile(".scene"));
 			}
-			if (ImGui::MenuItem("Save..."))
+			if (ImGui::MenuItem("Save...", "CTRL+S"))
 			{
 				SceneSerializer::Serialize(FileDialog::SaveFile(".scene"));
 			}
