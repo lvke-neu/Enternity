@@ -172,6 +172,17 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 	auto id = Engine::GetInstance().GetFrameBuffer()->GetTextureRendererId();
 	ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
 
+	if (ImGui::BeginDragDropTarget())
+	{
+		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+		{
+			LOG_INFO((char*)payload->Data);
+			SceneSerializer::Deserialize("assets/scenes/test.scene");
+		}
+		ImGui::EndDragDropTarget();
+	}
+
+
 	//Gizmos
 	if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_4))
 		m_GizmoType = -1;
