@@ -32,35 +32,35 @@ void SceneManager::Initialize()
 	m_CameraController = new CameraController(m_MainCameraEntity);
 
 
-	Entity cubeEntity(&m_Registry, "Cube Entity");
-	cubeEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-	auto& cubeMeshComponent = cubeEntity.AddComponent<MeshComponent>();
-	auto& cubeMaterialComponent = cubeEntity.AddComponent<MaterialComponent>();
-	cubeMeshComponent.LoadMesh("assets/models/cube.mesh");
-	cubeMaterialComponent.LoadMaterial("assets/textures/skybox.jpeg", "assets/shaders/TestECS.glsl");
-	cubeMaterialComponent.SetMaterialProperty(0, glm::vec4(1.0f), 0);
-	cubeEntity.AddComponent<MotorComponent>();
-	
-	Entity planeEntity(&m_Registry, "Plane Entity");
-	planeEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, -5.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(100.0f, 1.0f, 100.0f));
-	auto& planeMeshComponent = planeEntity.AddComponent<MeshComponent>();
-	auto& planeMaterialComponent = planeEntity.AddComponent<MaterialComponent>();
-	planeMeshComponent.LoadMesh("assets/models/plane.mesh");
-	planeMaterialComponent.LoadMaterial("", "assets/shaders/TestECS.glsl");
-	planeMaterialComponent.SetMaterialProperty(1, glm::vec4(65.0f / 255, 90.0f / 255, 20.0f / 255, 1.0f), 0);
+	//Entity cubeEntity(&m_Registry, "Cube Entity");
+	//cubeEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	//auto& cubeMeshComponent = cubeEntity.AddComponent<MeshComponent>();
+	//auto& cubeMaterialComponent = cubeEntity.AddComponent<MaterialComponent>();
+	//cubeMeshComponent.LoadMesh("assets/models/cube.mesh");
+	//cubeMaterialComponent.LoadMaterial("assets/textures/skybox.jpeg", "assets/shaders/TestECS.glsl");
+	//cubeMaterialComponent.SetMaterialProperty(0, glm::vec4(1.0f), 0);
+	//cubeEntity.AddComponent<MotorComponent>();
+	//
+	//Entity planeEntity(&m_Registry, "Plane Entity");
+	//planeEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, -5.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(100.0f, 1.0f, 100.0f));
+	//auto& planeMeshComponent = planeEntity.AddComponent<MeshComponent>();
+	//auto& planeMaterialComponent = planeEntity.AddComponent<MaterialComponent>();
+	//planeMeshComponent.LoadMesh("assets/models/plane.mesh");
+	//planeMaterialComponent.LoadMaterial("", "assets/shaders/TestECS.glsl");
+	//planeMaterialComponent.SetMaterialProperty(1, glm::vec4(65.0f / 255, 90.0f / 255, 20.0f / 255, 1.0f), 0);
 
 
-	Entity lightEntity(&m_Registry, "Light Entity");
-	lightEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f));
-	auto& lightMeshComponent = lightEntity.AddComponent<MeshComponent>();
-	auto& lightMaterialComponent = lightEntity.AddComponent<MaterialComponent>();
-	lightMeshComponent.LoadMesh("assets/models/sphere.mesh");
-	lightMaterialComponent.LoadMaterial("", "assets/shaders/TestECS.glsl");
-	lightMaterialComponent.SetMaterialProperty(1, glm::vec4(1.0f), 0);
+	//Entity lightEntity(&m_Registry, "Light Entity");
+	//lightEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f));
+	//auto& lightMeshComponent = lightEntity.AddComponent<MeshComponent>();
+	//auto& lightMaterialComponent = lightEntity.AddComponent<MaterialComponent>();
+	//lightMeshComponent.LoadMesh("assets/models/sphere.mesh");
+	//lightMaterialComponent.LoadMaterial("", "assets/shaders/TestECS.glsl");
+	//lightMaterialComponent.SetMaterialProperty(1, glm::vec4(1.0f), 0);
 
-	m_Entities.insert({ cubeEntity.GetEntityUid(), cubeEntity });
-	m_Entities.insert({ planeEntity.GetEntityUid(), planeEntity });
-	m_Entities.insert({ lightEntity.GetEntityUid(), lightEntity });
+	//m_Entities.insert({ cubeEntity.GetEntityUid(), cubeEntity });
+	//m_Entities.insert({ planeEntity.GetEntityUid(), planeEntity });
+	//m_Entities.insert({ lightEntity.GetEntityUid(), lightEntity });
 	
 
 	m_SceneHierarchyPanel = new SceneHierarchyPanel;

@@ -1,5 +1,85 @@
 #include "SceneSerializer.h"
 #include "File/FileOperation.h"
+#include "Log/Log.h"
+
+
+namespace YAML {
+
+	template<>
+	struct convert<glm::vec2>
+	{
+		static Node encode(const glm::vec2& rhs)
+		{
+			Node node;
+			node.push_back(rhs.x);
+			node.push_back(rhs.y);
+			node.SetStyle(EmitterStyle::Flow);
+			return node;
+		}
+
+		static bool decode(const Node& node, glm::vec2& rhs)
+		{
+			if (!node.IsSequence() || node.size() != 2)
+				return false;
+
+			rhs.x = node[0].as<float>();
+			rhs.y = node[1].as<float>();
+			return true;
+		}
+	};
+
+	template<>
+	struct convert<glm::vec3>
+	{
+		static Node encode(const glm::vec3& rhs)
+		{
+			Node node;
+			node.push_back(rhs.x);
+			node.push_back(rhs.y);
+			node.push_back(rhs.z);
+			node.SetStyle(EmitterStyle::Flow);
+			return node;
+		}
+
+		static bool decode(const Node& node, glm::vec3& rhs)
+		{
+			if (!node.IsSequence() || node.size() != 3)
+				return false;
+
+			rhs.x = node[0].as<float>();
+			rhs.y = node[1].as<float>();
+			rhs.z = node[2].as<float>();
+			return true;
+		}
+	};
+
+	template<>
+	struct convert<glm::vec4>
+	{
+		static Node encode(const glm::vec4& rhs)
+		{
+			Node node;
+			node.push_back(rhs.x);
+			node.push_back(rhs.y);
+			node.push_back(rhs.z);
+			node.push_back(rhs.w);
+			node.SetStyle(EmitterStyle::Flow);
+			return node;
+		}
+
+		static bool decode(const Node& node, glm::vec4& rhs)
+		{
+			if (!node.IsSequence() || node.size() != 4)
+				return false;
+
+			rhs.x = node[0].as<float>();
+			rhs.y = node[1].as<float>();
+			rhs.z = node[2].as<float>();
+			rhs.w = node[3].as<float>();
+			return true;
+		}
+	};
+}
 
 BEGIN_ENTERNITY
 
@@ -120,6 +200,101 @@ void SceneSerializer::Serialize(const std::string& filePath)
 	memcpy_s(blob.GetData(), blob.GetLength(), out.c_str(), blob.GetLength());
 
 	FileOperation::WriteFile(blob, filePath);
+}
+
+bool SceneSerializer::Deserialize(const std::string& filePath)
+{
+	YAML::Node data;
+	try
+	{
+		data = YAML::LoadFile(filePath);
+	}
+	catch (std::exception e)
+	{
+		LOG_ERROR("Failed to load scene file, " + e.what());
+		return false;
+	}
+
+
+	if (!data["Scene"])
+		return false;
+
+	auto entities = data["Entities"];
+	if (entities)
+	{
+		for (auto entity : entities)
+		{
+			auto cameraComponent = entity["CameraComponent"];
+			auto cameraTransformComponent = entity["TransformComponent"];
+			if (cameraComponent && cameraTransformComponent)
+			{
+				auto& mainCameraEntity = SceneManager::GetInstance().m_MainCameraEntity;
+				auto& cc = mainCameraEntity.GetComponent<CameraComponent>();
+				cc.m_MoveSpeed = cameraComponent["m_MoveSpeed"].as<float>();
+				cc.m_EnableWireframe = cameraComponent["m_EnableWireframe"].as<bool>();
+				cc.m_Fovy = cameraComponent["m_Fovy"].as<float>();
+				cc.m_Aspect = cameraComponent["m_Aspect"].as<float>();
+				cc.m_NearZ = cameraComponent["m_NearZ"].as<float>();
+				cc.m_FarZ = cameraComponent["m_FarZ"].as<float>();
+				cc.InitStateByAllProperty();
+				auto& tc = mainCameraEntity.GetComponent<TransformComponent>();
+				tc.m_Translation = cameraTransformComponent["m_Translation"].as<glm::vec3>();
+				tc.m_Rotation = cameraTransformComponent["m_Rotation"].as<glm::vec3>();
+				tc.m_Scale = cameraTransformComponent["m_Scale"].as<glm::vec3>();
+
+				continue;
+			}
+
+			Entity deserializeEntity(&SceneManager::GetInstance().m_Registry);
+			
+			auto tagComponent = entity["TagComponent"];
+			if (tagComponent)
+			{
+				deserializeEntity.GetComponent<TagComponent>().m_Tag = tagComponent["m_Tag"].as<std::string>();
+			}
+
+			auto transformComponent = entity["TransformComponent"];
+			if (transformComponent)
+			{
+				auto& tc = deserializeEntity.AddComponent<TransformComponent>();
+				tc.m_Translation = transformComponent["m_Translation"].as<glm::vec3>();
+				tc.m_Rotation = transformComponent["m_Rotation"].as<glm::vec3>();
+				tc.m_Scale = transformComponent["m_Scale"].as<glm::vec3>();
+			}
+
+			auto meshComponent = entity["MeshComponent"];
+			if (meshComponent)
+			{
+				auto& mc = deserializeEntity.AddComponent<MeshComponent>();
+				mc.m_MeshFilePath = meshComponent["m_MeshFilePath"].as<std::string>();
+				mc.LoadMesh(mc.m_MeshFilePath);
+			}
+
+			auto materialComponent = entity["MaterialComponent"];
+			if (materialComponent)
+			{
+				auto& mc = deserializeEntity.AddComponent<MaterialComponent>();
+				mc.m_TextureFilePath = materialComponent["m_TextureFilePath"].as<std::string>();
+				mc.m_ShaderFilePath = materialComponent["m_ShaderFilePath"].as<std::string>();
+				mc.m_bUseColor = materialComponent["m_bUseColor"].as<bool>();
+				mc.m_BaseColor = materialComponent["m_BaseColor"].as<glm::vec4>();
+				mc.LoadMaterial(mc.m_TextureFilePath, mc.m_ShaderFilePath);
+			}
+
+			auto motorComponent = entity["MotorComponent"];
+			if (motorComponent)
+			{
+				auto& mc = deserializeEntity.AddComponent<MotorComponent>();
+				mc.m_RotationXAnglePerSecond = motorComponent["m_RotationXAnglePerSecond"].as<float>();
+				mc.m_RotationYAnglePerSecond = motorComponent["m_RotationYAnglePerSecond"].as<float>();
+			}
+
+			SceneManager::GetInstance().m_Entities.insert({ deserializeEntity.GetEntityUid(), deserializeEntity });
+			LOG_INFO("Deserialize Entity:" + deserializeEntity.GetComponent<TagComponent>().m_Tag + " complete");
+		}
+	}
+
+	return true;
 }
 
 END_ENTERNITY

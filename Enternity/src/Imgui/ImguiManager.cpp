@@ -119,10 +119,15 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 
 		if (ImGui::BeginMenu("File"))
 		{
+			if (ImGui::MenuItem("Open"))
+			{
+				SceneSerializer::Deserialize("assets/scenes/test.scene");
+			}
 			if (ImGui::MenuItem("Save"))
 			{
 				SceneSerializer::Serialize("assets/scenes/test.scene");
 			}
+
 			if (ImGui::MenuItem("Close"))
 				Engine::GetInstance().ShutDown();
 

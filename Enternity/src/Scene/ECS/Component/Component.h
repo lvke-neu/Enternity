@@ -151,7 +151,7 @@ struct MeshComponent
 			glm::vec2 texcoord;
 		};
 
-		Enternity::Blob blob2(BLOB_LENGTH);
+		Enternity::Blob blob2(DEFAULT_BLOB_LENGTH);
 		if (!Enternity::FileOperation::ReadFile(blob2, meshFilePath))
 			return;
 
@@ -220,6 +220,8 @@ struct MaterialComponent
 		SAFE_DELETE_SET_NULL(m_Shader);
 		m_ShaderFilePath = shaderFilePath;
 		m_Shader = new Shader(shaderFilePath);
+		SetIsUseColor(m_bUseColor);
+		SetBaseColor(m_BaseColor);
 	}
 
 	void LoadMaterial(const std::string& textureFilePath, const std::string& shaderFilePath)
@@ -276,6 +278,17 @@ struct CameraComponent
 	void ReCalculateProjectMatrix()
 	{
 		m_ProjectMatrix = glm::perspective<float>(glm::radians(m_Fovy), m_Aspect, m_NearZ, m_FarZ);
+	}
+
+	void InitStateByAllProperty()
+	{
+		ReCalculateProjectMatrix();
+		if (m_EnableWireframe)
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		else
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
 	CameraComponent() = default;

@@ -4,7 +4,7 @@
 
 BEGIN_ENTERNITY
 
-#define BLOB_LENGTH 1024 * 100
+#define DEFAULT_BLOB_LENGTH 1024 * 100
 
 class Blob
 {

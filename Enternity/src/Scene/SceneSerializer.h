@@ -16,6 +16,7 @@ class SceneSerializer
 {
 public:
 	static void Serialize(const std::string& filePath);
+	static bool Deserialize(const std::string& filePath);
 private:
 	static void SerializeEntity(YAML::Emitter& out, Entity entity);
 };
