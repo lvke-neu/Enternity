@@ -8,7 +8,8 @@ SceneManager
 
 #include <map>
 #include "Macro/Macro.h"
-#include "SceneHierarchyPanel.h"
+#include "Panels/SceneHierarchyPanel.h"
+#include "Panels/ContentBrowserPanel.h"
 
 BEGIN_ENTERNITY
 
@@ -46,6 +47,7 @@ private:
 private:
 	CameraController* m_CameraController{ nullptr };	
 	SceneHierarchyPanel* m_SceneHierarchyPanel{ nullptr };
+	ContentBrowserPanel* m_ContentBrowserPanel{ nullptr };
 };
 
 END_ENTERNITY

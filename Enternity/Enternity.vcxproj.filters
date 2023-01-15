@@ -102,9 +102,6 @@
     <ClCompile Include="src\Scene\CameraController.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\SceneHierarchyPanel.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\File\FileOperation.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -127,6 +124,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Math\Math.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Panels\SceneHierarchyPanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Panels\ContentBrowserPanel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -233,9 +236,6 @@
     <ClInclude Include="src\Scene\CameraController.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\SceneHierarchyPanel.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\File\Blob.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -261,6 +261,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Math\Math.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Panels\SceneHierarchyPanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Panels\ContentBrowserPanel.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

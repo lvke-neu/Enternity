@@ -121,7 +121,8 @@
     <ClCompile Include="src\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\Scene\ECS\Entity\Entity.cpp" />
-    <ClCompile Include="src\Scene\SceneHierarchyPanel.cpp" />
+    <ClCompile Include="src\Scene\Panels\ContentBrowserPanel.cpp" />
+    <ClCompile Include="src\Scene\Panels\SceneHierarchyPanel.cpp" />
     <ClCompile Include="src\Scene\SceneManager.cpp" />
     <ClCompile Include="src\Scene\SceneSerializer.cpp" />
     <ClCompile Include="src\Stb_Image\stb_image.cpp" />
@@ -167,7 +168,8 @@
     <ClInclude Include="src\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\Scene\ECS\Component\Component.h" />
     <ClInclude Include="src\Scene\ECS\Entity\Entity.h" />
-    <ClInclude Include="src\Scene\SceneHierarchyPanel.h" />
+    <ClInclude Include="src\Scene\Panels\ContentBrowserPanel.h" />
+    <ClInclude Include="src\Scene\Panels\SceneHierarchyPanel.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
     <ClInclude Include="src\Scene\SceneSerializer.h" />
     <ClInclude Include="src\Stb_Image\stb_image.h" />

@@ -23,6 +23,7 @@ SceneManager::~SceneManager()
 
 	SAFE_DELETE_SET_NULL(m_CameraController);
 	SAFE_DELETE_SET_NULL(m_SceneHierarchyPanel);
+	SAFE_DELETE_SET_NULL(m_ContentBrowserPanel);
 }
 
 void SceneManager::Initialize()
@@ -65,6 +66,7 @@ void SceneManager::Initialize()
 	
 
 	m_SceneHierarchyPanel = new SceneHierarchyPanel;
+	m_ContentBrowserPanel = new ContentBrowserPanel;;
 
 	//SceneSerializer::Serialize("assets/scenes/test.scene");
 }
