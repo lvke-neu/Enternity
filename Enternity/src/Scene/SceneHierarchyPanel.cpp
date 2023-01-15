@@ -1,4 +1,5 @@
 #include "SceneHierarchyPanel.h"
+#include "SceneManager.h"
 #include "Log/Log.h"
 
 BEGIN_ENTERNITY

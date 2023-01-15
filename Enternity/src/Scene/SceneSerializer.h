@@ -6,9 +6,9 @@ Scene Serializer
 ****************************************************************************************/
 #pragma once
 
-#include "Macro/Macro.h"
-#include "SceneManager.h"
 #include <yaml-cpp/yaml.h>
+#include "Macro/Macro.h"
+#include "ECS/Entity/Entity.h"
 
 BEGIN_ENTERNITY
 

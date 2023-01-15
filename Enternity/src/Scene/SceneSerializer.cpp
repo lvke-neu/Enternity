@@ -1,4 +1,5 @@
 #include "SceneSerializer.h"
+#include "SceneManager.h"
 #include "File/FileOperation.h"
 #include "Log/Log.h"
 

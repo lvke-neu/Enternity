@@ -1,6 +1,5 @@
 #include "SceneManager.h"
 #include "CameraController.h"
-#include "SceneHierarchyPanel.h"
 #include "SceneSerializer.h"
 
 BEGIN_ENTERNITY

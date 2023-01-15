@@ -6,9 +6,11 @@ Scene Hierarchy Panel
 ****************************************************************************************/
 #pragma once
 
-#include "Macro/Macro.h"
-#include "SceneManager.h"
 #include <functional>
+#include <glm/glm.hpp>
+#include "Macro/Macro.h"
+#include "ECS/Entity/Entity.h"
+#include "ECS/Component/Component.h"
 #include "Imgui/ImguiManager.h"
 #include "Event/ImguiDrawEventManager.h"
 
@@ -21,7 +23,11 @@ public:
 	~SceneHierarchyPanel();
 
 	virtual void ImguiDraw() override;
-	void SetSelectedEntityNull()
+	inline Entity GetSelectedEntity()
+	{
+		return m_SelectedEntity;
+	}
+	inline void SetSelectedEntityNull()
 	{
 		m_SelectedEntity = {};
 	}

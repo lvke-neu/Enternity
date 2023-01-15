@@ -8,13 +8,11 @@ SceneManager
 
 #include <map>
 #include "Macro/Macro.h"
-#include "ECS/Entity/Entity.h"
-#include "ECS/Component/Component.h"
+#include "SceneHierarchyPanel.h"
 
 BEGIN_ENTERNITY
 
 class CameraController;
-class SceneHierarchyPanel;
 class SceneManager
 {
 	friend class SceneHierarchyPanel;
@@ -25,6 +23,15 @@ public:
 	void Tick(float deltaTime);
 	void OnResize(int width, int height);
 	void Clear();
+	inline SceneHierarchyPanel* GetSceneHierarchyPanel()
+	{
+		return m_SceneHierarchyPanel;
+	}
+	inline Entity GetMainCameraEntity()
+	{
+		return m_MainCameraEntity;
+	}
+
 private:
 	SceneManager() = default;
 	~SceneManager();

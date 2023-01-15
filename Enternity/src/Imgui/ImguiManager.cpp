@@ -1,11 +1,14 @@
 #pragma warning(disable:4312) 
 
 #include "ImguiManager.h"
+#include "ImguiImpl/ImGuizmo.h"
 #include "Engine/Engine.h"
 #include "Event/InputEventManager.h"
 #include "Event/ImguiDrawEventManager.h"
+#include "Scene/SceneManager.h"
 #include "Scene/SceneSerializer.h"
 #include "Dialog/FileDialog.h"
+#include "Math/Math.h"
 
 BEGIN_ENTERNITY
 
@@ -32,6 +35,7 @@ void ImguiManager::Draw()
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
+	ImGuizmo::BeginFrame();
 
 	static bool b = true;
 
@@ -167,6 +171,42 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 	
 	auto id = Engine::GetInstance().GetFrameBuffer()->GetTextureRendererId();
 	ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
+
+	//Gizmos
+	if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_1))
+		m_GizmoType = 0;
+	if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_2))
+		m_GizmoType = 1;
+	if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_3))
+		m_GizmoType = 2;
+
+	Entity selectedEntity = SceneManager::GetInstance().GetSceneHierarchyPanel()->GetSelectedEntity();
+	if (selectedEntity.IsValidEntity())
+	{
+		ImGuizmo::SetOrthographic(false);
+		ImGuizmo::SetDrawlist();
+
+		float windowWidth = (float)ImGui::GetWindowWidth();
+		float windowHeight = (float)ImGui::GetWindowHeight();
+		ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
+
+		auto mainCameraEntity = SceneManager::GetInstance().GetMainCameraEntity();
+		const auto& viewMatrix = mainCameraEntity.GetComponent<TransformComponent>().GetInverseWorldMatrix();
+		const auto& projMatrix = mainCameraEntity.GetComponent<CameraComponent>().m_ProjectMatrix;
+
+		auto modelMatrix = selectedEntity.GetComponent<TransformComponent>().GetWorldMatrix();
+			
+		ImGuizmo::Manipulate(&viewMatrix[0][0], &projMatrix[0][0], (ImGuizmo::OPERATION)m_GizmoType, ImGuizmo::MODE::LOCAL, &modelMatrix[0][0]);
+
+		if (ImGuizmo::IsUsing())
+		{
+			auto& tc = selectedEntity.GetComponent<TransformComponent>();
+			Math::DecomposeTransform(modelMatrix, tc.m_Translation, tc.m_Rotation, tc.m_Scale);
+		}
+	}
+
+
+
 	ImGui::End();
 	ImGui::PopStyleVar();
 

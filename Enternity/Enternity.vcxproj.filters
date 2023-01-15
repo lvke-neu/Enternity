@@ -114,6 +114,21 @@
     <ClCompile Include="src\Dialog\FileDialog.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Imgui\ImguiImpl\ImCurveEdit.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Imgui\ImguiImpl\ImGradient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Imgui\ImguiImpl\ImGuizmo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Imgui\ImguiImpl\ImSequencer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Math.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macro\Macro.h">
@@ -231,6 +246,21 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Dialog\FileDialog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Imgui\ImguiImpl\ImCurveEdit.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Imgui\ImguiImpl\ImGradient.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Imgui\ImguiImpl\ImGuizmo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Imgui\ImguiImpl\ImSequencer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Math.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

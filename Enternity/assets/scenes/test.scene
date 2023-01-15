@@ -19,7 +19,7 @@ Entities:
       m_Tag: Cube Entity
     TransformComponent:
       m_Translation: [0, 0, -5]
-      m_Rotation: [-5.14118385, -5.14118385, 0]
+      m_Rotation: [0, 0, 0]
       m_Scale: [1, 1, 1]
     MeshComponent:
       m_MeshFilePath: assets/models/cube.mesh
@@ -28,9 +28,6 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECS.glsl
       m_bUseColor: false
       m_BaseColor: [1, 1, 1, 1]
-    MotorComponent:
-      m_RotationXAnglePerSecond: 45
-      m_RotationYAnglePerSecond: 45
   - Entity: 2
     TagComponent:
       m_Tag: Plane Entity
