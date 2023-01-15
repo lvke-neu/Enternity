@@ -21,10 +21,16 @@ public:
 	~SceneHierarchyPanel();
 
 	virtual void ImguiDraw() override;
+	void SetSelectedEntityNull()
+	{
+		m_SelectedEntity = {};
+	}
 private:
 	void DrawVec3(const std::string& label, glm::vec3& value, const glm::vec3& resetValue = glm::vec3{ 0.0f }, float columnWidth = 100.0f);
 	void DrawEntity(Entity entity, bool allowedDelete = true);
 	void DrawComponentOfSelectedEntity();
+
+	
 
 	template<typename T>
 	void DrawComponent(const std::string& name, std::function<void()> uiFunction, bool allowedRemove = true)

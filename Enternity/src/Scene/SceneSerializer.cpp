@@ -219,7 +219,7 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 	if (!data["Scene"])
 		return false;
 
-	SceneManager::GetInstance().m_Entities.clear();
+	SceneManager::GetInstance().Clear();
 	auto entities = data["Entities"];
 	if (entities)
 	{

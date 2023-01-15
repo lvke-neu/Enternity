@@ -24,6 +24,7 @@ public:
 
 	void Resize(int width, int height);
 	float GetDeltaTime();
+	GLFWwindow* GetContext();
 private:
 	Engine() = default; 
 	~Engine();

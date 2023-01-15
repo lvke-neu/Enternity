@@ -20,6 +20,8 @@ SceneManager::~SceneManager()
 		materialComponent.UnLoad();
 	}
 
+	Clear();
+
 	SAFE_DELETE_SET_NULL(m_CameraController);
 	SAFE_DELETE_SET_NULL(m_SceneHierarchyPanel);
 }
@@ -128,6 +130,15 @@ void SceneManager::OnResize(int width, int height)
 	m_MainCameraEntity.GetComponent<CameraComponent>().ReCalculateProjectMatrix();
 }
 
+void SceneManager::Clear()
+{
+	m_SceneHierarchyPanel->SetSelectedEntityNull();
+	for (auto& entity : m_Entities)
+	{
+		entity.second.Destroy();
+	}
+	m_Entities.clear();
+}
 
 END_ENTERNITY
 

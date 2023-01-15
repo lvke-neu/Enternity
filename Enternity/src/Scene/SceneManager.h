@@ -24,6 +24,7 @@ public:
 	void Initialize();
 	void Tick(float deltaTime);
 	void OnResize(int width, int height);
+	void Clear();
 private:
 	SceneManager() = default;
 	~SceneManager();

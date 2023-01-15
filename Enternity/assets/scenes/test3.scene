@@ -1,0 +1,61 @@
+Scene: Untitled
+Entities:
+  - Entity: 0
+    TagComponent:
+      m_Tag: MainCamera Entity
+    CameraComponent:
+      m_MoveSpeed: 74
+      m_EnableWireframe: true
+      m_Fovy: 60
+      m_Aspect: 1.18799996
+      m_NearZ: 1
+      m_FarZ: 1000
+    TransformComponent:
+      m_Translation: [-25.5541172, 8.73064041, -0.911670446]
+      m_Rotation: [-0.340000451, -1.48999929, 0]
+      m_Scale: [1, 1, 1]
+  - Entity: 4
+    TagComponent:
+      m_Tag: Cube Entity
+    TransformComponent:
+      m_Translation: [0, 0, -5]
+      m_Rotation: [-1.40556216, -0.252579391, 0]
+      m_Scale: [2, 2, 2]
+    MeshComponent:
+      m_MeshFilePath: assets/models/cube.mesh
+    MaterialComponent:
+      m_TextureFilePath: assets/textures/skybox.jpeg
+      m_ShaderFilePath: assets/shaders/TestECS.glsl
+      m_bUseColor: false
+      m_BaseColor: [1, 1, 1, 1]
+    MotorComponent:
+      m_RotationXAnglePerSecond: 167
+      m_RotationYAnglePerSecond: 219
+  - Entity: 5
+    TagComponent:
+      m_Tag: Plane Entity
+    TransformComponent:
+      m_Translation: [0, -5, 0]
+      m_Rotation: [0, 0, 0]
+      m_Scale: [100, 1, 100]
+    MeshComponent:
+      m_MeshFilePath: assets/models/plane.mesh
+    MaterialComponent:
+      m_TextureFilePath: ""
+      m_ShaderFilePath: assets/shaders/TestECS.glsl
+      m_bUseColor: true
+      m_BaseColor: [0.285185158, 0.222514823, 0.0971742049, 1]
+  - Entity: 6
+    TagComponent:
+      m_Tag: Light Entity
+    TransformComponent:
+      m_Translation: [0, 0, 0]
+      m_Rotation: [0, 0, 0]
+      m_Scale: [0.5, 0.5, 0.5]
+    MeshComponent:
+      m_MeshFilePath: assets/models/sphere.mesh
+    MaterialComponent:
+      m_TextureFilePath: ""
+      m_ShaderFilePath: assets/shaders/TestECS.glsl
+      m_bUseColor: true
+      m_BaseColor: [0.933333337, 0.0864197612, 0.0864197612, 1]

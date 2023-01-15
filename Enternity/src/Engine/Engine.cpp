@@ -210,4 +210,9 @@ float Engine::GetDeltaTime()
 	return 0.0f;
 }
 
+GLFWwindow* Engine::GetContext()
+{
+	return m_context;
+}
+
 END_ENTERNITY

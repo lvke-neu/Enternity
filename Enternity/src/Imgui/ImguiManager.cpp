@@ -4,8 +4,8 @@
 #include "Engine/Engine.h"
 #include "Event/InputEventManager.h"
 #include "Event/ImguiDrawEventManager.h"
-#include "Renderer/Texture.h"
 #include "Scene/SceneSerializer.h"
+#include "Dialog/FileDialog.h"
 
 BEGIN_ENTERNITY
 
@@ -119,13 +119,17 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 
 		if (ImGui::BeginMenu("File"))
 		{
-			if (ImGui::MenuItem("Open"))
+			if (ImGui::MenuItem("New"))
 			{
-				SceneSerializer::Deserialize("assets/scenes/test.scene");
+				SceneManager::GetInstance().Clear();
 			}
-			if (ImGui::MenuItem("Save"))
+			if (ImGui::MenuItem("Open..."))
 			{
-				SceneSerializer::Serialize("assets/scenes/test.scene");
+				SceneSerializer::Deserialize(FileDialog::OpenFile(".scene"));
+			}
+			if (ImGui::MenuItem("Save..."))
+			{
+				SceneSerializer::Serialize(FileDialog::SaveFile(".scene"));
 			}
 
 			if (ImGui::MenuItem("Close"))
