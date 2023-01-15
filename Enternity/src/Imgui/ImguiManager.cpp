@@ -173,6 +173,8 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 	ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
 
 	//Gizmos
+	if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_4))
+		m_GizmoType = -1;
 	if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_1))
 		m_GizmoType = 0;
 	if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_2))
@@ -181,7 +183,7 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 		m_GizmoType = 2;
 
 	Entity selectedEntity = SceneManager::GetInstance().GetSceneHierarchyPanel()->GetSelectedEntity();
-	if (selectedEntity.IsValidEntity())
+	if (selectedEntity.IsValidEntity() && selectedEntity.HasComponent<TransformComponent>())
 	{
 		ImGuizmo::SetOrthographic(false);
 		ImGuizmo::SetDrawlist();
@@ -204,8 +206,6 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 			Math::DecomposeTransform(modelMatrix, tc.m_Translation, tc.m_Rotation, tc.m_Scale);
 		}
 	}
-
-
 
 	ImGui::End();
 	ImGui::PopStyleVar();

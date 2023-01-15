@@ -4,15 +4,15 @@ Entities:
     TagComponent:
       m_Tag: MainCamera Entity
     CameraComponent:
-      m_MoveSpeed: 74
+      m_MoveSpeed: 22
       m_EnableWireframe: false
       m_Fovy: 60
       m_Aspect: 1.18799996
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [-21.2722492, 13.5072651, 11.2104006]
-      m_Rotation: [-0.379999965, -1.00999999, 0]
+      m_Translation: [5.44756508, 15.3422651, 16.0161781]
+      m_Rotation: [-0.560000241, 0.453184307, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
     TagComponent:
@@ -56,3 +56,31 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECS.glsl
       m_bUseColor: true
       m_BaseColor: [1, 1, 1, 1]
+  - Entity: 4
+    TagComponent:
+      m_Tag: bottom
+    TransformComponent:
+      m_Translation: [-10.4940777, -3.76208353, -11.4125309]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [2, 1, 2]
+    MeshComponent:
+      m_MeshFilePath: assets/models/plane.mesh
+    MaterialComponent:
+      m_TextureFilePath: ""
+      m_ShaderFilePath: assets/shaders/TestECS.glsl
+      m_bUseColor: true
+      m_BaseColor: [0.537037015, 0.14320986, 0.14320986, 1]
+  - Entity: 5
+    TagComponent:
+      m_Tag: left
+    TransformComponent:
+      m_Translation: [-12.5125971, -1.78003669, -11.419364]
+      m_Rotation: [0, -0, 1.57079637]
+      m_Scale: [1.9998939, 0.999942899, 2]
+    MeshComponent:
+      m_MeshFilePath: assets/models/plane.mesh
+    MaterialComponent:
+      m_TextureFilePath: ""
+      m_ShaderFilePath: assets/shaders/TestECS.glsl
+      m_bUseColor: true
+      m_BaseColor: [0.463785976, 0.851851821, 0.532775521, 1]
