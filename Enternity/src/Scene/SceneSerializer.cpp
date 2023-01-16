@@ -217,7 +217,7 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 	}
 
 
-	if (!data["Scene"])
+	if (!data.IsDefined() || !data["Scene"])
 		return false;
 
 	SceneManager::GetInstance().Clear();

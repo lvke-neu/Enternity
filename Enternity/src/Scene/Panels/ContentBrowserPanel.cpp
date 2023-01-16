@@ -55,7 +55,8 @@ void ContentBrowserPanel::ImguiDraw()
 		auto texture = p.is_directory() ? m_DirectoryTexture : m_FileTexture;
 		ImGui::PushStyleColor(ImGuiCol_Button, { 0, 0, 0, 0 });
 		ImGui::ImageButton((ImTextureID)texture->GetRendererId(), { buttonSize, buttonSize }, { 0, 1 }, { 1, 0 });
-		if (ImGui::BeginDragDropSource())
+
+		if (!p.is_directory() && ImGui::BeginDragDropSource())
 		{
 			std::string cString = path.string();
 			//LOG_INFO(cString.c_str()+ "    size:" + std::to_string(cString.size()));
