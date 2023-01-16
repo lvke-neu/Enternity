@@ -111,6 +111,8 @@ bool Shader::ParseShaderFile(ShaderSourceCode& shaderSourceCode, const std::stri
 	}
 
 	shaderSourceCode = { ss[0].str(), ss[1].str() };
+	ifs.close();
+
 	return true;
 }
 

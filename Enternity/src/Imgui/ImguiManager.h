@@ -28,7 +28,7 @@ private:
 	void SetDarkThemeColors();
 	unsigned int m_width;
 	unsigned int m_height;
-	unsigned int m_GizmoType = 0;
+	unsigned int m_GizmoType = -1;
 
 };
 
