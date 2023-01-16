@@ -127,7 +127,7 @@ void SceneSerializer::SerializeEntity(YAML::Emitter& out, Entity entity)
 		out << YAML::Key << "m_MoveSpeed" << YAML::Value << cameraComponent.m_MoveSpeed;
 		out << YAML::Key << "m_EnableWireframe" << YAML::Value << cameraComponent.m_EnableWireframe;
 		out << YAML::Key << "m_Fovy" << YAML::Value << cameraComponent.m_Fovy;
-		out << YAML::Key << "m_Aspect" << YAML::Value << cameraComponent.m_Aspect;
+		//out << YAML::Key << "m_Aspect" << YAML::Value << cameraComponent.m_Aspect;
 		out << YAML::Key << "m_NearZ" << YAML::Value << cameraComponent.m_NearZ;
 		out << YAML::Key << "m_FarZ" << YAML::Value << cameraComponent.m_FarZ;
 		out << YAML::EndMap;
@@ -235,7 +235,7 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 				cc.m_MoveSpeed = cameraComponent["m_MoveSpeed"].as<float>();
 				cc.m_EnableWireframe = cameraComponent["m_EnableWireframe"].as<bool>();
 				cc.m_Fovy = cameraComponent["m_Fovy"].as<float>();
-				cc.m_Aspect = cameraComponent["m_Aspect"].as<float>();
+				//cc.m_Aspect = cameraComponent["m_Aspect"].as<float>();
 				cc.m_NearZ = cameraComponent["m_NearZ"].as<float>();
 				cc.m_FarZ = cameraComponent["m_FarZ"].as<float>();
 				cc.InitStateByAllProperty();

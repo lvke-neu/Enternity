@@ -7,7 +7,6 @@ Entities:
       m_MoveSpeed: 22
       m_EnableWireframe: false
       m_Fovy: 60
-      m_Aspect: 1.18799996
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:

@@ -57,8 +57,9 @@ void ContentBrowserPanel::ImguiDraw()
 		ImGui::ImageButton((ImTextureID)texture->GetRendererId(), { buttonSize, buttonSize }, { 0, 1 }, { 1, 0 });
 		if (ImGui::BeginDragDropSource())
 		{
+			std::string cString = path.string();
 			//LOG_INFO(relativePath.string());
-			ImGui::SetDragDropPayload("CONTENT_BROWSER_ITEM", "assets/scenes/test.scene", std::wstring(L"assets/scenes/test.scene").size()-4, ImGuiCond_Once);
+			ImGui::SetDragDropPayload("CONTENT_BROWSER_ITEM", cString.c_str(), cString.size(), ImGuiCond_Once);
 			ImGui::EndDragDropSource();
 		}
 		ImGui::PopStyleColor();

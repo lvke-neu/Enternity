@@ -177,7 +177,7 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 		{
 			LOG_INFO((char*)payload->Data);
-			SceneSerializer::Deserialize("assets/scenes/test.scene");
+			SceneSerializer::Deserialize((char*)payload->Data);
 		}
 		ImGui::EndDragDropTarget();
 	}
