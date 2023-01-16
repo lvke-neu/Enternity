@@ -177,7 +177,9 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 		{
 			LOG_INFO((char*)payload->Data);
-			SceneSerializer::Deserialize((char*)payload->Data);
+			std::string path((char*)payload->Data);
+			path = path.substr(0, payload->DataSize);
+			SceneSerializer::Deserialize(path);
 		}
 		ImGui::EndDragDropTarget();
 	}

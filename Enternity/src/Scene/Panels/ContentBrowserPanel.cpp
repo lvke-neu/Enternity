@@ -4,7 +4,7 @@
 
 BEGIN_ENTERNITY
 
-#define CONTENT_BROWSER_DIRECTORRY "assets\\"
+#define CONTENT_BROWSER_DIRECTORRY "assets"
 
 ContentBrowserPanel::ContentBrowserPanel():
 	m_Path(CONTENT_BROWSER_DIRECTORRY)
@@ -58,7 +58,7 @@ void ContentBrowserPanel::ImguiDraw()
 		if (ImGui::BeginDragDropSource())
 		{
 			std::string cString = path.string();
-			//LOG_INFO(relativePath.string());
+			//LOG_INFO(cString.c_str()+ "    size:" + std::to_string(cString.size()));
 			ImGui::SetDragDropPayload("CONTENT_BROWSER_ITEM", cString.c_str(), cString.size(), ImGuiCond_Once);
 			ImGui::EndDragDropSource();
 		}

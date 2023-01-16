@@ -234,6 +234,17 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			{
 				meshComponent.LoadMesh(buffer);
 			}
+			if (ImGui::BeginDragDropTarget())
+			{
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+				{
+					LOG_INFO((char*)payload->Data);
+					std::string path((char*)payload->Data);
+					path = path.substr(0, payload->DataSize);
+					meshComponent.LoadMesh(path);
+				}
+				ImGui::EndDragDropTarget();
+			}
 
 		}
 	);
@@ -261,6 +272,17 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			if (ImGui::InputText("TextureFilePath", buffer, sizeof(buffer)))
 			{
 				materialComponent.LoadTexture(buffer);
+			}
+			if (ImGui::BeginDragDropTarget())
+			{
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+				{
+					LOG_INFO((char*)payload->Data);
+					std::string path((char*)payload->Data);
+					path = path.substr(0, payload->DataSize);
+					materialComponent.LoadTexture(path);
+				}
+				ImGui::EndDragDropTarget();
 			}
 		}
 	);

@@ -144,6 +144,7 @@ struct MeshComponent
 
 	void LoadMesh(const std::string& meshFilePath)
 	{
+		
 		m_MeshFilePath = meshFilePath;
 		struct VertexPosTex
 		{
@@ -151,6 +152,9 @@ struct MeshComponent
 			glm::vec3 normal;
 			glm::vec2 texcoord;
 		};
+		std::string suffix = meshFilePath.substr(meshFilePath.find("."), meshFilePath.size() - 1);
+		if (suffix != ".mesh")
+			return;
 
 		Enternity::Blob blob2(DEFAULT_BLOB_LENGTH);
 		if (!Enternity::FileOperation::ReadFile(blob2, meshFilePath))
