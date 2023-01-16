@@ -258,22 +258,13 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 		{
 			auto& materialComponent = m_SelectedEntity.GetComponent<MaterialComponent>();
 
-			if (ImGui::Checkbox("UseColor", &materialComponent.m_bUseColor))
-			{
-				materialComponent.SetIsUseColor(materialComponent.m_bUseColor);
-			}
-
-			if (ImGui::ColorEdit4("BaseColor", &materialComponent.m_BaseColor[0]))
-			{
-				materialComponent.SetBaseColor(materialComponent.m_BaseColor);
-			}
-
 			char buffer[256];
 			memset(buffer, 0, sizeof(buffer));
 			memcpy_s(buffer, sizeof(buffer), materialComponent.m_TextureFilePath.c_str(), sizeof(buffer));
 			if (ImGui::InputText("TextureFilePath", buffer, sizeof(buffer)))
 			{
-				materialComponent.LoadTexture(buffer);
+				materialComponent.m_TextureFilePath = buffer;
+				materialComponent.LoadTexture();
 			}
 			if (ImGui::BeginDragDropTarget())
 			{
@@ -282,9 +273,40 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 					LOG_INFO((char*)payload->Data);
 					std::string path((char*)payload->Data);
 					path = path.substr(0, payload->DataSize);
-					materialComponent.LoadTexture(path);
+					materialComponent.m_TextureFilePath = path;
+					materialComponent.LoadTexture();
 				}
 				ImGui::EndDragDropTarget();
+			}
+
+			memset(buffer, 0, sizeof(buffer));
+			memcpy_s(buffer, sizeof(buffer), materialComponent.m_ShaderFilePath.c_str(), sizeof(buffer));
+			if (ImGui::InputText("ShaderFilePath", buffer, sizeof(buffer)))
+			{
+				materialComponent.m_ShaderFilePath = buffer;
+				materialComponent.LoadShader();
+			}
+			if (ImGui::BeginDragDropTarget())
+			{
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+				{
+					LOG_INFO((char*)payload->Data);
+					std::string path((char*)payload->Data);
+					path = path.substr(0, payload->DataSize);
+					materialComponent.m_ShaderFilePath = path;
+					materialComponent.LoadShader();
+				}
+				ImGui::EndDragDropTarget();
+			}
+
+			if (ImGui::Checkbox("UseColor", &materialComponent.m_bUseColor))
+			{
+				materialComponent.SetIsUseColor();
+			}
+
+			if (ImGui::ColorEdit4("BaseColor", &materialComponent.m_BaseColor[0]))
+			{
+				materialComponent.SetBaseColor();
 			}
 		}
 	);

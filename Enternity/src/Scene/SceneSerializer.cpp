@@ -284,7 +284,7 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 				mc.m_ShaderFilePath = materialComponent["m_ShaderFilePath"].as<std::string>();
 				mc.m_bUseColor = materialComponent["m_bUseColor"].as<bool>();
 				mc.m_BaseColor = materialComponent["m_BaseColor"].as<glm::vec4>();
-				mc.LoadMaterial(mc.m_TextureFilePath, mc.m_ShaderFilePath);
+				mc.Load();
 			}
 
 			auto motorComponent = entity["MotorComponent"];

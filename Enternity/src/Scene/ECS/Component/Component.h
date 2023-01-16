@@ -208,61 +208,65 @@ struct MaterialComponent
 	bool m_bUseColor = false;
 	glm::vec4 m_BaseColor{ 1.0f };
 
-	MaterialComponent()
-	{
-		LoadShader("assets/shaders/TestECS.glsl");
-		SetBaseColor(glm::vec4{ 1.0f });
-	}
+	MaterialComponent() = default;
 	MaterialComponent(const MaterialComponent&) = default;
 
+	void Load()
+	{
+		LoadShader();
+		LoadTexture();
+		SetTextureSlot();
+		SetIsUseColor();
+		SetBaseColor();
+	}
 
-	void LoadTexture(const std::string& textureFilePath)
+	void LoadShader()
+	{
+		std::string suffix = m_ShaderFilePath.substr(m_ShaderFilePath.find("."), m_ShaderFilePath.size() - 1);
+		if (suffix != ".glsl")
+			return;
+
+		SAFE_DELETE_SET_NULL(m_Shader);
+		m_Shader = new Shader(m_ShaderFilePath);
+
+		SetTextureSlot();
+		SetIsUseColor();
+		SetBaseColor();
+	}
+
+	void LoadTexture()
 	{
 		SAFE_DELETE_SET_NULL(m_Texture);
-		m_TextureFilePath = textureFilePath;
-		m_Texture = new Texture(textureFilePath);
+		m_Texture = new Texture(m_TextureFilePath);
 	}
 
-	void LoadShader(const std::string& shaderFilePath)
+	void SetTextureSlot(unsigned int  slot = 0)
 	{
-		SAFE_DELETE_SET_NULL(m_Shader);
-		m_ShaderFilePath = shaderFilePath;
-		m_Shader = new Shader(shaderFilePath);
-		SetIsUseColor(m_bUseColor);
-		SetBaseColor(m_BaseColor);
+		if (m_Shader)
+		{
+			m_Shader->Bind();
+			m_Shader->SetInteger1("u_texture", slot);
+		}
+			
 	}
 
-	void LoadMaterial(const std::string& textureFilePath, const std::string& shaderFilePath)
+	void SetIsUseColor()
 	{
-		LoadTexture(textureFilePath);
-		LoadShader(shaderFilePath);
+		if (m_Shader)
+		{
+			m_Shader->Bind();
+			m_Shader->SetInteger1("b_useColor", m_bUseColor);
+		}
 	}
 
-	void SetIsUseColor(bool b_useColor)
+	void SetBaseColor()
 	{
-		m_bUseColor = b_useColor;
-		m_Shader->Bind();
-		m_Shader->SetInteger1("b_useColor", b_useColor);
+		if (m_Shader)
+		{
+			m_Shader->Bind();
+			m_Shader->SetFloat4("u_baseColor", m_BaseColor);
+		}
 	}
-
-	void SetBaseColor(const glm::vec4& baseColor)
-	{
-		m_BaseColor = baseColor;;
-		m_Shader->Bind();
-		m_Shader->SetFloat4("u_baseColor", baseColor);
-	}
-
-	void SetMaterialProperty(bool b_useColor, const glm::vec4& baseColor, unsigned int textureSlot)
-	{
-		m_bUseColor = b_useColor;
-		m_BaseColor = baseColor;
-
-		m_Shader->Bind();
-		m_Shader->SetInteger1("b_useColor", b_useColor);
-		m_Shader->SetFloat4("u_baseColor", baseColor);
-		m_Shader->SetInteger1("u_texture", textureSlot);
-	}
-	
 
 	void UnLoad()
 	{
