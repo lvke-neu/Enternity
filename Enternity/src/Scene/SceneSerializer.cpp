@@ -205,6 +205,10 @@ void SceneSerializer::Serialize(const std::string& filePath)
 
 bool SceneSerializer::Deserialize(const std::string& filePath)
 {
+	std::string suffix = filePath.substr(filePath.find("."), filePath.size() - 1);
+	if (suffix != ".scene")
+		return false;
+
 	YAML::Node data;
 	try
 	{
@@ -217,7 +221,7 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 	}
 
 
-	if (!data.IsDefined() || !data["Scene"])
+	if (!data["Scene"])
 		return false;
 
 	SceneManager::GetInstance().Clear();
@@ -269,7 +273,7 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 			{
 				auto& mc = deserializeEntity.AddComponent<MeshComponent>();
 				mc.m_MeshFilePath = meshComponent["m_MeshFilePath"].as<std::string>();
-				mc.LoadMesh(mc.m_MeshFilePath);
+				mc.Load();
 			}
 
 			auto materialComponent = entity["MaterialComponent"];

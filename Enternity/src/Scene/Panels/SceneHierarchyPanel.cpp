@@ -232,7 +232,8 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			memcpy_s(buffer, sizeof(buffer), meshComponent.m_MeshFilePath.c_str(), sizeof(buffer));
 			if (ImGui::InputText("MeshFilePath", buffer, sizeof(buffer)))
 			{
-				meshComponent.LoadMesh(buffer);
+				meshComponent.m_MeshFilePath = buffer;
+				meshComponent.Load();
 			}
 			if (ImGui::BeginDragDropTarget())
 			{
@@ -241,7 +242,8 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 					LOG_INFO((char*)payload->Data);
 					std::string path((char*)payload->Data);
 					path = path.substr(0, payload->DataSize);
-					meshComponent.LoadMesh(path);
+					meshComponent.m_MeshFilePath = path;
+					meshComponent.Load();
 				}
 				ImGui::EndDragDropTarget();
 			}

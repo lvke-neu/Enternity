@@ -142,22 +142,25 @@ struct MeshComponent
 	MeshComponent() = default;
 	MeshComponent(const MeshComponent&) = default;
 
-	void LoadMesh(const std::string& meshFilePath)
+	//load mesh by m_MeshFilePath
+	void Load()
 	{
-		
-		m_MeshFilePath = meshFilePath;
 		struct VertexPosTex
 		{
 			glm::vec3 position;
 			glm::vec3 normal;
 			glm::vec2 texcoord;
 		};
-		std::string suffix = meshFilePath.substr(meshFilePath.find("."), meshFilePath.size() - 1);
+		
+		auto pos = m_MeshFilePath.find(".");
+		if (pos == std::string::npos)
+			return;
+		std::string suffix = m_MeshFilePath.substr(pos, m_MeshFilePath.size() - 1);
 		if (suffix != ".mesh")
 			return;
 
 		Enternity::Blob blob2(DEFAULT_BLOB_LENGTH);
-		if (!Enternity::FileOperation::ReadFile(blob2, meshFilePath))
+		if (!Enternity::FileOperation::ReadFile(blob2, m_MeshFilePath))
 			return;
 
 		UnLoad();
