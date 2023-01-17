@@ -11,7 +11,9 @@ FrameBuffer::FrameBuffer(unsigned int width, unsigned int height):
 FrameBuffer::~FrameBuffer()
 {
 	glDeleteFramebuffers(1, &m_rendererId);
+	glDeleteFramebuffers(1, &m_rendererIdTmp);
 	glDeleteTextures(1, &m_texRendererId);
+	glDeleteTextures(1, &m_texRendererIdTmp);
 	glDeleteRenderbuffers(1, &m_renderBufferId);
 }
 
@@ -63,8 +65,7 @@ void FrameBuffer::Rebuild(unsigned int width, unsigned int height)
 	//	LOG_ERROR("Framebuffer is not complete!");
 
 	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	;
-	;
+
 	glDeleteFramebuffers(1, &m_rendererId);
 	glDeleteFramebuffers(1, &m_rendererIdTmp);
 	glDeleteTextures(1, &m_texRendererId);
@@ -102,6 +103,108 @@ void FrameBuffer::Rebuild(unsigned int width, unsigned int height)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texRendererIdTmp, 0);	// we only need a color buffer
 
+}
+
+
+//framebufferEx
+FrameBufferEx::FrameBufferEx(const FrameBufferSpecification& specification)
+{
+	m_FrameBufferSpecification = specification;
+
+	for (auto formatSpec : m_FrameBufferSpecification.m_FBAS.m_Attachments)
+	{
+		if (formatSpec.m_TextureFormat == FrameBufferTextureFormat::DEPTH24STENCIL8)
+		{
+			m_DepthFTS = formatSpec;
+		}
+		else
+			m_ColorFTS.emplace_back(formatSpec);
+	}
+
+
+	Build();
+	//FrameBufferSpecification fbs;
+	//fbs.m_Height = 100;
+	//fbs.m_Width = 100;
+	//fbs.m_FBAS = FrameBufferAttachmentSpecification({ {FrameBufferTextureFormat::RGBA8}, {FrameBufferTextureFormat::DEPTH24STENCIL8} });
+}
+
+FrameBufferEx::~FrameBufferEx()
+{
+	glDeleteFramebuffers(1, &m_rendererId);
+	glDeleteTextures(m_texRendererIds.size(), m_texRendererIds.data());
+	glDeleteRenderbuffers(1, &m_renderBufferId);
+}
+
+void FrameBufferEx::Bind(unsigned int slot) const
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, m_rendererId);
+}
+
+void FrameBufferEx::UnBind() const
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void FrameBufferEx::Build()
+{
+	glDeleteFramebuffers(1, &m_rendererId);
+	glDeleteTextures(m_texRendererIds.size(), m_texRendererIds.data());
+	m_texRendererIds.clear();
+	glDeleteRenderbuffers(1, &m_renderBufferId);
+	
+
+
+	glGenFramebuffers(1, &m_rendererId);
+	glBindFramebuffer(GL_FRAMEBUFFER, m_rendererId);
+
+	if (m_ColorFTS.size())
+	{
+		m_texRendererIds.resize(m_ColorFTS.size());
+		for (int i = 0; i < m_ColorFTS.size(); i++)
+		{
+			//texture
+			glGenTextures(1, &m_texRendererIds[i]);
+			glBindTexture(GL_TEXTURE_2D, m_texRendererIds[i]);
+			glTexImage2D(GL_TEXTURE_2D, 0, GetType(m_ColorFTS[i].m_TextureFormat), m_FrameBufferSpecification.m_Width, m_FrameBufferSpecification.m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, m_texRendererIds[i], 0);
+
+		}
+		
+	}
+
+	//depth stecil
+	if (m_DepthFTS.m_TextureFormat != FrameBufferTextureFormat::None)
+	{
+		glGenRenderbuffers(1, &m_renderBufferId);
+		glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_FrameBufferSpecification.m_Width, m_FrameBufferSpecification.m_Height);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_renderBufferId);
+	}
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		LOG_ERROR("Framebuffer is not complete!");
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+GLint FrameBufferEx::GetType(FrameBufferTextureFormat format)
+{
+	switch (format)
+	{
+	case FrameBufferTextureFormat::RGBA8:
+		return GL_RGBA;
+	}
+	return -1;
+}
+
+void FrameBufferEx::ReSize(unsigned int width, unsigned int height)
+{
+	m_FrameBufferSpecification.m_Width = width;
+	m_FrameBufferSpecification.m_Height = height;
+	Build();
 }
 
 END_ENTERNITY

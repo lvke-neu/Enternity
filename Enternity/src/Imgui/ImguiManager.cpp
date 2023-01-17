@@ -21,8 +21,8 @@ void ImguiManager::Initialize(GLFWwindow* context)
 	(void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
-	io.Fonts->AddFontFromFileTTF("assets/fonts/opensans/OpenSans-Bold.ttf", 35);
-	io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/opensans/OpenSans-Regular.ttf", 35);
+	io.Fonts->AddFontFromFileTTF("assets/fonts/opensans/OpenSans-Bold.ttf", 20);
+	io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/opensans/OpenSans-Regular.ttf", 20);
 
 	SetDarkThemeColors();
 

@@ -9,8 +9,8 @@
 
 BEGIN_ENTERNITY
 
-#define WINDOW_WIDHT 3000
-#define WINDOW_HEIGHT 1500
+#define WINDOW_WIDHT 1500
+#define WINDOW_HEIGHT 700
 #define WINDOW_TITLE "Enternity Engine, Version:0.0003, Author:lvke"
 
 void KeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -154,6 +154,12 @@ bool Engine::Initialize()
 
 void Engine::Run()
 {
+	FrameBufferSpecification fbs;
+	fbs.m_Width = 100;
+	fbs.m_Height = 100;
+	fbs.m_FBAS = FrameBufferAttachmentSpecification({ {FrameBufferTextureFormat::RGBA8}, {FrameBufferTextureFormat::DEPTH24STENCIL8} });
+	FrameBufferEx frameBufferEx(fbs);
+
 	while (!glfwWindowShouldClose(m_context) && !m_userNeedShutDown)
 	{
 		//render to my framebuffer
