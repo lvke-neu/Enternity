@@ -16,6 +16,7 @@ Components
 #include "Renderer/VertexArray.h"
 #include "Renderer/Shader.h"
 #include "Renderer/Texture.h"
+#include "Renderer/SkyBoxTexture.h"
 #include "File/FileOperation.h"
 
 BEGIN_ENTERNITY
@@ -309,6 +310,30 @@ struct CameraComponent
 	CameraComponent() = default;
 	CameraComponent(const CameraComponent&) = default;
 
+};
+
+//skybox 
+struct SkyBoxComponent
+{
+	std::string m_ShaderFilePath;
+	std::vector<std::string> m_TexturePaths;
+	
+	Shader* m_Shader{ nullptr };
+	SkyBoxTexture* m_SkyBoxTexture{ nullptr };
+
+	void Load()
+	{
+		m_Shader = new Shader(m_ShaderFilePath);
+		m_SkyBoxTexture = new SkyBoxTexture(m_TexturePaths);
+	}
+
+	SkyBoxComponent() = default;
+
+	void Destroy()
+	{
+		SAFE_DELETE_SET_NULL(m_SkyBoxTexture);
+		SAFE_DELETE_SET_NULL(m_Shader);
+	}
 };
 
 END_ENTERNITY

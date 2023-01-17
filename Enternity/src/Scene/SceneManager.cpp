@@ -64,6 +64,21 @@ void SceneManager::Initialize()
 	//m_Entities.insert({ planeEntity.GetEntityUid(), planeEntity });
 	//m_Entities.insert({ lightEntity.GetEntityUid(), lightEntity });
 	
+	m_SkyBoxEntity = Entity(&m_Registry, "SkyBox Entity");
+	auto& mc = m_SkyBoxEntity.AddComponent<MeshComponent>();
+	mc.m_MeshFilePath = "assets/models/cube.mesh";
+	mc.Load();
+	auto& sc = m_SkyBoxEntity.AddComponent<SkyBoxComponent>();
+	sc.m_ShaderFilePath = "assets/shaders/SkyBox.glsl";
+	std::vector<std::string> textureFiles;
+	textureFiles.push_back("assets/textures/skybox/default/right.jpg");
+	textureFiles.push_back("assets/textures/skybox/default/left.jpg");
+	textureFiles.push_back("assets/textures/skybox/default/top.jpg");
+	textureFiles.push_back("assets/textures/skybox/default/bottom.jpg");
+	textureFiles.push_back("assets/textures/skybox/default/front.jpg");
+	textureFiles.push_back("assets/textures/skybox/default/back.jpg");
+	sc.m_TexturePaths = textureFiles;
+	sc.Load();
 
 	m_SceneHierarchyPanel = new SceneHierarchyPanel;
 	m_ContentBrowserPanel = new ContentBrowserPanel;;
@@ -86,6 +101,25 @@ void SceneManager::Update(float deltaTime)
 			}
 		}
 	}
+}
+
+void SceneManager::DrawSkyBox()
+{
+	glDepthFunc(GL_LEQUAL);
+	auto& cameraTransformComponent = m_MainCameraEntity.GetComponent<TransformComponent>();
+	auto& cameraCameraComponent = m_MainCameraEntity.GetComponent<CameraComponent>();
+
+
+	auto& meshComponent = m_SkyBoxEntity.GetComponent<MeshComponent>();
+	auto& skyboxComponet = m_SkyBoxEntity.GetComponent<SkyBoxComponent>();
+	skyboxComponet.m_Shader->Bind();
+	skyboxComponet.m_SkyBoxTexture->Bind();
+	skyboxComponet.m_Shader->SetInteger1("skybox", 0);
+	skyboxComponet.m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * glm::mat4(glm::mat3(cameraTransformComponent.GetInverseWorldMatrix())));
+	meshComponent.m_VertexArray->Bind();
+	meshComponent.m_Indexbuffer->Bind();
+	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, meshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
+	glDepthFunc(GL_LESS);
 }
 
 
@@ -138,6 +172,8 @@ void SceneManager::Tick(float deltaTime)
 			}
 		}
 	}
+
+	DrawSkyBox();
 }
 
 void SceneManager::OnResize(int width, int height)

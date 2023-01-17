@@ -40,9 +40,12 @@ private:
 	SceneManager& operator=(const SceneManager&) = default;
 
 	void Update(float deltaTime);
+	void DrawSkyBox();
 private:
 	entt::registry m_Registry;
 	Entity m_MainCameraEntity;
+	Entity m_SkyBoxEntity;
+
 	std::map<unsigned int, Entity> m_Entities;
 private:
 	CameraController* m_CameraController{ nullptr };	
