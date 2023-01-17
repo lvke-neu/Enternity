@@ -10,10 +10,10 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [5.44756508, 15.3422651, 16.0161781]
-      m_Rotation: [-0.560000241, 0.453184307, 0]
+      m_Translation: [8.523633, 5.62882996, 3.45897102]
+      m_Rotation: [-0.306814969, 0.77955395, 0]
       m_Scale: [1, 1, 1]
-  - Entity: 1
+  - Entity: 2
     TagComponent:
       m_Tag: Cube Entity
     TransformComponent:
@@ -27,7 +27,7 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECS.glsl
       m_bUseColor: false
       m_BaseColor: [1, 1, 1, 1]
-  - Entity: 2
+  - Entity: 3
     TagComponent:
       m_Tag: Plane Entity
     TransformComponent:
@@ -40,8 +40,8 @@ Entities:
       m_TextureFilePath: ""
       m_ShaderFilePath: assets/shaders/TestECS.glsl
       m_bUseColor: true
-      m_BaseColor: [0.254901975, 0.352941185, 0.0784313753, 1]
-  - Entity: 3
+      m_BaseColor: [0.320425987, 0.325112104, 0.311991006, 1]
+  - Entity: 4
     TagComponent:
       m_Tag: Light Entity
     TransformComponent:
@@ -55,7 +55,7 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECS.glsl
       m_bUseColor: true
       m_BaseColor: [1, 1, 1, 1]
-  - Entity: 4
+  - Entity: 5
     TagComponent:
       m_Tag: bottom
     TransformComponent:
@@ -69,7 +69,7 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECS.glsl
       m_bUseColor: true
       m_BaseColor: [0.537037015, 0.14320986, 0.14320986, 1]
-  - Entity: 5
+  - Entity: 6
     TagComponent:
       m_Tag: left
     TransformComponent:
