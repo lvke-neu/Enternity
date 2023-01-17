@@ -203,12 +203,15 @@ struct MaterialComponent
 	Texture* m_Texture{ nullptr };
 
 	std::string m_TextureFilePath{ "" };
-	std::string m_ShaderFilePath{ "" };
+	std::string m_ShaderFilePath{ "assets/shaders/TestECS.glsl" };
 
 	bool m_bUseColor = false;
 	glm::vec4 m_BaseColor{ 1.0f };
 
-	MaterialComponent() = default;
+	MaterialComponent()
+	{
+		LoadShader();
+	}
 	MaterialComponent(const MaterialComponent&) = default;
 
 	void Load()

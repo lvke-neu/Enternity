@@ -279,25 +279,26 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 				ImGui::EndDragDropTarget();
 			}
 
-			memset(buffer, 0, sizeof(buffer));
-			memcpy_s(buffer, sizeof(buffer), materialComponent.m_ShaderFilePath.c_str(), sizeof(buffer));
-			if (ImGui::InputText("ShaderFilePath", buffer, sizeof(buffer)))
-			{
-				materialComponent.m_ShaderFilePath = buffer;
-				materialComponent.LoadShader();
-			}
-			if (ImGui::BeginDragDropTarget())
-			{
-				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
-				{
-					LOG_INFO((char*)payload->Data);
-					std::string path((char*)payload->Data);
-					path = path.substr(0, payload->DataSize);
-					materialComponent.m_ShaderFilePath = path;
-					materialComponent.LoadShader();
-				}
-				ImGui::EndDragDropTarget();
-			}
+			ImGui::Text("ShaderFilePath:%s", materialComponent.m_ShaderFilePath.c_str());
+			//memset(buffer, 0, sizeof(buffer));
+			//memcpy_s(buffer, sizeof(buffer), materialComponent.m_ShaderFilePath.c_str(), sizeof(buffer));
+			//if (ImGui::InputText("ShaderFilePath", buffer, sizeof(buffer)))
+			//{
+			//	materialComponent.m_ShaderFilePath = buffer;
+			//	materialComponent.LoadShader();
+			//}
+			//if (ImGui::BeginDragDropTarget())
+			//{
+			//	if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+			//	{
+			//		LOG_INFO((char*)payload->Data);
+			//		std::string path((char*)payload->Data);
+			//		path = path.substr(0, payload->DataSize);
+			//		materialComponent.m_ShaderFilePath = path;
+			//		materialComponent.LoadShader();
+			//	}
+			//	ImGui::EndDragDropTarget();
+			//}
 
 			if (ImGui::Checkbox("UseColor", &materialComponent.m_bUseColor))
 			{
