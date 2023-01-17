@@ -169,7 +169,7 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 		Engine::GetInstance().Resize(m_width, m_height);
 	}
 	
-	auto id = Engine::GetInstance().GetFrameBuffer()->GetTextureRendererId();
+	auto id = Engine::GetInstance().GetFrameBufferEx()->GetTextureRendererId(2);
 	ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
 
 	if (ImGui::BeginDragDropTarget())

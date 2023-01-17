@@ -169,6 +169,9 @@ void FrameBufferEx::Build()
 			glTexImage2D(GL_TEXTURE_2D, 0, GetType(m_ColorFTS[i].m_TextureFormat), m_FrameBufferSpecification.m_Width, m_FrameBufferSpecification.m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, m_texRendererIds[i], 0);
 
 		}
@@ -186,6 +189,12 @@ void FrameBufferEx::Build()
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		LOG_ERROR("Framebuffer is not complete!");
+
+	GLenum* buffers = new GLenum[m_texRendererIds.size()];
+	for (int i = 0; i < m_texRendererIds.size(); i++)
+		buffers[i] = GL_COLOR_ATTACHMENT0 + i;
+	glDrawBuffers(m_texRendererIds.size(), buffers);
+	delete [] buffers;
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

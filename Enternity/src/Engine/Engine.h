@@ -20,7 +20,7 @@ public:
 	bool Initialize();
 	void Run();
 	void ShutDown();
-	inline FrameBuffer* GetFrameBuffer() { return m_framebuffer; }
+	inline FrameBufferEx* GetFrameBufferEx() { return m_framebufferEx; }
 
 	void Resize(int width, int height);
 	float GetDeltaTime();
@@ -35,7 +35,7 @@ private:
 	GameTimer m_timer;
 	bool m_userNeedShutDown = false;
 
-	FrameBuffer* m_framebuffer{ nullptr };
+	FrameBufferEx* m_framebufferEx{ nullptr };
 };
 
 END_ENTERNITY

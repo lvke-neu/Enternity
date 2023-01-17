@@ -70,7 +70,7 @@ void MouseScrollEnvent(GLFWwindow* window, double xoffset, double yoffset)
 
 Engine::~Engine()
 {
-	SAFE_DELETE_SET_NULL(m_framebuffer);
+	SAFE_DELETE_SET_NULL(m_framebufferEx);
 	ImguiManager::GetInstance().Release();
 	glfwTerminate();
 }
@@ -131,7 +131,11 @@ bool Engine::Initialize()
 
 
 	//framebuffer
-	m_framebuffer = new FrameBuffer(WINDOW_WIDHT, WINDOW_HEIGHT);
+	FrameBufferSpecification fbs;
+	fbs.m_Width = WINDOW_WIDHT;
+	fbs.m_Height = WINDOW_WIDHT;
+	fbs.m_FBAS = FrameBufferAttachmentSpecification({FrameBufferTextureFormat::RGBA8,FrameBufferTextureFormat::RGBA8,FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::DEPTH24STENCIL8});
+	m_framebufferEx = new FrameBufferEx(fbs);
 
 	//hardware info
 	LOG_INFO((char*)glGetString(GL_VERSION));
@@ -154,17 +158,11 @@ bool Engine::Initialize()
 
 void Engine::Run()
 {
-	FrameBufferSpecification fbs;
-	fbs.m_Width = 100;
-	fbs.m_Height = 100;
-	fbs.m_FBAS = FrameBufferAttachmentSpecification({ {FrameBufferTextureFormat::RGBA8}, {FrameBufferTextureFormat::DEPTH24STENCIL8} });
-	FrameBufferEx frameBufferEx(fbs);
-
 	while (!glfwWindowShouldClose(m_context) && !m_userNeedShutDown)
 	{
 		//render to my framebuffer
 		{
-			m_framebuffer->Bind();
+			m_framebufferEx->Bind();
 
 			//clear
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -179,13 +177,13 @@ void Engine::Run()
 			if (io.Framerate)
 				SceneManager::GetInstance().Tick(1.0f / io.Framerate);
 
-			m_framebuffer->Resolve();
+			//m_framebuffer->Resolve();
 		}
 
 		//render imgui to screen or window
 		{
 			//imgui
-			m_framebuffer->UnBind();
+			m_framebufferEx->UnBind();
 			//clear
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -212,7 +210,7 @@ void Engine::Resize(int width, int height)
 	
 	SceneManager::GetInstance().OnResize(width, height);
 
-	m_framebuffer->Rebuild(width, height);
+	m_framebufferEx->ReSize(width, height);
 
 	LOG_INFO("Resize:" + std::to_string(width) + "," + std::to_string(height));
 }

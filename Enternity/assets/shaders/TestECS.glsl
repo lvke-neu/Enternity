@@ -18,7 +18,10 @@ void main()
 #shader pixel
 #version 330 core
 
-out vec4 pixelColor;
+layout(location = 0) out vec4 pixelColor;
+layout(location = 1) out vec4 pixelColor2;
+layout(location = 2) out vec4 pixelColor3;
+
 in vec2 v_texcoord;
 
 uniform int b_useColor;
@@ -37,4 +40,7 @@ void main()
 	}
 
 	//pixelColor = vec4(vec3(gl_FragCoord.z),1.0);
+	pixelColor2 = vec4(0.9, 0.2, 0.3, 1.0);
+	pixelColor3= vec4(0.2, 0.9, 0.3, 1.0);
+	
 };

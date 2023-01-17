@@ -86,7 +86,10 @@ public:
 	virtual void Bind(unsigned int slot = 0) const override;
 	virtual void UnBind() const override;
 	void ReSize(unsigned int width, unsigned int height);
-	inline unsigned int GetTextureRendererId(unsigned int index) const { return m_texRendererIds[index]; }
+	inline unsigned int GetTextureRendererId(unsigned int index) const 
+	{ 
+		return m_texRendererIds[index]; 
+	}
 private:
 	void Build();
 	GLint GetType(FrameBufferTextureFormat format);
