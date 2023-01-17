@@ -132,6 +132,9 @@
     <ClCompile Include="src\Scene\Panels\ContentBrowserPanel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\SkyBoxTexture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macro\Macro.h">
@@ -267,6 +270,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\Panels\ContentBrowserPanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\SkyBoxTexture.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

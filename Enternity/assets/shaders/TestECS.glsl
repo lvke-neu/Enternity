@@ -27,7 +27,6 @@ uniform sampler2D u_texture;
 
 void main()
 {
-	//pixelColor = vec4(v_texcoord, 0, 1);
 	if(b_useColor == 1)
 	{
 		pixelColor = u_baseColor;
@@ -36,4 +35,6 @@ void main()
 	{
 		pixelColor = texture(u_texture, v_texcoord);
 	}
+
+	//pixelColor = vec4(vec3(gl_FragCoord.z),1.0);
 };

@@ -9,8 +9,8 @@
 
 BEGIN_ENTERNITY
 
-#define WINDOW_WIDHT 1600
-#define WINDOW_HEIGHT 800
+#define WINDOW_WIDHT 3000
+#define WINDOW_HEIGHT 1500
 #define WINDOW_TITLE "Enternity Engine, Version:0.0003, Author:lvke"
 
 void KeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -114,8 +114,17 @@ bool Engine::Initialize()
 	//wireframe
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	//depth tes
+	//depth test
 	glEnable(GL_DEPTH_TEST);
+	//glDepthFunc(GL_LESS);
+
+	//stencil test
+	//glEnable(GL_STENCIL_TEST);
+	//glStencilFunc(GL_EQUAL, 1, 0xFF);
+
+	//cull face
+	//glEnable(GL_CULL_FACE);
+	//glCullFace(GL_FRONT);
 
 	//viewport
 	glViewport(0, 0, WINDOW_WIDHT, WINDOW_HEIGHT);
@@ -152,7 +161,7 @@ void Engine::Run()
 			m_framebuffer->Bind();
 
 			//clear
-			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			//tick event,  The unit of deltaTime is second

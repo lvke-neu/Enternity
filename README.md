@@ -22,3 +22,11 @@ mesh.bin
 header:
 	unsigned int VertexCount(顶点类型 默认写死，float3:position, float3:normal, float2:texcoord)
 	unsigned int IndexCount(索引类型 默认写死，unsigned int)
+
+
+模板缓冲:
+	1、启用模板缓冲的写入。
+	2、渲染物体，更新模板缓冲的内容。
+	3、禁用模板缓冲的写入。
+	4、渲染（其它）物体，这次根据模板缓冲的内容丢弃特定的片段。
+	

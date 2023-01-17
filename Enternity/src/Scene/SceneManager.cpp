@@ -98,6 +98,7 @@ void SceneManager::Tick(float deltaTime)
 	
 	for (auto& entity : m_Entities)
 	{
+		auto& tagComponent = entity.second.GetComponent<TagComponent>();
 		if (entity.second.HasComponent<TransformComponent>() && entity.second.HasComponent<MeshComponent>() && entity.second.HasComponent<MaterialComponent>())
 		{
 			auto& transformComponent = entity.second.GetComponent<TransformComponent>();
