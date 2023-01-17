@@ -329,7 +329,7 @@ struct SkyBoxComponent
 
 	SkyBoxComponent() = default;
 
-	void Destroy()
+	void UnLoad()
 	{
 		SAFE_DELETE_SET_NULL(m_SkyBoxTexture);
 		SAFE_DELETE_SET_NULL(m_Shader);

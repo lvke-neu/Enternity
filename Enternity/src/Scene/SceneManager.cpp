@@ -18,9 +18,16 @@ SceneManager::~SceneManager()
 		auto& materialComponent = viewMaterialComponent.get<MaterialComponent>(entity);
 		materialComponent.UnLoad();
 	}
+	auto viewSkyBoxComponent = m_Registry.view<SkyBoxComponent>();
+	for (auto entity : viewSkyBoxComponent)
+	{
+		auto& skyBoxComponent = viewSkyBoxComponent.get<SkyBoxComponent>(entity);
+		skyBoxComponent.UnLoad();
+	}
 
 	Clear();
-
+	m_MainCameraEntity.Destroy();
+	m_SkyBoxEntity.Destroy();
 	SAFE_DELETE_SET_NULL(m_CameraController);
 	SAFE_DELETE_SET_NULL(m_SceneHierarchyPanel);
 	SAFE_DELETE_SET_NULL(m_ContentBrowserPanel);
