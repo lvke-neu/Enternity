@@ -26,10 +26,11 @@ public:
 private:
 	void ShowDockSpace(bool* p_open);
 	void SetDarkThemeColors();
+
 	unsigned int m_width;
 	unsigned int m_height;
 	unsigned int m_GizmoType = -1;
-
+	ImVec2 m_ViewportBounds[2];
 };
 
 END_ENTERNITY

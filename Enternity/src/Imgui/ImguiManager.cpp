@@ -159,6 +159,10 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0, 0 });
 	ImGui::Begin("viewport");
 
+	//mouse pick
+	auto viewportOffset = ImGui::GetCursorPos();
+
+
 	InputEventManager::GetInstance().SetViewportFocused(ImGui::IsWindowHovered());
 
 	auto viewport = ImGui::GetContentRegionAvail();
@@ -169,9 +173,24 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 		Engine::GetInstance().Resize(m_width, m_height);
 	}
 	
-	auto id = Engine::GetInstance().GetFrameBufferEx()->GetTextureRendererId(2);
+
+	auto id = Engine::GetInstance().GetFrameBufferEx()->GetTextureRendererId(0);
 	ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
 
+	//mouse pick
+	auto windowSize = ImGui::GetWindowSize();
+	ImVec2 minBound = ImGui::GetWindowPos();
+
+	minBound.x += viewportOffset.x;
+	minBound.y += viewportOffset.y;
+
+	ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
+	m_ViewportBounds[0] = { minBound.x, minBound.y };
+	m_ViewportBounds[1] = { maxBound.x, maxBound.y };
+		
+	
+
+	//drag
 	if (ImGui::BeginDragDropTarget())
 	{
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
@@ -222,6 +241,27 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 
 	ImGui::End();
 	ImGui::PopStyleVar();
+
+
+	Engine::GetInstance().GetFrameBufferEx()->Bind();
+	//test mouse pos
+	auto[mx, my] = ImGui::GetMousePos();
+	mx -= m_ViewportBounds[0].x;
+	my -= m_ViewportBounds[0].y;
+
+	int mouseX = (int)mx;
+	int mouseY = (int)my;
+
+	auto viewportSizeX = m_ViewportBounds[1].x - m_ViewportBounds[0].x;
+	auto viewportSizeY = m_ViewportBounds[1].y - m_ViewportBounds[0].y;
+	mouseY = int(viewportSizeY - my);
+	if (mouseX >= 0 && mouseY >= 0 && mouseX <= viewportSizeX && mouseY <= viewportSizeY)
+	{
+		LOG_INFO("Hit:" + std::to_string(Engine::GetInstance().GetFrameBufferEx()->ReadPixel(1, mouseX, mouseY)));
+		//LOG_INFO(std::to_string(mouseX) + "," + std::to_string(mouseY));
+	}
+	Engine::GetInstance().GetFrameBufferEx()->UnBind();
+
 
 	//imgui draw
 	ImguiDrawEventManager::GetInstance().NotifyImguiDraw();

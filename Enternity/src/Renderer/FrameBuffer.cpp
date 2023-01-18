@@ -132,7 +132,7 @@ FrameBufferEx::FrameBufferEx(const FrameBufferSpecification& specification)
 FrameBufferEx::~FrameBufferEx()
 {
 	glDeleteFramebuffers(1, &m_rendererId);
-	glDeleteTextures(m_texRendererIds.size(), m_texRendererIds.data());
+	glDeleteTextures(GLsizei(m_texRendererIds.size()), m_texRendererIds.data());
 	glDeleteRenderbuffers(1, &m_renderBufferId);
 }
 
@@ -149,11 +149,10 @@ void FrameBufferEx::UnBind() const
 void FrameBufferEx::Build()
 {
 	glDeleteFramebuffers(1, &m_rendererId);
-	glDeleteTextures(m_texRendererIds.size(), m_texRendererIds.data());
+	glDeleteTextures(GLsizei(m_texRendererIds.size()), m_texRendererIds.data());
 	m_texRendererIds.clear();
 	glDeleteRenderbuffers(1, &m_renderBufferId);
 	
-
 
 	glGenFramebuffers(1, &m_rendererId);
 	glBindFramebuffer(GL_FRAMEBUFFER, m_rendererId);
@@ -166,7 +165,7 @@ void FrameBufferEx::Build()
 			//texture
 			glGenTextures(1, &m_texRendererIds[i]);
 			glBindTexture(GL_TEXTURE_2D, m_texRendererIds[i]);
-			glTexImage2D(GL_TEXTURE_2D, 0, GetType(m_ColorFTS[i].m_TextureFormat), m_FrameBufferSpecification.m_Width, m_FrameBufferSpecification.m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+			CHECK_GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, GetInternalformat(m_ColorFTS[i].m_TextureFormat), m_FrameBufferSpecification.m_Width, m_FrameBufferSpecification.m_Height, 0, GetFormat(m_ColorFTS[i].m_TextureFormat), GL_UNSIGNED_BYTE, nullptr));
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
@@ -193,18 +192,32 @@ void FrameBufferEx::Build()
 	GLenum* buffers = new GLenum[m_texRendererIds.size()];
 	for (int i = 0; i < m_texRendererIds.size(); i++)
 		buffers[i] = GL_COLOR_ATTACHMENT0 + i;
-	glDrawBuffers(m_texRendererIds.size(), buffers);
+	glDrawBuffers(GLsizei(m_texRendererIds.size()), buffers);
 	delete [] buffers;
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-GLint FrameBufferEx::GetType(FrameBufferTextureFormat format)
+GLint FrameBufferEx::GetInternalformat(FrameBufferTextureFormat format)
+{
+	switch (format)
+	{
+	case FrameBufferTextureFormat::RGBA8:
+		return GL_RGBA8;
+	case FrameBufferTextureFormat::RED_INTEGER:
+		return GL_R32I;
+	}
+	return -1;
+}
+
+GLenum FrameBufferEx::GetFormat(FrameBufferTextureFormat format)
 {
 	switch (format)
 	{
 	case FrameBufferTextureFormat::RGBA8:
 		return GL_RGBA;
+	case FrameBufferTextureFormat::RED_INTEGER:
+		return GL_RED_INTEGER;
 	}
 	return -1;
 }

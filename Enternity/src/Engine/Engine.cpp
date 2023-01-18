@@ -134,7 +134,7 @@ bool Engine::Initialize()
 	FrameBufferSpecification fbs;
 	fbs.m_Width = WINDOW_WIDHT;
 	fbs.m_Height = WINDOW_WIDHT;
-	fbs.m_FBAS = FrameBufferAttachmentSpecification({FrameBufferTextureFormat::RGBA8,FrameBufferTextureFormat::RGBA8,FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::DEPTH24STENCIL8});
+	fbs.m_FBAS = FrameBufferAttachmentSpecification({FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::RED_INTEGER, FrameBufferTextureFormat::DEPTH24STENCIL8});
 	m_framebufferEx = new FrameBufferEx(fbs);
 
 	//hardware info
@@ -180,13 +180,15 @@ void Engine::Run()
 			//m_framebuffer->Resolve();
 		}
 
+
+
 		//render imgui to screen or window
 		{
 			//imgui
 			m_framebufferEx->UnBind();
-			//clear
-			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			////clear
+			//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			ImguiManager::GetInstance().Draw();
 		}
 

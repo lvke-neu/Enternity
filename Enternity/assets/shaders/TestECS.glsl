@@ -19,8 +19,8 @@ void main()
 #version 330 core
 
 layout(location = 0) out vec4 pixelColor;
-layout(location = 1) out vec4 pixelColor2;
-layout(location = 2) out vec4 pixelColor3;
+layout(location = 1) out int entityId;
+
 
 in vec2 v_texcoord;
 
@@ -40,7 +40,5 @@ void main()
 	}
 
 	//pixelColor = vec4(vec3(gl_FragCoord.z),1.0);
-	pixelColor2 = vec4(0.9, 0.2, 0.3, 1.0);
-	pixelColor3= vec4(0.2, 0.9, 0.3, 1.0);
-	
+	entityId = 50;
 };

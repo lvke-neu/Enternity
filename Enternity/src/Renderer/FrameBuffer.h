@@ -38,9 +38,12 @@ private:
 enum class FrameBufferTextureFormat
 {
 	None = 0,
-
+	
 	//color
 	RGBA8,
+
+	//store integer type in framebuffer
+	RED_INTEGER,
 
 	//depth/stencil
 	DEPTH24STENCIL8
@@ -90,9 +93,17 @@ public:
 	{ 
 		return m_texRendererIds[index]; 
 	}
+	int ReadPixel(unsigned int index, int x, int y)
+	{
+		glReadBuffer(GL_COLOR_ATTACHMENT0 + index);
+		int pixelData;
+		glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixelData);
+		return pixelData;
+	}
 private:
 	void Build();
-	GLint GetType(FrameBufferTextureFormat format);
+	GLint GetInternalformat(FrameBufferTextureFormat format);
+	GLenum GetFormat(FrameBufferTextureFormat format);
 private:
 	FrameBufferSpecification m_FrameBufferSpecification;
 	std::vector<unsigned int> m_texRendererIds;
