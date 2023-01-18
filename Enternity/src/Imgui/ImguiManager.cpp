@@ -157,11 +157,16 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 
 	//test image
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0, 0 });
+	
 	ImGui::Begin("viewport");
 
 	//mouse pick
-	auto viewportOffset = ImGui::GetCursorPos();
-
+	//auto viewportOffset = ImGui::GetCursorPos();
+	auto viewportMinRegion = ImGui::GetWindowContentRegionMin();
+	auto viewportMaxRegion = ImGui::GetWindowContentRegionMax();
+	auto viewportOffset = ImGui::GetWindowPos();
+	m_ViewportBounds[0] = { viewportMinRegion.x + viewportOffset.x, viewportMinRegion.y + viewportOffset.y };
+	m_ViewportBounds[1] = { viewportMaxRegion.x + viewportOffset.x, viewportMaxRegion.y + viewportOffset.y };
 
 	InputEventManager::GetInstance().SetViewportFocused(ImGui::IsWindowHovered());
 
@@ -178,15 +183,15 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 	ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
 
 	//mouse pick
-	auto windowSize = ImGui::GetWindowSize();
-	ImVec2 minBound = ImGui::GetWindowPos();
+	//auto windowSize = ImGui::GetWindowSize();
+	//ImVec2 minBound = ImGui::GetWindowPos();
 
-	minBound.x += viewportOffset.x;
-	minBound.y += viewportOffset.y;
+	//minBound.x += viewportOffset.x;
+	//minBound.y += viewportOffset.y;
 
-	ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
-	m_ViewportBounds[0] = { minBound.x, minBound.y };
-	m_ViewportBounds[1] = { maxBound.x, maxBound.y };
+	//ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
+	//m_ViewportBounds[0] = { minBound.x, minBound.y };
+	//m_ViewportBounds[1] = { maxBound.x, maxBound.y };
 		
 	
 

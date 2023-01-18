@@ -139,6 +139,8 @@ FrameBufferEx::~FrameBufferEx()
 void FrameBufferEx::Bind(unsigned int slot) const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, m_rendererId);
+	//int value = -1;
+	//glClearTexImage(m_texRendererIds[1], 0, GL_RED_INTEGER, GL_INT, &value);
 }
 
 void FrameBufferEx::UnBind() const

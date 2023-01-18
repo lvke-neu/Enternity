@@ -1,5 +1,5 @@
 #shader vertex
-#version 330 core 
+#version 440 core 
 
 layout(location = 0) in vec3 position;
 
@@ -12,7 +12,7 @@ void main()
 };
 
 #shader pixel
-#version 330 core 
+#version 440 core 
 
 out vec4 pixelColor;
 

@@ -1,5 +1,5 @@
 #shader vertex
-#version 330 core
+#version 440 core
 
 layout(location = 0) in vec3 position;
 layout(location = 2) in vec2 texcoord;
@@ -16,7 +16,7 @@ void main()
 };
 
 #shader pixel
-#version 330 core
+#version 440 core
 
 layout(location = 0) out vec4 pixelColor;
 layout(location = 1) out int entityId;
@@ -27,6 +27,7 @@ in vec2 v_texcoord;
 uniform int b_useColor;
 uniform vec4 u_baseColor;
 uniform sampler2D u_texture;
+uniform int u_entityId;
 
 void main()
 {
@@ -40,5 +41,5 @@ void main()
 	}
 
 	//pixelColor = vec4(vec3(gl_FragCoord.z),1.0);
-	entityId = 50;
+	entityId = u_entityId;
 };

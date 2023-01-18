@@ -1,5 +1,5 @@
 #shader vertex
-#version 330 core
+#version 440 core
 
 layout(location = 0) in vec3 position;
 
@@ -14,9 +14,11 @@ void main()
 };
 
 #shader pixel
-#version 330 core
+#version 440 core
 
-out vec4 pixelColor;
+layout(location = 0) out vec4 pixelColor;
+layout(location = 1) out int entityId;
+
 in vec3 v_position;
 uniform samplerCube skybox;
 
@@ -24,4 +26,5 @@ void main()
 {
 	pixelColor = texture(skybox, v_position);
 	//pixelColor = vec4(1,0,0,1);
+	entityId = -1;
 };

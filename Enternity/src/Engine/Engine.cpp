@@ -84,8 +84,8 @@ bool Engine::Initialize()
 		return false;
 	}
 	
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_SAMPLES, 4);
 
@@ -162,12 +162,13 @@ void Engine::Run()
 	{
 		//render to my framebuffer
 		{
+
 			m_framebufferEx->Bind();
 
 			//clear
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+			
 			//tick event,  The unit of deltaTime is second
 			ImGuiIO& io = ImGui::GetIO();
 			if(io.Framerate)

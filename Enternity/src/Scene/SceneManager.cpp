@@ -153,6 +153,7 @@ void SceneManager::Tick(float deltaTime)
 			{
 				materialComponent.m_Shader->Bind();
 				materialComponent.m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * cameraTransformComponent.GetInverseWorldMatrix() * transformComponent.GetWorldMatrix());
+				materialComponent.m_Shader->SetInteger1("u_entityId", entity.second.GetEntityUid());
 			}
 		
 			if (materialComponent.m_Texture)
