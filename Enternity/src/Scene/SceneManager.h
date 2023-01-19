@@ -32,7 +32,10 @@ public:
 	{
 		return m_MainCameraEntity;
 	}
-
+	bool IsWireFrame()
+	{
+		return m_MainCameraEntity.GetComponent<CameraComponent>().m_EnableWireframe;
+	}
 private:
 	SceneManager() = default;
 	~SceneManager();
