@@ -28,11 +28,11 @@ public:
 
 	inline Entity GetMainCameraEntity()
 	{
-		return m_MainCameraEntity;
+		return m_EditorCameraEntity;
 	}
 	bool IsWireFrame()
 	{
-		return m_MainCameraEntity.GetComponent<CameraComponent>().m_EnableWireframe;
+		return m_EditorCameraEntity.GetComponent<CameraComponent>().m_EnableWireframe;
 	}
 private:
 	SceneManager() = default;
@@ -44,12 +44,16 @@ private:
 	void DrawSkyBox();
 private:
 	entt::registry m_Registry;
-	Entity m_MainCameraEntity;
+	Entity m_EditorCameraEntity;
+	Entity m_PlayerCameraEntity;
+	Entity m_CurrentCameraEntity;
 	Entity m_SkyBoxEntity;
+
 
 	std::map<unsigned int, Entity> m_Entities;
 private:
-	CameraController* m_CameraController{ nullptr };	
+	CameraController* m_EditorCameraController{ nullptr };	
+	CameraController* m_PlayerCameraController{ nullptr };
 };
 
 END_ENTERNITY

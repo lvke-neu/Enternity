@@ -19,7 +19,8 @@ void SceneHierarchyPanel::ImguiDraw()
 {
 	ImGui::Begin("Scene Hierarchy panel");
 	//traversal all entity in one registry
-	DrawEntity(SceneManager::GetInstance().m_MainCameraEntity, false);
+	DrawEntity(SceneManager::GetInstance().m_EditorCameraEntity, false);
+	DrawEntity(SceneManager::GetInstance().m_PlayerCameraEntity, false);
 	for (auto& entity : SceneManager::GetInstance().m_Entities)
 	{
 		DrawEntity(entity.second);
@@ -178,7 +179,7 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 	//add component
 	ImGui::SameLine();
 	ImGui::PushItemWidth(-1);
-	if (m_SelectedEntity.IsValidEntity() && m_SelectedEntity != SceneManager::GetInstance().m_MainCameraEntity && ImGui::Button("Add Component"))
+	if (m_SelectedEntity.IsValidEntity() && m_SelectedEntity != SceneManager::GetInstance().m_EditorCameraEntity && ImGui::Button("Add Component")&& m_SelectedEntity != SceneManager::GetInstance().m_PlayerCameraEntity)
 	{
 		ImGui::OpenPopup("AddComponent");
 	}

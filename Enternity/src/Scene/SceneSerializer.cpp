@@ -186,7 +186,7 @@ void SceneSerializer::Serialize(const std::string& filePath)
 	out << YAML::Key << "Scene" << YAML::Value << "Untitled";
 	out << YAML::Key << "Entities" << YAML::Value << YAML::BeginSeq;
 	
-	SerializeEntity(out, SceneManager::GetInstance().m_MainCameraEntity);
+	SerializeEntity(out, SceneManager::GetInstance().m_EditorCameraEntity);
 
 	for (auto& entity : SceneManager::GetInstance().m_Entities)
 	{
@@ -236,7 +236,7 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 			auto cameraTransformComponent = entity["TransformComponent"];
 			if (cameraComponent && cameraTransformComponent)
 			{
-				auto& mainCameraEntity = SceneManager::GetInstance().m_MainCameraEntity;
+				auto& mainCameraEntity = SceneManager::GetInstance().m_EditorCameraEntity;
 				auto& cc = mainCameraEntity.GetComponent<CameraComponent>();
 				cc.m_MoveSpeed = cameraComponent["m_MoveSpeed"].as<float>();
 				cc.m_EnableWireframe = cameraComponent["m_EnableWireframe"].as<bool>();

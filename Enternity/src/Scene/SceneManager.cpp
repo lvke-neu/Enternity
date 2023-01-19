@@ -1,6 +1,6 @@
 #include "SceneManager.h"
 #include "CameraController.h"
-
+#include "Event/InputEventManager.h"
 
 BEGIN_ENTERNITY
 
@@ -26,18 +26,26 @@ SceneManager::~SceneManager()
 	}
 
 	Clear();
-	m_MainCameraEntity.Destroy();
+	m_EditorCameraEntity.Destroy();
+	m_PlayerCameraEntity.Destroy();
 	m_SkyBoxEntity.Destroy();
-	SAFE_DELETE_SET_NULL(m_CameraController);
+	SAFE_DELETE_SET_NULL(m_EditorCameraController);
 }
 
 void SceneManager::Initialize()
 {	
-	m_MainCameraEntity = Entity(&m_Registry, "MainCamera Entity");
-	m_MainCameraEntity.AddComponent<TransformComponent>(glm::vec3(-5.684f, 2.305f, 3.188f), glm::vec3(-0.27f, -0.76f, 0.000f), glm::vec3(1.0f));
-	m_MainCameraEntity.AddComponent<CameraComponent>();
-	m_CameraController = new CameraController(m_MainCameraEntity);
+	m_EditorCameraEntity = Entity(&m_Registry, "MainCamera Entity");
+	m_EditorCameraEntity.AddComponent<TransformComponent>(glm::vec3(-5.684f, 2.305f, 3.188f), glm::vec3(-0.27f, -0.76f, 0.000f), glm::vec3(1.0f));
+	m_EditorCameraEntity.AddComponent<CameraComponent>();
+	m_EditorCameraController = new CameraController(m_EditorCameraEntity);
+	
+	m_PlayerCameraEntity = Entity(&m_Registry, "PlayerCamera Entity");
+	m_PlayerCameraEntity.AddComponent<TransformComponent>(glm::vec3(-16.49f, -3.26, -12.25f), glm::vec3(glm::radians(15.65f) , glm::radians(-105.45f) , 0.000f), glm::vec3(1.0f));
+	m_PlayerCameraEntity.AddComponent<CameraComponent>();
+	m_PlayerCameraController = new CameraController(m_PlayerCameraEntity);
 
+	m_CurrentCameraEntity = m_EditorCameraEntity;
+	m_PlayerCameraController->Pause();
 
 	//Entity cubeEntity(&m_Registry, "Cube Entity");
 	//cubeEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
@@ -89,6 +97,20 @@ void SceneManager::Initialize()
 
 void SceneManager::Update(float deltaTime)
 {
+	if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_P))
+	{
+		m_CurrentCameraEntity = m_PlayerCameraEntity;
+		m_EditorCameraController->Pause();
+		m_PlayerCameraController->Start();
+	}
+	
+	if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_ESCAPE))
+	{
+		m_CurrentCameraEntity = m_EditorCameraEntity;
+		m_EditorCameraController->Start();
+		m_PlayerCameraController->Pause();
+	}
+
 	for (auto& entity : m_Entities)
 	{
 		if (entity.second.HasComponent<MotorComponent>())
@@ -107,8 +129,8 @@ void SceneManager::Update(float deltaTime)
 void SceneManager::DrawSkyBox()
 {
 	glDepthFunc(GL_LEQUAL);
-	auto& cameraTransformComponent = m_MainCameraEntity.GetComponent<TransformComponent>();
-	auto& cameraCameraComponent = m_MainCameraEntity.GetComponent<CameraComponent>();
+	auto& cameraTransformComponent = m_CurrentCameraEntity.GetComponent<TransformComponent>();
+	auto& cameraCameraComponent = m_CurrentCameraEntity.GetComponent<CameraComponent>();
 
 
 	auto& meshComponent = m_SkyBoxEntity.GetComponent<MeshComponent>();
@@ -128,8 +150,8 @@ void SceneManager::Tick(float deltaTime)
 {
 	Update(deltaTime);
 
-	auto& cameraTransformComponent = m_MainCameraEntity.GetComponent<TransformComponent>();
-	auto& cameraCameraComponent = m_MainCameraEntity.GetComponent<CameraComponent>();
+	auto& cameraTransformComponent = m_CurrentCameraEntity.GetComponent<TransformComponent>();
+	auto& cameraCameraComponent = m_CurrentCameraEntity.GetComponent<CameraComponent>();
 	
 	for (auto& entity : m_Entities)
 	{
@@ -180,8 +202,14 @@ void SceneManager::Tick(float deltaTime)
 
 void SceneManager::OnResize(int width, int height)
 {
-	m_MainCameraEntity.GetComponent<CameraComponent>().m_Aspect = static_cast<float>(width) / height;
-	m_MainCameraEntity.GetComponent<CameraComponent>().ReCalculateProjectMatrix();
+	m_CurrentCameraEntity.GetComponent<CameraComponent>().m_Aspect = static_cast<float>(width) / height;
+	m_CurrentCameraEntity.GetComponent<CameraComponent>().ReCalculateProjectMatrix();
+
+	m_EditorCameraEntity.GetComponent<CameraComponent>().m_Aspect = static_cast<float>(width) / height;
+	m_EditorCameraEntity.GetComponent<CameraComponent>().ReCalculateProjectMatrix();
+
+	m_PlayerCameraEntity.GetComponent<CameraComponent>().m_Aspect = static_cast<float>(width) / height;
+	m_PlayerCameraEntity.GetComponent<CameraComponent>().ReCalculateProjectMatrix();
 }
 
 void SceneManager::Clear()

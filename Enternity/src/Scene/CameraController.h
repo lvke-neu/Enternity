@@ -20,6 +20,17 @@ public:
 	~CameraController();
 	CameraController(const CameraController&) = delete;
 	CameraController& operator=(const CameraController&) = delete;
+
+	void Pause()
+	{
+		InputEventManager::GetInstance().UnRegisterEvent((this));
+		TickEventManager::GetInstance().UnRegisterEvent(this);
+	}
+	void Start()
+	{
+		InputEventManager::GetInstance().RegisterEvent((this));
+		TickEventManager::GetInstance().RegisterEvent(this);
+	}
 public:
 	virtual void onMousePress(MouseState mouseState) override;
 	virtual void onMouseRelease(MouseState mouseState) override;
