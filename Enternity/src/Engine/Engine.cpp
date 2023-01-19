@@ -148,8 +148,9 @@ bool Engine::Initialize()
 	glfwSetCursorPosCallback(m_context, MouseMoveEvent);
 	glfwSetScrollCallback(m_context, MouseScrollEnvent);
 
-	ImguiManager::GetInstance().Initialize(m_context);
 	SceneManager::GetInstance().Initialize();
+	ImguiManager::GetInstance().Initialize(m_context);
+	
 	
 	LOG_INFO("Engine initialization is complete");
 

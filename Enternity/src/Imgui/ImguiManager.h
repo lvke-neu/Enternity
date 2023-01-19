@@ -7,10 +7,10 @@ Imgui Manager
 #pragma once
 
 #include "Macro/Macro.h"
-#include "Imgui/ImguiImpl/imgui.h"
-#include "Imgui/ImguiImpl/imgui_internal.h"
-#include "Imgui/ImguiImpl/imgui_impl_glfw.h"
-#include "Imgui/ImguiImpl/imgui_impl_opengl3.h"
+#include "Panels/ViewportPanel.h"
+#include "Panels/SceneHierarchyPanel.h"
+#include "Panels/ContentBrowserPanel.h"
+#include "Panels/StatsPanel.h"
 
 struct GLFWwindow;
 BEGIN_ENTERNITY
@@ -24,20 +24,20 @@ public:
 	void Draw();
 	void Release();
 
-	inline int GetHoverEntityId()
-	{
-		return m_HoverEntityId;
-	}
+	ViewportPanel* GetViewportPanel();
+
+	SceneHierarchyPanel* GetSceneHierarchyPanel();
 private:
+	void Ui_MenuBar();
+
 	void ShowDockSpace(bool* p_open);
 	void SetDarkThemeColors();
 
-	unsigned int m_width;
-	unsigned int m_height;
-	unsigned int m_GizmoType = 0;
-	ImVec2 m_ViewportBounds[2];
 
-	int m_HoverEntityId = -1;
+	ViewportPanel* m_ViewportPanel{ nullptr };
+	SceneHierarchyPanel* m_SceneHierarchyPanel{ nullptr };
+	ContentBrowserPanel* m_ContentBrowserPanel{ nullptr };
+	StatsPanel* m_StatsPanel{ nullptr };
 };
 
 END_ENTERNITY

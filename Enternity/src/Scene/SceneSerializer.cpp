@@ -1,5 +1,6 @@
 #include "SceneSerializer.h"
 #include "SceneManager.h"
+#include "Imgui/ImguiManager.h"
 #include "File/FileOperation.h"
 #include "Log/Log.h"
 
@@ -224,6 +225,7 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 	if (!data["Scene"])
 		return false;
 
+	ImguiManager::GetInstance().GetSceneHierarchyPanel()->SetSelectedEntityNull();
 	SceneManager::GetInstance().Clear();
 	auto entities = data["Entities"];
 	if (entities)

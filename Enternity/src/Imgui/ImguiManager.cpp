@@ -1,14 +1,12 @@
 #pragma warning(disable:4312) 
 
 #include "ImguiManager.h"
-#include "ImguiImpl/ImGuizmo.h"
-#include "Engine/Engine.h"
 #include "Event/InputEventManager.h"
-#include "Event/ImguiDrawEventManager.h"
 #include "Scene/SceneManager.h"
 #include "Scene/SceneSerializer.h"
+#include "Engine/Engine.h"
 #include "Dialog/FileDialog.h"
-#include "Math/Math.h"
+
 
 BEGIN_ENTERNITY
 
@@ -28,6 +26,13 @@ void ImguiManager::Initialize(GLFWwindow* context)
 
 	ImGui_ImplGlfw_InitForOpenGL(context, true);
 	ImGui_ImplOpenGL3_Init("#version 330");
+
+
+	//initialize every panel
+	m_ViewportPanel = new ViewportPanel;
+	m_SceneHierarchyPanel = new SceneHierarchyPanel;
+	m_ContentBrowserPanel = new ContentBrowserPanel;
+	m_StatsPanel = new StatsPanel;
 }
 
 void ImguiManager::Draw()
@@ -48,9 +53,65 @@ void ImguiManager::Draw()
 
 void ImguiManager::Release()
 {
+	SAFE_DELETE_SET_NULL(m_ViewportPanel);
+	SAFE_DELETE_SET_NULL(m_SceneHierarchyPanel);
+	SAFE_DELETE_SET_NULL(m_ContentBrowserPanel);
+	SAFE_DELETE_SET_NULL(m_StatsPanel);
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
+}
+
+ViewportPanel* ImguiManager::GetViewportPanel()
+{
+	return m_ViewportPanel;
+}
+
+SceneHierarchyPanel* ImguiManager::GetSceneHierarchyPanel()
+{
+	return m_SceneHierarchyPanel;
+}
+
+void ImguiManager::Ui_MenuBar()
+{
+	if (ImGui::BeginMenuBar())
+	{
+		if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_LEFT_CONTROL) && InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_N))
+		{
+			m_SceneHierarchyPanel->SetSelectedEntityNull();
+			SceneManager::GetInstance().Clear();
+		}
+
+		if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_LEFT_CONTROL) && InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_O))
+			SceneSerializer::Deserialize(FileDialog::OpenFile(".scene"));
+
+		if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_LEFT_CONTROL) && InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_S))
+			SceneSerializer::Serialize(FileDialog::SaveFile(".scene"));
+
+		if (ImGui::BeginMenu("File"))
+		{
+			if (ImGui::MenuItem("New", "CTRL+N"))
+			{
+				m_SceneHierarchyPanel->SetSelectedEntityNull();
+				SceneManager::GetInstance().Clear();
+			}
+			if (ImGui::MenuItem("Open...", "CTRL+O"))
+			{
+				SceneSerializer::Deserialize(FileDialog::OpenFile(".scene"));
+			}
+			if (ImGui::MenuItem("Save...", "CTRL+S"))
+			{
+				SceneSerializer::Serialize(FileDialog::SaveFile(".scene"));
+			}
+
+			if (ImGui::MenuItem("Close"))
+				Engine::GetInstance().ShutDown();
+
+			ImGui::EndMenu();
+		}
+		ImGui::EndMenuBar();
+	}
+
 }
 
 void ImguiManager::ShowDockSpace(bool* p_open)
@@ -117,166 +178,10 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 		ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
 		ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 	}
+	Ui_MenuBar();
 
-	if (ImGui::BeginMenuBar())
-	{	
-		if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_LEFT_CONTROL) && InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_N))
-			SceneManager::GetInstance().Clear();
-
-		if(InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_LEFT_CONTROL) && InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_O))
-			SceneSerializer::Deserialize(FileDialog::OpenFile(".scene"));
-
-		if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_LEFT_CONTROL) && InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_S))
-			SceneSerializer::Serialize(FileDialog::SaveFile(".scene"));
-
-		if (ImGui::BeginMenu("File"))
-		{
-			if (ImGui::MenuItem("New", "CTRL+N"))
-			{
-				SceneManager::GetInstance().Clear();
-			}
-			if (ImGui::MenuItem("Open...", "CTRL+O"))
-			{
-				SceneSerializer::Deserialize(FileDialog::OpenFile(".scene"));
-			}
-			if (ImGui::MenuItem("Save...", "CTRL+S"))
-			{
-				SceneSerializer::Serialize(FileDialog::SaveFile(".scene"));
-			}
-
-			if (ImGui::MenuItem("Close"))
-				Engine::GetInstance().ShutDown();
-
-			ImGui::EndMenu();
-		}
-		ImGui::EndMenuBar();
-	}
-
-	//ImGui::ShowDemoWindow(p_open);
-	//ImGui::ShowMetricsWindow(p_open);
-
-	//test image
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0, 0 });
-	
-	ImGui::Begin("viewport");
-
-	//mouse pick
-	//auto viewportOffset = ImGui::GetCursorPos();
-	auto viewportMinRegion = ImGui::GetWindowContentRegionMin();
-	auto viewportMaxRegion = ImGui::GetWindowContentRegionMax();
-	auto viewportOffset = ImGui::GetWindowPos();
-	m_ViewportBounds[0] = { viewportMinRegion.x + viewportOffset.x, viewportMinRegion.y + viewportOffset.y };
-	m_ViewportBounds[1] = { viewportMaxRegion.x + viewportOffset.x, viewportMaxRegion.y + viewportOffset.y };
-
-	InputEventManager::GetInstance().SetViewportFocused(ImGui::IsWindowHovered());
-
-	auto viewport = ImGui::GetContentRegionAvail();
-	if (m_width != viewport.x || m_height != viewport.y)
-	{
-		m_width = (uint32_t)viewport.x;
-		m_height = (uint32_t)viewport.y;
-		Engine::GetInstance().Resize(m_width, m_height);
-	}
-	
-
-	auto id = Engine::GetInstance().GetFrameBufferEx()->GetTextureRendererId(0);
-	ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
-
-	//mouse pick
-	//auto windowSize = ImGui::GetWindowSize();
-	//ImVec2 minBound = ImGui::GetWindowPos();
-
-	//minBound.x += viewportOffset.x;
-	//minBound.y += viewportOffset.y;
-
-	//ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
-	//m_ViewportBounds[0] = { minBound.x, minBound.y };
-	//m_ViewportBounds[1] = { maxBound.x, maxBound.y };
-		
-	
-
-	//drag
-	if (ImGui::BeginDragDropTarget())
-	{
-		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
-		{
-			LOG_INFO((char*)payload->Data);
-			std::string path((char*)payload->Data);
-			path = path.substr(0, payload->DataSize);
-			SceneSerializer::Deserialize(path);
-		}
-		ImGui::EndDragDropTarget();
-	}
-
-
-	//Gizmos
-	if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_4))
-		m_GizmoType = -1;
-	if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_1))
-		m_GizmoType = 0;
-	if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_2))
-		m_GizmoType = 1;
-	if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_3))
-		m_GizmoType = 2;
-
-	Entity selectedEntity = SceneManager::GetInstance().GetSceneHierarchyPanel()->GetSelectedEntity();
-	if (selectedEntity.IsValidEntity() && selectedEntity.HasComponent<TransformComponent>())
-	{
-		ImGuizmo::SetOrthographic(false);
-		ImGuizmo::SetDrawlist();
-
-		float windowWidth = (float)ImGui::GetWindowWidth();
-		float windowHeight = (float)ImGui::GetWindowHeight();
-		ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
-
-		auto mainCameraEntity = SceneManager::GetInstance().GetMainCameraEntity();
-		const auto& viewMatrix = mainCameraEntity.GetComponent<TransformComponent>().GetInverseWorldMatrix();
-		const auto& projMatrix = mainCameraEntity.GetComponent<CameraComponent>().m_ProjectMatrix;
-
-		auto modelMatrix = selectedEntity.GetComponent<TransformComponent>().GetWorldMatrix();
-			
-		ImGuizmo::Manipulate(&viewMatrix[0][0], &projMatrix[0][0], (ImGuizmo::OPERATION)m_GizmoType, ImGuizmo::MODE::LOCAL, &modelMatrix[0][0]);
-
-		if (ImGuizmo::IsUsing())
-		{
-			auto& tc = selectedEntity.GetComponent<TransformComponent>();
-			Math::DecomposeTransform(modelMatrix, tc.m_Translation, tc.m_Rotation, tc.m_Scale);
-		}
-	}
-
-	ImGui::End();
-	ImGui::PopStyleVar();
-
-	//test mouse pick
-	Engine::GetInstance().GetFrameBufferEx()->Bind();
-	auto[mx, my] = ImGui::GetMousePos();
-	mx -= m_ViewportBounds[0].x;
-	my -= m_ViewportBounds[0].y;
-
-	int mouseX = (int)mx;
-	int mouseY = (int)my;
-
-	auto viewportSizeX = m_ViewportBounds[1].x - m_ViewportBounds[0].x;
-	auto viewportSizeY = m_ViewportBounds[1].y - m_ViewportBounds[0].y;
-	mouseY = int(viewportSizeY - my);
-	if (mouseX >= 0 && mouseY >= 0 && mouseX <= viewportSizeX && mouseY <= viewportSizeY)
-	{
-		m_HoverEntityId =  Engine::GetInstance().GetFrameBufferEx()->ReadPixel(1, mouseX, mouseY);
-		if (InputEventManager::GetInstance().IsMousePress(MouseButton::GLFW_MOUSE_BUTTON_LEFT) 
-			&& !ImGuizmo::IsUsing()
-			&& !SceneManager::GetInstance().IsWireFrame())
-		{
-			//LOG_INFO("Hit:" + std::to_string(Engine::GetInstance().GetFrameBufferEx()->ReadPixel(1, mouseX, mouseY)));
-			
-			SceneManager::GetInstance().GetSceneHierarchyPanel()->SetSelectedEntity(m_HoverEntityId);
-		}
-	}
-	Engine::GetInstance().GetFrameBufferEx()->UnBind();
-
-
-	//imgui draw
+	//other imgui draw
 	ImguiDrawEventManager::GetInstance().NotifyImguiDraw();
-
 
 	ImGui::End();
 }

@@ -8,8 +8,8 @@ SceneManager
 
 #include <map>
 #include "Macro/Macro.h"
-#include "Panels/SceneHierarchyPanel.h"
-#include "Panels/ContentBrowserPanel.h"
+#include "ECS/Entity/Entity.h"
+#include "ECS/Component/Component.h"
 
 BEGIN_ENTERNITY
 
@@ -17,6 +17,7 @@ class CameraController;
 class SceneManager
 {
 	friend class SceneHierarchyPanel;
+	friend class StatsPanel;
 	friend class SceneSerializer;
 	SINGLETON(SceneManager);
 public:
@@ -24,10 +25,7 @@ public:
 	void Tick(float deltaTime);
 	void OnResize(int width, int height);
 	void Clear();
-	inline SceneHierarchyPanel* GetSceneHierarchyPanel()
-	{
-		return m_SceneHierarchyPanel;
-	}
+
 	inline Entity GetMainCameraEntity()
 	{
 		return m_MainCameraEntity;
@@ -52,8 +50,6 @@ private:
 	std::map<unsigned int, Entity> m_Entities;
 private:
 	CameraController* m_CameraController{ nullptr };	
-	SceneHierarchyPanel* m_SceneHierarchyPanel{ nullptr };
-	ContentBrowserPanel* m_ContentBrowserPanel{ nullptr };
 };
 
 END_ENTERNITY

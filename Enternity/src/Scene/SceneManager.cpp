@@ -1,6 +1,6 @@
 #include "SceneManager.h"
 #include "CameraController.h"
-#include "SceneSerializer.h"
+
 
 BEGIN_ENTERNITY
 
@@ -29,12 +29,10 @@ SceneManager::~SceneManager()
 	m_MainCameraEntity.Destroy();
 	m_SkyBoxEntity.Destroy();
 	SAFE_DELETE_SET_NULL(m_CameraController);
-	SAFE_DELETE_SET_NULL(m_SceneHierarchyPanel);
-	SAFE_DELETE_SET_NULL(m_ContentBrowserPanel);
 }
 
 void SceneManager::Initialize()
-{
+{	
 	m_MainCameraEntity = Entity(&m_Registry, "MainCamera Entity");
 	m_MainCameraEntity.AddComponent<TransformComponent>(glm::vec3(-5.684f, 2.305f, 3.188f), glm::vec3(-0.27f, -0.76f, 0.000f), glm::vec3(1.0f));
 	m_MainCameraEntity.AddComponent<CameraComponent>();
@@ -87,10 +85,6 @@ void SceneManager::Initialize()
 	sc.m_TexturePaths = textureFiles;
 	sc.Load();
 
-	m_SceneHierarchyPanel = new SceneHierarchyPanel;
-	m_ContentBrowserPanel = new ContentBrowserPanel;;
-
-	//SceneSerializer::Serialize("assets/scenes/test.scene");
 }
 
 void SceneManager::Update(float deltaTime)
@@ -192,7 +186,6 @@ void SceneManager::OnResize(int width, int height)
 
 void SceneManager::Clear()
 {
-	m_SceneHierarchyPanel->SetSelectedEntityNull();
 	for (auto& entity : m_Entities)
 	{
 		entity.second.Destroy();

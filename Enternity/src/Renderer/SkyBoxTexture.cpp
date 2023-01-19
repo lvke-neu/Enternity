@@ -12,6 +12,7 @@ SkyBoxTexture::SkyBoxTexture(const std::vector<std::string>& filePaths)
 	int height;
 	int width;
 	int channels;
+	
 	for (int i = 0; i < filePaths.size(); ++i)
 	{
 		data = stbi_load(filePaths[i].c_str(), &width, &height, &channels, 0);

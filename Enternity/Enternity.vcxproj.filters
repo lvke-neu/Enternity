@@ -126,13 +126,22 @@
     <ClCompile Include="src\Math\Math.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\Panels\SceneHierarchyPanel.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Panels\ContentBrowserPanel.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Renderer\SkyBoxTexture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Imgui\Panels\ViewportPanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Imgui\Panels\Interface\PanelInterface.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Imgui\Panels\SceneHierarchyPanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Imgui\Panels\StatsPanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Imgui\Panels\ContentBrowserPanel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -266,13 +275,22 @@
     <ClInclude Include="src\Math\Math.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\Panels\SceneHierarchyPanel.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Panels\ContentBrowserPanel.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Renderer\SkyBoxTexture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Imgui\Panels\ViewportPanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Imgui\Panels\Interface\PanelInterface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Imgui\Panels\SceneHierarchyPanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Imgui\Panels\StatsPanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Imgui\Panels\ContentBrowserPanel.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

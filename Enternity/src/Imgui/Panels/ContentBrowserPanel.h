@@ -6,15 +6,14 @@ ContentBrowser Panel
 ****************************************************************************************/
 #pragma once
 
-#include "Macro/Macro.h"
-#include "Imgui/ImguiManager.h"
+#include "Interface/PanelInterface.h"
 #include "Event/ImguiDrawEventManager.h"
 #include <filesystem>
 #include "Renderer/Texture.h"
 
 BEGIN_ENTERNITY
 
-class ContentBrowserPanel : public ImguiDrawEvent
+class ContentBrowserPanel : public IPanel
 {
 
 public:

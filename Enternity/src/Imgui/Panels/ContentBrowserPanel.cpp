@@ -1,23 +1,21 @@
 #pragma warning(disable:4312) 
 
 #include "ContentBrowserPanel.h"
+#include "Imgui/ImguiManager.h"
 
 BEGIN_ENTERNITY
 
 #define CONTENT_BROWSER_DIRECTORRY "assets"
 
-ContentBrowserPanel::ContentBrowserPanel():
+ContentBrowserPanel::ContentBrowserPanel(): IPanel(),
 	m_Path(CONTENT_BROWSER_DIRECTORRY)
 {
 	m_FileTexture = new Texture("Resource/FileIcon.png");
 	m_DirectoryTexture = new Texture("Resource/DirectoryIcon.png");
-
-	ImguiDrawEventManager::GetInstance().RegisterEvent(this);
 }
 
 ContentBrowserPanel::~ContentBrowserPanel()
 {
-	ImguiDrawEventManager::GetInstance().UnRegisterEvent(this);
 	SAFE_DELETE_SET_NULL(m_FileTexture);
 	SAFE_DELETE_SET_NULL(m_DirectoryTexture);
 }

@@ -6,24 +6,19 @@ Scene Hierarchy Panel
 ****************************************************************************************/
 #pragma once
 
-#include <functional>
-#include <glm/glm.hpp>
-#include "Macro/Macro.h"
-#include "../ECS/Entity/Entity.h"
-#include "../ECS/Component/Component.h"
-#include "Imgui/ImguiManager.h"
-#include "Event/ImguiDrawEventManager.h"
-
+#include "Interface/PanelInterface.h"
+#include "Scene/ECS/Entity/Entity.h"
+#include "Scene/ECS/Component/Component.h"
 BEGIN_ENTERNITY
 
-class SceneHierarchyPanel : public ImguiDrawEvent
+class SceneHierarchyPanel : public IPanel
 {
 public:
 	SceneHierarchyPanel();
-	~SceneHierarchyPanel();
+	virtual ~SceneHierarchyPanel();
 
 	virtual void ImguiDraw() override;
-	inline Entity GetSelectedEntity()
+	inline Entity& GetSelectedEntity()
 	{
 		return m_SelectedEntity;
 	}
