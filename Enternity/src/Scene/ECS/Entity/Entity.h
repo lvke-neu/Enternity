@@ -81,9 +81,14 @@ public:
 		return m_EntityUid != entt::null;
 	}
 
+	bool IsValidEntityEx()
+	{
+		return m_pSceneRegistry->valid(m_EntityUid);
+	}
+
 	void Destroy()
 	{
-		m_pSceneRegistry->destroy(m_EntityUid);
+		m_pSceneRegistry->destroy(m_EntityUid, 0);
 	}
 
 private:

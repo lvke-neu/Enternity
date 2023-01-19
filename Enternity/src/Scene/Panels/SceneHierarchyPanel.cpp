@@ -53,8 +53,15 @@ void SceneHierarchyPanel::ImguiDraw()
 	if (hoverEntityId > -1)
 	{
 		Entity tmpEntity(&SceneManager::GetInstance().m_Registry, (entt::entity)hoverEntityId);
-		tag = tmpEntity.GetComponent<TagComponent>().m_Tag;
-		
+		if (tmpEntity.IsValidEntityEx())
+		{
+			tag = tmpEntity.GetComponent<TagComponent>().m_Tag;
+		}
+		else
+		{
+			tag = "";
+			hoverEntityId = -1;
+		}
 	}
 	else
 	{
