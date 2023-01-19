@@ -40,6 +40,8 @@ void InputEventManager::NotifyMousePress(MouseState mouseState)
 	if (!m_viewportFocused)
 		return;
 
+	m_mousePressMap[mouseState.mouseButton] = true;
+
 	for (auto& event : m_events)
 	{
 		if (dynamic_cast<InputEvent*>(event))
@@ -53,6 +55,7 @@ void InputEventManager::NotifyMouseRelease(MouseState mouseState)
 {
 	if (!m_viewportFocused)
 		return;
+	m_mousePressMap[mouseState.mouseButton] = false;
 
 	for (auto& event : m_events)
 	{
@@ -95,6 +98,13 @@ bool InputEventManager::IsKeyPress(Keyboard key)
 {
 	if (m_keyPressMap.find(key) != m_keyPressMap.end())
 		return m_keyPressMap[key];
+	return false;
+}
+
+bool InputEventManager::IsMousePress(MouseButton mouseButton)
+{
+	if (m_mousePressMap.find(mouseButton) != m_mousePressMap.end())
+		return m_mousePressMap[mouseButton];
 	return false;
 }
 

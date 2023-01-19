@@ -51,6 +51,18 @@ void SceneHierarchyPanel::ImguiDraw()
 
 }
 
+void SceneHierarchyPanel::SetSelectedEntity(int entityId)
+{
+	if (entityId == -1)
+	{
+		m_SelectedEntity = {};
+	}
+	else if (entityId >= 0)
+	{
+		m_SelectedEntity = Entity(&SceneManager::GetInstance().m_Registry, (entt::entity)entityId);
+	}
+}
+
 void SceneHierarchyPanel::DrawVec3(const std::string & label, glm::vec3 & value, const glm::vec3 & resetValue, float columnWidth)
 {
 	ImGuiIO& io = ImGui::GetIO();

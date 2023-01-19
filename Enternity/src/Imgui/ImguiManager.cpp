@@ -247,9 +247,8 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 	ImGui::End();
 	ImGui::PopStyleVar();
 
-
+	//test mouse pick
 	Engine::GetInstance().GetFrameBufferEx()->Bind();
-	//test mouse pos
 	auto[mx, my] = ImGui::GetMousePos();
 	mx -= m_ViewportBounds[0].x;
 	my -= m_ViewportBounds[0].y;
@@ -262,8 +261,12 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 	mouseY = int(viewportSizeY - my);
 	if (mouseX >= 0 && mouseY >= 0 && mouseX <= viewportSizeX && mouseY <= viewportSizeY)
 	{
-		LOG_INFO("Hit:" + std::to_string(Engine::GetInstance().GetFrameBufferEx()->ReadPixel(1, mouseX, mouseY)));
-		//LOG_INFO(std::to_string(mouseX) + "," + std::to_string(mouseY));
+		if (InputEventManager::GetInstance().IsMousePress(MouseButton::GLFW_MOUSE_BUTTON_LEFT) && !ImGuizmo::IsUsing())
+		{
+			LOG_INFO("Hit:" + std::to_string(Engine::GetInstance().GetFrameBufferEx()->ReadPixel(1, mouseX, mouseY)));
+			int entityId = Engine::GetInstance().GetFrameBufferEx()->ReadPixel(1, mouseX, mouseY);
+			SceneManager::GetInstance().GetSceneHierarchyPanel()->SetSelectedEntity(entityId);
+		}
 	}
 	Engine::GetInstance().GetFrameBufferEx()->UnBind();
 
