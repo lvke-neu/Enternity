@@ -23,6 +23,11 @@ public:
 	void Initialize(GLFWwindow* context);
 	void Draw();
 	void Release();
+
+	inline int GetHoverEntityId()
+	{
+		return m_HoverEntityId;
+	}
 private:
 	void ShowDockSpace(bool* p_open);
 	void SetDarkThemeColors();
@@ -31,6 +36,8 @@ private:
 	unsigned int m_height;
 	unsigned int m_GizmoType = 0;
 	ImVec2 m_ViewportBounds[2];
+
+	int m_HoverEntityId = -1;
 };
 
 END_ENTERNITY

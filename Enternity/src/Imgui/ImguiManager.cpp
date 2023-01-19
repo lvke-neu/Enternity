@@ -261,13 +261,14 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 	mouseY = int(viewportSizeY - my);
 	if (mouseX >= 0 && mouseY >= 0 && mouseX <= viewportSizeX && mouseY <= viewportSizeY)
 	{
+		m_HoverEntityId =  Engine::GetInstance().GetFrameBufferEx()->ReadPixel(1, mouseX, mouseY);
 		if (InputEventManager::GetInstance().IsMousePress(MouseButton::GLFW_MOUSE_BUTTON_LEFT) 
 			&& !ImGuizmo::IsUsing()
 			&& !SceneManager::GetInstance().IsWireFrame())
 		{
 			//LOG_INFO("Hit:" + std::to_string(Engine::GetInstance().GetFrameBufferEx()->ReadPixel(1, mouseX, mouseY)));
-			int entityId = Engine::GetInstance().GetFrameBufferEx()->ReadPixel(1, mouseX, mouseY);
-			SceneManager::GetInstance().GetSceneHierarchyPanel()->SetSelectedEntity(entityId);
+			
+			SceneManager::GetInstance().GetSceneHierarchyPanel()->SetSelectedEntity(m_HoverEntityId);
 		}
 	}
 	Engine::GetInstance().GetFrameBufferEx()->UnBind();

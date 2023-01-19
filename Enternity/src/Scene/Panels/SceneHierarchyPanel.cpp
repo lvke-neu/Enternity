@@ -48,16 +48,22 @@ void SceneHierarchyPanel::ImguiDraw()
 	ImGui::Begin("Stats");
 	ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
-	std::string entityTag = "";
-	if (m_SelectedEntity.IsValidEntity())
+	int hoverEntityId = ImguiManager::GetInstance().GetHoverEntityId();
+	std::string tag;
+	if (hoverEntityId > -1)
 	{
-		entityTag = m_SelectedEntity.GetComponent<TagComponent>().m_Tag;
-
+		Entity tmpEntity(&SceneManager::GetInstance().m_Registry, (entt::entity)hoverEntityId);
+		tag = tmpEntity.GetComponent<TagComponent>().m_Tag;
+		
 	}
-	ImGui::Text("Selected Entity:%s", entityTag.c_str());
+	else
+	{
+		tag = "";
+		hoverEntityId = -1;
+	}
+	ImGui::Text("Hoverd Entity: %s, id = %d", tag.c_str(), hoverEntityId);
 
 	ImGui::End();
-
 }
 
 void SceneHierarchyPanel::SetSelectedEntity(int entityId)
