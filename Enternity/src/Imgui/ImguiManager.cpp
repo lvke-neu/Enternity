@@ -265,7 +265,7 @@ void ImguiManager::ShowDockSpace(bool* p_open)
 			&& !ImGuizmo::IsUsing()
 			&& !SceneManager::GetInstance().IsWireFrame())
 		{
-			LOG_INFO("Hit:" + std::to_string(Engine::GetInstance().GetFrameBufferEx()->ReadPixel(1, mouseX, mouseY)));
+			//LOG_INFO("Hit:" + std::to_string(Engine::GetInstance().GetFrameBufferEx()->ReadPixel(1, mouseX, mouseY)));
 			int entityId = Engine::GetInstance().GetFrameBufferEx()->ReadPixel(1, mouseX, mouseY);
 			SceneManager::GetInstance().GetSceneHierarchyPanel()->SetSelectedEntity(entityId);
 		}

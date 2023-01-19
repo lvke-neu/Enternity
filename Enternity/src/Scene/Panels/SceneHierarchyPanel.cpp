@@ -47,6 +47,15 @@ void SceneHierarchyPanel::ImguiDraw()
 
 	ImGui::Begin("Stats");
 	ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+
+	std::string entityTag = "";
+	if (m_SelectedEntity.IsValidEntity())
+	{
+		entityTag = m_SelectedEntity.GetComponent<TagComponent>().m_Tag;
+
+	}
+	ImGui::Text("Selected Entity:%s", entityTag.c_str());
+
 	ImGui::End();
 
 }
