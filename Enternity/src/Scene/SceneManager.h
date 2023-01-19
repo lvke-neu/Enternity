@@ -34,6 +34,10 @@ public:
 	{
 		return m_EditorCameraEntity.GetComponent<CameraComponent>().m_EnableWireframe;
 	}
+	inline Entity GetCurrentEntity()
+	{
+		return m_CurrentCameraEntity;
+	}
 private:
 	SceneManager() = default;
 	~SceneManager();

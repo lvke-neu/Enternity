@@ -21,6 +21,15 @@ void StatsPanel::ImguiDraw()
 	ImGui::Begin("Stats");
 	ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
+
+	std::string currentCameraTag = "";
+	Entity currentCamaeraEntity = SceneManager::GetInstance().m_CurrentCameraEntity;
+	if (currentCamaeraEntity.IsValidEntity())
+		currentCameraTag = currentCamaeraEntity.GetComponent<TagComponent>().m_Tag;
+	ImGui::Text("Current Camera: %s", currentCameraTag.c_str());
+
+
+
 	int hoverEntityId = ImguiManager::GetInstance().GetViewportPanel()->GetHoverEntityId();
 	//LOG_INFO(std::to_string(hoverEntityId));
 	std::string tag;
@@ -43,6 +52,9 @@ void StatsPanel::ImguiDraw()
 		hoverEntityId = -1;
 	}
 	ImGui::Text("Hoverd Entity: %s, id = %d", tag.c_str(), hoverEntityId);
+
+
+
 
 	ImGui::End();
 
