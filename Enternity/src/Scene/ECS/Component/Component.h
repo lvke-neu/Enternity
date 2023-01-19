@@ -219,7 +219,7 @@ struct MaterialComponent
 	{
 		LoadShader();
 		LoadTexture();
-		SetTextureSlot();
+		//SetTextureSlot();
 		SetIsUseColor();
 		SetBaseColor();
 	}
@@ -233,7 +233,7 @@ struct MaterialComponent
 		SAFE_DELETE_SET_NULL(m_Shader);
 		m_Shader = new Shader(m_ShaderFilePath);
 
-		SetTextureSlot();
+		//SetTextureSlot();
 		SetIsUseColor();
 		SetBaseColor();
 	}
@@ -244,15 +244,15 @@ struct MaterialComponent
 		m_Texture = new Texture(m_TextureFilePath);
 	}
 
-	void SetTextureSlot(unsigned int  slot = 0)
-	{
-		if (m_Shader)
-		{
-			m_Shader->Bind();
-			m_Shader->SetInteger1("u_texture", slot);
-		}
-			
-	}
+	//void SetTextureSlot(unsigned int  slot = 0)
+	//{
+	//	if (m_Shader)
+	//	{
+	//		m_Shader->Bind();
+	//		m_Shader->SetInteger1("u_texture", slot);
+	//	}
+	//		
+	//}
 
 	void SetIsUseColor()
 	{

@@ -26,7 +26,7 @@ in vec2 v_texcoord;
 
 uniform int b_useColor;
 uniform vec4 u_baseColor;
-uniform sampler2D u_texture;
+layout (binding = 0) uniform sampler2D u_texture;
 uniform int u_entityId;
 
 void main()
