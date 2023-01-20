@@ -60,13 +60,13 @@
       <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\Enternity\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>
       </PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>NotSet</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdparty\glfw\lib-vc2017;$(SolutionDir)\3rdparty\yaml-cpp\lib;$(SolutionDir)\3rdparty\box2d\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;yaml-cpp.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdparty\glfw\lib-vc2017;$(SolutionDir)\3rdparty\yaml-cpp\lib\debug;$(SolutionDir)\3rdparty\box2d\lib\debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;yaml-cpp_d.lib;box2d_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -85,7 +85,7 @@
       <SubSystem>NotSet</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdparty\glfw\lib-vc2017;$(SolutionDir)\3rdparty\yaml-cpp\lib;$(SolutionDir)\3rdparty\box2d\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdparty\glfw\lib-vc2017;$(SolutionDir)\3rdparty\yaml-cpp\lib\release;$(SolutionDir)\3rdparty\box2d\lib\release</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;yaml-cpp.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
