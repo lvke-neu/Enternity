@@ -30,6 +30,8 @@ SceneManager::~SceneManager()
 	m_PlayerCameraEntity.Destroy();
 	m_SkyBoxEntity.Destroy();
 	SAFE_DELETE_SET_NULL(m_EditorCameraController);
+	SAFE_DELETE_SET_NULL(m_PlayerCameraController);
+	SAFE_DELETE_SET_NULL(m_PhysicsWorld);
 }
 
 void SceneManager::Initialize()
@@ -47,36 +49,6 @@ void SceneManager::Initialize()
 	m_CurrentCameraEntity = m_EditorCameraEntity;
 	m_PlayerCameraController->Pause();
 
-	//Entity cubeEntity(&m_Registry, "Cube Entity");
-	//cubeEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-	//auto& cubeMeshComponent = cubeEntity.AddComponent<MeshComponent>();
-	//auto& cubeMaterialComponent = cubeEntity.AddComponent<MaterialComponent>();
-	//cubeMeshComponent.LoadMesh("assets/models/cube.mesh");
-	//cubeMaterialComponent.LoadMaterial("assets/textures/skybox.jpeg", "assets/shaders/TestECS.glsl");
-	//cubeMaterialComponent.SetMaterialProperty(0, glm::vec4(1.0f), 0);
-	//cubeEntity.AddComponent<MotorComponent>();
-	//
-	//Entity planeEntity(&m_Registry, "Plane Entity");
-	//planeEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, -5.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(100.0f, 1.0f, 100.0f));
-	//auto& planeMeshComponent = planeEntity.AddComponent<MeshComponent>();
-	//auto& planeMaterialComponent = planeEntity.AddComponent<MaterialComponent>();
-	//planeMeshComponent.LoadMesh("assets/models/plane.mesh");
-	//planeMaterialComponent.LoadMaterial("", "assets/shaders/TestECS.glsl");
-	//planeMaterialComponent.SetMaterialProperty(1, glm::vec4(65.0f / 255, 90.0f / 255, 20.0f / 255, 1.0f), 0);
-
-
-	//Entity lightEntity(&m_Registry, "Light Entity");
-	//lightEntity.AddComponent<TransformComponent>(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f));
-	//auto& lightMeshComponent = lightEntity.AddComponent<MeshComponent>();
-	//auto& lightMaterialComponent = lightEntity.AddComponent<MaterialComponent>();
-	//lightMeshComponent.LoadMesh("assets/models/sphere.mesh");
-	//lightMaterialComponent.LoadMaterial("", "assets/shaders/TestECS.glsl");
-	//lightMaterialComponent.SetMaterialProperty(1, glm::vec4(1.0f), 0);
-
-	//m_Entities.insert({ cubeEntity.GetEntityUid(), cubeEntity });
-	//m_Entities.insert({ planeEntity.GetEntityUid(), planeEntity });
-	//m_Entities.insert({ lightEntity.GetEntityUid(), lightEntity });
-	
 	m_SkyBoxEntity = Entity(&m_Registry, "SkyBox Entity");
 	auto& mc = m_SkyBoxEntity.AddComponent<MeshComponent>();
 	mc.m_MeshFilePath = "assets/models/cube.mesh";
@@ -92,22 +64,40 @@ void SceneManager::Initialize()
 	textureFiles.push_back("assets/textures/skybox/default/back.jpg");
 	sc.m_TexturePaths = textureFiles;
 	sc.Load();
-
 }
 
 void SceneManager::Update(float deltaTime)
 {
-	for (auto& entity : m_Entities)
+	//for (auto& entity : m_Entities)
+	//{
+	//	if (entity.second.HasComponent<MotorComponent>())
+	//	{
+	//		auto& motorComponent = entity.second.GetComponent<MotorComponent>();
+	//		if (entity.second.HasComponent<TransformComponent>())
+	//		{
+	//			auto& transformComponent = entity.second.GetComponent<TransformComponent>();
+	//			transformComponent.RotateAlongYAxis(glm::radians(motorComponent.m_RotationYAnglePerSecond * deltaTime));
+	//			transformComponent.RotateAlongXAxis(glm::radians(motorComponent.m_RotationXAnglePerSecond * deltaTime));
+	//		}
+	//	}
+	//}
+
+	//physics
+	if (m_PhysicsWorld)
 	{
-		if (entity.second.HasComponent<MotorComponent>())
+		m_PhysicsWorld->Step(deltaTime, 1, 2);
+		auto view = m_Registry.view<RigidBody2DComponent>();
+		for (auto e : view)
 		{
-			auto& motorComponent = entity.second.GetComponent<MotorComponent>();
-			if (entity.second.HasComponent<TransformComponent>())
-			{
-				auto& transformComponent = entity.second.GetComponent<TransformComponent>();
-				transformComponent.RotateAlongYAxis(glm::radians(motorComponent.m_RotationYAnglePerSecond * deltaTime));
-				transformComponent.RotateAlongXAxis(glm::radians(motorComponent.m_RotationXAnglePerSecond * deltaTime));
-			}
+			Entity tmpEntity(&m_Registry, e);
+
+			auto& tc = tmpEntity.GetComponent<TransformComponent>();
+			auto& rb2dc = tmpEntity.GetComponent< RigidBody2DComponent>();
+
+			b2Body* body = (b2Body*)rb2dc.m_RuntimeBody;
+			tc.m_Translation.x = body->GetPosition().x;
+			tc.m_Translation.y = body->GetPosition().y;
+			tc.m_Rotation.z = glm::radians(body->GetAngle());
 		}
 	}
 }
@@ -212,6 +202,8 @@ void SceneManager::OnEditor()
 	m_CurrentCameraEntity = m_EditorCameraEntity;
 	m_EditorCameraController->Start();
 	m_PlayerCameraController->Pause();
+
+	SAFE_DELETE_SET_NULL(m_PhysicsWorld);
 }
 
 void SceneManager::OnPlay()
@@ -219,6 +211,42 @@ void SceneManager::OnPlay()
 	m_CurrentCameraEntity = m_PlayerCameraEntity;
 	m_EditorCameraController->Pause();
 	m_PlayerCameraController->Start();
+
+	m_PhysicsWorld = new b2World({ 0.0f, -9.8f });
+	auto view = m_Registry.view<RigidBody2DComponent>();
+	for (auto e : view)
+	{
+		Entity tmpEntity(&m_Registry, e);
+		
+		auto& tc = tmpEntity.GetComponent<TransformComponent>();
+		auto& rb2dc = tmpEntity.GetComponent< RigidBody2DComponent>();
+
+		b2BodyDef bodyDef;
+		bodyDef.type = (b2BodyType)rb2dc.m_BodyType;
+		bodyDef.position.Set(tc.m_Translation.x, tc.m_Translation.y);
+		bodyDef.angle = glm::degrees(tc.m_Rotation.z);
+
+		b2Body* body = m_PhysicsWorld->CreateBody(&bodyDef);
+		body->SetFixedRotation(rb2dc.m_FixedRotation);
+		rb2dc.m_RuntimeBody = body;
+
+		if (tmpEntity.HasComponent<BoxCollider2DComponent>())
+		{
+			auto& bc2dc = tmpEntity.GetComponent<BoxCollider2DComponent>();
+
+			b2PolygonShape polyonShape;
+			polyonShape.SetAsBox(bc2dc.m_Size.x * tc.m_Scale.x, bc2dc.m_Size.y * tc.m_Scale.y);
+
+			b2FixtureDef fixtureDef;
+			fixtureDef.shape = &polyonShape;
+			fixtureDef.density = bc2dc.m_Density;
+			fixtureDef.friction = bc2dc.m_Friction;
+			fixtureDef.restitution = bc2dc.m_Restitution;
+			fixtureDef.restitutionThreshold = bc2dc.m_RestitutionThreshold;
+
+			bc2dc.m_RuntimeFixture = body->CreateFixture(&fixtureDef);
+		}
+	}
 }
 END_ENTERNITY
 

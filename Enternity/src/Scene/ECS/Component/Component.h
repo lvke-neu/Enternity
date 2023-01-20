@@ -336,4 +336,41 @@ struct SkyBoxComponent
 	}
 };
 
+//physice
+struct RigidBody2DComponent
+{
+	enum class BodyType
+	{
+		Static = 0 ,
+		Kinematic,
+		Dynamic 
+	};
+	
+	BodyType m_BodyType = BodyType::Static;
+	bool m_FixedRotation = false;
+
+	void* m_RuntimeBody = nullptr;
+
+
+	RigidBody2DComponent() = default;
+	RigidBody2DComponent(const RigidBody2DComponent&) = default;
+};
+
+struct BoxCollider2DComponent
+{
+	glm::vec2 m_Offset{ 0.0f, 0.0f };
+	glm::vec2 m_Size{ 0.5f, 0.5f };
+	
+	float m_Density = 1.0f;
+	float m_Friction = 0.5f;
+	float m_Restitution = 0.0f;
+	float m_RestitutionThreshold = 0.5f;
+
+	void* m_RuntimeFixture = nullptr;
+
+	BoxCollider2DComponent() = default;
+	BoxCollider2DComponent(const BoxCollider2DComponent&) = default;
+};
+
+
 END_ENTERNITY

@@ -209,6 +209,18 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			ImGui::CloseCurrentPopup();
 		}
 
+		if (ImGui::MenuItem("RigidBody2DComponent"))
+		{
+			m_SelectedEntity.AddComponent<RigidBody2DComponent>();
+			ImGui::CloseCurrentPopup();
+		}
+
+		if (ImGui::MenuItem("BoxCollider2DComponent"))
+		{
+			m_SelectedEntity.AddComponent<BoxCollider2DComponent>();
+			ImGui::CloseCurrentPopup();
+		}
+
 		ImGui::EndPopup();
 	}
 	ImGui::PopItemWidth();
@@ -330,6 +342,46 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			ImGui::DragFloat("RotationYAnglePerSecond", &motorComponent.m_RotationYAnglePerSecond, 1.0f);
 		});
 
+	//RigidBody2DComponent
+	DrawComponent<RigidBody2DComponent>("RigidBody2DComponent",
+		[&]()
+		{
+			auto& rb2dc = m_SelectedEntity.GetComponent<RigidBody2DComponent>();
+			const char* bodyTypeString[] = { "Static", "Kinematic", "Dynamic" };
+			const char* currentBodyTypeString = bodyTypeString[(int)rb2dc.m_BodyType];
+
+			if (ImGui::BeginCombo("BodyType", currentBodyTypeString))
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					bool isSelected = currentBodyTypeString == bodyTypeString[i];
+					if (ImGui::Selectable(bodyTypeString[i], isSelected))
+					{
+						currentBodyTypeString = bodyTypeString[i];
+						rb2dc.m_BodyType = (RigidBody2DComponent::BodyType)i;
+					}
+					if (isSelected)
+						ImGui::SetItemDefaultFocus();
+				}
+
+				ImGui::EndCombo();
+			}
+
+			ImGui::Checkbox("FixedRotation", &rb2dc.m_FixedRotation);		
+		});
+
+	//BoxCollider2DComponent
+	DrawComponent<BoxCollider2DComponent>("BoxCollider2DComponent",
+		[&]()
+		{
+			auto& bc2dc = m_SelectedEntity.GetComponent<BoxCollider2DComponent>();
+			ImGui::DragFloat2("Offset", &bc2dc.m_Offset.x);
+			ImGui::DragFloat2("Size", &bc2dc.m_Size.x);
+			ImGui::DragFloat("Density", &bc2dc.m_Density, 0.01f, 0.0f, 1.0f);
+			ImGui::DragFloat("Friction", &bc2dc.m_Friction, 0.01f, 0.0f, 1.0f);
+			ImGui::DragFloat("Restitution", &bc2dc.m_Restitution, 0.01f, 0.0f, 1.0f);
+			ImGui::DragFloat("RestitutionThreshold", &bc2dc.m_RestitutionThreshold, 0.01f, 0.0f);
+		});
 
 	//camera component
 	DrawComponent<CameraComponent>("CameraComponent",

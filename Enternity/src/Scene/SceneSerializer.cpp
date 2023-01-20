@@ -166,6 +166,30 @@ void SceneSerializer::SerializeEntity(YAML::Emitter& out, Entity entity)
 		out << YAML::EndMap;
 	}
 
+	if (entity.HasComponent<RigidBody2DComponent>())
+	{
+		out << YAML::Key << "RigidBody2DComponent";
+		out << YAML::BeginMap;
+		auto& rigidBody2DComponent = entity.GetComponent<RigidBody2DComponent>();
+		out << YAML::Key << "m_BodyType" << YAML::Value << (int)rigidBody2DComponent.m_BodyType;
+		out << YAML::Key << "m_FixedRotation" << YAML::Value << rigidBody2DComponent.m_FixedRotation;
+		out << YAML::EndMap;
+	}
+
+	if (entity.HasComponent<BoxCollider2DComponent>())
+	{
+		out << YAML::Key << "BoxCollider2DComponent";
+		out << YAML::BeginMap;
+		auto& boxCollider2DComponent = entity.GetComponent<BoxCollider2DComponent>();
+		out << YAML::Key << "m_Offset" << YAML::Value << boxCollider2DComponent.m_Offset;
+		out << YAML::Key << "m_Size" << YAML::Value << boxCollider2DComponent.m_Size;
+		out << YAML::Key << "m_Density" << YAML::Value << boxCollider2DComponent.m_Density;
+		out << YAML::Key << "m_Friction" << YAML::Value << boxCollider2DComponent.m_Friction;
+		out << YAML::Key << "m_Restitution" << YAML::Value << boxCollider2DComponent.m_Restitution;
+		out << YAML::Key << "m_RestitutionThreshold" << YAML::Value << boxCollider2DComponent.m_RestitutionThreshold;
+		out << YAML::EndMap;
+	}
+
 	if (entity.HasComponent<MotorComponent>())
 	{
 		out << YAML::Key << "MotorComponent";
@@ -318,6 +342,26 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 				auto& mc = deserializeEntity.AddComponent<MotorComponent>();
 				mc.m_RotationXAnglePerSecond = motorComponent["m_RotationXAnglePerSecond"].as<float>();
 				mc.m_RotationYAnglePerSecond = motorComponent["m_RotationYAnglePerSecond"].as<float>();
+			}
+
+			auto rigidBody2DComponent = entity["RigidBody2DComponent"];
+			if (rigidBody2DComponent)
+			{
+				auto& rb2dc = deserializeEntity.AddComponent<RigidBody2DComponent>();
+				rb2dc.m_BodyType = (RigidBody2DComponent::BodyType)rigidBody2DComponent["m_BodyType"].as<int>();
+				rb2dc.m_FixedRotation = rigidBody2DComponent["m_FixedRotation"].as<bool>();
+			}
+
+			auto boxCollider2DComponent = entity["BoxCollider2DComponent"];
+			if (boxCollider2DComponent)
+			{
+				auto& bc2dc = deserializeEntity.AddComponent<BoxCollider2DComponent>();
+				bc2dc.m_Offset = boxCollider2DComponent["m_Offset"].as<glm::vec2>();
+				bc2dc.m_Size = boxCollider2DComponent["m_Size"].as<glm::vec2>();
+				bc2dc.m_Density = boxCollider2DComponent["m_Density"].as<float>();
+				bc2dc.m_Friction = boxCollider2DComponent["m_Friction"].as<float>();
+				bc2dc.m_Restitution = boxCollider2DComponent["m_Restitution"].as<float>();
+				bc2dc.m_RestitutionThreshold = boxCollider2DComponent["m_RestitutionThreshold"].as<float>();
 			}
 
 			SceneManager::GetInstance().m_Entities.insert({ deserializeEntity.GetEntityUid(), deserializeEntity });

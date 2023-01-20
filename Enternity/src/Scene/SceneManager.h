@@ -10,6 +10,7 @@ SceneManager
 #include "Macro/Macro.h"
 #include "ECS/Entity/Entity.h"
 #include "ECS/Component/Component.h"
+#include <box2d/box2d.h>
 
 BEGIN_ENTERNITY
 
@@ -56,12 +57,13 @@ private:
 	Entity m_PlayerCameraEntity;
 	Entity m_CurrentCameraEntity;
 	Entity m_SkyBoxEntity;
-
-
 	std::map<unsigned int, Entity> m_Entities;
 private:
 	CameraController* m_EditorCameraController{ nullptr };	
 	CameraController* m_PlayerCameraController{ nullptr };
+
+private:
+	b2World* m_PhysicsWorld{ nullptr };
 };
 
 END_ENTERNITY
