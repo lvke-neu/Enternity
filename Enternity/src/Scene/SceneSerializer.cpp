@@ -187,6 +187,7 @@ void SceneSerializer::Serialize(const std::string& filePath)
 	out << YAML::Key << "Entities" << YAML::Value << YAML::BeginSeq;
 	
 	SerializeEntity(out, SceneManager::GetInstance().m_EditorCameraEntity);
+	SerializeEntity(out, SceneManager::GetInstance().m_PlayerCameraEntity);
 
 	for (auto& entity : SceneManager::GetInstance().m_Entities)
 	{
@@ -230,11 +231,12 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 	auto entities = data["Entities"];
 	if (entities)
 	{
+		int index = 1;
 		for (auto entity : entities)
 		{
 			auto cameraComponent = entity["CameraComponent"];
 			auto cameraTransformComponent = entity["TransformComponent"];
-			if (cameraComponent && cameraTransformComponent)
+			if (index == 1 &&cameraComponent && cameraTransformComponent)
 			{
 				auto& mainCameraEntity = SceneManager::GetInstance().m_EditorCameraEntity;
 				auto& cc = mainCameraEntity.GetComponent<CameraComponent>();
@@ -250,6 +252,27 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 				tc.m_Rotation = cameraTransformComponent["m_Rotation"].as<glm::vec3>();
 				tc.m_Scale = cameraTransformComponent["m_Scale"].as<glm::vec3>();
 
+				index++;
+				continue;
+			}
+
+			if (index == 2 && cameraComponent && cameraTransformComponent)
+			{
+				auto& mainCameraEntity = SceneManager::GetInstance().m_PlayerCameraEntity;
+				auto& cc = mainCameraEntity.GetComponent<CameraComponent>();
+				cc.m_MoveSpeed = cameraComponent["m_MoveSpeed"].as<float>();
+				cc.m_EnableWireframe = cameraComponent["m_EnableWireframe"].as<bool>();
+				cc.m_Fovy = cameraComponent["m_Fovy"].as<float>();
+				//cc.m_Aspect = cameraComponent["m_Aspect"].as<float>();
+				cc.m_NearZ = cameraComponent["m_NearZ"].as<float>();
+				cc.m_FarZ = cameraComponent["m_FarZ"].as<float>();
+				cc.InitStateByAllProperty();
+				auto& tc = mainCameraEntity.GetComponent<TransformComponent>();
+				tc.m_Translation = cameraTransformComponent["m_Translation"].as<glm::vec3>();
+				tc.m_Rotation = cameraTransformComponent["m_Rotation"].as<glm::vec3>();
+				tc.m_Scale = cameraTransformComponent["m_Scale"].as<glm::vec3>();
+
+				index++;
 				continue;
 			}
 
