@@ -34,7 +34,7 @@ void PlayButtonPanel::ImguiDraw()
 	ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
 	auto curretnTexture = m_SceneState == SceneState::Editor ? m_EditorTexture : m_PlayerTexture;
 
-	if (ImGui::ImageButton((ImTextureID)curretnTexture->GetRendererId(), { size, size }))
+	if (ImGui::ImageButton((ImTextureID)curretnTexture->GetRendererId(), { size, size }, { 0, 0 }, { 1,1 }, 0))
 	{
 		if (m_SceneState == SceneState::Editor)
 		{
