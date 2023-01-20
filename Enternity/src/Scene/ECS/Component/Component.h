@@ -336,7 +336,7 @@ struct SkyBoxComponent
 	}
 };
 
-//physice
+//physics2d
 struct RigidBody2DComponent
 {
 	enum class BodyType
@@ -372,5 +372,16 @@ struct BoxCollider2DComponent
 	BoxCollider2DComponent(const BoxCollider2DComponent&) = default;
 };
 
+
+//physics 3d
+struct RigidBodyComponent
+{
+	float m_Mass = 0;
+	float m_Friction = 0.5;
+
+	void* m_RigidBody{ nullptr };
+	RigidBodyComponent() = default;
+	RigidBodyComponent(const RigidBodyComponent&) = default;
+};
 
 END_ENTERNITY
