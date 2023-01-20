@@ -9,8 +9,8 @@
 
 BEGIN_ENTERNITY
 
-#define WINDOW_WIDHT 1500
-#define WINDOW_HEIGHT 700
+#define WINDOW_WIDHT 1800
+#define WINDOW_HEIGHT 800
 #define WINDOW_TITLE "Enternity Engine, Version:0.0003, Author:lvke"
 
 void KeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods)

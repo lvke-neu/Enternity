@@ -33,6 +33,7 @@ void ImguiManager::Initialize(GLFWwindow* context)
 	m_SceneHierarchyPanel = new SceneHierarchyPanel;
 	m_ContentBrowserPanel = new ContentBrowserPanel;
 	m_StatsPanel = new StatsPanel;
+	m_PlayButtonPanel = new PlayButtonPanel;
 }
 
 void ImguiManager::Draw()
@@ -57,6 +58,7 @@ void ImguiManager::Release()
 	SAFE_DELETE_SET_NULL(m_SceneHierarchyPanel);
 	SAFE_DELETE_SET_NULL(m_ContentBrowserPanel);
 	SAFE_DELETE_SET_NULL(m_StatsPanel);
+	SAFE_DELETE_SET_NULL(m_PlayButtonPanel);
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();

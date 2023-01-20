@@ -19,6 +19,7 @@ class SceneManager
 	friend class SceneHierarchyPanel;
 	friend class StatsPanel;
 	friend class SceneSerializer;
+
 	SINGLETON(SceneManager);
 public:
 	void Initialize();
@@ -38,6 +39,9 @@ public:
 	{
 		return m_CurrentCameraEntity;
 	}
+
+	void OnPlay();
+	void OnEditor();
 private:
 	SceneManager() = default;
 	~SceneManager();

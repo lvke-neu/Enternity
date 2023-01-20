@@ -97,20 +97,6 @@ void SceneManager::Initialize()
 
 void SceneManager::Update(float deltaTime)
 {
-	if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_P))
-	{
-		m_CurrentCameraEntity = m_PlayerCameraEntity;
-		m_EditorCameraController->Pause();
-		m_PlayerCameraController->Start();
-	}
-	
-	if (InputEventManager::GetInstance().IsKeyPress(Keyboard::GLFW_KEY_ESCAPE))
-	{
-		m_CurrentCameraEntity = m_EditorCameraEntity;
-		m_EditorCameraController->Start();
-		m_PlayerCameraController->Pause();
-	}
-
 	for (auto& entity : m_Entities)
 	{
 		if (entity.second.HasComponent<MotorComponent>())
@@ -221,6 +207,20 @@ void SceneManager::Clear()
 	m_Entities.clear();
 }
 
+void SceneManager::OnEditor()
+{
+	m_CurrentCameraEntity = m_EditorCameraEntity;
+	m_EditorCameraController->Start();
+	m_PlayerCameraController->Pause();
+}
+
+void SceneManager::OnPlay()
+{
+	m_CurrentCameraEntity = m_PlayerCameraEntity;
+	m_EditorCameraController->Pause();
+	m_PlayerCameraController->Start();
+}
 END_ENTERNITY
+
 
 

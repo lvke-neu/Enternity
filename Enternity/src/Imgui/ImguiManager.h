@@ -11,6 +11,7 @@ Imgui Manager
 #include "Panels/SceneHierarchyPanel.h"
 #include "Panels/ContentBrowserPanel.h"
 #include "Panels/StatsPanel.h"
+#include "Panels/PlayButtonPanel.h"
 
 struct GLFWwindow;
 BEGIN_ENTERNITY
@@ -38,6 +39,7 @@ private:
 	SceneHierarchyPanel* m_SceneHierarchyPanel{ nullptr };
 	ContentBrowserPanel* m_ContentBrowserPanel{ nullptr };
 	StatsPanel* m_StatsPanel{ nullptr };
+	PlayButtonPanel* m_PlayButtonPanel{ nullptr };
 };
 
 END_ENTERNITY

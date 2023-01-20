@@ -111,6 +111,7 @@
     <ClCompile Include="src\Imgui\ImguiManager.cpp" />
     <ClCompile Include="src\Imgui\Panels\ContentBrowserPanel.cpp" />
     <ClCompile Include="src\Imgui\Panels\Interface\PanelInterface.cpp" />
+    <ClCompile Include="src\Imgui\Panels\PlayButtonPanel.cpp" />
     <ClCompile Include="src\Imgui\Panels\SceneHierarchyPanel.cpp" />
     <ClCompile Include="src\Imgui\Panels\StatsPanel.cpp" />
     <ClCompile Include="src\Imgui\Panels\ViewportPanel.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="src\Imgui\ImguiImpl\imstb_truetype.h" />
     <ClInclude Include="src\Imgui\Panels\ContentBrowserPanel.h" />
     <ClInclude Include="src\Imgui\Panels\Interface\PanelInterface.h" />
+    <ClInclude Include="src\Imgui\Panels\PlayButtonPanel.h" />
     <ClInclude Include="src\Imgui\Panels\SceneHierarchyPanel.h" />
     <ClInclude Include="src\Imgui\Panels\StatsPanel.h" />
     <ClInclude Include="src\Imgui\Panels\ViewportPanel.h" />
