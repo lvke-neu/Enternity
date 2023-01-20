@@ -28,6 +28,15 @@ public:
 	{
 		return m_MousePickPixelEntityId;
 	}
+
+	void SetGizmoType(int type)
+	{
+		m_GizmoType = type;
+	}
+	int GeGizmoType()
+	{
+		return m_GizmoType;
+	}
 private:
 	unsigned int m_width;
 	unsigned int m_height;

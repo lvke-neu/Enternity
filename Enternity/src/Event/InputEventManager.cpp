@@ -9,7 +9,7 @@ void InputEventManager::NotifyKeyPress(Keyboard key)
 		return;
 
 	m_keyPressMap[key] = true;
-
+	m_keyReleaseMap[key] = false;
 	for (auto& event : m_events)
 	{
 		if (dynamic_cast<InputEvent*>(event))
@@ -22,7 +22,7 @@ void InputEventManager::NotifyKeyPress(Keyboard key)
 void InputEventManager::NotifyKeyRelease(Keyboard key)
 {
 	m_keyPressMap[key] = false;
-
+	m_keyReleaseMap[key] = true;
 	if (!m_viewportFocused)
 		return;
 
@@ -98,6 +98,13 @@ bool InputEventManager::IsKeyPress(Keyboard key)
 {
 	if (m_keyPressMap.find(key) != m_keyPressMap.end())
 		return m_keyPressMap[key];
+	return false;
+}
+
+bool InputEventManager::IsKeyRelease(Keyboard key)
+{
+	if (m_keyReleaseMap.find(key) != m_keyReleaseMap.end())
+		return m_keyReleaseMap[key];
 	return false;
 }
 
