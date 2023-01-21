@@ -90,7 +90,7 @@ void Enternity::ViewportPanel::ImguiDraw()
 
 		auto modelMatrix = selectedEntity.GetComponent<TransformComponent>().GetWorldMatrix();
 
-		if(SceneManager::GetInstance().GetCurrentEntity() == SceneManager::GetInstance().GetMainCameraEntity())
+		if(SceneManager::GetInstance().m_SceneState == SceneState::Editor)
 			ImGuizmo::Manipulate(&viewMatrix[0][0], &projMatrix[0][0], (ImGuizmo::OPERATION)m_GizmoType, ImGuizmo::MODE::LOCAL, &modelMatrix[0][0]);
 
 		if (ImGuizmo::IsUsing())

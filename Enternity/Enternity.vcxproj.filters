@@ -147,6 +147,12 @@
     <ClCompile Include="src\Imgui\Panels\PlayButtonPanel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\RenderSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macro\Macro.h">
@@ -297,6 +303,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Imgui\Panels\PlayButtonPanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\RenderSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

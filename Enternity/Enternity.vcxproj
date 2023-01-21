@@ -118,6 +118,8 @@
     <ClCompile Include="src\Log\Log.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Math\Math.cpp" />
+    <ClCompile Include="src\Physics\PhysicsSystem.cpp" />
+    <ClCompile Include="src\Renderer\RenderSystem.cpp" />
     <ClCompile Include="src\Renderer\SkyBoxTexture.cpp" />
     <ClCompile Include="src\Scene\CameraController.cpp" />
     <ClCompile Include="src\Renderer\FrameBuffer.cpp" />
@@ -169,6 +171,8 @@
     <ClInclude Include="src\Macro\Macro.h" />
     <ClInclude Include="src\Material\Material.h" />
     <ClInclude Include="src\Math\Math.h" />
+    <ClInclude Include="src\Physics\PhysicsSystem.h" />
+    <ClInclude Include="src\Renderer\RenderSystem.h" />
     <ClInclude Include="src\Renderer\SkyBoxTexture.h" />
     <ClInclude Include="src\Scene\CameraController.h" />
     <ClInclude Include="src\Renderer\FrameBuffer.h" />

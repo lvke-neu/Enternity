@@ -221,6 +221,12 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			ImGui::CloseCurrentPopup();
 		}
 
+		if (ImGui::MenuItem("RigidBodyComponent"))
+		{
+			m_SelectedEntity.AddComponent<RigidBodyComponent>();
+			ImGui::CloseCurrentPopup();
+		}
+
 		ImGui::EndPopup();
 	}
 	ImGui::PopItemWidth();
@@ -381,6 +387,16 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			ImGui::DragFloat("Friction", &bc2dc.m_Friction, 0.01f, 0.0f, 1.0f);
 			ImGui::DragFloat("Restitution", &bc2dc.m_Restitution, 0.01f, 0.0f, 1.0f);
 			ImGui::DragFloat("RestitutionThreshold", &bc2dc.m_RestitutionThreshold, 0.01f, 0.0f);
+		});
+
+	//RigidBodyComponent
+	DrawComponent<RigidBodyComponent>("RigidBodyComponent",
+		[&]()
+		{
+			auto& rbc = m_SelectedEntity.GetComponent<RigidBodyComponent>();
+			ImGui::DragFloat("Mass", &rbc.m_Mass, 1.0f, 0.0f, FLT_MAX);
+			ImGui::DragFloat("Friction", &rbc.m_Friction, 0.01f, 0.0f, 1.0f);
+			ImGui::DragFloat("Restitution", &rbc.m_Restitution, 0.01f, 0.0f, 1.0f);
 		});
 
 	//camera component

@@ -1,6 +1,8 @@
 #include "SceneManager.h"
 #include "CameraController.h"
 #include "Event/InputEventManager.h"
+#include "Renderer/RenderSystem.h"
+#include "Physics/PhysicsSystem.h"
 
 BEGIN_ENTERNITY
 
@@ -31,7 +33,6 @@ SceneManager::~SceneManager()
 	m_SkyBoxEntity.Destroy();
 	SAFE_DELETE_SET_NULL(m_EditorCameraController);
 	SAFE_DELETE_SET_NULL(m_PlayerCameraController);
-	SAFE_DELETE_SET_NULL(m_PhysicsWorld);
 }
 
 void SceneManager::Initialize()
@@ -45,8 +46,6 @@ void SceneManager::Initialize()
 	m_PlayerCameraEntity.AddComponent<TransformComponent>(glm::vec3(-16.49f, -3.26, -12.25f), glm::vec3(glm::radians(15.65f) , glm::radians(-105.45f) , 0.000f), glm::vec3(1.0f));
 	m_PlayerCameraEntity.AddComponent<CameraComponent>();
 	m_PlayerCameraController = new CameraController(m_PlayerCameraEntity);
-
-	m_CurrentCameraEntity = m_EditorCameraEntity;
 	m_PlayerCameraController->Pause();
 
 	m_SkyBoxEntity = Entity(&m_Registry, "SkyBox Entity");
@@ -66,121 +65,28 @@ void SceneManager::Initialize()
 	sc.Load();
 }
 
-void SceneManager::Update(float deltaTime)
-{
-	//for (auto& entity : m_Entities)
-	//{
-	//	if (entity.second.HasComponent<MotorComponent>())
-	//	{
-	//		auto& motorComponent = entity.second.GetComponent<MotorComponent>();
-	//		if (entity.second.HasComponent<TransformComponent>())
-	//		{
-	//			auto& transformComponent = entity.second.GetComponent<TransformComponent>();
-	//			transformComponent.RotateAlongYAxis(glm::radians(motorComponent.m_RotationYAnglePerSecond * deltaTime));
-	//			transformComponent.RotateAlongXAxis(glm::radians(motorComponent.m_RotationXAnglePerSecond * deltaTime));
-	//		}
-	//	}
-	//}
-
-	//physics
-	if (m_PhysicsWorld)
-	{
-		m_PhysicsWorld->Step(deltaTime, 1, 2);
-		auto view = m_Registry.view<RigidBody2DComponent>();
-		for (auto e : view)
-		{
-			Entity tmpEntity(&m_Registry, e);
-
-			auto& tc = tmpEntity.GetComponent<TransformComponent>();
-			auto& rb2dc = tmpEntity.GetComponent< RigidBody2DComponent>();
-
-			b2Body* body = (b2Body*)rb2dc.m_RuntimeBody;
-			tc.m_Translation.x = body->GetPosition().x;
-			tc.m_Translation.y = body->GetPosition().y;
-			tc.m_Rotation.z = glm::radians(body->GetAngle());
-		}
-	}
-}
-
-void SceneManager::DrawSkyBox()
-{
-	glDepthFunc(GL_LEQUAL);
-	auto& cameraTransformComponent = m_CurrentCameraEntity.GetComponent<TransformComponent>();
-	auto& cameraCameraComponent = m_CurrentCameraEntity.GetComponent<CameraComponent>();
-
-
-	auto& meshComponent = m_SkyBoxEntity.GetComponent<MeshComponent>();
-	auto& skyboxComponet = m_SkyBoxEntity.GetComponent<SkyBoxComponent>();
-	skyboxComponet.m_Shader->Bind();
-	skyboxComponet.m_SkyBoxTexture->Bind();
-	skyboxComponet.m_Shader->SetInteger1("skybox", 0);
-	skyboxComponet.m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * glm::mat4(glm::mat3(cameraTransformComponent.GetInverseWorldMatrix())));
-	meshComponent.m_VertexArray->Bind();
-	meshComponent.m_Indexbuffer->Bind();
-	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, meshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
-	glDepthFunc(GL_LESS);
-}
 
 
 void SceneManager::Tick(float deltaTime)
 {
-	Update(deltaTime);
-
-	auto& cameraTransformComponent = m_CurrentCameraEntity.GetComponent<TransformComponent>();
-	auto& cameraCameraComponent = m_CurrentCameraEntity.GetComponent<CameraComponent>();
-	
+	//physics
+	PhysicsSystem::GetInstance().StepSimulation(deltaTime);
 	for (auto& entity : m_Entities)
 	{
-		auto& tagComponent = entity.second.GetComponent<TagComponent>();
-		if (entity.second.HasComponent<TransformComponent>() && entity.second.HasComponent<MeshComponent>() && entity.second.HasComponent<MaterialComponent>())
-		{
-			auto& transformComponent = entity.second.GetComponent<TransformComponent>();
-			auto& meshComponent = entity.second.GetComponent<MeshComponent>();
-			auto& materialComponent = entity.second.GetComponent<MaterialComponent>();
-			
-			if(meshComponent.m_VertexArray)
-				meshComponent.m_VertexArray->Bind();
-			
-			if (materialComponent.m_Shader)
-			{
-				materialComponent.m_Shader->Bind();
-				materialComponent.m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * cameraTransformComponent.GetInverseWorldMatrix() * transformComponent.GetWorldMatrix());
-				materialComponent.m_Shader->SetInteger1("u_entityId", entity.second.GetEntityUid());
-			}
-		
-			if (materialComponent.m_Texture)
-				materialComponent.m_Texture->Bind(0);
-
-			if (meshComponent.m_Indexbuffer)
-			{
-				meshComponent.m_Indexbuffer->Bind();
-				CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, meshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
-			}
-			//unbind
-			if (meshComponent.m_VertexArray)
-				meshComponent.m_VertexArray->UnBind();
-
-			if (materialComponent.m_Shader)
-			{
-				materialComponent.m_Shader->UnBind();
-			}
-			if (materialComponent.m_Texture)
-				materialComponent.m_Texture->UnBind();
-			if (meshComponent.m_Indexbuffer)
-			{
-				meshComponent.m_Indexbuffer->UnBind();
-			}
-		}
+		PhysicsSystem::GetInstance().UpdateEntityState(entity.second);
 	}
 
-	DrawSkyBox();
+	//render
+	for (auto& entity : m_Entities)
+	{
+		RenderSystem::GetInstance().DrawEntity(m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity, entity.second);
+	}
+
+	RenderSystem::GetInstance().DrawSkyBox(m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity, m_SkyBoxEntity);
 }
 
 void SceneManager::OnResize(int width, int height)
 {
-	m_CurrentCameraEntity.GetComponent<CameraComponent>().m_Aspect = static_cast<float>(width) / height;
-	m_CurrentCameraEntity.GetComponent<CameraComponent>().ReCalculateProjectMatrix();
-
 	m_EditorCameraEntity.GetComponent<CameraComponent>().m_Aspect = static_cast<float>(width) / height;
 	m_EditorCameraEntity.GetComponent<CameraComponent>().ReCalculateProjectMatrix();
 
@@ -199,53 +105,36 @@ void SceneManager::Clear()
 
 void SceneManager::OnEditor()
 {
-	m_CurrentCameraEntity = m_EditorCameraEntity;
+	m_SceneState = SceneState::Editor;
 	m_EditorCameraController->Start();
 	m_PlayerCameraController->Pause();
 
-	SAFE_DELETE_SET_NULL(m_PhysicsWorld);
+	//remove entity from physics world
+	for (auto& entity : m_Entities)
+	{
+		PhysicsSystem::GetInstance().RemoveEntityFromPhysicsWorld(entity.second);
+	}
 }
 
 void SceneManager::OnPlay()
 {
-	m_CurrentCameraEntity = m_PlayerCameraEntity;
+	m_SceneState = SceneState::Player;
 	m_EditorCameraController->Pause();
 	m_PlayerCameraController->Start();
 
-	m_PhysicsWorld = new b2World({ 0.0f, -9.8f });
-	auto view = m_Registry.view<RigidBody2DComponent>();
-	for (auto e : view)
+	//add entity to physics world
+	int index = 0;
+	for (auto& entity : m_Entities)
 	{
-		Entity tmpEntity(&m_Registry, e);
-		
-		auto& tc = tmpEntity.GetComponent<TransformComponent>();
-		auto& rb2dc = tmpEntity.GetComponent< RigidBody2DComponent>();
-
-		b2BodyDef bodyDef;
-		bodyDef.type = (b2BodyType)rb2dc.m_BodyType;
-		bodyDef.position.Set(tc.m_Translation.x, tc.m_Translation.y);
-		bodyDef.angle = glm::degrees(tc.m_Rotation.z);
-
-		b2Body* body = m_PhysicsWorld->CreateBody(&bodyDef);
-		body->SetFixedRotation(rb2dc.m_FixedRotation);
-		rb2dc.m_RuntimeBody = body;
-
-		if (tmpEntity.HasComponent<BoxCollider2DComponent>())
+		//generate plane
+		if (index == 0)
 		{
-			auto& bc2dc = tmpEntity.GetComponent<BoxCollider2DComponent>();
+			PhysicsSystem::GetInstance().AddEntityToPhysicsWorld(entity.second, true);
 
-			b2PolygonShape polyonShape;
-			polyonShape.SetAsBox(bc2dc.m_Size.x * tc.m_Scale.x, bc2dc.m_Size.y * tc.m_Scale.y);
-
-			b2FixtureDef fixtureDef;
-			fixtureDef.shape = &polyonShape;
-			fixtureDef.density = bc2dc.m_Density;
-			fixtureDef.friction = bc2dc.m_Friction;
-			fixtureDef.restitution = bc2dc.m_Restitution;
-			fixtureDef.restitutionThreshold = bc2dc.m_RestitutionThreshold;
-
-			bc2dc.m_RuntimeFixture = body->CreateFixture(&fixtureDef);
+			index++;
+			continue;
 		}
+		PhysicsSystem::GetInstance().AddEntityToPhysicsWorld(entity.second);
 	}
 }
 END_ENTERNITY

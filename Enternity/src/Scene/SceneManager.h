@@ -10,16 +10,24 @@ SceneManager
 #include "Macro/Macro.h"
 #include "ECS/Entity/Entity.h"
 #include "ECS/Component/Component.h"
-#include <box2d/box2d.h>
+
 
 BEGIN_ENTERNITY
+
+enum SceneState
+{
+	Editor,
+	Player
+};
 
 class CameraController;
 class SceneManager
 {
 	friend class SceneHierarchyPanel;
+	friend class ViewportPanel;
 	friend class StatsPanel;
 	friend class SceneSerializer;
+	friend class PlayButtonPanel;
 
 	SINGLETON(SceneManager);
 public:
@@ -36,10 +44,6 @@ public:
 	{
 		return m_EditorCameraEntity.GetComponent<CameraComponent>().m_EnableWireframe;
 	}
-	inline Entity GetCurrentEntity()
-	{
-		return m_CurrentCameraEntity;
-	}
 
 	void OnPlay();
 	void OnEditor();
@@ -48,22 +52,17 @@ private:
 	~SceneManager();
 	SceneManager(const SceneManager&) = default;
 	SceneManager& operator=(const SceneManager&) = default;
-
-	void Update(float deltaTime);
-	void DrawSkyBox();
 private:
 	entt::registry m_Registry;
 	Entity m_EditorCameraEntity;
 	Entity m_PlayerCameraEntity;
-	Entity m_CurrentCameraEntity;
 	Entity m_SkyBoxEntity;
 	std::map<unsigned int, Entity> m_Entities;
 private:
 	CameraController* m_EditorCameraController{ nullptr };	
 	CameraController* m_PlayerCameraController{ nullptr };
-
 private:
-	b2World* m_PhysicsWorld{ nullptr };
+	SceneState m_SceneState = SceneState::Editor;
 };
 
 END_ENTERNITY

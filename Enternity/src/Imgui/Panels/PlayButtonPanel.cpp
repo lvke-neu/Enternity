@@ -32,18 +32,16 @@ void PlayButtonPanel::ImguiDraw()
 
 	auto size = ImGui::GetWindowHeight() - 4;
 	ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
-	auto curretnTexture = m_SceneState == SceneState::Editor ? m_EditorTexture : m_PlayerTexture;
+	auto curretnTexture = SceneManager::GetInstance().m_SceneState == SceneState::Editor ? m_EditorTexture : m_PlayerTexture;
 
 	if (ImGui::ImageButton((ImTextureID)curretnTexture->GetRendererId(), { size, size }, { 0, 0 }, { 1,1 }, 0))
 	{
-		if (m_SceneState == SceneState::Editor)
+		if (SceneManager::GetInstance().m_SceneState == SceneState::Editor)
 		{
-			m_SceneState = SceneState::Player;
 			SceneManager::GetInstance().OnPlay();
 		}
 		else
 		{
-			m_SceneState = SceneState::Editor;
 			SceneManager::GetInstance().OnEditor();
 		}
 	}

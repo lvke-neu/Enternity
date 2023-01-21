@@ -190,6 +190,17 @@ void SceneSerializer::SerializeEntity(YAML::Emitter& out, Entity entity)
 		out << YAML::EndMap;
 	}
 
+	if (entity.HasComponent<RigidBodyComponent>())
+	{
+		out << YAML::Key << "RigidBodyComponent";
+		out << YAML::BeginMap;
+		auto& rigidBodyComponent = entity.GetComponent<RigidBodyComponent>();
+		out << YAML::Key << "m_Mass" << YAML::Value << rigidBodyComponent.m_Mass;
+		out << YAML::Key << "m_Friction" << YAML::Value << rigidBodyComponent.m_Friction;
+		out << YAML::Key << "m_Restitution" << YAML::Value << rigidBodyComponent.m_Restitution;
+		out << YAML::EndMap;
+	}
+
 	if (entity.HasComponent<MotorComponent>())
 	{
 		out << YAML::Key << "MotorComponent";
@@ -362,6 +373,15 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 				bc2dc.m_Friction = boxCollider2DComponent["m_Friction"].as<float>();
 				bc2dc.m_Restitution = boxCollider2DComponent["m_Restitution"].as<float>();
 				bc2dc.m_RestitutionThreshold = boxCollider2DComponent["m_RestitutionThreshold"].as<float>();
+			}
+
+			auto rigidBodyComponent = entity["RigidBodyComponent"];
+			if (rigidBodyComponent)
+			{
+				auto& rbc = deserializeEntity.AddComponent<RigidBodyComponent>();
+				rbc.m_Mass = rigidBodyComponent["m_Mass"].as<float>();
+				rbc.m_Friction = rigidBodyComponent["m_Friction"].as<float>();
+				rbc.m_Restitution = rigidBodyComponent["m_Restitution"].as<float>();
 			}
 
 			SceneManager::GetInstance().m_Entities.insert({ deserializeEntity.GetEntityUid(), deserializeEntity });

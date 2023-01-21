@@ -12,12 +12,6 @@ PlayButton Panel
 
 BEGIN_ENTERNITY
 
-enum SceneState
-{
-	Editor,
-	Player
-};
-
 class PlayButtonPanel : public IPanel
 {
 public:
@@ -25,15 +19,9 @@ public:
 	~PlayButtonPanel();
 
 	virtual void ImguiDraw() override;
-	void SetSceneState(SceneState sceneState)
-	{
-		m_SceneState = sceneState;
-	}
 private:
 	Texture* m_EditorTexture{ nullptr };
 	Texture* m_PlayerTexture{ nullptr };
-
-	SceneState m_SceneState = SceneState::Editor;
 };
 
 END_ENTERNITY

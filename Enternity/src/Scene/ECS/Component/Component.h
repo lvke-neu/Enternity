@@ -378,6 +378,7 @@ struct RigidBodyComponent
 {
 	float m_Mass = 0;
 	float m_Friction = 0.5;
+	float m_Restitution = 0.5;
 
 	void* m_RigidBody{ nullptr };
 	RigidBodyComponent() = default;

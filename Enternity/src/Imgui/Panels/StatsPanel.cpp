@@ -23,7 +23,7 @@ void StatsPanel::ImguiDraw()
 
 
 	std::string currentCameraTag = "";
-	Entity currentCamaeraEntity = SceneManager::GetInstance().m_CurrentCameraEntity;
+	Entity currentCamaeraEntity = SceneManager::GetInstance().m_SceneState == SceneState::Editor ? SceneManager::GetInstance().m_EditorCameraEntity : SceneManager::GetInstance().m_PlayerCameraEntity;
 	if (currentCamaeraEntity.IsValidEntity())
 		currentCameraTag = currentCamaeraEntity.GetComponent<TagComponent>().m_Tag;
 	ImGui::Text("Current Camera: %s", currentCameraTag.c_str());
