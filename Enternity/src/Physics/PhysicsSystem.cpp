@@ -38,12 +38,13 @@ void PhysicsSystem::AddEntityToPhysicsWorld(Entity& entity, bool isPlane /* = fa
 		auto trans = tc.m_Translation;
 		btDefaultMotionState* ballMotionState = new btDefaultMotionState(btTransform(btQuaternion(quant.x, quant.y, quant.z, quant.w), btVector3(trans.x, trans.y, trans.z)));
 		btCollisionShape* shape{ nullptr };
-		//if (isPlane)
-		//{
-		//	shape = new btStaticPlaneShape(btVector3(0, 1, 0), 0.5);
-		//}
-		//else
-			shape = new btBoxShape(btVector3( tc.m_Scale.x,  tc.m_Scale.y, tc.m_Scale.z));
+		if (isPlane)
+		{
+			shape = new btBoxShape(btVector3(tc.m_Scale.x, tc.m_Scale.y, tc.m_Scale.z));
+		}
+		else
+			shape = new btSphereShape(1);
+		
 		
 		btVector3 inertia;
 		shape->calculateLocalInertia(rbc.m_Mass, inertia);
