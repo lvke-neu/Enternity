@@ -123,7 +123,8 @@ void Enternity::ViewportPanel::ImguiDraw()
 		m_MousePickPixelEntityId = Engine::GetInstance().GetFrameBufferEx()->ReadPixel(1, mouseX, mouseY);
 		if (InputEventManager::GetInstance().IsMousePress(MouseButton::GLFW_MOUSE_BUTTON_LEFT)
 			&& !ImGuizmo::IsUsing()
-			&& !SceneManager::GetInstance().IsWireFrame())
+			&& !SceneManager::GetInstance().IsWireFrame()
+			&& SceneManager::GetInstance().m_SceneState == SceneState::Editor)
 		{
 			//LOG_INFO("Hit:" + std::to_string(Engine::GetInstance().GetFrameBufferEx()->ReadPixel(1, mouseX, mouseY)));
 

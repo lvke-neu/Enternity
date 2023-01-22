@@ -38,12 +38,12 @@ void PhysicsSystem::AddEntityToPhysicsWorld(Entity& entity, bool isPlane /* = fa
 		auto trans = tc.m_Translation;
 		btDefaultMotionState* ballMotionState = new btDefaultMotionState(btTransform(btQuaternion(quant.x, quant.y, quant.z, quant.w), btVector3(trans.x, trans.y, trans.z)));
 		btCollisionShape* shape{ nullptr };
-		if (isPlane)
-		{
-			shape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
-		}
-		else
-			shape = new btBoxShape(btVector3(0.5f * tc.m_Scale.x, 0.5f * tc.m_Scale.y, 0.5f * tc.m_Scale.z));
+		//if (isPlane)
+		//{
+		//	shape = new btStaticPlaneShape(btVector3(0, 1, 0), 0.5);
+		//}
+		//else
+			shape = new btBoxShape(btVector3( tc.m_Scale.x,  tc.m_Scale.y, tc.m_Scale.z));
 		
 		btVector3 inertia;
 		shape->calculateLocalInertia(rbc.m_Mass, inertia);
@@ -87,7 +87,7 @@ void PhysicsSystem::RemoveEntityFromPhysicsWorld(Entity& entity)
 void PhysicsSystem::StepSimulation(float deltaTime, int maxSubSteps /* = 10 */)
 {
 	if (m_PhysicsWorld)
-		m_PhysicsWorld->stepSimulation(deltaTime, maxSubSteps);
+		m_PhysicsWorld->stepSimulation(deltaTime, 10);
 }
 
 void PhysicsSystem::UpdateEntityState(Entity& entity)

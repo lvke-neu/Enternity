@@ -10,7 +10,7 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [-0.482358813, 0.300052941, 15.3852444]
+      m_Translation: [-0.629190326, 0.631213069, 17.0122986]
       m_Rotation: [-0.199999824, -0.0899999887, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
@@ -23,18 +23,18 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [1.53882587, -0.696422577, 14.118412]
-      m_Rotation: [-0.049999956, -0.109999903, 0]
+      m_Translation: [-5.4800148, 3.06330109, 18.8705578]
+      m_Rotation: [-0.259999752, -0.279999673, 0]
       m_Scale: [1, 0.999999166, 1.00000155]
   - Entity: 3
     TagComponent:
       m_Tag: plane
     TransformComponent:
       m_Translation: [0, -5, 0]
-      m_Rotation: [0, -0, 0]
+      m_Rotation: [0, 0, -0.209439531]
       m_Scale: [10, 1, 10]
     MeshComponent:
-      m_MeshFilePath: assets\models\plane.mesh
+      m_MeshFilePath: assets\models\cube.mesh
     MaterialComponent:
       m_TextureFilePath: ""
       m_ShaderFilePath: assets/shaders/TestECS.glsl
@@ -42,14 +42,14 @@ Entities:
       m_BaseColor: [0.343916625, 0.429846853, 0.44128114, 1]
     RigidBodyComponent:
       m_Mass: 0
-      m_Friction: 0.5
+      m_Friction: 0.280000001
       m_Restitution: 0.5
   - Entity: 4
     TagComponent:
       m_Tag: cube
     TransformComponent:
-      m_Translation: [0, 3, -0.745374978]
-      m_Rotation: [0, 0, 2.47383923e-07]
+      m_Translation: [0, 0, 0]
+      m_Rotation: [0, 0, 0]
       m_Scale: [1, 1, 1]
     MeshComponent:
       m_MeshFilePath: assets\models\cube.mesh
