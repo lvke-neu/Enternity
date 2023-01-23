@@ -53,11 +53,7 @@ void StatsPanel::ImguiDraw()
 	}
 	ImGui::Text("Hoverd Entity: %s, id = %d", tag.c_str(), hoverEntityId);
 
-
-
-
 	ImGui::End();
-
 }
 
 END_ENTERNITY

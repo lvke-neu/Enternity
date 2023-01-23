@@ -151,7 +151,6 @@ bool Engine::Initialize()
 	SceneManager::GetInstance().Initialize();
 	ImguiManager::GetInstance().Initialize(m_context);
 	
-	
 	LOG_INFO("Engine initialization is complete");
 
 	return true;

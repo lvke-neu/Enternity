@@ -1,4 +1,6 @@
 #include "PhysicsSystem.h"
+#include "Renderer/RenderSystem.h"
+#include "Scene/SceneManager.h"
 
 BEGIN_ENTERNITY
 
@@ -14,6 +16,18 @@ PhysicsSystem::PhysicsSystem()
 	btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver();
 	m_PhysicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 	m_PhysicsWorld->setGravity(btVector3(0.0f, -9.8f, 0.0f));
+
+	//create collider shape 
+	m_BoxColliderShape = Entity(SceneManager::GetInstance().GetRegistry(), "Box Collider Shape");
+	m_BoxColliderShape.AddComponent<TransformComponent>();
+	auto& matc = m_BoxColliderShape.AddComponent<MaterialComponent>();
+	auto& meshc = m_BoxColliderShape.AddComponent<MeshComponent>();
+	matc.m_BaseColor = glm::vec4(0, 1, 0, 1);
+	matc.m_bUseColor = true;
+	matc.m_ShaderFilePath = "assets/shaders/TestECS.glsl";
+	meshc.m_MeshFilePath = "assets/models/cube.mesh";
+	matc.Load();
+	meshc.Load();
 }
 
 PhysicsSystem::~PhysicsSystem()
@@ -23,6 +37,9 @@ PhysicsSystem::~PhysicsSystem()
 	SAFE_DELETE_SET_NULL(m_CollisionDispatcher);
 	SAFE_DELETE_SET_NULL(m_Solver);
 	SAFE_DELETE_SET_NULL(m_PhysicsWorld);
+
+	//destroy collider shape
+	m_BoxColliderShape.Destroy();
 }
 
 void PhysicsSystem::AddEntityToPhysicsWorld(Entity& entity)
@@ -115,4 +132,18 @@ void PhysicsSystem::UpdateEntityState(Entity& entity)
 	}
 }
 
+void PhysicsSystem::ShowBoxColliderShape(const glm::vec3& pos, const glm::vec3& offset)
+{
+	auto& transc = m_BoxColliderShape.GetComponent<TransformComponent>();
+	transc.m_Translation = pos;
+	transc.m_Scale.x = offset.x;
+	transc.m_Scale.y = offset.y;
+	transc.m_Scale.z = offset.z;
+
+	RenderSystem::GetInstance().DrawColliderShape(SceneManager::GetInstance().GetCurrentCameraEntity(), m_BoxColliderShape);
+
+}
+
+
 END_ENTERNITY
+

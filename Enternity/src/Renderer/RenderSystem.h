@@ -20,6 +20,8 @@ class RenderSystem
 public:
 	void DrawEntity(Entity& cameraEntity, Entity& entity);
 	void DrawSkyBox(Entity& cameraEntity, Entity& entity);
+
+	void DrawColliderShape(Entity& cameraEntity, Entity& entity);
 };
 
 END_ENTERNITY

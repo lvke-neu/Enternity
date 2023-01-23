@@ -45,6 +45,16 @@ public:
 		return m_EditorCameraEntity.GetComponent<CameraComponent>().m_EnableWireframe;
 	}
 
+	Entity& GetCurrentCameraEntity()
+	{
+		return m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity;
+	}
+
+	entt::registry* GetRegistry()
+	{
+		return &m_Registry;
+	}
+
 	void OnPlay();
 	void OnEditor();
 private:

@@ -90,7 +90,6 @@ public:
 	{
 		m_pSceneRegistry->destroy(m_EntityUid, 0);
 	}
-
 private:
 	entt::registry* m_pSceneRegistry{ nullptr };
 	entt::entity m_EntityUid{ entt::null };

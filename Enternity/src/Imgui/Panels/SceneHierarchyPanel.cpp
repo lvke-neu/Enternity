@@ -1,6 +1,5 @@
 #include "SceneHierarchyPanel.h"
 #include "Scene/SceneManager.h"
-#include "../ImguiManager.h"
 #include "Log/Log.h"
 
 BEGIN_ENTERNITY

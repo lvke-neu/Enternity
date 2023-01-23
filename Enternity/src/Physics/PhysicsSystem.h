@@ -27,12 +27,16 @@ public:
 	void RemoveEntityFromPhysicsWorld(Entity& entity);
 	void StepSimulation(float deltaTime, int maxSubSteps = 10);
 	void UpdateEntityState(Entity& entity);
+public:
+	void ShowBoxColliderShape(const glm::vec3& pos, const glm::vec3& offset);
 private:
 	btAxisSweep3* m_Broadphase{ nullptr };
 	btDefaultCollisionConfiguration* m_CollisionConfiguration{ nullptr };
 	btCollisionDispatcher* m_CollisionDispatcher{ nullptr };
 	btSequentialImpulseConstraintSolver* m_Solver{ nullptr };
 	btDiscreteDynamicsWorld* m_PhysicsWorld{ nullptr };
+private:
+	Entity m_BoxColliderShape;
 };
 
 END_ENTERNITY

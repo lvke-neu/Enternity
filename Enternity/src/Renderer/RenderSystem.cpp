@@ -78,4 +78,13 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity)
 	}	
 }
 
+void RenderSystem::DrawColliderShape(Entity& cameraEntity, Entity& entity)
+{
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	DrawEntity(cameraEntity, entity);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
 END_ENTERNITY
