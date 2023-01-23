@@ -28,6 +28,17 @@ PhysicsSystem::PhysicsSystem()
 	meshc.m_MeshFilePath = "assets/models/cube.mesh";
 	matc.Load();
 	meshc.Load();
+
+	m_SphereColliderShape = Entity(SceneManager::GetInstance().GetRegistry(), "Sphere Collider Shape");
+	m_SphereColliderShape.AddComponent<TransformComponent>();
+	auto& matc2 = m_SphereColliderShape.AddComponent<MaterialComponent>();
+	auto& meshc2 = m_SphereColliderShape.AddComponent<MeshComponent>();
+	matc2.m_BaseColor = glm::vec4(0, 1, 0, 1);
+	matc2.m_bUseColor = true;
+	matc2.m_ShaderFilePath = "assets/shaders/TestECS.glsl";
+	meshc2.m_MeshFilePath = "assets/models/sphere.mesh";
+	matc2.Load();
+	meshc2.Load();
 }
 
 PhysicsSystem::~PhysicsSystem()
@@ -40,6 +51,7 @@ PhysicsSystem::~PhysicsSystem()
 
 	//destroy collider shape
 	m_BoxColliderShape.Destroy();
+	m_SphereColliderShape.Destroy();
 }
 
 void PhysicsSystem::AddEntityToPhysicsWorld(Entity& entity)
@@ -59,10 +71,10 @@ void PhysicsSystem::AddEntityToPhysicsWorld(Entity& entity)
 		switch (rbc.m_ColliderShape)
 		{
 		case RigidBodyComponent::ColliderShape::Box:
-			shape = new btBoxShape(btVector3(tc.m_Scale.x, tc.m_Scale.y, tc.m_Scale.z));
+			shape = new btBoxShape(btVector3(rbc.m_Offset.x, rbc.m_Offset.y, rbc.m_Offset.z));
 			break;
 		case RigidBodyComponent::ColliderShape::Sphere:
-			shape = new btSphereShape(1);
+			shape = new btSphereShape(rbc.m_Radius);
 			break;
 		}
 		
@@ -132,16 +144,38 @@ void PhysicsSystem::UpdateEntityState(Entity& entity)
 	}
 }
 
-void PhysicsSystem::ShowBoxColliderShape(const glm::vec3& pos, const glm::vec3& offset)
+void PhysicsSystem::ShowColliderShape(Entity& entity)
 {
-	auto& transc = m_BoxColliderShape.GetComponent<TransformComponent>();
-	transc.m_Translation = pos;
-	transc.m_Scale.x = offset.x;
-	transc.m_Scale.y = offset.y;
-	transc.m_Scale.z = offset.z;
+	if (entity.HasComponent<RigidBodyComponent>())
+	{
+		auto& rbcShowEntity = entity.GetComponent<RigidBodyComponent>();
 
-	RenderSystem::GetInstance().DrawColliderShape(SceneManager::GetInstance().GetCurrentCameraEntity(), m_BoxColliderShape);
+		if (!rbcShowEntity.m_ShowColliderShape)
+			return;
 
+		auto& transcShowEntity = entity.GetComponent<TransformComponent>();
+
+		switch (rbcShowEntity.m_ColliderShape)
+		{
+		case RigidBodyComponent::ColliderShape::Box:
+		{
+			auto& transc = m_BoxColliderShape.GetComponent<TransformComponent>();
+			transc.m_Translation = transcShowEntity.m_Translation;
+			transc.m_Scale = rbcShowEntity.m_Offset;
+			transc.m_Rotation = transcShowEntity.m_Rotation;
+			RenderSystem::GetInstance().DrawColliderShape(SceneManager::GetInstance().GetCurrentCameraEntity(), m_BoxColliderShape);
+		}
+		break;
+		case RigidBodyComponent::ColliderShape::Sphere:
+		{
+			auto& transc = m_SphereColliderShape.GetComponent<TransformComponent>();
+			transc.m_Translation = transcShowEntity.m_Translation;
+			transc.m_Scale = glm::vec3(rbcShowEntity.m_Radius);
+			transc.m_Rotation = transcShowEntity.m_Rotation;
+			RenderSystem::GetInstance().DrawColliderShape(SceneManager::GetInstance().GetCurrentCameraEntity(), m_SphereColliderShape);
+		}
+		}
+	}
 }
 
 

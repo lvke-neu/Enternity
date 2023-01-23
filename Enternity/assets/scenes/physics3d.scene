@@ -10,8 +10,8 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [-4.84983349, 0.30312261, 17.0521355]
-      m_Rotation: [-0.0499994867, -0.269999683, 0]
+      m_Translation: [-5.39218378, 2.32170463, 13.8827629]
+      m_Rotation: [-0.270000309, -0.17681326, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
     TagComponent:
@@ -26,7 +26,7 @@ Entities:
       m_Translation: [-5.4800148, 3.06330109, 18.8705578]
       m_Rotation: [-0.259999752, -0.279999673, 0]
       m_Scale: [1, 0.999999166, 1.00000155]
-  - Entity: 3
+  - Entity: 5
     TagComponent:
       m_Tag: plane
     TransformComponent:
@@ -45,12 +45,15 @@ Entities:
       m_Mass: 0
       m_Friction: 0.280000001
       m_Restitution: 0.5
-  - Entity: 4
+      m_ShowColliderShape: true
+      m_Offset: [10, 1, 10]
+      m_Radius: 1
+  - Entity: 6
     TagComponent:
       m_Tag: cube
     TransformComponent:
-      m_Translation: [0, 0, 0]
-      m_Rotation: [0, 0, 0]
+      m_Translation: [-4.20355415, -1.1908797, 0.884916306]
+      m_Rotation: [0, -0, 0.994837642]
       m_Scale: [1, 1, 1]
     MeshComponent:
       m_MeshFilePath: assets\models\cube.mesh
@@ -64,11 +67,14 @@ Entities:
       m_Mass: 3
       m_Friction: 0.200000003
       m_Restitution: 0.600000024
-  - Entity: 5
+      m_ShowColliderShape: true
+      m_Offset: [1, 1, 1]
+      m_Radius: 1
+  - Entity: 7
     TagComponent:
       m_Tag: sphere
     TransformComponent:
-      m_Translation: [-4.84297943, 0.238814712, 3.66089821]
+      m_Translation: [-3.38209629, 2.27326894, 0.935150027]
       m_Rotation: [0, -0, 0]
       m_Scale: [1, 1, 1]
     MeshComponent:
@@ -83,3 +89,6 @@ Entities:
       m_Mass: 7
       m_Friction: 0.200000003
       m_Restitution: 0.74000001
+      m_ShowColliderShape: true
+      m_Offset: [0.5, 0.5, 0.5]
+      m_Radius: 1

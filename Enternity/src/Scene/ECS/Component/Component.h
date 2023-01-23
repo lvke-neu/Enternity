@@ -406,7 +406,13 @@ struct RigidBodyComponent
 	float m_Mass = 0;
 	float m_Friction = 0.5;
 	float m_Restitution = 0.5;
-	
+	bool m_ShowColliderShape = false;
+
+	//Box Collider Shape Property
+	glm::vec3 m_Offset{ 0.5f };
+
+	//Sphere Collider Shape Property
+	float m_Radius = 1.0f;
 
 	void* m_RigidBody{ nullptr };
 	RigidBodyComponent() = default;

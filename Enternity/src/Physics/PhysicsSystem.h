@@ -28,7 +28,7 @@ public:
 	void StepSimulation(float deltaTime, int maxSubSteps = 10);
 	void UpdateEntityState(Entity& entity);
 public:
-	void ShowBoxColliderShape(const glm::vec3& pos, const glm::vec3& offset);
+	void ShowColliderShape(Entity& entity);
 private:
 	btAxisSweep3* m_Broadphase{ nullptr };
 	btDefaultCollisionConfiguration* m_CollisionConfiguration{ nullptr };
@@ -37,6 +37,7 @@ private:
 	btDiscreteDynamicsWorld* m_PhysicsWorld{ nullptr };
 private:
 	Entity m_BoxColliderShape;
+	Entity m_SphereColliderShape;
 };
 
 END_ENTERNITY

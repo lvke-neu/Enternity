@@ -413,9 +413,21 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 				ImGui::EndCombo();
 			}
 
+			if (currentBodyTypeString == bodyTypeString[0])
+			{
+				DrawVec3("Offset", rbc.m_Offset, glm::vec3(0.0f));
+			}
+
+			if (currentBodyTypeString == bodyTypeString[1])
+			{
+				ImGui::DragFloat("Radius", &rbc.m_Radius, 1.0f, 0.0f, FLT_MAX);
+			}
+
+			ImGui::Checkbox("ShowColliderShape", &rbc.m_ShowColliderShape);
 			ImGui::DragFloat("Mass", &rbc.m_Mass, 1.0f, 0.0f, FLT_MAX);
 			ImGui::DragFloat("Friction", &rbc.m_Friction, 0.01f, 0.0f, 1.0f);
 			ImGui::DragFloat("Restitution", &rbc.m_Restitution, 0.01f, 0.0f, 1.0f);
+			
 		});
 
 	//camera component

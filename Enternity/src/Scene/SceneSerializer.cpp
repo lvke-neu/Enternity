@@ -199,6 +199,10 @@ void SceneSerializer::SerializeEntity(YAML::Emitter& out, Entity entity)
 		out << YAML::Key << "m_Mass" << YAML::Value << rigidBodyComponent.m_Mass;
 		out << YAML::Key << "m_Friction" << YAML::Value << rigidBodyComponent.m_Friction;
 		out << YAML::Key << "m_Restitution" << YAML::Value << rigidBodyComponent.m_Restitution;
+		out << YAML::Key << "m_ShowColliderShape" << YAML::Value << rigidBodyComponent.m_ShowColliderShape;
+		out << YAML::Key << "m_Offset" << YAML::Value << rigidBodyComponent.m_Offset;
+		out << YAML::Key << "m_Radius" << YAML::Value << rigidBodyComponent.m_Radius;
+
 		out << YAML::EndMap;
 	}
 
@@ -383,9 +387,12 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 			{
 				auto& rbc = deserializeEntity.AddComponent<RigidBodyComponent>();
 				rbc.m_ColliderShape =RigidBodyComponent::ColliderShapeFromString(rigidBodyComponent["m_ColliderShape"].as<std::string>());
+				rbc.m_Offset = rigidBodyComponent["m_Offset"].as<glm::vec3>();
+				rbc.m_Radius = rigidBodyComponent["m_Radius"].as<float>();
 				rbc.m_Mass = rigidBodyComponent["m_Mass"].as<float>();
 				rbc.m_Friction = rigidBodyComponent["m_Friction"].as<float>();
 				rbc.m_Restitution = rigidBodyComponent["m_Restitution"].as<float>();
+				rbc.m_ShowColliderShape = rigidBodyComponent["m_ShowColliderShape"].as<bool>();
 			}
 
 			SceneManager::GetInstance().m_Entities.insert({ deserializeEntity.GetEntityUid(), deserializeEntity });

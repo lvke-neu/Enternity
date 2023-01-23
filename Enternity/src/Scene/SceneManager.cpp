@@ -80,9 +80,10 @@ void SceneManager::Tick(float deltaTime)
 	for (auto& entity : m_Entities)
 	{
 		RenderSystem::GetInstance().DrawEntity(m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity, entity.second);
-	}
 
-	PhysicsSystem::GetInstance().ShowBoxColliderShape(glm::vec3(0), glm::vec3(1));
+		//render collider shape
+		PhysicsSystem::GetInstance().ShowColliderShape(entity.second);
+	}
 
 	RenderSystem::GetInstance().DrawSkyBox(m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity, m_SkyBoxEntity);
 }
