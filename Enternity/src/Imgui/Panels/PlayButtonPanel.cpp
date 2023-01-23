@@ -45,8 +45,8 @@ void PlayButtonPanel::ImguiDraw()
 		{
 			SceneManager::GetInstance().OnEditor();
 
-			//reload scene(temporary)
-			ImguiManager::GetInstance().GetViewportPanel()->LoadScene();
+			////reload scene(temporary)
+			//ImguiManager::GetInstance().GetViewportPanel()->LoadScene();
 		}
 	}
 	

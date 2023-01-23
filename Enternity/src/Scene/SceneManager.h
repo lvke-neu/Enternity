@@ -58,6 +58,7 @@ private:
 	Entity m_PlayerCameraEntity;
 	Entity m_SkyBoxEntity;
 	std::map<unsigned int, Entity> m_Entities;
+	std::vector<TransformComponent> m_EditorEntityTrans;
 private:
 	CameraController* m_EditorCameraController{ nullptr };	
 	CameraController* m_PlayerCameraController{ nullptr };

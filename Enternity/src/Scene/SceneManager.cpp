@@ -109,9 +109,22 @@ void SceneManager::OnEditor()
 	m_EditorCameraController->Start();
 	m_PlayerCameraController->Pause();
 
-	//remove entity from physics world
+	/*
+		1.restore entity's transform property
+		2.remove entity from physics world
+	*/
+	int index = 0;
 	for (auto& entity : m_Entities)
 	{
+		if (entity.second.HasComponent<TransformComponent>())
+		{
+			auto& tc = entity.second.GetComponent<TransformComponent>();
+			tc.m_Translation = m_EditorEntityTrans[index].m_Translation;
+			tc.m_Scale = m_EditorEntityTrans[index].m_Scale;
+			tc.m_Rotation = m_EditorEntityTrans[index].m_Rotation;
+			index++;
+		}
+
 		PhysicsSystem::GetInstance().RemoveEntityFromPhysicsWorld(entity.second);
 	}
 }
@@ -122,10 +135,19 @@ void SceneManager::OnPlay()
 	m_EditorCameraController->Pause();
 	m_PlayerCameraController->Start();
 
-	//add entity to physics world
+	/*
+		1.save every entity's transform property
+		2.add entity to physics world
+	*/
+	m_EditorEntityTrans.clear();
 	int index = 0;
 	for (auto& entity : m_Entities)
 	{
+		if (entity.second.HasComponent<TransformComponent>())
+		{
+			m_EditorEntityTrans.push_back(entity.second.GetComponent<TransformComponent>());
+		}
+		
 		PhysicsSystem::GetInstance().AddEntityToPhysicsWorld(entity.second);
 	}
 }
