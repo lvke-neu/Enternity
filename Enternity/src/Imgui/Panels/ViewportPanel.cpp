@@ -21,6 +21,18 @@ Enternity::ViewportPanel::~ViewportPanel()
 
 }
 
+void ReloadScene()
+{
+
+}
+
+void ViewportPanel::LoadScene()
+{
+	ImguiManager::GetInstance().GetSceneHierarchyPanel()->SetSelectedEntityNull();
+	SceneManager::GetInstance().Clear();
+	SceneSerializer::Deserialize(m_ScenePath);
+}
+
 void Enternity::ViewportPanel::ImguiDraw()
 {
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0, 0 });
@@ -53,13 +65,15 @@ void Enternity::ViewportPanel::ImguiDraw()
 	{
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 		{
-			LOG_INFO((char*)payload->Data);
-			std::string path((char*)payload->Data);
-			path = path.substr(0, payload->DataSize);
+			if (SceneManager::GetInstance().m_SceneState == SceneState::Editor)
+			{
+				std::string path((char*)payload->Data);
+				path = path.substr(0, payload->DataSize);
 
-			ImguiManager::GetInstance().GetSceneHierarchyPanel()->SetSelectedEntityNull();
-			SceneManager::GetInstance().Clear();
-			SceneSerializer::Deserialize(path);
+				LOG_INFO(path);
+				m_ScenePath = path;
+				LoadScene();
+			}
 		}
 		ImGui::EndDragDropTarget();
 	}

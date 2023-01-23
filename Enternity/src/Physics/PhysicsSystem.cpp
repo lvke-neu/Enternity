@@ -49,7 +49,6 @@ void PhysicsSystem::AddEntityToPhysicsWorld(Entity& entity)
 			break;
 		}
 		
-		
 		btVector3 inertia;
 		shape->calculateLocalInertia(rbc.m_Mass, inertia);
 		btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI(rbc.m_Mass, ballMotionState, shape, inertia);

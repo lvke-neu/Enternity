@@ -243,6 +243,8 @@ void SceneSerializer::Serialize(const std::string& filePath)
 
 bool SceneSerializer::Deserialize(const std::string& filePath)
 {
+	if (filePath == "")
+		return false;
 	std::string suffix = filePath.substr(filePath.find("."), filePath.size() - 1);
 	if (suffix != ".scene")
 		return false;

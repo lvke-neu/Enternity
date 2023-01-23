@@ -37,12 +37,17 @@ public:
 	{
 		return m_GizmoType;
 	}
+
+
+	void LoadScene();
 private:
 	unsigned int m_width;
 	unsigned int m_height;
 	unsigned int m_GizmoType = 0;
 	int m_MousePickPixelEntityId = -1;
 	MyVec2f m_ViewportBounds[2];
+
+	std::string m_ScenePath = "";
 };
 
 END_ENTERNITY

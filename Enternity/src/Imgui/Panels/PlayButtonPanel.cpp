@@ -2,6 +2,7 @@
 
 #include "PlayButtonPanel.h"
 #include "Scene/SceneManager.h"
+#include "../ImguiManager.h"
 
 BEGIN_ENTERNITY
 
@@ -43,6 +44,9 @@ void PlayButtonPanel::ImguiDraw()
 		else
 		{
 			SceneManager::GetInstance().OnEditor();
+
+			//reload scene(temporary)
+			ImguiManager::GetInstance().GetViewportPanel()->LoadScene();
 		}
 	}
 	
