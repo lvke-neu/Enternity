@@ -25,7 +25,7 @@ PhysicsSystem::~PhysicsSystem()
 	SAFE_DELETE_SET_NULL(m_PhysicsWorld);
 }
 
-void PhysicsSystem::AddEntityToPhysicsWorld(Entity& entity, bool isPlane /* = false */)
+void PhysicsSystem::AddEntityToPhysicsWorld(Entity& entity)
 {
 	if (entity.HasComponent<RigidBodyComponent>()
 		&& entity.HasComponent<TransformComponent>())
@@ -38,12 +38,16 @@ void PhysicsSystem::AddEntityToPhysicsWorld(Entity& entity, bool isPlane /* = fa
 		auto trans = tc.m_Translation;
 		btDefaultMotionState* ballMotionState = new btDefaultMotionState(btTransform(btQuaternion(quant.x, quant.y, quant.z, quant.w), btVector3(trans.x, trans.y, trans.z)));
 		btCollisionShape* shape{ nullptr };
-		if (isPlane)
+
+		switch (rbc.m_ColliderShape)
 		{
+		case RigidBodyComponent::ColliderShape::Box:
 			shape = new btBoxShape(btVector3(tc.m_Scale.x, tc.m_Scale.y, tc.m_Scale.z));
-		}
-		else
+			break;
+		case RigidBodyComponent::ColliderShape::Sphere:
 			shape = new btSphereShape(1);
+			break;
+		}
 		
 		
 		btVector3 inertia;

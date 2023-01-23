@@ -23,7 +23,7 @@ private:
 	PhysicsSystem(const PhysicsSystem&) = default;
 	PhysicsSystem& operator=(const PhysicsSystem&) = default;
 public:
-	void AddEntityToPhysicsWorld(Entity& entity, bool isPlane = false);
+	void AddEntityToPhysicsWorld(Entity& entity);
 	void RemoveEntityFromPhysicsWorld(Entity& entity);
 	void StepSimulation(float deltaTime, int maxSubSteps = 10);
 	void UpdateEntityState(Entity& entity);

@@ -126,14 +126,6 @@ void SceneManager::OnPlay()
 	int index = 0;
 	for (auto& entity : m_Entities)
 	{
-		//generate plane
-		if (index == 0)
-		{
-			PhysicsSystem::GetInstance().AddEntityToPhysicsWorld(entity.second, true);
-
-			index++;
-			continue;
-		}
 		PhysicsSystem::GetInstance().AddEntityToPhysicsWorld(entity.second);
 	}
 }

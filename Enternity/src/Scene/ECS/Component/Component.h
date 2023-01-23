@@ -376,9 +376,37 @@ struct BoxCollider2DComponent
 //physics 3d
 struct RigidBodyComponent
 {
+	enum ColliderShape
+	{
+		Box = 0,
+		Sphere,
+	};
+	static std::string ColliderShapeToString(ColliderShape colliderShape)
+	{
+		switch (colliderShape)
+		{
+		case Box:
+			return "Box";
+		case Sphere:
+			return "Sphere";
+		default:
+			return "";
+		}
+	}
+	static ColliderShape ColliderShapeFromString(const std::string& colliderShape)
+	{
+		if (colliderShape == "Box")
+			return ColliderShape::Box;
+		if (colliderShape == "Sphere")
+			return ColliderShape::Sphere;
+		return ColliderShape::Box;
+	}
+
+	ColliderShape m_ColliderShape = ColliderShape::Box;
 	float m_Mass = 0;
 	float m_Friction = 0.5;
 	float m_Restitution = 0.5;
+	
 
 	void* m_RigidBody{ nullptr };
 	RigidBodyComponent() = default;

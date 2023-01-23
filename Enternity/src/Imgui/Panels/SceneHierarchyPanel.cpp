@@ -392,8 +392,28 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 	//RigidBodyComponent
 	DrawComponent<RigidBodyComponent>("RigidBodyComponent",
 		[&]()
-		{
-			auto& rbc = m_SelectedEntity.GetComponent<RigidBodyComponent>();
+		{	auto& rbc = m_SelectedEntity.GetComponent<RigidBodyComponent>();
+			
+			const char* bodyTypeString[] = { "Box", "Sphere"};
+			const char* currentBodyTypeString = bodyTypeString[(int)rbc.m_ColliderShape];
+
+			if (ImGui::BeginCombo("ColliderShape", currentBodyTypeString))
+			{
+				for (int i = 0; i < 2; i++)
+				{
+					bool isSelected = currentBodyTypeString == bodyTypeString[i];
+					if (ImGui::Selectable(bodyTypeString[i], isSelected))
+					{
+						currentBodyTypeString = bodyTypeString[i];
+						rbc.m_ColliderShape = (RigidBodyComponent::ColliderShape)i;
+					}
+					if (isSelected)
+						ImGui::SetItemDefaultFocus();
+				}
+
+				ImGui::EndCombo();
+			}
+
 			ImGui::DragFloat("Mass", &rbc.m_Mass, 1.0f, 0.0f, FLT_MAX);
 			ImGui::DragFloat("Friction", &rbc.m_Friction, 0.01f, 0.0f, 1.0f);
 			ImGui::DragFloat("Restitution", &rbc.m_Restitution, 0.01f, 0.0f, 1.0f);
