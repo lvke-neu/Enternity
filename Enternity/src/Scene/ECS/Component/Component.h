@@ -209,6 +209,11 @@ struct MaterialComponent
 	bool m_bUseColor = false;
 	glm::vec4 m_BaseColor{ 1.0f };
 
+	glm::vec4 m_Ambient{ 1.0f };
+	glm::vec4 m_Diffuse{ 1.0f };
+	glm::vec4 m_Specular{ 1.0f };
+	float m_Shininess = 32.0f;
+
 	MaterialComponent()
 	{
 		LoadShader();
@@ -417,18 +422,6 @@ struct RigidBodyComponent
 	void* m_RigidBody{ nullptr };
 	RigidBodyComponent() = default;
 	RigidBodyComponent(const RigidBodyComponent&) = default;
-};
-
-//Phong Lighting
-struct PhongMaterialComponent
-{
-	glm::vec4 m_Ambient{ 1.0f };
-	glm::vec4 m_Diffuse{ 1.0f };
-	glm::vec4 m_Specular{ 1.0f };
-	float m_Shininess = 32.0f;
-
-	PhongMaterialComponent() = default;
-	PhongMaterialComponent(const PhongMaterialComponent&) = default;
 };
 
 END_ENTERNITY

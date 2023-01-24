@@ -244,13 +244,6 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			m_SelectedEntity.AddComponent<RigidBodyComponent>();
 			ImGui::CloseCurrentPopup();
 		}
-
-		if (ImGui::MenuItem("PhongMaterialComponent"))
-		{
-			m_SelectedEntity.AddComponent<PhongMaterialComponent>();
-			ImGui::CloseCurrentPopup();
-		}
-
 		ImGui::EndPopup();
 	}
 	ImGui::PopItemWidth();
@@ -360,6 +353,11 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			{
 				materialComponent.SetBaseColor();
 			}
+			ImGui::Separator();
+			ImGui::ColorEdit4("Ambient",  &materialComponent.m_Ambient[0]);
+			ImGui::ColorEdit4("Diffuse",  &materialComponent.m_Diffuse[0]);
+			ImGui::ColorEdit4("Specular", &materialComponent.m_Specular[0]);
+			ImGui::DragFloat("Shininess", &materialComponent.m_Shininess, 1.0f, 1.0f, 9999.0f);
 		}
 	);
 	
@@ -453,16 +451,6 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			ImGui::DragFloat("Friction", &rbc.m_Friction, 0.01f, 0.0f, 1.0f);
 			ImGui::DragFloat("Restitution", &rbc.m_Restitution, 0.01f, 0.0f, 1.0f);
 			
-		});
-
-	//PhongMaterialComponent
-	DrawComponent<PhongMaterialComponent>("PhongMaterialComponent",
-		[&]()
-		{	auto& pmc = m_SelectedEntity.GetComponent<PhongMaterialComponent>();
-			ImGui::ColorEdit4("Ambient", &pmc.m_Ambient[0]);
-			ImGui::ColorEdit4("Diffuse", &pmc.m_Diffuse[0]);
-			ImGui::ColorEdit4("Specular", &pmc.m_Specular[0]);
-			ImGui::DragFloat("Shininess", &pmc.m_Shininess, 1.0f, 1.0f, 9999.0f);
 		});
 
 	//camera component

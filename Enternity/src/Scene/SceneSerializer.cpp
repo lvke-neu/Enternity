@@ -163,6 +163,10 @@ void SceneSerializer::SerializeEntity(YAML::Emitter& out, Entity entity)
 		out << YAML::Key << "m_ShaderFilePath" << YAML::Value << materialComponent.m_ShaderFilePath;
 		out << YAML::Key << "m_bUseColor" << YAML::Value << materialComponent.m_bUseColor;
 		out << YAML::Key << "m_BaseColor" << YAML::Value << materialComponent.m_BaseColor;
+		out << YAML::Key << "m_Ambient" << YAML::Value << materialComponent.m_Ambient;
+		out << YAML::Key << "m_Diffuse" << YAML::Value << materialComponent.m_Diffuse;
+		out << YAML::Key << "m_Specular" << YAML::Value << materialComponent.m_Specular;
+		out << YAML::Key << "m_Shininess" << YAML::Value << materialComponent.m_Shininess;
 		out << YAML::EndMap;
 	}
 
@@ -202,18 +206,6 @@ void SceneSerializer::SerializeEntity(YAML::Emitter& out, Entity entity)
 		out << YAML::Key << "m_ShowColliderShape" << YAML::Value << rigidBodyComponent.m_ShowColliderShape;
 		out << YAML::Key << "m_Offset" << YAML::Value << rigidBodyComponent.m_Offset;
 		out << YAML::Key << "m_Radius" << YAML::Value << rigidBodyComponent.m_Radius;
-		out << YAML::EndMap;
-	}
-
-	if (entity.HasComponent<PhongMaterialComponent>())
-	{
-		out << YAML::Key << "PhongMaterialComponent";
-		out << YAML::BeginMap;
-		auto& phongMaterialComponent = entity.GetComponent<PhongMaterialComponent>();
-		out << YAML::Key << "m_Ambient" << YAML::Value << phongMaterialComponent.m_Ambient;
-		out << YAML::Key << "m_Diffuse" << YAML::Value << phongMaterialComponent.m_Diffuse;
-		out << YAML::Key << "m_Specular" << YAML::Value << phongMaterialComponent.m_Specular;
-		out << YAML::Key << "m_Shininess" << YAML::Value << phongMaterialComponent.m_Shininess;
 		out << YAML::EndMap;
 	}
 
@@ -330,19 +322,9 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 				continue;
 			}
 
-			if (index == 3 && entity["PhongMaterialComponent"])
+			if (index == 3)
 			{
 				auto& directionLightEntity = SceneManager::GetInstance().m_DirectionLightEntity;
-				auto phongMaterialComponent = entity["PhongMaterialComponent"];
-				if (phongMaterialComponent)
-				{
-					auto& pmc = directionLightEntity.GetComponent<PhongMaterialComponent>();
-
-					pmc.m_Ambient = phongMaterialComponent["m_Ambient"].as<glm::vec4>();
-					pmc.m_Diffuse = phongMaterialComponent["m_Diffuse"].as<glm::vec4>();
-					pmc.m_Specular = phongMaterialComponent["m_Specular"].as<glm::vec4>();
-					pmc.m_Shininess = phongMaterialComponent["m_Shininess"].as<float>();
-				}
 
 				auto transformComponent = entity["TransformComponent"];
 				if (transformComponent)
@@ -369,6 +351,10 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 					mc.m_ShaderFilePath = materialComponent["m_ShaderFilePath"].as<std::string>();
 					mc.m_bUseColor = materialComponent["m_bUseColor"].as<bool>();
 					mc.m_BaseColor = materialComponent["m_BaseColor"].as<glm::vec4>();
+					mc.m_Ambient = materialComponent["m_Ambient"].as<glm::vec4>();
+					mc.m_Diffuse = materialComponent["m_Diffuse"].as<glm::vec4>();
+					mc.m_Specular = materialComponent["m_Specular"].as<glm::vec4>();
+					mc.m_Shininess = materialComponent["m_Shininess"].as<float>();
 					mc.Load();
 				}
 
@@ -410,6 +396,10 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 				mc.m_ShaderFilePath = materialComponent["m_ShaderFilePath"].as<std::string>();
 				mc.m_bUseColor = materialComponent["m_bUseColor"].as<bool>();
 				mc.m_BaseColor = materialComponent["m_BaseColor"].as<glm::vec4>();
+				mc.m_Ambient = materialComponent["m_Ambient"].as<glm::vec4>();
+				mc.m_Diffuse = materialComponent["m_Diffuse"].as<glm::vec4>();
+				mc.m_Specular = materialComponent["m_Specular"].as<glm::vec4>();
+				mc.m_Shininess = materialComponent["m_Shininess"].as<float>();
 				mc.Load();
 			}
 
@@ -453,19 +443,6 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 				rbc.m_Restitution = rigidBodyComponent["m_Restitution"].as<float>();
 				rbc.m_ShowColliderShape = rigidBodyComponent["m_ShowColliderShape"].as<bool>();
 			}
-
-
-			auto phongMaterialComponent = entity["PhongMaterialComponent"];
-			if (phongMaterialComponent)
-			{
-				auto& pmc = deserializeEntity.AddComponent<PhongMaterialComponent>();
-				
-				pmc.m_Ambient = phongMaterialComponent["m_Ambient"].as<glm::vec4>();
-				pmc.m_Diffuse = phongMaterialComponent["m_Diffuse"].as<glm::vec4>();
-				pmc.m_Specular = phongMaterialComponent["m_Specular"].as<glm::vec4>();
-				pmc.m_Shininess = phongMaterialComponent["m_Shininess"].as<float>();
-			}
-
 
 			SceneManager::GetInstance().m_Entities.insert({ deserializeEntity.GetEntityUid(), deserializeEntity });
 			LOG_INFO("Deserialize Entity:" + deserializeEntity.GetComponent<TagComponent>().m_Tag + " complete");

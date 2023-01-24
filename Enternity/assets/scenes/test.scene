@@ -40,7 +40,6 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECS.glsl
       m_bUseColor: true
       m_BaseColor: [1, 1, 1, 1]
-    PhongMaterialComponent:
       m_Ambient: [1, 1, 1, 1]
       m_Diffuse: [1, 1, 1, 1]
       m_Specular: [1, 1, 1, 1]
@@ -59,7 +58,6 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: true
       m_BaseColor: [0.359430611, 0.270707518, 0.0793049634, 1]
-    PhongMaterialComponent:
       m_Ambient: [1, 1, 1, 1]
       m_Diffuse: [1, 1, 1, 1]
       m_Specular: [1, 1, 1, 1]
@@ -78,7 +76,6 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: false
       m_BaseColor: [1, 1, 1, 1]
-    PhongMaterialComponent:
       m_Ambient: [0.603921592, 0.596078455, 0.643137276, 1]
       m_Diffuse: [1, 1, 1, 1]
       m_Specular: [1, 1, 1, 1]
@@ -97,7 +94,6 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: false
       m_BaseColor: [1, 1, 1, 1]
-    PhongMaterialComponent:
       m_Ambient: [1, 1, 1, 1]
       m_Diffuse: [1, 1, 1, 1]
       m_Specular: [1, 1, 1, 1]

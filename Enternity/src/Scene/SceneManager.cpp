@@ -69,7 +69,6 @@ void SceneManager::Initialize()
 	m_DirectionLightEntity.AddComponent<TransformComponent>(glm::vec3{0.0f}, glm::vec3{0.0f}, glm::vec3{0.5f});
 	auto& matc = m_DirectionLightEntity.AddComponent<MaterialComponent>();
 	auto& meshc = m_DirectionLightEntity.AddComponent<MeshComponent>();
-	m_DirectionLightEntity.AddComponent<PhongMaterialComponent>();
 	matc.m_BaseColor = { 1.0f };
 	matc.m_bUseColor = true;
 	matc.m_ShaderFilePath = "assets/shaders/TestECS.glsl";
@@ -78,8 +77,6 @@ void SceneManager::Initialize()
 	meshc.Load();
 	
 }
-
-
 
 void SceneManager::Tick(float deltaTime)
 {

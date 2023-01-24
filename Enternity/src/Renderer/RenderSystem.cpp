@@ -52,10 +52,9 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity
 
 				if (materialComponent.m_ShaderFilePath == "assets/shaders/TestECSPhong.glsl")
 				{
-					if (lightEntity.HasComponent<PhongMaterialComponent>())
-						materialComponent.m_Shader->SetFloat4("u_lightAmbient", lightEntity.GetComponent<PhongMaterialComponent>().m_Ambient);
-					if (entity.HasComponent<PhongMaterialComponent>())
-						materialComponent.m_Shader->SetFloat4("u_entityAmbient", entity.GetComponent<PhongMaterialComponent>().m_Ambient);
+
+					materialComponent.m_Shader->SetFloat4("u_lightAmbient", lightEntity.GetComponent<MaterialComponent>().m_Ambient);
+				materialComponent.m_Shader->SetFloat4("u_entityAmbient", entity.GetComponent<MaterialComponent>().m_Ambient);
 				}
 			}
 
