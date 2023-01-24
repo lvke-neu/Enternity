@@ -29,7 +29,7 @@ public:
 	void SetSelectedEntity(int entityId);
 private:
 	void DrawVec3(const std::string& label, glm::vec3& value, const glm::vec3& resetValue = glm::vec3{ 0.0f }, float columnWidth = 100.0f);
-	void DrawEntity(Entity entity, bool allowedDelete = true);
+	void DrawEntity(Entity entity, bool& needDelete, bool allowedDelete = true);
 	void DrawComponentOfSelectedEntity();
 
 	

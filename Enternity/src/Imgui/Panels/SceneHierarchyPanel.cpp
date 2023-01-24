@@ -18,12 +18,27 @@ void SceneHierarchyPanel::ImguiDraw()
 {
 	ImGui::Begin("Scene Hierarchy panel");
 	//traversal all entity in one registry
-	DrawEntity(SceneManager::GetInstance().m_EditorCameraEntity, false);
-	DrawEntity(SceneManager::GetInstance().m_PlayerCameraEntity, false);
+
+	bool needDelete = false;
+	DrawEntity(SceneManager::GetInstance().m_EditorCameraEntity, needDelete, false);
+	DrawEntity(SceneManager::GetInstance().m_PlayerCameraEntity, needDelete, false);
+
+	
+	std::vector<Entity> needDeletedEntity;
 	for (auto& entity : SceneManager::GetInstance().m_Entities)
 	{
-		DrawEntity(entity.second);
+		needDelete = false;
+		DrawEntity(entity.second, needDelete);
+		if (needDelete)
+			needDeletedEntity.push_back(entity.second);
 	}
+
+	for (auto& entity : needDeletedEntity)
+	{
+		SceneManager::GetInstance().m_Entities.erase(entity.GetEntityUid());
+		entity.Destroy();
+	}
+
 
 	if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
 		m_SelectedEntity = {};
@@ -128,7 +143,7 @@ void SceneHierarchyPanel::DrawVec3(const std::string & label, glm::vec3 & value,
 	ImGui::PopID();
 }
 
-void SceneHierarchyPanel::DrawEntity(Entity entity, bool allowedDelete)
+void SceneHierarchyPanel::DrawEntity(Entity entity, bool& needDelete, bool allowedDelete)
 {
 	auto& tagComponent = entity.GetComponent<TagComponent>();
 
@@ -147,11 +162,10 @@ void SceneHierarchyPanel::DrawEntity(Entity entity, bool allowedDelete)
 			{
 				if(m_SelectedEntity == entity)
 					m_SelectedEntity = {};
-				SceneManager::GetInstance().m_Entities.erase(entity.GetEntityUid());
-				entity.Destroy();
+
+				needDelete = true;
 			}
 		}
-
 		ImGui::EndPopup();
 	}
 }
