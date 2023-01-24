@@ -22,7 +22,7 @@ void SceneHierarchyPanel::ImguiDraw()
 	bool needDelete = false;
 	DrawEntity(SceneManager::GetInstance().m_EditorCameraEntity, needDelete, false);
 	DrawEntity(SceneManager::GetInstance().m_PlayerCameraEntity, needDelete, false);
-
+	ImGui::Separator();
 	
 	std::vector<Entity> needDeletedEntity;
 	for (auto& entity : SceneManager::GetInstance().m_Entities)

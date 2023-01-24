@@ -10,15 +10,28 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [8.523633, 5.62882996, 3.45897102]
-      m_Rotation: [-0.306814969, 0.77955395, 0]
+      m_Translation: [-3.35852695, 2.22262573, 4.46891737]
+      m_Rotation: [-0.196815416, -0.310447127, 0]
       m_Scale: [1, 1, 1]
-  - Entity: 2
+  - Entity: 1
+    TagComponent:
+      m_Tag: PlayerCamera Entity
+    CameraComponent:
+      m_MoveSpeed: 10
+      m_EnableWireframe: false
+      m_Fovy: 60
+      m_NearZ: 1
+      m_FarZ: 1000
+    TransformComponent:
+      m_Translation: [-16.4899998, -3.25999999, -12.25]
+      m_Rotation: [0.273144007, -1.84044957, 0]
+      m_Scale: [1, 1, 1]
+  - Entity: 5
     TagComponent:
       m_Tag: Cube Entity
     TransformComponent:
-      m_Translation: [0, 0, -5]
-      m_Rotation: [0, 0, 0]
+      m_Translation: [-0.0237628743, 1.85641742, -5.56214714]
+      m_Rotation: [0, -0, 0]
       m_Scale: [1, 1, 1]
     MeshComponent:
       m_MeshFilePath: assets/models/cube.mesh
@@ -27,7 +40,7 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECS.glsl
       m_bUseColor: false
       m_BaseColor: [1, 1, 1, 1]
-  - Entity: 3
+  - Entity: 6
     TagComponent:
       m_Tag: Plane Entity
     TransformComponent:
@@ -35,51 +48,9 @@ Entities:
       m_Rotation: [0, 0, 0]
       m_Scale: [100, 1, 100]
     MeshComponent:
-      m_MeshFilePath: assets/models/plane.mesh
+      m_MeshFilePath: assets\models\cube.mesh
     MaterialComponent:
       m_TextureFilePath: ""
       m_ShaderFilePath: assets/shaders/TestECS.glsl
       m_bUseColor: true
-      m_BaseColor: [0.320425987, 0.325112104, 0.311991006, 1]
-  - Entity: 4
-    TagComponent:
-      m_Tag: Light Entity
-    TransformComponent:
-      m_Translation: [0, 0, 0]
-      m_Rotation: [0, 0, 0]
-      m_Scale: [0.5, 0.5, 0.5]
-    MeshComponent:
-      m_MeshFilePath: assets/models/sphere.mesh
-    MaterialComponent:
-      m_TextureFilePath: ""
-      m_ShaderFilePath: assets/shaders/TestECS.glsl
-      m_bUseColor: true
-      m_BaseColor: [1, 1, 1, 1]
-  - Entity: 5
-    TagComponent:
-      m_Tag: bottom
-    TransformComponent:
-      m_Translation: [-10.4940777, -3.76208353, -11.4125309]
-      m_Rotation: [0, -0, 0]
-      m_Scale: [2, 1, 2]
-    MeshComponent:
-      m_MeshFilePath: assets/models/plane.mesh
-    MaterialComponent:
-      m_TextureFilePath: ""
-      m_ShaderFilePath: assets/shaders/TestECS.glsl
-      m_bUseColor: true
-      m_BaseColor: [0.537037015, 0.14320986, 0.14320986, 1]
-  - Entity: 6
-    TagComponent:
-      m_Tag: left
-    TransformComponent:
-      m_Translation: [-12.5125971, -1.78003669, -11.419364]
-      m_Rotation: [0, -0, 1.57079637]
-      m_Scale: [1.9998939, 0.999942899, 2]
-    MeshComponent:
-      m_MeshFilePath: assets/models/plane.mesh
-    MaterialComponent:
-      m_TextureFilePath: ""
-      m_ShaderFilePath: assets/shaders/TestECS.glsl
-      m_bUseColor: true
-      m_BaseColor: [0.463785976, 0.851851821, 0.532775521, 1]
+      m_BaseColor: [0.359430611, 0.270707518, 0.0793049634, 1]
