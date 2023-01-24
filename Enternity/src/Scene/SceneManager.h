@@ -67,6 +67,8 @@ private:
 	Entity m_EditorCameraEntity;
 	Entity m_PlayerCameraEntity;
 	Entity m_SkyBoxEntity;
+	Entity m_DirectionLightEntity;
+
 	std::map<unsigned int, Entity> m_Entities;
 	std::vector<TransformComponent> m_EditorEntityTrans;
 private:

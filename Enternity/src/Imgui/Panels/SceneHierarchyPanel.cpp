@@ -22,6 +22,7 @@ void SceneHierarchyPanel::ImguiDraw()
 	bool needDelete = false;
 	DrawEntity(SceneManager::GetInstance().m_EditorCameraEntity, needDelete, false);
 	DrawEntity(SceneManager::GetInstance().m_PlayerCameraEntity, needDelete, false);
+	DrawEntity(SceneManager::GetInstance().m_DirectionLightEntity, needDelete, false);
 	ImGui::Separator();
 	
 	std::vector<Entity> needDeletedEntity;
@@ -192,7 +193,11 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 	//add component
 	ImGui::SameLine();
 	ImGui::PushItemWidth(-1);
-	if (m_SelectedEntity.IsValidEntity() && m_SelectedEntity != SceneManager::GetInstance().m_EditorCameraEntity && ImGui::Button("Add Component")&& m_SelectedEntity != SceneManager::GetInstance().m_PlayerCameraEntity)
+	if (m_SelectedEntity.IsValidEntity()
+		&& m_SelectedEntity != SceneManager::GetInstance().m_EditorCameraEntity 
+		&& ImGui::Button("Add Component")
+		&& m_SelectedEntity != SceneManager::GetInstance().m_PlayerCameraEntity
+		&& m_SelectedEntity !=SceneManager::GetInstance().m_DirectionLightEntity)
 	{
 		ImGui::OpenPopup("AddComponent");
 	}
@@ -442,6 +447,16 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			ImGui::DragFloat("Friction", &rbc.m_Friction, 0.01f, 0.0f, 1.0f);
 			ImGui::DragFloat("Restitution", &rbc.m_Restitution, 0.01f, 0.0f, 1.0f);
 			
+		});
+
+	//PhongMaterialComponent
+	DrawComponent<PhongMaterialComponent>("PhongMaterialComponent",
+		[&]()
+		{	auto& pmc = m_SelectedEntity.GetComponent<PhongMaterialComponent>();
+			ImGui::ColorEdit4("Ambient", &pmc.m_Ambient[0]);
+			ImGui::ColorEdit4("Diffuse", &pmc.m_Diffuse[0]);
+			ImGui::ColorEdit4("Specular", &pmc.m_Specular[0]);
+			ImGui::DragFloat("Shininess", &pmc.m_Shininess, 1.0f, 1.0f, 9999.0f);
 		});
 
 	//camera component

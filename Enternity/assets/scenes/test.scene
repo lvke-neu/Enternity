@@ -10,8 +10,8 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [-3.35852695, 2.22262573, 4.46891737]
-      m_Rotation: [-0.196815416, -0.310447127, 0]
+      m_Translation: [-12.5518684, 8.12025356, 24.1403847]
+      m_Rotation: [-0.40681541, -0.970447719, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
     TagComponent:
@@ -26,21 +26,26 @@ Entities:
       m_Translation: [-16.4899998, -3.25999999, -12.25]
       m_Rotation: [0.273144007, -1.84044957, 0]
       m_Scale: [1, 1, 1]
-  - Entity: 5
+  - Entity: 3
     TagComponent:
-      m_Tag: Cube Entity
+      m_Tag: DirectionLight Entity
     TransformComponent:
-      m_Translation: [-0.0237628743, 1.85641742, -5.56214714]
+      m_Translation: [7.3087244, 8.97220421, 22.5647182]
       m_Rotation: [0, -0, 0]
-      m_Scale: [1, 1, 1]
+      m_Scale: [0.5, 0.5, 0.5]
     MeshComponent:
-      m_MeshFilePath: assets/models/cube.mesh
+      m_MeshFilePath: assets/models/sphere.mesh
     MaterialComponent:
-      m_TextureFilePath: assets/textures/skybox.jpeg
+      m_TextureFilePath: ""
       m_ShaderFilePath: assets/shaders/TestECS.glsl
-      m_bUseColor: false
+      m_bUseColor: true
       m_BaseColor: [1, 1, 1, 1]
-  - Entity: 6
+    PhongMaterialComponent:
+      m_Ambient: [1, 1, 1, 1]
+      m_Diffuse: [1, 1, 1, 1]
+      m_Specular: [1, 1, 1, 1]
+      m_Shininess: 32
+  - Entity: 7
     TagComponent:
       m_Tag: Plane Entity
     TransformComponent:
@@ -54,3 +59,17 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECS.glsl
       m_bUseColor: true
       m_BaseColor: [0.359430611, 0.270707518, 0.0793049634, 1]
+  - Entity: 8
+    TagComponent:
+      m_Tag: Cube Entity
+    TransformComponent:
+      m_Translation: [-0.0237628743, 1.85641742, -5.56214714]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [1, 1, 1]
+    MeshComponent:
+      m_MeshFilePath: assets/models/cube.mesh
+    MaterialComponent:
+      m_TextureFilePath: assets/textures/skybox.jpeg
+      m_ShaderFilePath: assets/shaders/TestECS.glsl
+      m_bUseColor: false
+      m_BaseColor: [1, 1, 1, 1]

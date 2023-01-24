@@ -10,10 +10,56 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [-25.5541172, 8.73064041, -0.911670446]
-      m_Rotation: [-0.340000451, -1.48999929, 0]
+      m_Translation: [-7.47159338, 8.02274132, 43.733078]
+      m_Rotation: [-0.100000463, -0.729999781, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
+    TagComponent:
+      m_Tag: PlayerCamera Entity
+    CameraComponent:
+      m_MoveSpeed: 10
+      m_EnableWireframe: false
+      m_Fovy: 60
+      m_NearZ: 1
+      m_FarZ: 1000
+    TransformComponent:
+      m_Translation: [-16.4899998, -3.25999999, -12.25]
+      m_Rotation: [0.273144007, -1.84044957, 0]
+      m_Scale: [1, 1, 1]
+  - Entity: 3
+    TagComponent:
+      m_Tag: DirectionLight Entity
+    TransformComponent:
+      m_Translation: [10.8351173, 1.93825912, 25.5558796]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [0.5, 0.5, 0.5]
+    MeshComponent:
+      m_MeshFilePath: assets/models/sphere.mesh
+    MaterialComponent:
+      m_TextureFilePath: ""
+      m_ShaderFilePath: assets/shaders/TestECS.glsl
+      m_bUseColor: true
+      m_BaseColor: [1, 1, 1, 1]
+    PhongMaterialComponent:
+      m_Ambient: [0.946619213, 0.0404250361, 0.0404250361, 1]
+      m_Diffuse: [0.392525077, 0.804270446, 0.0944516882, 1]
+      m_Specular: [0.0729980841, 0.134164363, 0.932384372, 1]
+      m_Shininess: 134
+  - Entity: 6
+    TagComponent:
+      m_Tag: Plane Entity
+    TransformComponent:
+      m_Translation: [0, -5, 0]
+      m_Rotation: [0, 0, 0]
+      m_Scale: [100, 1, 100]
+    MeshComponent:
+      m_MeshFilePath: assets/models/plane.mesh
+    MaterialComponent:
+      m_TextureFilePath: ""
+      m_ShaderFilePath: assets/shaders/TestECS.glsl
+      m_bUseColor: true
+      m_BaseColor: [0.285185158, 0.222514823, 0.0971742049, 1]
+  - Entity: 7
     TagComponent:
       m_Tag: Cube Entity
     TransformComponent:
@@ -30,21 +76,7 @@ Entities:
     MotorComponent:
       m_RotationXAnglePerSecond: 167
       m_RotationYAnglePerSecond: 219
-  - Entity: 2
-    TagComponent:
-      m_Tag: Plane Entity
-    TransformComponent:
-      m_Translation: [0, -5, 0]
-      m_Rotation: [0, 0, 0]
-      m_Scale: [100, 1, 100]
-    MeshComponent:
-      m_MeshFilePath: assets/models/plane.mesh
-    MaterialComponent:
-      m_TextureFilePath: ""
-      m_ShaderFilePath: assets/shaders/TestECS.glsl
-      m_bUseColor: true
-      m_BaseColor: [0.285185158, 0.222514823, 0.0971742049, 1]
-  - Entity: 3
+  - Entity: 8
     TagComponent:
       m_Tag: Light Entity
     TransformComponent:

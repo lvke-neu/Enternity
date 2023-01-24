@@ -63,6 +63,20 @@ void SceneManager::Initialize()
 	textureFiles.push_back("assets/textures/skybox/default/back.jpg");
 	sc.m_TexturePaths = textureFiles;
 	sc.Load();
+
+	//direction light
+	m_DirectionLightEntity = Entity(&m_Registry, "DirectionLight Entity");
+	m_DirectionLightEntity.AddComponent<TransformComponent>(glm::vec3{0.0f}, glm::vec3{0.0f}, glm::vec3{0.5f});
+	auto& matc = m_DirectionLightEntity.AddComponent<MaterialComponent>();
+	auto& meshc = m_DirectionLightEntity.AddComponent<MeshComponent>();
+	m_DirectionLightEntity.AddComponent<PhongMaterialComponent>();
+	matc.m_BaseColor = { 1.0f };
+	matc.m_bUseColor = true;
+	matc.m_ShaderFilePath = "assets/shaders/TestECS.glsl";
+	meshc.m_MeshFilePath = "assets/models/sphere.mesh";
+	matc.Load();
+	meshc.Load();
+	
 }
 
 
@@ -85,6 +99,8 @@ void SceneManager::Tick(float deltaTime)
 		PhysicsSystem::GetInstance().ShowColliderShape(entity.second);
 	}
 
+	//direction ligh
+	RenderSystem::GetInstance().DrawEntity(m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity, m_DirectionLightEntity);
 	RenderSystem::GetInstance().DrawSkyBox(m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity, m_SkyBoxEntity);
 }
 

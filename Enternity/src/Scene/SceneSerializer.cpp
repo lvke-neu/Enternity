@@ -202,7 +202,18 @@ void SceneSerializer::SerializeEntity(YAML::Emitter& out, Entity entity)
 		out << YAML::Key << "m_ShowColliderShape" << YAML::Value << rigidBodyComponent.m_ShowColliderShape;
 		out << YAML::Key << "m_Offset" << YAML::Value << rigidBodyComponent.m_Offset;
 		out << YAML::Key << "m_Radius" << YAML::Value << rigidBodyComponent.m_Radius;
+		out << YAML::EndMap;
+	}
 
+	if (entity.HasComponent<PhongMaterialComponent>())
+	{
+		out << YAML::Key << "PhongMaterialComponent";
+		out << YAML::BeginMap;
+		auto& phongMaterialComponent = entity.GetComponent<PhongMaterialComponent>();
+		out << YAML::Key << "m_Ambient" << YAML::Value << phongMaterialComponent.m_Ambient;
+		out << YAML::Key << "m_Diffuse" << YAML::Value << phongMaterialComponent.m_Diffuse;
+		out << YAML::Key << "m_Specular" << YAML::Value << phongMaterialComponent.m_Specular;
+		out << YAML::Key << "m_Shininess" << YAML::Value << phongMaterialComponent.m_Shininess;
 		out << YAML::EndMap;
 	}
 
@@ -228,6 +239,7 @@ void SceneSerializer::Serialize(const std::string& filePath)
 	
 	SerializeEntity(out, SceneManager::GetInstance().m_EditorCameraEntity);
 	SerializeEntity(out, SceneManager::GetInstance().m_PlayerCameraEntity);
+	SerializeEntity(out, SceneManager::GetInstance().m_DirectionLightEntity);
 
 	for (auto& entity : SceneManager::GetInstance().m_Entities)
 	{
@@ -318,6 +330,53 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 				continue;
 			}
 
+			if (index == 3)
+			{
+				auto& directionLightEntity = SceneManager::GetInstance().m_DirectionLightEntity;
+				auto phongMaterialComponent = entity["PhongMaterialComponent"];
+				if (phongMaterialComponent)
+				{
+					auto& pmc = directionLightEntity.GetComponent<PhongMaterialComponent>();
+
+					pmc.m_Ambient = phongMaterialComponent["m_Ambient"].as<glm::vec4>();
+					pmc.m_Diffuse = phongMaterialComponent["m_Diffuse"].as<glm::vec4>();
+					pmc.m_Specular = phongMaterialComponent["m_Specular"].as<glm::vec4>();
+					pmc.m_Shininess = phongMaterialComponent["m_Shininess"].as<float>();
+				}
+
+				auto transformComponent = entity["TransformComponent"];
+				if (transformComponent)
+				{
+					auto& tc = directionLightEntity.GetComponent<TransformComponent>();
+					tc.m_Translation = transformComponent["m_Translation"].as<glm::vec3>();
+					tc.m_Rotation = transformComponent["m_Rotation"].as<glm::vec3>();
+					tc.m_Scale = transformComponent["m_Scale"].as<glm::vec3>();
+				}
+
+				auto meshComponent = entity["MeshComponent"];
+				if (meshComponent)
+				{
+					auto& mc = directionLightEntity.GetComponent<MeshComponent>();
+					mc.m_MeshFilePath = meshComponent["m_MeshFilePath"].as<std::string>();
+					mc.Load();
+				}
+
+				auto materialComponent = entity["MaterialComponent"];
+				if (materialComponent)
+				{
+					auto& mc = directionLightEntity.AddComponent<MaterialComponent>();
+					mc.m_TextureFilePath = materialComponent["m_TextureFilePath"].as<std::string>();
+					mc.m_ShaderFilePath = materialComponent["m_ShaderFilePath"].as<std::string>();
+					mc.m_bUseColor = materialComponent["m_bUseColor"].as<bool>();
+					mc.m_BaseColor = materialComponent["m_BaseColor"].as<glm::vec4>();
+					mc.Load();
+				}
+
+				index++;
+				continue;
+			}
+
+
 			Entity deserializeEntity(&SceneManager::GetInstance().m_Registry);
 			
 			auto tagComponent = entity["TagComponent"];
@@ -394,6 +453,19 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 				rbc.m_Restitution = rigidBodyComponent["m_Restitution"].as<float>();
 				rbc.m_ShowColliderShape = rigidBodyComponent["m_ShowColliderShape"].as<bool>();
 			}
+
+
+			auto phongMaterialComponent = entity["PhongMaterialComponent"];
+			if (phongMaterialComponent)
+			{
+				auto& pmc = deserializeEntity.AddComponent<PhongMaterialComponent>();
+				
+				pmc.m_Ambient = phongMaterialComponent["m_Ambient"].as<glm::vec4>();
+				pmc.m_Diffuse = phongMaterialComponent["m_Diffuse"].as<glm::vec4>();
+				pmc.m_Specular = phongMaterialComponent["m_Specular"].as<glm::vec4>();
+				pmc.m_Shininess = phongMaterialComponent["m_Shininess"].as<float>();
+			}
+
 
 			SceneManager::GetInstance().m_Entities.insert({ deserializeEntity.GetEntityUid(), deserializeEntity });
 			LOG_INFO("Deserialize Entity:" + deserializeEntity.GetComponent<TagComponent>().m_Tag + " complete");
