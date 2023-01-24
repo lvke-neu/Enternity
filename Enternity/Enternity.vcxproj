@@ -194,8 +194,6 @@
   <ItemGroup>
     <None Include="..\README.md" />
     <None Include="assets\model\cube.bin" />
-    <None Include="assets\shaders\Basic.glsl" />
-    <None Include="assets\shaders\Light.glsl" />
     <None Include="assets\shaders\TestECS.glsl" />
   </ItemGroup>
   <ItemGroup>

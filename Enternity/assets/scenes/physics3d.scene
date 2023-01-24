@@ -37,7 +37,7 @@ Entities:
       m_MeshFilePath: assets/models/sphere.mesh
     MaterialComponent:
       m_TextureFilePath: ""
-      m_ShaderFilePath: assets/shaders/TestECS.glsl
+      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: true
       m_BaseColor: [1, 1, 1, 1]
     PhongMaterialComponent:
@@ -56,7 +56,7 @@ Entities:
       m_MeshFilePath: assets\models\sphere.mesh
     MaterialComponent:
       m_TextureFilePath: assets\textures\skybox.jpeg
-      m_ShaderFilePath: assets/shaders/TestECS.glsl
+      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: false
       m_BaseColor: [1, 1, 1, 1]
     RigidBodyComponent:
@@ -78,7 +78,7 @@ Entities:
       m_MeshFilePath: assets\models\cube.mesh
     MaterialComponent:
       m_TextureFilePath: assets\textures\skybox.jpeg
-      m_ShaderFilePath: assets/shaders/TestECS.glsl
+      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: false
       m_BaseColor: [0.743772268, 0.556136072, 0.108521923, 1]
     RigidBodyComponent:
@@ -100,7 +100,7 @@ Entities:
       m_MeshFilePath: assets\models\cube.mesh
     MaterialComponent:
       m_TextureFilePath: ""
-      m_ShaderFilePath: assets/shaders/TestECS.glsl
+      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: true
       m_BaseColor: [0.343916625, 0.429846853, 0.44128114, 1]
     RigidBodyComponent:

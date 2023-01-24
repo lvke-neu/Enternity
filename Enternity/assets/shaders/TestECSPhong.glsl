@@ -18,16 +18,19 @@ void main()
 #shader pixel
 #version 440 core
 
-out vec4 pixelColor;
+layout(location = 0) out vec4 pixelColor;
+layout(location = 1) out int entityId;
+
+
 in vec2 v_texcoord;
 
 uniform int b_useColor;
 uniform vec4 u_baseColor;
-uniform sampler2D u_texture;
+layout (binding = 0) uniform sampler2D u_texture;
+uniform int u_entityId;
 
 void main()
 {
-	//pixelColor = vec4(v_texcoord, 0, 1);
 	if(b_useColor == 1)
 	{
 		pixelColor = u_baseColor;
@@ -36,5 +39,7 @@ void main()
 	{
 		pixelColor = texture(u_texture, v_texcoord);
 	}
-	pixelColor = vec4(0.3,0.4,0.7,1);
+
+	//pixelColor = vec4(vec3(gl_FragCoord.z),1.0);
+	entityId = u_entityId;
 };

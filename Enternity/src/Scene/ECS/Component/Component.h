@@ -204,7 +204,7 @@ struct MaterialComponent
 	Texture* m_Texture{ nullptr };
 
 	std::string m_TextureFilePath{ "" };
-	std::string m_ShaderFilePath{ "assets/shaders/TestECS.glsl" };
+	std::string m_ShaderFilePath{ "assets/shaders/TestECSPhong.glsl" };
 
 	bool m_bUseColor = false;
 	glm::vec4 m_BaseColor{ 1.0f };

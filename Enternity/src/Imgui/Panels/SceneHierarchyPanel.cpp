@@ -245,6 +245,12 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			ImGui::CloseCurrentPopup();
 		}
 
+		if (ImGui::MenuItem("PhongMaterialComponent"))
+		{
+			m_SelectedEntity.AddComponent<PhongMaterialComponent>();
+			ImGui::CloseCurrentPopup();
+		}
+
 		ImGui::EndPopup();
 	}
 	ImGui::PopItemWidth();
