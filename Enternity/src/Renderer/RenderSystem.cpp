@@ -52,9 +52,15 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity
 
 				if (materialComponent.m_ShaderFilePath == "assets/shaders/TestECSPhong.glsl")
 				{
+					materialComponent.m_Shader->SetMat4f("u_m", transformComponent.GetWorldMatrix());
+					materialComponent.m_Shader->SetMat4f("u_inverseTransposeM", glm::transpose(glm::inverse(transformComponent.GetWorldMatrix())));
+					materialComponent.m_Shader->SetFloat3("u_lightPos", lightEntity.GetComponent<TransformComponent>().m_Translation);
+
 
 					materialComponent.m_Shader->SetFloat4("u_lightAmbient", lightEntity.GetComponent<MaterialComponent>().m_Ambient);
-				materialComponent.m_Shader->SetFloat4("u_entityAmbient", entity.GetComponent<MaterialComponent>().m_Ambient);
+					materialComponent.m_Shader->SetFloat4("u_entityAmbient", entity.GetComponent<MaterialComponent>().m_Ambient);
+					materialComponent.m_Shader->SetFloat4("u_lightDiffuse", lightEntity.GetComponent<MaterialComponent>().m_Diffuse);
+					materialComponent.m_Shader->SetFloat4("u_entityDiffuse", entity.GetComponent<MaterialComponent>().m_Diffuse);
 				}
 			}
 
