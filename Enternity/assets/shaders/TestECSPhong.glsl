@@ -63,7 +63,13 @@ void main()
 	//diffuse
 	vec4 Diffuse = u_lightDiffuse * u_entityDiffuse;
 	vec3 worldNomal = normalize(v_worldNormal);
-	vec3 negLightDirection = normalize(u_lightPos - v_worldPos);
+	
+	//point light
+	//vec3 negLightDirection = normalize(u_lightPos - v_worldPos);
+
+	//direction light
+	vec3 negLightDirection = normalize(u_lightPos);
+
 	Diffuse = Diffuse * max(0, dot(worldNomal, negLightDirection));
 
 	pixelColor = pixelColor * (Ambient + Diffuse);

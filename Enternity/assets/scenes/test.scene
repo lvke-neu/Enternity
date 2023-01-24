@@ -10,8 +10,8 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [-10.2032242, 9.59219933, 5.58609009]
-      m_Rotation: [-0.466815144, -0.730449736, 0]
+      m_Translation: [-13.9278622, 9.6729393, 5.44492722]
+      m_Rotation: [-0.666815221, -1.40044975, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
     TagComponent:
@@ -30,7 +30,7 @@ Entities:
     TagComponent:
       m_Tag: DirectionLight Entity
     TransformComponent:
-      m_Translation: [0.129349679, 2.15244722, -1.08710933]
+      m_Translation: [31.2814751, 20.4100494, 54.0447464]
       m_Rotation: [0, -0, 0]
       m_Scale: [0.5, 0.5, 0.5]
     MeshComponent:
@@ -48,7 +48,7 @@ Entities:
     TagComponent:
       m_Tag: Plane Entity
     TransformComponent:
-      m_Translation: [0.718912125, -6.50927258, 1.36408043]
+      m_Translation: [0.718912125, -10.7055817, 1.36408043]
       m_Rotation: [0, -0, 0]
       m_Scale: [100, 1, 100]
     MeshComponent:
@@ -58,7 +58,7 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: true
       m_BaseColor: [0.359430611, 0.270707518, 0.0793049634, 1]
-      m_Ambient: [0.392156869, 0.392156869, 0.196078435, 1]
+      m_Ambient: [1, 1, 0.129411772, 1]
       m_Diffuse: [1, 1, 1, 1]
       m_Specular: [1, 1, 1, 1]
       m_Shininess: 32
@@ -76,7 +76,7 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: false
       m_BaseColor: [1, 1, 1, 1]
-      m_Ambient: [0.196078435, 0.196078435, 0.196078435, 1]
+      m_Ambient: [0.0431372561, 0.0431372561, 0.0431372561, 1]
       m_Diffuse: [1, 1, 1, 1]
       m_Specular: [1, 1, 1, 1]
       m_Shininess: 5
@@ -92,9 +92,9 @@ Entities:
     MaterialComponent:
       m_TextureFilePath: assets\textures\skybox.jpeg
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
-      m_bUseColor: false
+      m_bUseColor: true
       m_BaseColor: [1, 1, 1, 1]
-      m_Ambient: [0.196078435, 0.196078435, 0.196078435, 1]
+      m_Ambient: [0.129411772, 0.129411772, 0.129411772, 1]
       m_Diffuse: [1, 1, 1, 1]
       m_Specular: [1, 1, 1, 1]
       m_Shininess: 32
