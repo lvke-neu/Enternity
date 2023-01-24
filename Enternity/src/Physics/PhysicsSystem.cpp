@@ -10,11 +10,11 @@ PhysicsSystem::PhysicsSystem()
 	btVector3 worldAabbMin(-10000, -10000, -10000);
 	btVector3 worldAabbMax(10000, 10000, 10000);
 	int maxProxies = 1024;
-	btAxisSweep3* broadphase = new btAxisSweep3(worldAabbMin, worldAabbMax, maxProxies);
-	btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
-	btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
-	btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver();
-	m_PhysicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
+	m_Broadphase = new btAxisSweep3(worldAabbMin, worldAabbMax, maxProxies);
+	m_CollisionConfiguration = new btDefaultCollisionConfiguration();
+	m_CollisionDispatcher = new btCollisionDispatcher(m_CollisionConfiguration);
+	m_Solver = new btSequentialImpulseConstraintSolver();
+	m_PhysicsWorld = new btDiscreteDynamicsWorld(m_CollisionDispatcher, m_Broadphase, m_Solver, m_CollisionConfiguration);
 	m_PhysicsWorld->setGravity(btVector3(0.0f, -9.8f, 0.0f));
 
 	//create collider shape 
