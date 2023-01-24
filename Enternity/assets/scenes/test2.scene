@@ -41,24 +41,10 @@ Entities:
       m_bUseColor: true
       m_BaseColor: [1, 1, 1, 1]
     PhongMaterialComponent:
-      m_Ambient: [0.946619213, 0.0404250361, 0.0404250361, 1]
-      m_Diffuse: [0.392525077, 0.804270446, 0.0944516882, 1]
-      m_Specular: [0.0729980841, 0.134164363, 0.932384372, 1]
+      m_Ambient: [1, 1, 1, 1]
+      m_Diffuse: [1, 1, 1, 1]
+      m_Specular: [1, 1, 1, 1]
       m_Shininess: 134
-  - Entity: 6
-    TagComponent:
-      m_Tag: Plane Entity
-    TransformComponent:
-      m_Translation: [0, -5, 0]
-      m_Rotation: [0, 0, 0]
-      m_Scale: [100, 1, 100]
-    MeshComponent:
-      m_MeshFilePath: assets/models/plane.mesh
-    MaterialComponent:
-      m_TextureFilePath: ""
-      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
-      m_bUseColor: true
-      m_BaseColor: [0.285185158, 0.222514823, 0.0971742049, 1]
   - Entity: 7
     TagComponent:
       m_Tag: Cube Entity
@@ -73,20 +59,30 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: false
       m_BaseColor: [1, 1, 1, 1]
+    PhongMaterialComponent:
+      m_Ambient: [1, 1, 1, 1]
+      m_Diffuse: [1, 1, 1, 1]
+      m_Specular: [1, 1, 1, 1]
+      m_Shininess: 32
     MotorComponent:
       m_RotationXAnglePerSecond: 167
       m_RotationYAnglePerSecond: 219
   - Entity: 8
     TagComponent:
-      m_Tag: Light Entity
+      m_Tag: Plane Entity
     TransformComponent:
-      m_Translation: [0, 0, 0]
+      m_Translation: [0, -5, 0]
       m_Rotation: [0, 0, 0]
-      m_Scale: [0.5, 0.5, 0.5]
+      m_Scale: [100, 1, 100]
     MeshComponent:
-      m_MeshFilePath: assets/models/sphere.mesh
+      m_MeshFilePath: assets/models/plane.mesh
     MaterialComponent:
       m_TextureFilePath: ""
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: true
-      m_BaseColor: [0.933333337, 0.0864197612, 0.0864197612, 1]
+      m_BaseColor: [0.285185158, 0.222514823, 0.0971742049, 1]
+    PhongMaterialComponent:
+      m_Ambient: [1, 1, 1, 1]
+      m_Diffuse: [1, 1, 1, 1]
+      m_Specular: [1, 1, 1, 1]
+      m_Shininess: 32

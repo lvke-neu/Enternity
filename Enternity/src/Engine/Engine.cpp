@@ -196,6 +196,9 @@ void Engine::Run()
 		glfwSwapBuffers(m_context);
 		glfwPollEvents();
 	}
+
+	//fix physicsSysten bug/crash (close the window when physics simulation)
+	SceneManager::GetInstance().OnEditor();
 }
 
 void Engine::ShutDown()
