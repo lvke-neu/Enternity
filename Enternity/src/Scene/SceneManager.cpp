@@ -93,13 +93,13 @@ void SceneManager::Tick(float deltaTime)
 	//render
 	for (auto& entity : m_Entities)
 	{
-		RenderSystem::GetInstance().DrawEntity(m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity, entity.second);
+		RenderSystem::GetInstance().DrawEntity(m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity, entity.second, m_DirectionLightEntity);
 
 		//render collider shape
 		PhysicsSystem::GetInstance().ShowColliderShape(entity.second);
 	}
 
-	//direction ligh
+	//direction light
 	RenderSystem::GetInstance().DrawEntity(m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity, m_DirectionLightEntity);
 	RenderSystem::GetInstance().DrawSkyBox(m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity, m_SkyBoxEntity);
 }

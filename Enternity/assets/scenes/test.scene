@@ -10,8 +10,8 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [-7.73823547, 13.0427952, 18.1920567]
-      m_Rotation: [-0.47681573, -0.330447674, 0]
+      m_Translation: [-1.47265661, 5.30489111, 3.89047146]
+      m_Rotation: [-0.316815764, -0.110447764, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
     TagComponent:
@@ -37,7 +37,7 @@ Entities:
       m_MeshFilePath: assets/models/sphere.mesh
     MaterialComponent:
       m_TextureFilePath: ""
-      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
+      m_ShaderFilePath: assets/shaders/TestECS.glsl
       m_bUseColor: true
       m_BaseColor: [1, 1, 1, 1]
     PhongMaterialComponent:
@@ -59,6 +59,11 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: true
       m_BaseColor: [0.359430611, 0.270707518, 0.0793049634, 1]
+    PhongMaterialComponent:
+      m_Ambient: [1, 1, 1, 1]
+      m_Diffuse: [1, 1, 1, 1]
+      m_Specular: [1, 1, 1, 1]
+      m_Shininess: 32
   - Entity: 7
     TagComponent:
       m_Tag: Cube Entity
@@ -74,7 +79,7 @@ Entities:
       m_bUseColor: false
       m_BaseColor: [1, 1, 1, 1]
     PhongMaterialComponent:
-      m_Ambient: [1, 1, 1, 1]
+      m_Ambient: [0.603921592, 0.596078455, 0.643137276, 1]
       m_Diffuse: [1, 1, 1, 1]
       m_Specular: [1, 1, 1, 1]
       m_Shininess: 5
@@ -92,3 +97,8 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: false
       m_BaseColor: [1, 1, 1, 1]
+    PhongMaterialComponent:
+      m_Ambient: [1, 1, 1, 1]
+      m_Diffuse: [1, 1, 1, 1]
+      m_Specular: [1, 1, 1, 1]
+      m_Shininess: 32

@@ -24,7 +24,7 @@ Entities:
       m_MeshFilePath: assets/models/cube.mesh
     MaterialComponent:
       m_TextureFilePath: assets/textures/skybox.jpeg
-      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
+      m_ShaderFilePath: assets/shaders/TestECS.glsl
       m_bUseColor: false
       m_BaseColor: [1, 1, 1, 1]
     MotorComponent:

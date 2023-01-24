@@ -37,7 +37,7 @@ Entities:
       m_MeshFilePath: assets/models/sphere.mesh
     MaterialComponent:
       m_TextureFilePath: ""
-      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
+      m_ShaderFilePath: assets/shaders/TestECS.glsl
       m_bUseColor: true
       m_BaseColor: [1, 1, 1, 1]
     PhongMaterialComponent:

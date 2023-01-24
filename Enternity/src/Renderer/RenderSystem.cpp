@@ -27,7 +27,7 @@ void RenderSystem::DrawSkyBox(Entity& cameraEntity, Entity& entity)
 
 }
 
-void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity)
+void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity& lightEntity)
 {
 	if (cameraEntity.HasComponent<TransformComponent>()
 		&& cameraEntity.HasComponent<CameraComponent>())
@@ -49,6 +49,14 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity)
 				materialComponent.m_Shader->Bind();
 				materialComponent.m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * cameraTransformComponent.GetInverseWorldMatrix() * transformComponent.GetWorldMatrix());
 				materialComponent.m_Shader->SetInteger1("u_entityId", entity.GetEntityUid());
+
+				if (materialComponent.m_ShaderFilePath == "assets/shaders/TestECSPhong.glsl")
+				{
+					if (lightEntity.HasComponent<PhongMaterialComponent>())
+						materialComponent.m_Shader->SetFloat4("u_lightAmbient", lightEntity.GetComponent<PhongMaterialComponent>().m_Ambient);
+					if (entity.HasComponent<PhongMaterialComponent>())
+						materialComponent.m_Shader->SetFloat4("u_entityAmbient", entity.GetComponent<PhongMaterialComponent>().m_Ambient);
+				}
 			}
 
 			if (materialComponent.m_Texture)

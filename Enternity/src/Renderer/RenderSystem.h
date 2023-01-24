@@ -18,7 +18,7 @@ class RenderSystem
 	SINGLETON(RenderSystem);
 	PRIVATE_FUCNTION(RenderSystem);
 public:
-	void DrawEntity(Entity& cameraEntity, Entity& entity);
+	void DrawEntity(Entity& cameraEntity, Entity& entity, const Entity& lightEntity = {});
 	void DrawSkyBox(Entity& cameraEntity, Entity& entity);
 
 	void DrawColliderShape(Entity& cameraEntity, Entity& entity);

@@ -54,8 +54,22 @@ public:
 		return registry.get<T>(m_EntityUid);
 	}
 
+	template<typename T>
+	T& GetComponent() const
+	{
+		auto& registry = *m_pSceneRegistry;
+		return registry.get<T>(m_EntityUid);
+	}
+
 	template <typename T>
 	bool HasComponent()
+	{
+		auto& registry = *m_pSceneRegistry;
+		return registry.has<T>(m_EntityUid);
+	}
+
+	template <typename T>
+	bool HasComponent() const
 	{
 		auto& registry = *m_pSceneRegistry;
 		return registry.has<T>(m_EntityUid);

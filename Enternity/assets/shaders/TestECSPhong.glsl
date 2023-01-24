@@ -29,6 +29,9 @@ uniform vec4 u_baseColor;
 layout (binding = 0) uniform sampler2D u_texture;
 uniform int u_entityId;
 
+uniform vec4 u_lightAmbient;
+uniform vec4 u_entityAmbient;
+
 void main()
 {
 	if(b_useColor == 1)
@@ -40,6 +43,7 @@ void main()
 		pixelColor = texture(u_texture, v_texcoord);
 	}
 
-	//pixelColor = vec4(vec3(gl_FragCoord.z),1.0);
+	pixelColor = pixelColor * u_lightAmbient * u_entityAmbient;
+
 	entityId = u_entityId;
 };
