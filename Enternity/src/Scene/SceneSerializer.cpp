@@ -330,7 +330,7 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 				continue;
 			}
 
-			if (index == 3)
+			if (index == 3 && entity["PhongMaterialComponent"])
 			{
 				auto& directionLightEntity = SceneManager::GetInstance().m_DirectionLightEntity;
 				auto phongMaterialComponent = entity["PhongMaterialComponent"];
@@ -364,7 +364,7 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 				auto materialComponent = entity["MaterialComponent"];
 				if (materialComponent)
 				{
-					auto& mc = directionLightEntity.AddComponent<MaterialComponent>();
+					auto& mc = directionLightEntity.GetComponent<MaterialComponent>();
 					mc.m_TextureFilePath = materialComponent["m_TextureFilePath"].as<std::string>();
 					mc.m_ShaderFilePath = materialComponent["m_ShaderFilePath"].as<std::string>();
 					mc.m_bUseColor = materialComponent["m_bUseColor"].as<bool>();

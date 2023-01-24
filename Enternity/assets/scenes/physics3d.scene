@@ -10,8 +10,8 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [-5.39218378, 2.32170463, 13.8827629]
-      m_Rotation: [-0.270000309, -0.17681326, 0]
+      m_Translation: [-1.80798316, 1.25847626, 20.177351]
+      m_Rotation: [-0.29000029, -0.296813458, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
     TagComponent:
@@ -26,29 +26,48 @@ Entities:
       m_Translation: [-5.4800148, 3.06330109, 18.8705578]
       m_Rotation: [-0.259999752, -0.279999673, 0]
       m_Scale: [1, 0.999999166, 1.00000155]
-  - Entity: 5
+  - Entity: 3
     TagComponent:
-      m_Tag: plane
+      m_Tag: DirectionLight Entity
     TransformComponent:
-      m_Translation: [0, -5, 0]
-      m_Rotation: [0, 0, -0.209439531]
-      m_Scale: [10, 1, 10]
+      m_Translation: [5.87333012, 9.3804121, 30.6855659]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [0.5, 0.5, 0.5]
     MeshComponent:
-      m_MeshFilePath: assets\models\cube.mesh
+      m_MeshFilePath: assets/models/sphere.mesh
     MaterialComponent:
       m_TextureFilePath: ""
       m_ShaderFilePath: assets/shaders/TestECS.glsl
       m_bUseColor: true
-      m_BaseColor: [0.343916625, 0.429846853, 0.44128114, 1]
-    RigidBodyComponent:
-      m_ColliderShape: Box
-      m_Mass: 0
-      m_Friction: 0.280000001
-      m_Restitution: 0.5
-      m_ShowColliderShape: true
-      m_Offset: [10, 1, 10]
-      m_Radius: 1
+      m_BaseColor: [1, 1, 1, 1]
+    PhongMaterialComponent:
+      m_Ambient: [1, 1, 1, 1]
+      m_Diffuse: [1, 1, 1, 1]
+      m_Specular: [1, 1, 1, 1]
+      m_Shininess: 32
   - Entity: 6
+    TagComponent:
+      m_Tag: sphere
+    TransformComponent:
+      m_Translation: [-3.38209629, 2.27326894, 0.935150027]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [1, 1, 1]
+    MeshComponent:
+      m_MeshFilePath: assets\models\sphere.mesh
+    MaterialComponent:
+      m_TextureFilePath: assets\textures\skybox.jpeg
+      m_ShaderFilePath: assets/shaders/TestECS.glsl
+      m_bUseColor: false
+      m_BaseColor: [1, 1, 1, 1]
+    RigidBodyComponent:
+      m_ColliderShape: Sphere
+      m_Mass: 7
+      m_Friction: 0.200000003
+      m_Restitution: 0.74000001
+      m_ShowColliderShape: true
+      m_Offset: [0.5, 0.5, 0.5]
+      m_Radius: 1
+  - Entity: 7
     TagComponent:
       m_Tag: cube
     TransformComponent:
@@ -70,25 +89,25 @@ Entities:
       m_ShowColliderShape: true
       m_Offset: [1, 1, 1]
       m_Radius: 1
-  - Entity: 7
+  - Entity: 8
     TagComponent:
-      m_Tag: sphere
+      m_Tag: plane
     TransformComponent:
-      m_Translation: [-3.38209629, 2.27326894, 0.935150027]
-      m_Rotation: [0, -0, 0]
-      m_Scale: [1, 1, 1]
+      m_Translation: [0, -5, 0]
+      m_Rotation: [0, 0, -0.209439531]
+      m_Scale: [10, 1, 10]
     MeshComponent:
-      m_MeshFilePath: assets\models\sphere.mesh
+      m_MeshFilePath: assets\models\cube.mesh
     MaterialComponent:
-      m_TextureFilePath: assets\textures\skybox.jpeg
+      m_TextureFilePath: ""
       m_ShaderFilePath: assets/shaders/TestECS.glsl
-      m_bUseColor: false
-      m_BaseColor: [1, 1, 1, 1]
+      m_bUseColor: true
+      m_BaseColor: [0.343916625, 0.429846853, 0.44128114, 1]
     RigidBodyComponent:
-      m_ColliderShape: Sphere
-      m_Mass: 7
-      m_Friction: 0.200000003
-      m_Restitution: 0.74000001
+      m_ColliderShape: Box
+      m_Mass: 0
+      m_Friction: 0.280000001
+      m_Restitution: 0.5
       m_ShowColliderShape: true
-      m_Offset: [0.5, 0.5, 0.5]
+      m_Offset: [10, 1, 10]
       m_Radius: 1
