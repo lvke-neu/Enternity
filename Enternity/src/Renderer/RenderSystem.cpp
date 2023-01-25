@@ -50,25 +50,31 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity
 				materialComponent.m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * cameraTransformComponent.GetInverseWorldMatrix() * transformComponent.GetWorldMatrix());
 				materialComponent.m_Shader->SetInteger1("u_entityId", entity.GetEntityUid());
 
-				if (materialComponent.m_ShaderFilePath == "assets/shaders/TestECSPhong.glsl")
+				materialComponent.m_Shader->SetMat4f("u_m", transformComponent.GetWorldMatrix());
+				materialComponent.m_Shader->SetMat4f("u_inverseTransposeM", glm::transpose(glm::inverse(transformComponent.GetWorldMatrix())));
+				
+				if (lightEntity.IsValidEntity())
 				{
-					materialComponent.m_Shader->SetMat4f("u_m", transformComponent.GetWorldMatrix());
-					materialComponent.m_Shader->SetMat4f("u_inverseTransposeM", glm::transpose(glm::inverse(transformComponent.GetWorldMatrix())));
 					materialComponent.m_Shader->SetFloat3("u_lightPos", lightEntity.GetComponent<TransformComponent>().m_Translation);
-					materialComponent.m_Shader->SetFloat3("u_cameraPos", cameraEntity.GetComponent<TransformComponent>().m_Translation);
-
-					materialComponent.m_Shader->SetFloat4("u_lightAmbient", lightEntity.GetComponent<MaterialComponent>().m_Ambient);
-					materialComponent.m_Shader->SetFloat4("u_entityAmbient", entity.GetComponent<MaterialComponent>().m_Ambient);
-					materialComponent.m_Shader->SetFloat4("u_lightDiffuse", lightEntity.GetComponent<MaterialComponent>().m_Diffuse);
-					materialComponent.m_Shader->SetFloat4("u_entityDiffuse", entity.GetComponent<MaterialComponent>().m_Diffuse);
 					materialComponent.m_Shader->SetFloat4("u_lightSpecular", lightEntity.GetComponent<MaterialComponent>().m_Specular);
-					materialComponent.m_Shader->SetFloat4("u_entitySpecular", entity.GetComponent<MaterialComponent>().m_Specular);
-					materialComponent.m_Shader->SetInteger1("u_shininess", (int)entity.GetComponent<MaterialComponent>().m_Shininess);
+					materialComponent.m_Shader->SetFloat4("u_lightDiffuse", lightEntity.GetComponent<MaterialComponent>().m_Diffuse);
+					materialComponent.m_Shader->SetFloat4("u_lightAmbient", lightEntity.GetComponent<MaterialComponent>().m_Ambient);
 				}
+			
+
+				materialComponent.m_Shader->SetFloat3("u_cameraPos", cameraTransformComponent.m_Translation);
+				materialComponent.m_Shader->SetFloat4("u_entityAmbient", materialComponent.m_Ambient);
+				materialComponent.m_Shader->SetFloat4("u_entityDiffuse", materialComponent.m_Diffuse);
+				materialComponent.m_Shader->SetFloat4("u_entitySpecular", materialComponent.m_Specular);
+				materialComponent.m_Shader->SetInteger1("u_shininess", (int)materialComponent.m_Shininess);
+
 			}
 
-			if (materialComponent.m_Texture)
-				materialComponent.m_Texture->Bind(0);
+			if (materialComponent.m_DiffuseTexture)
+				materialComponent.m_DiffuseTexture->Bind(0);
+			if (materialComponent.m_SpecularTexture)
+				materialComponent.m_SpecularTexture->Bind(1);
+
 
 			if (meshComponent.m_Indexbuffer)
 			{
@@ -83,8 +89,10 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity
 			{
 				materialComponent.m_Shader->UnBind();
 			}
-			if (materialComponent.m_Texture)
-				materialComponent.m_Texture->UnBind();
+			if (materialComponent.m_DiffuseTexture)
+				materialComponent.m_DiffuseTexture->UnBind();
+			if (materialComponent.m_SpecularTexture)
+				materialComponent.m_SpecularTexture->UnBind();
 			if (meshComponent.m_Indexbuffer)
 			{
 				meshComponent.m_Indexbuffer->UnBind();
@@ -94,11 +102,11 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity
 	}	
 }
 
-void RenderSystem::DrawColliderShape(Entity& cameraEntity, Entity& entity)
+void RenderSystem::DrawColliderShape(Entity& cameraEntity, Entity& entity, const Entity& lightEntity)
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	DrawEntity(cameraEntity, entity);
+	DrawEntity(cameraEntity, entity, lightEntity);
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }

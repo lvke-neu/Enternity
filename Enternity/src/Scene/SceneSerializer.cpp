@@ -159,10 +159,10 @@ void SceneSerializer::SerializeEntity(YAML::Emitter& out, Entity entity)
 		out << YAML::Key << "MaterialComponent";
 		out << YAML::BeginMap;
 		auto& materialComponent = entity.GetComponent<MaterialComponent>();
-		out << YAML::Key << "m_TextureFilePath" << YAML::Value << materialComponent.m_TextureFilePath;
 		out << YAML::Key << "m_ShaderFilePath" << YAML::Value << materialComponent.m_ShaderFilePath;
-		out << YAML::Key << "m_bUseColor" << YAML::Value << materialComponent.m_bUseColor;
-		out << YAML::Key << "m_BaseColor" << YAML::Value << materialComponent.m_BaseColor;
+		out << YAML::Key << "m_DiffuseTextureFilePath" << YAML::Value << materialComponent.m_DiffuseTextureFilePath;
+		out << YAML::Key << "m_SpecularTextureFilePath" << YAML::Value << materialComponent.m_SpecularTextureFilePath;
+		out << YAML::Key << "m_UseTexture" << YAML::Value << materialComponent.m_UseTexture;
 		out << YAML::Key << "m_Ambient" << YAML::Value << materialComponent.m_Ambient;
 		out << YAML::Key << "m_Diffuse" << YAML::Value << materialComponent.m_Diffuse;
 		out << YAML::Key << "m_Specular" << YAML::Value << materialComponent.m_Specular;
@@ -347,10 +347,10 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 				if (materialComponent)
 				{
 					auto& mc = directionLightEntity.GetComponent<MaterialComponent>();
-					mc.m_TextureFilePath = materialComponent["m_TextureFilePath"].as<std::string>();
 					mc.m_ShaderFilePath = materialComponent["m_ShaderFilePath"].as<std::string>();
-					mc.m_bUseColor = materialComponent["m_bUseColor"].as<bool>();
-					mc.m_BaseColor = materialComponent["m_BaseColor"].as<glm::vec4>();
+					mc.m_DiffuseTextureFilePath = materialComponent["m_DiffuseTextureFilePath"].as<std::string>();
+					mc.m_SpecularTextureFilePath = materialComponent["m_SpecularTextureFilePath"].as<std::string>();
+					mc.m_UseTexture = materialComponent["m_UseTexture"].as<bool>();
 					mc.m_Ambient = materialComponent["m_Ambient"].as<glm::vec4>();
 					mc.m_Diffuse = materialComponent["m_Diffuse"].as<glm::vec4>();
 					mc.m_Specular = materialComponent["m_Specular"].as<glm::vec4>();
@@ -392,10 +392,11 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 			if (materialComponent)
 			{
 				auto& mc = deserializeEntity.AddComponent<MaterialComponent>();
-				mc.m_TextureFilePath = materialComponent["m_TextureFilePath"].as<std::string>();
+				
 				mc.m_ShaderFilePath = materialComponent["m_ShaderFilePath"].as<std::string>();
-				mc.m_bUseColor = materialComponent["m_bUseColor"].as<bool>();
-				mc.m_BaseColor = materialComponent["m_BaseColor"].as<glm::vec4>();
+				mc.m_DiffuseTextureFilePath = materialComponent["m_DiffuseTextureFilePath"].as<std::string>();
+				mc.m_SpecularTextureFilePath = materialComponent["m_SpecularTextureFilePath"].as<std::string>();
+				mc.m_UseTexture = materialComponent["m_UseTexture"].as<bool>();
 				mc.m_Ambient = materialComponent["m_Ambient"].as<glm::vec4>();
 				mc.m_Diffuse = materialComponent["m_Diffuse"].as<glm::vec4>();
 				mc.m_Specular = materialComponent["m_Specular"].as<glm::vec4>();

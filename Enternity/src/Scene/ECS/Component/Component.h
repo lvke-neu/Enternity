@@ -201,32 +201,27 @@ struct MeshComponent
 struct MaterialComponent
 {
 	Shader* m_Shader{ nullptr };
-	Texture* m_Texture{ nullptr };
-
-	std::string m_TextureFilePath{ "" };
 	std::string m_ShaderFilePath{ "assets/shaders/TestECSPhong.glsl" };
 
-	bool m_bUseColor = false;
-	glm::vec4 m_BaseColor{ 1.0f };
+	Texture* m_DiffuseTexture{ nullptr };
+	std::string m_DiffuseTextureFilePath{ "" };
+
+	Texture* m_SpecularTexture{ nullptr };
+	std::string m_SpecularTextureFilePath{ "" };
+	
+	bool m_UseTexture = false;
 
 	glm::vec4 m_Ambient{ 1.0f };
 	glm::vec4 m_Diffuse{ 1.0f };
 	glm::vec4 m_Specular{ 1.0f };
 	float m_Shininess = 32.0f;
 
-	MaterialComponent()
-	{
-		LoadShader();
-	}
-	MaterialComponent(const MaterialComponent&) = default;
-
 	void Load()
 	{
 		LoadShader();
-		LoadTexture();
-		//SetTextureSlot();
-		SetIsUseColor();
-		SetBaseColor();
+		LoadDiffuseTexture();
+		LoadSpecularTexture();
+		SetUseTexture();
 	}
 
 	void LoadShader()
@@ -237,50 +232,37 @@ struct MaterialComponent
 
 		SAFE_DELETE_SET_NULL(m_Shader);
 		m_Shader = new Shader(m_ShaderFilePath);
-
-		//SetTextureSlot();
-		SetIsUseColor();
-		SetBaseColor();
 	}
 
-	void LoadTexture()
+	void LoadDiffuseTexture()
 	{
-		SAFE_DELETE_SET_NULL(m_Texture);
-		m_Texture = new Texture(m_TextureFilePath);
+		SAFE_DELETE_SET_NULL(m_DiffuseTexture);
+		m_DiffuseTexture = new Texture(m_DiffuseTextureFilePath);
 	}
 
-	//void SetTextureSlot(unsigned int  slot = 0)
-	//{
-	//	if (m_Shader)
-	//	{
-	//		m_Shader->Bind();
-	//		m_Shader->SetInteger1("u_texture", slot);
-	//	}
-	//		
-	//}
+	void LoadSpecularTexture()
+	{
+		SAFE_DELETE_SET_NULL(m_SpecularTexture);
+		m_SpecularTexture = new Texture(m_SpecularTextureFilePath);
+	}
 
-	void SetIsUseColor()
+	void SetUseTexture()
 	{
 		if (m_Shader)
 		{
 			m_Shader->Bind();
-			m_Shader->SetInteger1("b_useColor", m_bUseColor);
+			m_Shader->SetInteger1("u_useTexture", m_UseTexture);
 		}
 	}
 
-	void SetBaseColor()
-	{
-		if (m_Shader)
-		{
-			m_Shader->Bind();
-			m_Shader->SetFloat4("u_baseColor", m_BaseColor);
-		}
-	}
+	MaterialComponent() = default;
+	MaterialComponent(const MaterialComponent&) = default;
 
 	void UnLoad()
 	{
 		SAFE_DELETE_SET_NULL(m_Shader);
-		SAFE_DELETE_SET_NULL(m_Texture);
+		SAFE_DELETE_SET_NULL(m_DiffuseTexture);
+		SAFE_DELETE_SET_NULL(m_SpecularTexture);
 	}
 };
 

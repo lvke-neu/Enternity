@@ -14,9 +14,9 @@ BulletSimulation::BulletSimulation()
 	m_BulletEntity.AddComponent<TransformComponent>(glm::vec3{ 0 }, glm::vec3{ 0 }, glm::vec3{0.5});
 	auto& matc = m_BulletEntity.AddComponent<MaterialComponent>();
 	auto& meshc = m_BulletEntity.AddComponent<MeshComponent>();
-	matc.m_BaseColor = glm::vec4(0.5, 0, 0, 1);
-	matc.m_bUseColor = true;
-	matc.m_ShaderFilePath = "assets/shaders/TestECS.glsl";
+	matc.m_ShaderFilePath = "assets/shaders/TestECSPhong.glsl";
+	matc.m_UseTexture = false;
+
 	meshc.m_MeshFilePath = "assets/models/sphere.mesh";
 	matc.Load();
 	meshc.Load();
@@ -38,7 +38,7 @@ void BulletSimulation::tick(float deltaTime)
 		if (m_IsLeftKeyPress)
 		{
 			PhysicsSystem::GetInstance().UpdateEntityState(m_BulletEntity);
-			RenderSystem::GetInstance().DrawEntity(SceneManager::GetInstance().GetCurrentCameraEntity(), m_BulletEntity);
+			RenderSystem::GetInstance().DrawEntity(SceneManager::GetInstance().GetCurrentCameraEntity(), m_BulletEntity, SceneManager::GetInstance().GetLightEntity());
 		}
 	}
 }

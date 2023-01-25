@@ -22,9 +22,8 @@ PhysicsSystem::PhysicsSystem()
 	m_BoxColliderShape.AddComponent<TransformComponent>();
 	auto& matc = m_BoxColliderShape.AddComponent<MaterialComponent>();
 	auto& meshc = m_BoxColliderShape.AddComponent<MeshComponent>();
-	matc.m_BaseColor = glm::vec4(0, 1, 0, 1);
-	matc.m_bUseColor = true;
-	matc.m_ShaderFilePath = "assets/shaders/TestECS.glsl";
+	matc.m_UseTexture = false;
+	matc.m_ShaderFilePath = "assets/shaders/TestECSPhong.glsl";
 	meshc.m_MeshFilePath = "assets/models/cube.mesh";
 	matc.Load();
 	meshc.Load();
@@ -33,9 +32,8 @@ PhysicsSystem::PhysicsSystem()
 	m_SphereColliderShape.AddComponent<TransformComponent>();
 	auto& matc2 = m_SphereColliderShape.AddComponent<MaterialComponent>();
 	auto& meshc2 = m_SphereColliderShape.AddComponent<MeshComponent>();
-	matc2.m_BaseColor = glm::vec4(0, 1, 0, 1);
-	matc2.m_bUseColor = true;
-	matc2.m_ShaderFilePath = "assets/shaders/TestECS.glsl";
+	matc.m_UseTexture = false;
+	matc2.m_ShaderFilePath = "assets/shaders/TestECSPhong.glsl";
 	meshc2.m_MeshFilePath = "assets/models/sphere.mesh";
 	matc2.Load();
 	meshc2.Load();
@@ -146,7 +144,7 @@ void PhysicsSystem::UpdateEntityState(Entity& entity)
 	}
 }
 
-void PhysicsSystem::ShowColliderShape(Entity& entity)
+void PhysicsSystem::ShowColliderShape(Entity& entity, const Entity& lightEntity)
 {
 	if (entity.HasComponent<RigidBodyComponent>())
 	{
@@ -165,7 +163,7 @@ void PhysicsSystem::ShowColliderShape(Entity& entity)
 			transc.m_Translation = transcShowEntity.m_Translation;
 			transc.m_Scale = rbcShowEntity.m_Offset;
 			transc.m_Rotation = transcShowEntity.m_Rotation;
-			RenderSystem::GetInstance().DrawColliderShape(SceneManager::GetInstance().GetCurrentCameraEntity(), m_BoxColliderShape);
+			RenderSystem::GetInstance().DrawColliderShape(SceneManager::GetInstance().GetCurrentCameraEntity(), m_BoxColliderShape, lightEntity);
 		}
 		break;
 		case RigidBodyComponent::ColliderShape::Sphere:
@@ -174,7 +172,7 @@ void PhysicsSystem::ShowColliderShape(Entity& entity)
 			transc.m_Translation = transcShowEntity.m_Translation;
 			transc.m_Scale = glm::vec3(rbcShowEntity.m_Radius);
 			transc.m_Rotation = transcShowEntity.m_Rotation;
-			RenderSystem::GetInstance().DrawColliderShape(SceneManager::GetInstance().GetCurrentCameraEntity(), m_SphereColliderShape);
+			RenderSystem::GetInstance().DrawColliderShape(SceneManager::GetInstance().GetCurrentCameraEntity(), m_SphereColliderShape, lightEntity);
 		}
 		}
 	}

@@ -31,9 +31,10 @@ layout(location = 1) out int entityId;
 
 in vec2 v_texcoord;
 
-uniform int b_useColor;
-uniform vec4 u_baseColor;
-layout (binding = 0) uniform sampler2D u_texture;
+uniform bool u_useTexture;
+layout (binding = 0) uniform sampler2D u_diffuseTexture;
+layout (binding = 1) uniform sampler2D u_specularTexture;
+
 uniform int u_entityId;
 
 uniform vec3 u_lightPos;
@@ -52,34 +53,52 @@ in vec3 v_worldNormal;
 
 void main()
 {
-	if(b_useColor == 1)
+	if(u_useTexture)
 	{
-		pixelColor = u_baseColor;
+		//ambient
+		vec4 Ambient = u_lightAmbient * texture(u_diffuseTexture, v_texcoord);
+
+		//diffuse
+		vec4 Diffuse = u_lightDiffuse * texture(u_diffuseTexture, v_texcoord);
+		vec3 worldNomal = normalize(v_worldNormal);
+		//point light
+		//vec3 negLightDirection = normalize(u_lightPos - v_worldPos);
+		//direction light
+		vec3 negLightDirection = normalize(u_lightPos);
+		Diffuse = Diffuse * max(dot(worldNomal, negLightDirection), 0);
+
+		//specular
+		vec4 Specular = u_lightSpecular * texture(u_specularTexture, v_texcoord);
+		vec3 reflectLightDir = normalize(reflect(-negLightDirection, worldNomal));
+		vec3 viewDir = normalize(u_cameraPos - v_worldPos);
+		Specular = Specular * pow(max(dot(reflectLightDir, viewDir), 0), u_shininess);
+
+		pixelColor = Ambient + Diffuse + Specular;
 	}
-	else if(b_useColor == 0)
+	else
 	{
-		pixelColor = texture(u_texture, v_texcoord);
+		//ambient
+		vec4 Ambient = u_lightAmbient * u_entityAmbient;
+
+		//diffuse
+		vec4 Diffuse = u_lightDiffuse * u_entityDiffuse;
+		vec3 worldNomal = normalize(v_worldNormal);
+		//point light
+		//vec3 negLightDirection = normalize(u_lightPos - v_worldPos);
+		//direction light
+		vec3 negLightDirection = normalize(u_lightPos);
+		Diffuse = Diffuse * max(dot(worldNomal, negLightDirection), 0);
+
+		//specular
+		vec4 Specular = u_lightSpecular * u_entitySpecular;
+		vec3 reflectLightDir = normalize(reflect(-negLightDirection, worldNomal));
+		vec3 viewDir = normalize(u_cameraPos - v_worldPos);
+		Specular = Specular * pow(max(dot(reflectLightDir, viewDir), 0), u_shininess);
+
+		pixelColor = Ambient + Diffuse + Specular;
 	}
 
-	//ambient
-	vec4 Ambient = u_lightAmbient * u_entityAmbient;
 
-	//diffuse
-	vec4 Diffuse = u_lightDiffuse * u_entityDiffuse;
-	vec3 worldNomal = normalize(v_worldNormal);
-	//point light
-	//vec3 negLightDirection = normalize(u_lightPos - v_worldPos);
-	//direction light
-	vec3 negLightDirection = normalize(u_lightPos);
-	Diffuse = Diffuse * max(dot(worldNomal, negLightDirection), 0);
-
-	//specular
-	vec4 Specular = u_lightSpecular * u_entitySpecular;
-	vec3 reflectLightDir = normalize(reflect(-negLightDirection, worldNomal));
-	vec3 viewDir = normalize(u_cameraPos - v_worldPos);
-	Specular = Specular * pow(max(dot(reflectLightDir, viewDir), 0), u_shininess);
-
-	pixelColor = pixelColor * (Ambient + Diffuse + Specular);
 
 	entityId = u_entityId;
 };

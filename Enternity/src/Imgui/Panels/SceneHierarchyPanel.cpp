@@ -217,7 +217,7 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 
 		if (ImGui::MenuItem("MaterialComponent"))
 		{
-			m_SelectedEntity.AddComponent<MaterialComponent>();
+			m_SelectedEntity.AddComponent<MaterialComponent>().LoadShader();
 			ImGui::CloseCurrentPopup();
 		}
 
@@ -304,11 +304,11 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 
 			char buffer[256];
 			memset(buffer, 0, sizeof(buffer));
-			memcpy_s(buffer, sizeof(buffer), materialComponent.m_TextureFilePath.c_str(), sizeof(buffer));
-			if (ImGui::InputText("TextureFilePath", buffer, sizeof(buffer)))
+			memcpy_s(buffer, sizeof(buffer), materialComponent.m_DiffuseTextureFilePath.c_str(), sizeof(buffer));
+			if (ImGui::InputText("DiffuseTextureFilePath", buffer, sizeof(buffer)))
 			{
-				materialComponent.m_TextureFilePath = buffer;
-				materialComponent.LoadTexture();
+				materialComponent.m_DiffuseTextureFilePath = buffer;
+				materialComponent.LoadDiffuseTexture();
 			}
 			if (ImGui::BeginDragDropTarget())
 			{
@@ -317,42 +317,41 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 					LOG_INFO((char*)payload->Data);
 					std::string path((char*)payload->Data);
 					path = path.substr(0, payload->DataSize);
-					materialComponent.m_TextureFilePath = path;
-					materialComponent.LoadTexture();
+					materialComponent.m_DiffuseTextureFilePath = path;
+					materialComponent.LoadDiffuseTexture();
 				}
 				ImGui::EndDragDropTarget();
 			}
 
+			memset(buffer, 0, sizeof(buffer));
+			memcpy_s(buffer, sizeof(buffer), materialComponent.m_SpecularTextureFilePath.c_str(), sizeof(buffer));
+			if (ImGui::InputText("SpecularTextureFilePath", buffer, sizeof(buffer)))
+			{
+				materialComponent.m_SpecularTextureFilePath = buffer;
+				materialComponent.LoadSpecularTexture();
+			}
+			if (ImGui::BeginDragDropTarget())
+			{
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+				{
+					LOG_INFO((char*)payload->Data);
+					std::string path((char*)payload->Data);
+					path = path.substr(0, payload->DataSize);
+					materialComponent.m_SpecularTextureFilePath = path;
+					materialComponent.LoadSpecularTexture();
+				}
+				ImGui::EndDragDropTarget();
+			}
+
+
 			ImGui::Text("ShaderFilePath:%s", materialComponent.m_ShaderFilePath.c_str());
-			//memset(buffer, 0, sizeof(buffer));
-			//memcpy_s(buffer, sizeof(buffer), materialComponent.m_ShaderFilePath.c_str(), sizeof(buffer));
-			//if (ImGui::InputText("ShaderFilePath", buffer, sizeof(buffer)))
-			//{
-			//	materialComponent.m_ShaderFilePath = buffer;
-			//	materialComponent.LoadShader();
-			//}
-			//if (ImGui::BeginDragDropTarget())
-			//{
-			//	if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
-			//	{
-			//		LOG_INFO((char*)payload->Data);
-			//		std::string path((char*)payload->Data);
-			//		path = path.substr(0, payload->DataSize);
-			//		materialComponent.m_ShaderFilePath = path;
-			//		materialComponent.LoadShader();
-			//	}
-			//	ImGui::EndDragDropTarget();
-			//}
 
-			if (ImGui::Checkbox("UseColor", &materialComponent.m_bUseColor))
+
+			if (ImGui::Checkbox("UseTexture", &materialComponent.m_UseTexture))
 			{
-				materialComponent.SetIsUseColor();
+				materialComponent.SetUseTexture();
 			}
 
-			if (ImGui::ColorEdit4("BaseColor", &materialComponent.m_BaseColor[0]))
-			{
-				materialComponent.SetBaseColor();
-			}
 			ImGui::Separator();
 			ImGui::ColorEdit4("Ambient",  &materialComponent.m_Ambient[0]);
 			ImGui::ColorEdit4("Diffuse",  &materialComponent.m_Diffuse[0]);

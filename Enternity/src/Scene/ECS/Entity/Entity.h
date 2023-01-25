@@ -90,7 +90,7 @@ public:
 		return ! operator== (entity);
 	}
 
-	bool IsValidEntity()
+	bool IsValidEntity() const
 	{
 		return m_EntityUid != entt::null;
 	}

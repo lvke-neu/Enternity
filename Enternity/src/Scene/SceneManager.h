@@ -51,6 +51,11 @@ public:
 		return m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity;
 	}
 
+	Entity& GetLightEntity()
+	{
+		return m_DirectionLightEntity;
+	}
+
 	SceneState GetCurrentSceneState()
 	{
 		return m_SceneState;

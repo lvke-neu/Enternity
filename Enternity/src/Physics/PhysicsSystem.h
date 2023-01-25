@@ -28,7 +28,7 @@ public:
 	void StepSimulation(float deltaTime, int maxSubSteps = 10);
 	void UpdateEntityState(Entity& entity);
 public:
-	void ShowColliderShape(Entity& entity);
+	void ShowColliderShape(Entity& entity, const Entity& lightEntity);
 private:
 	btAxisSweep3* m_Broadphase{ nullptr };
 	btDefaultCollisionConfiguration* m_CollisionConfiguration{ nullptr };

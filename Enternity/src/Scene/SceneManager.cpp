@@ -71,9 +71,8 @@ void SceneManager::Initialize()
 	m_DirectionLightEntity.AddComponent<TransformComponent>(glm::vec3{0.0f}, glm::vec3{0.0f}, glm::vec3{0.5f});
 	auto& matc = m_DirectionLightEntity.AddComponent<MaterialComponent>();
 	auto& meshc = m_DirectionLightEntity.AddComponent<MeshComponent>();
-	matc.m_BaseColor = { 1.0f };
-	matc.m_bUseColor = true;
-	matc.m_ShaderFilePath = "assets/shaders/TestECS.glsl";
+	matc.m_UseTexture = false;
+	matc.m_ShaderFilePath = "assets/shaders/TestECSPhong.glsl";
 	meshc.m_MeshFilePath = "assets/models/sphere.mesh";
 	matc.Load();
 	meshc.Load();
@@ -97,11 +96,11 @@ void SceneManager::Tick(float deltaTime)
 		RenderSystem::GetInstance().DrawEntity(m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity, entity.second, m_DirectionLightEntity);
 
 		//render collider shape
-		PhysicsSystem::GetInstance().ShowColliderShape(entity.second);
+		PhysicsSystem::GetInstance().ShowColliderShape(entity.second, m_DirectionLightEntity);
 	}
 
 	//direction light
-	RenderSystem::GetInstance().DrawEntity(m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity, m_DirectionLightEntity);
+	RenderSystem::GetInstance().DrawEntity(m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity, m_DirectionLightEntity, m_DirectionLightEntity);
 	RenderSystem::GetInstance().DrawSkyBox(m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity, m_SkyBoxEntity);
 }
 
