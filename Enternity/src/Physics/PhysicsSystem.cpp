@@ -43,11 +43,12 @@ PhysicsSystem::PhysicsSystem()
 
 PhysicsSystem::~PhysicsSystem()
 {
+	SAFE_DELETE_SET_NULL(m_PhysicsWorld);
 	SAFE_DELETE_SET_NULL(m_Broadphase);
 	SAFE_DELETE_SET_NULL(m_CollisionConfiguration);
 	SAFE_DELETE_SET_NULL(m_CollisionDispatcher);
 	SAFE_DELETE_SET_NULL(m_Solver);
-	SAFE_DELETE_SET_NULL(m_PhysicsWorld);
+	
 
 	//destroy collider shape
 	m_BoxColliderShape.Destroy();
