@@ -23,7 +23,7 @@ private:
 	PhysicsSystem(const PhysicsSystem&) = default;
 	PhysicsSystem& operator=(const PhysicsSystem&) = default;
 public:
-	void AddEntityToPhysicsWorld(Entity& entity);
+	void AddEntityToPhysicsWorld(Entity& entity, const btVector3& velocity = { 0.0f, 0.0f, 0.0f});
 	void RemoveEntityFromPhysicsWorld(Entity& entity);
 	void StepSimulation(float deltaTime, int maxSubSteps = 10);
 	void UpdateEntityState(Entity& entity);

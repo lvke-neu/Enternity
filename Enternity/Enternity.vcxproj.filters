@@ -153,6 +153,9 @@
     <ClCompile Include="src\Physics\PhysicsSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Physics\BulletSimulation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Macro\Macro.h">
@@ -309,6 +312,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Physics\PhysicsSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\BulletSimulation.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

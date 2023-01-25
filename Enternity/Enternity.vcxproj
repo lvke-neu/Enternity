@@ -118,6 +118,7 @@
     <ClCompile Include="src\Log\Log.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Math\Math.cpp" />
+    <ClCompile Include="src\Physics\BulletSimulation.cpp" />
     <ClCompile Include="src\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="src\Renderer\RenderSystem.cpp" />
     <ClCompile Include="src\Renderer\SkyBoxTexture.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="src\Macro\Macro.h" />
     <ClInclude Include="src\Material\Material.h" />
     <ClInclude Include="src\Math\Math.h" />
+    <ClInclude Include="src\Physics\BulletSimulation.h" />
     <ClInclude Include="src\Physics\PhysicsSystem.h" />
     <ClInclude Include="src\Renderer\RenderSystem.h" />
     <ClInclude Include="src\Renderer\SkyBoxTexture.h" />

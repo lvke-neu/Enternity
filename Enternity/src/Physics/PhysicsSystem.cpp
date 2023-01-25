@@ -54,7 +54,7 @@ PhysicsSystem::~PhysicsSystem()
 	m_SphereColliderShape.Destroy();
 }
 
-void PhysicsSystem::AddEntityToPhysicsWorld(Entity& entity)
+void PhysicsSystem::AddEntityToPhysicsWorld(Entity& entity, const btVector3& velocity)
 {
 	if (entity.HasComponent<RigidBodyComponent>()
 		&& entity.HasComponent<TransformComponent>())
@@ -67,7 +67,7 @@ void PhysicsSystem::AddEntityToPhysicsWorld(Entity& entity)
 		auto trans = tc.m_Translation;
 		btDefaultMotionState* ballMotionState = new btDefaultMotionState(btTransform(btQuaternion(quant.x, quant.y, quant.z, quant.w), btVector3(trans.x, trans.y, trans.z)));
 		btCollisionShape* shape{ nullptr };
-
+		
 		switch (rbc.m_ColliderShape)
 		{
 		case RigidBodyComponent::ColliderShape::Box:
@@ -82,8 +82,8 @@ void PhysicsSystem::AddEntityToPhysicsWorld(Entity& entity)
 		shape->calculateLocalInertia(rbc.m_Mass, inertia);
 		btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI(rbc.m_Mass, ballMotionState, shape, inertia);
 		btRigidBody* rigidBody = new btRigidBody(groundRigidBodyCI);
-
 		
+		rigidBody->setLinearVelocity(velocity);
 		rigidBody->setFriction(rbc.m_Friction);
 		rigidBody->setRestitution(rbc.m_Restitution);
 		rbc.m_RigidBody = rigidBody;
@@ -132,6 +132,7 @@ void PhysicsSystem::UpdateEntityState(Entity& entity)
 		auto& tc = entity.GetComponent<TransformComponent>();
 
 		btRigidBody* body = (btRigidBody*)rbc.m_RigidBody;
+
 		if (body)
 		{
 			auto trans = body->getWorldTransform().getOrigin();

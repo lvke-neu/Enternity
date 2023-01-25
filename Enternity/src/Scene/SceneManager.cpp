@@ -3,6 +3,7 @@
 #include "Event/InputEventManager.h"
 #include "Renderer/RenderSystem.h"
 #include "Physics/PhysicsSystem.h"
+#include "Physics/BulletSimulation.h"
 
 BEGIN_ENTERNITY
 
@@ -33,6 +34,7 @@ SceneManager::~SceneManager()
 	m_SkyBoxEntity.Destroy();
 	SAFE_DELETE_SET_NULL(m_EditorCameraController);
 	SAFE_DELETE_SET_NULL(m_PlayerCameraController);
+	SAFE_DELETE_SET_NULL(m_BulletSimulation);
 }
 
 void SceneManager::Initialize()
@@ -75,7 +77,9 @@ void SceneManager::Initialize()
 	meshc.m_MeshFilePath = "assets/models/sphere.mesh";
 	matc.Load();
 	meshc.Load();
-	
+
+
+	m_BulletSimulation = new BulletSimulation;
 }
 
 void SceneManager::Tick(float deltaTime)

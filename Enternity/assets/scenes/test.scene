@@ -4,14 +4,14 @@ Entities:
     TagComponent:
       m_Tag: MainCamera Entity
     CameraComponent:
-      m_MoveSpeed: 22
+      m_MoveSpeed: 10
       m_EnableWireframe: false
       m_Fovy: 60
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [-7.7035594, 3.97323442, 7.42315912]
-      m_Rotation: [-0.336814851, -0.650447905, 0]
+      m_Translation: [-2.03824067, 0.781820536, 19.1592026]
+      m_Rotation: [-0.380000234, -0.0268134605, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
     TagComponent:
@@ -23,14 +23,14 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [-16.4899998, -3.25999999, -12.25]
-      m_Rotation: [0.273144007, -1.84044957, 0]
-      m_Scale: [1, 1, 1]
+      m_Translation: [-5.4800148, 3.06330109, 18.8705578]
+      m_Rotation: [-0.259999752, -0.279999673, 0]
+      m_Scale: [1, 0.999999166, 1.00000155]
   - Entity: 3
     TagComponent:
       m_Tag: DirectionLight Entity
     TransformComponent:
-      m_Translation: [0, 20.4100494, 54.0447464]
+      m_Translation: [5.87333012, 9.3804121, 30.6855659]
       m_Rotation: [0, -0, 0]
       m_Scale: [0.5, 0.5, 0.5]
     MeshComponent:
@@ -46,9 +46,35 @@ Entities:
       m_Shininess: 32
   - Entity: 6
     TagComponent:
-      m_Tag: Sphere Entity
+      m_Tag: plane
     TransformComponent:
-      m_Translation: [-4.68924761, 1.73199034, -5.58091688]
+      m_Translation: [0, -5, 0]
+      m_Rotation: [0, 0, 0]
+      m_Scale: [10, 1, 10]
+    MeshComponent:
+      m_MeshFilePath: assets\models\cube.mesh
+    MaterialComponent:
+      m_TextureFilePath: ""
+      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
+      m_bUseColor: true
+      m_BaseColor: [0.343916625, 0.429846853, 0.44128114, 1]
+      m_Ambient: [1, 1, 1, 1]
+      m_Diffuse: [1, 1, 1, 1]
+      m_Specular: [1, 1, 1, 1]
+      m_Shininess: 32
+    RigidBodyComponent:
+      m_ColliderShape: Box
+      m_Mass: 0
+      m_Friction: 0.280000001
+      m_Restitution: 0.5
+      m_ShowColliderShape: true
+      m_Offset: [10, 1, 10]
+      m_Radius: 1
+  - Entity: 8
+    TagComponent:
+      m_Tag: sphere
+    TransformComponent:
+      m_Translation: [-3.38209629, 2.27326894, 0.935150027]
       m_Rotation: [0, -0, 0]
       m_Scale: [1, 1, 1]
     MeshComponent:
@@ -56,45 +82,17 @@ Entities:
     MaterialComponent:
       m_TextureFilePath: assets\textures\skybox.jpeg
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
-      m_bUseColor: true
-      m_BaseColor: [1, 1, 1, 1]
-      m_Ambient: [0.129411772, 0.129411772, 0.129411772, 1]
-      m_Diffuse: [0.784313738, 0.784313738, 0.784313738, 1]
-      m_Specular: [1, 1, 1, 1]
-      m_Shininess: 32
-  - Entity: 7
-    TagComponent:
-      m_Tag: Cube Entity
-    TransformComponent:
-      m_Translation: [-0.0237628743, 1.85641742, -5.56214714]
-      m_Rotation: [0, -0, 0]
-      m_Scale: [1, 1, 1]
-    MeshComponent:
-      m_MeshFilePath: assets/models/cube.mesh
-    MaterialComponent:
-      m_TextureFilePath: assets/textures/skybox.jpeg
-      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: false
       m_BaseColor: [1, 1, 1, 1]
-      m_Ambient: [0.129411772, 0.129411772, 0.129411772, 1]
-      m_Diffuse: [0.784313738, 0.784313738, 0.784313738, 1]
-      m_Specular: [1, 1, 1, 1]
-      m_Shininess: 5
-  - Entity: 8
-    TagComponent:
-      m_Tag: Plane Entity
-    TransformComponent:
-      m_Translation: [0.718912125, -10.7055817, 1.36408043]
-      m_Rotation: [0, -0, 0]
-      m_Scale: [100, 1, 100]
-    MeshComponent:
-      m_MeshFilePath: assets\models\cube.mesh
-    MaterialComponent:
-      m_TextureFilePath: ""
-      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
-      m_bUseColor: true
-      m_BaseColor: [0.359430611, 0.270707518, 0.0793049634, 1]
-      m_Ambient: [1, 1, 0.129411772, 1]
-      m_Diffuse: [1, 1, 0.784313738, 1]
+      m_Ambient: [1, 1, 1, 1]
+      m_Diffuse: [1, 1, 1, 1]
       m_Specular: [1, 1, 1, 1]
       m_Shininess: 32
+    RigidBodyComponent:
+      m_ColliderShape: Sphere
+      m_Mass: 7
+      m_Friction: 0.200000003
+      m_Restitution: 0.74000001
+      m_ShowColliderShape: true
+      m_Offset: [0.5, 0.5, 0.5]
+      m_Radius: 1

@@ -21,6 +21,7 @@ enum SceneState
 };
 
 class CameraController;
+class BulletSimulation;
 class SceneManager
 {
 	friend class SceneHierarchyPanel;
@@ -50,6 +51,11 @@ public:
 		return m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity;
 	}
 
+	SceneState GetCurrentSceneState()
+	{
+		return m_SceneState;
+	}
+
 	entt::registry* GetRegistry()
 	{
 		return &m_Registry;
@@ -74,6 +80,7 @@ private:
 private:
 	CameraController* m_EditorCameraController{ nullptr };	
 	CameraController* m_PlayerCameraController{ nullptr };
+	BulletSimulation* m_BulletSimulation{ nullptr };
 private:
 	SceneState m_SceneState = SceneState::Editor;
 };
