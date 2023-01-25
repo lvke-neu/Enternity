@@ -10,8 +10,8 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [-13.9278622, 9.6729393, 5.44492722]
-      m_Rotation: [-0.666815221, -1.40044975, 0]
+      m_Translation: [-7.7035594, 3.97323442, 7.42315912]
+      m_Rotation: [-0.336814851, -0.650447905, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
     TagComponent:
@@ -30,7 +30,7 @@ Entities:
     TagComponent:
       m_Tag: DirectionLight Entity
     TransformComponent:
-      m_Translation: [31.2814751, 20.4100494, 54.0447464]
+      m_Translation: [0, 20.4100494, 54.0447464]
       m_Rotation: [0, -0, 0]
       m_Scale: [0.5, 0.5, 0.5]
     MeshComponent:
@@ -46,20 +46,20 @@ Entities:
       m_Shininess: 32
   - Entity: 6
     TagComponent:
-      m_Tag: Plane Entity
+      m_Tag: Sphere Entity
     TransformComponent:
-      m_Translation: [0.718912125, -10.7055817, 1.36408043]
+      m_Translation: [-4.68924761, 1.73199034, -5.58091688]
       m_Rotation: [0, -0, 0]
-      m_Scale: [100, 1, 100]
+      m_Scale: [1, 1, 1]
     MeshComponent:
-      m_MeshFilePath: assets\models\cube.mesh
+      m_MeshFilePath: assets\models\sphere.mesh
     MaterialComponent:
-      m_TextureFilePath: ""
+      m_TextureFilePath: assets\textures\skybox.jpeg
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: true
-      m_BaseColor: [0.359430611, 0.270707518, 0.0793049634, 1]
-      m_Ambient: [1, 1, 0.129411772, 1]
-      m_Diffuse: [1, 1, 1, 1]
+      m_BaseColor: [1, 1, 1, 1]
+      m_Ambient: [0.129411772, 0.129411772, 0.129411772, 1]
+      m_Diffuse: [0.784313738, 0.784313738, 0.784313738, 1]
       m_Specular: [1, 1, 1, 1]
       m_Shininess: 32
   - Entity: 7
@@ -76,25 +76,25 @@ Entities:
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: false
       m_BaseColor: [1, 1, 1, 1]
-      m_Ambient: [0.0431372561, 0.0431372561, 0.0431372561, 1]
-      m_Diffuse: [1, 1, 1, 1]
+      m_Ambient: [0.129411772, 0.129411772, 0.129411772, 1]
+      m_Diffuse: [0.784313738, 0.784313738, 0.784313738, 1]
       m_Specular: [1, 1, 1, 1]
       m_Shininess: 5
   - Entity: 8
     TagComponent:
-      m_Tag: Sphere Entity
+      m_Tag: Plane Entity
     TransformComponent:
-      m_Translation: [-4.68924761, 1.73199034, -5.58091688]
+      m_Translation: [0.718912125, -10.7055817, 1.36408043]
       m_Rotation: [0, -0, 0]
-      m_Scale: [1, 1, 1]
+      m_Scale: [100, 1, 100]
     MeshComponent:
-      m_MeshFilePath: assets\models\sphere.mesh
+      m_MeshFilePath: assets\models\cube.mesh
     MaterialComponent:
-      m_TextureFilePath: assets\textures\skybox.jpeg
+      m_TextureFilePath: ""
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
       m_bUseColor: true
-      m_BaseColor: [1, 1, 1, 1]
-      m_Ambient: [0.129411772, 0.129411772, 0.129411772, 1]
-      m_Diffuse: [1, 1, 1, 1]
+      m_BaseColor: [0.359430611, 0.270707518, 0.0793049634, 1]
+      m_Ambient: [1, 1, 0.129411772, 1]
+      m_Diffuse: [1, 1, 0.784313738, 1]
       m_Specular: [1, 1, 1, 1]
       m_Shininess: 32
