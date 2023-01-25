@@ -10,8 +10,8 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [4.1676693, -2.0872221, 14.0945349]
-      m_Rotation: [-0.129999965, -0.100005426, 0]
+      m_Translation: [20.7306919, 4.90333462, 8.78988552]
+      m_Rotation: [-0.510000348, 0.199994087, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
     TagComponent:
@@ -30,7 +30,7 @@ Entities:
     TagComponent:
       m_Tag: DirectionLight Entity
     TransformComponent:
-      m_Translation: [12.7536106, 37.1941681, 112.661934]
+      m_Translation: [12.7536106, -21.8099995, 112.661934]
       m_Rotation: [0, -0, 0]
       m_Scale: [5, 5, 5]
     MeshComponent:
@@ -81,8 +81,8 @@ Entities:
       m_MeshFilePath: assets\models\cube.mesh
     MaterialComponent:
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
-      m_DiffuseTextureFilePath: assets\textures\skybox.jpeg
-      m_SpecularTextureFilePath: ""
+      m_DiffuseTextureFilePath: assets\textures\box_diffuse.png
+      m_SpecularTextureFilePath: assets\textures\box_specular.png
       m_UseTexture: true
       m_Ambient: [1, 1, 1, 1]
       m_Diffuse: [1, 1, 1, 1]
