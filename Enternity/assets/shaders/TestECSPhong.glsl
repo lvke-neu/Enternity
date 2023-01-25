@@ -37,11 +37,15 @@ layout (binding = 0) uniform sampler2D u_texture;
 uniform int u_entityId;
 
 uniform vec3 u_lightPos;
+uniform vec3 u_cameraPos;
 
 uniform vec4 u_lightAmbient;
 uniform vec4 u_entityAmbient;
 uniform vec4 u_lightDiffuse;
 uniform vec4 u_entityDiffuse;
+uniform vec4 u_lightSpecular;
+uniform vec4 u_entitySpecular;
+uniform int u_shininess;
 
 in vec3 v_worldPos;
 in vec3 v_worldNormal;
@@ -63,16 +67,19 @@ void main()
 	//diffuse
 	vec4 Diffuse = u_lightDiffuse * u_entityDiffuse;
 	vec3 worldNomal = normalize(v_worldNormal);
-	
 	//point light
 	//vec3 negLightDirection = normalize(u_lightPos - v_worldPos);
-
 	//direction light
 	vec3 negLightDirection = normalize(u_lightPos);
+	Diffuse = Diffuse * max(dot(worldNomal, negLightDirection), 0);
 
-	Diffuse = Diffuse * max(0, dot(worldNomal, negLightDirection));
+	//specular
+	vec4 Specular = u_lightSpecular * u_entitySpecular;
+	vec3 reflectLightDir = normalize(reflect(-negLightDirection, worldNomal));
+	vec3 viewDir = normalize(u_cameraPos - v_worldPos);
+	Specular = Specular * pow(max(dot(reflectLightDir, viewDir), 0), u_shininess);
 
-	pixelColor = pixelColor * (Ambient + Diffuse);
+	pixelColor = pixelColor * (Ambient + Diffuse + Specular);
 
 	entityId = u_entityId;
 };
