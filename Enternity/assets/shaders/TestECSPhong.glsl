@@ -62,9 +62,9 @@ void main()
 		vec4 Diffuse = u_lightDiffuse * texture(u_diffuseTexture, v_texcoord);
 		vec3 worldNomal = normalize(v_worldNormal);
 		//point light
-		//vec3 negLightDirection = normalize(u_lightPos - v_worldPos);
+		vec3 negLightDirection = normalize(u_lightPos - v_worldPos);
 		//direction light
-		vec3 negLightDirection = normalize(u_lightPos);
+		//vec3 negLightDirection = normalize(u_lightPos);
 		Diffuse = Diffuse * max(dot(worldNomal, negLightDirection), 0);
 
 		//specular
