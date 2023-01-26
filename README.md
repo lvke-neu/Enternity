@@ -35,3 +35,5 @@ Box2d:
 	1、world 
 	2、rigidBody:刚体（静态刚体， 动态刚体）
 	3、collider：对撞机
+
+Assimp: 加载模型 aiScene, aiMesh, aiMaterial
