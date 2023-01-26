@@ -267,8 +267,8 @@ struct MaterialComponent
 	{
 		if (m_Shader)
 		{
-			m_Shader->Bind();
-			m_Shader->SetInteger1("u_useTexture", m_UseTexture);
+			//m_Shader->Bind();
+			//m_Shader->SetInteger1("u_useTexture", m_UseTexture);
 		}
 	}
 

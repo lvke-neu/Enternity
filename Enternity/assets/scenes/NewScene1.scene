@@ -10,8 +10,8 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [1.89252877, -2.75090384, 18.7248573]
-      m_Rotation: [-0.260000169, -0.170005798, 0]
+      m_Translation: [6.56358051, 0.430723697, 22.8302917]
+      m_Rotation: [-0.360000074, 0.109995142, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
     TagComponent:
@@ -55,8 +55,8 @@ Entities:
       m_MeshFilePath: assets\models\cube.mesh
     MaterialComponent:
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
-      m_DiffuseTextureFilePath: ""
-      m_SpecularTextureFilePath: ""
+      m_DiffuseTextureFilePath: assets/textures/white_background.jpeg
+      m_SpecularTextureFilePath: assets/textures/white_background.jpeg
       m_UseTexture: false
       m_Ambient: [0.243137255, 0.352941185, 0.0352941193, 1]
       m_Diffuse: [0.243137255, 0.352941185, 0.0352941193, 1]
@@ -125,8 +125,8 @@ Entities:
       m_MeshFilePath: assets\models\cube.mesh
     MaterialComponent:
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
-      m_DiffuseTextureFilePath: ""
-      m_SpecularTextureFilePath: ""
+      m_DiffuseTextureFilePath: assets/textures/white_background.jpeg
+      m_SpecularTextureFilePath: assets/textures/white_background.jpeg
       m_UseTexture: false
       m_Ambient: [0.690391421, 0.0515950769, 0.0515950769, 1]
       m_Diffuse: [0.690196097, 0.0509803928, 0.0509803928, 1]
@@ -151,8 +151,8 @@ Entities:
       m_MeshFilePath: assets\models\sphere.mesh
     MaterialComponent:
       m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
-      m_DiffuseTextureFilePath: ""
-      m_SpecularTextureFilePath: ""
+      m_DiffuseTextureFilePath: assets/textures/white_background.jpeg
+      m_SpecularTextureFilePath: assets/textures/white_background.jpeg
       m_UseTexture: false
       m_Ambient: [0.129411772, 0.129411772, 0.129411772, 1]
       m_Diffuse: [0.435294122, 0.435294122, 0.435294122, 1]
