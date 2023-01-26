@@ -46,37 +46,11 @@ Entities:
       m_Shininess: 58
   - Entity: 7
     TagComponent:
-      m_Tag: sphere show light
+      m_Tag: plane
     TransformComponent:
-      m_Translation: [5.05615234, 0, 0]
-      m_Rotation: [0, -0, 0]
-      m_Scale: [1, 1, 1]
-    MeshComponent:
-      m_MeshFilePath: assets\models\sphere.mesh
-    MaterialComponent:
-      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
-      m_DiffuseTextureFilePath: ""
-      m_SpecularTextureFilePath: ""
-      m_UseTexture: false
-      m_Ambient: [0.129411772, 0.129411772, 0.129411772, 1]
-      m_Diffuse: [0.435294122, 0.435294122, 0.435294122, 1]
-      m_Specular: [1, 1, 1, 1]
-      m_Shininess: 32
-    RigidBodyComponent:
-      m_ColliderShape: Sphere
-      m_Mass: 0
-      m_Friction: 0.5
-      m_Restitution: 1
-      m_ShowColliderShape: false
-      m_Offset: [0.5, 0.5, 0.5]
-      m_Radius: 1
-  - Entity: 8
-    TagComponent:
-      m_Tag: oblique plane
-    TransformComponent:
-      m_Translation: [0, -6.21589708, 0]
-      m_Rotation: [0, 0, -0.314159274]
-      m_Scale: [5, 0.5, 2]
+      m_Translation: [0, -20, 0]
+      m_Rotation: [0, 0, 0]
+      m_Scale: [100, 0.5, 100]
     MeshComponent:
       m_MeshFilePath: assets\models\cube.mesh
     MaterialComponent:
@@ -84,18 +58,36 @@ Entities:
       m_DiffuseTextureFilePath: ""
       m_SpecularTextureFilePath: ""
       m_UseTexture: false
-      m_Ambient: [0.690391421, 0.0515950769, 0.0515950769, 1]
-      m_Diffuse: [0.690196097, 0.0509803928, 0.0509803928, 1]
-      m_Specular: [0.690196097, 0.0509803928, 0.0509803928, 1]
+      m_Ambient: [0.243137255, 0.352941185, 0.0352941193, 1]
+      m_Diffuse: [0.243137255, 0.352941185, 0.0352941193, 1]
+      m_Specular: [0.392156869, 0.392156869, 0.392156869, 1]
       m_Shininess: 32
     RigidBodyComponent:
       m_ColliderShape: Box
       m_Mass: 0
-      m_Friction: 0.920000017
+      m_Friction: 0.200000003
       m_Restitution: 1
       m_ShowColliderShape: true
-      m_Offset: [5, 0.5, 2]
+      m_Offset: [100, 0.5, 100]
       m_Radius: 1
+  - Entity: 8
+    TagComponent:
+      m_Tag: cube
+    TransformComponent:
+      m_Translation: [17.8781509, 0, 0]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [1, 1, 1]
+    MeshComponent:
+      m_MeshFilePath: assets\models\cube.mesh
+    MaterialComponent:
+      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
+      m_DiffuseTextureFilePath: assets\textures\box_diffuse.png
+      m_SpecularTextureFilePath: assets\textures\box_specular.png
+      m_UseTexture: true
+      m_Ambient: [1, 1, 1, 1]
+      m_Diffuse: [1, 1, 1, 1]
+      m_Specular: [1, 1, 1, 1]
+      m_Shininess: 32
   - Entity: 9
     TagComponent:
       m_Tag: sphere rigid
@@ -124,29 +116,11 @@ Entities:
       m_Radius: 1
   - Entity: 10
     TagComponent:
-      m_Tag: cube
+      m_Tag: oblique plane
     TransformComponent:
-      m_Translation: [17.8781509, 0, 0]
-      m_Rotation: [0, -0, 0]
-      m_Scale: [1, 1, 1]
-    MeshComponent:
-      m_MeshFilePath: assets\models\cube.mesh
-    MaterialComponent:
-      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
-      m_DiffuseTextureFilePath: assets\textures\box_diffuse.png
-      m_SpecularTextureFilePath: assets\textures\box_specular.png
-      m_UseTexture: true
-      m_Ambient: [1, 1, 1, 1]
-      m_Diffuse: [1, 1, 1, 1]
-      m_Specular: [1, 1, 1, 1]
-      m_Shininess: 32
-  - Entity: 11
-    TagComponent:
-      m_Tag: plane
-    TransformComponent:
-      m_Translation: [0, -20, 0]
-      m_Rotation: [0, 0, 0]
-      m_Scale: [100, 0.5, 100]
+      m_Translation: [0, -6.21589708, 0]
+      m_Rotation: [0, 0, -0.314159274]
+      m_Scale: [5, 0.5, 2]
     MeshComponent:
       m_MeshFilePath: assets\models\cube.mesh
     MaterialComponent:
@@ -154,15 +128,41 @@ Entities:
       m_DiffuseTextureFilePath: ""
       m_SpecularTextureFilePath: ""
       m_UseTexture: false
-      m_Ambient: [0.243137255, 0.352941185, 0.0352941193, 1]
-      m_Diffuse: [0.243137255, 0.352941185, 0.0352941193, 1]
-      m_Specular: [0.392156869, 0.392156869, 0.392156869, 1]
+      m_Ambient: [0.690391421, 0.0515950769, 0.0515950769, 1]
+      m_Diffuse: [0.690196097, 0.0509803928, 0.0509803928, 1]
+      m_Specular: [0.690196097, 0.0509803928, 0.0509803928, 1]
       m_Shininess: 32
     RigidBodyComponent:
       m_ColliderShape: Box
       m_Mass: 0
-      m_Friction: 0.200000003
+      m_Friction: 0.920000017
+      m_Restitution: 1
+      m_ShowColliderShape: true
+      m_Offset: [5, 0.5, 2]
+      m_Radius: 1
+  - Entity: 11
+    TagComponent:
+      m_Tag: sphere show light
+    TransformComponent:
+      m_Translation: [5.05615234, 0, 0]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [1, 1, 1]
+    MeshComponent:
+      m_MeshFilePath: assets\models\sphere.mesh
+    MaterialComponent:
+      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
+      m_DiffuseTextureFilePath: ""
+      m_SpecularTextureFilePath: ""
+      m_UseTexture: false
+      m_Ambient: [0.129411772, 0.129411772, 0.129411772, 1]
+      m_Diffuse: [0.435294122, 0.435294122, 0.435294122, 1]
+      m_Specular: [1, 1, 1, 1]
+      m_Shininess: 32
+    RigidBodyComponent:
+      m_ColliderShape: Sphere
+      m_Mass: 0
+      m_Friction: 0.5
       m_Restitution: 1
       m_ShowColliderShape: false
-      m_Offset: [100, 1, 2]
+      m_Offset: [0.5, 0.5, 0.5]
       m_Radius: 1
