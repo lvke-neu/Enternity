@@ -23,8 +23,8 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [10.3033972, -8.47071838, 28.2842522]
-      m_Rotation: [-0.0568559542, -0.0804486051, 0]
+      m_Translation: [-2.83634257, -12.3770218, 14.5411406]
+      m_Rotation: [-0.306855977, -0.3904486, 0]
       m_Scale: [1, 1, 1]
   - Entity: 3
     TagComponent:
@@ -90,9 +90,9 @@ Entities:
       m_Shininess: 32
     RigidBodyComponent:
       m_ColliderShape: Box
-      m_Mass: 0
+      m_Mass: 68
       m_Friction: 0.920000017
-      m_Restitution: 1
+      m_Restitution: 0.300000012
       m_ShowColliderShape: true
       m_Offset: [5, 0.5, 2]
       m_Radius: 1
