@@ -244,6 +244,14 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			m_SelectedEntity.AddComponent<RigidBodyComponent>();
 			ImGui::CloseCurrentPopup();
 		}
+
+		if (ImGui::MenuItem("ModelComponent"))
+		{
+			m_SelectedEntity.AddComponent<ModelComponent>();
+			ImGui::CloseCurrentPopup();
+		}
+
+
 		ImGui::EndPopup();
 	}
 	ImGui::PopItemWidth();
@@ -450,6 +458,34 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			ImGui::DragFloat("Friction", &rbc.m_Friction, 0.01f, 0.0f, 1.0f);
 			ImGui::DragFloat("Restitution", &rbc.m_Restitution, 0.01f, 0.0f, 1.0f);
 			
+		});
+
+	//ModelComponent
+	DrawComponent<ModelComponent>("ModelComponent",
+		[&]()
+		{	
+			auto& modelc = m_SelectedEntity.GetComponent<ModelComponent>();
+
+			char buffer[256];
+			memset(buffer, 0, sizeof(buffer));
+			memcpy_s(buffer, sizeof(buffer), modelc.m_ModelFilePath.c_str(), sizeof(buffer));
+			if (ImGui::InputText("ModelFilePath", buffer, sizeof(buffer)))
+			{
+				modelc.m_ModelFilePath = buffer;
+				modelc.Load();
+			}
+			if (ImGui::BeginDragDropTarget())
+			{
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+				{
+					LOG_INFO((char*)payload->Data);
+					std::string path((char*)payload->Data);
+					path = path.substr(0, payload->DataSize);
+					modelc.m_ModelFilePath = path;
+					modelc.Load();
+				}
+				ImGui::EndDragDropTarget();
+			}
 		});
 
 	//camera component

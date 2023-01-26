@@ -57,6 +57,8 @@ void ContentBrowserPanel::ImguiDraw()
 		if (!p.is_directory() && ImGui::BeginDragDropSource())
 		{
 			std::string cString = path.string();
+			std::replace(cString.begin(), cString.end(), '\\', '/');
+
 			//LOG_INFO(cString.c_str()+ "    size:" + std::to_string(cString.size()));
 			ImGui::SetDragDropPayload("CONTENT_BROWSER_ITEM", cString.c_str(), cString.size(), ImGuiCond_Once);
 			ImGui::EndDragDropSource();
