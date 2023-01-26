@@ -534,7 +534,17 @@ private:
 		matc.m_SpecularTextureFilePath = std::string(textureFilepath.C_Str()) == "" ? "assets/textures/white_background.jpeg" : m_ModelFilePath.substr(0, m_ModelFilePath.find_last_of('/')) + "/" + textureFilepath.C_Str();
 		matc.m_UseTexture = true;
 
-	
+		aiColor4D color;
+
+		material->Get(AI_MATKEY_COLOR_AMBIENT, color);
+		matc.m_Ambient = glm::vec4(color.r, color.g, color.b, color.a);
+
+		material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
+		matc.m_Diffuse = glm::vec4(color.r, color.g, color.b, color.a);
+
+		material->Get(AI_MATKEY_COLOR_SPECULAR, color);
+		matc.m_Specular = glm::vec4(color.r, color.g, color.b, color.a);
+
 		matc.Load();
 
 		m_Mesh.push_back(meshc);
