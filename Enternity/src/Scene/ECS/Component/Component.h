@@ -434,6 +434,10 @@ struct ModelComponent
 
 	void Load()
 	{
+		UnLoad();
+		m_Mesh.clear();
+		m_Material.clear();
+
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(m_ModelFilePath, aiProcess_Triangulate | aiProcess_FlipUVs 
 			| aiProcess_GenNormals | aiProcess_GenBoundingBoxes | aiProcess_GenUVCoords);
@@ -497,8 +501,11 @@ private:
 			tmpVertexPosTex.normal.z = mesh->mNormals[i].z;
 
 			//texcoord
-			tmpVertexPosTex.texcoord.x = mesh->mTextureCoords[0][i].x;
-			tmpVertexPosTex.texcoord.y = mesh->mTextureCoords[0][i].y;
+			if (mesh->HasTextureCoords(0))
+			{
+				tmpVertexPosTex.texcoord.x = mesh->mTextureCoords[0][i].x;
+				tmpVertexPosTex.texcoord.y = -mesh->mTextureCoords[0][i].y + 1;
+			}
 
 			vertexData.push_back(tmpVertexPosTex);
 		}
@@ -521,11 +528,13 @@ private:
 		aiString textureFilepath;
 		
 		material->GetTexture(aiTextureType_DIFFUSE, 0, &textureFilepath);
-		matc.m_DiffuseTextureFilePath = m_ModelFilePath.substr(0, m_ModelFilePath.find_last_of('/')) + "/" + textureFilepath.C_Str();
+		matc.m_DiffuseTextureFilePath = std::string(textureFilepath.C_Str()) == "" ? "assets/textures/white_background.jpeg" : m_ModelFilePath.substr(0, m_ModelFilePath.find_last_of('/')) + "/" + textureFilepath.C_Str();
 
 		material->GetTexture(aiTextureType_SPECULAR, 0, &textureFilepath);
-		matc.m_SpecularTextureFilePath = m_ModelFilePath.substr(0, m_ModelFilePath.find_last_of('/')) + "/" + textureFilepath.C_Str();
+		matc.m_SpecularTextureFilePath = std::string(textureFilepath.C_Str()) == "" ? "assets/textures/white_background.jpeg" : m_ModelFilePath.substr(0, m_ModelFilePath.find_last_of('/')) + "/" + textureFilepath.C_Str();
 		matc.m_UseTexture = true;
+
+	
 		matc.Load();
 
 		m_Mesh.push_back(meshc);

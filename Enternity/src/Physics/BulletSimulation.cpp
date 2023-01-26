@@ -15,6 +15,11 @@ BulletSimulation::BulletSimulation()
 	auto& matc = m_BulletEntity.AddComponent<MaterialComponent>();
 	auto& meshc = m_BulletEntity.AddComponent<MeshComponent>();
 	matc.m_ShaderFilePath = "assets/shaders/TestECSPhong.glsl";
+	matc.m_DiffuseTextureFilePath = "assets/textures/white_background.jpeg";
+	matc.m_Ambient = glm::vec4(1, 0, 0, 1);
+	matc.m_Diffuse = glm::vec4(0.5, 0.5, 0.5, 1);
+	matc.m_Specular = glm::vec4(0.1, 0, 0, 1);
+	matc.m_Shininess = 64;
 	matc.m_UseTexture = false;
 
 	meshc.m_MeshFilePath = "assets/models/sphere.mesh";

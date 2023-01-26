@@ -38,7 +38,7 @@ SceneManager::~SceneManager()
 	m_EditorCameraEntity.Destroy();
 	m_PlayerCameraEntity.Destroy();
 	m_SkyBoxEntity.Destroy();
-
+	m_DirectionLightEntity.Destroy();
 	SAFE_DELETE_SET_NULL(m_EditorCameraController);
 	SAFE_DELETE_SET_NULL(m_PlayerCameraController);
 	SAFE_DELETE_SET_NULL(m_BulletSimulation);	
@@ -80,6 +80,7 @@ void SceneManager::Initialize()
 	auto& meshc = m_DirectionLightEntity.AddComponent<MeshComponent>();
 	matc.m_UseTexture = false;
 	matc.m_ShaderFilePath = "assets/shaders/TestECSPhong.glsl";
+	matc.m_DiffuseTextureFilePath = "assets/textures/white_background.jpeg";
 	meshc.m_MeshFilePath = "assets/models/sphere.mesh";
 	matc.Load();
 	meshc.Load();

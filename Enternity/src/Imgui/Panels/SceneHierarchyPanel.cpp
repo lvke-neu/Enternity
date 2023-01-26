@@ -194,10 +194,10 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 	ImGui::SameLine();
 	ImGui::PushItemWidth(-1);
 	if (m_SelectedEntity.IsValidEntity()
-		&& m_SelectedEntity != SceneManager::GetInstance().m_EditorCameraEntity 
+		&& m_SelectedEntity != SceneManager::GetInstance().m_EditorCameraEntity
 		&& ImGui::Button("Add Component")
 		&& m_SelectedEntity != SceneManager::GetInstance().m_PlayerCameraEntity
-		&& m_SelectedEntity !=SceneManager::GetInstance().m_DirectionLightEntity)
+		&& m_SelectedEntity != SceneManager::GetInstance().m_DirectionLightEntity)
 	{
 		ImGui::OpenPopup("AddComponent");
 	}
@@ -272,7 +272,7 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			rotation = glm::radians(angleRotation);
 			DrawVec3("Scale", scale, glm::vec3(1.0f));
 		}, allowedRemove);
-	
+
 
 	//mesh component
 	DrawComponent<MeshComponent>("MeshComponent",
@@ -302,7 +302,7 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 
 		}
 	);
-	
+
 
 	//material component
 	DrawComponent<MaterialComponent>("MaterialComponent",
@@ -355,19 +355,19 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			ImGui::Text("ShaderFilePath:%s", materialComponent.m_ShaderFilePath.c_str());
 
 
-			if (ImGui::Checkbox("UseTexture", &materialComponent.m_UseTexture))
-			{
-				materialComponent.SetUseTexture();
-			}
+			//if (ImGui::Checkbox("UseTexture", &materialComponent.m_UseTexture))
+			//{
+			//	materialComponent.SetUseTexture();
+			//}
 
 			ImGui::Separator();
-			ImGui::ColorEdit4("Ambient",  &materialComponent.m_Ambient[0]);
-			ImGui::ColorEdit4("Diffuse",  &materialComponent.m_Diffuse[0]);
+			ImGui::ColorEdit4("Ambient", &materialComponent.m_Ambient[0]);
+			ImGui::ColorEdit4("Diffuse", &materialComponent.m_Diffuse[0]);
 			ImGui::ColorEdit4("Specular", &materialComponent.m_Specular[0]);
 			ImGui::DragFloat("Shininess", &materialComponent.m_Shininess, 1.0f, 1.0f, 9999.0f);
 		}
 	);
-	
+
 	//motor component
 	DrawComponent<MotorComponent>("MotorComponent",
 		[&]()
@@ -402,7 +402,7 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 				ImGui::EndCombo();
 			}
 
-			ImGui::Checkbox("FixedRotation", &rb2dc.m_FixedRotation);		
+			ImGui::Checkbox("FixedRotation", &rb2dc.m_FixedRotation);
 		});
 
 	//BoxCollider2DComponent
@@ -422,50 +422,52 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 	DrawComponent<RigidBodyComponent>("RigidBodyComponent",
 		[&]()
 		{	auto& rbc = m_SelectedEntity.GetComponent<RigidBodyComponent>();
-			
-			const char* bodyTypeString[] = { "Box", "Sphere"};
-			const char* currentBodyTypeString = bodyTypeString[(int)rbc.m_ColliderShape];
 
-			if (ImGui::BeginCombo("ColliderShape", currentBodyTypeString))
+	const char* bodyTypeString[] = { "Box", "Sphere" };
+	const char* currentBodyTypeString = bodyTypeString[(int)rbc.m_ColliderShape];
+
+	if (ImGui::BeginCombo("ColliderShape", currentBodyTypeString))
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			bool isSelected = currentBodyTypeString == bodyTypeString[i];
+			if (ImGui::Selectable(bodyTypeString[i], isSelected))
 			{
-				for (int i = 0; i < 2; i++)
-				{
-					bool isSelected = currentBodyTypeString == bodyTypeString[i];
-					if (ImGui::Selectable(bodyTypeString[i], isSelected))
-					{
-						currentBodyTypeString = bodyTypeString[i];
-						rbc.m_ColliderShape = (RigidBodyComponent::ColliderShape)i;
-					}
-					if (isSelected)
-						ImGui::SetItemDefaultFocus();
-				}
-
-				ImGui::EndCombo();
+				currentBodyTypeString = bodyTypeString[i];
+				rbc.m_ColliderShape = (RigidBodyComponent::ColliderShape)i;
 			}
+			if (isSelected)
+				ImGui::SetItemDefaultFocus();
+		}
 
-			if (currentBodyTypeString == bodyTypeString[0])
-			{
-				DrawVec3("Offset", rbc.m_Offset, glm::vec3(0.0f));
-			}
+		ImGui::EndCombo();
+	}
 
-			if (currentBodyTypeString == bodyTypeString[1])
-			{
-				ImGui::DragFloat("Radius", &rbc.m_Radius, 1.0f, 0.0f, FLT_MAX);
-			}
+	if (currentBodyTypeString == bodyTypeString[0])
+	{
+		DrawVec3("Offset", rbc.m_Offset, glm::vec3(0.0f));
+	}
 
-			ImGui::Checkbox("ShowColliderShape", &rbc.m_ShowColliderShape);
-			ImGui::DragFloat("Mass", &rbc.m_Mass, 1.0f, 0.0f, FLT_MAX);
-			ImGui::DragFloat("Friction", &rbc.m_Friction, 0.01f, 0.0f, 1.0f);
-			ImGui::DragFloat("Restitution", &rbc.m_Restitution, 0.01f, 0.0f, 1.0f);
-			
+	if (currentBodyTypeString == bodyTypeString[1])
+	{
+		ImGui::DragFloat("Radius", &rbc.m_Radius, 1.0f, 0.0f, FLT_MAX);
+	}
+
+	ImGui::Checkbox("ShowColliderShape", &rbc.m_ShowColliderShape);
+	ImGui::DragFloat("Mass", &rbc.m_Mass, 1.0f, 0.0f, FLT_MAX);
+	ImGui::DragFloat("Friction", &rbc.m_Friction, 0.01f, 0.0f, 1.0f);
+	ImGui::DragFloat("Restitution", &rbc.m_Restitution, 0.01f, 0.0f, 1.0f);
+
 		});
 
 	//ModelComponent
 	DrawComponent<ModelComponent>("ModelComponent",
 		[&]()
-		{	
+		{
 			auto& modelc = m_SelectedEntity.GetComponent<ModelComponent>();
 
+
+			
 			char buffer[256];
 			memset(buffer, 0, sizeof(buffer));
 			memcpy_s(buffer, sizeof(buffer), modelc.m_ModelFilePath.c_str(), sizeof(buffer));
@@ -486,7 +488,73 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 				}
 				ImGui::EndDragDropTarget();
 			}
+
+
+			int index = 0;
+			for (auto& materialComponent : modelc.m_Material)
+			{
+				
+				ImGui::PushID(std::to_string(index++).c_str());
+				ImGui::Separator();
+				char buffer[256];
+				memset(buffer, 0, sizeof(buffer));
+				memcpy_s(buffer, sizeof(buffer), materialComponent.m_DiffuseTextureFilePath.c_str(), sizeof(buffer));
+				if (ImGui::InputText("DiffuseTextureFilePath", buffer, sizeof(buffer)))
+				{
+					materialComponent.m_DiffuseTextureFilePath = buffer;
+					materialComponent.LoadDiffuseTexture();
+				}
+				if (ImGui::BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+					{
+						LOG_INFO((char*)payload->Data);
+						std::string path((char*)payload->Data);
+						path = path.substr(0, payload->DataSize);
+						materialComponent.m_DiffuseTextureFilePath = path;
+						materialComponent.LoadDiffuseTexture();
+					}
+					ImGui::EndDragDropTarget();
+				}
+
+				memset(buffer, 0, sizeof(buffer));
+				memcpy_s(buffer, sizeof(buffer), materialComponent.m_SpecularTextureFilePath.c_str(), sizeof(buffer));
+				if (ImGui::InputText("SpecularTextureFilePath", buffer, sizeof(buffer)))
+				{
+					materialComponent.m_SpecularTextureFilePath = buffer;
+					materialComponent.LoadSpecularTexture();
+				}
+				if (ImGui::BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+					{
+						LOG_INFO((char*)payload->Data);
+						std::string path((char*)payload->Data);
+						path = path.substr(0, payload->DataSize);
+						materialComponent.m_SpecularTextureFilePath = path;
+						materialComponent.LoadSpecularTexture();
+					}
+					ImGui::EndDragDropTarget();
+				}
+
+
+				ImGui::Text("ShaderFilePath:%s", materialComponent.m_ShaderFilePath.c_str());
+
+
+				//if (ImGui::Checkbox("UseTexture", &materialComponent.m_UseTexture))
+				//{
+				//	materialComponent.SetUseTexture();
+				//}
+				ImGui::ColorEdit4("Ambient", &materialComponent.m_Ambient[0]);
+				ImGui::ColorEdit4("Diffuse", &materialComponent.m_Diffuse[0]);
+				ImGui::ColorEdit4("Specular", &materialComponent.m_Specular[0]);
+				ImGui::DragFloat("Shininess", &materialComponent.m_Shininess, 1.0f, 1.0f, 9999.0f);
+
+				ImGui::PopID();
+			}
 		});
+
+
 
 	//camera component
 	DrawComponent<CameraComponent>("CameraComponent",

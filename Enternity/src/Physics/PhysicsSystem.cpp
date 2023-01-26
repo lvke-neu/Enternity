@@ -24,6 +24,7 @@ PhysicsSystem::PhysicsSystem()
 	auto& meshc = m_BoxColliderShape.AddComponent<MeshComponent>();
 	matc.m_UseTexture = false;
 	matc.m_ShaderFilePath = "assets/shaders/TestECSPhong.glsl";
+	matc.m_DiffuseTextureFilePath = "assets/textures/white_background.jpeg";
 	meshc.m_MeshFilePath = "assets/models/cube.mesh";
 	matc.Load();
 	meshc.Load();
