@@ -88,6 +88,11 @@ private:
 	BulletSimulation* m_BulletSimulation{ nullptr };
 private:
 	SceneState m_SceneState = SceneState::Editor;
+
+
+
+	//test model
+	Entity m_ModelEntity;
 };
 
 END_ENTERNITY

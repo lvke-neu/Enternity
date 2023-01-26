@@ -27,14 +27,26 @@ SceneManager::~SceneManager()
 		auto& skyBoxComponent = viewSkyBoxComponent.get<SkyBoxComponent>(entity);
 		skyBoxComponent.UnLoad();
 	}
+	auto viewModelComponent = m_Registry.view<ModelComponent>();
+	for (auto entity : viewModelComponent)
+	{
+		auto& modelComponent = viewModelComponent.get<ModelComponent>(entity);
+		modelComponent.UnLoad();
+	}
 
 	Clear();
 	m_EditorCameraEntity.Destroy();
 	m_PlayerCameraEntity.Destroy();
 	m_SkyBoxEntity.Destroy();
+
+	//test model
+	m_ModelEntity.Destroy();
+
 	SAFE_DELETE_SET_NULL(m_EditorCameraController);
 	SAFE_DELETE_SET_NULL(m_PlayerCameraController);
 	SAFE_DELETE_SET_NULL(m_BulletSimulation);
+
+	
 }
 
 void SceneManager::Initialize()
@@ -79,6 +91,14 @@ void SceneManager::Initialize()
 
 
 	m_BulletSimulation = new BulletSimulation;
+
+	//test model
+	m_ModelEntity = Entity(&m_Registry, "Model Entity");
+	m_ModelEntity.AddComponent<TransformComponent>();
+	auto& modelc = m_ModelEntity.AddComponent<ModelComponent>();
+	modelc.m_ModelFilePath = "assets/models/nanosuit/nanosuit.obj";
+	
+	modelc.Load();
 }
 
 void SceneManager::Tick(float deltaTime)
@@ -98,6 +118,10 @@ void SceneManager::Tick(float deltaTime)
 		//render collider shape
 		PhysicsSystem::GetInstance().ShowColliderShape(entity.second, m_DirectionLightEntity);
 	}
+
+	//test model
+	RenderSystem::GetInstance().DrawModel(m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity, m_ModelEntity, m_DirectionLightEntity);
+	
 
 	//direction light
 	RenderSystem::GetInstance().DrawEntity(m_SceneState == SceneState::Editor ? m_EditorCameraEntity : m_PlayerCameraEntity, m_DirectionLightEntity, m_DirectionLightEntity);

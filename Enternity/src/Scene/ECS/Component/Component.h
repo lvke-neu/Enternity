@@ -10,6 +10,9 @@ Components
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 #include "Macro/Macro.h"
 #include "Renderer/VertexBuffer.h"
 #include "Renderer/IndexBuffer.h"
@@ -18,6 +21,7 @@ Components
 #include "Renderer/Texture.h"
 #include "Renderer/SkyBoxTexture.h"
 #include "File/FileOperation.h"
+
 
 BEGIN_ENTERNITY
 
@@ -134,6 +138,13 @@ struct TransformComponent
 
 struct MeshComponent
 {
+	struct VertexPosTex
+	{
+		glm::vec3 position;
+		glm::vec3 normal;
+		glm::vec2 texcoord;
+	};
+
 	VertexArray* m_VertexArray{ nullptr };
 	VertexBuffer* m_Vertexbuffer{ nullptr };
 	IndexBuffer* m_Indexbuffer{ nullptr };
@@ -146,13 +157,6 @@ struct MeshComponent
 	//load mesh by m_MeshFilePath
 	void Load()
 	{
-		struct VertexPosTex
-		{
-			glm::vec3 position;
-			glm::vec3 normal;
-			glm::vec2 texcoord;
-		};
-		
 		auto pos = m_MeshFilePath.find(".");
 		if (pos == std::string::npos)
 			return;
@@ -187,6 +191,19 @@ struct MeshComponent
 
 		delete[] vpt;
 		delete[] indices2;
+	}
+
+	//load by data
+	void Load(const void* vertexData, unsigned int vertexCount, const unsigned int* indexData, unsigned int indexCount)
+	{
+		m_Vertexbuffer = new VertexBuffer(vertexData, vertexCount * sizeof(VertexPosTex));
+		m_VertexArray = new VertexArray;
+		VertexBufferLayout  vertexBufferLayout;
+		vertexBufferLayout.Push({ 0, 3, GL_FLOAT, false,  8 * sizeof(float), 0 });
+		vertexBufferLayout.Push({ 1, 3, GL_FLOAT, false,  8 * sizeof(float), 3 * sizeof(float) });
+		vertexBufferLayout.Push({ 2, 2, GL_FLOAT, false,  8 * sizeof(float), 6 * sizeof(float) });
+		m_VertexArray->Add(*m_Vertexbuffer, vertexBufferLayout);
+		m_Indexbuffer = new IndexBuffer(indexData, indexCount);
 	}
 
 	void UnLoad()
@@ -404,6 +421,119 @@ struct RigidBodyComponent
 	void* m_RigidBody{ nullptr };
 	RigidBodyComponent() = default;
 	RigidBodyComponent(const RigidBodyComponent&) = default;
+};
+
+
+//Model Component
+struct ModelComponent
+{
+	std::vector<MeshComponent> m_Mesh;
+	std::vector<MaterialComponent> m_Material;
+
+	std::string m_ModelFilePath{ "" };
+
+	void Load()
+	{
+		Assimp::Importer importer;
+		const aiScene* scene = importer.ReadFile(m_ModelFilePath, aiProcess_Triangulate | aiProcess_FlipUVs 
+			| aiProcess_GenNormals | aiProcess_GenBoundingBoxes | aiProcess_GenUVCoords);
+
+
+		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+		{
+			LOG_ERROR("ERROR::ASSIMP::" + importer.GetErrorString());
+			return;
+		}
+		
+		ProcessNode(scene->mRootNode, scene);
+	}
+
+
+	void UnLoad()
+	{
+		for (auto& meshc : m_Mesh)
+		{
+			meshc.UnLoad();
+		}
+
+		for (auto& matc : m_Material)
+		{
+			matc.UnLoad();
+		}
+	}
+private:
+	void ProcessNode(aiNode* node, const aiScene* scene)
+	{
+		for (unsigned int i = 0; i < node->mNumMeshes; i++)
+		{
+			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+			ProcessMesh(mesh, scene);
+		}
+
+		for (unsigned int i = 0; i < node->mNumChildren; i++)
+		{
+			ProcessNode(node->mChildren[i], scene);
+		}
+	}
+
+	void ProcessMesh(aiMesh* mesh, const aiScene* scene)
+	{
+		MeshComponent meshc;
+		MaterialComponent matc;
+
+		//vertex
+		std::vector<MeshComponent::VertexPosTex> vertexData;
+		MeshComponent::VertexPosTex tmpVertexPosTex;
+		for (unsigned int i = 0; i < mesh->mNumVertices; i++)
+		{
+			//position
+			tmpVertexPosTex.position.x = mesh->mVertices[i].x;
+			tmpVertexPosTex.position.y = mesh->mVertices[i].y;
+			tmpVertexPosTex.position.z = mesh->mVertices[i].z;
+
+			//normal
+			tmpVertexPosTex.normal.x = mesh->mNormals[i].x;
+			tmpVertexPosTex.normal.y = mesh->mNormals[i].y;
+			tmpVertexPosTex.normal.z = mesh->mNormals[i].z;
+
+			//texcoord
+			tmpVertexPosTex.texcoord.x = mesh->mTextureCoords[0][i].x;
+			tmpVertexPosTex.texcoord.y = mesh->mTextureCoords[0][i].y;
+
+			vertexData.push_back(tmpVertexPosTex);
+		}
+
+		//index
+		std::vector<unsigned int> indexData;
+		for (unsigned int i = 0; i < mesh->mNumFaces; i++)
+		{
+			for (unsigned int j = 0; j < mesh->mFaces[i].mNumIndices; j++)
+			{
+				indexData.push_back(mesh->mFaces[i].mIndices[j]);
+			}
+		}
+
+		meshc.Load(vertexData.data(), (unsigned int)vertexData.size(), indexData.data(), (unsigned int)indexData.size());
+
+
+		//material
+		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+		aiString textureFilepath;
+		
+		material->GetTexture(aiTextureType_DIFFUSE, 0, &textureFilepath);
+		matc.m_DiffuseTextureFilePath = m_ModelFilePath.substr(0, m_ModelFilePath.find_last_of('/')) + "/" + textureFilepath.C_Str();
+
+		material->GetTexture(aiTextureType_SPECULAR, 0, &textureFilepath);
+		matc.m_SpecularTextureFilePath = m_ModelFilePath.substr(0, m_ModelFilePath.find_last_of('/')) + "/" + textureFilepath.C_Str();
+		matc.m_UseTexture = true;
+		matc.Load();
+
+		m_Mesh.push_back(meshc);
+		m_Material.push_back(matc);
+	}
+public:
+	ModelComponent() = default;
+	ModelComponent(const ModelComponent&) = default;
 };
 
 END_ENTERNITY

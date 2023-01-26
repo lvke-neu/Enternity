@@ -102,6 +102,89 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity
 	}	
 }
 
+void RenderSystem::DrawModel(Entity& cameraEntity, Entity& entity, const Entity& lightEntity)
+{
+	if (cameraEntity.HasComponent<TransformComponent>()
+		&& cameraEntity.HasComponent<CameraComponent>())
+	{
+		auto& cameraTransformComponent = cameraEntity.GetComponent<TransformComponent>();
+		auto& cameraCameraComponent = cameraEntity.GetComponent<CameraComponent>();
+
+		if (entity.HasComponent<ModelComponent>() && entity.HasComponent<TransformComponent>())
+		{
+			auto& modelc = entity.GetComponent<ModelComponent>();
+			auto& transc = entity.GetComponent<TransformComponent>();
+
+			unsigned int subModelCount = (unsigned int)modelc.m_Mesh.size();
+
+			for (unsigned int i = 0; i < subModelCount; i++)
+			{
+				if (modelc.m_Mesh[i].m_VertexArray)
+					modelc.m_Mesh[i].m_VertexArray->Bind();
+
+
+				if (modelc.m_Material[i].m_Shader)
+				{
+					modelc.m_Material[i].m_Shader->Bind();
+					modelc.m_Material[i].m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * cameraTransformComponent.GetInverseWorldMatrix() * transc.GetWorldMatrix());
+					modelc.m_Material[i].m_Shader->SetInteger1("u_entityId", entity.GetEntityUid());
+
+					modelc.m_Material[i].m_Shader->SetMat4f("u_m", transc.GetWorldMatrix());
+					modelc.m_Material[i].m_Shader->SetMat4f("u_inverseTransposeM", glm::transpose(glm::inverse(transc.GetWorldMatrix())));
+
+					if (lightEntity.IsValidEntity())
+					{
+						modelc.m_Material[i].m_Shader->SetFloat3("u_lightPos", lightEntity.GetComponent<TransformComponent>().m_Translation);
+						modelc.m_Material[i].m_Shader->SetFloat4("u_lightSpecular", lightEntity.GetComponent<MaterialComponent>().m_Specular);
+						modelc.m_Material[i].m_Shader->SetFloat4("u_lightDiffuse", lightEntity.GetComponent<MaterialComponent>().m_Diffuse);
+						modelc.m_Material[i].m_Shader->SetFloat4("u_lightAmbient", lightEntity.GetComponent<MaterialComponent>().m_Ambient);
+					}
+
+
+					modelc.m_Material[i].m_Shader->SetFloat3("u_cameraPos", cameraTransformComponent.m_Translation);
+					modelc.m_Material[i].m_Shader->SetFloat4("u_entityAmbient", modelc.m_Material[i].m_Ambient);
+					modelc.m_Material[i].m_Shader->SetFloat4("u_entityDiffuse", modelc.m_Material[i].m_Diffuse);
+					modelc.m_Material[i].m_Shader->SetFloat4("u_entitySpecular", modelc.m_Material[i].m_Specular);
+					modelc.m_Material[i].m_Shader->SetInteger1("u_shininess", (int)modelc.m_Material[i].m_Shininess);
+
+				}
+
+
+				if (modelc.m_Material[i].m_DiffuseTexture)
+					modelc.m_Material[i].m_DiffuseTexture->Bind(0);
+				if (modelc.m_Material[i].m_SpecularTexture)
+					modelc.m_Material[i].m_SpecularTexture->Bind(1);
+
+
+				if (modelc.m_Mesh[i].m_Indexbuffer)
+				{
+					modelc.m_Mesh[i].m_Indexbuffer->Bind();
+					CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, modelc.m_Mesh[i].m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
+				}
+
+				//unbind
+				if (modelc.m_Mesh[i].m_VertexArray)
+					modelc.m_Mesh[i].m_VertexArray->UnBind();
+
+				if (modelc.m_Material[i].m_Shader)
+				{
+					modelc.m_Material[i].m_Shader->UnBind();
+				}
+
+				if (modelc.m_Material[i].m_DiffuseTexture)
+					modelc.m_Material[i].m_DiffuseTexture->UnBind();
+				if (modelc.m_Material[i].m_SpecularTexture)
+					modelc.m_Material[i].m_SpecularTexture->UnBind();
+				if (modelc.m_Mesh[i].m_Indexbuffer)
+				{
+					modelc.m_Mesh[i].m_Indexbuffer->UnBind();
+				}
+			}
+		}
+
+	}
+}
+
 void RenderSystem::DrawColliderShape(Entity& cameraEntity, Entity& entity, const Entity& lightEntity)
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

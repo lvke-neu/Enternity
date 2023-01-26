@@ -1,8 +1,5 @@
 **/GeneratedFiles
 **/x64
-*.ic
-*.mc
-*.mh
 *.suo
 *.VC.db
 *.sdf
