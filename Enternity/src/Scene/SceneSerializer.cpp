@@ -81,6 +81,43 @@ namespace YAML {
 			return true;
 		}
 	};
+
+	template<>
+	struct convert<Enternity::MaterialComponent>
+	{
+		static Node encode(const Enternity::MaterialComponent& matc)
+		{
+			Node node;
+			node.push_back(matc.m_Ambient);
+			node.push_back(matc.m_Diffuse);
+			node.push_back(matc.m_Specular);
+			node.push_back(matc.m_DiffuseTextureFilePath);
+			node.push_back(matc.m_ShaderFilePath);
+			node.push_back(matc.m_Shininess);
+			node.push_back(matc.m_SpecularTextureFilePath);
+			
+			node.SetStyle(EmitterStyle::Flow);
+			return node;
+		}
+
+		static bool decode(const Node& node, Enternity::MaterialComponent& matc)
+		{
+			if (!node.IsSequence() || node.size() != 7)
+				return false;
+
+			matc.m_Ambient = node[0].as<glm::vec4>();
+			matc.m_Diffuse = node[1].as<glm::vec4>();
+			matc.m_Specular = node[2].as<glm::vec4>();
+			matc.m_DiffuseTextureFilePath = node[3].as<std::string>();
+			matc.m_ShaderFilePath = node[4].as<std::string>();
+			matc.m_Shininess = node[5].as<float>();
+			matc.m_SpecularTextureFilePath = node[6].as<std::string>();
+
+			matc.Load();
+
+			return true;
+		}
+	};
 }
 
 BEGIN_ENTERNITY
@@ -103,6 +140,20 @@ static YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec4& v)
 {
 	out << YAML::Flow;
 	out << YAML::BeginSeq << v.x << v.y << v.z << v.w << YAML::EndSeq;
+	return out;
+}
+
+static YAML::Emitter& operator<<(YAML::Emitter& out, const Enternity::MaterialComponent& matc)
+{
+	out << YAML::Flow;
+	out << YAML::BeginSeq << matc.m_Ambient 
+		<< matc.m_Diffuse
+		<< matc.m_Specular
+		<<matc.m_DiffuseTextureFilePath
+		<<matc.m_ShaderFilePath
+		<<matc.m_Shininess
+		<<matc.m_SpecularTextureFilePath
+		<< YAML::EndSeq;
 	return out;
 }
 
@@ -206,6 +257,16 @@ void SceneSerializer::SerializeEntity(YAML::Emitter& out, Entity entity)
 		out << YAML::Key << "m_ShowColliderShape" << YAML::Value << rigidBodyComponent.m_ShowColliderShape;
 		out << YAML::Key << "m_Offset" << YAML::Value << rigidBodyComponent.m_Offset;
 		out << YAML::Key << "m_Radius" << YAML::Value << rigidBodyComponent.m_Radius;
+		out << YAML::EndMap;
+	}
+
+	if (entity.HasComponent<ModelComponent>())
+	{
+		out << YAML::Key << "ModelComponent";
+		out << YAML::BeginMap;
+		auto& modelc = entity.GetComponent<ModelComponent>();
+		out << YAML::Key << "m_ModelFilePath" << YAML::Value << modelc.m_ModelFilePath;
+		out << YAML::Key << "m_Material" << YAML::Value << modelc.m_Material;
 		out << YAML::EndMap;
 	}
 
@@ -444,6 +505,16 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 				rbc.m_Restitution = rigidBodyComponent["m_Restitution"].as<float>();
 				rbc.m_ShowColliderShape = rigidBodyComponent["m_ShowColliderShape"].as<bool>();
 			}
+
+			auto modelComponent = entity["ModelComponent"];
+			if (modelComponent)
+			{
+				auto& modelc = deserializeEntity.AddComponent<ModelComponent>();
+				modelc.m_ModelFilePath = modelComponent["m_ModelFilePath"].as<std::string>();
+				modelc.Load();
+				modelc.m_Material = modelComponent["m_Material"].as<std::vector<MaterialComponent>>();
+			}
+
 
 			SceneManager::GetInstance().m_Entities.insert({ deserializeEntity.GetEntityUid(), deserializeEntity });
 			LOG_INFO("Deserialize Entity:" + deserializeEntity.GetComponent<TagComponent>().m_Tag + " complete");
