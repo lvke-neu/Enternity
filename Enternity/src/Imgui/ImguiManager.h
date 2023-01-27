@@ -8,6 +8,7 @@ Imgui Manager
 
 #include "Macro/Macro.h"
 #include "Panels/ViewportPanel.h"
+#include "Panels/ViewportPanel2.h"
 #include "Panels/SceneHierarchyPanel.h"
 #include "Panels/ContentBrowserPanel.h"
 #include "Panels/StatsPanel.h"
@@ -36,6 +37,7 @@ private:
 
 
 	ViewportPanel* m_ViewportPanel{ nullptr };
+	ViewportPanel2* m_ViewportPanel2{ nullptr };
 	SceneHierarchyPanel* m_SceneHierarchyPanel{ nullptr };
 	ContentBrowserPanel* m_ContentBrowserPanel{ nullptr };
 	StatsPanel* m_StatsPanel{ nullptr };

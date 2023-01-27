@@ -10,8 +10,8 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [0.885711253, -2.94762301, 20.6508541]
-      m_Rotation: [-0.139999136, -0.0900074542, 0]
+      m_Translation: [-4.20225763, 8.04616642, 26.7361908]
+      m_Rotation: [-0.169999421, -0.510010183, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
     TagComponent:
@@ -30,9 +30,9 @@ Entities:
     TagComponent:
       m_Tag: DirectionLight Entity
     TransformComponent:
-      m_Translation: [12.7536106, 49.1899986, 112.661934]
+      m_Translation: [-0.349845886, 9.67164993, 6.86759806]
       m_Rotation: [0, -0, 0]
-      m_Scale: [5, 5, 5]
+      m_Scale: [1, 1, 1]
     MeshComponent:
       m_MeshFilePath: assets/models/sphere.mesh
     MaterialComponent:
@@ -48,7 +48,7 @@ Entities:
     TagComponent:
       m_Tag: sphere show light
     TransformComponent:
-      m_Translation: [5.05615234, 0, 0]
+      m_Translation: [-4.24081135, 3.39181995, -0.312538087]
       m_Rotation: [0, -0, 0]
       m_Scale: [1, 1, 1]
     MeshComponent:
@@ -100,7 +100,7 @@ Entities:
     TagComponent:
       m_Tag: sphere rigid
     TransformComponent:
-      m_Translation: [0, 0, 0]
+      m_Translation: [-0.167978927, 3.20321584, -0.257722259]
       m_Rotation: [0, -0, 0]
       m_Scale: [1, 1, 1]
     MeshComponent:
@@ -144,9 +144,9 @@ Entities:
     TagComponent:
       m_Tag: plane
     TransformComponent:
-      m_Translation: [0, -20, 0]
-      m_Rotation: [0, 0, 0]
-      m_Scale: [100, 0.5, 100]
+      m_Translation: [0, 0, 0]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [10, 1, 10]
     MeshComponent:
       m_MeshFilePath: assets\models\cube.mesh
     MaterialComponent:

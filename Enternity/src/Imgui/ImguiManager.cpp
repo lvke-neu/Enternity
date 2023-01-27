@@ -29,6 +29,7 @@ void ImguiManager::Initialize(GLFWwindow* context)
 
 	//initialize every panel
 	m_ViewportPanel = new ViewportPanel;
+	m_ViewportPanel2 = new ViewportPanel2;
 	m_SceneHierarchyPanel = new SceneHierarchyPanel;
 	m_ContentBrowserPanel = new ContentBrowserPanel;
 	m_StatsPanel = new StatsPanel;
@@ -54,6 +55,7 @@ void ImguiManager::Draw()
 void ImguiManager::Release()
 {
 	SAFE_DELETE_SET_NULL(m_ViewportPanel);
+	SAFE_DELETE_SET_NULL(m_ViewportPanel2);
 	SAFE_DELETE_SET_NULL(m_SceneHierarchyPanel);
 	SAFE_DELETE_SET_NULL(m_ContentBrowserPanel);
 	SAFE_DELETE_SET_NULL(m_StatsPanel);

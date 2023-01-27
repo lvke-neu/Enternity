@@ -114,6 +114,7 @@
     <ClCompile Include="src\Imgui\Panels\PlayButtonPanel.cpp" />
     <ClCompile Include="src\Imgui\Panels\SceneHierarchyPanel.cpp" />
     <ClCompile Include="src\Imgui\Panels\StatsPanel.cpp" />
+    <ClCompile Include="src\Imgui\Panels\ViewportPanel2.cpp" />
     <ClCompile Include="src\Imgui\Panels\ViewportPanel.cpp" />
     <ClCompile Include="src\Log\Log.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="src\Imgui\Panels\PlayButtonPanel.h" />
     <ClInclude Include="src\Imgui\Panels\SceneHierarchyPanel.h" />
     <ClInclude Include="src\Imgui\Panels\StatsPanel.h" />
+    <ClInclude Include="src\Imgui\Panels\ViewportPanel2.h" />
     <ClInclude Include="src\Imgui\Panels\ViewportPanel.h" />
     <ClInclude Include="src\Light\Light.h" />
     <ClInclude Include="src\Log\Log.h" />
