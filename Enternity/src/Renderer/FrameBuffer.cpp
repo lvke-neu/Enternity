@@ -231,4 +231,51 @@ void FrameBufferEx::ReSize(unsigned int width, unsigned int height)
 	Build();
 }
 
+
+
+//FrameBufferShadowMap
+FrameBufferShadowMap::FrameBufferShadowMap(unsigned int width, unsigned int height)
+{
+	glGenFramebuffers(1, &m_rendererId);
+
+	glGenTextures(1, &m_texRendererId);
+	glBindTexture(GL_TEXTURE_2D, m_texRendererId);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, m_rendererId);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_texRendererId, 0);
+	glDrawBuffer(GL_NONE);
+	glReadBuffer(GL_NONE);
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		LOG_ERROR("Framebuffer is not complete!");
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+FrameBufferShadowMap::~FrameBufferShadowMap()
+{
+	glDeleteFramebuffers(1, &m_rendererId);
+	glDeleteTextures(1, &m_texRendererId);
+}
+
+void FrameBufferShadowMap::Bind(unsigned int slot /*= 0*/) const
+{
+	CHECK_GL_CALL(glBindFramebuffer(GL_FRAMEBUFFER, m_rendererId));
+}
+
+void FrameBufferShadowMap::UnBind() const
+{
+	CHECK_GL_CALL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+}
+
+
+
 END_ENTERNITY
+
+

@@ -133,6 +133,7 @@
     <ClCompile Include="src\Scene\ECS\Entity\Entity.cpp" />
     <ClCompile Include="src\Scene\SceneManager.cpp" />
     <ClCompile Include="src\Scene\SceneSerializer.cpp" />
+    <ClCompile Include="src\Scene\ShadowMap\ShadowMapManager.cpp" />
     <ClCompile Include="src\Stb_Image\stb_image.cpp" />
     <ClCompile Include="src\TestDrawable\LightObject.cpp" />
     <ClCompile Include="src\TestDrawable\Triangle.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="src\Scene\ECS\Entity\Entity.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
     <ClInclude Include="src\Scene\SceneSerializer.h" />
+    <ClInclude Include="src\Scene\ShadowMap\ShadowMapManager.h" />
     <ClInclude Include="src\Stb_Image\stb_image.h" />
     <ClInclude Include="src\TestDrawable\LightObject.h" />
     <ClInclude Include="src\TestDrawable\Triangle.h" />

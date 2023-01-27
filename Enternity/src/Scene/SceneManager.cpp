@@ -4,6 +4,7 @@
 #include "Renderer/RenderSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Physics/BulletSimulation.h"
+#include "ShadowMap/ShadowMapManager.h"
 
 BEGIN_ENTERNITY
 
@@ -87,6 +88,17 @@ void SceneManager::Initialize()
 
 
 	m_BulletSimulation = new BulletSimulation;
+}
+
+void SceneManager::DrawShadowMap()
+{
+	//generate shadow map
+	for (auto& entity : m_Entities)
+	{
+		ShadowMapManager::GetInstance().Begin();
+		RenderSystem::GetInstance().DrawShadowMap(entity.second, m_DirectionLightEntity);
+		ShadowMapManager::GetInstance().End();
+	}
 }
 
 void SceneManager::Tick(float deltaTime)

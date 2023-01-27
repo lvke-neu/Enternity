@@ -27,6 +27,51 @@ void RenderSystem::DrawSkyBox(Entity& cameraEntity, Entity& entity)
 
 }
 
+void RenderSystem::DrawShadowMap(Entity& entity, const Entity& lightEntity)
+{
+	
+
+	//draw simple entity
+	if (entity.HasComponent<TransformComponent>() && entity.HasComponent<MeshComponent>() && entity.HasComponent<MaterialComponent>())
+	{
+		glm::mat4 projectMatrix = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 1000.0f);
+		glm::mat4 viewMatrix = glm::lookAt(lightEntity.GetComponent<TransformComponent>().m_Translation, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+
+		auto& transformComponent = entity.GetComponent<TransformComponent>();
+		auto& meshComponent = entity.GetComponent<MeshComponent>();
+		auto& materialComponent = entity.GetComponent<MaterialComponent>();
+
+		if (meshComponent.m_VertexArray)
+			meshComponent.m_VertexArray->Bind();
+
+		if (materialComponent.m_Shader)
+		{
+			materialComponent.m_Shader->Bind();
+			materialComponent.m_Shader->SetMat4f("u_mvp", projectMatrix * viewMatrix * transformComponent.GetWorldMatrix());
+
+		}
+
+		if (meshComponent.m_Indexbuffer)
+		{
+			meshComponent.m_Indexbuffer->Bind();
+			CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, meshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
+		}
+		//unbind
+		if (meshComponent.m_VertexArray)
+			meshComponent.m_VertexArray->UnBind();
+
+		if (materialComponent.m_Shader)
+		{
+			materialComponent.m_Shader->UnBind();
+		}
+		if (meshComponent.m_Indexbuffer)
+		{
+			meshComponent.m_Indexbuffer->UnBind();
+		}
+	}
+}
+
 void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity& lightEntity)
 {
 	if (cameraEntity.HasComponent<TransformComponent>()
@@ -148,6 +193,7 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity
 
 			if (materialComponent.m_DiffuseTexture)
 				materialComponent.m_DiffuseTexture->Bind(0);
+				
 			if (materialComponent.m_SpecularTexture)
 				materialComponent.m_SpecularTexture->Bind(1);
 

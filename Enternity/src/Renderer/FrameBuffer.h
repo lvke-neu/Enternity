@@ -100,6 +100,10 @@ public:
 		glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixelData);
 		return pixelData;
 	}
+	FrameBufferSpecification GetFBSpec()
+	{
+		return m_FrameBufferSpecification;
+	}
 private:
 	void Build();
 	GLint GetInternalformat(FrameBufferTextureFormat format);
@@ -112,5 +116,23 @@ private:
 	std::vector<FrameBufferTextureSpecification> m_ColorFTS;
 	FrameBufferTextureSpecification m_DepthFTS;
 };
+
+
+class FrameBufferShadowMap : public IBindable
+{
+public:
+	FrameBufferShadowMap(unsigned int width, unsigned int height);
+	virtual ~FrameBufferShadowMap();
+
+	virtual void Bind(unsigned int slot = 0) const override;
+	virtual void UnBind() const override;
+	inline unsigned int GetTextureRendererId() const
+	{
+		return m_texRendererId;
+	}
+private:
+	unsigned int m_texRendererId;
+};
+
 
 END_ENTERNITY

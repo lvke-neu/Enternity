@@ -163,6 +163,9 @@ void Engine::Run()
 		//render to my framebuffer
 		{
 
+			//draw shadow map
+			SceneManager::GetInstance().DrawShadowMap();
+
 			m_framebufferEx->Bind();
 
 			//clear

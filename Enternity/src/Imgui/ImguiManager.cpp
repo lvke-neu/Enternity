@@ -7,7 +7,6 @@
 #include "Engine/Engine.h"
 #include "Dialog/FileDialog.h"
 
-
 BEGIN_ENTERNITY
 
 void ImguiManager::Initialize(GLFWwindow* context)

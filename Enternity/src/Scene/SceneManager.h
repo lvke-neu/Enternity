@@ -37,6 +37,8 @@ public:
 	void OnResize(int width, int height);
 	void Clear();
 
+	void DrawShadowMap();
+
 	inline Entity GetMainCameraEntity()
 	{
 		return m_EditorCameraEntity;
