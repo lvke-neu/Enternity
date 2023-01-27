@@ -4,6 +4,17 @@
 
 BEGIN_ENTERNITY
 
+RenderSystem::RenderSystem()
+{
+	m_ShadowMapShader = new Shader("assets/shaders/ShadowMap.glsl");
+	m_LightOrthoProjectMatrix = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, 1.0f, 100.0f);
+}
+
+RenderSystem::~RenderSystem()
+{
+	SAFE_DELETE_SET_NULL(m_ShadowMapShader);
+}
+
 void RenderSystem::DrawSkyBox(Entity& cameraEntity, Entity& entity)
 {
 	
@@ -34,7 +45,6 @@ void RenderSystem::DrawShadowMap(Entity& entity, const Entity& lightEntity)
 	//draw simple entity
 	if (entity.HasComponent<TransformComponent>() && entity.HasComponent<MeshComponent>() && entity.HasComponent<MaterialComponent>())
 	{
-		glm::mat4 projectMatrix = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 1000.0f);
 		glm::mat4 viewMatrix = glm::lookAt(lightEntity.GetComponent<TransformComponent>().m_Translation, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 
@@ -45,12 +55,9 @@ void RenderSystem::DrawShadowMap(Entity& entity, const Entity& lightEntity)
 		if (meshComponent.m_VertexArray)
 			meshComponent.m_VertexArray->Bind();
 
-		if (materialComponent.m_Shader)
-		{
-			materialComponent.m_Shader->Bind();
-			materialComponent.m_Shader->SetMat4f("u_mvp", projectMatrix * viewMatrix * transformComponent.GetWorldMatrix());
-
-		}
+		
+		m_ShadowMapShader->Bind();
+		m_ShadowMapShader->SetMat4f("u_mvp", m_LightOrthoProjectMatrix * viewMatrix * transformComponent.GetWorldMatrix());
 
 		if (meshComponent.m_Indexbuffer)
 		{
@@ -61,13 +68,52 @@ void RenderSystem::DrawShadowMap(Entity& entity, const Entity& lightEntity)
 		if (meshComponent.m_VertexArray)
 			meshComponent.m_VertexArray->UnBind();
 
-		if (materialComponent.m_Shader)
-		{
-			materialComponent.m_Shader->UnBind();
-		}
+		m_ShadowMapShader->UnBind();
+
 		if (meshComponent.m_Indexbuffer)
 		{
 			meshComponent.m_Indexbuffer->UnBind();
+		}
+	}
+
+
+	//draw model entity
+	if (entity.HasComponent<ModelComponent>() && entity.HasComponent<TransformComponent>())
+	{
+		glm::mat4 viewMatrix = glm::lookAt(lightEntity.GetComponent<TransformComponent>().m_Translation, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+
+		auto& transformComponent = entity.GetComponent<TransformComponent>();
+		auto& modelc = entity.GetComponent<ModelComponent>();
+		unsigned int subModelCount = (unsigned int)modelc.m_Mesh.size();
+
+		for (unsigned int i = 0; i < subModelCount; i++)
+		{
+			auto& meshComponent = modelc.m_Mesh[i];
+			auto& materialComponent = modelc.m_Material[i];
+
+			if (meshComponent.m_VertexArray)
+				meshComponent.m_VertexArray->Bind();
+
+
+			m_ShadowMapShader->Bind();
+			m_ShadowMapShader->SetMat4f("u_mvp", m_LightOrthoProjectMatrix * viewMatrix * transformComponent.GetWorldMatrix());
+
+			if (meshComponent.m_Indexbuffer)
+			{
+				meshComponent.m_Indexbuffer->Bind();
+				CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, meshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
+			}
+			//unbind
+			if (meshComponent.m_VertexArray)
+				meshComponent.m_VertexArray->UnBind();
+
+			m_ShadowMapShader->UnBind();
+
+			if (meshComponent.m_Indexbuffer)
+			{
+				meshComponent.m_Indexbuffer->UnBind();
+			}
 		}
 	}
 }
@@ -86,6 +132,7 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity
 		{
 			auto& modelc = entity.GetComponent<ModelComponent>();
 			auto& transc = entity.GetComponent<TransformComponent>();
+			glm::mat4 viewMatrix = glm::lookAt(lightEntity.GetComponent<TransformComponent>().m_Translation, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 			unsigned int subModelCount = (unsigned int)modelc.m_Mesh.size();
 
@@ -118,6 +165,10 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity
 					modelc.m_Material[i].m_Shader->SetFloat4("u_entityDiffuse", modelc.m_Material[i].m_Diffuse);
 					modelc.m_Material[i].m_Shader->SetFloat4("u_entitySpecular", modelc.m_Material[i].m_Specular);
 					modelc.m_Material[i].m_Shader->SetInteger1("u_shininess", (int)modelc.m_Material[i].m_Shininess);
+
+					//shadow map u_lightSpaceMatrix
+					modelc.m_Material[i].m_Shader->SetMat4f("u_lightSpaceMatrix", m_LightOrthoProjectMatrix * viewMatrix);
+					ShadowMapManager::GetInstance().BindShadowMap(2);
 
 				}
 
@@ -162,7 +213,6 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity
 			auto& meshComponent = entity.GetComponent<MeshComponent>();
 			auto& materialComponent = entity.GetComponent<MaterialComponent>();
 
-			glm::mat4 projectMatrix = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 1000.0f);
 			glm::mat4 viewMatrix = glm::lookAt(lightEntity.GetComponent<TransformComponent>().m_Translation, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 			if (meshComponent.m_VertexArray)
@@ -193,7 +243,7 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity
 				materialComponent.m_Shader->SetInteger1("u_shininess", (int)materialComponent.m_Shininess);
 
 				//shadow map u_lightSpaceMatrix
-				materialComponent.m_Shader->SetMat4f("u_lightSpaceMatrix", projectMatrix * viewMatrix);
+				materialComponent.m_Shader->SetMat4f("u_lightSpaceMatrix", m_LightOrthoProjectMatrix * viewMatrix);
 				ShadowMapManager::GetInstance().BindShadowMap(2);
 
 			}

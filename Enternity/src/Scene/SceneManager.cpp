@@ -93,12 +93,12 @@ void SceneManager::Initialize()
 void SceneManager::DrawShadowMap()
 {
 	//generate shadow map
+	ShadowMapManager::GetInstance().Begin();
 	for (auto& entity : m_Entities)
 	{
-		ShadowMapManager::GetInstance().Begin();
 		RenderSystem::GetInstance().DrawShadowMap(entity.second, m_DirectionLightEntity);
-		ShadowMapManager::GetInstance().End();
 	}
+	ShadowMapManager::GetInstance().End();
 }
 
 void SceneManager::Tick(float deltaTime)
