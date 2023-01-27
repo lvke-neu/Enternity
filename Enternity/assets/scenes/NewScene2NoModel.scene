@@ -10,8 +10,8 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [-0.43277666, 7.0708046, 12.5405588]
-      m_Rotation: [-0.3499991, -0.100013845, 0]
+      m_Translation: [-3.18211007, 6.14019585, 10.2512188]
+      m_Rotation: [-0.459999382, -0.090014644, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
     TagComponent:
@@ -48,7 +48,7 @@ Entities:
     TagComponent:
       m_Tag: sphere show light
     TransformComponent:
-      m_Translation: [-1.3556385, 3.89312243, 3.73545504]
+      m_Translation: [4.30450249, 3.89312243, 1.32817566]
       m_Rotation: [0, -0, 0]
       m_Scale: [1, 1, 1]
     MeshComponent:
@@ -74,7 +74,7 @@ Entities:
     TagComponent:
       m_Tag: sphere rigid
     TransformComponent:
-      m_Translation: [-0.167978927, 2.77206111, -0.257722259]
+      m_Translation: [2.29443884, 2.77206111, -0.257722259]
       m_Rotation: [0, -0, 0]
       m_Scale: [1, 1, 1]
     MeshComponent:
@@ -100,7 +100,7 @@ Entities:
     TagComponent:
       m_Tag: cube
     TransformComponent:
-      m_Translation: [-1.60171723, 1.79522073, 0]
+      m_Translation: [-1.60171723, 0.915983379, 0]
       m_Rotation: [0, -0, 0]
       m_Scale: [1, 1, 1]
     MeshComponent:
@@ -118,9 +118,9 @@ Entities:
     TagComponent:
       m_Tag: Plane
     TransformComponent:
-      m_Translation: [0, 0.675456762, 0]
+      m_Translation: [0, 0, 0]
       m_Rotation: [0, -0, 0]
-      m_Scale: [13, 62, 14]
+      m_Scale: [10, 62, 10]
     MeshComponent:
       m_MeshFilePath: assets/models/plane.mesh
     MaterialComponent:
