@@ -7,7 +7,7 @@ BEGIN_ENTERNITY
 RenderSystem::RenderSystem()
 {
 	m_ShadowMapShader = new Shader("assets/shaders/ShadowMap.glsl");
-	m_LightOrthoProjectMatrix = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, 1.0f, 100.0f);
+	m_LightOrthoProjectMatrix = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 100.0f);
 }
 
 RenderSystem::~RenderSystem()
