@@ -10,8 +10,8 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [12.9038095, -5.17038345, 26.8891563]
-      m_Rotation: [-0.149999619, 0.0199958645, 0]
+      m_Translation: [1.99158132, 2.91048312, 32.1525955]
+      m_Rotation: [-0.0599990562, -0.0300056301, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
     TagComponent:
@@ -250,3 +250,16 @@ Entities:
       m_ModelFilePath: assets/models/house/house.obj
       m_Material:
         - [[0.588199973, 0.588199973, 0.588199973, 1], [0.588199973, 0.588199973, 0.588199973, 1], [0, 0, 0, 1], assets/models/house/house.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/house/house.png]
+  - Entity: 17
+    TagComponent:
+      m_Tag: UnKnown Name
+    TransformComponent:
+      m_Translation: [77.6916275, -18.3489265, -67.9284439]
+      m_Rotation: [-1.57079637, -0, 0]
+      m_Scale: [0.150000006, 0.150000006, 0.200000003]
+    ModelComponent:
+      m_ModelFilePath: assets/models/tree/1.FBX
+      m_Material:
+        - [[0, 0, 0, 1], [0.99288255, 0.99288255, 0.99288255, 1], [0, 0, 0, 1], assets/textures/box_diffuse.png, assets/shaders/TestECSPhong.glsl, 32, assets/textures/white_background.jpeg]
+        - [[0, 0, 0, 1], [0.5, 0.5, 0.5, 1], [1, 1, 1, 1], assets/textures/white_background.jpeg, assets/shaders/TestECSPhong.glsl, 32, assets/textures/white_background.jpeg]
+        - [[0.0141335558, 0.22064054, 0.0685161948, 1], [0.0313725509, 0.0784313753, 0.023529416, 1], [0.435294122, 0.435294122, 0.435294122, 1], assets/textures/white_background.jpeg, assets/shaders/TestECSPhong.glsl, 46, assets/textures/white_background.jpeg]
