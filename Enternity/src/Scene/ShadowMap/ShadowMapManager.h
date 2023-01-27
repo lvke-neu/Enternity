@@ -19,6 +19,12 @@ public:
 	void Begin();
 	void End();
 
+	void BindShadowMap(unsigned int slot)
+	{
+		CHECK_GL_CALL(glActiveTexture(GL_TEXTURE0 + slot));
+		CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, m_FrameBufferShadowMap->GetTextureRendererId()));
+	}
+
 	inline FrameBufferShadowMap* GetFrameBufferShadowMap() const
 	{
 		return m_FrameBufferShadowMap;

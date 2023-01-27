@@ -1,4 +1,6 @@
 #include "RenderSystem.h"
+#include "Scene/ShadowMap/ShadowMapManager.h"
+
 
 BEGIN_ENTERNITY
 
@@ -29,8 +31,6 @@ void RenderSystem::DrawSkyBox(Entity& cameraEntity, Entity& entity)
 
 void RenderSystem::DrawShadowMap(Entity& entity, const Entity& lightEntity)
 {
-	
-
 	//draw simple entity
 	if (entity.HasComponent<TransformComponent>() && entity.HasComponent<MeshComponent>() && entity.HasComponent<MaterialComponent>())
 	{
@@ -162,6 +162,9 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity
 			auto& meshComponent = entity.GetComponent<MeshComponent>();
 			auto& materialComponent = entity.GetComponent<MaterialComponent>();
 
+			glm::mat4 projectMatrix = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 1000.0f);
+			glm::mat4 viewMatrix = glm::lookAt(lightEntity.GetComponent<TransformComponent>().m_Translation, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
 			if (meshComponent.m_VertexArray)
 				meshComponent.m_VertexArray->Bind();
 
@@ -188,6 +191,10 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity
 				materialComponent.m_Shader->SetFloat4("u_entityDiffuse", materialComponent.m_Diffuse);
 				materialComponent.m_Shader->SetFloat4("u_entitySpecular", materialComponent.m_Specular);
 				materialComponent.m_Shader->SetInteger1("u_shininess", (int)materialComponent.m_Shininess);
+
+				//shadow map u_lightSpaceMatrix
+				materialComponent.m_Shader->SetMat4f("u_lightSpaceMatrix", projectMatrix * viewMatrix);
+				ShadowMapManager::GetInstance().BindShadowMap(2);
 
 			}
 
