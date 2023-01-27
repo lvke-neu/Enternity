@@ -10,8 +10,8 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [-14.3956556, 3.50614595, 69.4563293]
-      m_Rotation: [-0.269999117, 0.0399925709, 0]
+      m_Translation: [-69.3287888, 14.4590731, 38.3792915]
+      m_Rotation: [-0.189999104, -0.840007961, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
     TagComponent:
@@ -30,7 +30,7 @@ Entities:
     TagComponent:
       m_Tag: DirectionLight Entity
     TransformComponent:
-      m_Translation: [12.7536106, 49.1899986, 112.661934]
+      m_Translation: [-0.027007103, 12.3593283, 19.1613731]
       m_Rotation: [0, -0, 0]
       m_Scale: [5, 5, 5]
     MeshComponent:
@@ -163,7 +163,7 @@ Entities:
       m_Mass: 0
       m_Friction: 0.200000003
       m_Restitution: 1
-      m_ShowColliderShape: true
+      m_ShowColliderShape: false
       m_Offset: [100, 0.5, 100]
       m_Radius: 1
   - Entity: 12

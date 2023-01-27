@@ -10,8 +10,8 @@ Entities:
       m_NearZ: 1
       m_FarZ: 1000
     TransformComponent:
-      m_Translation: [-3.18211007, 6.14019585, 10.2512188]
-      m_Rotation: [-0.459999382, -0.090014644, 0]
+      m_Translation: [2.07750344, 6.14019585, 10.9924936]
+      m_Rotation: [-0.329999417, -0.140015051, 0]
       m_Scale: [1, 1, 1]
   - Entity: 1
     TagComponent:
@@ -120,7 +120,7 @@ Entities:
     TransformComponent:
       m_Translation: [0, 0, 0]
       m_Rotation: [0, -0, 0]
-      m_Scale: [10, 62, 10]
+      m_Scale: [194, 87, 165]
     MeshComponent:
       m_MeshFilePath: assets/models/plane.mesh
     MaterialComponent:
