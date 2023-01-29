@@ -118,6 +118,46 @@ void RenderSystem::DrawShadowMap(Entity& entity, const Entity& lightEntity)
 			}
 		}
 	}
+
+	//draw skeleton model entity
+	if (entity.HasComponent<SkeletonModelComponent>() && entity.HasComponent<TransformComponent>())
+	{
+		glm::mat4 viewMatrix = glm::lookAt(lightEntity.GetComponent<TransformComponent>().m_Translation, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+
+		auto& transformComponent = entity.GetComponent<TransformComponent>();
+		auto& modelc = entity.GetComponent<SkeletonModelComponent>();
+		unsigned int subModelCount = (unsigned int)modelc.m_Mesh.size();
+
+		for (unsigned int i = 0; i < subModelCount; i++)
+		{
+			auto& meshComponent = modelc.m_Mesh[i];
+			auto& materialComponent = modelc.m_Material[i];
+
+			if (meshComponent.m_VertexArray)
+				meshComponent.m_VertexArray->Bind();
+
+
+			m_ShadowMapShader->Bind();
+			m_ShadowMapShader->SetMat4f("u_mvp", m_LightOrthoProjectMatrix * viewMatrix * transformComponent.GetWorldMatrix());
+
+			if (meshComponent.m_Indexbuffer)
+			{
+				meshComponent.m_Indexbuffer->Bind();
+				CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, meshComponent.m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
+			}
+			//unbind
+			if (meshComponent.m_VertexArray)
+				meshComponent.m_VertexArray->UnBind();
+
+			m_ShadowMapShader->UnBind();
+
+			if (meshComponent.m_Indexbuffer)
+			{
+				meshComponent.m_Indexbuffer->UnBind();
+			}
+		}
+	}
 }
 
 void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity& lightEntity)
@@ -171,6 +211,68 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity
 					//shadow map u_lightSpaceMatrix
 					modelc.m_Material[i].m_Shader->SetMat4f("u_lightSpaceMatrix", m_LightOrthoProjectMatrix * viewMatrix);
 					ShadowMapManager::GetInstance().BindShadowMap(2);
+
+				}
+
+
+				if (modelc.m_Material[i].m_DiffuseTexture)
+					modelc.m_Material[i].m_DiffuseTexture->Bind(0);
+				if (modelc.m_Material[i].m_SpecularTexture)
+					modelc.m_Material[i].m_SpecularTexture->Bind(1);
+
+
+				if (modelc.m_Mesh[i].m_Indexbuffer)
+				{
+					modelc.m_Mesh[i].m_Indexbuffer->Bind();
+					CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, modelc.m_Mesh[i].m_Indexbuffer->GetCount(), GL_UNSIGNED_INT, (void*)0));
+				}
+
+				//unbind
+				if (modelc.m_Mesh[i].m_VertexArray)
+					modelc.m_Mesh[i].m_VertexArray->UnBind();
+
+				if (modelc.m_Material[i].m_Shader)
+				{
+					modelc.m_Material[i].m_Shader->UnBind();
+				}
+
+				if (modelc.m_Material[i].m_DiffuseTexture)
+					modelc.m_Material[i].m_DiffuseTexture->UnBind();
+				if (modelc.m_Material[i].m_SpecularTexture)
+					modelc.m_Material[i].m_SpecularTexture->UnBind();
+				if (modelc.m_Mesh[i].m_Indexbuffer)
+				{
+					modelc.m_Mesh[i].m_Indexbuffer->UnBind();
+				}
+			}
+			return;
+		}
+
+		//draw skeleton model
+		if (entity.HasComponent<SkeletonModelComponent>() && entity.HasComponent<TransformComponent>())
+		{
+			auto& modelc = entity.GetComponent<SkeletonModelComponent>();
+			auto& transc = entity.GetComponent<TransformComponent>();
+			glm::mat4 viewMatrix = glm::lookAt(lightEntity.GetComponent<TransformComponent>().m_Translation, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+			unsigned int subModelCount = (unsigned int)modelc.m_Mesh.size();
+
+			for (unsigned int i = 0; i < subModelCount; i++)
+			{
+				if (modelc.m_Mesh[i].m_VertexArray)
+					modelc.m_Mesh[i].m_VertexArray->Bind();
+
+
+				if (modelc.m_Material[i].m_Shader)
+				{
+					modelc.m_Material[i].m_Shader->Bind();
+					modelc.m_Material[i].m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * cameraTransformComponent.GetInverseWorldMatrix() * transc.GetWorldMatrix());
+					modelc.m_Material[i].m_Shader->SetInteger1("u_entityId", entity.GetEntityUid());
+
+					for (unsigned int j = 0; j < modelc.m_Mesh[i].m_Bones.size(); j++)
+					{
+						modelc.m_Material[i].m_Shader->SetMat4f("g_Bones[" + std::to_string(i) + "]", modelc.m_Mesh[i].m_Bones[j]);
+					}
 
 				}
 

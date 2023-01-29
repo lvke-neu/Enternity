@@ -515,6 +515,14 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 				modelc.m_Material = modelComponent["m_Material"].as<std::vector<MaterialComponent>>();
 			}
 
+			auto skeletonModelComponent = entity["SkeletonModelComponent"];
+			if (skeletonModelComponent)
+			{
+				auto& smc = deserializeEntity.AddComponent<SkeletonModelComponent>();
+				smc.m_ModelFilePath = skeletonModelComponent["m_ModelFilePath"].as<std::string>();
+				smc.Load();
+				smc.m_Material = skeletonModelComponent["m_Material"].as<std::vector<MaterialComponent>>();
+			}
 
 			SceneManager::GetInstance().m_Entities.insert({ deserializeEntity.GetEntityUid(), deserializeEntity });
 			LOG_INFO("Deserialize Entity:" + deserializeEntity.GetComponent<TagComponent>().m_Tag + " complete");

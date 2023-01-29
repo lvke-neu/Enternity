@@ -555,4 +555,267 @@ public:
 	ModelComponent(const ModelComponent&) = default;
 };
 
+
+//skeleton
+struct SkeletonMeshComponent
+{
+	struct VertexPosTex
+	{
+		glm::vec3 position;
+		glm::vec3 normal;
+		glm::vec2 texcoord;
+		glm::u32vec4 boneIds{0};
+		glm::vec4 weights{0.0f};
+	};
+
+	VertexArray* m_VertexArray{ nullptr };
+	VertexBuffer* m_Vertexbuffer{ nullptr };
+	IndexBuffer* m_Indexbuffer{ nullptr };
+
+	std::string m_MeshFilePath{ "" };
+
+	std::vector<glm::mat4> m_Bones;
+
+	SkeletonMeshComponent() = default;
+	SkeletonMeshComponent(const SkeletonMeshComponent&) = default;
+
+	//load mesh by m_MeshFilePath
+	void Load()
+	{
+		auto pos = m_MeshFilePath.find(".");
+		if (pos == std::string::npos)
+			return;
+		std::string suffix = m_MeshFilePath.substr(pos, m_MeshFilePath.size() - 1);
+		if (suffix != ".mesh")
+			return;
+
+		Enternity::Blob blob2(DEFAULT_BLOB_LENGTH);
+		if (!Enternity::FileOperation::ReadFile(blob2, m_MeshFilePath))
+			return;
+
+		UnLoad();
+		unsigned int vertexcount2;
+		unsigned int indexcount2;
+		memcpy_s(&vertexcount2, sizeof(unsigned int), blob2.GetData(), sizeof(unsigned int));
+		memcpy_s(&indexcount2, sizeof(unsigned int), (char*)blob2.GetData() + sizeof(unsigned int), sizeof(unsigned int));
+
+		VertexPosTex* vpt = new VertexPosTex[vertexcount2];
+		unsigned int* indices2 = new unsigned int[indexcount2];
+		memcpy_s(vpt, vertexcount2 * sizeof(VertexPosTex), (char*)blob2.GetData() + 2 * sizeof(unsigned int), vertexcount2 * sizeof(VertexPosTex));
+		memcpy_s(indices2, indexcount2 * sizeof(unsigned int), (char*)blob2.GetData() + 2 * sizeof(unsigned int) + vertexcount2 * sizeof(VertexPosTex), indexcount2 * sizeof(unsigned int));
+
+
+		m_Vertexbuffer = new VertexBuffer(vpt, vertexcount2 * sizeof(VertexPosTex));
+		m_VertexArray = new VertexArray;
+		VertexBufferLayout  vertexBufferLayout;
+		vertexBufferLayout.Push({ 0, 3, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 0 });
+		vertexBufferLayout.Push({ 1, 3, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 3 * sizeof(float) });
+		vertexBufferLayout.Push({ 2, 2, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 6 * sizeof(float) });
+		vertexBufferLayout.Push({ 3, 4, GL_UNSIGNED_INT, false,  12 * sizeof(float), 8 * sizeof(float) });
+		vertexBufferLayout.Push({ 4, 4, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 8 * sizeof(float) + 4 * sizeof(unsigned int)});
+		m_VertexArray->Add(*m_Vertexbuffer, vertexBufferLayout);
+		m_Indexbuffer = new IndexBuffer(indices2, indexcount2);
+
+		delete[] vpt;
+		delete[] indices2;
+	}
+
+	//load by data
+	void Load(const void* vertexData, unsigned int vertexCount, const unsigned int* indexData, unsigned int indexCount)
+	{
+		m_Vertexbuffer = new VertexBuffer(vertexData, vertexCount * sizeof(VertexPosTex));
+		m_VertexArray = new VertexArray;
+		VertexBufferLayout  vertexBufferLayout;
+		vertexBufferLayout.Push({ 0, 3, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 0 });
+		vertexBufferLayout.Push({ 1, 3, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 3 * sizeof(float) });
+		vertexBufferLayout.Push({ 2, 2, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 6 * sizeof(float) });
+		vertexBufferLayout.Push({ 3, 4, GL_UNSIGNED_INT, false,  12 * sizeof(float), 8 * sizeof(float) });
+		vertexBufferLayout.Push({ 4, 4, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 8 * sizeof(float) + 4 * sizeof(unsigned int) });
+		m_VertexArray->Add(*m_Vertexbuffer, vertexBufferLayout);
+		m_Indexbuffer = new IndexBuffer(indexData, indexCount);
+	}
+
+	void UnLoad()
+	{
+		SAFE_DELETE_SET_NULL(m_VertexArray);
+		SAFE_DELETE_SET_NULL(m_Vertexbuffer);
+		SAFE_DELETE_SET_NULL(m_Indexbuffer);
+	}
+};
+
+
+
+struct SkeletonModelComponent
+{
+	std::vector<SkeletonMeshComponent> m_Mesh;
+	std::vector<MaterialComponent> m_Material;
+
+	std::string m_ModelFilePath{ "" };
+
+	void Load()
+	{
+		UnLoad();
+		m_Mesh.clear();
+		m_Material.clear();
+
+		Assimp::Importer importer;
+		const aiScene* scene = importer.ReadFile(m_ModelFilePath, aiProcess_Triangulate | aiProcess_FlipUVs
+			| aiProcess_GenNormals | aiProcess_GenBoundingBoxes | aiProcess_GenUVCoords);
+
+
+		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+		{
+			LOG_ERROR("ERROR::ASSIMP::" + importer.GetErrorString());
+			return;
+		}
+
+		ProcessNode(scene->mRootNode, scene);
+	}
+
+
+	void UnLoad()
+	{
+		for (auto& meshc : m_Mesh)
+		{
+			meshc.UnLoad();
+		}
+
+		for (auto& matc : m_Material)
+		{
+			matc.UnLoad();
+		}
+	}
+private:
+	void ProcessNode(aiNode* node, const aiScene* scene)
+	{
+		for (unsigned int i = 0; i < node->mNumMeshes; i++)
+		{
+			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+			ProcessMesh(mesh, scene);
+		}
+
+		for (unsigned int i = 0; i < node->mNumChildren; i++)
+		{
+			ProcessNode(node->mChildren[i], scene);
+		}
+	}
+
+	void ProcessMesh(aiMesh* mesh, const aiScene* scene)
+	{
+		SkeletonMeshComponent meshc;
+		MaterialComponent matc;
+		matc.m_ShaderFilePath = "assets/shaders/SkeletonModel.glsl";
+
+		//vertex
+		std::vector<SkeletonMeshComponent::VertexPosTex> vertexData;
+		SkeletonMeshComponent::VertexPosTex tmpVertexPosTex;
+		for (unsigned int i = 0; i < mesh->mNumVertices; i++)
+		{
+			//position
+			tmpVertexPosTex.position.x = mesh->mVertices[i].x;
+			tmpVertexPosTex.position.y = mesh->mVertices[i].y;
+			tmpVertexPosTex.position.z = mesh->mVertices[i].z;
+
+			//normal
+			tmpVertexPosTex.normal.x = mesh->mNormals[i].x;
+			tmpVertexPosTex.normal.y = mesh->mNormals[i].y;
+			tmpVertexPosTex.normal.z = mesh->mNormals[i].z;
+
+			//texcoord
+			if (mesh->HasTextureCoords(0))
+			{
+				tmpVertexPosTex.texcoord.x = mesh->mTextureCoords[0][i].x;
+				tmpVertexPosTex.texcoord.y = -mesh->mTextureCoords[0][i].y + 1;
+			}
+
+			vertexData.push_back(tmpVertexPosTex);
+		}
+
+		//index
+		std::vector<unsigned int> indexData;
+		for (unsigned int i = 0; i < mesh->mNumFaces; i++)
+		{
+			for (unsigned int j = 0; j < mesh->mFaces[i].mNumIndices; j++)
+			{
+				indexData.push_back(mesh->mFaces[i].mIndices[j]);
+			}
+		}
+
+		LOG_INFO("Mesh Name: " + mesh->mName.C_Str() + ", Vertex Count: " + std::to_string(vertexData.size()) + ", Index Count: " + std::to_string(indexData.size()));
+		//skeleton
+		LOG_DEBUG("This mesh has " + std::to_string(mesh->mNumBones) + " bones");
+		for (unsigned int i = 0; i < mesh->mNumBones; i++)
+		{
+			aiBone* bone = mesh->mBones[i];
+			LOG_DEBUG(std::to_string(i) + " : " + bone->mName.C_Str() + ", affect " + std::to_string(bone->mNumWeights) + " vertices");
+			for (unsigned int j = 0; j < bone->mNumWeights; j++)
+			{
+				LOG_WARN(std::to_string(j) + " : " + "vertexid: " + std::to_string(bone->mWeights[j].mVertexId) + " weight: " + std::to_string(bone->mWeights[j].mWeight));
+
+				if (vertexData[bone->mWeights[j].mVertexId].boneIds.x == 0 && vertexData[bone->mWeights[j].mVertexId].weights.x == 0)
+				{
+					vertexData[bone->mWeights[j].mVertexId].boneIds.x = i;
+					vertexData[bone->mWeights[j].mVertexId].weights.x = bone->mWeights[j].mWeight;
+					continue;
+				}
+				if (vertexData[bone->mWeights[j].mVertexId].boneIds.y == 0 && vertexData[bone->mWeights[j].mVertexId].weights.y == 0)
+				{
+					vertexData[bone->mWeights[j].mVertexId].boneIds.y = i;
+					vertexData[bone->mWeights[j].mVertexId].weights.y = bone->mWeights[j].mWeight;
+					continue;
+				}
+				if (vertexData[bone->mWeights[j].mVertexId].boneIds.z == 0 && vertexData[bone->mWeights[j].mVertexId].weights.z == 0)
+				{
+					vertexData[bone->mWeights[j].mVertexId].boneIds.z = i;
+					vertexData[bone->mWeights[j].mVertexId].weights.z = bone->mWeights[j].mWeight;
+					continue;
+				}
+				if (vertexData[bone->mWeights[j].mVertexId].boneIds.w == 0 && vertexData[bone->mWeights[j].mVertexId].weights.w == 0)
+				{
+					vertexData[bone->mWeights[j].mVertexId].boneIds.w = i;
+					vertexData[bone->mWeights[j].mVertexId].weights.w = bone->mWeights[j].mWeight;
+				}
+			}
+		}
+
+		//test add bones array
+		meshc.m_Bones.resize(100);
+		for (unsigned int i = 0; i < 100; i++)
+		{
+			meshc.m_Bones[i] = glm::mat4{1.0f};
+		}
+
+		meshc.Load(vertexData.data(), (unsigned int)vertexData.size(), indexData.data(), (unsigned int)indexData.size());
+
+		//material
+		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+		aiString textureFilepath;
+
+		material->GetTexture(aiTextureType_DIFFUSE, 0, &textureFilepath);
+		matc.m_DiffuseTextureFilePath = std::string(textureFilepath.C_Str()) == "" ? "assets/textures/white_background.jpeg" : m_ModelFilePath.substr(0, m_ModelFilePath.find_last_of('/')) + "/" + textureFilepath.C_Str();
+
+		material->GetTexture(aiTextureType_SPECULAR, 0, &textureFilepath);
+		matc.m_SpecularTextureFilePath = std::string(textureFilepath.C_Str()) == "" ? "assets/textures/white_background.jpeg" : m_ModelFilePath.substr(0, m_ModelFilePath.find_last_of('/')) + "/" + textureFilepath.C_Str();
+		matc.m_UseTexture = true;
+
+		aiColor4D color;
+
+		material->Get(AI_MATKEY_COLOR_AMBIENT, color);
+		matc.m_Ambient = glm::vec4(color.r, color.g, color.b, color.a);
+
+		material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
+		matc.m_Diffuse = glm::vec4(color.r, color.g, color.b, color.a);
+
+		material->Get(AI_MATKEY_COLOR_SPECULAR, color);
+		matc.m_Specular = glm::vec4(color.r, color.g, color.b, color.a);
+
+		matc.Load();
+
+		m_Mesh.push_back(meshc);
+		m_Material.push_back(matc);
+	}
+public:
+	SkeletonModelComponent() = default;
+	SkeletonModelComponent(const SkeletonModelComponent&) = default;
+};
 END_ENTERNITY
