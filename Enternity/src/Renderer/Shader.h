@@ -35,7 +35,7 @@ public:
 	void SetFloat3(const std::string& name, const glm::vec3& v3);
 	void SetFloat4(const std::string& name, float v0, float v1, float v2, float v3);
 	void SetFloat4(const std::string& name, const glm::vec4& v4);
-	void SetMat4f(const std::string& name, const glm::mat4& mat4);
+	void SetMat4f(const std::string& name, const glm::mat4& mat4, bool normalize = false);
 private:
 	bool ParseShaderFile(ShaderSourceCode& shaderSourceCode, const std::string& filePath);
 	unsigned int CompileShader(unsigned int shaderType, const char* shaderSourceCode);

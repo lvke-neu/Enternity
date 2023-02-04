@@ -271,11 +271,10 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity
 
 					for (unsigned int j = 0; j < modelc.m_Mesh[i].m_Bones.size(); j++)
 					{
-						modelc.m_Material[i].m_Shader->SetMat4f("g_Bones[" + std::to_string(i) + "]", modelc.m_Mesh[i].m_Bones[j]);
+						modelc.m_Material[i].m_Shader->SetMat4f("g_Bones[" + std::to_string(j) + "]", modelc.m_Mesh[i].m_Bones[j].FinalMatrix, true);
 					}
 
 				}
-
 
 				if (modelc.m_Material[i].m_DiffuseTexture)
 					modelc.m_Material[i].m_DiffuseTexture->Bind(0);

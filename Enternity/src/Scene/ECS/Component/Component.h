@@ -564,8 +564,8 @@ struct SkeletonMeshComponent
 		glm::vec3 position;
 		glm::vec3 normal;
 		glm::vec2 texcoord;
-		glm::u32vec4 boneIds{0};
-		glm::vec4 weights{0.0f};
+		glm::ivec4 boneIds{0};
+		glm::vec4 weights{ 0.0f};
 	};
 
 	VertexArray* m_VertexArray{ nullptr };
@@ -574,7 +574,14 @@ struct SkeletonMeshComponent
 
 	std::string m_MeshFilePath{ "" };
 
-	std::vector<glm::mat4> m_Bones;
+	struct BoneInfo
+	{
+		glm::mat4 OffsetMatrix;
+		glm::mat4 FinalMatrix{1.0f};
+		aiNode* m_Node{ nullptr };
+	};
+
+	std::vector<BoneInfo> m_Bones;
 
 	SkeletonMeshComponent() = default;
 	SkeletonMeshComponent(const SkeletonMeshComponent&) = default;
@@ -611,8 +618,8 @@ struct SkeletonMeshComponent
 		vertexBufferLayout.Push({ 0, 3, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 0 });
 		vertexBufferLayout.Push({ 1, 3, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 3 * sizeof(float) });
 		vertexBufferLayout.Push({ 2, 2, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 6 * sizeof(float) });
-		vertexBufferLayout.Push({ 3, 4, GL_UNSIGNED_INT, false,  12 * sizeof(float), 8 * sizeof(float) });
-		vertexBufferLayout.Push({ 4, 4, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 8 * sizeof(float) + 4 * sizeof(unsigned int)});
+		vertexBufferLayout.Push({ 3, 4, GL_INT,   false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 8 * sizeof(float) });
+		vertexBufferLayout.Push({ 4, 4, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 8 * sizeof(float) + 4 * sizeof(unsigned int) });
 		m_VertexArray->Add(*m_Vertexbuffer, vertexBufferLayout);
 		m_Indexbuffer = new IndexBuffer(indices2, indexcount2);
 
@@ -629,7 +636,7 @@ struct SkeletonMeshComponent
 		vertexBufferLayout.Push({ 0, 3, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 0 });
 		vertexBufferLayout.Push({ 1, 3, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 3 * sizeof(float) });
 		vertexBufferLayout.Push({ 2, 2, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 6 * sizeof(float) });
-		vertexBufferLayout.Push({ 3, 4, GL_UNSIGNED_INT, false,  12 * sizeof(float), 8 * sizeof(float) });
+		vertexBufferLayout.Push({ 3, 4, GL_INT,   false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 8 * sizeof(float) });
 		vertexBufferLayout.Push({ 4, 4, GL_FLOAT, false,  12 * sizeof(float) + 4 * sizeof(unsigned int), 8 * sizeof(float) + 4 * sizeof(unsigned int) });
 		m_VertexArray->Add(*m_Vertexbuffer, vertexBufferLayout);
 		m_Indexbuffer = new IndexBuffer(indexData, indexCount);
@@ -670,6 +677,9 @@ struct SkeletonModelComponent
 		}
 
 		ProcessNode(scene->mRootNode, scene);
+		ProcessFinalTransform();
+		int i = 0;
+		i++;
 	}
 
 
@@ -686,12 +696,53 @@ struct SkeletonModelComponent
 		}
 	}
 private:
+	glm::mat4 AssimpMat4ToGlmMat4(const aiMatrix4x4& aiMat4)
+	{
+		return glm::mat4{
+			aiMat4.a1, aiMat4.a2, aiMat4.a3, aiMat4.a4,
+			aiMat4.b1, aiMat4.b2, aiMat4.b3, aiMat4.b4,
+			aiMat4.c1, aiMat4.c2, aiMat4.c3, aiMat4.c4,
+			aiMat4.d1, aiMat4.d2, aiMat4.d3, aiMat4.d4,
+		};
+	}
+
+	glm::mat4 CalGlobalTransform(aiNode* selfNode)
+	{
+		std::vector<glm::mat4> matPath;
+
+		while (selfNode)
+		{
+			matPath.emplace_back(AssimpMat4ToGlmMat4(selfNode->mTransformation));
+			selfNode = selfNode->mParent;
+		}
+		glm::mat4 res = matPath[matPath.size() -1];
+		for (int i = matPath.size() - 2; i >= 0; i--)
+		{
+			res *= matPath[i];
+		}
+
+		return res;
+	}
+
+	void ProcessFinalTransform()
+	{
+		for (int i = 0; i < m_Mesh.size(); i++)
+		{
+			auto& bones = m_Mesh[i].m_Bones;
+			for (auto& bone : bones)
+			{
+				bone.FinalMatrix = CalGlobalTransform(bone.m_Node) * bone.OffsetMatrix;
+			}
+		}
+		
+	}
+
 	void ProcessNode(aiNode* node, const aiScene* scene)
 	{
 		for (unsigned int i = 0; i < node->mNumMeshes; i++)
 		{
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			ProcessMesh(mesh, scene);
+			ProcessMesh(mesh, scene, node);
 		}
 
 		for (unsigned int i = 0; i < node->mNumChildren; i++)
@@ -700,7 +751,7 @@ private:
 		}
 	}
 
-	void ProcessMesh(aiMesh* mesh, const aiScene* scene)
+	void ProcessMesh(aiMesh* mesh, const aiScene* scene, aiNode* node)
 	{
 		SkeletonMeshComponent meshc;
 		MaterialComponent matc;
@@ -747,42 +798,40 @@ private:
 		for (unsigned int i = 0; i < mesh->mNumBones; i++)
 		{
 			aiBone* bone = mesh->mBones[i];
+			SkeletonMeshComponent::BoneInfo boneInfo;
+			boneInfo.OffsetMatrix = AssimpMat4ToGlmMat4(bone->mOffsetMatrix);
+			boneInfo.m_Node = node;
+			meshc.m_Bones.push_back(boneInfo);
+
 			LOG_DEBUG(std::to_string(i) + " : " + bone->mName.C_Str() + ", affect " + std::to_string(bone->mNumWeights) + " vertices");
 			for (unsigned int j = 0; j < bone->mNumWeights; j++)
 			{
 				LOG_WARN(std::to_string(j) + " : " + "vertexid: " + std::to_string(bone->mWeights[j].mVertexId) + " weight: " + std::to_string(bone->mWeights[j].mWeight));
 
-				if (vertexData[bone->mWeights[j].mVertexId].boneIds.x == 0 && vertexData[bone->mWeights[j].mVertexId].weights.x == 0)
+				if (vertexData[bone->mWeights[j].mVertexId].boneIds.x == -1 && vertexData[bone->mWeights[j].mVertexId].weights.x == -1)
 				{
 					vertexData[bone->mWeights[j].mVertexId].boneIds.x = i;
 					vertexData[bone->mWeights[j].mVertexId].weights.x = bone->mWeights[j].mWeight;
 					continue;
 				}
-				if (vertexData[bone->mWeights[j].mVertexId].boneIds.y == 0 && vertexData[bone->mWeights[j].mVertexId].weights.y == 0)
+				if (vertexData[bone->mWeights[j].mVertexId].boneIds.y == -1 && vertexData[bone->mWeights[j].mVertexId].weights.y == -1)
 				{
 					vertexData[bone->mWeights[j].mVertexId].boneIds.y = i;
 					vertexData[bone->mWeights[j].mVertexId].weights.y = bone->mWeights[j].mWeight;
 					continue;
 				}
-				if (vertexData[bone->mWeights[j].mVertexId].boneIds.z == 0 && vertexData[bone->mWeights[j].mVertexId].weights.z == 0)
+				if (vertexData[bone->mWeights[j].mVertexId].boneIds.z == -1 && vertexData[bone->mWeights[j].mVertexId].weights.z == -1)
 				{
 					vertexData[bone->mWeights[j].mVertexId].boneIds.z = i;
 					vertexData[bone->mWeights[j].mVertexId].weights.z = bone->mWeights[j].mWeight;
 					continue;
 				}
-				if (vertexData[bone->mWeights[j].mVertexId].boneIds.w == 0 && vertexData[bone->mWeights[j].mVertexId].weights.w == 0)
+				if (vertexData[bone->mWeights[j].mVertexId].boneIds.w == -1 && vertexData[bone->mWeights[j].mVertexId].weights.w == -1)
 				{
 					vertexData[bone->mWeights[j].mVertexId].boneIds.w = i;
 					vertexData[bone->mWeights[j].mVertexId].weights.w = bone->mWeights[j].mWeight;
 				}
 			}
-		}
-
-		//test add bones array
-		meshc.m_Bones.resize(100);
-		for (unsigned int i = 0; i < 100; i++)
-		{
-			meshc.m_Bones[i] = glm::mat4{1.0f};
 		}
 
 		meshc.Load(vertexData.data(), (unsigned int)vertexData.size(), indexData.data(), (unsigned int)indexData.size());

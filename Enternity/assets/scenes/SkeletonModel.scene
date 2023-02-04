@@ -52,7 +52,7 @@ Entities:
       m_Rotation: [-1.53588974, -0.0349065848, 0]
       m_Scale: [0.5, 0.5, 0.5]
     SkeletonModelComponent:
-      m_ModelFilePath: assets/models/robot-max-animation.FBX
+      m_ModelFilePath: assets/models/robot-max-animation.fbx
       m_Material:
         - [[0, 0, 0, 1], [1, 0, 0.00509501761, 1], [1, 0, 0.00509501761, 1], assets/textures/white_background.jpeg, assets/shaders/SkeletonModel.glsl, 32, assets/textures/white_background.jpeg]
         - [[0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], assets/textures/white_background.jpeg, assets/shaders/SkeletonModel.glsl, 32, assets/textures/white_background.jpeg]
