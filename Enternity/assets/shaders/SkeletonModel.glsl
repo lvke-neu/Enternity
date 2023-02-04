@@ -29,15 +29,15 @@ void main()
     //     BoneTransform     += g_Bones[boneIds.z] * weights.z;
     // if(boneIds.w != -1 && weights.w != -1)
     //     BoneTransform     += g_Bones[boneIds.w] * weights.w;
-    // // if(BoneTransform == mat4(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
-    // // {
-    // //     gl_Position = u_mvp * vec4(position.xyz, 1.0);
-    // // }
-    // // else
-    // // {
-    // //     vec4 PosL = BoneTransform * vec4(position.xyz, 1.0);
-    // //     gl_Position = u_mvp * PosL;
-    // // }
+    // if(BoneTransform == mat4(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
+    // {
+    //     gl_Position = u_mvp * vec4(position.xyz, 1.0);
+    // }
+    // else
+    // {
+    //     vec4 PosL = BoneTransform * vec4(position.xyz, 1.0);
+    //     gl_Position = u_mvp * PosL;
+    // }
 
     mat4 BoneTransform =    g_Bones[boneIds.x] * weights.x;
 
@@ -50,6 +50,8 @@ void main()
 
      vec4 PosL = BoneTransform * vec4(position.xyz, 1.0);
         gl_Position = u_mvp * PosL;
+
+    //gl_Position = u_mvp * vec4(position.xyz, 1.0);
 };
 
 #shader pixel

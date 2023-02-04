@@ -37,3 +37,10 @@ Box2d:
 	3、collider：对撞机
 
 Assimp: 加载模型 aiScene, aiMesh, aiMaterial
+
+骨骼动画:
+	1、骨骼空间与模型空间
+	aiBone->mOffsetMatrix : 从模型空间变换到骨骼空间的变换矩阵
+	aiNode->mTransformation : 从自己的骨骼空间变换到父亲节点的骨骼空间
+
+	Model Space * mOffsetMatrix ---> Bone Space * mTransformation ---> Parent Bone Space --->...............

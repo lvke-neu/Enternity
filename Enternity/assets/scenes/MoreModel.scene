@@ -1,0 +1,148 @@
+Scene: Untitled
+Entities:
+  - Entity: 0
+    TagComponent:
+      m_Tag: MainCamera Entity
+    CameraComponent:
+      m_MoveSpeed: 51
+      m_EnableWireframe: false
+      m_Fovy: 60
+      m_NearZ: 1
+      m_FarZ: 1000
+    TransformComponent:
+      m_Translation: [-105.042877, 71.5388107, -99.3348846]
+      m_Rotation: [-0.350000143, -2.29001617, 0]
+      m_Scale: [1, 1, 1]
+  - Entity: 1
+    TagComponent:
+      m_Tag: PlayerCamera Entity
+    CameraComponent:
+      m_MoveSpeed: 51
+      m_EnableWireframe: false
+      m_Fovy: 60
+      m_NearZ: 1
+      m_FarZ: 1000
+    TransformComponent:
+      m_Translation: [-2.8803215, -7.77180529, 31.0329628]
+      m_Rotation: [-0.146855921, -0.170448571, 0]
+      m_Scale: [1, 1, 1]
+  - Entity: 3
+    TagComponent:
+      m_Tag: DirectionLight Entity
+    TransformComponent:
+      m_Translation: [26.4752731, 63.162899, -97.6884995]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [1, 1, 1]
+    MeshComponent:
+      m_MeshFilePath: assets/models/sphere.mesh
+    MaterialComponent:
+      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
+      m_DiffuseTextureFilePath: assets/textures/white_background.jpeg
+      m_SpecularTextureFilePath: ""
+      m_UseTexture: false
+      m_Ambient: [1, 1, 1, 1]
+      m_Diffuse: [1, 1, 1, 1]
+      m_Specular: [1, 1, 1, 1]
+      m_Shininess: 58
+  - Entity: 10
+    TagComponent:
+      m_Tag: spider
+    TransformComponent:
+      m_Translation: [-64.9691315, 20.7245178, -38.362606]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [0.5, 0.5, 0.5]
+    ModelComponent:
+      m_ModelFilePath: assets/models/spider/spider.obj
+      m_Material:
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.690195978, 0.639216006, 0.615685999, 1], [0, 0, 0, 1], assets/models/spider/SpiderTex.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/SpiderTex.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.827450991, 0.792156994, 0.772548974, 1], [0, 0, 0, 1], assets/models/spider/wal67ar_small.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/wal67ar_small.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0, 0, 0, 1], assets/models/spider/drkwood2.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/drkwood2.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0, 0, 0, 1], assets/models/spider/drkwood2.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/drkwood2.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0, 0, 0, 1], assets/models/spider/drkwood2.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/drkwood2.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0, 0, 0, 1], assets/models/spider/drkwood2.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/drkwood2.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0, 0, 0, 1], assets/models/spider/drkwood2.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/drkwood2.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0, 0, 0, 1], assets/models/spider/drkwood2.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/drkwood2.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0, 0, 0, 1], assets/models/spider/drkwood2.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/drkwood2.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0, 0, 0, 1], assets/models/spider/drkwood2.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/drkwood2.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0, 0, 0, 1], assets/models/spider/drkwood2.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/drkwood2.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0, 0, 0, 1], assets/models/spider/drkwood2.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/drkwood2.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.827450991, 0.792156994, 0.772548974, 1], [0, 0, 0, 1], assets/models/spider/wal67ar_small.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/wal67ar_small.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.827450991, 0.792156994, 0.772548974, 1], [0, 0, 0, 1], assets/models/spider/wal67ar_small.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/wal67ar_small.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.827450991, 0.792156994, 0.772548974, 1], [0, 0, 0, 1], assets/models/spider/wal67ar_small.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/wal67ar_small.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0, 0, 0, 1], assets/models/spider/drkwood2.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/drkwood2.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0, 0, 0, 1], assets/models/spider/drkwood2.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/drkwood2.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0, 0, 0, 1], assets/models/spider/engineflare1.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/engineflare1.jpg]
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0, 0, 0, 1], assets/models/spider/engineflare1.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/spider/engineflare1.jpg]
+  - Entity: 11
+    TagComponent:
+      m_Tag: tank
+    TransformComponent:
+      m_Translation: [11.0212421, -5.45264196, -1.4403131]
+      m_Rotation: [-1.57079673, -1.30900013, 0]
+      m_Scale: [0.400000006, 0.399999917, 0.399996489]
+    ModelComponent:
+      m_ModelFilePath: assets/models/phoenix/phoenix_ugv.md2
+      m_Material:
+        - [[0.0500000007, 0.0500000007, 0.0500000007, 1], [1, 1, 1, 1], [1, 1, 1, 1], assets/models/phoenix/phoenix.pcx, assets/shaders/TestECSPhong.glsl, 32, assets/models/phoenix/phoenix.pcx]
+  - Entity: 12
+    TagComponent:
+      m_Tag: house
+    TransformComponent:
+      m_Translation: [-0.455568254, 0, 75.9491882]
+      m_Rotation: [0, 1.2566371, 0]
+      m_Scale: [8, 8, 8]
+    ModelComponent:
+      m_ModelFilePath: assets/models/ordinary_house/ordinary_house.obj
+      m_Material:
+        - [[1, 1, 1, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0.5, 0.5, 0.5, 1], assets/models/ordinary_house/texture1.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/ordinary_house/texture1.png]
+  - Entity: 13
+    TagComponent:
+      m_Tag: heli
+    TransformComponent:
+      m_Translation: [0, 37.4398193, 0]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [0.100000001, 0.100000001, 0.100000001]
+    ModelComponent:
+      m_ModelFilePath: assets/models/hheli/hheli.obj
+      m_Material:
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0, 0, 0, 1], assets/models/hheli/hheli.bmp, assets/shaders/TestECSPhong.glsl, 32, assets/models/hheli/hheli.bmp]
+  - Entity: 14
+    TagComponent:
+      m_Tag: Plane
+    TransformComponent:
+      m_Translation: [0, 0, 0]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [194, 87, 165]
+    MeshComponent:
+      m_MeshFilePath: assets/models/plane.mesh
+    MaterialComponent:
+      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
+      m_DiffuseTextureFilePath: assets/textures/white_background.jpeg
+      m_SpecularTextureFilePath: assets/textures/white_background.jpeg
+      m_UseTexture: false
+      m_Ambient: [0.0506948866, 0.213523149, 0.032674361, 1]
+      m_Diffuse: [0.298039228, 0.235294119, 0.235294119, 1]
+      m_Specular: [0.298039228, 0.235294119, 0.235294119, 1]
+      m_Shininess: 32
+  - Entity: 15
+    TagComponent:
+      m_Tag: house2
+    TransformComponent:
+      m_Translation: [-3.98950768, 0.908064723, -54.2535057]
+      m_Rotation: [3.14159274, 1.2915436, 3.14159274]
+      m_Scale: [5, 5, 5]
+    ModelComponent:
+      m_ModelFilePath: assets/models/low_poly_rpg_collection/rpg_items_3.obj
+      m_Material:
+        - [[1, 1, 1, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0.5, 0.5, 0.5, 1], assets/models/low_poly_rpg_collection/house2.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/low_poly_rpg_collection/house2.png]
+  - Entity: 16
+    TagComponent:
+      m_Tag: jeep
+    TransformComponent:
+      m_Translation: [-1.09543514, 1.74416698e-07, 35.8068161]
+      m_Rotation: [-3.14159274, 0.0872668922, -3.14159274]
+      m_Scale: [0.0500000119, 0.0500000007, 0.0500000119]
+    ModelComponent:
+      m_ModelFilePath: assets/models/jeep/jeep.obj
+      m_Material:
+        - [[0.200000003, 0.200000003, 0.200000003, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0, 0, 0, 1], assets/models/jeep/jeep_army.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/jeep/jeep_army.jpg]

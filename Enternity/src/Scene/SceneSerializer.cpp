@@ -3,7 +3,7 @@
 #include "Imgui/ImguiManager.h"
 #include "File/FileOperation.h"
 #include "Log/Log.h"
-
+#include "Scene/ECS/Component/SkeletonModelComponent.h"
 
 namespace YAML {
 
@@ -521,7 +521,7 @@ bool SceneSerializer::Deserialize(const std::string& filePath)
 				auto& smc = deserializeEntity.AddComponent<SkeletonModelComponent>();
 				smc.m_ModelFilePath = skeletonModelComponent["m_ModelFilePath"].as<std::string>();
 				smc.Load();
-				smc.m_Material = skeletonModelComponent["m_Material"].as<std::vector<MaterialComponent>>();
+				//smc.m_Material = skeletonModelComponent["m_Material"].as<MaterialComponent>();
 			}
 
 			SceneManager::GetInstance().m_Entities.insert({ deserializeEntity.GetEntityUid(), deserializeEntity });

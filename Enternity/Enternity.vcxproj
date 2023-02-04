@@ -188,6 +188,7 @@
     <ClInclude Include="src\Renderer\VertexArray.h" />
     <ClInclude Include="src\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\Scene\ECS\Component\Component.h" />
+    <ClInclude Include="src\Scene\ECS\Component\SkeletonModelComponent.h" />
     <ClInclude Include="src\Scene\ECS\Entity\Entity.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
     <ClInclude Include="src\Scene\SceneSerializer.h" />
