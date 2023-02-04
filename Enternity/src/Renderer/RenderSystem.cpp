@@ -269,6 +269,9 @@ void RenderSystem::DrawEntity(Entity& cameraEntity, Entity& entity, const Entity
 					modelc.m_Material.m_Shader->SetMat4f("u_mvp", cameraCameraComponent.m_ProjectMatrix * cameraTransformComponent.GetInverseWorldMatrix() * transc.GetWorldMatrix());
 					modelc.m_Material.m_Shader->SetInteger1("u_entityId", entity.GetEntityUid());
 
+					long long CurrentTimeMillis = modelc.GetCurrentTimeMillis();
+					float AnimationTimeSec = ((float)(CurrentTimeMillis - modelc.StartTimeMillis)) / 1000.0f;
+					modelc.CalcuFinalTransform(AnimationTimeSec);
 					for (unsigned int j = 0; j < modelc.m_BoneInfo.size(); j++)
 					{
 						modelc.m_Material.m_Shader->SetMat4f("g_Bones[" + std::to_string(j) + "]", modelc.m_BoneInfo[j].FinalTransformation, true);

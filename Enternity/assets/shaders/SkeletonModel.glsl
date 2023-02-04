@@ -64,7 +64,7 @@ uniform int u_entityId;
 
 void main()
 {	 
-    pixelColor = vec4(1,0,0,1);
+    pixelColor = vec4(1,1,1,1);
 
 	entityId = u_entityId;
     //entityId = int(g_Bones[0][0].x);
