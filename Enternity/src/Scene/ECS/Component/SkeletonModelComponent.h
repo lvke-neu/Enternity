@@ -152,7 +152,15 @@ struct SkeletonModelComponent
 
 	void UnLoad()
 	{
+		for (int i = 0; i < m_Mesh.size(); i++)
+			m_Mesh[i].UnLoad();
 
+		m_Material.UnLoad();
+
+		m_vertices.clear();
+		m_indices.clear();
+		m_BoneNameToIndexMap.clear();
+		m_BoneInfo.clear();
 	}
 private:
 	glm::mat4 AssimpMat4ToGlmMat4(const aiMatrix4x4& aiMat4)

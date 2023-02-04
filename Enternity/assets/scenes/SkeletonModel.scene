@@ -49,7 +49,7 @@ Entities:
       m_Tag: UnKnown Name
     TransformComponent:
       m_Translation: [0.0825941935, 0.0826443285, -2.36518764]
-      m_Rotation: [-1.53588974, -0.0349065848, 0]
+      m_Rotation: [0, 0, 0]
       m_Scale: [0.5, 0.5, 0.5]
     SkeletonModelComponent:
       m_ModelFilePath: assets/models/boblampclean/boblampclean.md5mesh

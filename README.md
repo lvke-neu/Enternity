@@ -44,3 +44,7 @@ Assimp: 加载模型 aiScene, aiMesh, aiMaterial
 	aiNode->mTransformation : 从自己的骨骼空间变换到父亲节点的骨骼空间
 
 	Model Space * mOffsetMatrix ---> Bone Space * mTransformation ---> Parent Bone Space --->...............
+
+
+glm 矩阵乘法得反过来写
+https://www.cnblogs.com/makejeffer/p/7652771.html
