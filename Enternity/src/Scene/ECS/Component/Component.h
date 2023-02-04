@@ -716,7 +716,7 @@ private:
 			selfNode = selfNode->mParent;
 		}
 		glm::mat4 res = matPath[matPath.size() -1];
-		for (int i = matPath.size() - 2; i >= 0; i--)
+		for (size_t i = matPath.size() - 2; i >= 0; i--)
 		{
 			res *= matPath[i];
 		}
