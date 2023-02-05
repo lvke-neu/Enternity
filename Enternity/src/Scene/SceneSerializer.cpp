@@ -280,6 +280,15 @@ void SceneSerializer::SerializeEntity(YAML::Emitter& out, Entity entity)
 		out << YAML::EndMap;
 	}
 
+	if (entity.HasComponent<SkeletonModelComponent>())
+	{
+		out << YAML::Key << "SkeletonModelComponent";
+		out << YAML::BeginMap;
+		auto& smc = entity.GetComponent<SkeletonModelComponent>();
+		out << YAML::Key << "m_ModelFilePath" << YAML::Value << smc.m_ModelFilePath;
+		out << YAML::EndMap;
+	}
+
 	out << YAML::EndMap;
 }
 

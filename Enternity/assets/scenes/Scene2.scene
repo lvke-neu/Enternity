@@ -1,0 +1,261 @@
+Scene: Untitled
+Entities:
+  - Entity: 0
+    TagComponent:
+      m_Tag: MainCamera Entity
+    CameraComponent:
+      m_MoveSpeed: 51
+      m_EnableWireframe: false
+      m_Fovy: 60
+      m_NearZ: 1
+      m_FarZ: 1000
+    TransformComponent:
+      m_Translation: [-18.9244232, -1.25422847, 26.6233292]
+      m_Rotation: [-0.0899991468, -0.220007956, 0]
+      m_Scale: [1, 1, 1]
+  - Entity: 1
+    TagComponent:
+      m_Tag: PlayerCamera Entity
+    CameraComponent:
+      m_MoveSpeed: 51
+      m_EnableWireframe: false
+      m_Fovy: 60
+      m_NearZ: 1
+      m_FarZ: 1000
+    TransformComponent:
+      m_Translation: [-2.8803215, -7.77180529, 31.0329628]
+      m_Rotation: [-0.146855921, -0.170448571, 0]
+      m_Scale: [1, 1, 1]
+  - Entity: 3
+    TagComponent:
+      m_Tag: DirectionLight Entity
+    TransformComponent:
+      m_Translation: [-0.027007103, 12.3593283, 19.1613731]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [5, 5, 5]
+    MeshComponent:
+      m_MeshFilePath: assets/models/sphere.mesh
+    MaterialComponent:
+      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
+      m_DiffuseTextureFilePath: assets/textures/white_background.jpeg
+      m_SpecularTextureFilePath: ""
+      m_UseTexture: false
+      m_Ambient: [1, 1, 1, 1]
+      m_Diffuse: [1, 1, 1, 1]
+      m_Specular: [1, 1, 1, 1]
+      m_Shininess: 58
+  - Entity: 7
+    TagComponent:
+      m_Tag: sphere show light
+    TransformComponent:
+      m_Translation: [5.05615234, 0, 0]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [1, 1, 1]
+    MeshComponent:
+      m_MeshFilePath: assets\models\sphere.mesh
+    MaterialComponent:
+      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
+      m_DiffuseTextureFilePath: assets/textures/white_background.jpeg
+      m_SpecularTextureFilePath: assets/textures/white_background.jpeg
+      m_UseTexture: false
+      m_Ambient: [0.435294122, 0.435294122, 0.435294122, 1]
+      m_Diffuse: [0.435294122, 0.435294122, 0.435294122, 1]
+      m_Specular: [1, 1, 1, 1]
+      m_Shininess: 32
+    RigidBodyComponent:
+      m_ColliderShape: Sphere
+      m_Mass: 5
+      m_Friction: 0.5
+      m_Restitution: 1
+      m_ShowColliderShape: false
+      m_Offset: [0.5, 0.5, 0.5]
+      m_Radius: 1
+  - Entity: 8
+    TagComponent:
+      m_Tag: oblique plane
+    TransformComponent:
+      m_Translation: [0, -6.21589708, 0]
+      m_Rotation: [0, 0, -0.314159274]
+      m_Scale: [5, 0.5, 2]
+    MeshComponent:
+      m_MeshFilePath: assets\models\cube.mesh
+    MaterialComponent:
+      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
+      m_DiffuseTextureFilePath: assets/textures/white_background.jpeg
+      m_SpecularTextureFilePath: assets/textures/white_background.jpeg
+      m_UseTexture: false
+      m_Ambient: [0.690391421, 0.0515950769, 0.0515950769, 1]
+      m_Diffuse: [0.690196097, 0.0509803928, 0.0509803928, 1]
+      m_Specular: [0.690196097, 0.0509803928, 0.0509803928, 1]
+      m_Shininess: 32
+    RigidBodyComponent:
+      m_ColliderShape: Box
+      m_Mass: 68
+      m_Friction: 0.920000017
+      m_Restitution: 0.400000006
+      m_ShowColliderShape: true
+      m_Offset: [5, 0.5, 2]
+      m_Radius: 1
+  - Entity: 9
+    TagComponent:
+      m_Tag: sphere rigid
+    TransformComponent:
+      m_Translation: [0, 0, 0]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [1, 1, 1]
+    MeshComponent:
+      m_MeshFilePath: assets\models\sphere.mesh
+    MaterialComponent:
+      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
+      m_DiffuseTextureFilePath: assets\textures\skybox.jpeg
+      m_SpecularTextureFilePath: assets\textures\skybox.jpeg
+      m_UseTexture: true
+      m_Ambient: [0.435294122, 0.435294122, 0.435294122, 1]
+      m_Diffuse: [0.435294122, 0.435294122, 0.435294122, 1]
+      m_Specular: [1, 1, 1, 1]
+      m_Shininess: 35
+    RigidBodyComponent:
+      m_ColliderShape: Sphere
+      m_Mass: 1
+      m_Friction: 0.200000003
+      m_Restitution: 0.449999988
+      m_ShowColliderShape: false
+      m_Offset: [0.5, 0.5, 0.5]
+      m_Radius: 1
+  - Entity: 10
+    TagComponent:
+      m_Tag: cube
+    TransformComponent:
+      m_Translation: [17.8781509, 0, 0]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [1, 1, 1]
+    MeshComponent:
+      m_MeshFilePath: assets\models\cube.mesh
+    MaterialComponent:
+      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
+      m_DiffuseTextureFilePath: assets\textures\box_diffuse.png
+      m_SpecularTextureFilePath: assets\textures\box_specular.png
+      m_UseTexture: true
+      m_Ambient: [1, 1, 1, 1]
+      m_Diffuse: [1, 1, 1, 1]
+      m_Specular: [1, 1, 1, 1]
+      m_Shininess: 32
+  - Entity: 11
+    TagComponent:
+      m_Tag: plane
+    TransformComponent:
+      m_Translation: [0, -20, 0]
+      m_Rotation: [0, 0, 0]
+      m_Scale: [100, 0.5, 100]
+    MeshComponent:
+      m_MeshFilePath: assets\models\cube.mesh
+    MaterialComponent:
+      m_ShaderFilePath: assets/shaders/TestECSPhong.glsl
+      m_DiffuseTextureFilePath: assets/textures/white_background.jpeg
+      m_SpecularTextureFilePath: assets/textures/white_background.jpeg
+      m_UseTexture: false
+      m_Ambient: [0.243137255, 0.352941185, 0.0352941193, 1]
+      m_Diffuse: [0.243137255, 0.352941185, 0.0352941193, 1]
+      m_Specular: [0.392156869, 0.392156869, 0.392156869, 1]
+      m_Shininess: 32
+    RigidBodyComponent:
+      m_ColliderShape: Box
+      m_Mass: 0
+      m_Friction: 0.200000003
+      m_Restitution: 1
+      m_ShowColliderShape: false
+      m_Offset: [100, 0.5, 100]
+      m_Radius: 1
+  - Entity: 12
+    TagComponent:
+      m_Tag: Nanosuit model
+    TransformComponent:
+      m_Translation: [-44.5687408, -19.0378189, -48.4619942]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [1.5, 1.5, 1.5]
+    ModelComponent:
+      m_ModelFilePath: assets/models/nanosuit/nanosuit.obj
+      m_Material:
+        - [[1, 0, 0, 1], [1, 0, 0, 1], [0.5, 0.5, 0.5, 1], assets/models/nanosuit/glass_dif.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/nanosuit/glass_dif.png]
+        - [[1, 0, 0, 1], [0.639999986, 0.639999986, 0.639999986, 1], [0.5, 0.5, 0.5, 1], assets/models/nanosuit/leg_dif.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/nanosuit/leg_showroom_spec.png]
+        - [[0.9857651, 0.35862115, 0.0912095681, 1], [0.639999986, 0.639999986, 0.639999986, 1], [0.5, 0.5, 0.5, 1], assets/models/nanosuit/hand_dif.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/nanosuit/hand_showroom_spec.png]
+        - [[0, 0, 0, 1], [0.639999986, 0.639999986, 0.639999986, 1], [0.5, 0.5, 0.5, 1], assets/models/nanosuit/glass_dif.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/nanosuit/glass_dif.png]
+        - [[1, 0, 0, 1], [0.639999986, 0.639999986, 0.639999986, 1], [0.5, 0.5, 0.5, 1], assets/models/nanosuit/arm_dif.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/nanosuit/arm_showroom_spec.png]
+        - [[1, 0.0355871916, 0.0355871916, 1], [0.639999986, 0.639999986, 0.639999986, 1], [0.5, 0.5, 0.5, 1], assets/models/nanosuit/helmet_diff.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/nanosuit/helmet_showroom_spec.png]
+        - [[1, 0.106761575, 0, 1], [0.811387897, 0.513975263, 0.513975263, 1], [1, 1, 1, 1], assets/models/nanosuit/body_dif.png, assets/shaders/TestECSPhong.glsl, 31, assets/models/nanosuit/body_showroom_spec.png]
+  - Entity: 13
+    TagComponent:
+      m_Tag: Naruto Model
+    TransformComponent:
+      m_Translation: [-27.689024, -18.6095982, -47.4107933]
+      m_Rotation: [-1.57079637, -0, 0]
+      m_Scale: [0.129999995, 0.129999101, 0.129999101]
+    ModelComponent:
+      m_ModelFilePath: assets/models/2nrtbod1out/2nrtbod1out.obj
+      m_Material:
+        - [[0, 0, 0, 1], [1, 1, 1, 1], [0.5, 0.5, 0.5, 1], assets/textures/white_background.jpeg, assets/shaders/TestECSPhong.glsl, 32, assets/textures/white_background.jpeg]
+        - [[0.117647, 0.117647, 0.117647, 1], [1, 1, 1, 1], [0.752941012, 0.752941012, 0.752941012, 1], assets/models/2nrtbod1out/ntxr001.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/2nrtbod1out/ntxr001.png]
+        - [[0.117647, 0.117647, 0.117647, 1], [1, 1, 1, 1], [0.752941012, 0.752941012, 0.752941012, 1], assets/models/2nrtbod1out/ntxr001.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/2nrtbod1out/ntxr001.png]
+        - [[0.117647, 0.117647, 0.117647, 1], [1, 1, 1, 1], [0.752941012, 0.752941012, 0.752941012, 1], assets/models/2nrtbod1out/ntxr001.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/2nrtbod1out/ntxr001.png]
+        - [[0.117647, 0.117647, 0.117647, 1], [1, 1, 1, 1], [0.752941012, 0.752941012, 0.752941012, 1], assets/models/2nrtbod1out/ntxr001.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/2nrtbod1out/ntxr001.png]
+        - [[0.117647, 0.117647, 0.117647, 1], [1, 1, 1, 1], [0.752941012, 0.752941012, 0.752941012, 1], assets/models/2nrtbod1out/ntxr001.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/2nrtbod1out/ntxr001.png]
+        - [[0.117647, 0.117647, 0.117647, 1], [1, 1, 1, 1], [0.752941012, 0.752941012, 0.752941012, 1], assets/models/2nrtbod1out/ntxr004.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/2nrtbod1out/ntxr004.png]
+        - [[0.117647, 0.117647, 0.117647, 1], [1, 1, 1, 1], [0.752941012, 0.752941012, 0.752941012, 1], assets/models/2nrtbod1out/ntxr004.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/2nrtbod1out/ntxr004.png]
+  - Entity: 14
+    TagComponent:
+      m_Tag: Madara model
+    TransformComponent:
+      m_Translation: [-12.4074984, -19.1116962, -50.068779]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [5.5, 5.5, 5.5]
+    ModelComponent:
+      m_ModelFilePath: assets/models/Madara_Uchiha/Madara_Uchiha.obj
+      m_Material:
+        - [[0, 0, 0, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0.800000012, 0.800000012, 0.800000012, 1], assets/textures/white_background.jpeg, assets/shaders/TestECSPhong.glsl, 32, assets/textures/white_background.jpeg]
+        - [[1, 1, 1, 1], [0.800000012, 0.00457300013, 0, 1], [0.5, 0.5, 0.5, 1], assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png]
+        - [[1, 1, 1, 1], [0.800000012, 0.00457300013, 0, 1], [0.5, 0.5, 0.5, 1], assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png]
+        - [[1, 1, 1, 1], [0.800000012, 0.00457300013, 0, 1], [0.5, 0.5, 0.5, 1], assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png]
+        - [[1, 1, 1, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0.5, 0.5, 0.5, 1], assets/models/Madara_Uchiha/Sharingan_texture.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/Madara_Uchiha/Sharingan_texture.jpg]
+        - [[1, 1, 1, 1], [0.800000012, 0.800000012, 0.800000012, 1], [0.5, 0.5, 0.5, 1], assets/models/Madara_Uchiha/Sharingan_texture.jpg, assets/shaders/TestECSPhong.glsl, 32, assets/models/Madara_Uchiha/Sharingan_texture.jpg]
+        - [[1, 1, 1, 1], [0.800000012, 0.00457300013, 0, 1], [0.5, 0.5, 0.5, 1], assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png]
+        - [[1, 1, 1, 1], [0.800000012, 0.00457300013, 0, 1], [0.5, 0.5, 0.5, 1], assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png]
+        - [[1, 1, 1, 1], [0.800000012, 0.00457300013, 0, 1], [0.5, 0.5, 0.5, 1], assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png]
+        - [[1, 1, 1, 1], [0.800000012, 0.00457300013, 0, 1], [0.5, 0.5, 0.5, 1], assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png]
+        - [[1, 1, 1, 1], [0.800000012, 0.00457300013, 0, 1], [0.5, 0.5, 0.5, 1], assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png]
+        - [[1, 1, 1, 1], [0.800000012, 0.00457300013, 0, 1], [0.5, 0.5, 0.5, 1], assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png]
+        - [[1, 1, 1, 1], [0.800000012, 0.00457300013, 0, 1], [0.5, 0.5, 0.5, 1], assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png]
+        - [[1, 1, 1, 1], [0.800000012, 0.00457300013, 0, 1], [0.5, 0.5, 0.5, 1], assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/Madara_Uchiha/_Madara_texture_main_mAIN.png]
+  - Entity: 15
+    TagComponent:
+      m_Tag: Robot model
+    TransformComponent:
+      m_Translation: [17.1752377, -17.5787621, -49.7335205]
+      m_Rotation: [-1.57079637, -0, 0]
+      m_Scale: [2.5, 2.49990082, 2.49990082]
+    ModelComponent:
+      m_ModelFilePath: assets/models/robot-max-animation.FBX
+      m_Material:
+        - [[0, 0, 0, 1], [1, 0, 0.00509501761, 1], [1, 0, 0.00509501761, 1], assets/textures/white_background.jpeg, assets/shaders/TestECSPhong.glsl, 32, assets/textures/white_background.jpeg]
+        - [[0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], assets/textures/white_background.jpeg, assets/shaders/TestECSPhong.glsl, 32, assets/textures/white_background.jpeg]
+        - [[0, 0, 0, 1], [0, 0.00614464656, 0.592567146, 1], [0, 0.00614464656, 0.592567146, 1], assets/textures/white_background.jpeg, assets/shaders/TestECSPhong.glsl, 32, assets/textures/white_background.jpeg]
+        - [[0, 0, 0, 1], [0.592567027, 0.58914727, 0, 1], [0.592567027, 0.58914727, 0, 1], assets/textures/white_background.jpeg, assets/shaders/TestECSPhong.glsl, 32, assets/textures/white_background.jpeg]
+  - Entity: 16
+    TagComponent:
+      m_Tag: House model
+    TransformComponent:
+      m_Translation: [-73.8342285, -18.7856674, -47.5875778]
+      m_Rotation: [0, -0, 0]
+      m_Scale: [0.0500000007, 0.0500000007, 0.0500000007]
+    ModelComponent:
+      m_ModelFilePath: assets/models/house/house.obj
+      m_Material:
+        - [[0.588199973, 0.588199973, 0.588199973, 1], [0.588199973, 0.588199973, 0.588199973, 1], [0, 0, 0, 1], assets/models/house/house.png, assets/shaders/TestECSPhong.glsl, 32, assets/models/house/house.png]
+  - Entity: 17
+    TagComponent:
+      m_Tag: animation
+    TransformComponent:
+      m_Translation: [-30.444273, -19.1267376, -19.4145851]
+      m_Rotation: [-1.57079637, -0, 0]
+      m_Scale: [0.400000006, 0.400000006, 0.400000006]
+    SkeletonModelComponent:
+      m_ModelFilePath: assets/models/animation/boblampclean/boblampclean.md5mesh

@@ -252,6 +252,12 @@ void SceneHierarchyPanel::DrawComponentOfSelectedEntity()
 			ImGui::CloseCurrentPopup();
 		}
 
+		if (ImGui::MenuItem("SkeletonModelComponent"))
+		{
+			m_SelectedEntity.AddComponent<SkeletonModelComponent>();
+			ImGui::CloseCurrentPopup();
+		}
+
 
 		ImGui::EndPopup();
 	}
