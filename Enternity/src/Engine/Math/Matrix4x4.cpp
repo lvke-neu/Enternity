@@ -7,7 +7,7 @@ namespace Enternity
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 1.0f,
+		0.0f, 0.0f, 0.0f, 1.0f
 	};
 
 	Matrix4x4f Matrix4x4f::ZERO =
@@ -15,7 +15,7 @@ namespace Enternity
 		0.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 0.0f
 	};
 
 	Matrix4x4f::Matrix4x4f()
@@ -82,6 +82,26 @@ namespace Enternity
 			mat4x4f[3][3] * mat4.mat4x4f[3][3];
 
 		return res;
+	}
+
+	Matrix4x4f Matrix4x4f::Translation(float transX, float transY, float transZ)
+	{
+		return Matrix4x4f(
+			0.0f, 0.0f, 0.0f, transX,
+			0.0f, 0.0f, 0.0f, transY,
+			0.0f, 0.0f, 0.0f, transZ,
+			0.0f, 0.0f, 0.0f, 1.0f
+		);
+	}
+
+	Matrix4x4f Matrix4x4f::Scale(float scaleX, float scaleY, float scaleZ)
+	{
+		return Matrix4x4f(
+			scaleX, 0.0f, 0.0f, 0.0f,
+			0.0f, scaleY, 0.0f, 0.0f,
+			0.0f, 0.0f, scaleZ, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f
+		);
 	}
 
 	Matrix4x4f Matrix4x4f::Transpose(const Matrix4x4f& mat4)

@@ -22,7 +22,13 @@ namespace Enternity
 		float* operator[](unsigned int rowIndex);
 		Matrix4x4f operator*(const Matrix4x4f& mat4);
 
+	
+		//some static functions
+		static Matrix4x4f Translation(float transX, float transY, float transZ);
+		static Matrix4x4f Scale(float scaleX, float scaleY, float scaleZ);
 		static Matrix4x4f Transpose(const Matrix4x4f& mat4);
+		
+		//some static variables
 		static Matrix4x4f IDENTITY;
 		static Matrix4x4f ZERO;
 	private:
