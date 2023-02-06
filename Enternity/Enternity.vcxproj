@@ -58,8 +58,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>
-      </PreprocessorDefinitions>
+      <PreprocessorDefinitions>DEBUG;</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -90,113 +89,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Dialog\FileDialog.cpp" />
     <ClCompile Include="src\Engine\Engine.cpp" />
-    <ClCompile Include="src\Event\ImguiDrawEventManager.cpp" />
-    <ClCompile Include="src\Event\InputEventManager.cpp" />
-    <ClCompile Include="src\Event\Interface\EventManagerInterface.cpp" />
-    <ClCompile Include="src\Event\TickEventManager.cpp" />
-    <ClCompile Include="src\File\FileOperation.cpp" />
-    <ClCompile Include="src\Imgui\ImguiImpl\ImCurveEdit.cpp" />
-    <ClCompile Include="src\Imgui\ImguiImpl\ImGradient.cpp" />
-    <ClCompile Include="src\Imgui\ImguiImpl\imgui.cpp" />
-    <ClCompile Include="src\Imgui\ImguiImpl\ImGuizmo.cpp" />
-    <ClCompile Include="src\Imgui\ImguiImpl\imgui_demo.cpp" />
-    <ClCompile Include="src\Imgui\ImguiImpl\imgui_draw.cpp" />
-    <ClCompile Include="src\Imgui\ImguiImpl\imgui_impl_glfw.cpp" />
-    <ClCompile Include="src\Imgui\ImguiImpl\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="src\Imgui\ImguiImpl\imgui_tables.cpp" />
-    <ClCompile Include="src\Imgui\ImguiImpl\imgui_widgets.cpp" />
-    <ClCompile Include="src\Imgui\ImguiImpl\ImSequencer.cpp" />
-    <ClCompile Include="src\Imgui\ImguiManager.cpp" />
-    <ClCompile Include="src\Imgui\Panels\ContentBrowserPanel.cpp" />
-    <ClCompile Include="src\Imgui\Panels\Interface\PanelInterface.cpp" />
-    <ClCompile Include="src\Imgui\Panels\PlayButtonPanel.cpp" />
-    <ClCompile Include="src\Imgui\Panels\SceneHierarchyPanel.cpp" />
-    <ClCompile Include="src\Imgui\Panels\StatsPanel.cpp" />
-    <ClCompile Include="src\Imgui\Panels\ViewportPanel2.cpp" />
-    <ClCompile Include="src\Imgui\Panels\ViewportPanel.cpp" />
-    <ClCompile Include="src\Log\Log.cpp" />
+    <ClCompile Include="src\Engine\Math\Matrix4x4.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Math\Math.cpp" />
-    <ClCompile Include="src\Physics\BulletSimulation.cpp" />
-    <ClCompile Include="src\Physics\PhysicsSystem.cpp" />
-    <ClCompile Include="src\Renderer\RenderSystem.cpp" />
-    <ClCompile Include="src\Renderer\SkyBoxTexture.cpp" />
-    <ClCompile Include="src\Scene\CameraController.cpp" />
-    <ClCompile Include="src\Renderer\FrameBuffer.cpp" />
-    <ClCompile Include="src\Renderer\glad.c" />
-    <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
-    <ClCompile Include="src\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Renderer\Texture.cpp" />
-    <ClCompile Include="src\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
-    <ClCompile Include="src\Scene\ECS\Entity\Entity.cpp" />
-    <ClCompile Include="src\Scene\SceneManager.cpp" />
-    <ClCompile Include="src\Scene\SceneSerializer.cpp" />
-    <ClCompile Include="src\Scene\ShadowMap\ShadowMapManager.cpp" />
-    <ClCompile Include="src\Stb_Image\stb_image.cpp" />
-    <ClCompile Include="src\TestDrawable\LightObject.cpp" />
-    <ClCompile Include="src\TestDrawable\Triangle.cpp" />
-    <ClCompile Include="src\Timer\GameTimer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\Dialog\FileDialog.h" />
-    <ClInclude Include="src\File\Blob.h" />
-    <ClInclude Include="src\Engine\Engine.h" />
-    <ClInclude Include="src\Event\ImguiDrawEventManager.h" />
-    <ClInclude Include="src\Event\InputEventManager.h" />
-    <ClInclude Include="src\Event\Interface\EventManagerInterface.h" />
-    <ClInclude Include="src\Event\TickEventManager.h" />
-    <ClInclude Include="src\File\FileOperation.h" />
-    <ClInclude Include="src\Imgui\ImguiImpl\imconfig.h" />
-    <ClInclude Include="src\Imgui\ImguiImpl\ImCurveEdit.h" />
-    <ClInclude Include="src\Imgui\ImguiImpl\ImGradient.h" />
-    <ClInclude Include="src\Imgui\ImguiImpl\imgui.h" />
-    <ClInclude Include="src\Imgui\ImguiImpl\ImGuizmo.h" />
-    <ClInclude Include="src\Imgui\ImguiImpl\ImSequencer.h" />
-    <ClInclude Include="src\Imgui\ImguiManager.h" />
-    <ClInclude Include="src\Imgui\ImguiImpl\imgui_impl_glfw.h" />
-    <ClInclude Include="src\Imgui\ImguiImpl\imgui_impl_opengl3.h" />
-    <ClInclude Include="src\Imgui\ImguiImpl\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="src\Imgui\ImguiImpl\imgui_internal.h" />
-    <ClInclude Include="src\Imgui\ImguiImpl\imstb_rectpack.h" />
-    <ClInclude Include="src\Imgui\ImguiImpl\imstb_textedit.h" />
-    <ClInclude Include="src\Imgui\ImguiImpl\imstb_truetype.h" />
-    <ClInclude Include="src\Imgui\Panels\ContentBrowserPanel.h" />
-    <ClInclude Include="src\Imgui\Panels\Interface\PanelInterface.h" />
-    <ClInclude Include="src\Imgui\Panels\PlayButtonPanel.h" />
-    <ClInclude Include="src\Imgui\Panels\SceneHierarchyPanel.h" />
-    <ClInclude Include="src\Imgui\Panels\StatsPanel.h" />
-    <ClInclude Include="src\Imgui\Panels\ViewportPanel2.h" />
-    <ClInclude Include="src\Imgui\Panels\ViewportPanel.h" />
-    <ClInclude Include="src\Light\Light.h" />
-    <ClInclude Include="src\Log\Log.h" />
-    <ClInclude Include="src\Macro\Macro.h" />
-    <ClInclude Include="src\Material\Material.h" />
-    <ClInclude Include="src\Math\Math.h" />
-    <ClInclude Include="src\Physics\BulletSimulation.h" />
-    <ClInclude Include="src\Physics\PhysicsSystem.h" />
-    <ClInclude Include="src\Renderer\RenderSystem.h" />
-    <ClInclude Include="src\Renderer\SkyBoxTexture.h" />
-    <ClInclude Include="src\Scene\CameraController.h" />
-    <ClInclude Include="src\Renderer\FrameBuffer.h" />
-    <ClInclude Include="src\Renderer\IndexBuffer.h" />
-    <ClInclude Include="src\Renderer\Interface\BindableInterface.h" />
-    <ClInclude Include="src\Renderer\Shader.h" />
-    <ClInclude Include="src\Renderer\Texture.h" />
-    <ClInclude Include="src\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Renderer\VertexBuffer.h" />
-    <ClInclude Include="src\Scene\ECS\Component\Component.h" />
-    <ClInclude Include="src\Scene\ECS\Component\SkeletonModelComponent.h" />
-    <ClInclude Include="src\Scene\ECS\Entity\Entity.h" />
-    <ClInclude Include="src\Scene\SceneManager.h" />
-    <ClInclude Include="src\Scene\SceneSerializer.h" />
-    <ClInclude Include="src\Scene\ShadowMap\ShadowMapManager.h" />
-    <ClInclude Include="src\Stb_Image\stb_image.h" />
-    <ClInclude Include="src\TestDrawable\LightObject.h" />
-    <ClInclude Include="src\TestDrawable\Triangle.h" />
-    <ClInclude Include="src\Timer\GameTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
@@ -205,6 +100,11 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\striated.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Engine\Basic\Macro.h" />
+    <ClInclude Include="src\Engine\Engine.h" />
+    <ClInclude Include="src\Engine\Math\Matrix4x4.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
