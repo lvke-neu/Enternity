@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Core\Basic\Macro.h" />
+    <ClInclude Include="src\Engine\Core\Debug\ExecutionTimer.h" />
     <ClInclude Include="src\Engine\Core\Log\Log.h" />
     <ClInclude Include="src\Engine\Engine.h" />
     <ClInclude Include="src\Engine\Core\Math\Matrix4x4.h" />

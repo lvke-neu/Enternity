@@ -1,13 +1,23 @@
-#include "Engine/Core/Log/Log.h"
+#include "Engine/Core/Debug/ExecutionTimer.h"
 
+using namespace Enternity;
 int main()
 {
-	Enternity::Log::Init();
-	LOG_TRACE("asbdsa{0}{1}", 1,"dsad");
-	LOG_INFO("asbdsa%d%s", 1, "dsds");
-	LOG_WARN("asbdsa%d%s", 1, "dsds");
-	LOG_ERROR("asbdsa%d%s", 1, "dsds");
-	LOG_CRITICAL("asbdsa%d%s", 1, "dsds");
+	Log::Init();
+
+	{
+		ExecutionTimer execTimer;
+
+		
+		for (int i = 0; i < 1000000; i++)
+		{
+			int count = 0;
+			for (int j = 0; j < 1001; j++)
+				count += j;
+		}
+	}
+	
+
 	while (true);
 	return 0;
 }
