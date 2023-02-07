@@ -22,6 +22,10 @@ namespace Enternity
 		{
 			m_threads.emplace_back(std::thread(&ThreadPool::work, this));
 		}
+		for (unsigned int i = 0; i < m_threadNum; ++i)
+		{
+			m_threads[i].detach();
+		}
 	}
 
 	void ThreadPool::work()
