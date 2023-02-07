@@ -1,11 +1,13 @@
-#include "Engine/Math/Matrix4x4.h"
-#include "Engine/Math/Vector3.h"
+#include "Engine/Core/Log/Log.h"
 
-using namespace Enternity;
 int main()
 {
-	Vector3f vec3;
-	vec3 = Vector3f::ZERO;
-
+	Enternity::Log::Init();
+	LOG_TRACE("asbdsa{0}{1}", 1,"dsad");
+	LOG_INFO("asbdsa%d%s", 1, "dsds");
+	LOG_WARN("asbdsa%d%s", 1, "dsds");
+	LOG_ERROR("asbdsa%d%s", 1, "dsds");
+	LOG_CRITICAL("asbdsa%d%s", 1, "dsds");
+	while (true);
 	return 0;
 }
