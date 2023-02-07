@@ -5,7 +5,6 @@ Description:
 Matrix 4x4  row-major
 ****************************************************************************************/
 #pragma once
-#include "../Basic/Macro.h"
 
 namespace Enternity
 {
@@ -24,15 +23,18 @@ namespace Enternity
 
 	
 		//some static functions
-		static Matrix4x4f Translation(float transX, float transY, float transZ);
+		static Matrix4x4f Translate(float transX, float transY, float transZ);
+		static Matrix4x4f Rotate(float heading, float pitch, float roll);
 		static Matrix4x4f Scale(float scaleX, float scaleY, float scaleZ);
+
 		static Matrix4x4f Transpose(const Matrix4x4f& mat4);
+		static Matrix4x4f Inverse(const  Matrix4x4f& mat4);
 		
 		//some static variables
 		static Matrix4x4f IDENTITY;
 		static Matrix4x4f ZERO;
 	private:
-		float mat4x4f[4][4];
+		float m_mat4x4f[4][4];
 	};
 
 }

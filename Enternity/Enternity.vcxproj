@@ -91,6 +91,7 @@
   <ItemGroup>
     <ClCompile Include="src\Engine\Engine.cpp" />
     <ClCompile Include="src\Engine\Math\Matrix4x4.cpp" />
+    <ClCompile Include="src\Engine\Math\Vector3.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +106,7 @@
     <ClInclude Include="src\Engine\Basic\Macro.h" />
     <ClInclude Include="src\Engine\Engine.h" />
     <ClInclude Include="src\Engine\Math\Matrix4x4.h" />
+    <ClInclude Include="src\Engine\Math\Vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
