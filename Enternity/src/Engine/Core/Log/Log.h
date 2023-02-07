@@ -21,9 +21,9 @@ namespace Enternity {
 
 }
 
-#define LOG_TRACE(...)    ::Enternity::Log::GetCoreLogger()->trace(__VA_ARGS__)
-#define LOG_INFO(...)     ::Enternity::Log::GetCoreLogger()->info(__VA_ARGS__)
-#define LOG_WARN(...)     ::Enternity::Log::GetCoreLogger()->warn(__VA_ARGS__)
-#define LOG_ERROR(...)    ::Enternity::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define LOG_CRITICAL(...) ::Enternity::Log::GetCoreLogger()->critical(__VA_ARGS__)
+#define LOG_TRACE(...)    ::Enternity::Log::GetCoreLogger()->trace("[" + std::string(__FUNCTION__) + "]:" +  __VA_ARGS__)
+#define LOG_INFO(...)     ::Enternity::Log::GetCoreLogger()->info("[" + std::string(__FUNCTION__) + "]:" + __VA_ARGS__)
+#define LOG_WARN(...)     ::Enternity::Log::GetCoreLogger()->warn("[" + std::string(__FUNCTION__) + "]:" + __VA_ARGS__)
+#define LOG_ERROR(...)    ::Enternity::Log::GetCoreLogger()->error("[" + std::string(__FUNCTION__) + "]:" + __VA_ARGS__)
+#define LOG_CRITICAL(...) ::Enternity::Log::GetCoreLogger()->critical("[" + std::string(__FUNCTION__) + "]:" + __VA_ARGS__)
 
