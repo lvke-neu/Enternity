@@ -93,6 +93,7 @@
     <ClCompile Include="src\Engine\Engine.cpp" />
     <ClCompile Include="src\Engine\Core\Math\Matrix4x4.cpp" />
     <ClCompile Include="src\Engine\Core\Math\Vector3.cpp" />
+    <ClCompile Include="src\Engine\Core\ThreadPool\ThreadPool.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -105,8 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Core\Basic\Macro.h" />
-    <ClInclude Include="src\Engine\Core\Debug\ExecutionTimer.h" />
+    <ClInclude Include="src\Engine\Core\ExecutionTimer\ExecutionTimer.h" />
     <ClInclude Include="src\Engine\Core\Log\Log.h" />
+    <ClInclude Include="src\Engine\Core\ThreadPool\ThreadPool.h" />
     <ClInclude Include="src\Engine\Engine.h" />
     <ClInclude Include="src\Engine\Core\Math\Matrix4x4.h" />
     <ClInclude Include="src\Engine\Core\Math\Vector3.h" />

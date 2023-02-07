@@ -30,6 +30,9 @@
     <ClCompile Include="src\Engine\Core\Log\Log.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Core\ThreadPool\ThreadPool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
@@ -59,7 +62,10 @@
     <ClInclude Include="src\Engine\Core\Log\Log.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Core\Debug\ExecutionTimer.h">
+    <ClInclude Include="src\Engine\Core\ExecutionTimer\ExecutionTimer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Core\ThreadPool\ThreadPool.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
