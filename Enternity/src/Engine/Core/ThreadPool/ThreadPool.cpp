@@ -1,57 +1,63 @@
 #include "ThreadPool.h"
-#include "../Basic/Macro.h"
-#include "../Log/Log.h"
 
 namespace Enternity
 {
-
-	ThreadPool::ThreadPool() : m_threadNum(1)
+	ThreadPool::ThreadPool(int threadCount)
 	{
-
+		createThreadPool(threadCount);
 	}
 
-	ThreadPool::ThreadPool(unsigned int threadNum) : m_threadNum(threadNum)
+	ThreadPool::~ThreadPool()
 	{
-
-	}
-
-	void ThreadPool::start()
-	{
-		ENTERNITY_ASSERT(m_threads.empty());
-		for (unsigned int i = 0; i < m_threadNum; ++i)
+		m_stoped.store(true);
+		m_cv.notify_all();
+		for (std::thread& thread : m_threadPool)
 		{
-			m_threads.emplace_back(std::thread(&ThreadPool::work, this));
-		}
-		for (unsigned int i = 0; i < m_threadNum; ++i)
-		{
-			m_threads[i].detach();
+			if (thread.joinable())
+				thread.join();
 		}
 	}
 
-	void ThreadPool::work()
+	void ThreadPool::createThreadPool(int threadCount)
 	{
-		while (true)
+		threadCount = threadCount < 1 ? 1 : threadCount;
+		for (int i = 0; i < threadCount; i++)
 		{
-			ITask* task = nullptr;
-
-			m_mtxTaskQueue.lock();
-			if (!m_taskQueue.empty())
-			{
-				task = m_taskQueue.front();
-				m_taskQueue.pop();
-			}
-			m_mtxTaskQueue.unlock();
-
-			if (task)
-				task->Run();
+			m_threadPool.emplace_back(
+				[this]() {
+					while (!this->m_stoped)
+					{
+						std::function<void()> task;
+						{
+							std::unique_lock<std::mutex> lock{ this->m_lock };
+							this->m_cv.wait(lock, [this]() {return this->m_stoped.load() || !this->m_tasks.empty(); });
+							if (this->m_stoped && this->m_tasks.empty())
+								return;
+							task = std::move(this->m_tasks.front());
+							this->m_tasks.pop();
+						}
+						task();
+						m_undo--;
+					}
+				}
+			);
 		}
 	}
 
-	void ThreadPool::assign(ITask* task)
+	void ThreadPool::commitTask(const std::function<void()>& task)
 	{
-		m_mtxTaskQueue.lock();
-		m_taskQueue.push(task);
-		m_mtxTaskQueue.unlock();
+		if (m_stoped.load())
+			return;
+		std::lock_guard<std::mutex> lock{ m_lock };
+		m_tasks.push(task);
+		m_undo++;
+		m_cv.notify_one();
+	}
+
+	bool ThreadPool::finished()
+	{
+		return m_undo == 0;
 	}
 
 }
+

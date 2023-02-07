@@ -8,7 +8,6 @@ int main()
 
 
 	ThreadPool threadPool(4);
-	threadPool.start();
 
 	LOG_INFO("after threadpool start");
 	while (true);

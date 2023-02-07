@@ -1,40 +1,37 @@
-/***************************************************************************************
-Author: lvke
-Date:2023/2/7 22:06
-Description:
-Engine
-****************************************************************************************/
 #pragma once
-#include <vector>
 #include <thread>
-#include <queue>
 #include <mutex>
+#include <condition_variable>
+#include <atomic>
+#include <vector>
+#include <queue>
+#include <functional>
 
 namespace Enternity
 {
-	class ITask
-	{
-	public:
-		ITask() = default;
-		virtual ~ITask() = default;
-		
-		virtual void Run() = 0;
-	};
-
 	class ThreadPool
 	{
 	public:
-		ThreadPool();
-		ThreadPool(unsigned int m_threadNum);
-		
-		void start();
-		void work();
-		void assign(ITask* task);
+		ThreadPool(int threadCount);
+		~ThreadPool();
 	private:
-		unsigned int m_threadNum;
-		std::mutex m_mtxTaskQueue;
-
-		std::vector<std::thread> m_threads;
-		std::queue<ITask*> m_taskQueue;
+		void createThreadPool(int threadCount);
+	public:
+		void commitTask(const std::function<void()>& task);
+		bool finished();
+	private:
+		using Task = std::function<void()>;
+	
+		std::vector<std::thread> m_threadPool;
+		
+		std::queue<Task> m_tasks;
+	
+		std::mutex m_lock;
+	
+		std::condition_variable m_cv;
+		
+		std::atomic<bool> m_stoped{ false };
+		
+		std::atomic<int> m_undo{ 0 };
 	};
 }
