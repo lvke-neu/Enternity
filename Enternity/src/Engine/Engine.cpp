@@ -2,11 +2,14 @@
 #include "Core/Log/Log.h"
 #include "Platform/OpenglWindow.h"
 #include "Function/Render/RenderSystem.h"
+#include "Core/ExecutionTimer/ExecutionTimer.h"
 
 namespace Enternity
 {
 	void Engine::initialize()
 	{
+		ExecutionTimer executionTimer("The time of engine intialization");
+
 		Log::Init();
 
 		OpenglWindow::OpenglWindowDescription openglWindowDesc;

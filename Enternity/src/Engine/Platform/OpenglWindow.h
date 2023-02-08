@@ -24,6 +24,8 @@ namespace Enternity
 
 		bool windowShouldClose();
 		void update();
+
+		static void resize(GLFWwindow* window, int width, int height);
 	private:
 		GLFWwindow* m_context{ nullptr };
 	};

@@ -35,6 +35,8 @@ namespace Enternity
 		glEnable(GL_DEPTH_TEST);
 		glViewport(0, 0, desc.Width, desc.Height);
 
+		glfwSetWindowSizeCallback(m_context, resize);
+
 		LOG_INFO((char*)glGetString(GL_VERSION));
 		LOG_INFO((char*)glGetString(GL_VENDOR));
 		LOG_INFO((char*)glGetString(GL_RENDERER));
@@ -54,5 +56,10 @@ namespace Enternity
 	{
 		glfwPollEvents();
 		glfwSwapBuffers(m_context);
+	}
+
+	void OpenglWindow::resize(GLFWwindow* window, int width, int height)
+	{
+		LOG_INFO("Resize: width = {0}, height = {1}", width, height);
 	}
 }
