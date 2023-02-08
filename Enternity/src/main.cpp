@@ -1,15 +1,10 @@
-#include "Engine/Core/ExecutionTimer/ExecutionTimer.h"
-#include "Engine/Core/ThreadPool/ThreadPool.h"
+#include "Engine/Engine.h"
 
-using namespace Enternity;
 int main()
 {
-	Log::Init();
+	Enternity::Engine::GetInstance().initialize();
+	Enternity::Engine::GetInstance().run();
+	Enternity::Engine::GetInstance().uninitialize();
 
-
-	ThreadPool threadPool(4);
-
-	LOG_INFO("after threadpool start");
-	while (true);
 	return 0;
 }

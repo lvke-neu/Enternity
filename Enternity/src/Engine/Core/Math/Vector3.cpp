@@ -1,5 +1,4 @@
 #include "Vector3.h"
-#include "../Basic/Macro.h"
 
 namespace Enternity
 {

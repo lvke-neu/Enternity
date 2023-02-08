@@ -9,6 +9,7 @@ Engine
 
 namespace Enternity
 {
+	class OpenglWindow;
 	class Engine
 	{
 		SINGLETON(Engine);
@@ -16,5 +17,8 @@ namespace Enternity
 	public:
 		void initialize();
 		void uninitialize();
+		void run();
+	private:
+		OpenglWindow* m_window{ nullptr };
 	};
 }

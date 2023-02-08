@@ -1,23 +1,25 @@
 /***************************************************************************************
 Author: lvke
-Date:2023/2/6 23:10
+Date:2023/2/8 22:55
 Description:
-Vector3
+Vector4
 ****************************************************************************************/
 #pragma once
 
 namespace Enternity
 {
-	struct Vector3f
+	struct Vector4f
 	{
-		Vector3f();
-		Vector3f(float x, float y, float z);
+		Vector4f();
+		Vector4f(float x, float y, float z, float w);
 
 		float x;
 		float y;
 		float z;
+		float w;
 
-		static Vector3f ZERO;
-		static Vector3f ONE;
+		static Vector4f ZERO;
+		static Vector4f ONE;
+		static Vector4f DARK_COLOR;
 	};
 }

@@ -90,10 +90,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Log\Log.cpp" />
+    <ClCompile Include="src\Engine\Core\Math\Vector4.cpp" />
     <ClCompile Include="src\Engine\Engine.cpp" />
     <ClCompile Include="src\Engine\Core\Math\Matrix4x4.cpp" />
     <ClCompile Include="src\Engine\Core\Math\Vector3.cpp" />
     <ClCompile Include="src\Engine\Core\ThreadPool\ThreadPool.cpp" />
+    <ClCompile Include="src\Engine\Function\Render\RenderSystem.cpp" />
+    <ClCompile Include="src\Engine\Platform\glad.c" />
+    <ClCompile Include="src\Engine\Platform\OpenglWindow.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -108,10 +112,13 @@
     <ClInclude Include="src\Engine\Core\Basic\Macro.h" />
     <ClInclude Include="src\Engine\Core\ExecutionTimer\ExecutionTimer.h" />
     <ClInclude Include="src\Engine\Core\Log\Log.h" />
+    <ClInclude Include="src\Engine\Core\Math\Vector4.h" />
     <ClInclude Include="src\Engine\Core\ThreadPool\ThreadPool.h" />
     <ClInclude Include="src\Engine\Engine.h" />
     <ClInclude Include="src\Engine\Core\Math\Matrix4x4.h" />
     <ClInclude Include="src\Engine\Core\Math\Vector3.h" />
+    <ClInclude Include="src\Engine\Function\Render\RenderSystem.h" />
+    <ClInclude Include="src\Engine\Platform\OpenglWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
