@@ -16,7 +16,7 @@ namespace Enternity
 
 	void RenderSystem::clear(const Vector4f& vec4)
 	{
-		glClearColor(vec4.x, vec4.y, vec4.z, vec4.w);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		CHECK_GL_CALL(glClearColor(vec4.x, vec4.y, vec4.z, -1));
+		CHECK_GL_CALL((glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)));
 	}
 }
