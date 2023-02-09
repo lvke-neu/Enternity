@@ -26,14 +26,16 @@ namespace Enternity
 			return;
 		}
 		glfwMakeContextCurrent(m_context);
+		//don't Limit frame count
+		glfwSwapInterval(0);
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
 			LOG_ERROR("glad init failed");
 			return;
 		}
-
-		CHECK_GL_CALL((GL_DEPTH_TEST));
+		
+		CHECK_GL_CALL(glEnable(GL_DEPTH_TEST));
 		CHECK_GL_CALL((0, 0, desc.Width, desc.Height));
 
 		glfwSetWindowSizeCallback(m_context, Resize);

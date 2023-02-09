@@ -53,14 +53,16 @@ namespace Enternity
 			
 			//print fps every one sceond
 			//TODO:remove, show fps in imgui panel
-			static float sumDeltaTime = 0;
-			sumDeltaTime += m_timer->DeltaTime();
-			if (sumDeltaTime > 1.0f)
+			static float timeSum = 0.0f;
+			timeSum += m_timer->DeltaTime();
+			if (timeSum > 1.0f)
 			{
-				m_window->setTitle(("FPS:" + std::to_string(1.0f / m_timer->DeltaTime())).c_str());
-				sumDeltaTime = 0.0f;
+				char title[256];
+				sprintf_s(title, "Enternity Engine v0.004 FPS:%.0f", 1.0f / m_timer->DeltaTime());
+				m_window->setTitle(title);
+				timeSum = 0.0f;
 			}
-				
+
 			RenderSystem::GetInstance().clear(Vector4f::DARK_COLOR);
 			
 			m_window->update();
