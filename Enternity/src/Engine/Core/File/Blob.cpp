@@ -2,9 +2,10 @@
 
 namespace Enternity
 {
-	Blob::Blob(unsigned int length)
+	Blob::Blob(size_t length)
 	{
 		m_data = new char[length];
+		m_length = length;
 	}
 
 	Blob::~Blob()

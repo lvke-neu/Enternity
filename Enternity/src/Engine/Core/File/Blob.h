@@ -12,16 +12,16 @@ namespace Enternity
 	class Blob
 	{ 
 	public:
-		Blob(unsigned int length);
+		Blob(size_t length);
 		~Blob();
 	public:
 		inline void* getData();
-		inline unsigned int getLength();
+		inline size_t getLength();
 		inline void* getData() const;
-		inline unsigned int getLength() const;
+		inline size_t getLength() const;
 	private:
 		void* m_data{ nullptr };
-		unsigned int m_length{ 0 };
+		size_t m_length{ 0 };
 	};
 
 	inline void* Blob::getData()
@@ -29,7 +29,7 @@ namespace Enternity
 		return m_data;
 	}
 
-	inline unsigned int Blob::getLength()
+	inline size_t Blob::getLength()
 	{
 		return m_length;
 	}
@@ -39,7 +39,7 @@ namespace Enternity
 		return m_data;
 	}
 
-	inline unsigned int Blob::getLength() const
+	inline size_t Blob::getLength() const
 	{
 		return m_length;
 	}

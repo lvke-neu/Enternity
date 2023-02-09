@@ -57,7 +57,7 @@ namespace Enternity
 			sumDeltaTime += m_timer->DeltaTime();
 			if (sumDeltaTime > 1.0f)
 			{
-				m_window->setTitle(std::to_string(1.0f / m_timer->DeltaTime()).c_str());
+				m_window->setTitle(("FPS:" + std::to_string(1.0f / m_timer->DeltaTime())).c_str());
 				sumDeltaTime = 0.0f;
 			}
 				
