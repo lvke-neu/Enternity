@@ -50,8 +50,17 @@ namespace Enternity
 		while (!m_window->windowShouldClose())
 		{
 			m_timer->Tick();
-			//m_window->setTitle(std::to_string(1 / m_timer->DeltaTime()).c_str());
-
+			
+			//print fps every one sceond
+			//TODO:remove, show fps in imgui panel
+			static float sumDeltaTime = 0;
+			sumDeltaTime += m_timer->DeltaTime();
+			if (sumDeltaTime > 1.0f)
+			{
+				m_window->setTitle(std::to_string(1.0f / m_timer->DeltaTime()).c_str());
+				sumDeltaTime = 0.0f;
+			}
+				
 			RenderSystem::GetInstance().clear(Vector4f::DARK_COLOR);
 			
 			m_window->update();
