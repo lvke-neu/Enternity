@@ -95,8 +95,7 @@ namespace Enternity
 		);
 	}
 
-	//TODO: EularAngle to Quaternion, Quaternion to Rotation Matrix
-	Matrix4x4f Matrix4x4f::Rotate(float heading, float pitch, float roll)
+	Matrix4x4f Matrix4x4f::Rotate(float rotateX, float rotateY, float rotateZ)
 	{
 		return IDENTITY;
 	}

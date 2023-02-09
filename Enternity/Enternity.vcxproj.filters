@@ -33,7 +33,7 @@
     <ClCompile Include="src\Engine\Core\ThreadPool\ThreadPool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Platform\OpenglWindow.cpp">
+    <ClCompile Include="src\Engine\Platform\Window\OpenglWindow.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Platform\glad.c">
@@ -80,7 +80,7 @@
     <ClInclude Include="src\Engine\Core\ThreadPool\ThreadPool.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Platform\OpenglWindow.h">
+    <ClInclude Include="src\Engine\Platform\Window\OpenglWindow.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Function\Render\RenderSystem.h">

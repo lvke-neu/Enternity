@@ -24,7 +24,8 @@ namespace Enternity
 	
 		//some static functions
 		static Matrix4x4f Translate(float transX, float transY, float transZ);
-		static Matrix4x4f Rotate(float heading, float pitch, float roll);
+		//Rotate around x, y, z, the unit is the angle
+		static Matrix4x4f Rotate(float rotateX, float rotateY, float rotateZ);
 		static Matrix4x4f Scale(float scaleX, float scaleY, float scaleZ);
 
 		static Matrix4x4f Transpose(const Matrix4x4f& mat4);
