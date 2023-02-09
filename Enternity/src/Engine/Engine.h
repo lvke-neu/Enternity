@@ -10,6 +10,7 @@ Engine
 namespace Enternity
 {
 	class OpenglWindow;
+	class FrameTimer;
 	class Engine
 	{
 		SINGLETON(Engine);
@@ -20,5 +21,6 @@ namespace Enternity
 		void run();
 	private:
 		OpenglWindow* m_window{ nullptr };
+		FrameTimer* m_timer{ nullptr };
 	};
 }

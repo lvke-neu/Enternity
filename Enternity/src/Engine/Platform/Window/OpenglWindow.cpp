@@ -58,6 +58,11 @@ namespace Enternity
 		glfwSwapBuffers(m_context);
 	}
 
+	void OpenglWindow::setTitle(const char* title)
+	{
+		glfwSetWindowTitle(m_context, title);
+	}
+
 	void OpenglWindow::resize(GLFWwindow* window, int width, int height)
 	{
 		LOG_INFO("Resize: width = {0}, height = {1}", width, height);

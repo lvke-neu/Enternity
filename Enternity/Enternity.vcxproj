@@ -91,6 +91,7 @@
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Log\Log.cpp" />
     <ClCompile Include="src\Engine\Core\Math\Vector4.cpp" />
+    <ClCompile Include="src\Engine\Core\Timer\FrameTimer.cpp" />
     <ClCompile Include="src\Engine\Engine.cpp" />
     <ClCompile Include="src\Engine\Core\Math\Matrix4x4.cpp" />
     <ClCompile Include="src\Engine\Core\Math\Vector3.cpp" />
@@ -110,10 +111,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Core\Basic\Macro.h" />
-    <ClInclude Include="src\Engine\Core\ExecutionTimer\ExecutionTimer.h" />
+    <ClInclude Include="src\Engine\Core\Timer\ExecutionTimer.h" />
     <ClInclude Include="src\Engine\Core\Log\Log.h" />
     <ClInclude Include="src\Engine\Core\Math\Vector4.h" />
     <ClInclude Include="src\Engine\Core\ThreadPool\ThreadPool.h" />
+    <ClInclude Include="src\Engine\Core\Timer\FrameTimer.h" />
     <ClInclude Include="src\Engine\Engine.h" />
     <ClInclude Include="src\Engine\Core\Math\Matrix4x4.h" />
     <ClInclude Include="src\Engine\Core\Math\Vector3.h" />
