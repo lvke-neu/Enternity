@@ -5,8 +5,15 @@
 #include "Core/Timer/ExecutionTimer.h"
 #include "Core/Timer/FrameTimer.h"
 
+#include "Function/Render/Wrapper/RenderWrapper.h"
+
 namespace Enternity
 {
+	void Engine::test()
+	{
+		VertexBuffer* vb = RenderWrapper::Create<VertexBuffer>();
+	}
+
 	void Engine::initialize()
 	{
 		//debug execution timer
@@ -29,6 +36,7 @@ namespace Enternity
 		m_timer = new FrameTimer;
 
 		LOG_INFO("Engine initialization");
+		test();
 	}
 
 	void Engine::uninitialize()

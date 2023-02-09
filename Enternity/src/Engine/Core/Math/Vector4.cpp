@@ -1,6 +1,5 @@
 #include "Vector4.h"
 
-
 namespace Enternity
 {
 	Vector4f Vector4f::ZERO			= { 0.0f, 0.0f, 0.0f, 0.0f };

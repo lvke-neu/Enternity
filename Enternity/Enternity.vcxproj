@@ -57,7 +57,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\src\;$(SolutionDir)\Enternity\src\Engine\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG;</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -76,7 +76,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\src\;$(SolutionDir)\Enternity\src\Engine\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -97,6 +97,7 @@
     <ClCompile Include="src\Engine\Core\Math\Vector3.cpp" />
     <ClCompile Include="src\Engine\Core\ThreadPool\ThreadPool.cpp" />
     <ClCompile Include="src\Engine\Function\Render\RenderSystem.cpp" />
+    <ClCompile Include="src\Engine\Function\Render\Wrapper\VertexBuffer.cpp" />
     <ClCompile Include="src\Engine\Platform\glad.c" />
     <ClCompile Include="src\Engine\Platform\Window\OpenglWindow.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -111,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Core\Basic\Macro.h" />
+    <ClInclude Include="src\Engine\Core\File\Blob.h" />
     <ClInclude Include="src\Engine\Core\Timer\ExecutionTimer.h" />
     <ClInclude Include="src\Engine\Core\Log\Log.h" />
     <ClInclude Include="src\Engine\Core\Math\Vector4.h" />
@@ -120,6 +122,8 @@
     <ClInclude Include="src\Engine\Core\Math\Matrix4x4.h" />
     <ClInclude Include="src\Engine\Core\Math\Vector3.h" />
     <ClInclude Include="src\Engine\Function\Render\RenderSystem.h" />
+    <ClInclude Include="src\Engine\Function\Render\Wrapper\RenderWrapper.h" />
+    <ClInclude Include="src\Engine\Function\Render\Wrapper\VertexBuffer.h" />
     <ClInclude Include="src\Engine\Platform\Window\OpenglWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

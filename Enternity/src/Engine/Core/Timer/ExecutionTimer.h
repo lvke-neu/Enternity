@@ -1,6 +1,6 @@
 #pragma once
 #include <chrono>
-#include "Engine/Core/Log/Log.h"
+#include "Core/Log/Log.h"
 
 namespace Enternity
 {

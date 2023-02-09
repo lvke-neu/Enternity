@@ -1,23 +1,24 @@
 /***************************************************************************************
 Author: lvke
-Date:2023/2/5 22:50
+Date:
 Description:
-Engine
+Render Wrapper
 ****************************************************************************************/
 #pragma once
-#include "Core/Basic/Macro.h"
-#include "Core/Math/Vector4.h"
+#include "VertexBuffer.h"
 
 namespace Enternity
 {
-	class RenderSystem
+	class RenderWrapper
 	{
-		SINGLETON(RenderSystem);
-		PRIVATE(RenderSystem);
 	public:
-		void initialize();
-		void uninitialize();
-	public:
-		void clear(const Vector4f& vec4);
+		template<typename T>
+		static T* Create();
 	};
+
+	template<typename T>
+	T* RenderWrapper::Create()
+	{
+		return new T;
+	}
 }

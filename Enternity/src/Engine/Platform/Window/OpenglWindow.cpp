@@ -1,5 +1,6 @@
 #include "OpenglWindow.h"
-#include "../../Core/Log/Log.h"
+#include "Core/Log/Log.h"
+#include "Core/Basic/Macro.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -29,13 +30,13 @@ namespace Enternity
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
 			LOG_ERROR("glad init failed");
-			return ;
+			return;
 		}
 
-		glEnable(GL_DEPTH_TEST);
-		glViewport(0, 0, desc.Width, desc.Height);
+		CHECK_GL_CALL((GL_DEPTH_TEST));
+		CHECK_GL_CALL((0, 0, desc.Width, desc.Height));
 
-		glfwSetWindowSizeCallback(m_context, resize);
+		glfwSetWindowSizeCallback(m_context, Resize);
 
 		LOG_INFO((char*)glGetString(GL_VERSION));
 		LOG_INFO((char*)glGetString(GL_VENDOR));
@@ -63,7 +64,7 @@ namespace Enternity
 		glfwSetWindowTitle(m_context, title);
 	}
 
-	void OpenglWindow::resize(GLFWwindow* window, int width, int height)
+	void OpenglWindow::Resize(GLFWwindow* window, int width, int height)
 	{
 		LOG_INFO("Resize: width = {0}, height = {1}", width, height);
 	}

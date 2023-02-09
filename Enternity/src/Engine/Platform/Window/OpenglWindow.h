@@ -26,7 +26,7 @@ namespace Enternity
 		void update();
 		void setTitle(const char* title);
 
-		static void resize(GLFWwindow* window, int width, int height);
+		static void Resize(GLFWwindow* window, int width, int height);
 	private:
 		GLFWwindow* m_context{ nullptr };
 	};
