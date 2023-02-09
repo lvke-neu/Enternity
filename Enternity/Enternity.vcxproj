@@ -99,6 +99,7 @@
     <ClCompile Include="src\Engine\Core\Math\Vector3.cpp" />
     <ClCompile Include="src\Engine\Core\ThreadPool\ThreadPool.cpp" />
     <ClCompile Include="src\Engine\Function\Render\RenderSystem.cpp" />
+    <ClCompile Include="src\Engine\Function\Render\Wrapper\IndexBuffer.cpp" />
     <ClCompile Include="src\Engine\Function\Render\Wrapper\VertexArray.cpp" />
     <ClCompile Include="src\Engine\Function\Render\Wrapper\VertexBuffer.cpp" />
     <ClCompile Include="src\Engine\Platform\glad.c" />
@@ -126,6 +127,7 @@
     <ClInclude Include="src\Engine\Core\Math\Matrix4x4.h" />
     <ClInclude Include="src\Engine\Core\Math\Vector3.h" />
     <ClInclude Include="src\Engine\Function\Render\RenderSystem.h" />
+    <ClInclude Include="src\Engine\Function\Render\Wrapper\IndexBuffer.h" />
     <ClInclude Include="src\Engine\Function\Render\Wrapper\RenderWrapper.h" />
     <ClInclude Include="src\Engine\Function\Render\Wrapper\VertexArray.h" />
     <ClInclude Include="src\Engine\Function\Render\Wrapper\VertexBuffer.h" />

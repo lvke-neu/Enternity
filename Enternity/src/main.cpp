@@ -51,10 +51,27 @@ void UnitTest()
 	VertexArray* vta = RenderWrapper::Create<VertexArray>();
 	vta->init(vtb);
 
+
+	//indexbuffer;
+	std::vector<unsigned int> indices;
+	indices.resize(36);
+	for (int i = 0; i < indices.size(); i++)
+	{
+		indices[i] = 1;
+	}
+
+	Blob* blob2 = new Blob(indices.size() * sizeof(unsigned int));
+	memcpy_s(blob2->getData(), blob2->getLength(), indices.data(), blob2->getLength());
+
+	IndexBuffer* ib = RenderWrapper::Create<IndexBuffer>();
+	ib->init(blob2);
+
 	RenderWrapper::Destroy(vtb);
 	SAFE_DELETE_SET_NULL(blob);
+	SAFE_DELETE_SET_NULL(blob2);
 
 	RenderWrapper::Destroy(vta);
+	RenderWrapper::Destroy(ib);
 }
 //**********************************************************************************
 
