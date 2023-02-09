@@ -7,6 +7,7 @@ Render Wrapper
 #pragma once
 #include "Core/Basic/Macro.h"
 #include "VertexBuffer.h"
+#include "VertexArray.h"
 
 namespace Enternity
 {

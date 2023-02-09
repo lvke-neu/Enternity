@@ -10,7 +10,7 @@ namespace Enternity
 		CHECK_GL_CALL(glDeleteBuffers(1, &m_renderId));
 	}
 
-	void VertexBuffer::setData(Blob* blob, const VertexBufferLayout& vertexBufferLayout)
+	void VertexBuffer::init(Blob* blob, const VertexBufferLayout& vertexBufferLayout)
 	{
 		ENTERNITY_ASSERT(blob != nullptr);
 
@@ -33,4 +33,10 @@ namespace Enternity
 	{
 		CHECK_GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	}
+
+	VertexBufferLayout VertexBuffer::getVertexBufferLayout() const
+	{
+		return m_vertexBufferLayout;
+	}
+
 }

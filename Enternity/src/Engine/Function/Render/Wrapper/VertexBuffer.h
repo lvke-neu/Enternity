@@ -44,9 +44,10 @@ namespace Enternity
 		void Destroy();
 
 	public:
-		void setData(Blob* blob, const VertexBufferLayout& vertexBufferLayout);
+		void init(Blob* blob, const VertexBufferLayout& vertexBufferLayout);
 		void bind();
 		void unbind();
+		VertexBufferLayout getVertexBufferLayout() const;
 	private:
 		unsigned int m_renderId;
 		VertexBufferLayout m_vertexBufferLayout;

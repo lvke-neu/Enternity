@@ -43,11 +43,18 @@ void UnitTest()
 	vertexBufferLayout.push({ 1, 3, GL_FLOAT, false,  8 * sizeof(float), 3 * sizeof(float) });
 	vertexBufferLayout.push({ 2, 2, GL_FLOAT, false,  8 * sizeof(float), 6 * sizeof(float) });
 
+	//vertexbuffer
 	VertexBuffer* vtb = RenderWrapper::Create<VertexBuffer>();
-	vtb->setData(blob, vertexBufferLayout);
+	vtb->init(blob, vertexBufferLayout);
+
+	//vertexarray
+	VertexArray* vta = RenderWrapper::Create<VertexArray>();
+	vta->init(vtb);
 
 	RenderWrapper::Destroy(vtb);
 	SAFE_DELETE_SET_NULL(blob);
+
+	RenderWrapper::Destroy(vta);
 }
 //**********************************************************************************
 
