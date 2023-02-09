@@ -22,12 +22,21 @@ namespace Enternity
 		OpenglWindow(const OpenglWindowDescription& desc);
 		~OpenglWindow();
 
+		inline GLFWwindow* getContext();
+
 		bool windowShouldClose();
-		void update();
 		void setTitle(const char* title);
+		void pollEvents();
+		void swapBuffers();
 
 		static void Resize(GLFWwindow* window, int width, int height);
 	private:
 		GLFWwindow* m_context{ nullptr };
 	};
+
+	inline GLFWwindow* OpenglWindow::getContext()
+	{
+		return m_context;
+	}
 }
+

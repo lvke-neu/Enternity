@@ -1,23 +1,24 @@
 /***************************************************************************************
 Author: lvke
-Date:2023/2/6 22:50
+Date:2023/2/9 23:56
 Description:
-RenderSystem
+UiRenderSystem
 ****************************************************************************************/
 #pragma once
 #include "Core/Basic/Macro.h"
-#include "Core/Math/Vector4.h"
 
 namespace Enternity
 {
-	class RenderSystem
+	class OpenglWindow;
+	class UiRenderSystem
 	{
-		SINGLETON(RenderSystem);
-		PRIVATE(RenderSystem);
+		SINGLETON(UiRenderSystem);
+		PRIVATE(UiRenderSystem);
 	public:
-		void initialize();
+		void initialize(OpenglWindow* window);
 		void uninitialize();
-	public:
-		void clear(const Vector4f& vec4);
+		void tick();
+	private:
+		void setDarkThemeColors();
 	};
 }

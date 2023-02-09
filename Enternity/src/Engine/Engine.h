@@ -20,6 +20,9 @@ namespace Enternity
 		void uninitialize();
 		void run();
 	private:
+		void tick_logic();
+		void tick_render();
+	private:
 		OpenglWindow* m_window{ nullptr };
 		FrameTimer* m_timer{ nullptr };
 	};

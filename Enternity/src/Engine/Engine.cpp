@@ -1,9 +1,10 @@
 #include "Engine.h"
 #include "Core/Log/Log.h"
-#include "Platform/Window/OpenglWindow.h"
-#include "Function/Render/RenderSystem.h"
 #include "Core/Timer/ExecutionTimer.h"
 #include "Core/Timer/FrameTimer.h"
+#include "Platform/Window/OpenglWindow.h"
+#include "Function/Render/RenderSystem.h"
+#include "Function/Ui/UiRenderSystem.h"
 
 namespace Enternity
 {
@@ -25,6 +26,9 @@ namespace Enternity
 		//RenderSystem init
 		RenderSystem::GetInstance().initialize();
 
+		//UiRenderSystem init
+		UiRenderSystem::GetInstance().initialize(m_window);
+
 		//timer init
 		m_timer = new FrameTimer;
 
@@ -34,6 +38,7 @@ namespace Enternity
 	void Engine::uninitialize()
 	{
 		RenderSystem::GetInstance().uninitialize();
+		UiRenderSystem::GetInstance().uninitialize();
 		SAFE_DELETE_SET_NULL(m_window);
 		SAFE_DELETE_SET_NULL(m_timer);
 
@@ -63,9 +68,20 @@ namespace Enternity
 				timeSum = 0.0f;
 			}
 
-			RenderSystem::GetInstance().clear(Vector4f::DARK_COLOR);
-			
-			m_window->update();
+			tick_logic();
+			tick_render();
 		}
+	}
+
+	void Engine::tick_logic()
+	{
+		m_window->pollEvents();
+	}
+
+	void Engine::tick_render()
+	{
+		RenderSystem::GetInstance().clear(Vector4f::DARK_COLOR);
+		UiRenderSystem::GetInstance().tick();
+		m_window->swapBuffers();
 	}
 }
