@@ -12,14 +12,13 @@ namespace Enternity
 	class Blob
 	{ 
 	public:
-		static Blob* New(unsigned int length);
+		Blob(unsigned int length);
+		~Blob();
+	public:
 		inline void* getData();
 		inline unsigned int getLength();
 		inline void* getData() const;
 		inline unsigned int getLength() const;
-	private:
-		Blob(unsigned int length);
-		~Blob();
 	private:
 		void* m_data{ nullptr };
 		unsigned int m_length{ 0 };

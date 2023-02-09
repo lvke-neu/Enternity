@@ -35,7 +35,6 @@ namespace Enternity
 		std::vector<LayouElement> m_layoutElements;
 	};
 
-
 	class Blob;
 	class VertexBuffer
 	{
@@ -45,10 +44,11 @@ namespace Enternity
 		void Destroy();
 
 	public:
-		void setData(Blob* blob);
+		void setData(Blob* blob, const VertexBufferLayout& vertexBufferLayout);
 		void bind();
 		void unbind();
 	private:
 		unsigned int m_renderId;
+		VertexBufferLayout m_vertexBufferLayout;
 	};
 }

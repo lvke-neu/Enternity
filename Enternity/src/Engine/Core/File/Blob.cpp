@@ -11,9 +11,4 @@ namespace Enternity
 	{
 		DELETE_ARRAY(m_data);
 	}
-
-	Blob* Blob::New(unsigned int length)
-	{
-		return new Blob(length);
-	}
 }

@@ -5,10 +5,12 @@
 using namespace Enternity;
 void UnitTest()
 {
+	VertexBufferLayout vbl;
 	VertexBuffer* vtb = RenderWrapper::Create<VertexBuffer>();
-	Blob* blob = Blob::New(1024);
-	vtb->setData(blob);
+	Blob* blob = new Blob(1024);
+	vtb->setData(blob, vbl);
 	RenderWrapper::Destroy(vtb);
+	SAFE_DELETE_SET_NULL(blob);
 }
 
 int main()
