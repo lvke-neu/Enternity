@@ -15,6 +15,8 @@ namespace Enternity
 		static Blob* New(unsigned int length);
 		inline void* getData();
 		inline unsigned int getLength();
+		inline void* getData() const;
+		inline unsigned int getLength() const;
 	private:
 		Blob(unsigned int length);
 		~Blob();
@@ -23,27 +25,22 @@ namespace Enternity
 		unsigned int m_length{ 0 };
 	};
 
-	Blob::Blob(unsigned int length)
-	{
-		m_data = new char[length];
-	}
-
-	Blob::~Blob()
-	{
-		DELETE_ARRAY(m_data);
-	}
-
-	Blob* Blob::New(unsigned int length)
-	{
-		return new Blob(length);
-	}
-
 	inline void* Blob::getData()
 	{
 		return m_data;
 	}
 
 	inline unsigned int Blob::getLength()
+	{
+		return m_length;
+	}
+
+	inline void* Blob::getData() const
+	{
+		return m_data;
+	}
+
+	inline unsigned int Blob::getLength() const
 	{
 		return m_length;
 	}

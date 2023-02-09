@@ -5,6 +5,7 @@ Description:
 Render Wrapper
 ****************************************************************************************/
 #pragma once
+#include "Core/Basic/Macro.h"
 #include "VertexBuffer.h"
 
 namespace Enternity
@@ -14,11 +15,21 @@ namespace Enternity
 	public:
 		template<typename T>
 		static T* Create();
+
+		template<typename T>
+		static void Destroy(T*& t);
 	};
 
 	template<typename T>
 	T* RenderWrapper::Create()
 	{
 		return new T;
+	}
+
+	template<typename T>
+	void RenderWrapper::Destroy(T*& t)
+	{
+		t->Destroy();
+		SAFE_DELETE_SET_NULL(t);
 	}
 }

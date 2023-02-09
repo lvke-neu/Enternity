@@ -89,6 +89,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Core\File\Blob.cpp" />
     <ClCompile Include="src\Engine\Core\Log\Log.cpp" />
     <ClCompile Include="src\Engine\Core\Math\Vector4.cpp" />
     <ClCompile Include="src\Engine\Core\Timer\FrameTimer.cpp" />

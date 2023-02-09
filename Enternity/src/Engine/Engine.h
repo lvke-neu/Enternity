@@ -19,9 +19,6 @@ namespace Enternity
 		void initialize();
 		void uninitialize();
 		void run();
-
-		//TODO:remove
-		void test();
 	private:
 		OpenglWindow* m_window{ nullptr };
 		FrameTimer* m_timer{ nullptr };
