@@ -1,4 +1,5 @@
 #include "RenderSystem.h"
+#include "Core/Math/Vector4.h"
 #include "Core/Log/Log.h"
 #include <glad/glad.h>
 

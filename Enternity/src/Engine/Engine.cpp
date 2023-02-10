@@ -2,6 +2,7 @@
 #include "Core/Log/Log.h"
 #include "Core/Timer/ExecutionTimer.h"
 #include "Core/Timer/FrameTimer.h"
+#include "Core/Math/Vector4.h"
 #include "Platform/Window/OpenglWindow.h"
 #include "Function/Render/RenderSystem.h"
 #include "Function/Ui/UiRenderSystem.h"
@@ -80,7 +81,7 @@ namespace Enternity
 
 	void Engine::tick_render()
 	{
-		RenderSystem::GetInstance().clear(Vector4f::DARK_COLOR);
+ 		RenderSystem::GetInstance().clear(Vector4f::DARK_COLOR);
 		UiRenderSystem::GetInstance().tick();
 		m_window->swapBuffers();
 	}

@@ -21,5 +21,8 @@ namespace Enternity
 		static Vector4f ZERO;
 		static Vector4f ONE;
 		static Vector4f DARK_COLOR;
+		static Vector4f RED_COLOR;
+		static Vector4f GREEN_COLOR;
+		static Vector4f BLUE_COLOR;
 	};
 }

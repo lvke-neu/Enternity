@@ -6,10 +6,10 @@ RenderSystem
 ****************************************************************************************/
 #pragma once
 #include "Core/Basic/Macro.h"
-#include "Core/Math/Vector4.h"
 
 namespace Enternity
 {
+	struct Vector4f;
 	class RenderSystem
 	{
 		SINGLETON(RenderSystem);

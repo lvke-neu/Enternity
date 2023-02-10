@@ -1,10 +1,13 @@
 //**********************************UnitTest********************************************
 #include "Function/Render/Wrapper/RenderWrapper.h"
+#include "Function/Render/RenderSystem.h"
 #include "Core/File/Blob.h"
 #include "Core/File/BlobLoader.h"
+#include "Core/Math/Vector4.h"
 #include "Core/Math/Vector3.h"
 #include "Core/Math/Vector2.h"
 #include "Core/Timer/ExecutionTimer.h"
+
 #include <glad/glad.h>
 using namespace Enternity;
 
@@ -13,37 +16,32 @@ using namespace Enternity;
 
 #include "Core/ThreadPool/ThreadPool.h"
 
-void NotifyFinish()
-{
-	LOG_INFO("finish");
-}
-
-
+typedef void(*notify)();
 
 std::vector<Blob*> textures;
 std::mutex mtx;
-void loadTexture()
+void loadTexture(notify func)
 {
 	BlobLoader blobLoader;
 	mtx.lock();
 	textures.emplace_back(blobLoader.load("assets/textures/box_diffuse.png", AssetType::Texture));
 	if (textures.size() == 100)
-		NotifyFinish();
+		func();
 	mtx.unlock();
 }
 
 ThreadPool threadPool(8);
-void testThreadPool()
+void testThreadPool(notify func)
 {
 	for (int i = 0; i < 100; i++)
 	{
-		threadPool.commitTask(loadTexture);
+		threadPool.commitTask(std::bind(loadTexture, func));
 	}
 }
 
 
 
-void UnitTest()
+void UnitTest(notify func)
 {
 	
 	ExecutionTimer executionTimer("The time of UnitTest");
@@ -113,7 +111,7 @@ void UnitTest()
 	SAFE_DELETE_SET_NULL(blob3);
 
 	//test blob texture loader
-	testThreadPool();
+	testThreadPool(func);
 }
 
 
