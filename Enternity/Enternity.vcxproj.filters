@@ -218,5 +218,8 @@
     <ClInclude Include="src\Engine\Core\File\stb_image.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\UnitTest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

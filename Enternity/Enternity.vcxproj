@@ -133,6 +133,7 @@
     <ClInclude Include="src\Engine\Core\File\Blob.h" />
     <ClInclude Include="src\Engine\Core\File\BlobLoader.h" />
     <ClInclude Include="src\Engine\Core\File\stb_image.h" />
+    <ClInclude Include="src\UnitTest.h" />
     <ClInclude Include="src\Engine\Core\Math\Vector2.h" />
     <ClInclude Include="src\Engine\Core\Timer\ExecutionTimer.h" />
     <ClInclude Include="src\Engine\Core\Log\Log.h" />
