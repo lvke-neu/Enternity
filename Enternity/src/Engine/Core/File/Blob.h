@@ -22,6 +22,11 @@ namespace Enternity
 	private:
 		void* m_data{ nullptr };
 		size_t m_length{ 0 };
+	public:
+		//for texture
+		int m_width;
+		int m_height;
+		int m_channels;
 	};
 
 	inline void* Blob::getData()

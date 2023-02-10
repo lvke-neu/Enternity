@@ -4,6 +4,7 @@
 //**********************************UnitTest********************************************
 #include "Function/Render/Wrapper/RenderWrapper.h"
 #include "Core/File/Blob.h"
+#include "Core/File/BlobLoader.h"
 #include "Core/Math/Vector3.h"
 #include "Core/Math/Vector2.h"
 #include "Core/Timer/ExecutionTimer.h"
@@ -72,6 +73,19 @@ void UnitTest()
 
 	RenderWrapper::Destroy(vta);
 	RenderWrapper::Destroy(ib);
+
+
+	//test blob general loader
+	Blob* blob3;
+	BlobLoader blobLoader;
+	blob3 = blobLoader.load("assets/shaders/TestECSPhong.glsl", AssetType::General);
+	std::string logcontent((char*)blob3->getData());
+	SAFE_DELETE_SET_NULL(blob3);
+
+	//test blob texture loader
+	Blob* blob4;
+	blob4 = blobLoader.load("assets/textures/box_diffuse.png", AssetType::Texture);
+	SAFE_DELETE_SET_NULL(blob4);
 }
 //**********************************************************************************
 
