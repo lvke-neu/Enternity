@@ -23,7 +23,6 @@ namespace Enternity
 		void deleteEntity(const std::string& uuid);
 		void deleteAll();
 
-		void tick(float deltaTime);
 		entt::registry* getRegistry();
 	private:
 		entt::registry m_registry;

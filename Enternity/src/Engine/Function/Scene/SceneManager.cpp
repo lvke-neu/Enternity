@@ -2,8 +2,8 @@
 
 namespace Enternity
 {
-	void SceneManager::tick(float deltaTime)
+	void SceneManager::tick()
 	{
-		m_scene.tick(deltaTime);
+
 	}
 }

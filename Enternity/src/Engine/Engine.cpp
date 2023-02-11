@@ -79,7 +79,7 @@ namespace Enternity
 
 	void Engine::tick(float deltaTime)
 	{
-		SceneManager::GetInstance().tick(deltaTime);
- 		RenderSystem::GetInstance().clear(Vector4f::DARK_COLOR);
+		SceneManager::GetInstance().tick();
+ 		RenderSystem::GetInstance().tick();
 	}
 }

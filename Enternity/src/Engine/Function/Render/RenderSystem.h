@@ -10,11 +10,7 @@ RenderSystem
 
 namespace Enternity
 {
-	struct DrawCallData
-	{
-
-	};
-
+	class Scene;
 	struct Vector4f;
 	class RenderSystem
 	{
@@ -25,7 +21,11 @@ namespace Enternity
 		void uninitialize();
 	public:
 		void clear(const Vector4f& vec4);
+		void drawCall(Scene* scene);
+		void tick();
 	private:
-		
+		void realDraw();
+	private:
+		std::queue<Scene*> m_drawcalls;
 	};
 }

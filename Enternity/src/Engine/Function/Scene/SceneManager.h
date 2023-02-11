@@ -15,7 +15,7 @@ namespace Enternity
 		SINGLETON(SceneManager);
 		PRIVATE(SceneManager);
 	public:
-		void tick(float deltaTime);
+		void tick();
 	private:
 		//TODO:remove, just for test one scene
 		Scene m_scene;

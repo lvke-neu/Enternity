@@ -38,11 +38,6 @@ namespace Enternity
 		m_entities.clear();
 	}
 
-	void Scene::tick(float deltaTime)
-	{
-
-	}
-
 	entt::registry* Scene::getRegistry()
 	{
 		return &m_registry;
