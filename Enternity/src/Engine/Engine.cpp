@@ -58,21 +58,8 @@ namespace Enternity
 		{
 			m_timer->Tick();
 			
-			//print fps every one sceond
-			//TODO:remove, show fps in imgui panel
-			static float timeSum = 0.0f;
-			timeSum += m_timer->DeltaTime();
-			if (timeSum > 1.0f)
-			{
-				char title[256];
-				sprintf_s(title, "Enternity Engine v0.004 FPS:%.0f", 1.0f / m_timer->DeltaTime());
-				m_window->setTitle(title);
-				timeSum = 0.0f;
-			}
-
-			m_window->pollEvents();
 			tick(m_timer->DeltaTime());
-			UiRenderSystem::GetInstance().tick();
+
 			m_window->swapBuffers();
 		}
 	}
@@ -81,5 +68,7 @@ namespace Enternity
 	{
 		SceneManager::GetInstance().tick();
  		RenderSystem::GetInstance().tick();
+		//draw ui at the end
+		UiRenderSystem::GetInstance().tick();
 	}
 }

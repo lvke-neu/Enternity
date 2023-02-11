@@ -26,7 +26,6 @@ namespace Enternity
 
 		bool windowShouldClose();
 		void setTitle(const char* title);
-		void pollEvents();
 		void swapBuffers();
 
 		static void Resize(GLFWwindow* window, int width, int height);

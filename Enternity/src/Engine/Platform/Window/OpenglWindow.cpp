@@ -62,14 +62,10 @@ namespace Enternity
 		glfwSetWindowTitle(m_context, title);
 	}
 
-	void OpenglWindow::pollEvents()
-	{
-		glfwPollEvents();
-	}
-
 	void OpenglWindow::swapBuffers()
 	{
 		glfwSwapBuffers(m_context);
+		glfwPollEvents();
 	}
 
 	void OpenglWindow::Resize(GLFWwindow* window, int width, int height)
