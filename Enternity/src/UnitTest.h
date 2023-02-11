@@ -187,6 +187,20 @@ void TestDraw()
 	vertexArray->bind();
 	indexBuffer->bind();
 	shader->bind();
+
+	//test mvp matrxi
+	//vertexArray->bind();
+	//indexBuffer->bind();
+	//shader->bind();
+	//Vector3f position(0, 0, 10);
+	//Vector3f rotation(0, Math::Radian(10), Math::Radian(30));
+	//Matrix4x4f transMat = Matrix4x4f::Translate(position.x, position.y, position.z);
+	//Matrix4x4f rotMat = Matrix4x4f::Rotate(rotation.x, rotation.y, rotation.z);
+	//Matrix4x4f viewMatrix = Matrix4x4f::Inverse(transMat * rotMat);
+	//Matrix4x4f projMatrix = Matrix4x4f::Perspective(PI / 6, 2, 1, 1000);
+	//viewMatrix = projMatrix * viewMatrix;
+	//glUniformMatrix4fv(glGetUniformLocation(shader->getRenderId(), "viewMatrix"), 1, true, viewMatrix.toData());
+	//CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffer->getCount(), GL_UNSIGNED_INT, (void*)0));
 	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffer->getCount(), GL_UNSIGNED_INT, (void*)0));
 }
 
