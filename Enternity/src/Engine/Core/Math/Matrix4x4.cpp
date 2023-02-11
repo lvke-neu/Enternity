@@ -89,9 +89,9 @@ namespace Enternity
 	Matrix4x4f Matrix4x4f::Translate(float transX, float transY, float transZ)
 	{
 		return Matrix4x4f(
-			0.0f, 0.0f, 0.0f, transX,
-			0.0f, 0.0f, 0.0f, transY,
-			0.0f, 0.0f, 0.0f, transZ,
+			1.0f, 0.0f, 0.0f, transX,
+			0.0f, 1.0f, 0.0f, transY,
+			0.0f, 0.0f, 1.0f, transZ,
 			0.0f, 0.0f, 0.0f, 1.0f
 		);
 	}
