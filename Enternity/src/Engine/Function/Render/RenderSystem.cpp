@@ -16,6 +16,11 @@ namespace Enternity
 		LOG_INFO("RenderSystem uninitialization");
 	}
 
+	void RenderSystem::setViewPort(unsigned int width, unsigned int height)
+	{
+		glViewport(0, 0, width, height);
+	}
+
 	void RenderSystem::clear(const Vector4f& vec4)
 	{
 		CHECK_GL_CALL(glClearColor(vec4.x, vec4.y, vec4.z, vec4.w));

@@ -1,4 +1,5 @@
 #include "Blob.h"
+#include <string.h>
 
 namespace Enternity
 {
@@ -11,5 +12,10 @@ namespace Enternity
 	Blob::~Blob()
 	{
 		DELETE_ARRAY(m_data);
+	}
+
+	void Blob::copyData(void* data)
+	{
+		memcpy_s(m_data, m_length, data, m_length);
 	}
 }

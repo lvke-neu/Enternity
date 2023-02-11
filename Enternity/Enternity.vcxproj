@@ -94,6 +94,7 @@
     <ClCompile Include="src\Engine\Core\File\BlobLoader.cpp" />
     <ClCompile Include="src\Engine\Core\File\stb_image.cpp" />
     <ClCompile Include="src\Engine\Core\Log\Log.cpp" />
+    <ClCompile Include="src\Engine\Core\Math\Math.cpp" />
     <ClCompile Include="src\Engine\Core\Math\Vector2.cpp" />
     <ClCompile Include="src\Engine\Core\Math\Vector4.cpp" />
     <ClCompile Include="src\Engine\Core\Timer\FrameTimer.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="src\Engine\Core\File\Blob.h" />
     <ClInclude Include="src\Engine\Core\File\BlobLoader.h" />
     <ClInclude Include="src\Engine\Core\File\stb_image.h" />
+    <ClInclude Include="src\Engine\Core\Math\Math.h" />
     <ClInclude Include="src\Engine\Function\Render\Wrapper\Shader.h" />
     <ClInclude Include="src\Engine\Function\Render\Wrapper\Texture.h" />
     <ClInclude Include="src\Engine\Function\Scene\Entity.h" />

@@ -1,3 +1,5 @@
+#pragma once
+
 //**********************************UnitTest********************************************
 #include "Function/Render/Wrapper/RenderWrapper.h"
 #include "Function/Render/RenderSystem.h"
@@ -9,6 +11,7 @@
 #include "Core/Timer/ExecutionTimer.h"
 #include "Core/Basic/UUID.h"
 #include "Function/Scene/Scene.h"
+#include "Core/Math/Math.h"
 #include <glad/glad.h>
 using namespace Enternity;
 
@@ -123,9 +126,9 @@ void UnitTest(notify func)
 
 	//test shader
 	Shader* shader = RenderWrapper::Create<Shader>();
-	Blob* vsBlob = blobLoader.load("assets/shaders/Phong.vs", AssetType::General);
+	Blob* vsBlob = blobLoader.load("assets/shaders/Phong.vert", AssetType::General);
 	std::string vsstr((char*)vsBlob->getData());
-	Blob* psBlob = blobLoader.load("assets/shaders/Phong.ps", AssetType::General);
+	Blob* psBlob = blobLoader.load("assets/shaders/Phong.frag", AssetType::General);
 	std::string psstr((char*)psBlob->getData());
 	shader->init(vsBlob, psBlob);
 
@@ -142,6 +145,50 @@ void UnitTest(notify func)
 	i++;
 }
 
+VertexArray* vertexArray{ nullptr };
+VertexBuffer* vertexBuffer{ nullptr };
+IndexBuffer* indexBuffer{ nullptr };
+Shader* shader{ nullptr };
+
+void TestDraw()
+{
+	if (!vertexArray)
+	{
+		Vector3f vertices[3] =
+		{
+			{-0.5, 0.0f, 0.0f},
+			{0.0f, 0.5f, 0.0f},
+			{0.5f, 0.0f, 0.0f}
+		};
+		unsigned int indices[3] = { 0,1,2 };
+
+		vertexBuffer = RenderWrapper::Create<VertexBuffer>();
+		Blob vtxBlob(3 * sizeof(Vector3f));
+		vtxBlob.copyData(vertices);
+		VertexBufferLayout vertexBufferLayout;
+		vertexBufferLayout.push({ 0, 3, GL_FLOAT, false,  3 * sizeof(float), 0 });
+		vertexBuffer->init(&vtxBlob, vertexBufferLayout);
+
+		vertexArray = RenderWrapper::Create<VertexArray>();
+		vertexArray->init(vertexBuffer);
+
+		indexBuffer = RenderWrapper::Create<IndexBuffer>();
+		Blob idxBlob(3 * sizeof(float));
+		idxBlob.copyData(indices);
+		indexBuffer->init(&idxBlob);
+
+		BlobLoader blobLoader;
+		shader = RenderWrapper::Create<Shader>();
+		Blob* vsBlob = blobLoader.load("assets/shaders/Phong.vert", AssetType::General);
+		Blob* psBlob = blobLoader.load("assets/shaders/Phong.frag", AssetType::General);
+		shader->init(vsBlob, psBlob);
+	}
+
+	vertexArray->bind();
+	indexBuffer->bind();
+	shader->bind();
+	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffer->getCount(), GL_UNSIGNED_INT, (void*)0));
+}
 
 //**********************************************************************************
 

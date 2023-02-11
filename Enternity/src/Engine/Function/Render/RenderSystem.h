@@ -20,6 +20,7 @@ namespace Enternity
 		void initialize();
 		void uninitialize();
 	public:
+		void setViewPort(unsigned int width, unsigned int height);
 		void clear(const Vector4f& vec4);
 		void drawCall(Scene* scene);
 		void tick();

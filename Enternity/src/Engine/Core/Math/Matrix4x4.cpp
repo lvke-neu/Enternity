@@ -1,5 +1,6 @@
 #include "Matrix4x4.h"
 #include "Core/Basic/Macro.h"
+#include "Math.h"
 
 namespace Enternity
 {
@@ -108,6 +109,20 @@ namespace Enternity
 			0.0f, 0.0f, scaleZ, 0.0f,
 			0.0f, 0.0f, 0.0f, 1.0f
 		);
+	}
+
+	Matrix4x4f Matrix4x4f::Perspective(float radian, float aspect, float nearZ, float farZ)
+	{
+		float tan_half_fovy = std::tan(radian / 2.f);
+
+		Matrix4x4f ret = Matrix4x4f::ZERO;
+		ret[0][0] = 1.f / (aspect * tan_half_fovy);
+		ret[1][1] = 1.f / tan_half_fovy;
+		ret[2][2] = farZ / (nearZ - farZ);
+		ret[3][2] = -1.f;
+		ret[2][3] = -(farZ * nearZ) / (farZ - nearZ);
+
+		return ret;
 	}
 
 	Matrix4x4f Matrix4x4f::Transpose(const Matrix4x4f& mat4)

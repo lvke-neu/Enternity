@@ -8,6 +8,9 @@
 #include "Function/Ui/UiRenderSystem.h"
 #include "Function/Scene/SceneManager.h"
 
+//TODO:remove
+#include "UnitTest.h"
+
 namespace Enternity
 {
 	void Engine::initialize()
@@ -81,5 +84,7 @@ namespace Enternity
 	{
 		SceneManager::GetInstance().tick();
  		RenderSystem::GetInstance().tick();
+		//TODO:remove
+		TestDraw();
 	}
 }

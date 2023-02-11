@@ -19,6 +19,7 @@ namespace Enternity
 		inline size_t getLength();
 		inline void* getData() const;
 		inline size_t getLength() const;
+		void copyData(void* data);
 	private:
 		void* m_data{ nullptr };
 		size_t m_length{ 0 };

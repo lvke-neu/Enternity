@@ -1,6 +1,7 @@
 #include "OpenglWindow.h"
 #include "Core/Log/Log.h"
 #include "Core/Basic/Macro.h"
+#include "Function/Render/RenderSystem.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -43,6 +44,8 @@ namespace Enternity
 		LOG_INFO((char*)glGetString(GL_VERSION));
 		LOG_INFO((char*)glGetString(GL_VENDOR));
 		LOG_INFO((char*)glGetString(GL_RENDERER));
+
+		Resize(m_context, desc.Width, desc.Height);
 	}
 
 	OpenglWindow::~OpenglWindow()
@@ -71,6 +74,7 @@ namespace Enternity
 
 	void OpenglWindow::Resize(GLFWwindow* window, int width, int height)
 	{
+		RenderSystem::GetInstance().setViewPort(width, height);
 		LOG_INFO("Resize: width = {0}, height = {1}", width, height);
 	}
 }
