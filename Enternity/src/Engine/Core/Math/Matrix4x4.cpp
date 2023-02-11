@@ -98,7 +98,32 @@ namespace Enternity
 
 	Matrix4x4f Matrix4x4f::Rotate(float rotateX, float rotateY, float rotateZ)
 	{
-		return IDENTITY;
+		Matrix4x4f Rx =
+		{
+			1.0f,	0.0f,					0.0f,				0.0f,
+			0.0f,	std::cos(rotateX),		-std::sin(rotateX),	0.0f,
+			0.0f,	std::sin(rotateX),		std::cos(rotateX),	0.0f,
+			0.0f,	0.0f,					0.0f,				1.0f
+		};
+
+		Matrix4x4f Ry =
+		{
+			std::cos(rotateY),	0.0f,	std::sin(rotateY),	0.0f,
+			0.0f,				1.0f,	0.0f,				0.0f,
+			-std::sin(rotateY),	0.0f,	std::cos(rotateY),	0.0f,
+			0.0f,				0.0f,	0.0f,				1.0f
+		};
+
+		Matrix4x4f Rz =
+		{
+			std::cos(rotateZ),	-std::sin(rotateZ),		0.0f,	0.0f,
+			std::sin(rotateZ),	std::cos(rotateZ),		0.0f,	0.0f,
+			0.0f,				0.0f,					1.0f,   0.0f,
+			0.0f,				0.0f,					0.0f,	1.0f
+		};
+
+		//z*x*y
+		return Rz * Rx * Ry;
 	}
 
 	Matrix4x4f Matrix4x4f::Scale(float scaleX, float scaleY, float scaleZ)
