@@ -108,6 +108,9 @@
     <ClCompile Include="src\Engine\Function\Render\Wrapper\Texture.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Core\Basic\UUID.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
@@ -225,6 +228,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Function\Render\Wrapper\Texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Core\Basic\UUID.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

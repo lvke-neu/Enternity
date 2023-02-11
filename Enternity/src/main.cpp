@@ -46,7 +46,7 @@ int main()
 	Enternity::Engine::GetInstance().initialize();
 	//**************TODO:remove**************
 	UnitTest(NotifyFinish);
-	loop();
+	//loop();
 	//***************************************
 	Enternity::Engine::GetInstance().run();
 	Enternity::Engine::GetInstance().uninitialize();

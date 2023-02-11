@@ -7,7 +7,7 @@
 #include "Core/Math/Vector3.h"
 #include "Core/Math/Vector2.h"
 #include "Core/Timer/ExecutionTimer.h"
-
+#include "Core/Basic/UUID.h"
 #include <glad/glad.h>
 using namespace Enternity;
 
@@ -119,6 +119,11 @@ void UnitTest(notify func)
 	texture2d->init(blob4);
 	RenderWrapper::Destroy(texture2d);
 	SAFE_DELETE_SET_NULL(blob4);
+
+	for (int i = 0; i < 10; i++)
+	{
+		LOG_WARN(UUID::Generate());
+	}
 }
 
 

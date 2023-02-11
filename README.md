@@ -82,4 +82,8 @@ TODO: 1、粒子系统，地形系统（曲面细分，LOD）
 		  2、模型文件（obj、fbx ......），由assimp加载
 		  3、贴图文件，由stb_image加载
 
+
+场景：scene负责维护自己的实体(uuid : entity)
+      scenemanager负责维护所有创建的scene(uuid : scene)
+
 	
