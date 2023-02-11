@@ -1,31 +1,23 @@
 /***************************************************************************************
 Author: lvke
-Date:2023/2/6 22:50
+Date:2023/2/11 14:14
 Description:
-RenderSystem
+SceneManager
 ****************************************************************************************/
 #pragma once
 #include "Core/Basic/Macro.h"
-#include <queue>
+#include "Scene.h"
 
 namespace Enternity
 {
-	struct DrawCallData
+	class SceneManager
 	{
-
-	};
-
-	struct Vector4f;
-	class RenderSystem
-	{
-		SINGLETON(RenderSystem);
-		PRIVATE(RenderSystem);
+		SINGLETON(SceneManager);
+		PRIVATE(SceneManager);
 	public:
-		void initialize();
-		void uninitialize();
-	public:
-		void clear(const Vector4f& vec4);
+		void tick(float deltaTime);
 	private:
-		
+		//TODO:remove, just for test one scene
+		Scene m_scene;
 	};
 }

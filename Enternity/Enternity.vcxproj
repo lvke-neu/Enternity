@@ -103,9 +103,13 @@
     <ClCompile Include="src\Engine\Core\ThreadPool\ThreadPool.cpp" />
     <ClCompile Include="src\Engine\Function\Render\RenderSystem.cpp" />
     <ClCompile Include="src\Engine\Function\Render\Wrapper\IndexBuffer.cpp" />
+    <ClCompile Include="src\Engine\Function\Render\Wrapper\Shader.cpp" />
     <ClCompile Include="src\Engine\Function\Render\Wrapper\Texture.cpp" />
     <ClCompile Include="src\Engine\Function\Render\Wrapper\VertexArray.cpp" />
     <ClCompile Include="src\Engine\Function\Render\Wrapper\VertexBuffer.cpp" />
+    <ClCompile Include="src\Engine\Function\Scene\Entity.cpp" />
+    <ClCompile Include="src\Engine\Function\Scene\Scene.cpp" />
+    <ClCompile Include="src\Engine\Function\Scene\SceneManager.cpp" />
     <ClCompile Include="src\Engine\Function\Ui\Imgui\ImCurveEdit.cpp" />
     <ClCompile Include="src\Engine\Function\Ui\Imgui\ImGradient.cpp" />
     <ClCompile Include="src\Engine\Function\Ui\Imgui\imgui.cpp" />
@@ -136,7 +140,11 @@
     <ClInclude Include="src\Engine\Core\File\Blob.h" />
     <ClInclude Include="src\Engine\Core\File\BlobLoader.h" />
     <ClInclude Include="src\Engine\Core\File\stb_image.h" />
+    <ClInclude Include="src\Engine\Function\Render\Wrapper\Shader.h" />
     <ClInclude Include="src\Engine\Function\Render\Wrapper\Texture.h" />
+    <ClInclude Include="src\Engine\Function\Scene\Entity.h" />
+    <ClInclude Include="src\Engine\Function\Scene\Scene.h" />
+    <ClInclude Include="src\Engine\Function\Scene\SceneManager.h" />
     <ClInclude Include="src\UnitTest.h" />
     <ClInclude Include="src\Engine\Core\Math\Vector2.h" />
     <ClInclude Include="src\Engine\Core\Timer\ExecutionTimer.h" />

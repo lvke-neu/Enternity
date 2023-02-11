@@ -6,6 +6,7 @@
 #include "Platform/Window/OpenglWindow.h"
 #include "Function/Render/RenderSystem.h"
 #include "Function/Ui/UiRenderSystem.h"
+#include "Function/Scene/SceneManager.h"
 
 namespace Enternity
 {
@@ -69,20 +70,16 @@ namespace Enternity
 				timeSum = 0.0f;
 			}
 
-			tick_logic();
-			tick_render();
+			m_window->pollEvents();
+			tick(m_timer->DeltaTime());
+			UiRenderSystem::GetInstance().tick();
+			m_window->swapBuffers();
 		}
 	}
 
-	void Engine::tick_logic()
+	void Engine::tick(float deltaTime)
 	{
-		m_window->pollEvents();
-	}
-
-	void Engine::tick_render()
-	{
+		SceneManager::GetInstance().tick(deltaTime);
  		RenderSystem::GetInstance().clear(Vector4f::DARK_COLOR);
-		UiRenderSystem::GetInstance().tick();
-		m_window->swapBuffers();
 	}
 }

@@ -10,6 +10,7 @@ Render Wrapper
 #include "VertexArray.h"
 #include "IndexBuffer.h"
 #include "Texture.h"
+#include "Shader.h"
 
 namespace Enternity
 {

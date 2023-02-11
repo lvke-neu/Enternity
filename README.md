@@ -86,4 +86,6 @@ TODO: 1、粒子系统，地形系统（曲面细分，LOD）
 场景：scene负责维护自己的实体(uuid : entity)
       scenemanager负责维护所有创建的scene(uuid : scene)
 
+RenderSystem: 接受drawcall命令放在队列中， 在tick的时候从队列中取出drawcall命令执行
+
 	

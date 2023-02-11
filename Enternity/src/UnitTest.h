@@ -8,6 +8,7 @@
 #include "Core/Math/Vector2.h"
 #include "Core/Timer/ExecutionTimer.h"
 #include "Core/Basic/UUID.h"
+#include "Function/Scene/Scene.h"
 #include <glad/glad.h>
 using namespace Enternity;
 
@@ -107,7 +108,7 @@ void UnitTest(notify func)
 	Blob* blob3;
 	BlobLoader blobLoader;
 	blob3 = blobLoader.load("assets/shaders/TestECSPhong.glsl", AssetType::General);
-	std::string logcontent((char*)blob3->getData());
+	std::string logcontent((char*)blob3->getData(), blob3->getLength());
 	SAFE_DELETE_SET_NULL(blob3);
 
 	//test blob texture loader
@@ -120,10 +121,25 @@ void UnitTest(notify func)
 	RenderWrapper::Destroy(texture2d);
 	SAFE_DELETE_SET_NULL(blob4);
 
-	for (int i = 0; i < 10; i++)
+	//test shader
+	Shader* shader = RenderWrapper::Create<Shader>();
+	Blob* vsBlob = blobLoader.load("assets/shaders/Phong.vs", AssetType::General);
+	std::string vsstr((char*)vsBlob->getData());
+	Blob* psBlob = blobLoader.load("assets/shaders/Phong.ps", AssetType::General);
+	std::string psstr((char*)psBlob->getData());
+	shader->init(vsBlob, psBlob);
+
+	//test scene
+	Scene scene;
+	std::string str;
+	for (int i = 0; i < 100; i++)
 	{
-		LOG_WARN(UUID::Generate());
+		str = scene.createEntity();
 	}
+	scene.deleteEntity("13jdsauge-3232233-4e223n");
+	scene.deleteAll();
+	int i = 0;
+	i++;
 }
 
 
