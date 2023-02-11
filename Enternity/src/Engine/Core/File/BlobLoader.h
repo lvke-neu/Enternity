@@ -24,6 +24,6 @@ namespace Enternity
 		Blob* load(const std::string& filePath, AssetType assetType);
 	private:
 		Blob* loadGeneral(const std::string& filePath);
-		Blob* loadTexture(const std::string& filePath);
+		Blob* loadTexture(const std::string& filePath, int desired_channels = 0);
 	};
 }

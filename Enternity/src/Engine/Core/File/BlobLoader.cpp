@@ -40,7 +40,7 @@ namespace Enternity
 		return blob;
 	}
 
-	Blob* BlobLoader::loadTexture(const std::string& filePath)
+	Blob* BlobLoader::loadTexture(const std::string& filePath, int desired_channels)
 	{
 		unsigned char* tmpTexture;
 		int width;
@@ -48,7 +48,7 @@ namespace Enternity
 		int channels;
 
 		stbi_set_flip_vertically_on_load(1);
-		tmpTexture = stbi_load(filePath.c_str(), &width, &height, &channels, 0);
+		tmpTexture = stbi_load(filePath.c_str(), &width, &height, &channels, desired_channels);
 
 		Blob* blob = new Blob(width * height * channels);
 		memcpy_s(blob->getData(), blob->getLength(), tmpTexture, blob->getLength());

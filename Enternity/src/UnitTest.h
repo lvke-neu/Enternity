@@ -16,7 +16,7 @@ using namespace Enternity;
 
 #include "Core/ThreadPool/ThreadPool.h"
 
-typedef void(*notify)();
+typedef void(*notify)(std::vector<Blob*>& datas);
 
 std::vector<Blob*> textures;
 std::mutex mtx;
@@ -26,7 +26,7 @@ void loadTexture(notify func)
 	mtx.lock();
 	textures.emplace_back(blobLoader.load("assets/textures/box_diffuse.png", AssetType::Texture));
 	if (textures.size() == 100)
-		func();
+		func(textures);
 	mtx.unlock();
 }
 
@@ -112,6 +112,13 @@ void UnitTest(notify func)
 
 	//test blob texture loader
 	testThreadPool(func);
+
+	Texture2D* texture2d = RenderWrapper::Create<Texture2D>();
+	Blob* blob4;
+	blob4 = blobLoader.load("assets/textures/skybox.jpeg", AssetType::Texture);
+	texture2d->init(blob4);
+	RenderWrapper::Destroy(texture2d);
+	SAFE_DELETE_SET_NULL(blob4);
 }
 
 
