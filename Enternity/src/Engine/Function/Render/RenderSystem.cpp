@@ -2,6 +2,7 @@
 #include "Core/Math/Vector4.h"
 #include "Core/Log/Log.h"
 #include "Function/Scene/Scene.h"
+#include "Function/Scene/Camera3D.h"
 #include "Function/Scene/ECS/Component/MeshRenderComponents.hpp"
 #include <glad/glad.h>
 
@@ -57,6 +58,9 @@ namespace Enternity
 				{
 					LOG_TRACE("shader load finished");
 				}
+				comp.m_shader->bind();
+				Matrix4x4f vp = scene->m_camera3D->getProjMatrix() * scene->m_camera3D->getViewMatrix();
+				comp.m_shader->setMat4("vp", vp, true);
 			}
 
 			auto& comp2 = entity.second.getComponent<MaterialComponent>();
@@ -67,6 +71,19 @@ namespace Enternity
 				{
 					LOG_TRACE("texture load finished");
 				}
+			}
+
+			auto& comp3 = entity.second.getComponent<MeshComponent>();
+			if (comp3.m_vertexArray && comp3.m_vertexbuffer && comp3.m_indexbuffer)
+			{
+				static int index3 = 0;
+				if (index3++ == 0)
+				{
+					LOG_TRACE("mesh load finished");
+				}
+				comp3.m_vertexArray->bind();
+				comp3.m_indexbuffer->bind();
+				CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, comp3.m_indexbuffer->getCount(), GL_UNSIGNED_INT, (void*)0));
 			}
 		}
 	}

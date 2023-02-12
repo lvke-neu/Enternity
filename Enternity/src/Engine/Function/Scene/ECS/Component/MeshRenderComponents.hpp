@@ -4,6 +4,7 @@
 #include "Core/Math/Matrix4x4.h"
 #include "Core/File/Blob.h"
 #include "Function/Render/Wrapper/RenderWrapper.h"
+#include <glad/glad.h>
 
 namespace Enternity
 {
@@ -36,9 +37,44 @@ namespace Enternity
 			Vector2f texcoord;
 		};
 
-		VertexArray* m_VertexArray{ nullptr };
-		VertexBuffer* m_Vertexbuffer{ nullptr };
-		IndexBuffer* m_Indexbuffer{ nullptr };
+		std::string m_meshFile{ "" };
+		VertexArray* m_vertexArray{ nullptr };
+		VertexBuffer* m_vertexbuffer{ nullptr };
+		IndexBuffer* m_indexbuffer{ nullptr };
+
+		void loadImpl()
+		{
+			if (m_vertexbufferBlob && m_indexbufferBlob)
+			{
+				unLoad();
+
+				m_vertexArray = RenderWrapper::Create<VertexArray>();
+				m_vertexbuffer = RenderWrapper::Create<VertexBuffer>();
+				m_indexbuffer = RenderWrapper::Create<IndexBuffer>();
+
+				VertexBufferLayout  vertexBufferLayout;
+				vertexBufferLayout.push({ 0, 3, GL_FLOAT, false,  8 * sizeof(float), 0 });
+				vertexBufferLayout.push({ 1, 3, GL_FLOAT, false,  8 * sizeof(float), 3 * sizeof(float) });
+				vertexBufferLayout.push({ 2, 2, GL_FLOAT, false,  8 * sizeof(float), 6 * sizeof(float) });
+				m_vertexbuffer->init(m_vertexbufferBlob, vertexBufferLayout);
+				m_indexbuffer->init(m_indexbufferBlob);
+				m_vertexArray->init(m_vertexbuffer);
+				
+				SAFE_DELETE_SET_NULL(m_vertexbufferBlob);
+				SAFE_DELETE_SET_NULL(m_indexbufferBlob);
+
+			}
+		}
+
+		void unLoad()
+		{
+			RenderWrapper::Destroy(m_vertexArray);
+			RenderWrapper::Destroy(m_vertexbuffer);
+			RenderWrapper::Destroy(m_indexbuffer);
+		}
+	public:
+		Blob* m_vertexbufferBlob{ nullptr };
+		Blob* m_indexbufferBlob{ nullptr };
 	};
 
 	struct ShaderComponent

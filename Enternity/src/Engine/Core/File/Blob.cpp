@@ -14,7 +14,7 @@ namespace Enternity
 		DELETE_ARRAY(m_data);
 	}
 
-	void Blob::copyData(void* data)
+	void Blob::copyDataFrom(void* data)
 	{
 		memcpy_s(m_data, m_length, data, m_length);
 	}

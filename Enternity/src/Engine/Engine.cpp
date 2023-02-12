@@ -40,7 +40,7 @@ namespace Enternity
 		m_timer = new FrameTimer;
 
 		//ThreadPool init
-		ThreadPool::GetInstance().initialize(4);
+		ThreadPool::GetInstance().initialize(8);
 
 		LOG_INFO("Engine initialization");
 	}

@@ -3,7 +3,11 @@
 #include "Core/File/Blob.h"
 #include "Core/File/stb_image.h"
 #include "Core/ThreadPool/ThreadPool.h"
+#include "Function/Scene/ECS/Component/MeshRenderComponents.hpp"
 #include <fstream>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 namespace Enternity
 {
@@ -91,6 +95,51 @@ namespace Enternity
 
 	void BlobLoader::loadMeshImpl(Blob*& verticesBlob, Blob*& indicesBlob, const std::string& filePath)
 	{
+		Assimp::Importer importer;
+		const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs
+			| aiProcess_GenNormals | aiProcess_GenBoundingBoxes | aiProcess_GenUVCoords | aiProcess_JoinIdenticalVertices);
 
+		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+		{
+			LOG_ERROR("ERROR::ASSIMP::{0}", importer.GetErrorString());
+			verticesBlob = nullptr;
+			indicesBlob = nullptr;
+			return;
+		}
+
+		std::vector<MeshComponent::VertexPosNorTex> vertices;
+		std::vector<unsigned int> indices;
+		unsigned int indexOffset = 0;
+		for (unsigned int i = 0; i < scene->mNumMeshes; i++)
+		{
+			aiMesh* mesh = scene->mMeshes[i];
+			
+			for (unsigned int j = 0; j < mesh->mNumVertices; j++)
+			{
+				MeshComponent::VertexPosNorTex vertex;
+				vertex.position.x = mesh->mVertices[j].x;
+				vertex.position.y = mesh->mVertices[j].y;
+				vertex.position.z = mesh->mVertices[j].z;
+
+				vertices.push_back(vertex);
+				//TODO: normal and texcoord
+			}
+
+			for (unsigned int j = 0; j < mesh->mNumFaces; j++)
+			{
+				for (unsigned int k = 0; k < mesh->mFaces[i].mNumIndices; k++)
+				{
+					indices.push_back(mesh->mFaces[j].mIndices[k] + indexOffset);
+				}
+			}
+
+			indexOffset += (unsigned int)vertices.size();
+		}
+
+		verticesBlob = new Blob(vertices.size() * sizeof(MeshComponent::VertexPosNorTex));
+		verticesBlob->copyDataFrom(vertices.data());
+
+		indicesBlob = new Blob(indices.size() * sizeof(unsigned int));
+		indicesBlob->copyDataFrom(indices.data());
 	}
 }
