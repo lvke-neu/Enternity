@@ -2,7 +2,7 @@
 #include "Core/Basic/Macro.h"
 #include "Core/Log/Log.h"
 #include "Camera3D.h"
-#include "ECS/Component/TagComponent.h"
+#include "ECS/Component/TagComponent.hpp"
 
 namespace Enternity
 {

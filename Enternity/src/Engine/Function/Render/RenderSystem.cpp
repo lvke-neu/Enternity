@@ -2,7 +2,7 @@
 #include "Core/Math/Vector4.h"
 #include "Core/Log/Log.h"
 #include "Function/Scene/Scene.h"
-#include "Function/Scene/ECS/Component/TagComponent.h"
+#include "Function/Scene/ECS/Component/TagComponent.hpp"
 #include <glad/glad.h>
 
 namespace Enternity

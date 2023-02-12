@@ -3,10 +3,12 @@
 #include "Core/Timer/ExecutionTimer.h"
 #include "Core/Timer/FrameTimer.h"
 #include "Core/Math/Vector4.h"
+#include "Core/ThreadPool/ThreadPool.h"
 #include "Platform/Window/OpenglWindow.h"
 #include "Function/Render/RenderSystem.h"
 #include "Function/Ui/UiRenderSystem.h"
 #include "Function/Scene/SceneManager.h"
+
 
 namespace Enternity
 {
@@ -37,6 +39,9 @@ namespace Enternity
 		//timer init
 		m_timer = new FrameTimer;
 
+		//ThreadPool init
+		ThreadPool::GetInstance().initialize(4);
+
 		LOG_INFO("Engine initialization");
 	}
 
@@ -45,6 +50,7 @@ namespace Enternity
 		SceneManager::GetInstance().uninitialize();
 		RenderSystem::GetInstance().uninitialize();
 		UiRenderSystem::GetInstance().uninitialize();
+		ThreadPool::GetInstance().uninitialize();
 		SAFE_DELETE_SET_NULL(m_window);
 		SAFE_DELETE_SET_NULL(m_timer);
 

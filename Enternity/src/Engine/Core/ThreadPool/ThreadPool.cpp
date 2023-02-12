@@ -1,13 +1,15 @@
 #include "ThreadPool.h"
+#include "Core/Log/Log.h"
 
 namespace Enternity
 {
-	ThreadPool::ThreadPool(int threadCount)
+	void ThreadPool::initialize(int threadCount)
 	{
 		createThreadPool(threadCount);
+		LOG_INFO("SceneManager initialization");
 	}
 
-	ThreadPool::~ThreadPool()
+	void ThreadPool::uninitialize()
 	{
 		m_stoped.store(true);
 		m_cv.notify_all();
@@ -16,6 +18,7 @@ namespace Enternity
 			if (thread.joinable())
 				thread.join();
 		}
+		LOG_INFO("SceneManager uninitialization");
 	}
 
 	void ThreadPool::createThreadPool(int threadCount)

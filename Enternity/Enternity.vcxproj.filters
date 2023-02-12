@@ -269,7 +269,10 @@
     <ClInclude Include="src\Engine\Function\Scene\ECS\Entity\Entity.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Function\Scene\ECS\Component\TagComponent.h">
+    <ClInclude Include="src\Engine\Function\Scene\ECS\Component\TagComponent.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Function\Scene\ECS\Component\MeshRenderComponent.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

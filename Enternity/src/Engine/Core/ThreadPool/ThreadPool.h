@@ -6,14 +6,17 @@
 #include <vector>
 #include <queue>
 #include <functional>
+#include "Core/Basic/Macro.h"
 
 namespace Enternity
 {
 	class ThreadPool
 	{
+		PRIVATE(ThreadPool);
+		SINGLETON(ThreadPool);
 	public:
-		ThreadPool(int threadCount);
-		~ThreadPool();
+		void initialize(int threadCount);
+		void uninitialize();
 	private:
 		void createThreadPool(int threadCount);
 	public:
