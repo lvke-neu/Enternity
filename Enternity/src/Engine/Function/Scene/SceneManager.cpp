@@ -1,7 +1,7 @@
 #include "SceneManager.h"
-#include "Function/Scene/ECS/Component/MeshRenderComponent.hpp"
+#include "Function/Scene/ECS/Component/MeshRenderComponents.hpp"
 #include "Function/Render/RenderSystem.h"
-
+#include "Core/File/BlobLoader.h"
 
 namespace Enternity
 {

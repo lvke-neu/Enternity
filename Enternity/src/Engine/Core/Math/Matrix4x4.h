@@ -20,7 +20,7 @@ namespace Enternity
 		
 		float* operator[](unsigned int rowIndex);
 		Matrix4x4f operator*(const Matrix4x4f& mat4);
-		inline float* toData();
+		inline const float* toData() const;
 	
 		//some static functions
 		static Matrix4x4f Translate(float transX, float transY, float transZ);
@@ -39,7 +39,7 @@ namespace Enternity
 		float m_mat4x4f[4][4];
 	};
 
-	inline float* Matrix4x4f::toData()
+	inline const float* Matrix4x4f::toData() const
 	{
 		return &m_mat4x4f[0][0];
 	}

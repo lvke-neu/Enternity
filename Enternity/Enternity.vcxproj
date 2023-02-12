@@ -147,7 +147,7 @@
     <ClInclude Include="src\Engine\Function\Render\Wrapper\Texture.h" />
     <ClInclude Include="src\Engine\Function\Scene\Camera3D.h" />
     <ClInclude Include="src\Engine\Function\Scene\ECS\Component\TagComponent.hpp" />
-    <ClInclude Include="src\Engine\Function\Scene\ECS\Component\MeshRenderComponent.hpp" />
+    <ClInclude Include="src\Engine\Function\Scene\ECS\Component\MeshRenderComponents.hpp" />
     <ClInclude Include="src\Engine\Function\Scene\ECS\Entity\Entity.h" />
     <ClInclude Include="src\Engine\Function\Scene\Scene.h" />
     <ClInclude Include="src\Engine\Function\Scene\SceneManager.h" />

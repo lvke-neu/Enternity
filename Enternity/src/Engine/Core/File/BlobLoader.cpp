@@ -26,6 +26,7 @@ namespace Enternity
 		case AssetType::Model:
 			break;
 		case AssetType::Texture:
+		{
 			if (loadType == LoadType::Sync)
 				loadTexture(blob, filePath);
 			else if (loadType == LoadType::Asyn)
@@ -34,6 +35,7 @@ namespace Enternity
 					{
 						loadTexture(blob, filePath);
 					});
+		}
 			break;
 		default:
 			LOG_ERROR("Unsupported Asset Type");

@@ -1,6 +1,7 @@
 #include "Shader.h"
 #include "Core/Log/Log.h"
 #include "Core/File/Blob.h"
+#include "Core/Math/Matrix4x4.h"
 #include <glad/glad.h>
 
 namespace Enternity
@@ -28,6 +29,11 @@ namespace Enternity
 	void Shader::unbind()
 	{
 		CHECK_GL_CALL(glUseProgram(0));
+	}
+
+	void Shader::setMat4(const std::string& name, const Matrix4x4f& mat4, bool transpose)
+	{
+		CHECK_GL_CALL(glUniformMatrix4fv(getUniformLocation(name), 1, transpose, mat4.toData()));
 	}
 
 	unsigned int Shader::CompileShader(unsigned int shaderType, const char* shaderSourceCode)
@@ -91,6 +97,21 @@ namespace Enternity
 		CHECK_GL_CALL(glDeleteShader(psShader));
 
 		return program;
+	}
+
+	int Shader::getUniformLocation(const std::string& name)
+	{
+		if (m_uniformLocationCache.find(name) != m_uniformLocationCache.end())
+			return m_uniformLocationCache[name];
+
+		int location;
+		CHECK_GL_CALL(location = glGetUniformLocation(m_renderId, name.c_str()));
+		m_uniformLocationCache[name] = location;
+		if (location == -1)
+		{
+			LOG_ERROR("uniform: " + name + " doesn't exist (or never use)");
+		}
+		return location;
 	}
 }
 
