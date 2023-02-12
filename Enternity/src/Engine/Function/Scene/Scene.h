@@ -5,9 +5,8 @@ Description:
 Scene
 ****************************************************************************************/
 #pragma once
-#include "Entity.h"
+#include "ECS/Entity/Entity.h"
 #include <unordered_map>
-#include <string>
 
 namespace Enternity
 {
@@ -21,7 +20,7 @@ namespace Enternity
 		Scene(const Scene&) = delete;
 		Scene& operator=(const Scene&) = delete;
 	public:
-		std::string createEntity();
+		Entity& createEntity();
 		void deleteEntity(const std::string& uuid);
 		void deleteAll();
 

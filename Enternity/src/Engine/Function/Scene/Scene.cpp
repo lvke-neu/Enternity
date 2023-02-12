@@ -1,6 +1,5 @@
 #include "Scene.h"
 #include "Core/Basic/Macro.h"
-#include "Core/Basic/UUID.h"
 #include "Core/Log/Log.h"
 #include "Camera3D.h"
 
@@ -17,11 +16,11 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(m_camera3D);
 	}
 
-	std::string Scene::createEntity()
+	Entity& Scene::createEntity()
 	{
-		std::string uuid = UUID::Generate();
-		m_entities[uuid] = Entity(this);
-		return uuid;
+		Entity entity(&m_registry);
+		m_entities[entity.getUUID()] = entity;
+		return m_entities[entity.getUUID()];
 	}
 
 	void Scene::deleteEntity(const std::string& uuid)
