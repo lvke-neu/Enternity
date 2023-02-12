@@ -201,7 +201,16 @@ void TestDraw()
 	//viewMatrix = projMatrix * viewMatrix;
 	//glUniformMatrix4fv(glGetUniformLocation(shader->getRenderId(), "viewMatrix"), 1, true, viewMatrix.toData());
 	//CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffer->getCount(), GL_UNSIGNED_INT, (void*)0));
-	CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffer->getCount(), GL_UNSIGNED_INT, (void*)0));
+	
+	////test mvp matrxi
+	//vertexArray->bind();
+	//indexBuffer->bind();
+	//shader->bind();
+	//scene->getCamera3D()->setPosition(Vector3f(0, 0, 5));
+	//scene->getCamera3D()->setRotation(Vector3f(0, 360, 0));
+	//Matrix4x4f viewMatrix = scene->getCamera3D()->getProjMatrix() * scene->getCamera3D()->getViewMatrix();
+	//glUniformMatrix4fv(glGetUniformLocation(shader->getRenderId(), "viewMatrix"), 1, true, viewMatrix.toData());
+	//CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffer->getCount(), GL_UNSIGNED_INT, (void*)0));
 }
 
 //**********************************************************************************
