@@ -2,6 +2,7 @@
 #include "Core/Math/Vector4.h"
 #include "Core/Log/Log.h"
 #include "Function/Scene/Scene.h"
+#include "Function/Scene/ECS/Component/MeshRenderComponents.hpp"
 #include <glad/glad.h>
 
 namespace Enternity
@@ -46,6 +47,14 @@ namespace Enternity
 
 	void RenderSystem::drawScene(Scene* scene)
 	{
-
+		for (auto& entity : scene->m_entities)
+		{
+			auto& comp = entity.second.getComponent<MaterialComponent>();
+			if (comp.m_shader)
+			{
+				comp.m_shader->bind();
+				comp.m_shader->setMat4("test1", Matrix4x4f::IDENTITY, false);
+			}
+		}
 	}
 }
