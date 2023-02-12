@@ -16,6 +16,7 @@ namespace Enternity
 		PRIVATE(SceneManager);
 	public:
 		void tick();
+		void setFrustum(const Frustum& frustum);
 	private:
 		//TODO:remove, just for test one scene
 		Scene m_scene;

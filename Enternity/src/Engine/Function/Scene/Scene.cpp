@@ -1,13 +1,20 @@
 #include "Scene.h"
+#include "Core/Basic/Macro.h"
 #include "Core/Basic/UUID.h"
 #include "Core/Log/Log.h"
+#include "Camera3D.h"
 
 namespace Enternity
 {
+	Scene::Scene()
+	{
+		m_camera3D = new Camera3D;
+	}
 
 	Scene::~Scene()
 	{
 		deleteAll();
+		SAFE_DELETE_SET_NULL(m_camera3D);
 	}
 
 	std::string Scene::createEntity()
@@ -41,5 +48,11 @@ namespace Enternity
 	entt::registry* Scene::getRegistry()
 	{
 		return &m_registry;
+	}
+
+	void Scene::setFrustum(const Frustum& frustum)
+	{
+		ENTERNITY_ASSERT(m_camera3D);
+		m_camera3D->setFrustum(frustum);
 	}
 }

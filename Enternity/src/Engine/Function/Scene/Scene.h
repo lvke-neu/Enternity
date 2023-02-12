@@ -11,10 +11,12 @@ Scene
 
 namespace Enternity
 {
+	struct Frustum;
+	class Camera3D;
 	class Scene
 	{
 	public:
-		Scene() = default;
+		Scene();
 		~Scene();
 		Scene(const Scene&) = delete;
 		Scene& operator=(const Scene&) = delete;
@@ -27,5 +29,16 @@ namespace Enternity
 	private:
 		entt::registry m_registry;
 		std::unordered_map<std::string, Entity> m_entities;
+	//Scene basis
+	public:
+		inline Camera3D* getCamera3D();
+		void setFrustum(const Frustum& frustum);
+	private:
+		Camera3D* m_camera3D{ nullptr };
 	};
+
+	inline Camera3D* Scene::getCamera3D()
+	{
+		return m_camera3D;
+	}
 }

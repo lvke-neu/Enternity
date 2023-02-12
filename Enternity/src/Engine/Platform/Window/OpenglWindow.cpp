@@ -2,6 +2,8 @@
 #include "Core/Log/Log.h"
 #include "Core/Basic/Macro.h"
 #include "Function/Render/RenderSystem.h"
+#include "Function/Scene/SceneManager.h"
+#include "Function/Scene/Camera3D.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -70,6 +72,7 @@ namespace Enternity
 
 	void OpenglWindow::Resize(GLFWwindow* window, int width, int height)
 	{
+		SceneManager::GetInstance().setFrustum(Frustum{ PI / 6.0f, static_cast<float>(width) / height, 1.0f, 1000.0f });
 		RenderSystem::GetInstance().setViewPort(width, height);
 		LOG_INFO("Resize: width = {0}, height = {1}", width, height);
 	}

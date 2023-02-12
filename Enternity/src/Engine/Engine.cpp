@@ -49,8 +49,7 @@ namespace Enternity
 
 	void Engine::run()
 	{	
-		ENTERNITY_ASSERT(m_window != nullptr);
-		ENTERNITY_ASSERT(m_timer != nullptr);
+		ENTERNITY_ASSERT(m_window != nullptr && m_timer != nullptr);
 
 		m_timer->Reset();
 
