@@ -35,7 +35,8 @@ namespace Enternity
 	Matrix4x4f Camera3D::getViewMatrix()
 	{
 		Matrix4x4f transMat4 = Matrix4x4f::Translate(m_position.x, m_position.y, m_position.z);
-		Matrix4x4f rotMat4 = Matrix4x4f::Rotate(m_rotation.x, m_rotation.y, m_rotation.z);
+		//degree to radian
+		Matrix4x4f rotMat4 = Matrix4x4f::Rotate(Math::Radian(m_rotation.x), Math::Radian(m_rotation.y), Math::Radian(m_rotation.z));
 		return Matrix4x4f::Inverse(transMat4 * rotMat4);
 	}
 

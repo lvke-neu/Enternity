@@ -24,7 +24,7 @@ namespace Enternity
 	
 		//some static functions
 		static Matrix4x4f Translate(float transX, float transY, float transZ);
-		//Rotate around x, y, z, the unit is the angle
+		//Rotate around x, y, z, the unit is the radian
 		static Matrix4x4f Rotate(float rotateX, float rotateY, float rotateZ);
 		static Matrix4x4f Scale(float scaleX, float scaleY, float scaleZ);
 		static Matrix4x4f Perspective(float radian, float aspect, float nearZ, float farZ);
