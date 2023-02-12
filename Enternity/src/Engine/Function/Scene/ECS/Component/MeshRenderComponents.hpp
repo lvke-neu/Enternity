@@ -46,14 +46,29 @@ namespace Enternity
 		MaterialComponent() = default;
 		MaterialComponent(const MaterialComponent&) = default;
 
-		std::string m_vsShader{ "" };
-		std::string m_psShader{ "" };
+		std::string m_vsShaderFile{ "" };
+		std::string m_psShaderFile{ "" };
 		Shader* m_shader{ nullptr };
 
-		void syncLoad()
+		void loadImpl()
 		{
-
+			if (m_vsBlob && m_psBlob)
+			{
+				unLoad();
+				m_shader = RenderWrapper::Create<Shader>();
+				m_shader->init(m_vsBlob, m_psBlob);
+				SAFE_DELETE_SET_NULL(m_vsBlob);
+				SAFE_DELETE_SET_NULL(m_psBlob);
+			}
 		}
+
+		void unLoad()
+		{
+			RenderWrapper::Destroy(m_shader);
+		}
+	public:
+		Blob* m_vsBlob{ nullptr };
+		Blob* m_psBlob{ nullptr };
 	};
 
 	struct AsynLoadTestComponent
