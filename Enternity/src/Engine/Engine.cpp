@@ -25,6 +25,9 @@ namespace Enternity
 		openglWindowDesc.Title = "Enternity Engine v0.004";
 		m_window = new OpenglWindow(openglWindowDesc);
 
+		//SceneManager init
+		SceneManager::GetInstance().initialize();
+
 		//RenderSystem init
 		RenderSystem::GetInstance().initialize();
 
@@ -39,6 +42,7 @@ namespace Enternity
 
 	void Engine::uninitialize()
 	{
+		SceneManager::GetInstance().uninitialize();
 		RenderSystem::GetInstance().uninitialize();
 		UiRenderSystem::GetInstance().uninitialize();
 		SAFE_DELETE_SET_NULL(m_window);

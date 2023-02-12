@@ -63,10 +63,10 @@ namespace Enternity
 		}
 
 		template<typename T>
-		T& getComponent() const
+		T& getComponent() 
 		{
 			ENTERNITY_ASSERT(m_registry != nullptr);
-			return m_registry->get()<T>(m_enttId);
+			return m_registry->get<T>(m_enttId);
 		}
 	};
 }

@@ -14,6 +14,7 @@ namespace Enternity
 	class Camera3D;
 	class Scene
 	{
+		friend class RenderSystem;
 	public:
 		Scene();
 		~Scene();
@@ -23,21 +24,13 @@ namespace Enternity
 		Entity& createEntity();
 		void deleteEntity(const std::string& uuid);
 		void deleteAll();
-
-		entt::registry* getRegistry();
 	private:
 		entt::registry m_registry;
 		std::unordered_map<std::string, Entity> m_entities;
 	//Scene basis
 	public:
-		inline Camera3D* getCamera3D();
 		void setFrustum(const Frustum& frustum);
 	private:
 		Camera3D* m_camera3D{ nullptr };
 	};
-
-	inline Camera3D* Scene::getCamera3D()
-	{
-		return m_camera3D;
-	}
 }

@@ -2,6 +2,7 @@
 #include "Core/Basic/Macro.h"
 #include "Core/Log/Log.h"
 #include "Camera3D.h"
+#include "ECS/Component/TagComponent.h"
 
 namespace Enternity
 {
@@ -19,6 +20,7 @@ namespace Enternity
 	Entity& Scene::createEntity()
 	{
 		Entity entity(&m_registry);
+		entity.addComponent<TagComponent>();
 		m_entities[entity.getUUID()] = entity;
 		return m_entities[entity.getUUID()];
 	}
@@ -42,11 +44,6 @@ namespace Enternity
 			m_registry.destroy(entity.second.getEnttId());
 		}
 		m_entities.clear();
-	}
-
-	entt::registry* Scene::getRegistry()
-	{
-		return &m_registry;
 	}
 
 	void Scene::setFrustum(const Frustum& frustum)

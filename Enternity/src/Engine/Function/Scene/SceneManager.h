@@ -15,6 +15,9 @@ namespace Enternity
 		SINGLETON(SceneManager);
 		PRIVATE(SceneManager);
 	public:
+		void initialize();
+		void uninitialize();
+	public:
 		void tick();
 		void setFrustum(const Frustum& frustum);
 	private:

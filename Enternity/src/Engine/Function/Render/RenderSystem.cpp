@@ -2,6 +2,7 @@
 #include "Core/Math/Vector4.h"
 #include "Core/Log/Log.h"
 #include "Function/Scene/Scene.h"
+#include "Function/Scene/ECS/Component/TagComponent.h"
 #include <glad/glad.h>
 
 namespace Enternity
@@ -35,18 +36,18 @@ namespace Enternity
 	void RenderSystem::tick()
 	{
 		clear(Vector4f::DARK_COLOR);
-		realDraw();
-	}
-
-	void RenderSystem::realDraw()
-	{
 		while (!m_drawcalls.empty())
 		{
 			Scene* scene = m_drawcalls.front();
 			m_drawcalls.pop();
-			if(!scene)
-				continue;
+			if (scene)
+				drawScene(scene);
 		}
 	}
 
+	void RenderSystem::drawScene(Scene* scene)
+	{
+		auto& entity = scene->m_entities.begin()->second;
+		LOG_INFO("{0}", entity.getComponent<TagComponent>().m_Tag);
+	}
 }

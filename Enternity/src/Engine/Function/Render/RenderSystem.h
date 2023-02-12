@@ -25,7 +25,7 @@ namespace Enternity
 		void drawCall(Scene* scene);
 		void tick();
 	private:
-		void realDraw();
+		void drawScene(Scene* scene);
 	private:
 		std::queue<Scene*> m_drawcalls;
 	};
