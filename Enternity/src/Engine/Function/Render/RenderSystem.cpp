@@ -49,11 +49,24 @@ namespace Enternity
 	{
 		for (auto& entity : scene->m_entities)
 		{
-			auto& comp = entity.second.getComponent<MaterialComponent>();
+			auto& comp = entity.second.getComponent<ShaderComponent>();
 			if (comp.m_shader)
 			{
-				comp.m_shader->bind();
-				comp.m_shader->setMat4("test1", Matrix4x4f::IDENTITY, false);
+				static int index = 0;
+				if (index++ == 0)
+				{
+					LOG_TRACE("shader load finished");
+				}
+			}
+
+			auto& comp2 = entity.second.getComponent<MaterialComponent>();
+			if (comp2.m_texture2D)
+			{
+				static int index2 = 0;
+				if (index2++ == 0)
+				{
+					LOG_TRACE("texture load finished");
+				}
 			}
 		}
 	}

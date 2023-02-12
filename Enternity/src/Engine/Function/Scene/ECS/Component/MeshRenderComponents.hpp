@@ -41,10 +41,10 @@ namespace Enternity
 		IndexBuffer* m_Indexbuffer{ nullptr };
 	};
 
-	struct MaterialComponent
+	struct ShaderComponent
 	{
-		MaterialComponent() = default;
-		MaterialComponent(const MaterialComponent&) = default;
+		ShaderComponent() = default;
+		ShaderComponent(const ShaderComponent&) = default;
 
 		std::string m_vsShaderFile{ "" };
 		std::string m_psShaderFile{ "" };
@@ -69,6 +69,34 @@ namespace Enternity
 	public:
 		Blob* m_vsBlob{ nullptr };
 		Blob* m_psBlob{ nullptr };
+	};
+
+
+	struct MaterialComponent
+	{
+		MaterialComponent() = default;
+		MaterialComponent(const MaterialComponent&) = default;
+
+		std::string m_textureFile{ "" };
+		Texture2D* m_texture2D{ nullptr };
+
+		void loadImpl()
+		{
+			if (m_textureBlob)
+			{
+				unLoad();
+				m_texture2D = RenderWrapper::Create<Texture2D>();
+				m_texture2D->init(m_textureBlob);
+				SAFE_DELETE_SET_NULL(m_textureBlob);
+			}
+		}
+
+		void unLoad()
+		{
+			RenderWrapper::Destroy(m_texture2D);
+		}
+	public:
+		Blob* m_textureBlob = nullptr;
 	};
 
 	struct AsynLoadTestComponent
