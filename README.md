@@ -88,4 +88,6 @@ TODO: 1、粒子系统，地形系统（曲面细分，LOD）
 
 RenderSystem: 接受drawcall命令放在队列中， 在tick的时候从队列中取出drawcall命令执行
 
-	
+!!!!写多线程一定注意变量的生命周期:
+	例如void BlobLoader::loadTextureImpl(Blob*& blob, const std::string& filePath, int desired_channels /*= 0*/)
+	int desired_channels 为局部变量, 直接使用可能导致问题（形参可能被释放）

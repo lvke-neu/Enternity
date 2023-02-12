@@ -7,44 +7,55 @@
 
 namespace Enternity
 {
-	void BlobLoader::load(Blob*& blob, const std::string& filePath, AssetType assetType, LoadType loadType)
+	static int s_desired_channels = 0;
+
+	void BlobLoader::loadGeneral(Blob*& blob, const std::string& filePath, LoadType loadType)
 	{
-		switch (assetType)
+		if (loadType == LoadType::Sync)
+			loadGeneralImpl(blob, filePath);
+		else if (loadType == LoadType::Asyn)
+			ThreadPool::GetInstance().commitTask(
+				[&]()
+				{
+					loadGeneralImpl(blob, filePath);
+				});
+		else
+			blob = nullptr;
+	}
+
+	void BlobLoader::loadTexture(Blob*& blob, const std::string& filePath, LoadType loadType, int desired_channels /*= 0*/)
+	{
+		s_desired_channels = desired_channels;
+		if (loadType == LoadType::Sync)
+			loadTextureImpl(blob, filePath);
+		else if (loadType == LoadType::Asyn)
+			ThreadPool::GetInstance().commitTask(
+				[&]()
+				{
+					loadTextureImpl(blob, filePath);
+				});
+		else
+			blob = nullptr;
+	}
+
+	void BlobLoader::loadMesh(Blob*& verticesBlob, Blob*& indicesBlob, const std::string& filePath, LoadType loadType)
+	{
+		if (loadType == LoadType::Sync)
+			loadMeshImpl(verticesBlob, indicesBlob, filePath);
+		else if (loadType == LoadType::Asyn)
+			ThreadPool::GetInstance().commitTask(
+				[&]()
+				{
+					loadMeshImpl(verticesBlob, indicesBlob, filePath);
+				});
+		else
 		{
-		case AssetType::General:
-		{
-			if (loadType == LoadType::Sync)
-				loadGeneral(blob, filePath);
-			else if(loadType == LoadType::Asyn)
-				ThreadPool::GetInstance().commitTask(
-					[&]() 
-					{
-						loadGeneral(blob, filePath);
-					});
-		}
-			break;
-		case AssetType::Model:
-			break;
-		case AssetType::Texture:
-		{
-			if (loadType == LoadType::Sync)
-				loadTexture(blob, filePath);
-			else if (loadType == LoadType::Asyn)
-				ThreadPool::GetInstance().commitTask(
-					[&]()
-					{
-						loadTexture(blob, filePath);
-					});
-		}
-			break;
-		default:
-			LOG_ERROR("Unsupported Asset Type");
-			ENTERNITY_ASSERT(false);
-			break;	
+			verticesBlob = nullptr;
+			indicesBlob = nullptr;
 		}
 	}
 
-	void BlobLoader::loadGeneral(Blob*& blob, const std::string& filePath)
+	void BlobLoader::loadGeneralImpl(Blob*& blob, const std::string& filePath)
 	{
 		std::ifstream ifs(filePath, std::ios::in | std::ios::binary);
 		ENTERNITY_ASSERT(ifs.is_open());
@@ -59,7 +70,7 @@ namespace Enternity
 		ifs.close();
 	}
 
-	void BlobLoader::loadTexture(Blob*& blob, const std::string& filePath, int desired_channels)
+	void BlobLoader::loadTextureImpl(Blob*& blob, const std::string& filePath)
 	{
 		unsigned char* tmpTexture;
 		int width;
@@ -67,7 +78,7 @@ namespace Enternity
 		int channels;
 
 		stbi_set_flip_vertically_on_load(1);
-		tmpTexture = stbi_load(filePath.c_str(), &width, &height, &channels, desired_channels);
+		tmpTexture = stbi_load(filePath.c_str(), &width, &height, &channels, s_desired_channels);
 
 		blob = new Blob(width * height * channels);
 		memcpy_s(blob->getData(), blob->getLength(), tmpTexture, blob->getLength());
@@ -76,5 +87,10 @@ namespace Enternity
 		blob->m_channels = channels;
 
 		stbi_image_free(tmpTexture);
+	}
+
+	void BlobLoader::loadMeshImpl(Blob*& verticesBlob, Blob*& indicesBlob, const std::string& filePath)
+	{
+
 	}
 }

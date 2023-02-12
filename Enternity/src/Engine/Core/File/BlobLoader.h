@@ -10,13 +10,6 @@ BlobLoader
 
 namespace Enternity
 {
-	enum class AssetType
-	{
-		General,
-		Model,
-		Texture
-	};
-
 	enum class LoadType
 	{
 		Sync,
@@ -27,9 +20,12 @@ namespace Enternity
 	class BlobLoader
 	{
 	public:
-		void load(Blob*& blob, const std::string& filePath, AssetType assetType, LoadType loadType);
+		void loadGeneral(Blob*& blob, const std::string& filePath, LoadType loadType);
+		void loadTexture(Blob*& blob, const std::string& filePath, LoadType loadType, int desired_channels = 0);
+		void loadMesh(Blob*& verticesBlob, Blob*& indicesBlob, const std::string& filePath, LoadType loadType);
 	private:
-		void loadGeneral(Blob*& blob, const std::string& filePath);
-		void loadTexture(Blob*& blob, const std::string& filePath, int desired_channels = 0);
+		void loadGeneralImpl(Blob*& blob, const std::string& filePath);
+		void loadTextureImpl(Blob*& blob, const std::string& filePath);
+		void loadMeshImpl(Blob*& verticesBlob, Blob*& indicesBlob, const std::string& filePath);
 	};
 }

@@ -12,15 +12,13 @@ namespace Enternity
 		auto& comp = entity.addComponent<ShaderComponent>();
 		comp.m_vsShaderFile = "assets/shaders/Phong.vert";
 		comp.m_psShaderFile = "assets/shaders/Phong.frag";
-		BlobLoader blobLoader1;
-		blobLoader1.load(comp.m_vsBlob, comp.m_vsShaderFile, AssetType::General, LoadType::Asyn);
-		BlobLoader blobLoader2;
-		blobLoader2.load(comp.m_psBlob, comp.m_psShaderFile, AssetType::General, LoadType::Asyn);
-
 		auto& comp2 = entity.addComponent<MaterialComponent>();
 		comp2.m_textureFile = "assets/textures/box_diffuse.png";
-		BlobLoader blobLoader3;
-		blobLoader3.load(comp2.m_textureBlob, comp2.m_textureFile, AssetType::Texture, LoadType::Asyn);
+
+		BlobLoader blobLoader;
+		blobLoader.loadGeneral(comp.m_vsBlob, comp.m_vsShaderFile, LoadType::Asyn);
+		blobLoader.loadGeneral(comp.m_psBlob, comp.m_psShaderFile, LoadType::Asyn);
+		blobLoader.loadTexture(comp2.m_textureBlob, comp2.m_textureFile, LoadType::Asyn);
 
 		LOG_INFO("SceneManager initialization");
 	}
