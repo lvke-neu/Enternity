@@ -91,3 +91,7 @@ RenderSystem: 接受drawcall命令放在队列中， 在tick的时候从队列�
 !!!!写多线程一定注意变量的生命周期:
 	例如void BlobLoader::loadTextureImpl(Blob*& blob, const std::string& filePath, int desired_channels /*= 0*/)
 	int desired_channels 为局部变量, 直接使用可能导致问题（形参可能被释放）
+多线程加载模型已经基本实现:
+	在之前的版本中，模型都是同步加载的，遇到比较复杂的模型的时候，会卡很长一段时间，
+	现在可以异步加载模型，当加载完成后绘制到屏幕上（frambuffer）
+	实现思路：异步数据加载线程加载数据，主线程每一帧会判断是否加载完成，如果加载完成则进行绘制
