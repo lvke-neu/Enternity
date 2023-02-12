@@ -1,7 +1,7 @@
 #include "SceneManager.h"
 #include "Function/Scene/ECS/Component/MeshRenderComponent.hpp"
 #include "Function/Render/RenderSystem.h"
-#include "Core/ThreadPool/ThreadPool.h"
+
 
 namespace Enternity
 {
@@ -10,14 +10,9 @@ namespace Enternity
 		auto& entity = m_scene.createEntity();
 		auto& comp = entity.addComponent<AsynLoadTestComponent>();
 
-		ThreadPool::GetInstance().commitTask(
-			[&]() 
-			{
-				BlobLoader blobLoader;
-			
-				Sleep(5000);
-				comp.m_blob = blobLoader.load(comp.m_texture, AssetType::Texture);
-			});
+		BlobLoader blobLoader;
+		blobLoader.load(comp.m_blob, comp.m_texture, AssetType::Texture, LoadType::Asyn);
+		
 
 		LOG_INFO("SceneManager initialization");
 	}

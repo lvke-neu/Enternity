@@ -17,13 +17,19 @@ namespace Enternity
 		Texture
 	};
 
+	enum class LoadType
+	{
+		Sync,
+		Asyn
+	};
+
 	class Blob;
 	class BlobLoader
 	{
 	public:
-		Blob* load(const std::string& filePath, AssetType assetType);
+		void load(Blob*& blob, const std::string& filePath, AssetType assetType, LoadType loadType);
 	private:
-		Blob* loadGeneral(const std::string& filePath);
-		Blob* loadTexture(const std::string& filePath, int desired_channels = 0);
+		void loadGeneral(Blob*& blob, const std::string& filePath);
+		void loadTexture(Blob*& blob, const std::string& filePath, int desired_channels = 0);
 	};
 }
