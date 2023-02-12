@@ -3,6 +3,7 @@
 #include "Core/Math/Vector3.h"
 #include "Core/Math/Matrix4x4.h"
 #include "Core/File/BlobLoader.h"
+#include "Core/File/Blob.h"
 #include "Function/Render/Wrapper/RenderWrapper.h"
 
 namespace Enternity
@@ -64,15 +65,19 @@ namespace Enternity
 		std::string m_texture = "assets/textures/skybox.jpeg";
 		Texture2D* m_texture2D{ nullptr };
 
-		void load(Blob* blob)
+		void load()
 		{
+			unLoad();
 			m_texture2D = RenderWrapper::Create<Texture2D>();
-			m_texture2D->init(blob);
+			m_texture2D->init(m_blob);
+			SAFE_DELETE_SET_NULL(m_blob);
 		}
 
 		void unLoad()
 		{
 			RenderWrapper::Destroy(m_texture2D);
 		}
+	public:
+		Blob* m_blob = nullptr;
 	};
 }

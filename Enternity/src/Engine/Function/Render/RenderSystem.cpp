@@ -2,7 +2,6 @@
 #include "Core/Math/Vector4.h"
 #include "Core/Log/Log.h"
 #include "Function/Scene/Scene.h"
-#include "Function/Scene/ECS/Component/TagComponent.hpp"
 #include <glad/glad.h>
 
 namespace Enternity
@@ -47,7 +46,6 @@ namespace Enternity
 
 	void RenderSystem::drawScene(Scene* scene)
 	{
-		auto& entity = scene->m_entities.begin()->second;
-		LOG_INFO("{0}", entity.getComponent<TagComponent>().m_Tag);
+
 	}
 }

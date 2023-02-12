@@ -33,7 +33,8 @@ namespace Enternity
 	template<typename T>
 	void RenderWrapper::Destroy(T*& t)
 	{
-		t->Destroy();
+		if(t)
+			t->Destroy();
 		SAFE_DELETE_SET_NULL(t);
 	}
 }

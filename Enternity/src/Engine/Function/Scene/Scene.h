@@ -15,6 +15,7 @@ namespace Enternity
 	class Scene
 	{
 		friend class RenderSystem;
+		friend class SceneManager;
 	public:
 		Scene();
 		~Scene();
