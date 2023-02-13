@@ -37,16 +37,33 @@ namespace Enternity
 		LOG_INFO("SceneManager uninitialization");
 	}
 
+	void SceneManager::loadResource()
+	{
+		auto viewShaderComponent = m_scene.m_registry.view<ShaderComponent>();
+		for (auto entity : viewShaderComponent)
+		{
+			auto& comp = viewShaderComponent.get<ShaderComponent>(entity);
+			comp.loadImpl();
+		}
+
+		auto viewMaterialComponent = m_scene.m_registry.view<MaterialComponent>();
+		for (auto entity : viewMaterialComponent)
+		{
+			auto& comp = viewMaterialComponent.get<MaterialComponent>(entity);
+			comp.loadImpl();
+		}
+		
+		auto viewMeshComponent = m_scene.m_registry.view<MeshComponent>();
+		for (auto entity : viewMeshComponent)
+		{
+			auto& comp = viewMeshComponent.get<MeshComponent>(entity);
+			comp.loadImpl();
+		}
+	}
+
 	void SceneManager::tick()
 	{
-		auto& entity = m_scene.m_entities.begin()->second;
-		
-		auto& comp = entity.getComponent<ShaderComponent>();
-		auto& comp2 = entity.getComponent<MaterialComponent>();
-		auto& comp3 = entity.getComponent<MeshComponent>();
-		comp.loadImpl();
-		comp2.loadImpl();
-		comp3.loadImpl();
+		loadResource();
 
 		RenderSystem::GetInstance().drawCall(&m_scene);
 	}

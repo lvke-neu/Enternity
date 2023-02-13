@@ -48,42 +48,26 @@ namespace Enternity
 
 	void RenderSystem::drawScene(Scene* scene)
 	{
-		for (auto& entity : scene->m_entities)
+		const auto& view = scene->m_registry.view<MaterialComponent, ShaderComponent, MeshComponent>();
+		for (auto& entity : view)
 		{
-			auto& comp = entity.second.getComponent<ShaderComponent>();
-			if (comp.m_shader)
+			auto [matc,shaderc,meshc] = view.get<MaterialComponent, ShaderComponent, MeshComponent>(entity);
+			if (shaderc.m_shader)
 			{
-				static int index = 0;
-				if (index++ == 0)
-				{
-					LOG_TRACE("shader load finished");
-				}
-				comp.m_shader->bind();
+				shaderc.m_shader->bind();
 				Matrix4x4f vp = scene->m_camera3D->getProjMatrix() * scene->m_camera3D->getViewMatrix();
-				comp.m_shader->setMat4("vp", vp, true);
+				shaderc.m_shader->setMat4("vp", vp, true);
 			}
 
-			auto& comp2 = entity.second.getComponent<MaterialComponent>();
-			if (comp2.m_texture2D)
+			if (matc.m_texture2D)
 			{
-				static int index2 = 0;
-				if (index2++ == 0)
-				{
-					LOG_TRACE("texture load finished");
-				}
 			}
 
-			auto& comp3 = entity.second.getComponent<MeshComponent>();
-			if (comp3.m_vertexArray && comp3.m_vertexbuffer && comp3.m_indexbuffer)
+			if (meshc.m_vertexArray && meshc.m_vertexbuffer && meshc.m_indexbuffer)
 			{
-				static int index3 = 0;
-				if (index3++ == 0)
-				{
-					LOG_TRACE("mesh load finished");
-				}
-				comp3.m_vertexArray->bind();
-				comp3.m_indexbuffer->bind();
-				CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, comp3.m_indexbuffer->getCount(), GL_UNSIGNED_INT, (void*)0));
+				meshc.m_vertexArray->bind();
+				meshc.m_indexbuffer->bind();
+				CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, meshc.m_indexbuffer->getCount(), GL_UNSIGNED_INT, (void*)0));
 			}
 		}
 	}

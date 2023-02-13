@@ -21,6 +21,9 @@ namespace Enternity
 		void tick();
 		void setFrustum(const Frustum& frustum);
 	private:
+		//loadImpl
+		void loadResource();
+	private:
 		//TODO:remove, just for test one scene
 		Scene m_scene;
 	};
