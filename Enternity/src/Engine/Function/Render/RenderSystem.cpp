@@ -2,7 +2,7 @@
 #include "Core/Math/Vector4.h"
 #include "Core/Log/Log.h"
 #include "Function/Scene/Scene.h"
-#include "Function/Scene/Camera3D.h"
+#include "Function/Scene/Camera/Camera3D.h"
 #include "Function/Scene/ECS/Component/MeshRenderComponents.hpp"
 #include <glad/glad.h>
 
@@ -51,7 +51,7 @@ namespace Enternity
 		const auto& view = scene->m_registry.view<MaterialComponent, ShaderComponent, MeshComponent>();
 		for (auto& entity : view)
 		{
-			auto [matc,shaderc,meshc] = view.get<MaterialComponent, ShaderComponent, MeshComponent>(entity);
+			const auto& [matc,shaderc,meshc] = view.get<MaterialComponent, ShaderComponent, MeshComponent>(entity);
 			if (shaderc.m_shader)
 			{
 				shaderc.m_shader->bind();

@@ -108,7 +108,7 @@
     <ClCompile Include="src\Engine\Function\Render\Wrapper\Texture.cpp" />
     <ClCompile Include="src\Engine\Function\Render\Wrapper\VertexArray.cpp" />
     <ClCompile Include="src\Engine\Function\Render\Wrapper\VertexBuffer.cpp" />
-    <ClCompile Include="src\Engine\Function\Scene\Camera3D.cpp" />
+    <ClCompile Include="src\Engine\Function\Scene\Camera\Camera3D.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\ECS\Entity\Entity.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\Scene.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\SceneManager.cpp" />
@@ -145,7 +145,7 @@
     <ClInclude Include="src\Engine\Core\Math\Math.h" />
     <ClInclude Include="src\Engine\Function\Render\Wrapper\Shader.h" />
     <ClInclude Include="src\Engine\Function\Render\Wrapper\Texture.h" />
-    <ClInclude Include="src\Engine\Function\Scene\Camera3D.h" />
+    <ClInclude Include="src\Engine\Function\Scene\Camera\Camera3D.h" />
     <ClInclude Include="src\Engine\Function\Scene\ECS\Component\TagComponent.hpp" />
     <ClInclude Include="src\Engine\Function\Scene\ECS\Component\MeshRenderComponents.hpp" />
     <ClInclude Include="src\Engine\Function\Scene\ECS\Entity\Entity.h" />

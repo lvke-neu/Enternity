@@ -3,7 +3,7 @@
 #include "Core/Basic/Macro.h"
 #include "Function/Render/RenderSystem.h"
 #include "Function/Scene/SceneManager.h"
-#include "Function/Scene/Camera3D.h"
+#include "Function/Scene/Camera/Camera3D.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 

@@ -123,10 +123,10 @@
     <ClCompile Include="src\Engine\Core\Math\Math.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Function\Scene\Camera3D.cpp">
+    <ClCompile Include="src\Engine\Function\Scene\ECS\Entity\Entity.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Function\Scene\ECS\Entity\Entity.cpp">
+    <ClCompile Include="src\Engine\Function\Scene\Camera\Camera3D.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -263,9 +263,6 @@
     <ClInclude Include="src\Engine\Core\Math\Math.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Function\Scene\Camera3D.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\Function\Scene\ECS\Entity\Entity.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -273,6 +270,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Function\Scene\ECS\Component\MeshRenderComponents.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Function\Scene\Camera\Camera3D.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

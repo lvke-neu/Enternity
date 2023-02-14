@@ -1,7 +1,7 @@
 #include "Scene.h"
 #include "Core/Basic/Macro.h"
 #include "Core/Log/Log.h"
-#include "Camera3D.h"
+#include "Camera/Camera3D.h"
 #include "ECS/Component/TagComponent.hpp"
 
 namespace Enternity
