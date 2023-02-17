@@ -6,12 +6,11 @@ Scene
 ****************************************************************************************/
 #pragma once
 #include "ECS/Entity/Entity.h"
+#include "Camera/CameraController.h"
 #include <unordered_map>
 
 namespace Enternity
 {
-	struct Frustum;
-	class Camera3D;
 	class Scene
 	{
 		friend class RenderSystem;
@@ -22,16 +21,18 @@ namespace Enternity
 		Scene(const Scene&) = delete;
 		Scene& operator=(const Scene&) = delete;
 	public:
+		void tick();
 		Entity& createEntity();
 		void deleteEntity(const std::string& uuid);
 		void deleteAll();
+
+	private:
+		void loadResource();
 	private:
 		entt::registry m_registry;
 		std::unordered_map<std::string, Entity> m_entities;
-	//Scene basis
-	public:
-		void setFrustum(const Frustum& frustum);
-	private:
+
 		Camera3D* m_camera3D{ nullptr };
+		CameraController m_cameraController;
 	};
 }

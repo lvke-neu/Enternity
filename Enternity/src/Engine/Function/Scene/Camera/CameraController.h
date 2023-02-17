@@ -1,25 +1,25 @@
 /***************************************************************************************
 Author: lvke
-Date:2023/2/11 14:14
+Date:2023/2/17 22:45
 Description:
-SceneManager
+Camera Controller
 ****************************************************************************************/
 #pragma once
-#include "Scene.h"
 
 namespace Enternity
 {
-	class SceneManager
+	class Camera3D;
+	class IEvent;
+	class CameraController
 	{
-		SINGLETON(SceneManager);
-		PRIVATE(SceneManager);
 	public:
-		void initialize();
-		void uninitialize();
-	public:
-		void tick();
+		CameraController();
+		~CameraController();
+
+		void attachCamera3D(Camera3D* camera3D);
 	private:
-		//TODO:remove, just for test one scene
-		Scene m_scene;
+		void onResize(IEvent* event);
+	private:
+		Camera3D* m_camera3D{ nullptr };
 	};
 }

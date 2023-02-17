@@ -1,9 +1,7 @@
 #include "OpenglWindow.h"
 #include "Core/Log/Log.h"
-#include "Core/Basic/Macro.h"
-#include "Function/Render/RenderSystem.h"
-#include "Function/Scene/SceneManager.h"
-#include "Function/Scene/Camera/Camera3D.h"
+#include "Core/Event/WindowResizeEvent.h"
+#include "Core/Event/EventManager.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -46,8 +44,6 @@ namespace Enternity
 		LOG_INFO((char*)glGetString(GL_VERSION));
 		LOG_INFO((char*)glGetString(GL_VENDOR));
 		LOG_INFO((char*)glGetString(GL_RENDERER));
-
-		Resize(m_context, desc.Width, desc.Height);
 	}
 
 	OpenglWindow::~OpenglWindow()
@@ -72,8 +68,7 @@ namespace Enternity
 
 	void OpenglWindow::Resize(GLFWwindow* window, int width, int height)
 	{
-		SceneManager::GetInstance().setFrustum(Frustum{ PI / 6.0f, static_cast<float>(width) / height, 1.0f, 1000.0f });
-		RenderSystem::GetInstance().setViewPort(width, height);
-		LOG_INFO("Resize: width = {0}, height = {1}", width, height);
+		WindowResizeEvent windowResizeEvent(width, height);
+		EventManager::GetInstance().dispatch(&windowResizeEvent);
 	}
 }

@@ -1,14 +1,11 @@
 #include "Engine.h"
-#include "Core/Log/Log.h"
 #include "Core/Timer/ExecutionTimer.h"
 #include "Core/Timer/FrameTimer.h"
-#include "Core/Math/Vector4.h"
 #include "Core/ThreadPool/ThreadPool.h"
 #include "Platform/Window/OpenglWindow.h"
 #include "Function/Render/RenderSystem.h"
 #include "Function/Ui/UiRenderSystem.h"
 #include "Function/Scene/SceneManager.h"
-
 
 namespace Enternity
 {
@@ -41,6 +38,9 @@ namespace Enternity
 
 		//ThreadPool init
 		ThreadPool::GetInstance().initialize(8);
+
+		//resize the window in the begin
+		OpenglWindow::Resize(m_window->getContext(), openglWindowDesc.Width, openglWindowDesc.Height);
 
 		LOG_INFO("Engine initialization");
 	}

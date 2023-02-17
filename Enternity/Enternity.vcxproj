@@ -90,6 +90,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Core\Basic\UUID.cpp" />
+    <ClCompile Include="src\Engine\Core\Event\EventManager.cpp" />
     <ClCompile Include="src\Engine\Core\File\Blob.cpp" />
     <ClCompile Include="src\Engine\Core\File\BlobLoader.cpp" />
     <ClCompile Include="src\Engine\Core\File\stb_image.cpp" />
@@ -109,6 +110,7 @@
     <ClCompile Include="src\Engine\Function\Render\Wrapper\VertexArray.cpp" />
     <ClCompile Include="src\Engine\Function\Render\Wrapper\VertexBuffer.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\Camera\Camera3D.cpp" />
+    <ClCompile Include="src\Engine\Function\Scene\Camera\CameraController.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\ECS\Entity\Entity.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\Scene.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\SceneManager.cpp" />
@@ -139,6 +141,9 @@
   <ItemGroup>
     <ClInclude Include="src\Engine\Core\Basic\UUID.h" />
     <ClInclude Include="src\Engine\Core\Basic\Macro.h" />
+    <ClInclude Include="src\Engine\Core\Event\Event.h" />
+    <ClInclude Include="src\Engine\Core\Event\EventManager.h" />
+    <ClInclude Include="src\Engine\Core\Event\WindowResizeEvent.h" />
     <ClInclude Include="src\Engine\Core\File\Blob.h" />
     <ClInclude Include="src\Engine\Core\File\BlobLoader.h" />
     <ClInclude Include="src\Engine\Core\File\stb_image.h" />
@@ -146,6 +151,7 @@
     <ClInclude Include="src\Engine\Function\Render\Wrapper\Shader.h" />
     <ClInclude Include="src\Engine\Function\Render\Wrapper\Texture.h" />
     <ClInclude Include="src\Engine\Function\Scene\Camera\Camera3D.h" />
+    <ClInclude Include="src\Engine\Function\Scene\Camera\CameraController.h" />
     <ClInclude Include="src\Engine\Function\Scene\ECS\Component\TagComponent.hpp" />
     <ClInclude Include="src\Engine\Function\Scene\ECS\Component\MeshRenderComponents.hpp" />
     <ClInclude Include="src\Engine\Function\Scene\ECS\Entity\Entity.h" />

@@ -1,6 +1,7 @@
 #include "RenderSystem.h"
 #include "Core/Math/Vector4.h"
-#include "Core/Log/Log.h"
+#include "Core/Event/WindowResizeEvent.h"
+#include "Core/Event/EventManager.h"
 #include "Function/Scene/Scene.h"
 #include "Function/Scene/Camera/Camera3D.h"
 #include "Function/Scene/ECS/Component/MeshRenderComponents.hpp"
@@ -10,17 +11,14 @@ namespace Enternity
 {
 	void RenderSystem::initialize()
 	{
+		EventManager::GetInstance().registry(EventType::WindowResize, BIND_FUNC(RenderSystem::onResize));
 		LOG_INFO("RenderSystem initialization");
 	}
 
 	void RenderSystem::uninitialize()
 	{
+		EventManager::GetInstance().unRegistry(EventType::WindowResize, BIND_FUNC(RenderSystem::onResize));
 		LOG_INFO("RenderSystem uninitialization");
-	}
-
-	void RenderSystem::setViewPort(unsigned int width, unsigned int height)
-	{
-		glViewport(0, 0, width, height);
 	}
 
 	void RenderSystem::clear(const Vector4f& vec4)
@@ -70,5 +68,12 @@ namespace Enternity
 				CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, meshc.m_indexbuffer->getCount(), GL_UNSIGNED_INT, (void*)0));
 			}
 		}
+	}
+
+	void RenderSystem::onResize(IEvent* event)
+	{
+		ENTERNITY_ASSERT(event != nullptr);
+
+		CHECK_GL_CALL(glViewport(0, 0, ((WindowResizeEvent*)event)->getWidth(), ((WindowResizeEvent*)event)->getHeight()));
 	}
 }

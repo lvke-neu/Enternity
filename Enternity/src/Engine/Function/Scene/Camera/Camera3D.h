@@ -37,6 +37,6 @@ namespace Enternity
 		Vector3f m_position = Vector3f::ZERO;
 		//degree
 		Vector3f m_rotation = Vector3f::ZERO;
-		Frustum m_frustum{ PI / 6.0f, 2.0f, 1.0f, 1000.0f };
+		Frustum m_frustum{ PI / 6.0f, 1.0f, 1.0f, 1000.0f };
 	};
 }

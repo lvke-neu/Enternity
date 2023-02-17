@@ -10,6 +10,7 @@ RenderSystem
 
 namespace Enternity
 {
+	class IEvent;
 	class Scene;
 	struct Vector4f;
 	class RenderSystem
@@ -20,12 +21,12 @@ namespace Enternity
 		void initialize();
 		void uninitialize();
 	public:
-		void setViewPort(unsigned int width, unsigned int height);
 		void clear(const Vector4f& vec4);
 		void drawCall(Scene* scene);
 		void tick();
 	private:
 		void drawScene(Scene* scene);
+		void onResize(IEvent* event);
 	private:
 		std::queue<Scene*> m_drawcalls;
 	};

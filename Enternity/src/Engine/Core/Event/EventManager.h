@@ -17,6 +17,8 @@ namespace Enternity
 		SINGLETON(EventManager);
 		PRIVATE(EventManager);
 	public:
+		void registry(EventType eventType, std::function<void(IEvent*)> func);
+		void unRegistry(EventType eventType, std::function<void(IEvent*)> func);
 		void dispatch(IEvent* event);
 	private:
 		std::unordered_map<EventType, std::vector<std::function<void(IEvent*)>>> m_events;

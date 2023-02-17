@@ -25,6 +25,12 @@ namespace Enternity
 		{
 			return EventType::WindowResize;
 		}
+
+		virtual std::string toString() override
+		{
+			return "WindowResizeEvent: width = " + std::to_string(m_width) + ", height = " + std::to_string(m_height);
+		}
+
 	private:
 		int m_width;
 		int m_height;
