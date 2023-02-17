@@ -11,7 +11,8 @@ namespace Enternity
 {
 	enum class EventType
 	{
-		WindowResize
+		WindowResize,
+		KeyPressed, KeyReleased
 	};
 
 	class IEvent

@@ -19,6 +19,7 @@ namespace Enternity
 		void attachCamera3D(Camera3D* camera3D);
 	private:
 		void onResize(IEvent* event);
+		void onKeyPressed(IEvent* event);
 	private:
 		Camera3D* m_camera3D{ nullptr };
 	};

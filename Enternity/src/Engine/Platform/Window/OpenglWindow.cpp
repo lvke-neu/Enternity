@@ -1,6 +1,7 @@
 #include "OpenglWindow.h"
 #include "Core/Log/Log.h"
 #include "Core/Event/WindowResizeEvent.h"
+#include "Core/Event/KeyEvent.h"
 #include "Core/Event/EventManager.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -40,6 +41,7 @@ namespace Enternity
 		CHECK_GL_CALL((0, 0, desc.Width, desc.Height));
 
 		glfwSetWindowSizeCallback(m_context, Resize);
+		glfwSetKeyCallback(m_context, KeyTrigger);
 
 		LOG_INFO((char*)glGetString(GL_VERSION));
 		LOG_INFO((char*)glGetString(GL_VENDOR));
@@ -70,5 +72,14 @@ namespace Enternity
 	{
 		WindowResizeEvent windowResizeEvent(width, height);
 		EventManager::GetInstance().dispatch(&windowResizeEvent);
+	}
+
+	void OpenglWindow::KeyTrigger(GLFWwindow* window, int key, int scancode, int action, int mods)
+	{
+		if (action == GLFW_PRESS || action == GLFW_REPEAT)
+		{
+			KeyPressedEvent keyPressedEvent((KeyCode)key);
+			EventManager::GetInstance().dispatch(&keyPressedEvent);
+		}
 	}
 }

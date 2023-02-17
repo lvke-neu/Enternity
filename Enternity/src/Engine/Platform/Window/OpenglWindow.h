@@ -29,6 +29,7 @@ namespace Enternity
 		void swapBuffers();
 
 		static void Resize(GLFWwindow* window, int width, int height);
+		static void KeyTrigger(GLFWwindow* window, int key, int scancode, int action, int mods);
 	private:
 		GLFWwindow* m_context{ nullptr };
 	};

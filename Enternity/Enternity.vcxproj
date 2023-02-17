@@ -143,6 +143,7 @@
     <ClInclude Include="src\Engine\Core\Basic\Macro.h" />
     <ClInclude Include="src\Engine\Core\Event\Event.h" />
     <ClInclude Include="src\Engine\Core\Event\EventManager.h" />
+    <ClInclude Include="src\Engine\Core\Event\KeyEvent.h" />
     <ClInclude Include="src\Engine\Core\Event\WindowResizeEvent.h" />
     <ClInclude Include="src\Engine\Core\File\Blob.h" />
     <ClInclude Include="src\Engine\Core\File\BlobLoader.h" />
