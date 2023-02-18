@@ -110,6 +110,9 @@
     <ClCompile Include="src\Engine\Function\Render\Wrapper\Texture.cpp" />
     <ClCompile Include="src\Engine\Function\Render\Wrapper\VertexArray.cpp" />
     <ClCompile Include="src\Engine\Function\Render\Wrapper\VertexBuffer.cpp" />
+    <ClCompile Include="src\Engine\Function\Scene\AssetImpl\MeshAssetImpl.cpp" />
+    <ClCompile Include="src\Engine\Function\Scene\AssetImpl\ShaderAssetImpl.cpp" />
+    <ClCompile Include="src\Engine\Function\Scene\AssetImpl\TextureAssetImpl.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\Camera\Camera3D.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\Camera\CameraController.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\ECS\Entity\Entity.cpp" />
@@ -155,10 +158,14 @@
     <ClInclude Include="src\Engine\Core\Math\Math.h" />
     <ClInclude Include="src\Engine\Function\Render\Wrapper\Shader.h" />
     <ClInclude Include="src\Engine\Function\Render\Wrapper\Texture.h" />
+    <ClInclude Include="src\Engine\Function\Scene\AssetImpl\MeshAssetImpl.h" />
+    <ClInclude Include="src\Engine\Function\Scene\AssetImpl\ShaderAssetImpl.h" />
+    <ClInclude Include="src\Engine\Function\Scene\AssetImpl\TextureAssetImpl.h" />
     <ClInclude Include="src\Engine\Function\Scene\Camera\Camera3D.h" />
     <ClInclude Include="src\Engine\Function\Scene\Camera\CameraController.h" />
     <ClInclude Include="src\Engine\Function\Scene\ECS\Component\TagComponent.hpp" />
     <ClInclude Include="src\Engine\Function\Scene\ECS\Component\MeshRenderComponents.hpp" />
+    <ClInclude Include="src\Engine\Function\Scene\ECS\Component\TransformComponent.hpp" />
     <ClInclude Include="src\Engine\Function\Scene\ECS\Entity\Entity.h" />
     <ClInclude Include="src\Engine\Function\Scene\Scene.h" />
     <ClInclude Include="src\Engine\Function\Scene\SceneManager.h" />

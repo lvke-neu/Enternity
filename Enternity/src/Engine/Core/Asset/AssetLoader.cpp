@@ -4,7 +4,8 @@
 #include "Core/ThreadPool/ThreadPool.h"
 #include "Core/Memory/Blob.h"
 #include "Core/Memory/stb_image.h"
-#include "Function/Scene/ECS/Component/MeshRenderComponents.hpp"
+#include "Core/Math/Vector3.h"
+#include "Core/Math/Vector2.h"
 #include <fstream>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -130,7 +131,14 @@ namespace Enternity
 
 		asset.reset();
 
-		std::vector<MeshComponent::VertexPosNorTex> vertices;
+		struct VertexPosNorTex
+		{
+			Vector3f position;
+			Vector3f normal;
+			Vector2f texcoord;
+		};
+
+		std::vector<VertexPosNorTex> vertices;
 		std::vector<unsigned int> indices;
 		unsigned int indexOffset = 0;
 		for (unsigned int i = 0; i < scene->mNumMeshes; i++)
@@ -139,7 +147,7 @@ namespace Enternity
 
 			for (unsigned int j = 0; j < mesh->mNumVertices; j++)
 			{
-				MeshComponent::VertexPosNorTex vertex;
+				VertexPosNorTex vertex;
 				vertex.position.x = mesh->mVertices[j].x;
 				vertex.position.y = mesh->mVertices[j].y;
 				vertex.position.z = mesh->mVertices[j].z;
@@ -159,7 +167,7 @@ namespace Enternity
 			indexOffset += (unsigned int)vertices.size();
 		}
 
-		asset.m_blob[0] = new Blob(vertices.size() * sizeof(MeshComponent::VertexPosNorTex));
+		asset.m_blob[0] = new Blob(vertices.size() * sizeof(VertexPosNorTex));
 		asset.m_blob[0]->copyDataFrom(vertices.data());
 
 		asset.m_blob[1] = new Blob(indices.size() * sizeof(unsigned int));

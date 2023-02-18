@@ -17,20 +17,17 @@ namespace Enternity
 		auto& entity = createEntity();
 
 		auto& comp = entity.addComponent<ShaderComponent>();
-		comp.m_vsAsset = Asset({ "assets/shaders/Phong.vert", AssetType::Shader, AssetLoadType::Asyn });
-		comp.m_psAsset = Asset({ "assets/shaders/Phong.frag", AssetType::Shader, AssetLoadType::Asyn});
+		comp.m_shaderAssetImpl = new ShaderAssetImpl;
+		comp.m_shaderAssetImpl->load("assets/shaders/Phong.vert", "assets/shaders/Phong.frag");
+
 
 		auto& comp2 = entity.addComponent<MaterialComponent>();
-		comp2.m_materialAsset = Asset({ "assets/textures/box_diffuse.png", AssetType::Texture, AssetLoadType::Asyn });
+		comp2.m_textureAssetImpl = new TextureAssetImpl;
+		comp2.m_textureAssetImpl->load("assets/textures/box_diffuse.png");
 
 		auto& comp3 = entity.addComponent<MeshComponent>();
-		comp3.m_meshAsset = Asset({ "assets/models/nanosuit/nanosuit.obj", AssetType::Mesh, AssetLoadType::Asyn });
-		
-		AssetLoader assetLoader;
-		assetLoader.loadAsset(comp.m_vsAsset);
-		assetLoader.loadAsset(comp.m_psAsset);
-		assetLoader.loadAsset(comp2.m_materialAsset);
-		assetLoader.loadAsset(comp3.m_meshAsset);
+		comp3.m_MeshAssetImpl = new MeshAssetImpl;
+		comp3.m_MeshAssetImpl->load("assets/models/nanosuit/nanosuit.obj");
 	}
 
 	Scene::~Scene()
@@ -39,34 +36,8 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(m_camera3D);
 	}
 
-	void Scene::loadResource()
-	{
-		auto viewShaderComponent = m_registry.view<ShaderComponent>();
-		for (auto entity : viewShaderComponent)
-		{
-			auto& comp = viewShaderComponent.get<ShaderComponent>(entity);
-			comp.loadImpl();
-		}
-
-		auto viewMaterialComponent = m_registry.view<MaterialComponent>();
-		for (auto entity : viewMaterialComponent)
-		{
-			auto& comp = viewMaterialComponent.get<MaterialComponent>(entity);
-			comp.loadImpl();
-		}
-
-		auto viewMeshComponent = m_registry.view<MeshComponent>();
-		for (auto entity : viewMeshComponent)
-		{
-			auto& comp = viewMeshComponent.get<MeshComponent>(entity);
-			comp.loadImpl();
-		}
-	}
-
 	void Scene::tick()
 	{
-		loadResource();
-
 		RenderSystem::GetInstance().drawCall(this);
 	}
 

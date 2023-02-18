@@ -25,9 +25,6 @@ namespace Enternity
 		Entity& createEntity();
 		void deleteEntity(const std::string& uuid);
 		void deleteAll();
-
-	private:
-		void loadResource();
 	private:
 		entt::registry m_registry;
 		std::unordered_map<std::string, Entity> m_entities;

@@ -50,22 +50,24 @@ namespace Enternity
 		for (auto& entity : view)
 		{
 			const auto& [matc,shaderc,meshc] = view.get<MaterialComponent, ShaderComponent, MeshComponent>(entity);
-			if (shaderc.m_shader)
+			if (shaderc.m_shaderAssetImpl->getShader())
 			{
-				shaderc.m_shader->bind();
+
+				shaderc.m_shaderAssetImpl->getShader()->bind();
 				Matrix4x4f vp = scene->m_camera3D->getProjMatrix() * scene->m_camera3D->getViewMatrix();
-				shaderc.m_shader->setMat4("vp", vp, true);
+				shaderc.m_shaderAssetImpl->getShader()->setMat4("vp", vp, true);
 			}
 
-			if (matc.m_texture2D)
+			if (matc.m_textureAssetImpl->getTexture2D())
 			{
+				int i = 0; i++;
 			}
 
-			if (meshc.m_vertexArray && meshc.m_vertexbuffer && meshc.m_indexbuffer)
+			if (meshc.m_MeshAssetImpl->getVertexArray() && meshc.m_MeshAssetImpl->getIndexBuffer())
 			{
-				meshc.m_vertexArray->bind();
-				meshc.m_indexbuffer->bind();
-				CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, meshc.m_indexbuffer->getCount(), GL_UNSIGNED_INT, (void*)0));
+				meshc.m_MeshAssetImpl->getVertexArray()->bind();
+				meshc.m_MeshAssetImpl->getIndexBuffer()->bind();
+				CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, meshc.m_MeshAssetImpl->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, (void*)0));
 			}
 		}
 	}
