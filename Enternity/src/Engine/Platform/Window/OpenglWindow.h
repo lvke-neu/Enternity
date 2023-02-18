@@ -26,7 +26,7 @@ namespace Enternity
 
 		bool windowShouldClose();
 		void setTitle(const char* title);
-		void swapBuffers();
+		void swapBuffers(float deltaTime);
 
 		static void Resize(GLFWwindow* window, int width, int height);
 		static void KeyTrigger(GLFWwindow* window, int key, int scancode, int action, int mods);

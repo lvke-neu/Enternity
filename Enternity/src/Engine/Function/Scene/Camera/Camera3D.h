@@ -33,6 +33,10 @@ namespace Enternity
 
 		Matrix4x4f getViewMatrix();
 		Matrix4x4f getProjMatrix();
+
+		void move(float dis, const Vector3f& dir);
+		void moveForward(float dis);
+		void moveRight(float dis);
 	private:
 		Vector3f m_position = Vector3f::ZERO;
 		//degree

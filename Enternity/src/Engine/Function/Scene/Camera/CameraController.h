@@ -17,10 +17,19 @@ namespace Enternity
 		~CameraController();
 
 		void attachCamera3D(Camera3D* camera3D);
+		float getMoveSpeed()
+		{
+			return m_moveSpeed;
+		}
+		void setMoveSpeed(float moveSpeed)
+		{
+			m_moveSpeed = moveSpeed;
+		}
 	private:
 		void onResize(IEvent* event);
-		void onKeyPressed(IEvent* event);
+		void tick(IEvent* event);
 	private:
 		Camera3D* m_camera3D{ nullptr };
+		float m_moveSpeed = 10.0f;
 	};
 }

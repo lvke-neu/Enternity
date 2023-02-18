@@ -44,4 +44,23 @@ namespace Enternity
 	{
 		return Matrix4x4f::Perspective(m_frustum.radian, m_frustum.aspect, m_frustum.nearZ, m_frustum.farZ);
 	}
+
+	void Camera3D::move(float dis, const Vector3f& dir)
+	{
+		m_position += dir * dis;
+	}
+
+	void Camera3D::moveForward(float dis)
+	{
+		Matrix4x4f rotMat4 = Matrix4x4f::Rotate(Math::Radian(m_rotation.x), Math::Radian(m_rotation.y), Math::Radian(m_rotation.z));
+		Vector3f dirZ = rotMat4[2];
+		move(dis, -dirZ);
+	}
+
+	void Camera3D::moveRight(float dis)
+	{
+		Matrix4x4f rotMat4 = Matrix4x4f::Rotate(Math::Radian(m_rotation.x), Math::Radian(m_rotation.y), Math::Radian(m_rotation.z));
+		Vector3f dir = rotMat4[0];
+		move(dis, dir);
+	}
 }

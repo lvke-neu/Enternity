@@ -69,7 +69,7 @@ namespace Enternity
 			
 			tick(m_timer->DeltaTime());
 
-			m_window->swapBuffers();
+			m_window->swapBuffers(m_timer->DeltaTime());
 		}
 	}
 

@@ -161,6 +161,25 @@ namespace Enternity
 		KeyCode m_keyCode;
 	};
 
+	class KeyReleasedEvent : public KeyEvent
+	{
+	public:
+		KeyReleasedEvent(KeyCode keyCode) : KeyEvent(keyCode)
+		{
+
+		}
+
+		virtual EventType getEventType() override
+		{
+			return EventType::KeyReleased;
+		}
+
+		virtual std::string toString() override
+		{
+			return "KeyReleasedEvent: keycode = " + std::to_string((int)m_keyCode);
+		}
+	};
+
 	class KeyPressedEvent : public KeyEvent
 	{
 	public:

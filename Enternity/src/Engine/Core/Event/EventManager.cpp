@@ -1,6 +1,7 @@
 #include "EventManager.h"
 #include "Core/Basic/Macro.h"
 #include "Core/Log/Log.h"
+#include "KeyEvent.h"
 
 namespace Enternity
 {
@@ -28,11 +29,25 @@ namespace Enternity
 	{
 		ENTERNITY_ASSERT(event != nullptr);
 
-		LOG_INFO(event->toString());
+		//LOG_INFO(event->toString());
+
+		if (event->getEventType() == EventType::KeyPressed)
+		{
+			m_keyTriggers[((KeyPressedEvent*)(event))->getKeyCode()] = true;
+		}
+		else if (event->getEventType() == EventType::KeyReleased)
+		{
+			m_keyTriggers[((KeyPressedEvent*)(event))->getKeyCode()] = false;
+		}
 
 		for (auto func : m_events[event->getEventType()])
 		{
 			func(event);
 		}
+	}
+
+	bool EventManager::isKeyPressed(KeyCode keyCode)
+	{
+		return m_keyTriggers[keyCode];
 	}
 }

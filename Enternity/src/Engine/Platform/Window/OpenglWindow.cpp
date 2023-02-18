@@ -2,6 +2,7 @@
 #include "Core/Log/Log.h"
 #include "Core/Event/WindowResizeEvent.h"
 #include "Core/Event/KeyEvent.h"
+#include "Core/Event/TickEvent.h"
 #include "Core/Event/EventManager.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -62,10 +63,12 @@ namespace Enternity
 		glfwSetWindowTitle(m_context, title);
 	}
 
-	void OpenglWindow::swapBuffers()
+	void OpenglWindow::swapBuffers(float deltaTime)
 	{
 		glfwSwapBuffers(m_context);
 		glfwPollEvents();
+		TickEvent tickEvent(deltaTime);
+		EventManager::GetInstance().dispatch(&tickEvent);
 	}
 
 	void OpenglWindow::Resize(GLFWwindow* window, int width, int height)
@@ -80,6 +83,11 @@ namespace Enternity
 		{
 			KeyPressedEvent keyPressedEvent((KeyCode)key);
 			EventManager::GetInstance().dispatch(&keyPressedEvent);
+		}
+		else if (action == GLFW_RELEASE)
+		{
+			KeyReleasedEvent keyReleasedEvent((KeyCode)key);
+			EventManager::GetInstance().dispatch(&keyReleasedEvent);
 		}
 	}
 }
