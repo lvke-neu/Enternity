@@ -1,8 +1,8 @@
 #include "Scene.h"
-#include "Core/Memory/BlobLoader.h"
 #include "Camera/Camera3D.h"
 #include "ECS/Component/TagComponent.hpp"
 #include "Function/Scene/ECS/Component/MeshRenderComponents.hpp"
+#include "Core/Asset/AssetLoader.h"
 #include "Function/Render/RenderSystem.h"
 
 namespace Enternity
@@ -17,21 +17,20 @@ namespace Enternity
 		auto& entity = createEntity();
 
 		auto& comp = entity.addComponent<ShaderComponent>();
-		comp.m_vsShaderFile = "assets/shaders/Phong.vert";
-		comp.m_psShaderFile = "assets/shaders/Phong.frag";
+		comp.m_vsAsset = Asset({ "assets/shaders/Phong.vert", AssetType::Shader, AssetLoadType::Asyn });
+		comp.m_psAsset = Asset({ "assets/shaders/Phong.frag", AssetType::Shader, AssetLoadType::Asyn});
 
 		auto& comp2 = entity.addComponent<MaterialComponent>();
-		comp2.m_textureFile = "assets/textures/box_diffuse.png";
+		comp2.m_materialAsset = Asset({ "assets/textures/box_diffuse.png", AssetType::Texture, AssetLoadType::Asyn });
 
 		auto& comp3 = entity.addComponent<MeshComponent>();
-		comp3.m_meshFile = "assets/models/nanosuit/nanosuit.obj";
-		//comp3.m_meshFile = "assets/models/models/Cube.fbx";
-
-		BlobLoader blobLoader;
-		blobLoader.loadGeneral(comp.m_vsBlob, comp.m_vsShaderFile, LoadType::Asyn);
-		blobLoader.loadGeneral(comp.m_psBlob, comp.m_psShaderFile, LoadType::Asyn);
-		blobLoader.loadTexture(comp2.m_textureBlob, comp2.m_textureFile, LoadType::Asyn);
-		blobLoader.loadMesh(comp3.m_vertexbufferBlob, comp3.m_indexbufferBlob, comp3.m_meshFile, LoadType::Asyn);
+		comp3.m_meshAsset = Asset({ "assets/models/nanosuit/nanosuit.obj", AssetType::Mesh, AssetLoadType::Asyn });
+		
+		AssetLoader assetLoader;
+		assetLoader.loadAsset(comp.m_vsAsset);
+		assetLoader.loadAsset(comp.m_psAsset);
+		assetLoader.loadAsset(comp2.m_materialAsset);
+		assetLoader.loadAsset(comp3.m_meshAsset);
 	}
 
 	Scene::~Scene()

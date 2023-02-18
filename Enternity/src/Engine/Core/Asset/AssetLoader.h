@@ -12,10 +12,10 @@ namespace Enternity
 	class AssetLoader
 	{
 	public:
-		void loadAsset(Asset* asset);
+		void loadAsset(Asset& asset);
 	private:
-		void loadShaderImpl(Asset* asset);
-		void loadTextureImpl(Asset* asset);
-		void loadMeshImpl(Asset* asset);
+		void loadShaderImpl(Asset& asset);
+		void loadTextureImpl(Asset& asset);
+		void loadMeshImpl(Asset& asset);
 	};
 }

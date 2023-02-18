@@ -129,9 +129,6 @@
     <ClCompile Include="src\Engine\Core\Memory\Blob.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Core\Memory\BlobLoader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Core\Memory\stb_image.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -303,9 +300,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Core\Memory\Blob.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Core\Memory\BlobLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Core\Memory\stb_image.h">

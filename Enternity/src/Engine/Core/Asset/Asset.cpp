@@ -1,5 +1,6 @@
 #include "Asset.h"
-#include "AssetLoader.h"
+#include "Core/Basic/Macro.h"
+#include "Core/Memory/Blob.h"
 
 namespace Enternity
 {
@@ -7,7 +8,7 @@ namespace Enternity
 		m_assetID(assetDesc.assetID), 
 		m_assetType(assetDesc.assetType),
 		m_assetLoadType(assetDesc.assetLoadType),
-		m_assetLoadState(AssetLoadState::loading)
+		m_assetLoadState(AssetLoadState::unloaded)
 	{
 	
 	}
@@ -32,9 +33,12 @@ namespace Enternity
 		return m_assetLoadState;
 	}
 
-	void Asset::load()
+	void Asset::reset()
 	{
-		AssetLoader assetLoader;
-		assetLoader.loadAsset(this);
+		for (int i = 0; i < 10; i++)
+			if (m_blob[i])
+				SAFE_DELETE_SET_NULL(m_blob[i]);
+
+		m_assetLoadState = AssetLoadState::unloaded;
 	}
 }

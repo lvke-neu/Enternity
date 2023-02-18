@@ -2,6 +2,7 @@
 #include "Core/Math/Vector2.h"
 #include "Core/Math/Vector3.h"
 #include "Core/Math/Matrix4x4.h"
+#include "Core/Asset/Asset.h"
 #include "Core/Memory/Blob.h"
 #include "Function/Render/Wrapper/RenderWrapper.h"
 #include <glad/glad.h>
@@ -37,14 +38,15 @@ namespace Enternity
 			Vector2f texcoord;
 		};
 
-		std::string m_meshFile{ "" };
+		Asset m_meshAsset;
+
 		VertexArray* m_vertexArray{ nullptr };
 		VertexBuffer* m_vertexbuffer{ nullptr };
 		IndexBuffer* m_indexbuffer{ nullptr };
 
 		void loadImpl()
 		{
-			if (m_vertexbufferBlob && m_indexbufferBlob)
+			if (m_meshAsset.getAssetLoadState() == AssetLoadState::success)
 			{
 				unLoad();
 
@@ -56,13 +58,11 @@ namespace Enternity
 				vertexBufferLayout.push({ 0, 3, GL_FLOAT, false,  8 * sizeof(float), 0 });
 				vertexBufferLayout.push({ 1, 3, GL_FLOAT, false,  8 * sizeof(float), 3 * sizeof(float) });
 				vertexBufferLayout.push({ 2, 2, GL_FLOAT, false,  8 * sizeof(float), 6 * sizeof(float) });
-				m_vertexbuffer->init(m_vertexbufferBlob, vertexBufferLayout);
-				m_indexbuffer->init(m_indexbufferBlob);
+				m_vertexbuffer->init(m_meshAsset.getBlob()[0], vertexBufferLayout);
+				m_indexbuffer->init(m_meshAsset.getBlob()[1]);
 				m_vertexArray->init(m_vertexbuffer);
 				
-				SAFE_DELETE_SET_NULL(m_vertexbufferBlob);
-				SAFE_DELETE_SET_NULL(m_indexbufferBlob);
-
+				m_meshAsset.reset();
 			}
 		}
 
@@ -71,10 +71,7 @@ namespace Enternity
 			RenderWrapper::Destroy(m_vertexArray);
 			RenderWrapper::Destroy(m_vertexbuffer);
 			RenderWrapper::Destroy(m_indexbuffer);
-		}
-	public:
-		Blob* m_vertexbufferBlob{ nullptr };
-		Blob* m_indexbufferBlob{ nullptr };
+		}		
 	};
 
 	struct ShaderComponent
@@ -82,19 +79,21 @@ namespace Enternity
 		ShaderComponent() = default;
 		ShaderComponent(const ShaderComponent&) = default;
 
-		std::string m_vsShaderFile{ "" };
-		std::string m_psShaderFile{ "" };
+		Asset m_vsAsset;
+		Asset m_psAsset;
+
 		Shader* m_shader{ nullptr };
 
 		void loadImpl()
 		{
-			if (m_vsBlob && m_psBlob)
+			if (m_vsAsset.getAssetLoadState() == AssetLoadState::success &&
+				m_psAsset.getAssetLoadState() == AssetLoadState::success)
 			{
 				unLoad();
 				m_shader = RenderWrapper::Create<Shader>();
-				m_shader->init(m_vsBlob, m_psBlob);
-				SAFE_DELETE_SET_NULL(m_vsBlob);
-				SAFE_DELETE_SET_NULL(m_psBlob);
+				m_shader->init(m_vsAsset.getBlob()[0], m_psAsset.getBlob()[0]);
+				m_vsAsset.reset();
+				m_psAsset.reset();
 			}
 		}
 
@@ -102,28 +101,25 @@ namespace Enternity
 		{
 			RenderWrapper::Destroy(m_shader);
 		}
-	public:
-		Blob* m_vsBlob{ nullptr };
-		Blob* m_psBlob{ nullptr };
 	};
-
 
 	struct MaterialComponent
 	{
 		MaterialComponent() = default;
 		MaterialComponent(const MaterialComponent&) = default;
 
-		std::string m_textureFile{ "" };
+		Asset m_materialAsset;
+		
 		Texture2D* m_texture2D{ nullptr };
 
 		void loadImpl()
 		{
-			if (m_textureBlob)
+			if (m_materialAsset.getAssetLoadState() == AssetLoadState::success)
 			{
 				unLoad();
 				m_texture2D = RenderWrapper::Create<Texture2D>();
-				m_texture2D->init(m_textureBlob);
-				SAFE_DELETE_SET_NULL(m_textureBlob);
+				m_texture2D->init(m_materialAsset.getBlob()[0]);
+				m_materialAsset.reset();
 			}
 		}
 
@@ -131,8 +127,6 @@ namespace Enternity
 		{
 			RenderWrapper::Destroy(m_texture2D);
 		}
-	public:
-		Blob* m_textureBlob = nullptr;
 	};
 
 	struct AsynLoadTestComponent

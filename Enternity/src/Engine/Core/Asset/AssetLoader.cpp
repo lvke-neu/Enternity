@@ -1,6 +1,5 @@
 #include "AssetLoader.h"
 #include "Asset.h"
-#include "Core/Basic/Macro.h"
 #include "Core/Log/Log.h"
 #include "Core/ThreadPool/ThreadPool.h"
 #include "Core/Memory/Blob.h"
@@ -13,11 +12,11 @@
 
 namespace Enternity
 {
-	void AssetLoader::loadAsset(Asset* asset)
+	void AssetLoader::loadAsset(Asset& asset)
 	{
-		if (asset->m_assetType == AssetType::Shader)
+		if (asset.m_assetType == AssetType::Shader)
 		{
-			if (asset->m_assetLoadType == AssetLoadType::Sync)
+			if (asset.m_assetLoadType == AssetLoadType::Sync)
 			{
 				loadShaderImpl(asset);
 			}
@@ -30,9 +29,9 @@ namespace Enternity
 					});
 			}
 		}
-		else if(asset->m_assetType == AssetType::Texture)
+		else if(asset.m_assetType == AssetType::Texture)
 		{
-				if (asset->m_assetLoadType == AssetLoadType::Sync)
+				if (asset.m_assetLoadType == AssetLoadType::Sync)
 				{
 					loadTextureImpl(asset);
 				}
@@ -47,7 +46,7 @@ namespace Enternity
 		}
 		else
 		{	
-			if (asset->m_assetLoadType == AssetLoadType::Sync)
+			if (asset.m_assetLoadType == AssetLoadType::Sync)
 			{
 				loadMeshImpl(asset);
 			}
@@ -62,71 +61,74 @@ namespace Enternity
 		}
 	}
 
-	void AssetLoader::loadShaderImpl(Asset* asset)
-	{
-		ENTERNITY_ASSERT(asset != nullptr);
 
-		std::ifstream ifs(asset->getAssetID(), std::ios::in | std::ios::binary);
+	void AssetLoader::loadShaderImpl(Asset& asset)
+	{
+		std::ifstream ifs(asset.getAssetID(), std::ios::in | std::ios::binary);
 		if (!ifs.is_open())
 		{
-			asset->m_assetLoadState = AssetLoadState::failure;
-			LOG_ERROR("Assets load failed:{0}", asset->getAssetID());
+			asset.m_assetLoadState = AssetLoadState::failure;
+			LOG_ERROR("Assets load failed:{0}", asset.getAssetID());
 			return;
 		}
+
+		asset.reset();
 
 		std::filebuf* pFilebuf = ifs.rdbuf();
 		size_t size = pFilebuf->pubseekoff(0, ifs.end, ifs.in);
 		pFilebuf->pubseekpos(0, ifs.in);
 
-		asset->m_blob[0] = new Blob(size);
-		pFilebuf->sgetn((char*)asset->m_blob[0]->getData(), asset->m_blob[0]->getLength());
+		asset.m_blob[0] = new Blob(size);
+		pFilebuf->sgetn((char*)asset.m_blob[0]->getData(), asset.m_blob[0]->getLength());
 
 		ifs.close();
 
-		asset->m_assetLoadState = AssetLoadState::success;
+		asset.m_assetLoadState = AssetLoadState::success;
 	}
 
-	void AssetLoader::loadTextureImpl(Asset* asset)
+	void AssetLoader::loadTextureImpl(Asset& asset)
 	{
-		ENTERNITY_ASSERT(asset != nullptr);
-
 		unsigned char* tmpTexture;
 		int width;
 		int height;
 		int channels;
 
 		stbi_set_flip_vertically_on_load(1);
-		tmpTexture = stbi_load(asset->getAssetID().c_str(), &width, &height, &channels, 0);
+		tmpTexture = stbi_load(asset.getAssetID().c_str(), &width, &height, &channels, 0);
 		if (!tmpTexture)
 		{
-			asset->m_assetLoadState = AssetLoadState::failure;
-			LOG_ERROR("Assets load failed:{0}", asset->getAssetID());
+			asset.m_assetLoadState = AssetLoadState::failure;
+			LOG_ERROR("Assets load failed:{0}", asset.getAssetID());
 			return;
 		}
 
-		asset->m_blob[0] = new Blob(width * height * channels);
-		memcpy_s(asset->m_blob[0]->getData(), asset->m_blob[0]->getLength(), tmpTexture, asset->m_blob[0]->getLength());
-		asset->m_blob[0]->m_width = width;
-		asset->m_blob[0]->m_height = height;
-		asset->m_blob[0]->m_channels = channels;
+		asset.reset();
+
+		asset.m_blob[0] = new Blob(width * height * channels);
+		memcpy_s(asset.m_blob[0]->getData(), asset.m_blob[0]->getLength(), tmpTexture, asset.m_blob[0]->getLength());
+		asset.m_blob[0]->m_width = width;
+		asset.m_blob[0]->m_height = height;
+		asset.m_blob[0]->m_channels = channels;
 
 		stbi_image_free(tmpTexture);
 
-		asset->m_assetLoadState = AssetLoadState::success;
+		asset.m_assetLoadState = AssetLoadState::success;
 	}
 
-	void AssetLoader::loadMeshImpl(Asset* asset)
+	void AssetLoader::loadMeshImpl(Asset& asset)
 	{
 		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFile(asset->getAssetID(), aiProcess_Triangulate | aiProcess_FlipUVs
+		const aiScene* scene = importer.ReadFile(asset.getAssetID(), aiProcess_Triangulate | aiProcess_FlipUVs
 			| aiProcess_GenNormals | aiProcess_GenBoundingBoxes | aiProcess_GenUVCoords | aiProcess_JoinIdenticalVertices);
 
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
 			LOG_ERROR("ERROR::ASSIMP::{0}", importer.GetErrorString());
-			asset->m_assetLoadState = AssetLoadState::failure;
+			asset.m_assetLoadState = AssetLoadState::failure;
 			return;
 		}
+
+		asset.reset();
 
 		std::vector<MeshComponent::VertexPosNorTex> vertices;
 		std::vector<unsigned int> indices;
@@ -157,12 +159,12 @@ namespace Enternity
 			indexOffset += (unsigned int)vertices.size();
 		}
 
-		asset->m_blob[0] = new Blob(vertices.size() * sizeof(MeshComponent::VertexPosNorTex));
-		asset->m_blob[0]->copyDataFrom(vertices.data());
+		asset.m_blob[0] = new Blob(vertices.size() * sizeof(MeshComponent::VertexPosNorTex));
+		asset.m_blob[0]->copyDataFrom(vertices.data());
 
-		asset->m_blob[1] = new Blob(indices.size() * sizeof(unsigned int));
-		asset->m_blob[1]->copyDataFrom(indices.data());
+		asset.m_blob[1] = new Blob(indices.size() * sizeof(unsigned int));
+		asset.m_blob[1]->copyDataFrom(indices.data());
 
-		asset->m_assetLoadState = AssetLoadState::success;
+		asset.m_assetLoadState = AssetLoadState::success;
 	}
 }

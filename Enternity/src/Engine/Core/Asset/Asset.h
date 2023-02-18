@@ -22,7 +22,7 @@ namespace Enternity
 	{
 		success,
 		failure,
-		loading
+		unloaded
 	};
 	
 	enum class AssetLoadType
@@ -44,6 +44,7 @@ namespace Enternity
 	{
 		friend class AssetLoader;
 	public:
+		Asset() = default;
 		Asset(const AssetDescription& assetDesc);
 
 		std::string getAssetID();
@@ -51,7 +52,7 @@ namespace Enternity
 		Blob** getBlob();
 		AssetLoadState getAssetLoadState();
 
-		void load();
+		void reset();
 	protected:
 		std::string m_assetID;
 		AssetType m_assetType;
