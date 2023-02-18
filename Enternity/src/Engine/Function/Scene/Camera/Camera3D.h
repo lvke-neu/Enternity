@@ -37,6 +37,8 @@ namespace Enternity
 		void move(float dis, const Vector3f& dir);
 		void moveForward(float dis);
 		void moveRight(float dis);
+		void rotateAlongXAxis(float angle);
+		void rotateAlongYAxis(float angle);
 	private:
 		Vector3f m_position = Vector3f::ZERO;
 		//degree

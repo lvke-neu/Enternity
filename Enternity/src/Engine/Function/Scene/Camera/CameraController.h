@@ -28,8 +28,16 @@ namespace Enternity
 	private:
 		void onResize(IEvent* event);
 		void tick(IEvent* event);
+		void onMousePress(IEvent* event);
+		void onMouseRelease(IEvent* event);
+		void onMouseMove(IEvent* event);
 	private:
 		Camera3D* m_camera3D{ nullptr };
 		float m_moveSpeed = 10.0f;
+
+		float m_oldMousePosX;
+		float m_oldMousePosY;
+		float m_deltaMousePosX = 0;
+		float m_deltaMousePosY = 0;
 	};
 }

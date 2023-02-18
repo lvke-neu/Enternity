@@ -299,5 +299,8 @@
     <ClInclude Include="src\Engine\Core\Event\TickEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Core\Event\MouseEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

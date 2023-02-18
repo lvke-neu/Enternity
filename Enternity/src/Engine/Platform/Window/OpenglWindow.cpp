@@ -2,6 +2,7 @@
 #include "Core/Log/Log.h"
 #include "Core/Event/WindowResizeEvent.h"
 #include "Core/Event/KeyEvent.h"
+#include "Core/Event/MouseEvent.h"
 #include "Core/Event/TickEvent.h"
 #include "Core/Event/EventManager.h"
 #include <glad/glad.h>
@@ -43,6 +44,8 @@ namespace Enternity
 
 		glfwSetWindowSizeCallback(m_context, Resize);
 		glfwSetKeyCallback(m_context, KeyTrigger);
+		glfwSetMouseButtonCallback(m_context, MouseTrigger);
+		glfwSetCursorPosCallback(m_context, MouseMove);
 
 		LOG_INFO((char*)glGetString(GL_VERSION));
 		LOG_INFO((char*)glGetString(GL_VENDOR));
@@ -88,6 +91,44 @@ namespace Enternity
 		{
 			KeyReleasedEvent keyReleasedEvent((KeyCode)key);
 			EventManager::GetInstance().dispatch(&keyReleasedEvent);
+		}
+	}
+
+	void OpenglWindow::MouseTrigger(GLFWwindow* window, int button, int action, int mods)
+	{
+		if (action == GLFW_PRESS)
+		{
+			double x, y;
+			glfwGetCursorPos(window, &x, &y);
+			MousePressedEvent mousePressedEvent((MouseCode)button, (float)x, (float)y);
+			EventManager::GetInstance().dispatch(&mousePressedEvent);
+		}
+
+		if (action == GLFW_RELEASE)
+		{
+			double x, y;
+			glfwGetCursorPos(window, &x, &y);
+			MouseReleasedEvent mouseReleasedEvent((MouseCode)button, (float)x, (float)y);
+			EventManager::GetInstance().dispatch(&mouseReleasedEvent);
+		}
+	}
+
+	void OpenglWindow::MouseMove(GLFWwindow* window, double xpos, double ypos)
+	{
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+		{
+			double x, y;
+			glfwGetCursorPos(window, &x, &y);
+			MouseMovedEvent mouseMovedEvent(MouseCode::ButtonLeft, (float)x, (float)y);
+			EventManager::GetInstance().dispatch(&mouseMovedEvent);
+		}
+
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+		{
+			double x, y;
+			glfwGetCursorPos(window, &x, &y);
+			MouseMovedEvent mouseMovedEvent(MouseCode::ButtonRight, (float)x, (float)y);
+			EventManager::GetInstance().dispatch(&mouseMovedEvent);
 		}
 	}
 }

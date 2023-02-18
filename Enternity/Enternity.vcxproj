@@ -144,6 +144,7 @@
     <ClInclude Include="src\Engine\Core\Event\Event.h" />
     <ClInclude Include="src\Engine\Core\Event\EventManager.h" />
     <ClInclude Include="src\Engine\Core\Event\KeyEvent.h" />
+    <ClInclude Include="src\Engine\Core\Event\MouseEvent.h" />
     <ClInclude Include="src\Engine\Core\Event\TickEvent.h" />
     <ClInclude Include="src\Engine\Core\Event\WindowResizeEvent.h" />
     <ClInclude Include="src\Engine\Core\File\Blob.h" />

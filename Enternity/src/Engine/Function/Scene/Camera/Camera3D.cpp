@@ -1,4 +1,5 @@
 #include "Camera3D.h"
+#include "Core/Math/Math.h"
 
 namespace Enternity
 {
@@ -52,15 +53,47 @@ namespace Enternity
 
 	void Camera3D::moveForward(float dis)
 	{
-		Matrix4x4f rotMat4 = Matrix4x4f::Rotate(Math::Radian(m_rotation.x), Math::Radian(m_rotation.y), Math::Radian(m_rotation.z));
-		Vector3f dirZ = rotMat4[2];
-		move(dis, -dirZ);
+		Matrix4x4f rotMat4 = Matrix4x4f::Rotate(Math::Radian(-m_rotation.x), Math::Radian(-m_rotation.y), Math::Radian(-m_rotation.z));
+		Vector3f dir = rotMat4[2];
+
+		move(dis, -dir);
 	}
 
 	void Camera3D::moveRight(float dis)
 	{
-		Matrix4x4f rotMat4 = Matrix4x4f::Rotate(Math::Radian(m_rotation.x), Math::Radian(m_rotation.y), Math::Radian(m_rotation.z));
+		Matrix4x4f rotMat4 = Matrix4x4f::Rotate(Math::Radian(-m_rotation.x), Math::Radian(-m_rotation.y), Math::Radian(-m_rotation.z));
 		Vector3f dir = rotMat4[0];
+
 		move(dis, dir);
+	}
+
+	void Camera3D::rotateAlongXAxis(float angle)
+	{
+		m_rotation.x -= angle;
+
+		//if (m_rotation.x >= 2 * PI)
+		//{
+		//	m_rotation.x -= 2 * PI;
+		//}
+
+		//if (m_rotation.x <= -2 * PI)
+		//{
+		//	m_rotation.x = m_rotation.x + 2 * PI;
+		//}
+	}
+
+	void Camera3D::rotateAlongYAxis(float angle)
+	{
+		m_rotation.y -= angle;
+
+		//if (m_rotation.y >= 2 * PI)
+		//{
+		//	m_rotation.y -= 2 * PI;
+		//}
+
+		//if (m_rotation.y <= -2 * PI)
+		//{
+		//	m_rotation.y = m_rotation.y + 2 * PI;
+		//}
 	}
 }

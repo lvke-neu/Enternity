@@ -12,7 +12,7 @@ namespace Enternity
 	enum class EventType
 	{
 		WindowResize,
-		KeyPressed, KeyReleased,
+		KeyPressed, KeyReleased, MousePressed, MouseReleased, MouseMoved,
 		Tick
 	};
 

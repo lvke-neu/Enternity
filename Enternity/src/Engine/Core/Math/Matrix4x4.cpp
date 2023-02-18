@@ -123,7 +123,8 @@ namespace Enternity
 		};
 
 		//z*x*y
-		return Rz * Rx * Ry;
+		//return Rz * Rx * Ry;
+		return Rz * Ry * Rx;
 	}
 
 	Matrix4x4f Matrix4x4f::Scale(float scaleX, float scaleY, float scaleZ)
