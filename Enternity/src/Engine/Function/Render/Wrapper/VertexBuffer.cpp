@@ -1,6 +1,6 @@
 #include "VertexBuffer.h"
 #include "Core/Log/Log.h"
-#include "Core/File/Blob.h"
+#include "Core/Memory/Blob.h"
 #include <glad/glad.h>
 
 namespace Enternity

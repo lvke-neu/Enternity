@@ -89,11 +89,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Core\Asset\Asset.cpp" />
+    <ClCompile Include="src\Engine\Core\Asset\AssetLoader.cpp" />
     <ClCompile Include="src\Engine\Core\Basic\UUID.cpp" />
     <ClCompile Include="src\Engine\Core\Event\EventManager.cpp" />
-    <ClCompile Include="src\Engine\Core\File\Blob.cpp" />
-    <ClCompile Include="src\Engine\Core\File\BlobLoader.cpp" />
-    <ClCompile Include="src\Engine\Core\File\stb_image.cpp" />
+    <ClCompile Include="src\Engine\Core\Memory\Blob.cpp" />
+    <ClCompile Include="src\Engine\Core\Memory\BlobLoader.cpp" />
+    <ClCompile Include="src\Engine\Core\Memory\stb_image.cpp" />
     <ClCompile Include="src\Engine\Core\Log\Log.cpp" />
     <ClCompile Include="src\Engine\Core\Math\Math.cpp" />
     <ClCompile Include="src\Engine\Core\Math\Vector2.cpp" />
@@ -139,6 +141,8 @@
     <Image Include="assets\textures\striated.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Core\Asset\Asset.h" />
+    <ClInclude Include="src\Engine\Core\Asset\AssetLoader.h" />
     <ClInclude Include="src\Engine\Core\Basic\UUID.h" />
     <ClInclude Include="src\Engine\Core\Basic\Macro.h" />
     <ClInclude Include="src\Engine\Core\Event\Event.h" />
@@ -147,9 +151,9 @@
     <ClInclude Include="src\Engine\Core\Event\MouseEvent.h" />
     <ClInclude Include="src\Engine\Core\Event\TickEvent.h" />
     <ClInclude Include="src\Engine\Core\Event\WindowResizeEvent.h" />
-    <ClInclude Include="src\Engine\Core\File\Blob.h" />
-    <ClInclude Include="src\Engine\Core\File\BlobLoader.h" />
-    <ClInclude Include="src\Engine\Core\File\stb_image.h" />
+    <ClInclude Include="src\Engine\Core\Memory\Blob.h" />
+    <ClInclude Include="src\Engine\Core\Memory\BlobLoader.h" />
+    <ClInclude Include="src\Engine\Core\Memory\stb_image.h" />
     <ClInclude Include="src\Engine\Core\Math\Math.h" />
     <ClInclude Include="src\Engine\Function\Render\Wrapper\Shader.h" />
     <ClInclude Include="src\Engine\Function\Render\Wrapper\Texture.h" />

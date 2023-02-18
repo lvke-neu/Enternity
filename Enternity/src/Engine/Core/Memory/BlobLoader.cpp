@@ -1,7 +1,7 @@
 #include "BlobLoader.h"
 #include "Core/Log/Log.h"
-#include "Core/File/Blob.h"
-#include "Core/File/stb_image.h"
+#include "Core/Memory/Blob.h"
+#include "Core/Memory/stb_image.h"
 #include "Core/ThreadPool/ThreadPool.h"
 #include "Function/Scene/ECS/Component/MeshRenderComponents.hpp"
 #include <fstream>

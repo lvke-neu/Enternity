@@ -1,5 +1,5 @@
 #include "Scene.h"
-#include "Core/File/BlobLoader.h"
+#include "Core/Memory/BlobLoader.h"
 #include "Camera/Camera3D.h"
 #include "ECS/Component/TagComponent.hpp"
 #include "Function/Scene/ECS/Component/MeshRenderComponents.hpp"

@@ -51,9 +51,6 @@
     <ClCompile Include="src\Engine\Function\Render\Wrapper\VertexBuffer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Core\File\Blob.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Core\Math\Vector2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -99,12 +96,6 @@
     <ClCompile Include="src\Engine\Function\Ui\UiRenderSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Core\File\BlobLoader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Core\File\stb_image.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Function\Render\Wrapper\Texture.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -133,6 +124,21 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Function\Scene\Camera\CameraController.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Core\Memory\Blob.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Core\Memory\BlobLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Core\Memory\stb_image.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Core\Asset\Asset.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Core\Asset\AssetLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -180,9 +186,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Core\Timer\FrameTimer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Core\File\Blob.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Function\Render\Wrapper\VertexBuffer.h">
@@ -242,12 +245,6 @@
     <ClInclude Include="src\Engine\Function\Ui\UiRenderSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Core\File\BlobLoader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Core\File\stb_image.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\UnitTest.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -300,6 +297,21 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Core\Event\MouseEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Core\Asset\Asset.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Core\Memory\Blob.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Core\Memory\BlobLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Core\Memory\stb_image.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Core\Asset\AssetLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
