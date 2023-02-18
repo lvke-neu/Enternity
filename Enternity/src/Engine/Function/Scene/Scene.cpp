@@ -1,9 +1,10 @@
 #include "Scene.h"
-#include "Camera/Camera3D.h"
-#include "ECS/Component/TagComponent.hpp"
-#include "Function/Scene/ECS/Component/MeshRenderComponents.hpp"
-#include "Core/Asset/AssetLoader.h"
+#include "Function/Scene/Camera/Camera3D.h"
+#include "Function/Scene/ECS/Component/TagComponent.h"
+#include "Function/Scene/ECS/Component/Visual3DComponent.h"
 #include "Function/Render/RenderSystem.h"
+#include "Core/Asset/AssetLoader.h"
+
 
 namespace Enternity
 {
@@ -16,18 +17,34 @@ namespace Enternity
 
 		auto& entity = createEntity();
 
-		auto& comp = entity.addComponent<ShaderComponent>();
-		comp.m_shaderAssetImpl = new ShaderAssetImpl;
-		comp.m_shaderAssetImpl->load("assets/shaders/Phong.vert", "assets/shaders/Phong.frag");
+		auto& comp = entity.addComponent<Visual3DComponent>();
+		comp.m_rendererPassAssetImpl = new RendererPassAssetImpl;
+		comp.m_rendererPassAssetImpl->load("assets/shaders/Phong.vert", "assets/shaders/Phong.frag");
+
+		comp.m_textureAssetImpl = new TextureAssetImpl;
+		comp.m_textureAssetImpl->load("assets/textures/box_diffuse.png");
+
+		comp.m_MeshAssetImpl = new MeshAssetImpl;
+		comp.m_MeshAssetImpl->load("assets/models/nanosuit/nanosuit.obj");
+
+		comp.m_rendererPassAssetImpl->setRenderState(RenderState::WireFrame, true);
+		comp.m_rendererPassAssetImpl->setRenderState(RenderState::Depth, true);
 
 
-		auto& comp2 = entity.addComponent<MaterialComponent>();
+		auto& entity2 = createEntity();
+
+		auto& comp2 = entity2.addComponent<Visual3DComponent>();
+		comp2.m_rendererPassAssetImpl = new RendererPassAssetImpl;
+		comp2.m_rendererPassAssetImpl->load("assets/shaders/Phong.vert", "assets/shaders/Phong2.frag");
+
 		comp2.m_textureAssetImpl = new TextureAssetImpl;
 		comp2.m_textureAssetImpl->load("assets/textures/box_diffuse.png");
+		
+		comp2.m_MeshAssetImpl = new MeshAssetImpl;
+		comp2.m_MeshAssetImpl->load("assets/models/Box.fbx");
 
-		auto& comp3 = entity.addComponent<MeshComponent>();
-		comp3.m_MeshAssetImpl = new MeshAssetImpl;
-		comp3.m_MeshAssetImpl->load("assets/models/nanosuit/nanosuit.obj");
+		comp2.m_rendererPassAssetImpl->setRenderState(RenderState::WireFrame, false);
+		comp2.m_rendererPassAssetImpl->setRenderState(RenderState::Depth, true);
 	}
 
 	Scene::~Scene()

@@ -7,7 +7,7 @@ namespace Enternity
 {
 	void EventManager::registry(EventType eventType, std::function<void(IEvent*)> func)
 	{
-		unRegistry(eventType, func);
+		//unRegistry(eventType, func);
 		m_events[eventType].push_back(func);
 	}
 

@@ -4,7 +4,8 @@
 #include "Core/Event/EventManager.h"
 #include "Function/Scene/Scene.h"
 #include "Function/Scene/Camera/Camera3D.h"
-#include "Function/Scene/ECS/Component/MeshRenderComponents.hpp"
+#include "Function/Scene/ECS/Component/Visual3DComponent.h"
+#include "Function/Render/Wrapper/RenderWrapper.h"
 #include <glad/glad.h>
 
 namespace Enternity
@@ -46,28 +47,64 @@ namespace Enternity
 
 	void RenderSystem::drawScene(Scene* scene)
 	{
-		const auto& view = scene->m_registry.view<MaterialComponent, ShaderComponent, MeshComponent>();
+		const auto& view = scene->m_registry.view<Visual3DComponent>();
 		for (auto& entity : view)
 		{
-			const auto& [matc,shaderc,meshc] = view.get<MaterialComponent, ShaderComponent, MeshComponent>(entity);
-			if (shaderc.m_shaderAssetImpl->getShader())
+			const auto& v3dComp = view.get<Visual3DComponent>(entity);
+			if (v3dComp.m_rendererPassAssetImpl->getShader())
 			{
-
-				shaderc.m_shaderAssetImpl->getShader()->bind();
+				v3dComp.m_rendererPassAssetImpl->getShader()->bind();
 				Matrix4x4f vp = scene->m_camera3D->getProjMatrix() * scene->m_camera3D->getViewMatrix();
-				shaderc.m_shaderAssetImpl->getShader()->setMat4("vp", vp, true);
+				v3dComp.m_rendererPassAssetImpl->getShader()->setMat4("vp", vp, true);
+
+				//render state
+				//if (v3dComp.m_rendererPassAssetImpl->getRenderState(RenderState::WireFrame))
+				//{
+				//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				//}
+				//else
+				//{
+				//	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				//}
+
+				if (v3dComp.m_rendererPassAssetImpl->getRenderState(RenderState::Depth))
+				{
+					glEnable(GL_DEPTH_TEST);
+				}
+				else
+				{
+					glDisable(GL_DEPTH_TEST);
+				}
 			}
 
-			if (matc.m_textureAssetImpl->getTexture2D())
+			if (v3dComp.m_textureAssetImpl->getTexture2D())
 			{
 				int i = 0; i++;
 			}
 
-			if (meshc.m_MeshAssetImpl->getVertexArray() && meshc.m_MeshAssetImpl->getIndexBuffer())
+
+
+			if (v3dComp.m_MeshAssetImpl->getVertexArray() && v3dComp.m_MeshAssetImpl->getIndexBuffer())
 			{
-				meshc.m_MeshAssetImpl->getVertexArray()->bind();
-				meshc.m_MeshAssetImpl->getIndexBuffer()->bind();
-				CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, meshc.m_MeshAssetImpl->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, (void*)0));
+				v3dComp.m_MeshAssetImpl->getVertexArray()->bind();
+				v3dComp.m_MeshAssetImpl->getIndexBuffer()->bind();
+				CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, v3dComp.m_MeshAssetImpl->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, (void*)0));
+			}
+
+
+			if (v3dComp.m_rendererPassAssetImpl->getShader())
+			{
+				v3dComp.m_rendererPassAssetImpl->getShader()->unbind();
+			}
+
+			if (v3dComp.m_textureAssetImpl->getTexture2D())
+			{
+			}
+
+			if (v3dComp.m_MeshAssetImpl->getVertexArray() && v3dComp.m_MeshAssetImpl->getIndexBuffer())
+			{
+				v3dComp.m_MeshAssetImpl->getVertexArray()->unbind();
+				v3dComp.m_MeshAssetImpl->getIndexBuffer()->unbind();
 			}
 		}
 	}
