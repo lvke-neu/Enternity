@@ -56,9 +56,20 @@ namespace Enternity
 		Scene* scene = SceneManager::GetInstance().getScene();
 		auto iter = scene->m_entities.begin();
 		auto& comp = iter->second.getComponent<TransformComponent>();
+		
+		ImGui::DragFloat("transX", &comp.m_position.x, 1.0f);
+		ImGui::DragFloat("transY", &comp.m_position.y, 1.0f);
+		ImGui::DragFloat("transZ", &comp.m_position.z, 1.0f);
+
+		
 		ImGui::DragFloat("rotX", &comp.m_rotation.x, 1.0f);
 		ImGui::DragFloat("rotY", &comp.m_rotation.y, 1.0f);
 		ImGui::DragFloat("rotZ", &comp.m_rotation.z, 1.0f);
+
+		ImGui::DragFloat("scaleX", &comp.m_scale.x, 1.0f);
+		ImGui::DragFloat("scaleY", &comp.m_scale.y, 1.0f);
+		ImGui::DragFloat("scaleZ", &comp.m_scale.z, 1.0f);
+
 		ImGui::End();
 
 
