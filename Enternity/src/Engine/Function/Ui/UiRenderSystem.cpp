@@ -1,6 +1,8 @@
 #include "UiRenderSystem.h"
 #include "Core/Log/Log.h"
 #include "Platform/Window/OpenglWindow.h"
+#include "Function/Scene/SceneManager.h"
+#include "Function/Scene/ECS/Component/TransformComponent.h"
 
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
@@ -49,6 +51,16 @@ namespace Enternity
 		static bool show = true;
 		ImGui::ShowDemoWindow(&show);
 		ImGui::ShowMetricsWindow();
+
+		ImGui::Begin("Debug");
+		Scene* scene = SceneManager::GetInstance().getScene();
+		auto iter = scene->m_entities.begin();
+		auto& comp = iter->second.getComponent<TransformComponent>();
+		ImGui::DragFloat("rotX", &comp.m_rotation.x, 1.0f);
+		ImGui::DragFloat("rotY", &comp.m_rotation.y, 1.0f);
+		ImGui::DragFloat("rotZ", &comp.m_rotation.z, 1.0f);
+		ImGui::End();
+
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

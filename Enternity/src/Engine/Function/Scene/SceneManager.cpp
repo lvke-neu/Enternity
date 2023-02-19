@@ -16,4 +16,9 @@ namespace Enternity
 	{
 		m_scene.tick();
 	}
+
+	Scene* SceneManager::getScene()
+	{
+		return &m_scene;
+	}
 }

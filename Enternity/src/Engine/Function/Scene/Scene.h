@@ -15,6 +15,7 @@ namespace Enternity
 	{
 		friend class RenderSystem;
 		friend class SceneManager;
+		friend class UiRenderSystem;
 	public:
 		Scene();
 		~Scene();

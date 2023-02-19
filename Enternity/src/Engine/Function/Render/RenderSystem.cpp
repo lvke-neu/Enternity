@@ -5,6 +5,7 @@
 #include "Function/Scene/Scene.h"
 #include "Function/Scene/Camera/Camera3D.h"
 #include "Function/Scene/ECS/Component/Visual3DComponent.h"
+#include "Function/Scene/ECS/Component/TransformComponent.h"
 #include "Function/Render/Wrapper/RenderWrapper.h"
 #include <glad/glad.h>
 
@@ -47,14 +48,15 @@ namespace Enternity
 
 	void RenderSystem::drawScene(Scene* scene)
 	{
-		const auto& view = scene->m_registry.view<Visual3DComponent>();
+		const auto& view = scene->m_registry.view<Visual3DComponent, TransformComponent>();
 		for (auto& entity : view)
 		{
-			const auto& v3dComp = view.get<Visual3DComponent>(entity);
+			const auto& [v3dComp, transcomp] = view.get<Visual3DComponent, TransformComponent>(entity);
 			if (v3dComp.m_rendererPassAssetImpl->getShader())
 			{
 				v3dComp.m_rendererPassAssetImpl->getShader()->bind();
 				Matrix4x4f vp = scene->m_camera3D->getProjMatrix() * scene->m_camera3D->getViewMatrix();
+				vp = vp * transcomp.getWorldMatrix();
 				v3dComp.m_rendererPassAssetImpl->getShader()->setMat4("vp", vp, true);
 
 				//render state

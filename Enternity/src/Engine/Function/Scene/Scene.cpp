@@ -2,6 +2,7 @@
 #include "Function/Scene/Camera/Camera3D.h"
 #include "Function/Scene/ECS/Component/TagComponent.h"
 #include "Function/Scene/ECS/Component/Visual3DComponent.h"
+#include "Function/Scene/ECS/Component/TransformComponent.h"
 #include "Function/Render/RenderSystem.h"
 #include "Core/Asset/AssetLoader.h"
 
@@ -18,7 +19,7 @@ namespace Enternity
 		auto& entity = createEntity();
 
 		auto& comp = entity.addComponent<Visual3DComponent>();
-		comp.m_rendererPassAssetImpl = new RendererPassAssetImpl;
+		comp.m_rendererPassAssetImpl = new RenderPassAssetImpl;
 		comp.m_rendererPassAssetImpl->load("assets/shaders/Phong.vert", "assets/shaders/Phong.frag");
 
 		comp.m_textureAssetImpl = new TextureAssetImpl;
@@ -30,11 +31,13 @@ namespace Enternity
 		comp.m_rendererPassAssetImpl->setRenderState(RenderState::WireFrame, true);
 		comp.m_rendererPassAssetImpl->setRenderState(RenderState::Depth, true);
 
+		entity.addComponent<TransformComponent>();
+
 
 		auto& entity2 = createEntity();
 
 		auto& comp2 = entity2.addComponent<Visual3DComponent>();
-		comp2.m_rendererPassAssetImpl = new RendererPassAssetImpl;
+		comp2.m_rendererPassAssetImpl = new RenderPassAssetImpl;
 		comp2.m_rendererPassAssetImpl->load("assets/shaders/Phong.vert", "assets/shaders/Phong2.frag");
 
 		comp2.m_textureAssetImpl = new TextureAssetImpl;
@@ -45,6 +48,8 @@ namespace Enternity
 
 		comp2.m_rendererPassAssetImpl->setRenderState(RenderState::WireFrame, false);
 		comp2.m_rendererPassAssetImpl->setRenderState(RenderState::Depth, true);
+
+		entity2.addComponent<TransformComponent>();
 	}
 
 	Scene::~Scene()

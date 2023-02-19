@@ -111,7 +111,7 @@
     <ClCompile Include="src\Engine\Function\Render\Wrapper\VertexArray.cpp" />
     <ClCompile Include="src\Engine\Function\Render\Wrapper\VertexBuffer.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\AssetImpl\MeshAssetImpl.cpp" />
-    <ClCompile Include="src\Engine\Function\Scene\AssetImpl\RendererPassAssetImpl.cpp" />
+    <ClCompile Include="src\Engine\Function\Scene\AssetImpl\RenderPassAssetImpl.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\AssetImpl\TextureAssetImpl.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\Camera\Camera3D.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\Camera\CameraController.cpp" />
@@ -159,7 +159,7 @@
     <ClInclude Include="src\Engine\Function\Render\Wrapper\Shader.h" />
     <ClInclude Include="src\Engine\Function\Render\Wrapper\Texture.h" />
     <ClInclude Include="src\Engine\Function\Scene\AssetImpl\MeshAssetImpl.h" />
-    <ClInclude Include="src\Engine\Function\Scene\AssetImpl\RendererPassAssetImpl.h" />
+    <ClInclude Include="src\Engine\Function\Scene\AssetImpl\RenderPassAssetImpl.h" />
     <ClInclude Include="src\Engine\Function\Scene\AssetImpl\TextureAssetImpl.h" />
     <ClInclude Include="src\Engine\Function\Scene\Camera\Camera3D.h" />
     <ClInclude Include="src\Engine\Function\Scene\Camera\CameraController.h" />

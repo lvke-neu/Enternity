@@ -144,7 +144,7 @@
     <ClCompile Include="src\Engine\Function\Scene\AssetImpl\TextureAssetImpl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Function\Scene\AssetImpl\RendererPassAssetImpl.cpp">
+    <ClCompile Include="src\Engine\Function\Scene\AssetImpl\RenderPassAssetImpl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -326,7 +326,7 @@
     <ClInclude Include="src\Engine\Function\Scene\ECS\Component\TagComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Function\Scene\AssetImpl\RendererPassAssetImpl.h">
+    <ClInclude Include="src\Engine\Function\Scene\AssetImpl\RenderPassAssetImpl.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

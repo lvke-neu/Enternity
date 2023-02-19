@@ -18,6 +18,7 @@ namespace Enternity
 		void uninitialize();
 	public:
 		void tick();
+		Scene* getScene();
 	private:
 		//TODO:remove, just for test one scene
 		Scene m_scene;

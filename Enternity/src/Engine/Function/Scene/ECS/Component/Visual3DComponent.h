@@ -1,5 +1,5 @@
 #pragma once
-#include "Function/Scene/AssetImpl/RendererPassAssetImpl.h"
+#include "Function/Scene/AssetImpl/RenderPassAssetImpl.h"
 #include "Function/Scene/AssetImpl/MeshAssetImpl.h"
 #include "Function/Scene/AssetImpl/TextureAssetImpl.h"
 
@@ -11,7 +11,7 @@ namespace Enternity
 		Visual3DComponent(const Visual3DComponent&) = default;
 
 		MeshAssetImpl* m_MeshAssetImpl{ nullptr };
-		RendererPassAssetImpl* m_rendererPassAssetImpl{ nullptr };
+		RenderPassAssetImpl* m_rendererPassAssetImpl{ nullptr };
 		TextureAssetImpl* m_textureAssetImpl{ nullptr };
 	};
 

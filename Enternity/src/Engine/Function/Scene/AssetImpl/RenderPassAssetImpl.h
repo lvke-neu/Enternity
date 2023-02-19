@@ -2,7 +2,7 @@
 Author: lvke
 Date:2023/2/18 16:19
 Description:
-RendererPassAssetImpl
+RenderPassAssetImpl
 ****************************************************************************************/
 #pragma once
 #include "Core/Asset/Asset.h"
@@ -20,11 +20,11 @@ namespace Enternity
 
 	class IEvent;
 	class Shader;
-	class RendererPassAssetImpl
+	class RenderPassAssetImpl
 	{
 	public:
-		RendererPassAssetImpl();
-		~RendererPassAssetImpl();
+		RenderPassAssetImpl();
+		~RenderPassAssetImpl();
 
 		void load(const std::string& vsFilePath, const std::string& psFilePath);
 		void unLoad();
@@ -43,7 +43,7 @@ namespace Enternity
 		std::unordered_map<RenderState, bool> m_renderStates;
 	};
 
-	inline Shader* RendererPassAssetImpl::getShader()
+	inline Shader* RenderPassAssetImpl::getShader()
 	{
 		return m_shader;
 	}

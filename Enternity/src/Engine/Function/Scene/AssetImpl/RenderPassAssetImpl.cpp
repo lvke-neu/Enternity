@@ -1,4 +1,4 @@
-#include "RendererPassAssetImpl.h"
+#include "RenderPassAssetImpl.h"
 #include "Function/Render/Wrapper/RenderWrapper.h"
 #include "Core/Asset/AssetLoader.h"
 #include "Core/Event/TickEvent.h"
@@ -6,18 +6,18 @@
 
 namespace Enternity
 {
-	RendererPassAssetImpl::RendererPassAssetImpl()
+	RenderPassAssetImpl::RenderPassAssetImpl()
 	{
-		EventManager::GetInstance().registry(EventType::Tick, BIND_FUNC(RendererPassAssetImpl::loadImpl));
+		EventManager::GetInstance().registry(EventType::Tick, BIND_FUNC(RenderPassAssetImpl::loadImpl));
 	}
 
-	RendererPassAssetImpl::~RendererPassAssetImpl()
+	RenderPassAssetImpl::~RenderPassAssetImpl()
 	{
-		EventManager::GetInstance().unRegistry(EventType::Tick, BIND_FUNC(RendererPassAssetImpl::loadImpl));
+		EventManager::GetInstance().unRegistry(EventType::Tick, BIND_FUNC(RenderPassAssetImpl::loadImpl));
 		unLoad();
 	}
 
-	void RendererPassAssetImpl::load(const std::string& vsFilePath, const std::string& psFilePath)
+	void RenderPassAssetImpl::load(const std::string& vsFilePath, const std::string& psFilePath)
 	{
 		unLoad();
 
@@ -29,24 +29,24 @@ namespace Enternity
 		assetLoader.loadAsset(m_psAsset);
 	}
 
-	void RendererPassAssetImpl::unLoad()
+	void RenderPassAssetImpl::unLoad()
 	{
 		RenderWrapper::Destroy(m_shader);
 		m_vsAsset.reset();
 		m_psAsset.reset();
 	}
 
-	void RendererPassAssetImpl::setRenderState(RenderState state, bool enable)
+	void RenderPassAssetImpl::setRenderState(RenderState state, bool enable)
 	{
 		m_renderStates[state] = enable;
 	}
 
-	bool RendererPassAssetImpl::getRenderState(RenderState state)
+	bool RenderPassAssetImpl::getRenderState(RenderState state)
 	{
 		return m_renderStates[state];
 	}
 
-	void RendererPassAssetImpl::loadImpl(IEvent* event)
+	void RenderPassAssetImpl::loadImpl(IEvent* event)
 	{
 		if (m_vsAsset.getAssetLoadState() == AssetLoadState::success &&
 			m_psAsset.getAssetLoadState() == AssetLoadState::success)
