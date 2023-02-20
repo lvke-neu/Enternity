@@ -9,8 +9,6 @@ Asset: data store in m_blob or m_meshs or......
 
 namespace Enternity
 {
-	const int AssetBlobNum = 10;
-
 	class Blob;
 	class Asset
 	{

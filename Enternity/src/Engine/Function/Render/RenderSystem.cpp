@@ -55,19 +55,18 @@ namespace Enternity
 			if (v3dComp.m_rendererPassAssetImpl->getShader())
 			{
 				v3dComp.m_rendererPassAssetImpl->getShader()->bind();
-				Matrix4x4f vp = scene->m_camera3D->getProjMatrix() * scene->m_camera3D->getViewMatrix();
-				vp = vp * transcomp.getWorldMatrix();
-				v3dComp.m_rendererPassAssetImpl->getShader()->setMat4("vp", vp, true);
+				Matrix4x4f mvp = scene->m_camera3D->getProjMatrix() * scene->m_camera3D->getViewMatrix() * transcomp.getWorldMatrix();
+				v3dComp.m_rendererPassAssetImpl->getShader()->setMat4("mvp", mvp, true);
 
 				//render state
-				//if (v3dComp.m_rendererPassAssetImpl->getRenderState(RenderState::WireFrame))
-				//{
-				//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-				//}
-				//else
-				//{
-				//	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-				//}
+				if (v3dComp.m_rendererPassAssetImpl->getRenderState(RenderState::WireFrame))
+				{
+					glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				}
+				else
+				{
+					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				}
 
 				if (v3dComp.m_rendererPassAssetImpl->getRenderState(RenderState::Depth))
 				{

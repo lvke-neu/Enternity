@@ -8,6 +8,8 @@ namespace Enternity
 	RenderPassAssetImpl::RenderPassAssetImpl()
 	{
 		EventManager::GetInstance().registry(EventType::Tick, BIND_FUNC(RenderPassAssetImpl::loadImpl));
+		m_renderStates[RenderState::WireFrame] = false;
+		m_renderStates[RenderState::Depth] = true;
 	}
 
 	RenderPassAssetImpl::~RenderPassAssetImpl()

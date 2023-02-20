@@ -1,9 +1,9 @@
 #include "AssetLoader.h"
 #include "Asset.h"
+#include "stb_image.h"
 #include "Core/Log/Log.h"
 #include "Core/ThreadPool/ThreadPool.h"
 #include "Core/Memory/Blob.h"
-#include "Core/Memory/stb_image.h"
 #include <fstream>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>

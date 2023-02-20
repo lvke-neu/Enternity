@@ -10,6 +10,9 @@ RenderSystem
 
 namespace Enternity
 {
+	class RenderPassAssetImpl;
+	class TextureAssetImpl;
+	class MeshAssetImpl;
 	class IEvent;
 	class Scene;
 	struct Vector4f;
@@ -27,6 +30,7 @@ namespace Enternity
 	private:
 		void drawScene(Scene* scene);
 		void onResize(IEvent* event);
+
 	private:
 		std::queue<Scene*> m_drawcalls;
 	};
