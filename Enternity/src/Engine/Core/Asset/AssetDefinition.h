@@ -6,6 +6,9 @@ AssetDefinition
 ****************************************************************************************/
 #pragma once
 #include <string>
+#include <vector>
+#include "Core/Math/Vector3.h"
+#include "Core/Math/Vector2.h"
 
 namespace Enternity
 {
@@ -18,9 +21,9 @@ namespace Enternity
 
 	enum class AssetLoadState
 	{
-		success,
-		failure,
-		unloaded
+		Success,
+		Failure,
+		Unloaded
 	};
 
 	enum class AssetLoadType
@@ -29,7 +32,6 @@ namespace Enternity
 		Asyn
 	};
 
-
 	struct AssetDescription
 	{
 		std::string assetID;
@@ -37,4 +39,16 @@ namespace Enternity
 		AssetLoadType assetLoadType;
 	};
 
+	struct VertexPosNorTex
+	{
+		Vector3f position;
+		Vector3f normal;
+		Vector2f texcoord;
+	};
+
+	struct Mesh
+	{
+		std::vector<VertexPosNorTex> vertices;
+		std::vector<unsigned int> indices;
+	};
 }

@@ -84,15 +84,20 @@ namespace Enternity
 				int i = 0; i++;
 			}
 
-
-
-			if (v3dComp.m_MeshAssetImpl->getVertexArray() && v3dComp.m_MeshAssetImpl->getIndexBuffer())
+			auto& vertexArraies = v3dComp.m_MeshAssetImpl->getVertexArraies();
+			auto& indexBuffers = v3dComp.m_MeshAssetImpl->getIndexBuffers();
+			for (int i = 0; i < indexBuffers.size(); i++)
 			{
-				v3dComp.m_MeshAssetImpl->getVertexArray()->bind();
-				v3dComp.m_MeshAssetImpl->getIndexBuffer()->bind();
-				CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, v3dComp.m_MeshAssetImpl->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, (void*)0));
+				if (vertexArraies[i])
+					vertexArraies[i]->bind();
+				if (indexBuffers[i])
+				{
+					indexBuffers[i]->bind();
+					CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffers[i]->getCount(), GL_UNSIGNED_INT, (void*)0));
+				}
+				
 			}
-
+	
 
 			if (v3dComp.m_rendererPassAssetImpl->getShader())
 			{
@@ -103,10 +108,12 @@ namespace Enternity
 			{
 			}
 
-			if (v3dComp.m_MeshAssetImpl->getVertexArray() && v3dComp.m_MeshAssetImpl->getIndexBuffer())
+			for (int i = 0; i < indexBuffers.size(); i++)
 			{
-				v3dComp.m_MeshAssetImpl->getVertexArray()->unbind();
-				v3dComp.m_MeshAssetImpl->getIndexBuffer()->unbind();
+				if (vertexArraies[i])
+					vertexArraies[i]->unbind();
+				if (indexBuffers[i])
+					indexBuffers[i]->unbind();
 			}
 		}
 	}

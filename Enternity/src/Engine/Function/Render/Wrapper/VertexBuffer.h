@@ -10,7 +10,7 @@ VertexBuffer
 
 namespace Enternity
 {
-	struct LayouElement
+	struct LayoutElement
 	{
 		unsigned int index;
 		unsigned int count;
@@ -23,16 +23,16 @@ namespace Enternity
 	class VertexBufferLayout
 	{
 	public:
-		void push(const LayouElement& layouElement)
+		void push(const LayoutElement& layouElement)
 		{
 			m_layoutElements.push_back(layouElement);
 		}
-		std::vector<LayouElement> getElements() const
+		std::vector<LayoutElement> getElements() const
 		{
 			return m_layoutElements;
 		}
 	private:
-		std::vector<LayouElement> m_layoutElements;
+		std::vector<LayoutElement> m_layoutElements;
 	};
 
 	class Blob;

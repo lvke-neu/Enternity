@@ -33,12 +33,12 @@ namespace Enternity
 
 	void TextureAssetImpl::loadImpl(IEvent* event)
 	{
-		if (m_textureAsset.getAssetLoadState() == AssetLoadState::success)
+		if (m_textureAsset.getAssetLoadState() == AssetLoadState::Success)
 		{
 			RenderWrapper::Destroy(m_texture2D);
 
 			m_texture2D = RenderWrapper::Create<Texture2D>();
-			m_texture2D->init(m_textureAsset.getBlob()[0]);
+			m_texture2D->init(m_textureAsset.getBlob());
 
 			m_textureAsset.reset();
 		}

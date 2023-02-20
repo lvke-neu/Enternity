@@ -45,13 +45,13 @@ namespace Enternity
 
 	void RenderPassAssetImpl::loadImpl(IEvent* event)
 	{
-		if (m_vsAsset.getAssetLoadState() == AssetLoadState::success &&
-			m_psAsset.getAssetLoadState() == AssetLoadState::success)
+		if (m_vsAsset.getAssetLoadState() == AssetLoadState::Success &&
+			m_psAsset.getAssetLoadState() == AssetLoadState::Success)
 		{
 			RenderWrapper::Destroy(m_shader);
 
 			m_shader = RenderWrapper::Create<Shader>();
-			m_shader->init(m_vsAsset.getBlob()[0], m_psAsset.getBlob()[0]);
+			m_shader->init(m_vsAsset.getBlob(), m_psAsset.getBlob());
 
 			m_vsAsset.reset();
 			m_psAsset.reset();

@@ -9,7 +9,7 @@ namespace Enternity
 		m_assetID(assetDesc.assetID), 
 		m_assetType(assetDesc.assetType),
 		m_assetLoadType(assetDesc.assetLoadType),
-		m_assetLoadState(AssetLoadState::unloaded)
+		m_assetLoadState(AssetLoadState::Unloaded)
 	{
 	
 	}
@@ -30,9 +30,14 @@ namespace Enternity
 		return m_assetType;
 	}
 
-	Blob** Asset::getBlob()
+	Blob* Asset::getBlob()
 	{
 		return m_blob;
+	}
+
+	std::vector<Enternity::Mesh>& Asset::getMeshs()
+	{
+		return m_meshs;
 	}
 
 	AssetLoadState Asset::getAssetLoadState()
@@ -42,10 +47,8 @@ namespace Enternity
 
 	void Asset::reset()
 	{
-		for (int i = 0; i < 10; i++)
-			if (m_blob[i])
-				SAFE_DELETE_SET_NULL(m_blob[i]);
-
-		m_assetLoadState = AssetLoadState::unloaded;
+		SAFE_DELETE_SET_NULL(m_blob);
+		m_meshs.clear();
+		m_assetLoadState = AssetLoadState::Unloaded;
 	}
 }

@@ -21,25 +21,15 @@ namespace Enternity
 		void load(const std::string& mshFilePath);
 		void unLoad();
 		
-		inline VertexArray* getVertexArray();
-		inline IndexBuffer* getIndexBuffer();
+		std::vector<VertexArray*>& getVertexArraies();
+		std::vector<IndexBuffer*>& getIndexBuffers();
 	protected:
 		void loadImpl(IEvent* event);
 	private:
 		Asset m_meshAsset;
 
-		VertexArray* m_vertexArray{ nullptr };
-		VertexBuffer* m_vertexbuffer{ nullptr };
-		IndexBuffer* m_indexbuffer{ nullptr };
+		std::vector<VertexArray*> m_vertexArraies;
+		std::vector<VertexBuffer*> m_vertexbuffers;
+		std::vector<IndexBuffer*> m_indexbuffers;
 	};
-
-	inline VertexArray* MeshAssetImpl::getVertexArray()
-	{
-		return m_vertexArray;
-	}
-
-	inline IndexBuffer* MeshAssetImpl::getIndexBuffer()
-	{
-		return m_indexbuffer;
-	}
 }

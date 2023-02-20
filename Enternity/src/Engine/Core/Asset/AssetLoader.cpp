@@ -4,8 +4,6 @@
 #include "Core/ThreadPool/ThreadPool.h"
 #include "Core/Memory/Blob.h"
 #include "Core/Memory/stb_image.h"
-#include "Core/Math/Vector3.h"
-#include "Core/Math/Vector2.h"
 #include <fstream>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -68,7 +66,7 @@ namespace Enternity
 		std::ifstream ifs(asset.getAssetID(), std::ios::in | std::ios::binary);
 		if (!ifs.is_open())
 		{
-			asset.m_assetLoadState = AssetLoadState::failure;
+			asset.m_assetLoadState = AssetLoadState::Failure;
 			LOG_ERROR("Assets load failed:{0}", asset.getAssetID());
 			return;
 		}
@@ -79,12 +77,12 @@ namespace Enternity
 		size_t size = pFilebuf->pubseekoff(0, ifs.end, ifs.in);
 		pFilebuf->pubseekpos(0, ifs.in);
 
-		asset.m_blob[0] = new Blob(size);
-		pFilebuf->sgetn((char*)asset.m_blob[0]->getData(), asset.m_blob[0]->getLength());
+		asset.m_blob = new Blob(size);
+		pFilebuf->sgetn((char*)asset.m_blob->getData(), asset.m_blob->getLength());
 
 		ifs.close();
 
-		asset.m_assetLoadState = AssetLoadState::success;
+		asset.m_assetLoadState = AssetLoadState::Success;
 	}
 
 	void AssetLoader::loadTextureImpl(Asset& asset)
@@ -98,22 +96,22 @@ namespace Enternity
 		tmpTexture = stbi_load(asset.getAssetID().c_str(), &width, &height, &channels, 0);
 		if (!tmpTexture)
 		{
-			asset.m_assetLoadState = AssetLoadState::failure;
+			asset.m_assetLoadState = AssetLoadState::Failure;
 			LOG_ERROR("Assets load failed:{0}", asset.getAssetID());
 			return;
 		}
 
 		asset.reset();
 
-		asset.m_blob[0] = new Blob(width * height * channels);
-		memcpy_s(asset.m_blob[0]->getData(), asset.m_blob[0]->getLength(), tmpTexture, asset.m_blob[0]->getLength());
-		asset.m_blob[0]->m_width = width;
-		asset.m_blob[0]->m_height = height;
-		asset.m_blob[0]->m_channels = channels;
+		asset.m_blob = new Blob(width * height * channels);
+		memcpy_s(asset.m_blob->getData(), asset.m_blob->getLength(), tmpTexture, asset.m_blob->getLength());
+		asset.m_blob->m_width = width;
+		asset.m_blob->m_height = height;
+		asset.m_blob->m_channels = channels;
 
 		stbi_image_free(tmpTexture);
 
-		asset.m_assetLoadState = AssetLoadState::success;
+		asset.m_assetLoadState = AssetLoadState::Success;
 	}
 
 	void AssetLoader::loadMeshImpl(Asset& asset)
@@ -125,54 +123,38 @@ namespace Enternity
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
 			LOG_ERROR("ERROR::ASSIMP::{0}", importer.GetErrorString());
-			asset.m_assetLoadState = AssetLoadState::failure;
+			asset.m_assetLoadState = AssetLoadState::Failure;
 			return;
 		}
 
 		asset.reset();
 
-		struct VertexPosNorTex
-		{
-			Vector3f position;
-			Vector3f normal;
-			Vector2f texcoord;
-		};
-
-		std::vector<VertexPosNorTex> vertices;
-		std::vector<unsigned int> indices;
-		unsigned int indexOffset = 0;
 		for (unsigned int i = 0; i < scene->mNumMeshes; i++)
 		{
-			aiMesh* mesh = scene->mMeshes[i];
-
-			for (unsigned int j = 0; j < mesh->mNumVertices; j++)
+			aiMesh* assimpMesh = scene->mMeshes[i];
+			Mesh mesh;
+			for (unsigned int j = 0; j < assimpMesh->mNumVertices; j++)
 			{
 				VertexPosNorTex vertex;
-				vertex.position.x = mesh->mVertices[j].x;
-				vertex.position.y = mesh->mVertices[j].y;
-				vertex.position.z = mesh->mVertices[j].z;
+				vertex.position.x = assimpMesh->mVertices[j].x;
+				vertex.position.y = assimpMesh->mVertices[j].y;
+				vertex.position.z = assimpMesh->mVertices[j].z;
 
-				vertices.push_back(vertex);
+				mesh.vertices.push_back(vertex);
 				//TODO: normal and texcoord
 			}
 
-			for (unsigned int j = 0; j < mesh->mNumFaces; j++)
+			for (unsigned int j = 0; j < assimpMesh->mNumFaces; j++)
 			{
-				for (unsigned int k = 0; k < mesh->mFaces[i].mNumIndices; k++)
+				for (unsigned int k = 0; k < assimpMesh->mFaces[i].mNumIndices; k++)
 				{
-					indices.push_back(mesh->mFaces[j].mIndices[k] + indexOffset);
+					mesh.indices.push_back(assimpMesh->mFaces[j].mIndices[k]);
 				}
 			}
 
-			indexOffset += (unsigned int)vertices.size();
+			asset.m_meshs.push_back(mesh);
 		}
 
-		asset.m_blob[0] = new Blob(vertices.size() * sizeof(VertexPosNorTex));
-		asset.m_blob[0]->copyDataFrom(vertices.data());
-
-		asset.m_blob[1] = new Blob(indices.size() * sizeof(unsigned int));
-		asset.m_blob[1]->copyDataFrom(indices.data());
-
-		asset.m_assetLoadState = AssetLoadState::success;
+		asset.m_assetLoadState = AssetLoadState::Success;
 	}
 }

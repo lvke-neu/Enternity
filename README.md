@@ -108,3 +108,5 @@ RenderSystem: 接受drawcall命令放在队列中， 在tick的时候从队列�
 Visual3DComponent: Mesh, Texture, RendererPass(shader, rendererState)
 Mesh, Texture, Shader 都是资产
 ******************************************************************************************************
+
+
