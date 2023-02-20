@@ -22,9 +22,7 @@ namespace Enternity
 		unLoad();
 
 		m_textureAsset = Asset({ matFilePath, AssetType::Texture, AssetLoadType::Asyn });
-		
-		AssetLoader assetLoader;
-		assetLoader.loadAsset(m_textureAsset);
+		m_textureAsset.load();
 	}
 
 	void TextureAssetImpl::unLoad()

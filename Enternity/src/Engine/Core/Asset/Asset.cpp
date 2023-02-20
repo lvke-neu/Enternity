@@ -1,6 +1,7 @@
 #include "Asset.h"
 #include "Core/Basic/Macro.h"
 #include "Core/Memory/Blob.h"
+#include "Core/Asset/AssetLoader.h"
 
 namespace Enternity
 {
@@ -11,6 +12,12 @@ namespace Enternity
 		m_assetLoadState(AssetLoadState::unloaded)
 	{
 	
+	}
+
+	void Asset::load()
+	{
+		AssetLoader assetLoader;
+		assetLoader.loadAsset(*this);
 	}
 
 	std::string Asset::getAssetID()

@@ -329,5 +329,8 @@
     <ClInclude Include="src\Engine\Function\Scene\AssetImpl\RenderPassAssetImpl.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Core\Asset\AssetDefinition.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

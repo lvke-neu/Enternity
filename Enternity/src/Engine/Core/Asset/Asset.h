@@ -5,39 +5,12 @@ Description:
 Asset
 ****************************************************************************************/
 #pragma once
-#include <string>
+#include "AssetDefinition.h"
+
 
 namespace Enternity
 {
 	const int AssetBlobNum = 10;
-
-	enum class AssetType
-	{
-		Shader,
-		Texture,
-		Mesh
-	};
-
-	enum class AssetLoadState
-	{
-		success,
-		failure,
-		unloaded
-	};
-	
-	enum class AssetLoadType
-	{
-		Sync,
-		Asyn
-	};
-
-
-	struct AssetDescription
-	{
-		std::string assetID;
-		AssetType assetType;
-		AssetLoadType assetLoadType;
-	};
 
 	class Blob;
 	class Asset
@@ -46,6 +19,8 @@ namespace Enternity
 	public:
 		Asset() = default;
 		Asset(const AssetDescription& assetDesc);
+
+		void load();
 
 		std::string getAssetID();
 		AssetType getAssetType();

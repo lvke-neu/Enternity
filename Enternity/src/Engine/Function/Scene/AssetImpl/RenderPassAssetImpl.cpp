@@ -1,6 +1,5 @@
 #include "RenderPassAssetImpl.h"
 #include "Function/Render/Wrapper/RenderWrapper.h"
-#include "Core/Asset/AssetLoader.h"
 #include "Core/Event/TickEvent.h"
 #include "Core/Event/EventManager.h"
 
@@ -23,10 +22,8 @@ namespace Enternity
 
 		m_vsAsset = Asset({ vsFilePath, AssetType::Shader, AssetLoadType::Asyn });
 		m_psAsset = Asset({ psFilePath, AssetType::Shader, AssetLoadType::Asyn });
-
-		AssetLoader assetLoader;
-		assetLoader.loadAsset(m_vsAsset);
-		assetLoader.loadAsset(m_psAsset);
+		m_vsAsset.load();
+		m_psAsset.load();
 	}
 
 	void RenderPassAssetImpl::unLoad()

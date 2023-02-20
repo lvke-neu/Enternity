@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Core\Asset\Asset.h" />
+    <ClInclude Include="src\Engine\Core\Asset\AssetDefinition.h" />
     <ClInclude Include="src\Engine\Core\Asset\AssetLoader.h" />
     <ClInclude Include="src\Engine\Core\Basic\UUID.h" />
     <ClInclude Include="src\Engine\Core\Basic\Macro.h" />

@@ -1,6 +1,5 @@
 #include "MeshAssetImpl.h"
 #include "Function/Render/Wrapper/RenderWrapper.h"
-#include "Core/Asset/AssetLoader.h"
 #include "Core/Event/TickEvent.h"
 #include "Core/Event/EventManager.h"
 #include <glad/glad.h>
@@ -23,9 +22,7 @@ namespace Enternity
 		unLoad();
 
 		m_meshAsset = Asset({ mshFilePath, AssetType::Mesh, AssetLoadType::Asyn });
-
-		AssetLoader assetLoader;
-		assetLoader.loadAsset(m_meshAsset);
+		m_meshAsset.load();
 	}
 
 	void MeshAssetImpl::unLoad()
