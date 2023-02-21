@@ -16,40 +16,38 @@ namespace Enternity
 
 		m_camera3D->setPosition(Vector3f(0, 0, 34));
 
-		auto& entity = createEntity();
-
-		auto& comp = entity.addComponent<Visual3DComponent>();
-		comp.m_rendererPassAssetImpl = new RenderPassAssetImpl;
-		comp.m_rendererPassAssetImpl->load("assets/shaders/Phong.vert", "assets/shaders/Phong.frag");
-
-		comp.m_textureAssetImpl = new TextureAssetImpl;
-		comp.m_textureAssetImpl->load("assets/textures/box_diffuse.png");
-
-		comp.m_MeshAssetImpl = new MeshAssetImpl;
-		comp.m_MeshAssetImpl->load("assets/models/nanosuit/nanosuit.obj");
-
-		comp.m_rendererPassAssetImpl->setRenderState(RenderState::WireFrame, true);
-		comp.m_rendererPassAssetImpl->setRenderState(RenderState::Depth, true);
-
-		entity.addComponent<TransformComponent>();
-
 
 		auto& entity2 = createEntity();
 
+		auto& trans = entity2.addComponent<TransformComponent>();
+		trans.m_scale = Vector3f(100, 0.5, 100);
+		trans.m_position.y = -5.0f;
+
 		auto& comp2 = entity2.addComponent<Visual3DComponent>();
-		comp2.m_rendererPassAssetImpl = new RenderPassAssetImpl;
 		comp2.m_rendererPassAssetImpl->load("assets/shaders/Phong.vert", "assets/shaders/Phong2.frag");
-
-		comp2.m_textureAssetImpl = new TextureAssetImpl;
 		comp2.m_textureAssetImpl->load("assets/textures/box_diffuse.png");
-		
-		comp2.m_MeshAssetImpl = new MeshAssetImpl;
 		comp2.m_MeshAssetImpl->load("assets/models/Box.fbx");
+		comp2.m_rendererPassAssetImpl->setRenderState(RenderState::WireFrame, true);
 
-		comp2.m_rendererPassAssetImpl->setRenderState(RenderState::WireFrame, false);
-		comp2.m_rendererPassAssetImpl->setRenderState(RenderState::Depth, true);
 
-		entity2.addComponent<TransformComponent>();
+
+
+		//for (int i = 0; i < 2000; i++)
+		//{
+			auto& entity = createEntity();
+			auto& trans = entity.addComponent<TransformComponent>();
+			//trans.m_position.x += i;
+
+			auto& comp = entity.addComponent<Visual3DComponent>();
+
+			comp.m_rendererPassAssetImpl->load("assets/shaders/Phong.vert", "assets/shaders/Phong.frag");
+			comp.m_textureAssetImpl->load("assets/textures/box_diffuse.png");
+			comp.m_MeshAssetImpl->load("assets/models/nanosuit/nanosuit.obj");
+		//}
+
+
+
+
 	}
 
 	Scene::~Scene()

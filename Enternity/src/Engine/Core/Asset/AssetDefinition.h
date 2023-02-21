@@ -50,5 +50,8 @@ namespace Enternity
 	{
 		std::vector<VertexPosNorTex> vertices;
 		std::vector<unsigned int> indices;
+		std::string m_ambientTexture;
+		std::string m_diffuseTexture;
+		std::string m_specularTexture;
 	};
 }

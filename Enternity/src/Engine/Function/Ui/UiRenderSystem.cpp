@@ -55,6 +55,7 @@ namespace Enternity
 		ImGui::Begin("Debug");
 		Scene* scene = SceneManager::GetInstance().getScene();
 		auto iter = scene->m_entities.begin();
+		//iter++;
 		auto& comp = iter->second.getComponent<TransformComponent>();
 		
 		ImGui::DragFloat("transX", &comp.m_position.x, 1.0f);

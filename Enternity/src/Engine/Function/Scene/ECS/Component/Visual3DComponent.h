@@ -7,7 +7,12 @@ namespace Enternity
 {
 	struct Visual3DComponent
 	{
-		Visual3DComponent() = default;
+		Visual3DComponent()
+		{
+			m_MeshAssetImpl = new MeshAssetImpl;
+			m_rendererPassAssetImpl = new RenderPassAssetImpl;
+			m_textureAssetImpl = new TextureAssetImpl;
+		}
 		Visual3DComponent(const Visual3DComponent&) = default;
 
 		MeshAssetImpl* m_MeshAssetImpl{ nullptr };
