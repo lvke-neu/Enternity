@@ -35,7 +35,7 @@ namespace Enternity
 		//for (int i = 0; i < 2000; i++)
 		//{
 			auto& entity = createEntity();
-			auto& trans = entity.addComponent<TransformComponent>();
+			auto& trans2 = entity.addComponent<TransformComponent>();
 			//trans.m_position.x += i;
 
 			auto& comp = entity.addComponent<Visual3DComponent>();

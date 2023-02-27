@@ -147,6 +147,15 @@
     <ClCompile Include="src\Engine\Core\Asset\stb_image.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Function\Scene\Chapter\SceneInterface.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Function\Scene\Chapter\Detail\Chapter1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Function\Scene\Chapter\Common\Vertex.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
@@ -330,6 +339,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Core\Asset\stb_image.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Function\Scene\Chapter\SceneInterface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Function\Scene\Chapter\Detail\Chapter1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Function\Scene\Chapter\Common\Vertex.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

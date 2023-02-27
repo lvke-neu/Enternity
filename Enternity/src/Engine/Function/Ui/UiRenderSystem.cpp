@@ -2,7 +2,6 @@
 #include "Core/Log/Log.h"
 #include "Platform/Window/OpenglWindow.h"
 #include "Function/Scene/SceneManager.h"
-#include "Function/Scene/ECS/Component/TransformComponent.h"
 
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
@@ -48,29 +47,16 @@ namespace Enternity
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 		
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
-		ImGui::ShowMetricsWindow();
+		//static bool show = true;
+		//ImGui::ShowDemoWindow(&show);
+		//ImGui::ShowMetricsWindow();
 
-		ImGui::Begin("Debug");
-		Scene* scene = SceneManager::GetInstance().getScene();
-		auto iter = scene->m_entities.begin();
-		//iter++;
-		auto& comp = iter->second.getComponent<TransformComponent>();
-		
-		ImGui::DragFloat("transX", &comp.m_position.x, 1.0f);
-		ImGui::DragFloat("transY", &comp.m_position.y, 1.0f);
-		ImGui::DragFloat("transZ", &comp.m_position.z, 1.0f);
 
-		
-		ImGui::DragFloat("rotX", &comp.m_rotation.x, 1.0f);
-		ImGui::DragFloat("rotY", &comp.m_rotation.y, 1.0f);
-		ImGui::DragFloat("rotZ", &comp.m_rotation.z, 1.0f);
-
-		ImGui::DragFloat("scaleX", &comp.m_scale.x, 1.0f);
-		ImGui::DragFloat("scaleY", &comp.m_scale.y, 1.0f);
-		ImGui::DragFloat("scaleZ", &comp.m_scale.z, 1.0f);
-
+		ImGui::Begin("Chapter Choose");
+		if (ImGui::Button("Chapter1"))
+		{
+			SceneManager::GetInstance().setChpater("Chapter1");
+		}
 		ImGui::End();
 
 

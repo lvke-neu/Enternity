@@ -115,6 +115,9 @@
     <ClCompile Include="src\Engine\Function\Scene\AssetImpl\TextureAssetImpl.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\Camera\Camera3D.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\Camera\CameraController.cpp" />
+    <ClCompile Include="src\Engine\Function\Scene\Chapter\Common\Vertex.cpp" />
+    <ClCompile Include="src\Engine\Function\Scene\Chapter\Detail\Chapter1.cpp" />
+    <ClCompile Include="src\Engine\Function\Scene\Chapter\SceneInterface.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\ECS\Entity\Entity.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\Scene.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\SceneManager.cpp" />
@@ -164,6 +167,9 @@
     <ClInclude Include="src\Engine\Function\Scene\AssetImpl\TextureAssetImpl.h" />
     <ClInclude Include="src\Engine\Function\Scene\Camera\Camera3D.h" />
     <ClInclude Include="src\Engine\Function\Scene\Camera\CameraController.h" />
+    <ClInclude Include="src\Engine\Function\Scene\Chapter\Common\Vertex.h" />
+    <ClInclude Include="src\Engine\Function\Scene\Chapter\Detail\Chapter1.h" />
+    <ClInclude Include="src\Engine\Function\Scene\Chapter\SceneInterface.h" />
     <ClInclude Include="src\Engine\Function\Scene\ECS\Component\TagComponent.h" />
     <ClInclude Include="src\Engine\Function\Scene\ECS\Component\Visual3DComponent.h" />
     <ClInclude Include="src\Engine\Function\Scene\ECS\Component\TransformComponent.h" />

@@ -36,14 +36,14 @@ namespace Enternity
 
 	void RenderSystem::tick()
 	{
-		clear(Vector4f::DARK_COLOR);
-		while (!m_drawcalls.empty())
-		{
-			Scene* scene = m_drawcalls.front();
-			m_drawcalls.pop();
-			if (scene)
-				drawScene(scene);
-		}
+		//clear(Vector4f::DARK_COLOR);
+		//while (!m_drawcalls.empty())
+		//{
+		//	Scene* scene = m_drawcalls.front();
+		//	m_drawcalls.pop();
+		//	if (scene)
+		//		drawScene(scene);
+		//}
 	}
 
 	void RenderSystem::drawScene(Scene* scene)

@@ -75,7 +75,7 @@ namespace Enternity
 
 	void Engine::tick(float deltaTime)
 	{
-		SceneManager::GetInstance().tick();
+		SceneManager::GetInstance().tick(deltaTime);
  		RenderSystem::GetInstance().tick();
 		//draw ui at the end
 		UiRenderSystem::GetInstance().tick();

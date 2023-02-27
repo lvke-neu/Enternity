@@ -1,4 +1,6 @@
 #include "SceneManager.h"
+#include "Core/Log/Log.h"
+#include "Chapter/Detail/Chapter1.h"
 
 namespace Enternity
 {
@@ -10,15 +12,18 @@ namespace Enternity
 	void SceneManager::uninitialize()
 	{
 		LOG_INFO("SceneManager uninitialization");
+		SAFE_DELETE_SET_NULL(m_currentScene);
 	}
 
-	void SceneManager::tick()
+	void SceneManager::setChpater(const std::string& chapter)
 	{
-		m_scene.tick();
+		SAFE_DELETE_SET_NULL(m_currentScene);
+		m_currentScene = new Chapter1;
 	}
 
-	Scene* SceneManager::getScene()
+	void SceneManager::tick(float deltaTime)
 	{
-		return &m_scene;
+		if(m_currentScene)
+			m_currentScene->tick(deltaTime);
 	}
 }

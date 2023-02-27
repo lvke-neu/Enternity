@@ -5,10 +5,12 @@ Description:
 SceneManager
 ****************************************************************************************/
 #pragma once
-#include "Scene.h"
+#include "Core/Basic/Macro.h"
+#include <string>
 
 namespace Enternity
 {
+	class IScene;
 	class SceneManager
 	{
 		SINGLETON(SceneManager);
@@ -17,10 +19,10 @@ namespace Enternity
 		void initialize();
 		void uninitialize();
 	public:
-		void tick();
-		Scene* getScene();
+		void setChpater(const std::string& chapter);
+	public:
+		void tick(float deltaTime);
 	private:
-		//TODO:remove, just for test one scene
-		Scene m_scene;
+		IScene* m_currentScene{ nullptr };
 	};
 }
