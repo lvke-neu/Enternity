@@ -1,11 +1,14 @@
 #include "SceneManager.h"
 #include "Core/Log/Log.h"
+#include "Chapter/Common/InputLayout.h"
 #include "Chapter/Detail/Chapter1.h"
+
 
 namespace Enternity
 {
 	void SceneManager::initialize()
 	{
+		InputLayout::Init();
 		LOG_INFO("SceneManager initialization");
 	}
 

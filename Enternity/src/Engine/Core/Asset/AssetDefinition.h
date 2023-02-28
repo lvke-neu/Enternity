@@ -39,6 +39,12 @@ namespace Enternity
 		AssetLoadType assetLoadType;
 	};
 
+	struct VertexPosColor
+	{
+		Vector3f position;
+		Vector3f color;
+	};
+
 	struct VertexPosNorTex
 	{
 		Vector3f position;

@@ -1,7 +1,6 @@
 #include "SceneInterface.h"
 #include "Core/Basic/Macro.h"
 #include "Function/Scene/Camera/Camera3D.h"
-#include "Common/Vertex.h"
 
 namespace Enternity
 {
@@ -13,8 +12,6 @@ namespace Enternity
 		m_indexBuffer = RenderWrapper::Create<IndexBuffer>();
 		m_vertexArray = RenderWrapper::Create<VertexArray>();
 		m_shader = RenderWrapper::Create<Shader>();
-
-		VertexPosColor::Init();
 	}
 
 	IScene::~IScene()

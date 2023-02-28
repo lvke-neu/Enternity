@@ -5,11 +5,11 @@
 
 namespace Enternity
 {
-	struct VertexPosColor
+	struct InputLayout
 	{
-		Vector3f position;
-		Vector3f color;
 		static void Init();
-		static VertexBufferLayout vertexBufferLayout;
+		static VertexBufferLayout VertexBufferLayout_POS_COLOR;
+	private:
+		static bool bInit;
 	};
 }

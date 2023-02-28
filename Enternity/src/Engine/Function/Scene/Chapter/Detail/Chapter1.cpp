@@ -1,5 +1,5 @@
 #include "Chapter1.h"
-#include "Function/Scene/Chapter/Common/Vertex.h"
+#include "Function/Scene/Chapter/Common/InputLayout.h"
 #include "Core/Memory/Blob.h"
 #include "Core/Asset/Asset.h"
 #include "Core/Asset/AssetLoader.h"
@@ -24,7 +24,7 @@ namespace Enternity
 			Blob blob(vertices.size() * sizeof(VertexPosColor));
 			blob.copyDataFrom(vertices.data());
 
-			m_vertexBuffer->init(&blob, VertexPosColor::vertexBufferLayout);
+			m_vertexBuffer->init(&blob, InputLayout::VertexBufferLayout_POS_COLOR);
 		}
 
 		{

@@ -153,7 +153,7 @@
     <ClCompile Include="src\Engine\Function\Scene\Chapter\Detail\Chapter1.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Function\Scene\Chapter\Common\Vertex.cpp">
+    <ClCompile Include="src\Engine\Function\Scene\Chapter\Common\InputLayout.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -347,7 +347,7 @@
     <ClInclude Include="src\Engine\Function\Scene\Chapter\Detail\Chapter1.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Function\Scene\Chapter\Common\Vertex.h">
+    <ClInclude Include="src\Engine\Function\Scene\Chapter\Common\InputLayout.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

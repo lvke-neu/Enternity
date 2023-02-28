@@ -115,7 +115,7 @@
     <ClCompile Include="src\Engine\Function\Scene\AssetImpl\TextureAssetImpl.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\Camera\Camera3D.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\Camera\CameraController.cpp" />
-    <ClCompile Include="src\Engine\Function\Scene\Chapter\Common\Vertex.cpp" />
+    <ClCompile Include="src\Engine\Function\Scene\Chapter\Common\InputLayout.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\Chapter\Detail\Chapter1.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\Chapter\SceneInterface.cpp" />
     <ClCompile Include="src\Engine\Function\Scene\ECS\Entity\Entity.cpp" />
@@ -167,7 +167,7 @@
     <ClInclude Include="src\Engine\Function\Scene\AssetImpl\TextureAssetImpl.h" />
     <ClInclude Include="src\Engine\Function\Scene\Camera\Camera3D.h" />
     <ClInclude Include="src\Engine\Function\Scene\Camera\CameraController.h" />
-    <ClInclude Include="src\Engine\Function\Scene\Chapter\Common\Vertex.h" />
+    <ClInclude Include="src\Engine\Function\Scene\Chapter\Common\InputLayout.h" />
     <ClInclude Include="src\Engine\Function\Scene\Chapter\Detail\Chapter1.h" />
     <ClInclude Include="src\Engine\Function\Scene\Chapter\SceneInterface.h" />
     <ClInclude Include="src\Engine\Function\Scene\ECS\Component\TagComponent.h" />
