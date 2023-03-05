@@ -57,8 +57,8 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\src\;$(SolutionDir)\Enternity\src\Engine\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>DEBUG;</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\;$(SolutionDir)\Enternity\Engine\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DEBUG;_DEBUG</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -76,7 +76,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\src\;$(SolutionDir)\Enternity\src\Engine\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\;$(SolutionDir)\Enternity\Engine\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -89,123 +89,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Engine\Core\Asset\Asset.cpp" />
-    <ClCompile Include="src\Engine\Core\Asset\AssetLoader.cpp" />
-    <ClCompile Include="src\Engine\Core\Basic\UUID.cpp" />
-    <ClCompile Include="src\Engine\Core\Event\EventManager.cpp" />
-    <ClCompile Include="src\Engine\Core\Memory\Blob.cpp" />
-    <ClCompile Include="src\Engine\Core\Asset\stb_image.cpp" />
-    <ClCompile Include="src\Engine\Core\Log\Log.cpp" />
-    <ClCompile Include="src\Engine\Core\Math\Math.cpp" />
-    <ClCompile Include="src\Engine\Core\Math\Vector2.cpp" />
-    <ClCompile Include="src\Engine\Core\Math\Vector4.cpp" />
-    <ClCompile Include="src\Engine\Core\Timer\FrameTimer.cpp" />
-    <ClCompile Include="src\Engine\Engine.cpp" />
-    <ClCompile Include="src\Engine\Core\Math\Matrix4x4.cpp" />
-    <ClCompile Include="src\Engine\Core\Math\Vector3.cpp" />
-    <ClCompile Include="src\Engine\Core\ThreadPool\ThreadPool.cpp" />
-    <ClCompile Include="src\Engine\Function\Render\RenderSystem.cpp" />
-    <ClCompile Include="src\Engine\Function\Render\Wrapper\IndexBuffer.cpp" />
-    <ClCompile Include="src\Engine\Function\Render\Wrapper\Shader.cpp" />
-    <ClCompile Include="src\Engine\Function\Render\Wrapper\Texture.cpp" />
-    <ClCompile Include="src\Engine\Function\Render\Wrapper\VertexArray.cpp" />
-    <ClCompile Include="src\Engine\Function\Render\Wrapper\VertexBuffer.cpp" />
-    <ClCompile Include="src\Engine\Function\Scene\AssetImpl\MeshAssetImpl.cpp" />
-    <ClCompile Include="src\Engine\Function\Scene\AssetImpl\RenderPassAssetImpl.cpp" />
-    <ClCompile Include="src\Engine\Function\Scene\AssetImpl\TextureAssetImpl.cpp" />
-    <ClCompile Include="src\Engine\Function\Scene\Camera\Camera3D.cpp" />
-    <ClCompile Include="src\Engine\Function\Scene\Camera\CameraController.cpp" />
-    <ClCompile Include="src\Engine\Function\Scene\Chapter\Common\InputLayout.cpp" />
-    <ClCompile Include="src\Engine\Function\Scene\Chapter\Detail\Chapter1.cpp" />
-    <ClCompile Include="src\Engine\Function\Scene\Chapter\SceneInterface.cpp" />
-    <ClCompile Include="src\Engine\Function\Scene\ECS\Entity\Entity.cpp" />
-    <ClCompile Include="src\Engine\Function\Scene\Scene.cpp" />
-    <ClCompile Include="src\Engine\Function\Scene\SceneManager.cpp" />
-    <ClCompile Include="src\Engine\Function\Ui\Imgui\ImCurveEdit.cpp" />
-    <ClCompile Include="src\Engine\Function\Ui\Imgui\ImGradient.cpp" />
-    <ClCompile Include="src\Engine\Function\Ui\Imgui\imgui.cpp" />
-    <ClCompile Include="src\Engine\Function\Ui\Imgui\ImGuizmo.cpp" />
-    <ClCompile Include="src\Engine\Function\Ui\Imgui\imgui_demo.cpp" />
-    <ClCompile Include="src\Engine\Function\Ui\Imgui\imgui_draw.cpp" />
-    <ClCompile Include="src\Engine\Function\Ui\Imgui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="src\Engine\Function\Ui\Imgui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="src\Engine\Function\Ui\Imgui\imgui_tables.cpp" />
-    <ClCompile Include="src\Engine\Function\Ui\Imgui\imgui_widgets.cpp" />
-    <ClCompile Include="src\Engine\Function\Ui\Imgui\ImSequencer.cpp" />
-    <ClCompile Include="src\Engine\Function\Ui\UiRenderSystem.cpp" />
-    <ClCompile Include="src\Engine\Platform\glad.c" />
-    <ClCompile Include="src\Engine\Platform\Window\OpenglWindow.cpp" />
-    <ClCompile Include="src\main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\README.md" />
     <None Include="assets\model\cube.bin" />
-    <None Include="assets\shaders\TestECS.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="assets\textures\striated.png" />
+    <ClCompile Include="Application\glad.c" />
+    <ClCompile Include="Engine\Engine.cpp" />
+    <ClCompile Include="Application\Application.cpp" />
+    <ClCompile Include="Engine\RuntimeModule\Memory\Allocator.cpp" />
+    <ClCompile Include="Engine\RuntimeModule\Memory\MemoryManager.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Engine\RuntimeModule\Graphics\GraphicsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Engine\Core\Asset\Asset.h" />
-    <ClInclude Include="src\Engine\Core\Asset\AssetDefinition.h" />
-    <ClInclude Include="src\Engine\Core\Asset\AssetLoader.h" />
-    <ClInclude Include="src\Engine\Core\Basic\UUID.h" />
-    <ClInclude Include="src\Engine\Core\Basic\Macro.h" />
-    <ClInclude Include="src\Engine\Core\Event\Event.h" />
-    <ClInclude Include="src\Engine\Core\Event\EventManager.h" />
-    <ClInclude Include="src\Engine\Core\Event\KeyEvent.h" />
-    <ClInclude Include="src\Engine\Core\Event\MouseEvent.h" />
-    <ClInclude Include="src\Engine\Core\Event\TickEvent.h" />
-    <ClInclude Include="src\Engine\Core\Event\WindowResizeEvent.h" />
-    <ClInclude Include="src\Engine\Core\Memory\Blob.h" />
-    <ClInclude Include="src\Engine\Core\Asset\stb_image.h" />
-    <ClInclude Include="src\Engine\Core\Math\Math.h" />
-    <ClInclude Include="src\Engine\Function\Render\Wrapper\Shader.h" />
-    <ClInclude Include="src\Engine\Function\Render\Wrapper\Texture.h" />
-    <ClInclude Include="src\Engine\Function\Scene\AssetImpl\MeshAssetImpl.h" />
-    <ClInclude Include="src\Engine\Function\Scene\AssetImpl\RenderPassAssetImpl.h" />
-    <ClInclude Include="src\Engine\Function\Scene\AssetImpl\TextureAssetImpl.h" />
-    <ClInclude Include="src\Engine\Function\Scene\Camera\Camera3D.h" />
-    <ClInclude Include="src\Engine\Function\Scene\Camera\CameraController.h" />
-    <ClInclude Include="src\Engine\Function\Scene\Chapter\Common\InputLayout.h" />
-    <ClInclude Include="src\Engine\Function\Scene\Chapter\Detail\Chapter1.h" />
-    <ClInclude Include="src\Engine\Function\Scene\Chapter\SceneInterface.h" />
-    <ClInclude Include="src\Engine\Function\Scene\ECS\Component\TagComponent.h" />
-    <ClInclude Include="src\Engine\Function\Scene\ECS\Component\Visual3DComponent.h" />
-    <ClInclude Include="src\Engine\Function\Scene\ECS\Component\TransformComponent.h" />
-    <ClInclude Include="src\Engine\Function\Scene\ECS\Entity\Entity.h" />
-    <ClInclude Include="src\Engine\Function\Scene\Scene.h" />
-    <ClInclude Include="src\Engine\Function\Scene\SceneManager.h" />
-    <ClInclude Include="src\UnitTest.h" />
-    <ClInclude Include="src\Engine\Core\Math\Vector2.h" />
-    <ClInclude Include="src\Engine\Core\Timer\ExecutionTimer.h" />
-    <ClInclude Include="src\Engine\Core\Log\Log.h" />
-    <ClInclude Include="src\Engine\Core\Math\Vector4.h" />
-    <ClInclude Include="src\Engine\Core\ThreadPool\ThreadPool.h" />
-    <ClInclude Include="src\Engine\Core\Timer\FrameTimer.h" />
-    <ClInclude Include="src\Engine\Engine.h" />
-    <ClInclude Include="src\Engine\Core\Math\Matrix4x4.h" />
-    <ClInclude Include="src\Engine\Core\Math\Vector3.h" />
-    <ClInclude Include="src\Engine\Function\Render\RenderSystem.h" />
-    <ClInclude Include="src\Engine\Function\Render\Wrapper\IndexBuffer.h" />
-    <ClInclude Include="src\Engine\Function\Render\Wrapper\RenderWrapper.h" />
-    <ClInclude Include="src\Engine\Function\Render\Wrapper\VertexArray.h" />
-    <ClInclude Include="src\Engine\Function\Render\Wrapper\VertexBuffer.h" />
-    <ClInclude Include="src\Engine\Function\Ui\Imgui\imconfig.h" />
-    <ClInclude Include="src\Engine\Function\Ui\Imgui\ImCurveEdit.h" />
-    <ClInclude Include="src\Engine\Function\Ui\Imgui\ImGradient.h" />
-    <ClInclude Include="src\Engine\Function\Ui\Imgui\imgui.h" />
-    <ClInclude Include="src\Engine\Function\Ui\Imgui\ImGuizmo.h" />
-    <ClInclude Include="src\Engine\Function\Ui\Imgui\imgui_impl_glfw.h" />
-    <ClInclude Include="src\Engine\Function\Ui\Imgui\imgui_impl_opengl3.h" />
-    <ClInclude Include="src\Engine\Function\Ui\Imgui\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="src\Engine\Function\Ui\Imgui\imgui_internal.h" />
-    <ClInclude Include="src\Engine\Function\Ui\Imgui\ImSequencer.h" />
-    <ClInclude Include="src\Engine\Function\Ui\Imgui\imstb_rectpack.h" />
-    <ClInclude Include="src\Engine\Function\Ui\Imgui\imstb_textedit.h" />
-    <ClInclude Include="src\Engine\Function\Ui\Imgui\imstb_truetype.h" />
-    <ClInclude Include="src\Engine\Function\Ui\UiRenderSystem.h" />
-    <ClInclude Include="src\Engine\Platform\Window\OpenglWindow.h" />
+    <ClInclude Include="Engine\Engine.h" />
+    <ClInclude Include="Application\Application.h" />
+    <ClInclude Include="Engine\RuntimeModule\Graphics\GraphicsManager.h" />
+    <ClInclude Include="Engine\RuntimeModule\Interface\IRuntimeModule.h" />
+    <ClInclude Include="Engine\RuntimeModule\Memory\Allocator.h" />
+    <ClInclude Include="Engine\RuntimeModule\Memory\MemoryManager.h" />
+    <ClInclude Include="Engine\Utility\Utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
