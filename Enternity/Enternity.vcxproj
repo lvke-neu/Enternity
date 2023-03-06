@@ -94,6 +94,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application\glad.c" />
+    <ClCompile Include="Engine\Core\Math\Matrix.cpp" />
+    <ClCompile Include="Engine\Core\Math\Vector.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Application\Application.cpp" />
     <ClCompile Include="Engine\RuntimeModule\Memory\Allocator.cpp" />
@@ -102,6 +104,8 @@
     <ClCompile Include="Engine\RuntimeModule\Graphics\GraphicsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Core\Math\Matrix.h" />
+    <ClInclude Include="Engine\Core\Math\Vector.h" />
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Application\Application.h" />
     <ClInclude Include="Engine\RuntimeModule\Graphics\GraphicsManager.h" />

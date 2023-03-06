@@ -42,6 +42,12 @@
     <ClCompile Include="Application\Application.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Core\Math\Vector.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Core\Math\Matrix.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -63,6 +69,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Application\Application.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Core\Math\Vector.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Core\Math\Matrix.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
