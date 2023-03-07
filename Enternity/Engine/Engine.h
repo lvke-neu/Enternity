@@ -6,8 +6,8 @@
 namespace Enternity
 {
 	class IRuntimeModule;
+	class AssetManager;
 	class GraphicsManager;
-	class MemoryManager;
 	class Engine
 	{
 		SINGLETON(Engine);
@@ -18,9 +18,9 @@ namespace Enternity
 	public:
 		IRuntimeModule* GetRuntimeModule(const std::string& moduleName);
 	private:
+		AssetManager* m_pAssetManager;
 		GraphicsManager* m_pGraphicsManager;
-		MemoryManager* m_pMemoryManager;
-
+		
 		std::unordered_map<std::string, IRuntimeModule*> m_runtimeModules;
 	};
 }

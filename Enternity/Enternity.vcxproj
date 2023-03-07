@@ -93,26 +93,36 @@
     <None Include="assets\model\cube.bin" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Application\glad.c" />
+    <ClCompile Include="Engine\Core\Blob\Blob.cpp" />
+    <ClCompile Include="Engine\RuntimeModule\Asset\Asset.cpp" />
+    <ClCompile Include="Engine\RuntimeModule\Asset\AssetLoader.cpp" />
+    <ClCompile Include="Engine\RuntimeModule\Asset\AssetManager.cpp" />
+    <ClCompile Include="Engine\RuntimeModule\Graphics\glad.c" />
     <ClCompile Include="Engine\Core\Math\Matrix.cpp" />
     <ClCompile Include="Engine\Core\Math\Vector.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Application\Application.cpp" />
-    <ClCompile Include="Engine\RuntimeModule\Memory\Allocator.cpp" />
-    <ClCompile Include="Engine\RuntimeModule\Memory\MemoryManager.cpp" />
+    <ClCompile Include="Engine\RuntimeModule\TestAsset\TextAssetLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\RuntimeModule\Graphics\GraphicsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Core\Blob\Blob.h" />
     <ClInclude Include="Engine\Core\Math\Matrix.h" />
     <ClInclude Include="Engine\Core\Math\Vector.h" />
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Application\Application.h" />
+    <ClInclude Include="Engine\RuntimeModule\Asset\Asset.h" />
+    <ClInclude Include="Engine\RuntimeModule\Asset\AssetLoader.h" />
+    <ClInclude Include="Engine\RuntimeModule\Asset\AssetManager.h" />
     <ClInclude Include="Engine\RuntimeModule\Graphics\GraphicsManager.h" />
     <ClInclude Include="Engine\RuntimeModule\Interface\IRuntimeModule.h" />
-    <ClInclude Include="Engine\RuntimeModule\Memory\Allocator.h" />
-    <ClInclude Include="Engine\RuntimeModule\Memory\MemoryManager.h" />
+    <ClInclude Include="Engine\RuntimeModule\TestAsset\TextAsset.h" />
+    <ClInclude Include="Engine\RuntimeModule\TestAsset\TextAssetLoader.h" />
     <ClInclude Include="Engine\Utility\Utility.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Assets\TestAssetLoader.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

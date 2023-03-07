@@ -5,7 +5,7 @@ using namespace Enternity;
 
 int main(int argc, const char** argv) {
 
-	Application app({1200, 800, "hahaha"});
+	Application app;
 
 	if (!app.Initialize())
 	{

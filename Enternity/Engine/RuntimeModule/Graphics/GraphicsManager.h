@@ -1,7 +1,7 @@
 #pragma once
-
 #include "RuntimeModule/Interface/IRuntimeModule.h"
 
+struct GLFWwindow;
 namespace Enternity
 {
 	class GraphicsManager : public IRuntimeModule
@@ -9,18 +9,10 @@ namespace Enternity
 	public:
 		virtual ~GraphicsManager() = default;
 
-		virtual bool Initialize() override
-		{
-			return true;
-		}
-
-		virtual void Finalize() override
-		{
-
-		}
-		virtual void Tick() override
-		{
-
-		}
+		virtual bool Initialize() override;
+		virtual void Finalize() override;
+		virtual void Tick() override;
+	private:
+		GLFWwindow* m_context;
 	};
 }

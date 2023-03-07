@@ -30,15 +30,6 @@
     <ClCompile Include="Engine\RuntimeModule\Graphics\GraphicsManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\RuntimeModule\Memory\MemoryManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\RuntimeModule\Memory\Allocator.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\glad.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Application.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -46,6 +37,24 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Core\Math\Matrix.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\RuntimeModule\Graphics\glad.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Core\Blob\Blob.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\RuntimeModule\Asset\AssetManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\RuntimeModule\Asset\Asset.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\RuntimeModule\Asset\AssetLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\RuntimeModule\TestAsset\TextAssetLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,12 +71,6 @@
     <ClInclude Include="Engine\RuntimeModule\Graphics\GraphicsManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\RuntimeModule\Memory\MemoryManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\RuntimeModule\Memory\Allocator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Application.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -77,5 +80,26 @@
     <ClInclude Include="Engine\Core\Math\Matrix.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Core\Blob\Blob.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RuntimeModule\Asset\AssetManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RuntimeModule\Asset\Asset.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RuntimeModule\Asset\AssetLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RuntimeModule\TestAsset\TextAsset.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RuntimeModule\TestAsset\TextAssetLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Assets\TestAssetLoader.txt" />
   </ItemGroup>
 </Project>
