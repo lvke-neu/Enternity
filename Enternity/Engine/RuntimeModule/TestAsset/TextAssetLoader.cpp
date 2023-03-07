@@ -2,10 +2,13 @@
 #include "Core/Blob/Blob.h"
 #include <fstream>
 
+#include <Windows.h>
+
 namespace Enternity
 {
 	Blob* TextAssetLoader::doLoad(const std::string& assetID)
 	{
+		Sleep(2000);
 		std::ifstream ifs(assetID, std::ios::in | std::ios::binary);
 		if (!ifs.is_open())
 		{
