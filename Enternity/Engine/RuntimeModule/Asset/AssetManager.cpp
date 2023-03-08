@@ -42,6 +42,16 @@ namespace Enternity
 		return nullptr;
 	}
 
+	void AssetManager::unLoadAsset(const std::string& assetID)
+	{
+		auto iter = m_cache.find(assetID);
+		if (iter != m_cache.end())
+		{
+			SAFE_DELETE_SET_NULL(iter->second);
+			m_cache.erase(iter);
+		}
+	}
+
 	Blob* AssetManager::loadAssetImpl(const Asset& asset)
 	{
 		return asset.getAssetLoader()->doLoad(asset.getAssetID());

@@ -16,6 +16,7 @@ namespace Enternity
 		virtual void Tick() override;
 	public:
 		Blob* loadAsset(const Asset& asset);
+		void unLoadAsset(const std::string& assetID);
 	private:
 		Blob* loadAssetImpl(const Asset& asset);
 	private:
