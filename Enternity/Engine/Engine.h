@@ -15,6 +15,8 @@ namespace Enternity
 		bool Initialize();
 		void Finalize();
 		void Tick();
+
+		bool IsQuit();
 	public:
 		IRuntimeModule* GetRuntimeModule(const std::string& moduleName);
 	private:

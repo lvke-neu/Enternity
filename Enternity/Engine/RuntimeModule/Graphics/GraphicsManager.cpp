@@ -48,13 +48,15 @@ namespace Enternity
 
 	void GraphicsManager::Tick()
 	{
-		while (!glfwWindowShouldClose(m_context))
-		{
-			glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			glfwSwapBuffers(m_context);
-			glfwPollEvents();
-		}
+		glfwSwapBuffers(m_context);
+		glfwPollEvents();
+	}
+
+	bool GraphicsManager::IsQuit() const
+	{
+		return glfwWindowShouldClose(m_context);
 	}
 }

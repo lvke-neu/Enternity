@@ -3,6 +3,8 @@
 #include "Core/Blob/Blob.h"
 #include "Asset.h"
 #include "AssetLoader.h"
+#include "Core/ThreadPool/ThreadPool.h"
+#include "Core/ThreadPool/ThreadPool.h"
 
 namespace Enternity
 {
@@ -24,22 +26,14 @@ namespace Enternity
 
 	}
 
-	Blob* AssetManager::loadAsset(const Asset& asset)
+	void AssetManager::loadAsset(Asset& asset)
 	{
-		auto iter = m_cache.find(asset.getAssetID());
-		if (iter != m_cache.end())
-		{
-			return iter->second;
-		}
-		
-		Blob* tmp = loadAssetImpl(asset);
-		if (tmp)
-		{
-			m_cache[asset.getAssetID()] = tmp;
-			return m_cache[asset.getAssetID()];
-		}
-		
-		return nullptr;
+		ThreadPool::GetInstance().commitTask(
+			[&]()
+			{
+				loadAssetImpl(asset);
+			}
+		);
 	}
 
 	void AssetManager::unLoadAsset(const std::string& assetID)
@@ -52,8 +46,23 @@ namespace Enternity
 		}
 	}
 
-	Blob* AssetManager::loadAssetImpl(const Asset& asset)
+	void AssetManager::loadAssetImpl(Asset& asset)
 	{
-		return asset.getAssetLoader()->doLoad(asset.getAssetID());
+		auto iter = m_cache.find(asset.getAssetID());
+		if (iter != m_cache.end())
+		{
+			asset.setBlob(iter->second);
+			return;
+		}
+
+		Blob* tmp = asset.getAssetLoader()->doLoad(asset.getAssetID());
+		if (tmp)
+		{
+			m_cache[asset.getAssetID()] = tmp;
+			asset.setBlob(m_cache[asset.getAssetID()]);
+			return;
+		}
+
+		asset.setBlob(nullptr);
 	}
 }

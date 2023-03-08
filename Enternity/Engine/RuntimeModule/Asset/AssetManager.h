@@ -15,10 +15,10 @@ namespace Enternity
 		virtual void Finalize() override;
 		virtual void Tick() override;
 	public:
-		Blob* loadAsset(const Asset& asset);
+		void loadAsset(Asset& asset);
 		void unLoadAsset(const std::string& assetID);
 	private:
-		Blob* loadAssetImpl(const Asset& asset);
+		void loadAssetImpl(Asset& asset);
 	private:
 		std::unordered_map<std::string, Blob*> m_cache;
 	};

@@ -1,5 +1,5 @@
 #pragma once
-#include "../Asset/AssetLoader.h"
+#include "RuntimeModule/Asset/AssetLoader.h"
 
 namespace Enternity
 {

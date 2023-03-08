@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Core\Blob\Blob.cpp" />
+    <ClCompile Include="Engine\Core\ThreadPool\ThreadPool.cpp" />
     <ClCompile Include="Engine\RuntimeModule\Asset\Asset.cpp" />
     <ClCompile Include="Engine\RuntimeModule\Asset\AssetLoader.cpp" />
     <ClCompile Include="Engine\RuntimeModule\Asset\AssetManager.cpp" />
@@ -102,7 +103,8 @@
     <ClCompile Include="Engine\Core\Math\Vector.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Application\Application.cpp" />
-    <ClCompile Include="Engine\RuntimeModule\TestAsset\TextAssetLoader.cpp" />
+    <ClCompile Include="Test\Test.cpp" />
+    <ClCompile Include="Test\TestAsset\TextAssetLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\RuntimeModule\Graphics\GraphicsManager.cpp" />
   </ItemGroup>
@@ -110,6 +112,7 @@
     <ClInclude Include="Engine\Core\Blob\Blob.h" />
     <ClInclude Include="Engine\Core\Math\Matrix.h" />
     <ClInclude Include="Engine\Core\Math\Vector.h" />
+    <ClInclude Include="Engine\Core\ThreadPool\ThreadPool.h" />
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Application\Application.h" />
     <ClInclude Include="Engine\RuntimeModule\Asset\Asset.h" />
@@ -117,8 +120,9 @@
     <ClInclude Include="Engine\RuntimeModule\Asset\AssetManager.h" />
     <ClInclude Include="Engine\RuntimeModule\Graphics\GraphicsManager.h" />
     <ClInclude Include="Engine\RuntimeModule\Interface\IRuntimeModule.h" />
-    <ClInclude Include="Engine\RuntimeModule\TestAsset\TextAsset.h" />
-    <ClInclude Include="Engine\RuntimeModule\TestAsset\TextAssetLoader.h" />
+    <ClInclude Include="Test\Test.h" />
+    <ClInclude Include="Test\TestAsset\TextAsset.h" />
+    <ClInclude Include="Test\TestAsset\TextAssetLoader.h" />
     <ClInclude Include="Engine\Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>

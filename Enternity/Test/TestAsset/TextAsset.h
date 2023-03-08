@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Asset/Asset.h"
+#include "RuntimeModule/Asset/Asset.h"
 
 namespace Enternity
 {

@@ -12,6 +12,8 @@ namespace Enternity
 		virtual bool Initialize() override;
 		virtual void Finalize() override;
 		virtual void Tick() override;
+
+		bool IsQuit() const;
 	private:
 		GLFWwindow* m_context;
 	};
