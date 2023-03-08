@@ -95,6 +95,7 @@
   <ItemGroup>
     <ClCompile Include="Engine\Core\Blob\Blob.cpp" />
     <ClCompile Include="Engine\Core\ThreadPool\ThreadPool.cpp" />
+    <ClCompile Include="Engine\Core\UUID\UUID.cpp" />
     <ClCompile Include="Engine\RuntimeModule\Asset\Asset.cpp" />
     <ClCompile Include="Engine\RuntimeModule\Asset\AssetLoader.cpp" />
     <ClCompile Include="Engine\RuntimeModule\Asset\AssetManager.cpp" />
@@ -113,6 +114,7 @@
     <ClInclude Include="Engine\Core\Math\Matrix.h" />
     <ClInclude Include="Engine\Core\Math\Vector.h" />
     <ClInclude Include="Engine\Core\ThreadPool\ThreadPool.h" />
+    <ClInclude Include="Engine\Core\UUID\UUID.h" />
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Application\Application.h" />
     <ClInclude Include="Engine\RuntimeModule\Asset\Asset.h" />

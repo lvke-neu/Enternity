@@ -21,13 +21,26 @@ namespace Enternity
 
 	void Test::Tick()
 	{
+		static bool flag1 = false;
 		if (textAsset.getBlob())
 		{
+			if (!flag1)
+			{
+				printf("textAsset1 load finish\n");
+				flag1 = true;
+			}
+			
+			static bool flag2 = false;
 			std::string str((char*)textAsset.getBlob()->getData(), textAsset.getBlob()->getLength());
 			AssetManager* assetManager = (AssetManager*)Engine::GetInstance().GetRuntimeModule("AssetManager");
 			assetManager->loadAsset(textAsset2);
 			if (textAsset2.getBlob())
 			{
+				if (!flag2)
+				{
+					printf("textAsset2 load finish\n");
+					flag2 = true;
+				}
 				
 			}
 
