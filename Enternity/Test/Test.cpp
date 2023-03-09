@@ -1,35 +1,28 @@
 #include "Test.h"
-#include "TestAsset/TextAsset.h"
-#include "RuntimeModule/Asset/AssetManager.h"
+
+#include "RuntimeModule/Scene/SceneManager.h"
 #include "Engine/Engine.h"
-#include "Core/Blob/Blob.h"
 
 namespace Enternity
 {
-
-	TextAsset textAsset;
-
-
 	void Test::Initialize()
 	{
-		textAsset.setPath("Assets/TestAssetLoader.txt");
-		AssetManager* assetManager = (AssetManager*)Engine::GetInstance().GetRuntimeModule("AssetManager");
-		assetManager->loadAsset(textAsset);
+		//textAsset.setPath("Assets/TestAssetLoader.txt");
+		//AssetManager* assetManager = (AssetManager*)Engine::GetInstance().GetRuntimeModule("AssetManager");
+		//assetManager->loadAsset(textAsset, AseetLoadType::Sync);
 	}
 
 	void Test::Tick()
 	{
-		//static bool flag1 = false;
-		//if (textAsset.getBlob())
-		//{
-		//	if (!flag1)
-		//	{
-		//		printf("textAsset1 load finish\n");
-		//		flag1 = true;
-		//	}
-		//
-		//	int i = 0;
-		//	i++;
-		//}
+		static bool flag = true;
+		if (flag)
+		{
+			SceneManager* sceneManager = (SceneManager*)Engine::GetInstance().GetRuntimeModule("SceneManager");
+
+			sceneManager->loadScene("Assets/Scene/Example.ogex");
+
+			flag = false;
+		}
+
 	}
 }

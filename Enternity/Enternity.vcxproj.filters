@@ -19,6 +19,7 @@
     <None Include="assets\model\cube.bin">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="Assets\Scene\Example.ogex" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -58,6 +59,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Test\TestAsset\TextAsset.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utility\Utility.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\RuntimeModule\Scene\SceneAsset.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\RuntimeModule\Scene\SceneManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -102,6 +112,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Core\UUID\UUID.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RuntimeModule\Scene\Scene.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RuntimeModule\Scene\SceneAsset.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RuntimeModule\Scene\SceneManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

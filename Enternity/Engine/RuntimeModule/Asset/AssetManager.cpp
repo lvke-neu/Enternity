@@ -22,14 +22,21 @@ namespace Enternity
 	}
 
 
-	void AssetManager::loadAsset(Asset& asset)
+	void AssetManager::loadAsset(Asset& asset, AseetLoadType type)
 	{
-		ThreadPool::GetInstance().commitTask(
-			[&]()
-			{
-				loadAssetImpl(asset);
-			}
-		);
+		if (type == AseetLoadType::Sync)
+		{
+			ThreadPool::GetInstance().commitTask(
+				[&]()
+				{
+					loadAssetImpl(asset);
+				}
+			);
+		}
+		else if (type == AseetLoadType::Asyn)
+		{
+			loadAssetImpl(asset);
+		}
 	}
 
 	void AssetManager::loadAssetImpl(Asset& asset)

@@ -91,6 +91,7 @@
   <ItemGroup>
     <None Include="..\README.md" />
     <None Include="assets\model\cube.bin" />
+    <None Include="Assets\Scene\Example.ogex" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Core\Blob\Blob.cpp" />
@@ -102,6 +103,9 @@
     <ClCompile Include="Engine\Core\Math\Vector.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Application\Application.cpp" />
+    <ClCompile Include="Engine\RuntimeModule\Scene\SceneAsset.cpp" />
+    <ClCompile Include="Engine\RuntimeModule\Scene\SceneManager.cpp" />
+    <ClCompile Include="Engine\Utility\Utility.cpp" />
     <ClCompile Include="Test\Test.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\RuntimeModule\Graphics\GraphicsManager.cpp" />
@@ -119,6 +123,9 @@
     <ClInclude Include="Engine\RuntimeModule\Asset\AssetManager.h" />
     <ClInclude Include="Engine\RuntimeModule\Graphics\GraphicsManager.h" />
     <ClInclude Include="Engine\RuntimeModule\Interface\IRuntimeModule.h" />
+    <ClInclude Include="Engine\RuntimeModule\Scene\Scene.h" />
+    <ClInclude Include="Engine\RuntimeModule\Scene\SceneAsset.h" />
+    <ClInclude Include="Engine\RuntimeModule\Scene\SceneManager.h" />
     <ClInclude Include="Test\Test.h" />
     <ClInclude Include="Test\TestAsset\TextAsset.h" />
     <ClInclude Include="Engine\Utility\Utility.h" />

@@ -3,6 +3,12 @@
 
 namespace Enternity
 {
+	enum class AseetLoadType
+	{
+		Sync,
+		Asyn
+	};
+
 	class Asset;
 	class AssetManager : public IRuntimeModule
 	{
@@ -13,9 +19,8 @@ namespace Enternity
 		virtual void Finalize() override;
 		virtual void Tick() override;
 	public:
-		void loadAsset(Asset& asset);
+		void loadAsset(Asset& asset, AseetLoadType type);
 	private:
 		void loadAssetImpl(Asset& asset);
-
 	};
 }

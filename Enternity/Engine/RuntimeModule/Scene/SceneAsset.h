@@ -2,18 +2,16 @@
 #include "RuntimeModule/Asset/Asset.h"
 #include <string>
 
-
 namespace Enternity
 {
-	class Blob;
-	class TextAsset : public Asset
+	class SceneAsset : public Asset
 	{
 	public:
-		virtual ~TextAsset();
+		virtual ~SceneAsset();
 		virtual void doLoad() override;
 		virtual void callBack() override;
 	public:
-		void setPath(const std::string& path) 
+		void setPath(const std::string& path)
 		{
 			m_path = path;
 		}

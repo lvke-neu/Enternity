@@ -23,4 +23,7 @@ private:\
 		delete p;\
 		p = nullptr;\
 	}
+
+	class Blob;
+	Blob* ReadFile(const char* filePath);
 }
