@@ -14,15 +14,15 @@ namespace Enternity
 
 	void Test::Tick()
 	{
-		static bool flag = true;
-		if (flag)
-		{
-			SceneManager* sceneManager = (SceneManager*)Engine::GetInstance().GetRuntimeModule("SceneManager");
+		//static bool flag = true;
+		//if (flag)
+		//{
+		//	SceneManager* sceneManager = (SceneManager*)Engine::GetInstance().GetRuntimeModule("SceneManager");
 
-			sceneManager->loadScene("Assets/Scene/Example.ogex");
+		//	sceneManager->loadScene("Assets/Scene/Example.ogex");
 
-			flag = false;
-		}
+		//	flag = false;
+		//}
 
 	}
 }

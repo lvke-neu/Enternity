@@ -64,10 +64,22 @@
     <ClCompile Include="Engine\Utility\Utility.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\RuntimeModule\Scene\SceneAsset.cpp">
+    <ClCompile Include="Engine\RuntimeModule\Scene\SceneManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\RuntimeModule\Scene\SceneManager.cpp">
+    <ClCompile Include="Engine\RuntimeModule\Scene\OpenGEX\ODDLMap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\RuntimeModule\Scene\OpenGEX\ODDLString.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\RuntimeModule\Scene\OpenGEX\ODDLTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\RuntimeModule\Scene\OpenGEX\OpenDDL.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\RuntimeModule\Scene\OpenGEX\OpenGEX.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -114,13 +126,31 @@
     <ClInclude Include="Engine\Core\UUID\UUID.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\RuntimeModule\Scene\Scene.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\RuntimeModule\Scene\SceneAsset.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\RuntimeModule\Scene\SceneManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RuntimeModule\Scene\OpenGEX\OpenGEX.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RuntimeModule\Scene\OpenGEX\ODDLArray.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RuntimeModule\Scene\OpenGEX\ODDLMap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RuntimeModule\Scene\OpenGEX\ODDLString.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RuntimeModule\Scene\OpenGEX\ODDLTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RuntimeModule\Scene\OpenGEX\ODDLTypes.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RuntimeModule\Scene\OpenGEX\OpenDDL.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RuntimeModule\Scene\SceneObject\SceneObject.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
