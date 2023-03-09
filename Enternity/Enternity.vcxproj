@@ -14,19 +14,19 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{C07C824F-914A-4BAE-9E62-BBAB127FC59F}</ProjectGuid>
     <RootNamespace>Enternity</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -96,8 +96,6 @@
     <ClCompile Include="Engine\Core\Blob\Blob.cpp" />
     <ClCompile Include="Engine\Core\ThreadPool\ThreadPool.cpp" />
     <ClCompile Include="Engine\Core\UUID\UUID.cpp" />
-    <ClCompile Include="Engine\RuntimeModule\Asset\Asset.cpp" />
-    <ClCompile Include="Engine\RuntimeModule\Asset\AssetLoader.cpp" />
     <ClCompile Include="Engine\RuntimeModule\Asset\AssetManager.cpp" />
     <ClCompile Include="Engine\RuntimeModule\Graphics\glad.c" />
     <ClCompile Include="Engine\Core\Math\Matrix.cpp" />
@@ -105,9 +103,9 @@
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Application\Application.cpp" />
     <ClCompile Include="Test\Test.cpp" />
-    <ClCompile Include="Test\TestAsset\TextAssetLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\RuntimeModule\Graphics\GraphicsManager.cpp" />
+    <ClCompile Include="Test\TestAsset\TextAsset.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Blob\Blob.h" />
@@ -118,13 +116,11 @@
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Application\Application.h" />
     <ClInclude Include="Engine\RuntimeModule\Asset\Asset.h" />
-    <ClInclude Include="Engine\RuntimeModule\Asset\AssetLoader.h" />
     <ClInclude Include="Engine\RuntimeModule\Asset\AssetManager.h" />
     <ClInclude Include="Engine\RuntimeModule\Graphics\GraphicsManager.h" />
     <ClInclude Include="Engine\RuntimeModule\Interface\IRuntimeModule.h" />
     <ClInclude Include="Test\Test.h" />
     <ClInclude Include="Test\TestAsset\TextAsset.h" />
-    <ClInclude Include="Test\TestAsset\TextAssetLoader.h" />
     <ClInclude Include="Engine\Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>

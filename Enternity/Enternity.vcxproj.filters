@@ -48,22 +48,16 @@
     <ClCompile Include="Engine\RuntimeModule\Asset\AssetManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\RuntimeModule\Asset\Asset.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\RuntimeModule\Asset\AssetLoader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Core\ThreadPool\ThreadPool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\TestAsset\TextAssetLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Test\Test.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Core\UUID\UUID.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\TestAsset\TextAsset.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,16 +92,10 @@
     <ClInclude Include="Engine\RuntimeModule\Asset\Asset.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\RuntimeModule\Asset\AssetLoader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Core\ThreadPool\ThreadPool.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Test\TestAsset\TextAsset.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Test\TestAsset\TextAssetLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Test\Test.h">
