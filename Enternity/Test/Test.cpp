@@ -19,17 +19,17 @@ namespace Enternity
 
 	void Test::Tick()
 	{
-		static bool flag1 = false;
-		if (textAsset.getBlob())
-		{
-			if (!flag1)
-			{
-				printf("textAsset1 load finish\n");
-				flag1 = true;
-			}
-		
-			int i = 0;
-			i++;
-		}
+		//static bool flag1 = false;
+		//if (textAsset.getBlob())
+		//{
+		//	if (!flag1)
+		//	{
+		//		printf("textAsset1 load finish\n");
+		//		flag1 = true;
+		//	}
+		//
+		//	int i = 0;
+		//	i++;
+		//}
 	}
 }

@@ -2,7 +2,8 @@
 #include "Core/Blob/Blob.h"
 #include <fstream>
 #include <Windows.h>
-
+#include "RuntimeModule/Graphics/GraphicsManager.h"
+#include "Engine/Engine.h"
 
 namespace Enternity
 {
@@ -30,4 +31,10 @@ namespace Enternity
 		pFilebuf->sgetn((char*)m_data->getData(), m_data->getLength());
 	}
 
+	void TextAsset::callBack()
+	{
+		printf("load finished");
+		GraphicsManager* graphicsManager = (GraphicsManager*)Engine::GetInstance().GetRuntimeModule("GraphicsManager");
+		graphicsManager->setClearColor({ 0.2f, 0.3f, 0.4f });
+	}
 }

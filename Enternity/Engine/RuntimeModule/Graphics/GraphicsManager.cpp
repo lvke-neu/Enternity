@@ -48,7 +48,7 @@ namespace Enternity
 
 	void GraphicsManager::Tick()
 	{
-		glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
+		glClearColor(m_color.r, m_color.g, m_color.b, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glfwSwapBuffers(m_context);
@@ -59,4 +59,10 @@ namespace Enternity
 	{
 		return glfwWindowShouldClose(m_context);
 	}
+
+	void GraphicsManager::setClearColor(const Vector3f& color)
+	{
+		m_color = color;
+	}
+
 }

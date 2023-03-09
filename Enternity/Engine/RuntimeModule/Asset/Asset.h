@@ -11,5 +11,6 @@ namespace Enternity
 		virtual ~Asset() = default;
 	public:
 		virtual void doLoad() = 0;
+		virtual void callBack() = 0;
 	};
 }

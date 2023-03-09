@@ -21,6 +21,7 @@ namespace Enternity
 
 	}
 
+
 	void AssetManager::loadAsset(Asset& asset)
 	{
 		ThreadPool::GetInstance().commitTask(
@@ -34,5 +35,6 @@ namespace Enternity
 	void AssetManager::loadAssetImpl(Asset& asset)
 	{
 		asset.doLoad();
+		asset.callBack();
 	}
 }

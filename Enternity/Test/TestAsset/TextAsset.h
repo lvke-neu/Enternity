@@ -3,6 +3,7 @@
 #include "Utility/Utility.h"
 #include <string>
 
+
 namespace Enternity
 {
 	class Blob;
@@ -11,6 +12,7 @@ namespace Enternity
 	public:
 		virtual ~TextAsset();
 		virtual void doLoad() override;
+		virtual void callBack() override;
 	public:
 		void setPath(const std::string& path) 
 		{
