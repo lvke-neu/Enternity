@@ -19,6 +19,8 @@
     <None Include="assets\model\cube.bin">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="assets\shaders\SimpleTriangleScene.vert" />
+    <None Include="assets\shaders\SimpleTriangleScene.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -112,6 +114,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\TextureMapScene.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RHI\VertexBufferLayout.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Asset\AssetLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Common\Vertex.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -210,6 +221,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\TextureMapScene.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RHI\VertexBufferLayout.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Common\Vertex.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Asset\AssetLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

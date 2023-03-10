@@ -38,7 +38,7 @@ namespace Enternity
 
 		glEnable(GL_DEPTH_TEST);
 		glViewport(0, 0, WindowWidth, WindowHeight);
-
+		glfwSetWindowSizeCallback(m_context, Resize);
 
 		SceneManager::GetInstance().Initialize();
 		GUIRender::GetInstance().Initialize(m_context);
@@ -71,4 +71,9 @@ namespace Enternity
 			glfwPollEvents();
 		}
     }
+
+	void Application::Resize(GLFWwindow* window, int width, int height)
+	{
+		glViewport(0, 0, width, height);
+	}
 }

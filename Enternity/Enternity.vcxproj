@@ -91,10 +91,13 @@
   <ItemGroup>
     <None Include="..\README.md" />
     <None Include="assets\model\cube.bin" />
+    <None Include="assets\shaders\SimpleTriangleScene.frag" />
+    <None Include="assets\shaders\SimpleTriangleScene.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application\Application.cpp" />
     <ClCompile Include="src\Application\glad.c" />
+    <ClCompile Include="src\Core\Asset\AssetLoader.cpp" />
     <ClCompile Include="src\Core\Blob\Blob.cpp" />
     <ClCompile Include="src\Core\Log\Log.cpp" />
     <ClCompile Include="src\Core\Math\Matrix.cpp" />
@@ -119,6 +122,8 @@
     <ClCompile Include="src\RHI\Texture.cpp" />
     <ClCompile Include="src\RHI\VertexArray.cpp" />
     <ClCompile Include="src\RHI\VertexBuffer.cpp" />
+    <ClCompile Include="src\RHI\VertexBufferLayout.cpp" />
+    <ClCompile Include="src\Scene\Common\Vertex.cpp" />
     <ClCompile Include="src\Scene\Interface\SceneInterface.cpp" />
     <ClCompile Include="src\Scene\SceneManger.cpp" />
     <ClCompile Include="src\Scene\SimpleTriangleScene.cpp" />
@@ -127,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application\Application.h" />
+    <ClInclude Include="src\Core\Asset\AssetLoader.h" />
     <ClInclude Include="src\Core\Blob\Blob.h" />
     <ClInclude Include="src\Core\Log\Log.h" />
     <ClInclude Include="src\Core\Math\Matrix.h" />
@@ -153,6 +159,8 @@
     <ClInclude Include="src\RHI\Texture.h" />
     <ClInclude Include="src\RHI\VertexArray.h" />
     <ClInclude Include="src\RHI\VertexBuffer.h" />
+    <ClInclude Include="src\RHI\VertexBufferLayout.h" />
+    <ClInclude Include="src\Scene\Common\Vertex.h" />
     <ClInclude Include="src\Scene\Interface\SceneInterface.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
     <ClInclude Include="src\Scene\SimpleTriangleScene.h" />

@@ -9,12 +9,13 @@ VertexArray
 namespace Enternity
 {
 	class VertexBuffer;
+	class VertexBufferLayout;
 	class VertexArray
 	{
 	public:
 		~VertexArray();
 	public:
-		void init(VertexBuffer* vertexBuffer);
+		void init(VertexBuffer* vertexBuffer, VertexBufferLayout* vertexBufferLayout);
 		void bind();
 		void unbind();
 	private:

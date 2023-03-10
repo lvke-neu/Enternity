@@ -1,5 +1,6 @@
 #include "VertexArray.h"
 #include "VertexBuffer.h"
+#include "VertexBufferLayout.h"
 #include "Core/Log/Log.h"
 #include "Core/Blob/Blob.h"
 #include "Utility/Utility.h"
@@ -12,12 +13,12 @@ namespace Enternity
 		CHECK_GL_CALL(glDeleteVertexArrays(1, &m_renderId));
 	}
 
-	void VertexArray::init(VertexBuffer* vertexBuffer)
+	void VertexArray::init(VertexBuffer* vertexBuffer, VertexBufferLayout* vertexBufferLayout)
 	{
 		CHECK_GL_CALL(glGenVertexArrays(1, &m_renderId));
 		CHECK_GL_CALL(glBindVertexArray(m_renderId));
 		vertexBuffer->bind();
-		const auto& elements = vertexBuffer->getVertexBufferLayout().getElements();
+		const auto& elements = vertexBufferLayout->getElements();
 		for (const auto& element : elements)
 		{
 			CHECK_GL_CALL(glEnableVertexAttribArray(element.index));

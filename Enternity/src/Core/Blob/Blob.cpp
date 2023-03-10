@@ -23,4 +23,9 @@ namespace Enternity
 	{
 		delete[] m_data;
 	}
+
+	void Blob::copyDataFrom(void* src)
+	{
+		memcpy_s(m_data, m_length, src, m_length);
+	}
 }

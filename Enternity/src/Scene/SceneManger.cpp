@@ -35,5 +35,6 @@ namespace Enternity
 		}
 
 		m_currentScene = m_scenes[sceneName];
+		m_currentScene->Initialize();
 	}
 }
