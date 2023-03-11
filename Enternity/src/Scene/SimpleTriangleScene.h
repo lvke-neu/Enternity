@@ -13,6 +13,7 @@ namespace Enternity
 		virtual void Initialize() override; 
 		virtual void Finalize() override; 
 		virtual void Tick(float deltaTime) override; 
+		virtual void RecompileShader() override;
 	private:
 		VertexArray* m_pVertexArray;
 		IndexBuffer* m_pIndexBuffer;

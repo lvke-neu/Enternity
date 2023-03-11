@@ -44,6 +44,7 @@ namespace Enternity
 		//ImGui::ShowDemoWindow(&show);
 		//ImGui::ShowMetricsWindow();
 
+		ImGui::Begin("Chapter");
 		if (ImGui::Button("SimpleTriangleScene"))
 		{
 			SceneManager::GetInstance().LoadScene("SimpleTriangleScene");
@@ -53,6 +54,15 @@ namespace Enternity
 		{
 			SceneManager::GetInstance().LoadScene("TextureMapScene");
 		}
+		
+		if (ImGui::Button("RecompileShader"))
+		{
+			SceneManager::GetInstance().RecompileCurrentSceneShader();
+		}
+
+		ImGui::End();
+
+
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -4,7 +4,8 @@ namespace Enternity
 {
 	enum class AssetType
 	{
-		Shader
+		Shader,
+		Texture
 	};
 
 	class Blob;
@@ -14,5 +15,6 @@ namespace Enternity
 		Blob* load(const char* assetPath, AssetType type);
 	private:
 		Blob* loadShaderImpl(const char* assetPath);
+		Blob* loadTextureImpl(const char* assetPath);
 	};
 }

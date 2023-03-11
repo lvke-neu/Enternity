@@ -2,6 +2,7 @@
 #include "Core/Blob/Blob.h"
 #include "Core/Log/Log.h"
 #include <fstream>
+#include "stb_image.h"
 
 namespace Enternity
 {
@@ -10,6 +11,8 @@ namespace Enternity
 	{
 		if (type == AssetType::Shader)
 			return loadShaderImpl(assetPath);
+		else if(type == AssetType::Texture)
+			return loadTextureImpl(assetPath);
 
 		return nullptr;
 	}
@@ -33,5 +36,31 @@ namespace Enternity
 		ifs.close();
 
 		return blob;
+	}
+
+	Blob* AssetLoader::loadTextureImpl(const char* assetPath)
+	{
+		unsigned char* tmpTexture;
+		int width;
+		int height;
+		int channels;
+
+		stbi_set_flip_vertically_on_load(1);
+		tmpTexture = stbi_load(assetPath, &width, &height, &channels, 0);
+		if (!tmpTexture)
+		{
+			LOG_ERROR("Assets load failed:{0}", assetPath);
+			return nullptr;
+		}
+		
+		TextureBlob* texBlob = new TextureBlob(width * height * channels);
+		memcpy_s(texBlob->getData(), texBlob->getLength(), tmpTexture, texBlob->getLength());
+		texBlob->m_width = width;
+		texBlob->m_height = height;
+		texBlob->m_channels = channels;
+
+		stbi_image_free(tmpTexture);
+
+		return texBlob;
 	}
 }

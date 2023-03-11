@@ -14,19 +14,19 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{C07C824F-914A-4BAE-9E62-BBAB127FC59F}</ProjectGuid>
     <RootNamespace>Enternity</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -93,11 +93,14 @@
     <None Include="assets\model\cube.bin" />
     <None Include="assets\shaders\SimpleTriangleScene.frag" />
     <None Include="assets\shaders\SimpleTriangleScene.vert" />
+    <None Include="assets\shaders\TextureMapScene.frag" />
+    <None Include="assets\shaders\TextureMapScene.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application\Application.cpp" />
     <ClCompile Include="src\Application\glad.c" />
     <ClCompile Include="src\Core\Asset\AssetLoader.cpp" />
+    <ClCompile Include="src\Core\Asset\stb_image.cpp" />
     <ClCompile Include="src\Core\Blob\Blob.cpp" />
     <ClCompile Include="src\Core\Log\Log.cpp" />
     <ClCompile Include="src\Core\Math\Matrix.cpp" />
@@ -133,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="src\Application\Application.h" />
     <ClInclude Include="src\Core\Asset\AssetLoader.h" />
+    <ClInclude Include="src\Core\Asset\stb_image.h" />
     <ClInclude Include="src\Core\Blob\Blob.h" />
     <ClInclude Include="src\Core\Log\Log.h" />
     <ClInclude Include="src\Core\Math\Matrix.h" />

@@ -37,4 +37,11 @@ namespace Enternity
 		m_currentScene = m_scenes[sceneName];
 		m_currentScene->Initialize();
 	}
+
+	void SceneManager::RecompileCurrentSceneShader()
+	{
+		if (m_currentScene)
+			m_currentScene->RecompileShader();
+	}
+
 }

@@ -18,6 +18,11 @@ namespace Enternity
 			T y;
 			T g;
 		};
+
+		Vector2 operator-()
+		{
+			return Vector2(-x, -y);
+		}
 	};
 
 	template<typename T>
@@ -31,6 +36,8 @@ namespace Enternity
 			T z;
 			T b;
 		};
+
+	
 	};
 
 	template<typename T>
@@ -44,6 +51,8 @@ namespace Enternity
 			T w;
 			T a;
 		};
+
+
 	};
 
 	typedef Vector2<float> Vector2f;

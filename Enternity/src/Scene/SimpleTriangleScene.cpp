@@ -94,4 +94,19 @@ namespace Enternity
 			m_pIndexBuffer->unbind();
 		}
 	}
+
+	void SimpleTriangleScene::RecompileShader()
+	{
+		SAFE_DELETE_SET_NULL(m_pShader);
+
+		AssetLoader assetLoader;
+		Blob* vsBlob = assetLoader.load("assets/shaders/SimpleTriangleScene.vert", AssetType::Shader);
+		Blob* psBlob = assetLoader.load("assets/shaders/SimpleTriangleScene.frag", AssetType::Shader);
+
+		m_pShader = new Shader;
+		m_pShader->init(vsBlob, psBlob);
+
+		SAFE_DELETE_SET_NULL(vsBlob);
+		SAFE_DELETE_SET_NULL(psBlob);
+	}
 }
