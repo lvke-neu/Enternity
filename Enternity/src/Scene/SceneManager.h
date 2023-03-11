@@ -14,6 +14,7 @@ namespace Enternity
 		void Finalize();
 		void Tick(float deltaTime);
 		void LoadScene(const std::string& sceneName);
+		void RenderGUI();
 		void RecompileCurrentSceneShader();
 	private:
 		std::unordered_map<std::string, IScene*> m_scenes;

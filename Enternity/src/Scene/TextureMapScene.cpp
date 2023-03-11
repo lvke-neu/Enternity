@@ -10,6 +10,7 @@
 #include "RHI/Shader.h"
 #include "RHI/Texture.h"
 #include "Utility/Utility.h"
+#include "GUI/GUIRender.h"
 #include <glad/glad.h>
 
 namespace Enternity
@@ -82,6 +83,7 @@ namespace Enternity
 			SAFE_DELETE_SET_NULL(texBlob);
 		}
 
+
 		m_bIsInit = true;
 	}
 
@@ -95,7 +97,19 @@ namespace Enternity
 	void TextureMapScene::Tick(float deltaTime)
 	{
 		if (m_pShader)
+		{
 			m_pShader->bind();
+			Matrix4x4f scaleMatrix;
+			Matrix4x4Scale(scaleMatrix, 1.0f, 1.0f, 1.0f);
+			Matrix4x4f rotateMatrix;
+			Matrix4x4RotateYawPitchRoll(rotateMatrix, m_rotation.x, m_rotation.y, m_rotation.z, false);
+			Matrix4x4f translateMatrix;
+			Matrix4x4Translate(translateMatrix, 0.0f, 0.0f, 0.0f);
+
+			m_mvp = translateMatrix * rotateMatrix * scaleMatrix;
+			m_pShader->setMat4("u_mvp", m_mvp, true);
+		}
+			
 		if (m_pTexture)
 			m_pTexture->bind(0);
 		if (m_pVertexArray)
@@ -134,5 +148,10 @@ namespace Enternity
 
 		SAFE_DELETE_SET_NULL(vsBlob);
 		SAFE_DELETE_SET_NULL(psBlob);
+	}
+
+	void TextureMapScene::RenderGUI()
+	{
+		ImGui::DragFloat3("yaw pitch roll", m_rotation, 1);
 	}
 }

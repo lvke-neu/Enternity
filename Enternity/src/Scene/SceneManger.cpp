@@ -44,4 +44,9 @@ namespace Enternity
 			m_currentScene->RecompileShader();
 	}
 
+	void SceneManager::RenderGUI()
+	{
+		if (m_currentScene)
+			m_currentScene->RenderGUI();
+	}
 }

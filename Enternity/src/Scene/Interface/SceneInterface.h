@@ -9,6 +9,7 @@ namespace Enternity
 		virtual void Finalize() = 0;
 		virtual void Tick(float deltaTime) = 0;
 		virtual void RecompileShader() = 0;
+		virtual void RenderGUI() {};
 	protected:
 		bool m_bIsInit = false;
 	};

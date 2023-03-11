@@ -99,7 +99,7 @@ namespace Enternity
 
 	int Shader::getUniformLocation(const std::string& name)
 	{
-		if (m_uniformLocationCache.find(name) != m_uniformLocationCache.end())
+		if (m_uniformLocationCache.find(name) != m_uniformLocationCache.end() && m_uniformLocationCache[name] != -1)
 			return m_uniformLocationCache[name];
 
 		int location;

@@ -56,6 +56,8 @@ namespace Enternity
 		{
 			return Vector2(x * other.x, y * other.y);
 		}
+
+		operator T*() { return &x; };
 	};
 
 	template<typename T>
@@ -120,6 +122,8 @@ namespace Enternity
 		{
 			return Vector3(x * other.x, y * other.y, z * other.z);
 		}
+
+		operator T*() { return &x; };
 	};
 
 	template<typename T>
@@ -192,6 +196,8 @@ namespace Enternity
 		{
 			return Vector4(x * other.x, y * other.y, z * other.z, w * other.w);
 		}
+
+		operator T*() { return &x; };
 	};
 
 	typedef Vector2<float> Vector2f;
