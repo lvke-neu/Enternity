@@ -103,6 +103,7 @@
     <ClCompile Include="src\Core\Asset\stb_image.cpp" />
     <ClCompile Include="src\Core\Blob\Blob.cpp" />
     <ClCompile Include="src\Core\Log\Log.cpp" />
+    <ClCompile Include="src\Core\Math\Math.cpp" />
     <ClCompile Include="src\Core\Math\Matrix.cpp" />
     <ClCompile Include="src\Core\Math\Vector.cpp" />
     <ClCompile Include="src\Core\ThreadPool\ThreadPool.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="src\Core\Asset\stb_image.h" />
     <ClInclude Include="src\Core\Blob\Blob.h" />
     <ClInclude Include="src\Core\Log\Log.h" />
+    <ClInclude Include="src\Core\Math\Math.h" />
     <ClInclude Include="src\Core\Math\Matrix.h" />
     <ClInclude Include="src\Core\Math\Vector.h" />
     <ClInclude Include="src\Core\Reflection\Reflection.h" />
