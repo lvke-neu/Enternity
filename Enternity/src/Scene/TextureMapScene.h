@@ -24,6 +24,8 @@ namespace Enternity
 		Shader* m_pShader;
 		Texture2D* m_pTexture;
 		Matrix4x4f m_mvp;
-		Vector3f m_rotation = {0.0f, 0.0f, 0.0f};
+		Vector3f m_translation = {0.0f, 0.0f, 0.0f};
+		Vector3f m_rotation = { 0.0f, 0.0f, 0.0f };
+		Vector3f m_scale = {1.0f, 1.0f, 1.0f};
 	};
 }
