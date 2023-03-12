@@ -42,7 +42,7 @@ namespace Enternity
 		}
 		
 		{
-			std::vector<unsigned int> indices{ 0, 1, 2 };
+			std::vector<unsigned int> indices{ 0, 2, 1 };
 
 			Blob blob(indices.size() * sizeof(unsigned int));
 			blob.copyDataFrom(indices.data());

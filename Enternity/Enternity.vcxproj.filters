@@ -23,6 +23,8 @@
     <None Include="assets\shaders\SimpleTriangleScene.frag" />
     <None Include="assets\shaders\TextureMapScene.vert" />
     <None Include="assets\shaders\TextureMapScene.frag" />
+    <None Include="assets\shaders\CubeScene.vert" />
+    <None Include="assets\shaders\CubeScene.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -131,6 +133,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\Math\Math.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\CubeScene.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -244,6 +249,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Math\Math.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\CubeScene.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

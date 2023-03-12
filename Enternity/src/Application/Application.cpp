@@ -47,6 +47,10 @@ namespace Enternity
 		LOG_TRACE((char*)glGetString(GL_VENDOR));
 		LOG_TRACE((char*)glGetString(GL_RENDERER));
 
+		//cull face
+		//glEnable(GL_CULL_FACE);
+		//glCullFace(GL_BACK);
+
 		return;
     }
 

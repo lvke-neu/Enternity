@@ -24,7 +24,7 @@ namespace Enternity
 
 		{
 			VertexBuffer tmpVertexBuffer;
-			std::vector<VertexPosColorTexcoord> vertices;
+			std::vector<VertexPosColorNormalTexcoord> vertices;
 			vertices.resize(4);
 
 			vertices[0].position = Vector3f(-0.5f, 0.5f, 0.0f);
@@ -42,17 +42,17 @@ namespace Enternity
 			vertices[2].texcoord = Vector2f(1.0f, 0.0f);
 			vertices[3].texcoord = Vector2f(0.0f, 0.0f);
 
-			Blob blob(vertices.size() * sizeof(VertexPosColorTexcoord));
+			Blob blob(vertices.size() * sizeof(VertexPosColorNormalTexcoord));
 			blob.copyDataFrom(vertices.data());
 
 			tmpVertexBuffer.init(&blob);
 
 			m_pVertexArray = new VertexArray;
-			m_pVertexArray->init(&tmpVertexBuffer, &VertexPosColorTexcoord::vertexBufferLayout);
+			m_pVertexArray->init(&tmpVertexBuffer, &VertexPosColorNormalTexcoord::vertexBufferLayout);
 		}
 
 		{
-			std::vector<unsigned int> indices{ 0, 1, 2, 0, 2, 3 };
+			std::vector<unsigned int> indices{ 3, 1, 0, 3, 2, 1 };
 
 			Blob blob(indices.size() * sizeof(unsigned int));
 			blob.copyDataFrom(indices.data());

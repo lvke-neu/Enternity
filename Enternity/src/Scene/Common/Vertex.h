@@ -12,12 +12,21 @@ namespace Enternity
 		static VertexBufferLayout vertexBufferLayout;
 	};
 
-	struct VertexPosColorTexcoord
+	struct VertexPosColorNormalTexcoord
 	{
 		Vector3f position;
 		Vector3f color;
+		Vector3f normal;
 		Vector2f texcoord;
 
+		static VertexBufferLayout vertexBufferLayout;
+	};
+
+	struct VertexPosNormalTexcoord
+	{
+		Vector3f position;
+		Vector3f normal;
+		Vector2f texcoord;
 		static VertexBufferLayout vertexBufferLayout;
 	};
 }

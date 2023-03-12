@@ -22,6 +22,9 @@ void Test()
 	Matrix4x4f rotateMatrix;
 	Matrix4x4RotateYawPitchRoll(rotateMatrix, 30.0f, 60.f, 0.0f, false);
 
+	Matrix4x4f perspectiveMatrix;
+	Matrix4x4Perspective(perspectiveMatrix, 45.0f, 2.0f, 0.1f, 100.0f, false);
+
 	int i = 0;
 	i++;
 }

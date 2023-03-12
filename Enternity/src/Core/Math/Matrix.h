@@ -89,6 +89,20 @@ namespace Enternity
 
 			return result;
 		}
+
+		static Matrix Zero()
+		{
+			Matrix result;
+			for (int i = 0; i < ROWS; i++)
+			{
+				for (int j = 0; j < COLS; j++)
+				{
+					result[i][j] = 0;
+				}
+			}
+
+			return result;
+		}
 	};
 
 	typedef Matrix<float, 4, 4> Matrix4x4f;
@@ -147,4 +161,20 @@ namespace Enternity
 		matrix[2][2] = Sz;
 	}
 
+	template<typename T>
+	void Matrix4x4Perspective(Matrix<T, 4, 4>& matrix, T fov, T aspect, T nearZ, T farZ, bool isRadian)
+	{
+		if (!isRadian)
+		{
+			fov = (T)Math::AngleToRadian(fov);
+		}
+		
+		T tan_half_fovy = std::tan(fov / 2);
+		matrix = Matrix<T, 4, 4>::Zero();
+		matrix[0][0] = 1.f / (aspect * tan_half_fovy);
+		matrix[1][1] = 1.f / tan_half_fovy;
+		matrix[2][2] = farZ / (nearZ - farZ);
+		matrix[3][2] = -1.f;
+		matrix[2][3] = -(farZ * nearZ) / (farZ - nearZ);
+	}
 }

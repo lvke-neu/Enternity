@@ -48,6 +48,11 @@ namespace Enternity
 		if (ImGui::Button("TextureMapScene"))
 		{
 			SceneManager::GetInstance().LoadScene("TextureMapScene");
+		}		
+		
+		if (ImGui::Button("CubeScene"))
+		{
+			SceneManager::GetInstance().LoadScene("CubeScene");
 		}
 		
 		if (ImGui::Button("RecompileShader"))
