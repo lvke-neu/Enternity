@@ -93,10 +93,6 @@
     <None Include="assets\model\cube.bin" />
     <None Include="assets\shaders\CubeScene.frag" />
     <None Include="assets\shaders\CubeScene.vert" />
-    <None Include="assets\shaders\SimpleTriangleScene.frag" />
-    <None Include="assets\shaders\SimpleTriangleScene.vert" />
-    <None Include="assets\shaders\TextureMapScene.frag" />
-    <None Include="assets\shaders\TextureMapScene.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application\Application.cpp" />

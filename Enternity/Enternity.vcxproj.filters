@@ -19,10 +19,6 @@
     <None Include="assets\model\cube.bin">
       <Filter>资源文件</Filter>
     </None>
-    <None Include="assets\shaders\SimpleTriangleScene.vert" />
-    <None Include="assets\shaders\SimpleTriangleScene.frag" />
-    <None Include="assets\shaders\TextureMapScene.vert" />
-    <None Include="assets\shaders\TextureMapScene.frag" />
     <None Include="assets\shaders\CubeScene.vert" />
     <None Include="assets\shaders\CubeScene.frag" />
   </ItemGroup>
