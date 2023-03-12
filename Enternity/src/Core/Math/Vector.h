@@ -207,4 +207,28 @@ namespace Enternity
 	typedef Vector2<double> Vector2d;
 	typedef Vector3<double> Vector3d;
 	typedef Vector4<double> Vector4d;
+
+	template<typename T>
+	Vector3<T> Vector3Cross(const Vector3<T>& v1, const Vector3<T>& v2)
+	{
+		return Vector3<T>(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x);
+	}
+
+	template<typename T>
+	Vector2<T> Normalize(const Vector2<T>& v)
+	{
+		return Vector2<T>(v.x / v.length(), v.y / v.length());
+	}
+
+	template<typename T>
+	Vector3<T> Normalize(const Vector3<T>& v)
+	{
+		return Vector3<T>(v.x / v.length(), v.y / v.length(), v.z / v.length());
+	}
+
+	template<typename T>
+	Vector4<T> Normalize(const Vector4<T>& v)
+	{
+		return Vector4<T>(v.x / v.length(), v.y / v.length(), v.z / v.length(), v.w / v.length());
+	}
 }

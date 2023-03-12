@@ -9,6 +9,7 @@ namespace Enternity
 	class IndexBuffer;
 	class Shader;
 	class Texture2D;
+	class Camera3D;
 	class CubeScene : public IScene
 	{
 		friend class GUIRender;
@@ -18,6 +19,7 @@ namespace Enternity
 		virtual void Tick(float deltaTime) override;
 		virtual void RecompileShader() override;
 		virtual void RenderGUI() override;
+		virtual void OnResize(int width, int height) override;
 	private:
 		VertexArray* m_pVertexArray;
 		IndexBuffer* m_pIndexBuffer;
@@ -27,5 +29,6 @@ namespace Enternity
 		Vector3f m_translation = {0.0f, 0.0f, -5.0f};
 		Vector3f m_rotation = { 0.0f, 0.0f, 0.0f };
 		Vector3f m_scale = {1.0f, 1.0f, 1.0f};
+		Camera3D* m_pCamera3D;
 	};
 }

@@ -15,6 +15,11 @@ void Test()
 	//Matrix4x4f mat2{1,2,3,4,5,6,7,4,4,4,4,4, 4,4,4,4 };
 	//
 	//mat1 += mat1;
+
+	Vector3f z(0.0f, 0.0f, 1.0f);
+	Vector3f x(1.0f, 0.0f, 0.0f);
+	Vector3f y = Vector3Cross(z, x);
+
 	Matrix4x4f scaleMatrxi;
 	Matrix4x4Scale(scaleMatrxi, 1.0f, 2.0f, 3.0f);
 	Matrix4x4f translateMatrxi;

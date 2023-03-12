@@ -129,6 +129,7 @@
     <ClCompile Include="src\RHI\VertexArray.cpp" />
     <ClCompile Include="src\RHI\VertexBuffer.cpp" />
     <ClCompile Include="src\RHI\VertexBufferLayout.cpp" />
+    <ClCompile Include="src\Scene\Common\Camera3D.cpp" />
     <ClCompile Include="src\Scene\Common\Vertex.cpp" />
     <ClCompile Include="src\Scene\CubeScene.cpp" />
     <ClCompile Include="src\Scene\Interface\SceneInterface.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="src\RHI\VertexArray.h" />
     <ClInclude Include="src\RHI\VertexBuffer.h" />
     <ClInclude Include="src\RHI\VertexBufferLayout.h" />
+    <ClInclude Include="src\Scene\Common\Camera3D.h" />
     <ClInclude Include="src\Scene\Common\Vertex.h" />
     <ClInclude Include="src\Scene\CubeScene.h" />
     <ClInclude Include="src\Scene\Interface\SceneInterface.h" />

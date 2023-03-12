@@ -138,6 +138,9 @@
     <ClCompile Include="src\Scene\CubeScene.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scene\Common\Camera3D.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility\Utility.h">
@@ -252,6 +255,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\CubeScene.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Common\Camera3D.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

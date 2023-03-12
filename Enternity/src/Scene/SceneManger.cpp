@@ -49,4 +49,10 @@ namespace Enternity
 		if (m_currentScene)
 			m_currentScene->RenderGUI();
 	}
+
+	void SceneManager::OnResize(int width, int height)
+	{
+		if(m_currentScene)
+			m_currentScene->OnResize(width, height);
+	}
 }

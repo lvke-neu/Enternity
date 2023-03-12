@@ -4,6 +4,7 @@
 #include "Core/Asset/AssetLoader.h"
 #include "Core/Log/Log.h"
 #include "Common/Vertex.h"
+#include "Common/Camera3D.h"
 #include "RHI/VertexBuffer.h"
 #include "RHI/VertexArray.h"
 #include "RHI/IndexBuffer.h"
@@ -21,6 +22,8 @@ namespace Enternity
 	{
 		if (m_bIsInit)
 			return;
+
+		m_pCamera3D = new Camera3D;
 
 		{
 			VertexBuffer tmpVertexBuffer;
@@ -141,6 +144,7 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(m_pVertexArray);
 		SAFE_DELETE_SET_NULL(m_pIndexBuffer);
 		SAFE_DELETE_SET_NULL(m_pShader);
+		SAFE_DELETE_SET_NULL(m_pCamera3D);
 	}
 
 	void CubeScene::Tick(float deltaTime)
@@ -154,9 +158,8 @@ namespace Enternity
 			Matrix4x4RotateYawPitchRoll(rotateMatrix, m_rotation.x, m_rotation.y, m_rotation.z, false);
 			Matrix4x4f translateMatrix;
 			Matrix4x4Translate(translateMatrix, m_translation.x, m_translation.y, m_translation.z);
-			Matrix4x4f projMatrix;
-			Matrix4x4Perspective(projMatrix, 45.0f, 1.5f, 0.1f, 1000.0f, false);
-			m_mvp = projMatrix * translateMatrix * rotateMatrix * scaleMatrix;
+			
+			m_mvp = m_pCamera3D->getProjMatrix() * m_pCamera3D->getViewMatrix() * translateMatrix * rotateMatrix * scaleMatrix;
 			m_pShader->setMat4("u_mvp", m_mvp, true);
 		}
 			
@@ -205,5 +208,13 @@ namespace Enternity
 		ImGui::DragFloat3("transaltion", m_translation, 0.1f);
 		ImGui::DragFloat3("rotate(yaw pitch roll)", m_rotation, 1);
 		ImGui::DragFloat3("scale", m_scale, 0.1f);
+
+		ImGui::DragFloat3("camtransaltion", m_pCamera3D->getPosition(), 0.1f);
+		ImGui::DragFloat3("camrotate(yaw pitch roll)", m_pCamera3D->getRotation(), 1);
+	}
+
+	void CubeScene::OnResize(int width, int height)
+	{
+		m_pCamera3D->setFrustum({45.0f, static_cast<float>(width)/height, 0.1f, 1000.0f});
 	}
 }

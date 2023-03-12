@@ -79,5 +79,6 @@ namespace Enternity
 	void Application::Resize(GLFWwindow* window, int width, int height)
 	{
 		glViewport(0, 0, width, height);
+		SceneManager::GetInstance().OnResize(width, height);
 	}
 }

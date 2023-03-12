@@ -14,6 +14,7 @@ namespace Enternity
 		void Finalize();
 		void Tick(float deltaTime);
 		void LoadScene(const std::string& sceneName);
+		void OnResize(int width, int height);
 		void RenderGUI();
 		void RecompileCurrentSceneShader();
 	private:
