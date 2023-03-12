@@ -1,6 +1,10 @@
 #pragma once
 #include "Math.h"
 #include "Vector.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
 
 namespace Enternity
 {
@@ -119,37 +123,45 @@ namespace Enternity
 	}
 
 	template<typename T>
-	void Matrix4x4RotateYawPitchRoll(Matrix<T, 4, 4>& matrix, T yaw, T pitch, T roll, bool isRadian)
+	void Matrix4x4RotateYawPitchRoll(Matrix<T, 4, 4>& matrix, T x, T y, T z, bool isRadian)
 	{
 		if (!isRadian)
 		{
-			yaw = (T)Math::AngleToRadian(yaw);
-			pitch = (T)Math::AngleToRadian(pitch);
-			roll = (T)Math::AngleToRadian(roll);
+			x = (T)Math::AngleToRadian(x);
+			y = (T)Math::AngleToRadian(y);
+			z = (T)Math::AngleToRadian(z);
 		}
 
-		float cYaw, cPitch, cRoll, sYaw, sPitch, sRoll;
+		//float cYaw, cPitch, cRoll, sYaw, sPitch, sRoll;
 
-		// Get the cosine and sin of the yaw, pitch, and roll.
-		cYaw = std::cos(yaw);
-		cPitch = std::cos(pitch);
-		cRoll = std::cos(roll);
+		//// Get the cosine and sin of the yaw, pitch, and roll.
+		//cYaw = std::cos(yaw);
+		//cPitch = std::cos(pitch);
+		//cRoll = std::cos(roll);
 
-		sYaw = std::sin(yaw);
-		sPitch = std::sin(pitch);
-		sRoll = std::sin(roll);
+		//sYaw = std::sin(yaw);
+		//sPitch = std::sin(pitch);
+		//sRoll = std::sin(roll);
 
-		// Calculate the yaw, pitch, roll rotation matrix.
-		Matrix4x4f tmp = { 
-			(cRoll * cYaw) + (sRoll * sPitch * sYaw), (sRoll * cPitch), (cRoll * -sYaw) + (sRoll * sPitch * cYaw), 0.0f ,
-			(-sRoll * cYaw) + (cRoll * sPitch * sYaw), (cRoll * cPitch), (sRoll * sYaw) + (cRoll * sPitch * cYaw), 0.0f,
-			(cPitch * sYaw), -sPitch, (cPitch * cYaw), 0.0f,
-			0.0f, 0.0f, 0.0f, 1.0f 
-		};
+		//// Calculate the yaw, pitch, roll rotation matrix.
+		//Matrix4x4f tmp = { 
+		//	(cRoll * cYaw) + (sRoll * sPitch * sYaw), (sRoll * cPitch), (cRoll * -sYaw) + (sRoll * sPitch * cYaw), 0.0f ,
+		//	(-sRoll * cYaw) + (cRoll * sPitch * sYaw), (cRoll * cPitch), (sRoll * sYaw) + (cRoll * sPitch * cYaw), 0.0f,
+		//	(cPitch * sYaw), -sPitch, (cPitch * cYaw), 0.0f,
+		//	0.0f, 0.0f, 0.0f, 1.0f 
+		//};
+		
+		//matrix = tmp;
 
-		matrix = tmp;
 
-		return;
+		glm::mat4 glmRotationMatrix = glm::mat4_cast(glm::qua<float>(glm::vec3(x, y, z)));
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 4; j++)
+			{
+				matrix[i][j] = glmRotationMatrix[i][j];
+			}
+		}
 	}
 
 

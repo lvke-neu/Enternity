@@ -104,6 +104,9 @@
     <ClCompile Include="src\Core\Asset\AssetLoader.cpp" />
     <ClCompile Include="src\Core\Asset\stb_image.cpp" />
     <ClCompile Include="src\Core\Blob\Blob.cpp" />
+    <ClCompile Include="src\Core\Event\InputEventManager.cpp" />
+    <ClCompile Include="src\Core\Event\Interface\EventManagerInterface.cpp" />
+    <ClCompile Include="src\Core\Event\TickEventManager.cpp" />
     <ClCompile Include="src\Core\Log\Log.cpp" />
     <ClCompile Include="src\Core\Math\Math.cpp" />
     <ClCompile Include="src\Core\Math\Matrix.cpp" />
@@ -130,12 +133,11 @@
     <ClCompile Include="src\RHI\VertexBuffer.cpp" />
     <ClCompile Include="src\RHI\VertexBufferLayout.cpp" />
     <ClCompile Include="src\Scene\Common\Camera3D.cpp" />
+    <ClCompile Include="src\Scene\Common\CameraController.cpp" />
     <ClCompile Include="src\Scene\Common\Vertex.cpp" />
     <ClCompile Include="src\Scene\CubeScene.cpp" />
     <ClCompile Include="src\Scene\Interface\SceneInterface.cpp" />
     <ClCompile Include="src\Scene\SceneManger.cpp" />
-    <ClCompile Include="src\Scene\SimpleTriangleScene.cpp" />
-    <ClCompile Include="src\Scene\TextureMapScene.cpp" />
     <ClCompile Include="src\Utility\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +145,9 @@
     <ClInclude Include="src\Core\Asset\AssetLoader.h" />
     <ClInclude Include="src\Core\Asset\stb_image.h" />
     <ClInclude Include="src\Core\Blob\Blob.h" />
+    <ClInclude Include="src\Core\Event\InputEventManager.h" />
+    <ClInclude Include="src\Core\Event\Interface\EventManagerInterface.h" />
+    <ClInclude Include="src\Core\Event\TickEventManager.h" />
     <ClInclude Include="src\Core\Log\Log.h" />
     <ClInclude Include="src\Core\Math\Math.h" />
     <ClInclude Include="src\Core\Math\Matrix.h" />
@@ -171,12 +176,12 @@
     <ClInclude Include="src\RHI\VertexBuffer.h" />
     <ClInclude Include="src\RHI\VertexBufferLayout.h" />
     <ClInclude Include="src\Scene\Common\Camera3D.h" />
+    <ClInclude Include="src\Scene\Common\CameraController.h" />
+    <ClInclude Include="src\Scene\Common\Transform.h" />
     <ClInclude Include="src\Scene\Common\Vertex.h" />
     <ClInclude Include="src\Scene\CubeScene.h" />
     <ClInclude Include="src\Scene\Interface\SceneInterface.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
-    <ClInclude Include="src\Scene\SimpleTriangleScene.h" />
-    <ClInclude Include="src\Scene\TextureMapScene.h" />
     <ClInclude Include="src\Utility\Utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

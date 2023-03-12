@@ -20,7 +20,7 @@ namespace Enternity
 			T g;
 		};
 
-		T length()
+		T length() const
 		{
 			return std::sqrt(std::pow(x, 2) + std::pow(y, 2));
 		}
@@ -89,7 +89,7 @@ namespace Enternity
 			T b;
 		};
 
-		T length()
+		T length() const
 		{
 			return std::sqrt(std::pow(x, 2) + std::pow(y, 2) + std::pow(z, 2));
 		}
@@ -166,7 +166,7 @@ namespace Enternity
 			T a;
 		};
 
-		T length()
+		T length() const
 		{
 			return std::sqrt(std::pow(x, 2) + std::pow(y, 2) + std::pow(z, 2) + std::pow(w, 2));
 		}

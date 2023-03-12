@@ -5,6 +5,7 @@
 #include "Core/Log/Log.h"
 #include "Common/Vertex.h"
 #include "Common/Camera3D.h"
+#include "Common/CameraController.h"
 #include "RHI/VertexBuffer.h"
 #include "RHI/VertexArray.h"
 #include "RHI/IndexBuffer.h"
@@ -24,6 +25,7 @@ namespace Enternity
 			return;
 
 		m_pCamera3D = new Camera3D;
+		m_pCameraController = new CameraController(m_pCamera3D);
 
 		{
 			VertexBuffer tmpVertexBuffer;
@@ -145,6 +147,7 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(m_pIndexBuffer);
 		SAFE_DELETE_SET_NULL(m_pShader);
 		SAFE_DELETE_SET_NULL(m_pCamera3D);
+		SAFE_DELETE_SET_NULL(m_pCameraController);
 	}
 
 	void CubeScene::Tick(float deltaTime)
@@ -152,15 +155,11 @@ namespace Enternity
 		if (m_pShader)
 		{
 			m_pShader->bind();
-			Matrix4x4f scaleMatrix;
-			Matrix4x4Scale(scaleMatrix, m_scale.x, m_scale.y, m_scale.z);
-			Matrix4x4f rotateMatrix;
-			Matrix4x4RotateYawPitchRoll(rotateMatrix, m_rotation.x, m_rotation.y, m_rotation.z, false);
-			Matrix4x4f translateMatrix;
-			Matrix4x4Translate(translateMatrix, m_translation.x, m_translation.y, m_translation.z);
-			
-			m_mvp = m_pCamera3D->getProjMatrix() * m_pCamera3D->getViewMatrix() * translateMatrix * rotateMatrix * scaleMatrix;
-			m_pShader->setMat4("u_mvp", m_mvp, true);
+			glm::mat4 mvp{1.0f};
+			mvp *= glm::perspective(m_pCamera3D->fov, m_pCamera3D->aspect, m_pCamera3D->nearZ, m_pCamera3D->farZ);
+			mvp *= m_pCamera3D->m_transform.GetInverseWorldMatrix();
+			mvp *= m_transform.GetWorldMatrix();
+			m_pShader->setMat4("u_mvp", mvp, false);
 		}
 			
 		if (m_pTexture)
@@ -172,7 +171,6 @@ namespace Enternity
 			m_pIndexBuffer->bind();
 			CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, m_pIndexBuffer->getCount(), GL_UNSIGNED_INT, (void*)0));
 		}
-
 
 
 		if (m_pShader)
@@ -205,26 +203,22 @@ namespace Enternity
 
 	void CubeScene::RenderGUI()
 	{
-		ImGui::DragFloat3("transaltion", m_translation, 0.1f);
-		ImGui::DragFloat3("rotate(yaw pitch roll)", m_rotation, 1);
-		ImGui::DragFloat3("scale", m_scale, 0.1f);
+		ImGui::DragFloat3("transaltion", &m_transform.m_Translation[0], 0.1f);
+		ImGui::DragFloat3("rotation", &m_transform.m_Rotation[0], 1);
+		ImGui::DragFloat3("scale", &m_transform.m_Scale[0], 0.1f);
 
-		ImGui::DragFloat3("camtransaltion", m_pCamera3D->getPosition(), 0.1f);
-		ImGui::DragFloat3("camrotate(yaw pitch roll)", m_pCamera3D->getRotation(), 1);
+		ImGui::DragFloat3("camtransaltion", &m_pCamera3D->m_transform.m_Translation[0], 0.1f);
+		ImGui::DragFloat3("camrotation", &m_pCamera3D->m_transform.m_Rotation[0], 1);
 
-		if (ImGui::Button("move f"))
+		if(ImGui::Button("Reset Camera"))
 		{
-			m_pCamera3D->moveForward(1);
-		}
-
-		if (ImGui::Button("move b"))
-		{
-			m_pCamera3D->moveForward(-1);
+			m_pCamera3D->m_transform.m_Translation = { 0.0f };
+			m_pCamera3D->m_transform.m_Rotation = { 0.0f };
 		}
 	}
 
 	void CubeScene::OnResize(int width, int height)
 	{
-		m_pCamera3D->setFrustum({45.0f, static_cast<float>(width)/height, 0.1f, 1000.0f});
+		m_pCamera3D->aspect = static_cast<float>(width) / height;
 	}
 }

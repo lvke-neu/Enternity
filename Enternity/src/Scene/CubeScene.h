@@ -1,7 +1,6 @@
 #pragma once
 #include "Interface/SceneInterface.h"
-#include "Core/Math/Matrix.h"
-#include "Core/Math/Vector.h"
+#include "Common/Transform.h"
 
 namespace Enternity
 {
@@ -10,6 +9,7 @@ namespace Enternity
 	class Shader;
 	class Texture2D;
 	class Camera3D;
+	class CameraController;
 	class CubeScene : public IScene
 	{
 		friend class GUIRender;
@@ -25,10 +25,8 @@ namespace Enternity
 		IndexBuffer* m_pIndexBuffer;
 		Shader* m_pShader;
 		Texture2D* m_pTexture;
-		Matrix4x4f m_mvp;
-		Vector3f m_translation = {0.0f, 0.0f, -5.0f};
-		Vector3f m_rotation = { 0.0f, 0.0f, 0.0f };
-		Vector3f m_scale = {1.0f, 1.0f, 1.0f};
 		Camera3D* m_pCamera3D;
+		CameraController* m_pCameraController;
+		Transform m_transform;
 	};
 }

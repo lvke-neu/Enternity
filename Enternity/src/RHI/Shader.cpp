@@ -29,9 +29,9 @@ namespace Enternity
 		CHECK_GL_CALL(glUseProgram(0));
 	}
 
-	void Shader::setMat4(const std::string& name, const Matrix4x4f& mat4, bool transpose)
+	void Shader::setMat4(const std::string& name, const glm::mat4& mat4, bool transpose)
 	{
-		CHECK_GL_CALL(glUniformMatrix4fv(getUniformLocation(name), 1, transpose, mat4));
+		CHECK_GL_CALL(glUniformMatrix4fv(getUniformLocation(name), 1, transpose, &mat4[0][0]));
 	}
 
 	unsigned int Shader::CompileShader(unsigned int shaderType, const char* shaderSourceCode)

@@ -7,7 +7,10 @@ Shader
 #pragma once
 #include <string>
 #include <unordered_map>
-#include "Core/Math/Matrix.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
 
 namespace Enternity
 {
@@ -22,7 +25,7 @@ namespace Enternity
 		void bind();
 		void unbind();
 	public:
-		void setMat4(const std::string& name, const Matrix4x4f& mat4, bool transpose);
+		void setMat4(const std::string& name, const glm::mat4& mat4, bool transpose);
 	private:
 		unsigned int CompileShader(unsigned int shaderType, const char* shaderSourceCode);
 		unsigned int CreateProgram(const char* vsShaderCode, const char* psShaderCode);

@@ -39,17 +39,7 @@ namespace Enternity
 		//ImGui::ShowDemoWindow(&show);
 		//ImGui::ShowMetricsWindow();
 
-		ImGui::Begin("Chapter");
-		if (ImGui::Button("SimpleTriangleScene"))
-		{
-			SceneManager::GetInstance().LoadScene("SimpleTriangleScene");
-		}	
-
-		if (ImGui::Button("TextureMapScene"))
-		{
-			SceneManager::GetInstance().LoadScene("TextureMapScene");
-		}		
-		
+		ImGui::Begin("Chapter");		
 		if (ImGui::Button("CubeScene"))
 		{
 			SceneManager::GetInstance().LoadScene("CubeScene");
