@@ -52,15 +52,17 @@ namespace Enternity
 
 	void Camera3D::move(float dis, const Vector3f& dir)
 	{
-		/*m_position += dir * dis;*/
+		m_translation += dir * dis;
 	}
 
 	void Camera3D::moveForward(float dis)
 	{
-		//Matrix4x4f rotMat4 = Matrix4x4f::Rotate(Math::Radian(m_rotation.x), Math::Radian(m_rotation.y), Math::Radian(m_rotation.z));
-		//Vector3f dir = rotMat4[2];
-		//dir.z = -dir.z;
-		//move(dis, dir);
+		Matrix4x4f rotMat4;
+		Matrix4x4RotateYawPitchRoll(rotMat4, m_rotation.x, m_rotation.y, m_rotation.z, false);
+
+		Vector3f dir(rotMat4[2][0], rotMat4[2][1], rotMat4[2][2]);
+		dir.z = -dir.z;
+		move(dis, dir);
 	}
 
 	void Camera3D::moveRight(float dis)

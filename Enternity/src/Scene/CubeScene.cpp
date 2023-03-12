@@ -211,6 +211,16 @@ namespace Enternity
 
 		ImGui::DragFloat3("camtransaltion", m_pCamera3D->getPosition(), 0.1f);
 		ImGui::DragFloat3("camrotate(yaw pitch roll)", m_pCamera3D->getRotation(), 1);
+
+		if (ImGui::Button("move f"))
+		{
+			m_pCamera3D->moveForward(1);
+		}
+
+		if (ImGui::Button("move b"))
+		{
+			m_pCamera3D->moveForward(-1);
+		}
 	}
 
 	void CubeScene::OnResize(int width, int height)

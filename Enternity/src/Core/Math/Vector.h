@@ -57,6 +57,11 @@ namespace Enternity
 			return Vector2(x * other.x, y * other.y);
 		}
 
+		Vector2 operator*(T value) const
+		{
+			return Vector2(x * value, y * value);
+		}
+
 		operator T*() { return &x; };
 	};
 
@@ -121,6 +126,11 @@ namespace Enternity
 		Vector3 operator*(const Vector3& other)
 		{
 			return Vector3(x * other.x, y * other.y, z * other.z);
+		}
+
+		Vector3 operator*(T value) const
+		{
+			return Vector3(x * value, y * value, z * value);
 		}
 
 		operator T*() { return &x; };
@@ -195,6 +205,11 @@ namespace Enternity
 		Vector4 operator*(const Vector4& other)
 		{
 			return Vector4(x * other.x, y * other.y, z * other.z, w * other.w);
+		}
+
+		Vector4 operator*(T value) const
+		{
+			return Vector4(x * value, y * value, z * value, w * value);
 		}
 
 		operator T*() { return &x; };
