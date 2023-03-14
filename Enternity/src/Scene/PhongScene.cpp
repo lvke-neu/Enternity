@@ -1,4 +1,4 @@
-#include "CubeScene.h"
+#include "PhongScene.h"
 #include "Core/Reflection/Reflection.h"
 #include "Core/Blob/Blob.h"
 #include "Core/Asset/AssetLoader.h"
@@ -6,6 +6,7 @@
 #include "Common/Vertex.h"
 #include "Common/Camera3D.h"
 #include "Common/CameraController.h"
+#include "Common/Light.h"
 #include "RHI/VertexBuffer.h"
 #include "RHI/VertexArray.h"
 #include "RHI/IndexBuffer.h"
@@ -17,15 +18,18 @@
 
 namespace Enternity
 {
-	REGISTER_CLASS(IScene, "CubeScene", CubeScene);
+	REGISTER_CLASS(IScene, "PhongScene", PhongScene);
 
-	void CubeScene::Initialize()
+	void PhongScene::Initialize()
 	{
 		if (m_bIsInit)
 			return;
 
 		m_pCamera3D = new Camera3D;
+		m_pCamera3D->m_transform.m_Translation = glm::vec3(0.0f, 0.0f, 5.0f);
 		m_pCameraController = new CameraController(m_pCamera3D);
+		m_light = new Light(m_pCamera3D);
+
 
 		{
 			VertexBuffer tmpVertexBuffer;
@@ -117,8 +121,8 @@ namespace Enternity
 
 		{
 			AssetLoader assetLoader;
-			Blob* vsBlob = assetLoader.load("assets/shaders/CubeScene.vert", AssetType::Shader);
-			Blob* psBlob = assetLoader.load("assets/shaders/CubeScene.frag", AssetType::Shader);
+			Blob* vsBlob = assetLoader.load("assets/shaders/PhongScene.vert", AssetType::Shader);
+			Blob* psBlob = assetLoader.load("assets/shaders/PhongScene.frag", AssetType::Shader);
 
 			m_pShader = new Shader;
 			m_pShader->init(vsBlob, psBlob);
@@ -141,7 +145,7 @@ namespace Enternity
 		m_bIsInit = true;
 	}
 
-	void CubeScene::Finalize()
+	void PhongScene::Finalize()
 	{
 		SAFE_DELETE_SET_NULL(m_pVertexArray);
 		SAFE_DELETE_SET_NULL(m_pIndexBuffer);
@@ -150,7 +154,7 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(m_pCameraController);
 	}
 
-	void CubeScene::Tick(float deltaTime)
+	void PhongScene::Tick(float deltaTime)
 	{
 		if (m_pShader)
 		{
@@ -184,15 +188,17 @@ namespace Enternity
 			m_pIndexBuffer->unbind();
 		}
 
+		m_light->Draw();
+
 	}
 
-	void CubeScene::RecompileShader()
+	void PhongScene::RecompileShader()
 	{
 		SAFE_DELETE_SET_NULL(m_pShader);
 
 		AssetLoader assetLoader;
-		Blob* vsBlob = assetLoader.load("assets/shaders/CubeScene.vert", AssetType::Shader);
-		Blob* psBlob = assetLoader.load("assets/shaders/CubeScene.frag", AssetType::Shader);
+		Blob* vsBlob = assetLoader.load("assets/shaders/PhongScene.vert", AssetType::Shader);
+		Blob* psBlob = assetLoader.load("assets/shaders/PhongScene.frag", AssetType::Shader);
 
 		m_pShader = new Shader;
 		m_pShader->init(vsBlob, psBlob);
@@ -201,17 +207,20 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(psBlob);
 	}
 
-	void CubeScene::RenderGUI()
+	void PhongScene::RenderGUI()
 	{
-		ImGui::Begin("CubeScene");
-
+		ImGui::Begin("PhongScene");
 
 		ImGui::DragFloat3("transaltion", &m_transform.m_Translation[0], 0.1f);
 		ImGui::DragFloat3("rotation", &m_transform.m_Rotation[0], 1);
 		ImGui::DragFloat3("scale", &m_transform.m_Scale[0], 0.1f);
-
+		ImGui::Separator();
 		ImGui::DragFloat3("camtransaltion", &m_pCamera3D->m_transform.m_Translation[0], 0.1f);
 		ImGui::DragFloat3("camrotation", &m_pCamera3D->m_transform.m_Rotation[0], 1);
+		ImGui::Separator();
+		ImGui::DragFloat3("lighttransaltion", &m_light->m_transform.m_Translation[0], 0.1f);
+		ImGui::DragFloat3("lightscale", &m_light->m_transform.m_Scale[0], 0.1f);
+
 
 		if(ImGui::Button("Reset Camera"))
 		{
@@ -222,7 +231,7 @@ namespace Enternity
 		ImGui::End();
 	}
 
-	void CubeScene::OnResize(int width, int height)
+	void PhongScene::OnResize(int width, int height)
 	{
 		m_pCamera3D->aspect = static_cast<float>(width) / height;
 	}

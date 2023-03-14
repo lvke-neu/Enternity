@@ -43,6 +43,11 @@ namespace Enternity
 		if (ImGui::Button("CubeScene"))
 		{
 			SceneManager::GetInstance().LoadScene("CubeScene");
+		}		
+		
+		if (ImGui::Button("PhongScene"))
+		{
+			SceneManager::GetInstance().LoadScene("PhongScene");
 		}
 		
 		if (ImGui::Button("RecompileShader"))

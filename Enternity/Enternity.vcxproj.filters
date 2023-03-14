@@ -21,6 +21,10 @@
     </None>
     <None Include="assets\shaders\CubeScene.vert" />
     <None Include="assets\shaders\CubeScene.frag" />
+    <None Include="assets\shaders\Light.frag" />
+    <None Include="assets\shaders\Light.vert" />
+    <None Include="assets\shaders\PhongScene.frag" />
+    <None Include="assets\shaders\PhongScene.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -141,6 +145,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\Common\CameraController.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Common\Light.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\PhongScene.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -269,6 +279,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\Common\Transform.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Common\Light.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\PhongScene.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

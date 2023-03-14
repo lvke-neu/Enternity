@@ -4,6 +4,12 @@
 
 namespace Enternity
 {
+	struct VertexPosition
+	{
+		Vector3f position;
+		static VertexBufferLayout vertexBufferLayout;
+	};
+
 	struct VertexPosColor
 	{
 		Vector3f position;

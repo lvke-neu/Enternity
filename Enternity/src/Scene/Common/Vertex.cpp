@@ -3,6 +3,12 @@
 
 namespace Enternity
 {
+	VertexBufferLayout VertexPosition::vertexBufferLayout(
+		{
+			{ 0, 3, GL_FLOAT, false,  3 * sizeof(float), 0 },
+		}
+	);	
+	
 	VertexBufferLayout VertexPosColor::vertexBufferLayout(
 		{
 			{ 0, 3, GL_FLOAT, false,  6 * sizeof(float), 0 },

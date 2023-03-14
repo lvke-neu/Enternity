@@ -93,6 +93,10 @@
     <None Include="assets\model\cube.bin" />
     <None Include="assets\shaders\CubeScene.frag" />
     <None Include="assets\shaders\CubeScene.vert" />
+    <None Include="assets\shaders\Light.frag" />
+    <None Include="assets\shaders\Light.vert" />
+    <None Include="assets\shaders\PhongScene.frag" />
+    <None Include="assets\shaders\PhongScene.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application\Application.cpp" />
@@ -130,9 +134,11 @@
     <ClCompile Include="src\RHI\VertexBufferLayout.cpp" />
     <ClCompile Include="src\Scene\Common\Camera3D.cpp" />
     <ClCompile Include="src\Scene\Common\CameraController.cpp" />
+    <ClCompile Include="src\Scene\Common\Light.cpp" />
     <ClCompile Include="src\Scene\Common\Vertex.cpp" />
     <ClCompile Include="src\Scene\CubeScene.cpp" />
     <ClCompile Include="src\Scene\Interface\SceneInterface.cpp" />
+    <ClCompile Include="src\Scene\PhongScene.cpp" />
     <ClCompile Include="src\Scene\SceneManger.cpp" />
     <ClCompile Include="src\Utility\Utility.cpp" />
   </ItemGroup>
@@ -173,10 +179,12 @@
     <ClInclude Include="src\RHI\VertexBufferLayout.h" />
     <ClInclude Include="src\Scene\Common\Camera3D.h" />
     <ClInclude Include="src\Scene\Common\CameraController.h" />
+    <ClInclude Include="src\Scene\Common\Light.h" />
     <ClInclude Include="src\Scene\Common\Transform.h" />
     <ClInclude Include="src\Scene\Common\Vertex.h" />
     <ClInclude Include="src\Scene\CubeScene.h" />
     <ClInclude Include="src\Scene\Interface\SceneInterface.h" />
+    <ClInclude Include="src\Scene\PhongScene.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
     <ClInclude Include="src\Utility\Utility.h" />
   </ItemGroup>
