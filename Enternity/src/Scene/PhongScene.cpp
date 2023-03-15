@@ -29,7 +29,7 @@ namespace Enternity
 		m_pCamera3D->m_transform.m_Translation = glm::vec3(0.0f, 0.0f, 5.0f);
 		m_pCameraController = new CameraController(m_pCamera3D);
 		m_pLight = new Light(m_pCamera3D);
-
+		m_material = Material{ {0.4f, 0.3f, 0.27f},{1.0f, 1.0f, 1.0f},{1.0f, 1.0f, 1.0f},32.0f };
 
 		{
 			VertexBuffer tmpVertexBuffer;
@@ -164,6 +164,11 @@ namespace Enternity
 			m_pShader->setMat4("u_proj", glm::perspective(m_pCamera3D->fov, m_pCamera3D->aspect, m_pCamera3D->nearZ, m_pCamera3D->farZ), false);
 			m_pShader->setFloat3("u_lightPos", m_pLight->m_transform.m_Translation);
 			m_pShader->setFloat3("u_viewPos", m_pCamera3D->m_transform.m_Translation);
+
+			m_pShader->setFloat3("u_material.ambient", m_material.ambient);
+			m_pShader->setFloat3("u_material.diffuse", m_material.diffuse);
+			m_pShader->setFloat3("u_material.specular", m_material.specular);
+			m_pShader->setFloat1("u_material.shininess", m_material.shininess);
 		}
 			
 		if (m_pTexture)
@@ -220,6 +225,9 @@ namespace Enternity
 		ImGui::Separator();
 		ImGui::DragFloat3("lighttransaltion", &m_pLight->m_transform.m_Translation[0], 0.1f);
 		ImGui::DragFloat3("lightscale", &m_pLight->m_transform.m_Scale[0], 0.1f);
+		ImGui::Separator();
+		ImGui::DragFloat("shininess", &m_material.shininess, 1.0f);
+		ImGui::ColorEdit3("amibent color", &m_material.ambient[0]);
 
 
 		if(ImGui::Button("Reset Camera"))

@@ -1,5 +1,13 @@
 #version 440 core
 
+struct Material
+{
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+	float shininess;
+};
+
 in vec2 u_texcoord;
 in vec3 u_normal;
 in vec3 u_fragPos;
@@ -7,12 +15,13 @@ in vec3 u_fragPos;
 layout (binding = 0) uniform sampler2D u_sampleTexture;
 uniform vec3 u_lightPos;
 uniform vec3 u_viewPos;
+uniform Material u_material;
 
 out vec4 fragColor;
 void main()
 {
 	//fragColor = texture(u_sampleTexture, u_texcoord);
-	fragColor = vec4(0.4, 0.3, 0.27, 1.0);
+	fragColor = vec4(u_material.ambient, 1.0) *  vec4(u_material.diffuse, 1.0) *  vec4(u_material.specular, 1.0);
 	
 	//ambient
 	float ambient = 0.5;
@@ -25,7 +34,7 @@ void main()
 	//specular
 	vec3 viewDir = normalize(u_viewPos - u_fragPos);
 	vec3 reflectDir = reflect(-lightDir, fragNormal);
-	float specular = pow(max(dot(viewDir, reflectDir), 0),32);
+	float specular = pow(max(dot(viewDir, reflectDir), 0),	u_material.shininess);
 
 	fragColor *= (ambient + diffuse + specular);
 };

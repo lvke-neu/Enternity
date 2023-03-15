@@ -287,5 +287,8 @@
     <ClInclude Include="src\Scene\PhongScene.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scene\Common\Material.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

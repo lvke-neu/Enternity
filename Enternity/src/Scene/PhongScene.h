@@ -1,6 +1,7 @@
 #pragma once
 #include "Interface/SceneInterface.h"
 #include "Common/Transform.h"
+#include "Common/Material.h"
 
 namespace Enternity
 {
@@ -30,5 +31,6 @@ namespace Enternity
 		CameraController* m_pCameraController;
 		Transform m_transform;
 		Light* m_pLight;
+		Material m_material;
 	};
 }

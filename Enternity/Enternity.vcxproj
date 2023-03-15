@@ -180,6 +180,7 @@
     <ClInclude Include="src\Scene\Common\Camera3D.h" />
     <ClInclude Include="src\Scene\Common\CameraController.h" />
     <ClInclude Include="src\Scene\Common\Light.h" />
+    <ClInclude Include="src\Scene\Common\Material.h" />
     <ClInclude Include="src\Scene\Common\Transform.h" />
     <ClInclude Include="src\Scene\Common\Vertex.h" />
     <ClInclude Include="src\Scene\CubeScene.h" />

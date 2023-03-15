@@ -29,6 +29,11 @@ namespace Enternity
 		CHECK_GL_CALL(glUseProgram(0));
 	}
 
+	void Shader::setFloat1(const std::string& name, float value)
+	{
+		CHECK_GL_CALL(glUniform1f(getUniformLocation(name), value));
+	}
+
 	void Shader::setFloat3(const std::string& name, const glm::vec3& v3)
 	{
 		CHECK_GL_CALL(glUniform3f(getUniformLocation(name), v3.x, v3.y, v3.z));

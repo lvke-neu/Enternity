@@ -25,6 +25,7 @@ namespace Enternity
 		void bind();
 		void unbind();
 	public:
+		void setFloat1(const std::string& name, float value);
 		void setFloat3(const std::string& name, const glm::vec3& v3);
 		void setMat4(const std::string& name, const glm::mat4& mat4, bool transpose);
 	private:
