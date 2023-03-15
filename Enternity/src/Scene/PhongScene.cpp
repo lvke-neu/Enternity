@@ -28,7 +28,7 @@ namespace Enternity
 		m_pCamera3D = new Camera3D;
 		m_pCamera3D->m_transform.m_Translation = glm::vec3(0.0f, 0.0f, 5.0f);
 		m_pCameraController = new CameraController(m_pCamera3D);
-		m_light = new Light(m_pCamera3D);
+		m_pLight = new Light(m_pCamera3D);
 
 
 		{
@@ -159,11 +159,11 @@ namespace Enternity
 		if (m_pShader)
 		{
 			m_pShader->bind();
-			glm::mat4 mvp{1.0f};
-			mvp *= glm::perspective(m_pCamera3D->fov, m_pCamera3D->aspect, m_pCamera3D->nearZ, m_pCamera3D->farZ);
-			mvp *= m_pCamera3D->m_transform.GetInverseWorldMatrix();
-			mvp *= m_transform.GetWorldMatrix();
-			m_pShader->setMat4("u_mvp", mvp, false);
+			m_pShader->setMat4("u_model", m_transform.GetWorldMatrix(), false);
+			m_pShader->setMat4("u_view", m_pCamera3D->m_transform.GetInverseWorldMatrix(), false);
+			m_pShader->setMat4("u_proj", glm::perspective(m_pCamera3D->fov, m_pCamera3D->aspect, m_pCamera3D->nearZ, m_pCamera3D->farZ), false);
+			m_pShader->setFloat3("u_lightPos", m_pLight->m_transform.m_Translation);
+			m_pShader->setFloat3("u_viewPos", m_pCamera3D->m_transform.m_Translation);
 		}
 			
 		if (m_pTexture)
@@ -188,7 +188,7 @@ namespace Enternity
 			m_pIndexBuffer->unbind();
 		}
 
-		m_light->Draw();
+		m_pLight->Draw();
 
 	}
 
@@ -212,14 +212,14 @@ namespace Enternity
 		ImGui::Begin("PhongScene");
 
 		ImGui::DragFloat3("transaltion", &m_transform.m_Translation[0], 0.1f);
-		ImGui::DragFloat3("rotation", &m_transform.m_Rotation[0], 1);
+		ImGui::DragFloat3("rotation", &m_transform.m_Rotation[0], 0.1f);
 		ImGui::DragFloat3("scale", &m_transform.m_Scale[0], 0.1f);
 		ImGui::Separator();
 		ImGui::DragFloat3("camtransaltion", &m_pCamera3D->m_transform.m_Translation[0], 0.1f);
 		ImGui::DragFloat3("camrotation", &m_pCamera3D->m_transform.m_Rotation[0], 1);
 		ImGui::Separator();
-		ImGui::DragFloat3("lighttransaltion", &m_light->m_transform.m_Translation[0], 0.1f);
-		ImGui::DragFloat3("lightscale", &m_light->m_transform.m_Scale[0], 0.1f);
+		ImGui::DragFloat3("lighttransaltion", &m_pLight->m_transform.m_Translation[0], 0.1f);
+		ImGui::DragFloat3("lightscale", &m_pLight->m_transform.m_Scale[0], 0.1f);
 
 
 		if(ImGui::Button("Reset Camera"))

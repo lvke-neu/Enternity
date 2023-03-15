@@ -29,6 +29,6 @@ namespace Enternity
 		Camera3D* m_pCamera3D;
 		CameraController* m_pCameraController;
 		Transform m_transform;
-		Light* m_light;
+		Light* m_pLight;
 	};
 }
