@@ -71,6 +71,7 @@ namespace Enternity
 		{
 			cubeObject->RecompileShader();
 		}
+
 	}
 
 	void PhongScene::RenderGUI()

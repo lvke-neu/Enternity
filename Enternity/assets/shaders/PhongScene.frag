@@ -27,7 +27,8 @@ void main()
 
 	//diffuse
 	vec3 fragNormal = normalize(u_normal);
-	vec3 lightDir   = normalize(u_lightPos - u_fragPos);
+	vec3 lightDir   = normalize(u_lightPos - u_fragPos);//point light
+	//vec3 lightDir   = normalize(-vec3(0,-0.5,-0.5)); //dir light
 	float diffuse = max(dot(fragNormal, lightDir), 0);
 	vec4 diffuseColor = diffuse * texture(u_material.diffuse, u_texcoord);
 
