@@ -18,10 +18,11 @@ namespace Enternity
 		void RecompileShader();
 		void RenderGUI();
 	public:
+		Transform m_transform;
+	private:
 		VertexArray* m_pVertexArray;
 		IndexBuffer* m_pIndexBuffer;
 		Shader* m_pShader;
-		Transform m_transform;
 		PhongMaterial m_material;
 		Camera3D* m_pCamera3D;
 		Light* m_pLight;

@@ -49,6 +49,11 @@ namespace Enternity
 		{
 			SceneManager::GetInstance().LoadScene("PhongScene");
 		}
+
+		if (ImGui::Button("ModelScene"))
+		{
+			SceneManager::GetInstance().LoadScene("ModelScene");
+		}
 		
 		if (ImGui::Button("RecompileShader"))
 		{
