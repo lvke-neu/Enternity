@@ -6,11 +6,12 @@
 
 namespace Enternity
 {
-	struct Material
+	class Texture2D;
+	struct PhongMaterial
 	{
-		glm::vec3 ambient;
-		glm::vec3 diffuse;
-		glm::vec3 specular;
+		Texture2D* ambient;
+		Texture2D* diffuse;
+		Texture2D* specular;
 		float shininess;
 	};
 }

@@ -8,7 +8,6 @@ namespace Enternity
 	class VertexArray;
 	class IndexBuffer;
 	class Shader;
-	class Texture2D;
 	class Camera3D;
 	class CameraController;
 	class Light;
@@ -26,11 +25,10 @@ namespace Enternity
 		VertexArray* m_pVertexArray;
 		IndexBuffer* m_pIndexBuffer;
 		Shader* m_pShader;
-		Texture2D* m_pTexture;
 		Camera3D* m_pCamera3D;
 		CameraController* m_pCameraController;
 		Transform m_transform;
 		Light* m_pLight;
-		Material m_material;
+		PhongMaterial m_material;
 	};
 }

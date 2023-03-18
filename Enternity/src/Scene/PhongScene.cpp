@@ -16,6 +16,8 @@
 #include "GUI/GUIRender.h"
 #include <glad/glad.h>
 
+#pragma warning(disable:4312) 
+
 namespace Enternity
 {
 	REGISTER_CLASS(IScene, "PhongScene", PhongScene);
@@ -29,7 +31,30 @@ namespace Enternity
 		m_pCamera3D->m_transform.m_Translation = glm::vec3(0.0f, 0.0f, 5.0f);
 		m_pCameraController = new CameraController(m_pCamera3D);
 		m_pLight = new Light(m_pCamera3D);
-		m_material = Material{ {0.4f, 0.3f, 0.27f},{1.0f, 1.0f, 1.0f},{1.0f, 1.0f, 1.0f},32.0f };
+
+
+		{
+			AssetLoader assetLoader;
+			TextureBlob* texBlob = (TextureBlob*)assetLoader.load("assets/textures/box_ambient.png", AssetType::Texture);
+
+			Texture2D* pAmbientTexture = new Texture2D;
+			pAmbientTexture->init(texBlob);
+			SAFE_DELETE_SET_NULL(texBlob);
+
+			texBlob = (TextureBlob*)assetLoader.load("assets/textures/box_diffuse.png", AssetType::Texture);
+			Texture2D* pDiffuseTexture = new Texture2D;
+			pDiffuseTexture->init(texBlob);
+			SAFE_DELETE_SET_NULL(texBlob);
+
+			texBlob = (TextureBlob*)assetLoader.load("assets/textures/box_specular.png", AssetType::Texture);
+			Texture2D* pSpecularTexture = new Texture2D;
+			pSpecularTexture->init(texBlob);
+			SAFE_DELETE_SET_NULL(texBlob);
+
+			m_material = PhongMaterial{ pAmbientTexture, pDiffuseTexture, pSpecularTexture,32.0f };
+
+		}
+		
 
 		{
 			VertexBuffer tmpVertexBuffer;
@@ -131,15 +156,7 @@ namespace Enternity
 			SAFE_DELETE_SET_NULL(psBlob);
 		}
 
-		{
-			AssetLoader assetLoader;
-			TextureBlob* texBlob = (TextureBlob*)assetLoader.load("assets/textures/skybox.jpeg", AssetType::Texture);
 
-			m_pTexture = new Texture2D;
-			m_pTexture->init(texBlob);
-
-			SAFE_DELETE_SET_NULL(texBlob);
-		}
 
 
 		m_bIsInit = true;
@@ -165,14 +182,18 @@ namespace Enternity
 			m_pShader->setFloat3("u_lightPos", m_pLight->m_transform.m_Translation);
 			m_pShader->setFloat3("u_viewPos", m_pCamera3D->m_transform.m_Translation);
 
-			m_pShader->setFloat3("u_material.ambient", m_material.ambient);
-			m_pShader->setFloat3("u_material.diffuse", m_material.diffuse);
-			m_pShader->setFloat3("u_material.specular", m_material.specular);
+			//m_pShader->setFloat3("u_material.ambient", m_material.ambient);
+			//m_pShader->setFloat3("u_material.diffuse", m_material.diffuse);
+			//m_pShader->setFloat3("u_material.specular", m_material.specular);
 			m_pShader->setFloat1("u_material.shininess", m_material.shininess);
 		}
 			
-		if (m_pTexture)
-			m_pTexture->bind(0);
+		if (m_material.ambient)
+			m_material.ambient->bind(0);
+		if (m_material.diffuse)
+			m_material.diffuse->bind(1);
+		if (m_material.specular)
+			m_material.specular->bind(2);
 		if (m_pVertexArray)
 			m_pVertexArray->bind();
 		if (m_pIndexBuffer)
@@ -184,8 +205,12 @@ namespace Enternity
 
 		if (m_pShader)
 			m_pShader->unbind();
-		if (m_pTexture)
-			m_pTexture->unbind();
+		if (m_material.ambient)
+			m_material.ambient->unbind();
+		if (m_material.diffuse)
+			m_material.diffuse->unbind();
+		if (m_material.specular)
+			m_material.specular->unbind();
 		if (m_pVertexArray)
 			m_pVertexArray->unbind();
 		if (m_pIndexBuffer)
@@ -227,9 +252,12 @@ namespace Enternity
 		ImGui::DragFloat3("lightscale", &m_pLight->m_transform.m_Scale[0], 0.1f);
 		ImGui::Separator();
 		ImGui::DragFloat("shininess", &m_material.shininess, 1.0f);
-		ImGui::ColorEdit3("amibent color", &m_material.ambient[0]);
-
-
+		//ImGui::ColorEdit3("ambient color", &m_material.ambient[0]);
+		ImGui::Separator();
+		ImGui::Image((void*)m_material.ambient->getRenderId(), ImVec2(50,50), { 0, 1 }, { 1, 0 });
+		ImGui::Image((void*)m_material.diffuse->getRenderId(), ImVec2(50,50), { 0, 1 }, { 1, 0 });
+		ImGui::Image((void*)m_material.specular->getRenderId(), ImVec2(50,50), { 0, 1 }, { 1, 0 });
+	
 		if(ImGui::Button("Reset Camera"))
 		{
 			m_pCamera3D->m_transform.m_Translation = { 0.0f };

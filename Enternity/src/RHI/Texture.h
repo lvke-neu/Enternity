@@ -18,6 +18,10 @@ namespace Enternity
 		void init(Blob* blob);
 		void bind(unsigned int slot);
 		void unbind();
+		inline unsigned int getRenderId()
+		{
+			return m_renderId;
+		}
 	private:
 		unsigned int m_renderId;
 	};
