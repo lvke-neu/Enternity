@@ -1,16 +1,15 @@
 #pragma once
 #include "Interface/SceneInterface.h"
-#include "Common/Transform.h"
-#include "Common/Material.h"
+#include <vector>
 
 namespace Enternity
 {
-	class VertexArray;
-	class IndexBuffer;
-	class Shader;
+
+
 	class Camera3D;
 	class CameraController;
 	class Light;
+	class CubeObject;
 	class PhongScene : public IScene
 	{
 		friend class GUIRender;
@@ -22,13 +21,9 @@ namespace Enternity
 		virtual void RenderGUI() override;
 		virtual void OnResize(int width, int height) override;
 	private:
-		VertexArray* m_pVertexArray;
-		IndexBuffer* m_pIndexBuffer;
-		Shader* m_pShader;
 		Camera3D* m_pCamera3D;
 		CameraController* m_pCameraController;
-		Transform m_transform;
 		Light* m_pLight;
-		PhongMaterial m_material;
+		std::vector<CubeObject*> m_pCubeObjects;
 	};
 }
