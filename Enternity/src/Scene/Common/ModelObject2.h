@@ -15,12 +15,12 @@ namespace Enternity
 	class VertexArray;
 	class IndexBuffer;
 	class Shader;
-	class ModelObject
+	class ModelObject2
 	{
 
 	public:
-		ModelObject(Camera3D* camera3D, Light* light);
-		~ModelObject();
+		ModelObject2(Camera3D* camera3D, Light* light);
+		~ModelObject2();
 		void Load(const std::string& path);
 		void Draw();
 		void RenderGUI();

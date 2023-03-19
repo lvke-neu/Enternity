@@ -97,6 +97,7 @@
     <None Include="assets\shaders\Light.vert" />
     <None Include="assets\shaders\PhongScene.frag" />
     <None Include="assets\shaders\PhongScene.vert" />
+    <None Include="assets\shaders\SimpleColor.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application\Application.cpp" />
@@ -137,12 +138,14 @@
     <ClCompile Include="src\Scene\Common\CubeObject.cpp" />
     <ClCompile Include="src\Scene\Common\Light.cpp" />
     <ClCompile Include="src\Scene\Common\ModelObject.cpp" />
+    <ClCompile Include="src\Scene\Common\ModelObject2.cpp" />
     <ClCompile Include="src\Scene\Common\Vertex.cpp" />
     <ClCompile Include="src\Scene\CubeScene.cpp" />
     <ClCompile Include="src\Scene\Interface\SceneInterface.cpp" />
     <ClCompile Include="src\Scene\ModelScene.cpp" />
     <ClCompile Include="src\Scene\PhongScene.cpp" />
     <ClCompile Include="src\Scene\SceneManger.cpp" />
+    <ClCompile Include="src\Scene\StencilTestScene.cpp" />
     <ClCompile Include="src\Utility\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +189,7 @@
     <ClInclude Include="src\Scene\Common\Light.h" />
     <ClInclude Include="src\Scene\Common\Material.h" />
     <ClInclude Include="src\Scene\Common\ModelObject.h" />
+    <ClInclude Include="src\Scene\Common\ModelObject2.h" />
     <ClInclude Include="src\Scene\Common\Transform.h" />
     <ClInclude Include="src\Scene\Common\Vertex.h" />
     <ClInclude Include="src\Scene\CubeScene.h" />
@@ -193,6 +197,7 @@
     <ClInclude Include="src\Scene\ModelScene.h" />
     <ClInclude Include="src\Scene\PhongScene.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
+    <ClInclude Include="src\Scene\StencilTestScene.h" />
     <ClInclude Include="src\Utility\Utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

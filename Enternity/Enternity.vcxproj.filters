@@ -25,6 +25,7 @@
     <None Include="assets\shaders\Light.vert" />
     <None Include="assets\shaders\PhongScene.frag" />
     <None Include="assets\shaders\PhongScene.vert" />
+    <None Include="assets\shaders\SimpleColor.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -160,6 +161,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\ModelScene.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\StencilTestScene.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Common\ModelObject2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -306,6 +313,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\ModelScene.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\StencilTestScene.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Common\ModelObject2.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -6,7 +6,7 @@
 #include "Common/CubeObject.h"
 #include "Utility/Utility.h"
 #include "GUI/GUIRender.h"
-
+#include <glad/glad.h>
 
 namespace Enternity
 {
@@ -41,6 +41,8 @@ namespace Enternity
 			m_pCubeObjects[i]->m_transform.m_Translation = cubePositions[i];
 			m_pCubeObjects[i]->m_transform.m_Rotation = cubePositions[i];
 		}
+
+		//glDepthFunc(GL_ALWAYS);
 
 		m_bIsInit = true;
 	}

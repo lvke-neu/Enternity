@@ -54,6 +54,11 @@ namespace Enternity
 		{
 			SceneManager::GetInstance().LoadScene("ModelScene");
 		}
+
+		if (ImGui::Button("StencilTestScene"))
+		{
+			SceneManager::GetInstance().LoadScene("StencilTestScene");
+		}
 		
 		if (ImGui::Button("RecompileShader"))
 		{

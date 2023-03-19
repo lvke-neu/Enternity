@@ -7,3 +7,6 @@ learn https://www.zhihu.com/people/netwarm007
 		3）组件（Component）
 		4）属性（Attribute）
 	场景当中的这些元素是如何生成，如何消灭，如何转化，如何相互影响。
+
+
+模板测试：mask, func, op

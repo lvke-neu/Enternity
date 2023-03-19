@@ -1,4 +1,4 @@
-#include "ModelObject.h"
+#include "ModelObject2.h"
 #include "Core/Asset/AssetLoader.h"
 #include "Core/Blob/Blob.h"
 #include "Core/Log/Log.h"
@@ -20,13 +20,13 @@
 namespace Enternity
 {
 
-	ModelObject::ModelObject(Camera3D* camera3D, Light* light)
+	ModelObject2::ModelObject2(Camera3D* camera3D, Light* light)
 	{
 		m_pCamera3D = camera3D;
 		m_pLight = light;
 	}
 
-	ModelObject::~ModelObject()
+	ModelObject2::~ModelObject2()
 	{
 		for (int i = 0; i < m_pShaders.size(); i++)
 		{
@@ -36,7 +36,7 @@ namespace Enternity
 		}
 	}
 
-	void ModelObject::Load(const std::string& path)
+	void ModelObject2::Load(const std::string& path)
 	{
 		if (m_bIsLoad)
 			return;
@@ -59,7 +59,7 @@ namespace Enternity
 		m_bIsLoad = true;
 	}
 
-	void ModelObject::Draw()
+	void ModelObject2::Draw()
 	{
 		for (int i = 0; i < m_pShaders.size(); i++)
 		{
@@ -90,16 +90,16 @@ namespace Enternity
 		}
 	}
 
-	void ModelObject::RenderGUI()
+	void ModelObject2::RenderGUI()
 	{
-		ImGui::PushID("ModelObject");
+		ImGui::PushID("ModelObject2");
 		ImGui::DragFloat3("transaltion", &m_transform.m_Translation[0], 0.1f);
 		ImGui::DragFloat3("rotation", &m_transform.m_Rotation[0], 0.1f);
 		ImGui::DragFloat3("scale", &m_transform.m_Scale[0], 0.1f);
 		ImGui::PopID();
 	}
 
-	void ModelObject::ProcessNode(aiNode* node, const aiScene* scene)
+	void ModelObject2::ProcessNode(aiNode* node, const aiScene* scene)
 	{
 		for (unsigned int i = 0; i < node->mNumMeshes; i++)
 		{
@@ -113,13 +113,13 @@ namespace Enternity
 		}
 	}
 
-	void ModelObject::ProcessMesh(aiMesh* mesh, const aiScene* scene)
+	void ModelObject2::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 	{
 
 		{
 			AssetLoader assetLoader;
 			Blob* vsBlob = assetLoader.load("assets/shaders/PhongScene.vert", AssetType::Shader);
-			Blob* psBlob = assetLoader.load("assets/shaders/PhongScene.frag", AssetType::Shader);
+			Blob* psBlob = assetLoader.load("assets/shaders/SimpleColor.frag", AssetType::Shader);
 
 			m_pShaders.emplace_back( new Shader);
 			m_pShaders.back()->init(vsBlob, psBlob);

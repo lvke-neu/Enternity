@@ -21,7 +21,7 @@ out vec4 fragColor;
 void main()
 {
 	//ambient
-	float ambient = 0.2;
+	float ambient = 1;
 	vec4 ambientColor = ambient * texture(u_material.ambient, u_texcoord);
 
 
