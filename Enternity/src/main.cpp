@@ -34,9 +34,9 @@ void Test()
 	i++;
 }
 
+#include <string>
 int main(int argc, const char** argv) {
 
-	Test();
 
 	Enternity::Application app;
 

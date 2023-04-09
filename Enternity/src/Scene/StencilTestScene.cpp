@@ -63,10 +63,6 @@ namespace Enternity
 
 	void StencilTestScene::Tick(float deltaTime)
 	{
-		glClear(GL_STENCIL_BUFFER_BIT);
-
-
-
 		m_pPlaneObject->Draw();
 		
 
@@ -89,7 +85,7 @@ namespace Enternity
 
 	void StencilTestScene::RenderGUI()
 	{
-		ImGui::Begin("PhongScene");
+		ImGui::Begin("StencilTestScene");
 
 		ImGui::DragFloat3("camtransaltion", &m_pCamera3D->m_transform.m_Translation[0], 0.1f);
 		ImGui::DragFloat3("camrotation", &m_pCamera3D->m_transform.m_Rotation[0], 1);

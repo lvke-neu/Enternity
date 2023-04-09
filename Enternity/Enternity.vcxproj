@@ -200,6 +200,9 @@
     <ClInclude Include="src\Scene\StencilTestScene.h" />
     <ClInclude Include="src\Utility\Utility.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\Enternity2\Enternity\assets\textures\atmosphere.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

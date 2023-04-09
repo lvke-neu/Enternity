@@ -27,6 +27,9 @@ namespace Enternity
 		m_pCamera3D = new Camera3D;
 		m_pCameraController = new CameraController(m_pCamera3D);
 
+		m_transform.m_Scale = glm::vec3(1, 1, 0);
+		m_transform.m_Translation = glm::vec3(0, 0, 2);
+
 		{
 			VertexBuffer tmpVertexBuffer;
 			std::vector<VertexPosNormalTexcoord> vertices;
@@ -129,14 +132,20 @@ namespace Enternity
 
 		{
 			AssetLoader assetLoader;
-			TextureBlob* texBlob = (TextureBlob*)assetLoader.load("assets/textures/skybox.jpeg", AssetType::Texture);
+			TextureBlob* texBlob = (TextureBlob*)assetLoader.load("assets/textures/blending_transparent_window.png", AssetType::Texture);
 
 			m_pTexture = new Texture2D;
 			m_pTexture->init(texBlob);
 
 			SAFE_DELETE_SET_NULL(texBlob);
-		}
 
+
+			texBlob = (TextureBlob*)assetLoader.load("assets/textures/box_ambient.png", AssetType::Texture);
+
+			m_pTexture2 = new Texture2D;
+			m_pTexture2->init(texBlob);
+			SAFE_DELETE_SET_NULL(texBlob);
+		}
 
 		m_bIsInit = true;
 	}
@@ -152,16 +161,55 @@ namespace Enternity
 
 	void CubeScene::Tick(float deltaTime)
 	{
+
+
+	
+
 		if (m_pShader)
 		{
 			m_pShader->bind();
-			glm::mat4 mvp{1.0f};
+			glm::mat4 mvp{ 1.0f };
+			mvp *= glm::perspective(m_pCamera3D->fov, m_pCamera3D->aspect, m_pCamera3D->nearZ, m_pCamera3D->farZ);
+			mvp *= m_pCamera3D->m_transform.GetInverseWorldMatrix();
+			mvp *= m_transform2.GetWorldMatrix();
+			m_pShader->setMat4("u_mvp", mvp, false);
+		}
+
+		if (m_pTexture2)
+			m_pTexture2->bind(0);
+		if (m_pVertexArray)
+			m_pVertexArray->bind();
+		if (m_pIndexBuffer)
+		{
+			m_pIndexBuffer->bind();
+			CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, m_pIndexBuffer->getCount(), GL_UNSIGNED_INT, (void*)0));
+		}
+
+
+		if (m_pShader)
+			m_pShader->unbind();
+		if (m_pTexture2)
+			m_pTexture2->unbind();
+		if (m_pVertexArray)
+			m_pVertexArray->unbind();
+		if (m_pIndexBuffer)
+		{
+			m_pIndexBuffer->unbind();
+		}
+
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		if (m_pShader)
+		{
+			m_pShader->bind();
+			glm::mat4 mvp{ 1.0f };
 			mvp *= glm::perspective(m_pCamera3D->fov, m_pCamera3D->aspect, m_pCamera3D->nearZ, m_pCamera3D->farZ);
 			mvp *= m_pCamera3D->m_transform.GetInverseWorldMatrix();
 			mvp *= m_transform.GetWorldMatrix();
 			m_pShader->setMat4("u_mvp", mvp, false);
 		}
-			
+
 		if (m_pTexture)
 			m_pTexture->bind(0);
 		if (m_pVertexArray)
@@ -183,7 +231,7 @@ namespace Enternity
 		{
 			m_pIndexBuffer->unbind();
 		}
-
+		glDisable(GL_BLEND);
 	}
 
 	void CubeScene::RecompileShader()

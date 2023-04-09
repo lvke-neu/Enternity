@@ -74,7 +74,7 @@ namespace Enternity
 			m_timer.Tick();
 			TickEventManager::GetInstance().NotifyTick(m_timer.DeltaTime());
 			glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 			SceneManager::GetInstance().Tick(m_timer.DeltaTime());
 			GUIRender::GetInstance().Tick();
 			glfwSwapBuffers(m_context);
