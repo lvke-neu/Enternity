@@ -7,12 +7,12 @@
 namespace Enternity
 {
 
-	Blob* AssetLoader::load(const char* assetPath, AssetType type)
+	Blob* AssetLoader::load(const char* assetPath, AssetType type,int flip)
 	{
 		if (type == AssetType::Shader)
 			return loadShaderImpl(assetPath);
 		else if(type == AssetType::Texture)
-			return loadTextureImpl(assetPath);
+			return loadTextureImpl(assetPath, flip);
 
 		return nullptr;
 	}
@@ -38,14 +38,14 @@ namespace Enternity
 		return blob;
 	}
 
-	Blob* AssetLoader::loadTextureImpl(const char* assetPath)
+	Blob* AssetLoader::loadTextureImpl(const char* assetPath, int flip)
 	{
 		unsigned char* tmpTexture;
 		int width;
 		int height;
 		int channels;
 
-		stbi_set_flip_vertically_on_load(1);
+		stbi_set_flip_vertically_on_load(flip);
 		tmpTexture = stbi_load(assetPath, &width, &height, &channels, 0);
 		if (!tmpTexture)
 		{

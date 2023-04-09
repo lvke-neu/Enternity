@@ -60,6 +60,21 @@ namespace Enternity
 			SceneManager::GetInstance().LoadScene("StencilTestScene");
 		}
 		
+		if (ImGui::Button("FrameBufferScene"))
+		{
+			SceneManager::GetInstance().LoadScene("FrameBufferScene");
+		}
+
+		if (ImGui::Button("FrameBufferScene2"))
+		{
+			SceneManager::GetInstance().LoadScene("FrameBufferScene2");
+		}		
+		
+		if (ImGui::Button("SkyboxScene"))
+		{
+			SceneManager::GetInstance().LoadScene("SkyboxScene");
+		}
+
 		if (ImGui::Button("RecompileShader"))
 		{
 			SceneManager::GetInstance().RecompileCurrentSceneShader();

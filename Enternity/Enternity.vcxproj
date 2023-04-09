@@ -97,7 +97,11 @@
     <None Include="assets\shaders\Light.vert" />
     <None Include="assets\shaders\PhongScene.frag" />
     <None Include="assets\shaders\PhongScene.vert" />
+    <None Include="assets\shaders\QuadScene.frag" />
+    <None Include="assets\shaders\QuadScene.vert" />
     <None Include="assets\shaders\SimpleColor.frag" />
+    <None Include="assets\shaders\Skybox.frag" />
+    <None Include="assets\shaders\Skybox.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application\Application.cpp" />
@@ -127,6 +131,7 @@
     <ClCompile Include="src\GUI\Imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\GUI\Imgui\ImSequencer.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\RHI\FrameBuffer.cpp" />
     <ClCompile Include="src\RHI\IndexBuffer.cpp" />
     <ClCompile Include="src\RHI\Shader.cpp" />
     <ClCompile Include="src\RHI\Texture.cpp" />
@@ -139,12 +144,17 @@
     <ClCompile Include="src\Scene\Common\Light.cpp" />
     <ClCompile Include="src\Scene\Common\ModelObject.cpp" />
     <ClCompile Include="src\Scene\Common\ModelObject2.cpp" />
+    <ClCompile Include="src\Scene\Common\QuadObject.cpp" />
+    <ClCompile Include="src\Scene\Common\SkyboxObject.cpp" />
     <ClCompile Include="src\Scene\Common\Vertex.cpp" />
     <ClCompile Include="src\Scene\CubeScene.cpp" />
+    <ClCompile Include="src\Scene\FrameBufferScene.cpp" />
+    <ClCompile Include="src\Scene\FrameBufferScene2.cpp" />
     <ClCompile Include="src\Scene\Interface\SceneInterface.cpp" />
     <ClCompile Include="src\Scene\ModelScene.cpp" />
     <ClCompile Include="src\Scene\PhongScene.cpp" />
     <ClCompile Include="src\Scene\SceneManger.cpp" />
+    <ClCompile Include="src\Scene\SkyboxScene.cpp" />
     <ClCompile Include="src\Scene\StencilTestScene.cpp" />
     <ClCompile Include="src\Utility\Utility.cpp" />
   </ItemGroup>
@@ -177,6 +187,7 @@
     <ClInclude Include="src\GUI\Imgui\imstb_rectpack.h" />
     <ClInclude Include="src\GUI\Imgui\imstb_textedit.h" />
     <ClInclude Include="src\GUI\Imgui\imstb_truetype.h" />
+    <ClInclude Include="src\RHI\FrameBuffer.h" />
     <ClInclude Include="src\RHI\IndexBuffer.h" />
     <ClInclude Include="src\RHI\Shader.h" />
     <ClInclude Include="src\RHI\Texture.h" />
@@ -190,13 +201,18 @@
     <ClInclude Include="src\Scene\Common\Material.h" />
     <ClInclude Include="src\Scene\Common\ModelObject.h" />
     <ClInclude Include="src\Scene\Common\ModelObject2.h" />
+    <ClInclude Include="src\Scene\Common\QuadObject.h" />
+    <ClInclude Include="src\Scene\Common\SkyboxObject.h" />
     <ClInclude Include="src\Scene\Common\Transform.h" />
     <ClInclude Include="src\Scene\Common\Vertex.h" />
     <ClInclude Include="src\Scene\CubeScene.h" />
+    <ClInclude Include="src\Scene\FrameBufferScene.h" />
+    <ClInclude Include="src\Scene\FrameBufferScene2.h" />
     <ClInclude Include="src\Scene\Interface\SceneInterface.h" />
     <ClInclude Include="src\Scene\ModelScene.h" />
     <ClInclude Include="src\Scene\PhongScene.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
+    <ClInclude Include="src\Scene\SkyboxScene.h" />
     <ClInclude Include="src\Scene\StencilTestScene.h" />
     <ClInclude Include="src\Utility\Utility.h" />
   </ItemGroup>

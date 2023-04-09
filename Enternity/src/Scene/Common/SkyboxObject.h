@@ -1,6 +1,4 @@
 #pragma once
-#include "Transform.h"
-#include "Material.h"
 
 namespace Enternity
 {
@@ -8,24 +6,21 @@ namespace Enternity
 	class IndexBuffer;
 	class Shader;
 	class Camera3D;
-	class Light;
-	class CubeObject
+	class TextureCube;
+	class SkyboxObject
 	{
 	public:
-		CubeObject(Camera3D* camera3D, Light* light);
-		~CubeObject();
+		SkyboxObject(Camera3D* camera3D);
+		~SkyboxObject();
 		void Draw();
 		void RecompileShader();
 		void RenderGUI();
-		PhongMaterial GetPhonMaterail() { return m_material; }
-	public:
-		Transform m_transform;
+
 	private:
 		VertexArray* m_pVertexArray;
 		IndexBuffer* m_pIndexBuffer;
 		Shader* m_pShader;
-		PhongMaterial m_material;
 		Camera3D* m_pCamera3D;
-		Light* m_pLight;
+		TextureCube* m_pTextureCube;
 	};
 }
