@@ -19,352 +19,48 @@
     <None Include="assets\model\cube.bin">
       <Filter>资源文件</Filter>
     </None>
-    <None Include="assets\shaders\CubeScene.vert" />
-    <None Include="assets\shaders\CubeScene.frag" />
-    <None Include="assets\shaders\Light.frag" />
-    <None Include="assets\shaders\Light.vert" />
-    <None Include="assets\shaders\PhongScene.frag" />
-    <None Include="assets\shaders\PhongScene.vert" />
-    <None Include="assets\shaders\SimpleColor.frag" />
-    <None Include="assets\shaders\QuadScene.vert" />
-    <None Include="assets\shaders\QuadScene.frag" />
-    <None Include="assets\shaders\Skybox.frag" />
-    <None Include="assets\shaders\Skybox.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utility\Utility.cpp">
+    <ClCompile Include="src\Engine\Blob.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Application\Application.cpp">
+    <ClCompile Include="src\Engine\Asset.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Application\glad.c">
+    <ClCompile Include="src\Engine\ThreadPool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\Blob\Blob.cpp">
+    <ClCompile Include="src\Engine\Log.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\Log\Log.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\Math\Matrix.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\Math\Vector.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\ThreadPool\ThreadPool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RHI\IndexBuffer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RHI\Shader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RHI\Texture.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RHI\VertexArray.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RHI\VertexBuffer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\Imgui\ImCurveEdit.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\Imgui\ImGradient.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\Imgui\imgui.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\Imgui\imgui_demo.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\Imgui\imgui_draw.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\Imgui\imgui_impl_glfw.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\Imgui\imgui_impl_opengl3.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\Imgui\imgui_tables.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\Imgui\imgui_widgets.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\Imgui\ImGuizmo.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\Imgui\ImSequencer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\GUIRender.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Interface\SceneInterface.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\Timer\FrameTimer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\SceneManger.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RHI\VertexBufferLayout.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\Asset\AssetLoader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Common\Vertex.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\Asset\stb_image.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\Math\Math.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\CubeScene.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Common\Camera3D.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\Event\Interface\EventManagerInterface.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\Event\InputEventManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\Event\TickEventManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Common\CameraController.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Common\Light.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\PhongScene.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Common\CubeObject.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Common\ModelObject.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\ModelScene.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\StencilTestScene.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Common\ModelObject2.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\FrameBufferScene.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RHI\FrameBuffer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\FrameBufferScene2.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Common\QuadObject.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\SkyboxScene.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Common\SkyboxObject.cpp">
+    <ClCompile Include="src\Engine\Detail\WindowsFileAsset.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Utility\Utility.h">
+    <ClInclude Include="src\Engine\Blob.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Application\Application.h">
+    <ClInclude Include="src\Engine\Macro.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\Blob\Blob.h">
+    <ClInclude Include="src\Engine\Asset.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\Log\Log.h">
+    <ClInclude Include="src\Engine\ThreadPool.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\Math\Matrix.h">
+    <ClInclude Include="src\Engine\Log.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\Math\Vector.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\ThreadPool\ThreadPool.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RHI\IndexBuffer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RHI\Shader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RHI\Texture.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RHI\VertexArray.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RHI\VertexBuffer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GUI\Imgui\imconfig.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GUI\Imgui\ImCurveEdit.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GUI\Imgui\ImGradient.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GUI\Imgui\imgui.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GUI\Imgui\imgui_impl_glfw.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GUI\Imgui\imgui_impl_opengl3.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GUI\Imgui\imgui_impl_opengl3_loader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GUI\Imgui\imgui_internal.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GUI\Imgui\ImGuizmo.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GUI\Imgui\ImSequencer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GUI\Imgui\imstb_rectpack.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GUI\Imgui\imstb_textedit.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GUI\Imgui\imstb_truetype.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GUI\GUIRender.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Interface\SceneInterface.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Timer\FrameTimer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Reflection\Reflection.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\SceneManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RHI\VertexBufferLayout.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Common\Vertex.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Asset\AssetLoader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Asset\stb_image.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Math\Math.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\CubeScene.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Common\Camera3D.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Event\Interface\EventManagerInterface.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Event\InputEventManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Event\TickEventManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Common\CameraController.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Common\Transform.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Common\Light.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\PhongScene.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Common\Material.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Common\CubeObject.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Common\ModelObject.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\ModelScene.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\StencilTestScene.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Common\ModelObject2.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\FrameBufferScene.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RHI\FrameBuffer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\FrameBufferScene2.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Common\QuadObject.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\SkyboxScene.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Common\SkyboxObject.h">
+    <ClInclude Include="src\Engine\Detail\WindowsFileAsset.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\Enternity2\Enternity\assets\textures\atmosphere.png">
-      <Filter>资源文件</Filter>
-    </Image>
+    <Text Include="assets\TestWindowsFileAsset.txt" />
   </ItemGroup>
 </Project>

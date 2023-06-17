@@ -1,49 +1,34 @@
-#include "Application/Application.h"
+#include "Engine/ThreadPool.h"
+#include "Engine/Log.h"
+#include "Engine/Detail/WindowsFileAsset.h"
+#include "Engine/Blob.h"
 
-
-#include "Core/Math/Vector.h"
-#include "Core/Math/Matrix.h"
-#include "Core/Math/Math.h"
-void Test()
-{
-	using namespace Enternity;
-	Vector2d vec1(1, 2);
-	Vector2d vec2(3, 4);
-
-	//auto res = Vector2DotProduct(vec1, vec2);
-	//Matrix4x4f mat1{1,2,3,4,4,4,4,4,4,4,4,4, 4,4,4,4 };
-	//Matrix4x4f mat2{1,2,3,4,5,6,7,4,4,4,4,4, 4,4,4,4 };
-	//
-	//mat1 += mat1;
-
-	Vector3f z(0.0f, 0.0f, 1.0f);
-	Vector3f x(1.0f, 0.0f, 0.0f);
-	Vector3f y = Vector3Cross(z, x);
-
-	Matrix4x4f scaleMatrxi;
-	Matrix4x4Scale(scaleMatrxi, 1.0f, 2.0f, 3.0f);
-	Matrix4x4f translateMatrxi;
-	Matrix4x4Translate(translateMatrxi, 1.0f, 2.0f, 3.0f);
-	Matrix4x4f rotateMatrix;
-	Matrix4x4RotateYawPitchRoll(rotateMatrix, 30.0f, 60.f, 0.0f, false);
-
-	Matrix4x4f perspectiveMatrix;
-	Matrix4x4Perspective(perspectiveMatrix, 45.0f, 2.0f, 0.1f, 100.0f, false);
-
-	int i = 0;
-	i++;
-}
-
-#include <string>
+using namespace Enternity;
 int main(int argc, const char** argv) {
 
+	Log::Init();
+	ThreadPool::GetInstance().initialize(4);
 
-	Enternity::Application app;
+	WindowsFileAsset windowsFileAsset("assets/TestWindowsFileAsset.txt");
+	windowsFileAsset.load();
+	while (true)
+	{
+		if (windowsFileAsset.getLoadingState() == Asset::loading_state_succeeded)
+		{
+			Blob* blob = windowsFileAsset.getBlob();
 
-	app.Initialize(1200, 800, "hahaha");
-	app.Run();
-	app.Finalize();
-	
+			if (blob)
+			{
+				LOG_INFO(std::string((char*)blob->getData(), blob->getLength()));
+			}
+
+			
+		}
+
+		LOG_INFO("loading_state_pending");
+	}
+
+	ThreadPool::GetInstance().uninitialize();
 	return 0;
 }
 
