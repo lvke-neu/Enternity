@@ -18,7 +18,7 @@ namespace Enternity
 
 	void WindowsFileAsset::doLoad()
 	{
-		Sleep(1000);
+		Sleep(2000);
 
 		std::ifstream ifs(m_fullPath, std::ios::in | std::ios::binary);
 		if (!ifs.is_open())

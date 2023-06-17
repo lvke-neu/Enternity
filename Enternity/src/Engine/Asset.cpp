@@ -3,8 +3,15 @@
 
 namespace Enternity
 {
-	void Asset::load()
+	void Asset::load(LoadingMode mode)
 	{
-		ThreadPool::GetInstance().commitTask(std::bind(&Asset::doLoad, this));
+		if (mode == Sync)
+		{
+			doLoad();
+		}
+		else
+		{
+			ThreadPool::GetInstance().commitTask(std::bind(&Asset::doLoad, this));
+		}
 	}
 }

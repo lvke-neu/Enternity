@@ -4,6 +4,12 @@ namespace Enternity
 	class Asset
 	{
 	public:
+		enum LoadingMode
+		{
+			Sync,
+			Asyn
+		};
+
 		enum LoadingState
 		{
 			loading_state_pending,
@@ -14,7 +20,7 @@ namespace Enternity
 		virtual ~Asset(){}
 	public:
 		LoadingState getLoadingState() const;
-		void load();
+		void load(LoadingMode mode);
 	private:
 		virtual void doLoad() = 0;
 	protected:
