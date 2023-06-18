@@ -101,6 +101,12 @@
     <ClCompile Include="src\Engine\Log.cpp" />
     <ClCompile Include="src\Engine\ThreadPool.cpp" />
     <ClCompile Include="src\Graphics\GraphicsSystem.cpp" />
+    <ClCompile Include="src\Graphics\RHI\Mesh\IndexBuffer.cpp" />
+    <ClCompile Include="src\Graphics\RHI\Mesh\Mesh.cpp" />
+    <ClCompile Include="src\Graphics\RHI\Mesh\MeshAsset.cpp" />
+    <ClCompile Include="src\Graphics\RHI\Mesh\MeshProvider.cpp" />
+    <ClCompile Include="src\Graphics\RHI\Mesh\VertexArray.cpp" />
+    <ClCompile Include="src\Graphics\RHI\Mesh\VertexBuffer.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\RendererAsset.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\RendererProvider.cpp" />
@@ -120,6 +126,13 @@
     <ClInclude Include="src\Common\Macro.h" />
     <ClInclude Include="src\Engine\ThreadPool.h" />
     <ClInclude Include="src\Graphics\GraphicsSystem.h" />
+    <ClInclude Include="src\Graphics\RHI\Mesh\IndexBuffer.h" />
+    <ClInclude Include="src\Graphics\RHI\Mesh\Mesh.h" />
+    <ClInclude Include="src\Graphics\RHI\Mesh\MeshAsset.h" />
+    <ClInclude Include="src\Graphics\RHI\Mesh\MeshProvider.h" />
+    <ClInclude Include="src\Graphics\RHI\Mesh\VertexArray.h" />
+    <ClInclude Include="src\Graphics\RHI\Mesh\VertexBuffer.h" />
+    <ClInclude Include="src\Graphics\RHI\Mesh\VertexDefine.h" />
     <ClInclude Include="src\Graphics\RHI\Renderer\Renderer.h" />
     <ClInclude Include="src\Graphics\RHI\Renderer\RendererAsset.h" />
     <ClInclude Include="src\Graphics\RHI\Renderer\RendererProvider.h" />
