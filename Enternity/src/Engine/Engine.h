@@ -3,6 +3,8 @@
 
 namespace Enternity
 {
+	class Timer;
+	class RenderView;
 	class GraphicsSystem;
 	class Engine
 	{
@@ -16,6 +18,8 @@ namespace Enternity
 		GraphicsSystem* getGraphicsSystem();
 	private:
 		GraphicsSystem* m_graphicsSystem{ nullptr };
+		RenderView* m_renderView{ nullptr };
+		Timer* m_timer{ nullptr };
 	};
 
 	inline GraphicsSystem* Engine::getGraphicsSystem()

@@ -15,13 +15,11 @@ using namespace Enternity;
 void UnitTest::Test()
 {
 	Mesh* mesh = Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMesh("assets/models/2nrtbod1out/2nrtbod1out.obj");
-	MeshAsset ma("assets/models/2nrtbod1out/2nrtbod1out.obj");
-	ma.load();
-
-	Texture* tex = Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTexture("assets/textures/skybox.jpeg");
+	Texture* texture = Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTexture("assets/textures/skybox.jpeg");
 	Renderer* renderer = Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRenderer("assets/shaders/Phong.vert", "assets/shaders/Phong.frag");
 
-
+	//MeshAsset ma("assets/models/2nrtbod1out/2nrtbod1out.obj");
+	//ma.load();
 	//while (true)
 	//{
 	//	if (ma.getLoadingState() == Asset::loading_state_succeeded)
@@ -32,6 +30,8 @@ void UnitTest::Test()
 	//	}
 	//}
 
-	int i = 0;
-	i++;
+
+	SAFE_DELETE_SET_NULL(mesh);
+	SAFE_DELETE_SET_NULL(texture);
+	SAFE_DELETE_SET_NULL(renderer);
 }

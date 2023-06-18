@@ -91,15 +91,32 @@
   <ItemGroup>
     <None Include="..\README.md" />
     <None Include="assets\model\cube.bin" />
+    <None Include="src\Editor\Imgui\LICENSE" />
+    <None Include="src\Editor\Imgui\README.md" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Common\UnitTest.cpp" />
+    <ClCompile Include="src\Editor\Imgui\ImCurveEdit.cpp" />
+    <ClCompile Include="src\Editor\Imgui\ImGradient.cpp" />
+    <ClCompile Include="src\Editor\Imgui\imgui.cpp" />
+    <ClCompile Include="src\Editor\Imgui\ImGuizmo.cpp" />
+    <ClCompile Include="src\Editor\Imgui\imgui_demo.cpp" />
+    <ClCompile Include="src\Editor\Imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\Editor\Imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="src\Editor\Imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\Editor\Imgui\imgui_tables.cpp" />
+    <ClCompile Include="src\Editor\Imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\Editor\Imgui\ImSequencer.cpp" />
+    <ClCompile Include="src\Editor\UiRender.cpp" />
     <ClCompile Include="src\Engine\Asset.cpp" />
     <ClCompile Include="src\Engine\Blob.cpp" />
+    <ClCompile Include="src\Engine\Detail\glad.c" />
     <ClCompile Include="src\Engine\Detail\WindowsFileAsset.cpp" />
     <ClCompile Include="src\Engine\Engine.cpp" />
     <ClCompile Include="src\Engine\Log.cpp" />
+    <ClCompile Include="src\Engine\RenderView.cpp" />
     <ClCompile Include="src\Engine\ThreadPool.cpp" />
+    <ClCompile Include="src\Engine\Timer.cpp" />
     <ClCompile Include="src\Graphics\GraphicsSystem.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\IndexBuffer.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\Mesh.cpp" />
@@ -118,13 +135,29 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Common\UnitTest.h" />
+    <ClInclude Include="src\Editor\Imgui\imconfig.h" />
+    <ClInclude Include="src\Editor\Imgui\ImCurveEdit.h" />
+    <ClInclude Include="src\Editor\Imgui\ImGradient.h" />
+    <ClInclude Include="src\Editor\Imgui\imgui.h" />
+    <ClInclude Include="src\Editor\Imgui\ImGuizmo.h" />
+    <ClInclude Include="src\Editor\Imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="src\Editor\Imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\Editor\Imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="src\Editor\Imgui\imgui_internal.h" />
+    <ClInclude Include="src\Editor\Imgui\ImSequencer.h" />
+    <ClInclude Include="src\Editor\Imgui\imstb_rectpack.h" />
+    <ClInclude Include="src\Editor\Imgui\imstb_textedit.h" />
+    <ClInclude Include="src\Editor\Imgui\imstb_truetype.h" />
+    <ClInclude Include="src\Editor\UiRender.h" />
     <ClInclude Include="src\Engine\Asset.h" />
     <ClInclude Include="src\Engine\Blob.h" />
     <ClInclude Include="src\Engine\Detail\WindowsFileAsset.h" />
     <ClInclude Include="src\Engine\Engine.h" />
     <ClInclude Include="src\Engine\Log.h" />
     <ClInclude Include="src\Common\Macro.h" />
+    <ClInclude Include="src\Engine\RenderView.h" />
     <ClInclude Include="src\Engine\ThreadPool.h" />
+    <ClInclude Include="src\Engine\Timer.h" />
     <ClInclude Include="src\Graphics\GraphicsSystem.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\IndexBuffer.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\Mesh.h" />
