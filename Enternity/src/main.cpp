@@ -1,18 +1,15 @@
-#include "Engine/ThreadPool.h"
-#include "Engine/Log.h"
-#include "Engine/Detail/WindowsFileAsset.h"
-#include "Engine/Blob.h"
+#include "Engine/Engine.h"
 
-using namespace Enternity;
 int main(int argc, const char** argv) {
 
-	Log::Init();
-	ThreadPool::GetInstance().initialize(4);
+	Enternity::Engine::GetInstance().initialize();
+	Enternity::Engine::GetInstance().run();
+	Enternity::Engine::GetInstance().uninitialize();
 
-	WindowsFileAsset windowsFileAsset("assets/TestWindowsFileAsset.txt");
-	windowsFileAsset.load(Asset::LoadingMode::Sync);
+	//WindowsFileAsset windowsFileAsset("assets/TestWindowsFileAsset.txt");
+	//windowsFileAsset.load(Asset::LoadingMode::Sync);
 
-	LOG_INFO("hahaha");
+	//LOG_INFO("hahaha");
 	//while (true)
 	//{
 	//	if (windowsFileAsset.getLoadingState() == Asset::loading_state_succeeded)
@@ -30,7 +27,6 @@ int main(int argc, const char** argv) {
 	//	LOG_INFO("loading_state_pending");
 	//}
 
-	ThreadPool::GetInstance().uninitialize();
 	return 0;
 }
 

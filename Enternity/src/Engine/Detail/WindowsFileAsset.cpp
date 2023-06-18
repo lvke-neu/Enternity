@@ -18,8 +18,6 @@ namespace Enternity
 
 	void WindowsFileAsset::doLoad()
 	{
-		Sleep(2000);
-
 		std::ifstream ifs(m_fullPath, std::ios::in | std::ios::binary);
 		if (!ifs.is_open())
 		{
@@ -28,11 +26,8 @@ namespace Enternity
 			return;
 		}
 
-		if (m_content)
-		{
-			SAFE_DELETE_SET_NULL(m_content);
-		}
-
+		SAFE_DELETE_SET_NULL(m_content);
+	
 		std::filebuf* pFilebuf = ifs.rdbuf();
 		size_t size = pFilebuf->pubseekoff(0, ifs.end, ifs.in);
 		pFilebuf->pubseekpos(0, ifs.in);

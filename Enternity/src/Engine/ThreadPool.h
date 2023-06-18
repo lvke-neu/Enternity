@@ -6,7 +6,7 @@
 #include <vector>
 #include <queue>
 #include <functional>
-#include "Macro.h"
+#include "Common/Macro.h"
 
 namespace Enternity
 {
