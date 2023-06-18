@@ -14,7 +14,7 @@ namespace Enternity
 		virtual ~Asset(){}
 	public:
 		LoadingState getLoadingState() const;
-		void load(int priority);
+		void load(int priority = 1);
 	private:
 		virtual void doLoad() = 0;
 	protected:

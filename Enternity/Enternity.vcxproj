@@ -101,10 +101,13 @@
     <ClCompile Include="src\Engine\Log.cpp" />
     <ClCompile Include="src\Engine\ThreadPool.cpp" />
     <ClCompile Include="src\Graphics\GraphicsSystem.cpp" />
-    <ClCompile Include="src\Graphics\RHI\stb_image.cpp" />
-    <ClCompile Include="src\Graphics\RHI\Texture.cpp" />
-    <ClCompile Include="src\Graphics\RHI\TextureAsset.cpp" />
-    <ClCompile Include="src\Graphics\RHI\TextureProvider.cpp" />
+    <ClCompile Include="src\Graphics\RHI\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Graphics\RHI\Renderer\RendererAsset.cpp" />
+    <ClCompile Include="src\Graphics\RHI\Renderer\RendererProvider.cpp" />
+    <ClCompile Include="src\Graphics\RHI\Texture\stb_image.cpp" />
+    <ClCompile Include="src\Graphics\RHI\Texture\Texture.cpp" />
+    <ClCompile Include="src\Graphics\RHI\Texture\TextureAsset.cpp" />
+    <ClCompile Include="src\Graphics\RHI\Texture\TextureProvider.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -117,10 +120,13 @@
     <ClInclude Include="src\Common\Macro.h" />
     <ClInclude Include="src\Engine\ThreadPool.h" />
     <ClInclude Include="src\Graphics\GraphicsSystem.h" />
-    <ClInclude Include="src\Graphics\RHI\stb_image.h" />
-    <ClInclude Include="src\Graphics\RHI\Texture.h" />
-    <ClInclude Include="src\Graphics\RHI\TextureAsset.h" />
-    <ClInclude Include="src\Graphics\RHI\TextureProvider.h" />
+    <ClInclude Include="src\Graphics\RHI\Renderer\Renderer.h" />
+    <ClInclude Include="src\Graphics\RHI\Renderer\RendererAsset.h" />
+    <ClInclude Include="src\Graphics\RHI\Renderer\RendererProvider.h" />
+    <ClInclude Include="src\Graphics\RHI\Texture\stb_image.h" />
+    <ClInclude Include="src\Graphics\RHI\Texture\Texture.h" />
+    <ClInclude Include="src\Graphics\RHI\Texture\TextureAsset.h" />
+    <ClInclude Include="src\Graphics\RHI\Texture\TextureProvider.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\TestWindowsFileAsset.txt" />

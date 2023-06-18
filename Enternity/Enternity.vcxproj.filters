@@ -45,19 +45,28 @@
     <ClCompile Include="src\Engine\Log.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\RHI\stb_image.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Graphics\RHI\TextureAsset.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Graphics\RHI\Texture.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Graphics\RHI\TextureProvider.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Common\UnitTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\RHI\Texture\stb_image.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\RHI\Texture\Texture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\RHI\Texture\TextureAsset.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\RHI\Texture\TextureProvider.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\RHI\Renderer\RendererAsset.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\RHI\Renderer\Renderer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\RHI\Renderer\RendererProvider.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,19 +95,28 @@
     <ClInclude Include="src\Engine\Log.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\stb_image.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\TextureAsset.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\Texture.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\TextureProvider.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Common\UnitTest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\RHI\Texture\stb_image.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\RHI\Texture\Texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\RHI\Texture\TextureAsset.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\RHI\Texture\TextureProvider.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\RHI\Renderer\RendererAsset.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\RHI\Renderer\Renderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\RHI\Renderer\RendererProvider.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
