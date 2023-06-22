@@ -6,6 +6,7 @@
 #include "Scene/SceneManager.h"
 #include "RenderView.h"
 #include "Timer.h"
+#include <glad/glad.h>
 
 namespace Enternity
 {
@@ -17,7 +18,7 @@ namespace Enternity
 		m_graphicsSystem = new GraphicsSystem;
 		m_eventSystem = new EventSystem;
 		m_sceneManager = new SceneManager;
-		m_renderView = new RenderView(1024, 768, "v0.004");
+		m_renderView = new RenderView(1500, 768, "v0.004");
 		m_timer = new Timer;
 	}
 
@@ -37,14 +38,17 @@ namespace Enternity
 		m_timer->Reset();
 		while (!m_renderView->windowShouldClose())
 		{
+			CHECK_GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+			CHECK_GL_CALL((glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)));
+
+
 			float deltaTime = m_timer->DeltaTime();
 			m_eventSystem->dispatchEvent(EventType::Tick, &deltaTime);
 
 			m_timer->Tick();
 
 			m_sceneManager->onUpdateTime(deltaTime);
-			//CHECK_GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
-			//CHECK_GL_CALL((glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)));
+			
 
 
 			m_renderView->swapBuffers();
