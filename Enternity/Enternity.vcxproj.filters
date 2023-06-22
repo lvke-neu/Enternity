@@ -149,6 +149,18 @@
     <ClCompile Include="src\Scene\CameraController.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Editor\ViewPortPanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\StatePanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\ScenePanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\AssetPanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Blob.h">
@@ -290,6 +302,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\CameraController.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Editor\ViewPortPanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Editor\StatePanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Editor\ScenePanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Editor\AssetPanel.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

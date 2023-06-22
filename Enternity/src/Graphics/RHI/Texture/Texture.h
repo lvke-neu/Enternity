@@ -8,10 +8,16 @@ namespace Enternity
 	public:
 		Texture(TextureAsset* textureAsset);
 		~Texture();
-	//TODO:remove
+	public:
+		unsigned int getRenderId();
+		void bind(unsigned int slot);
+		void unbind();
 	private:
-		int m_width{ 0 };
-		int m_height{ 0 };
-		int m_channels{ 0 };
+		unsigned int m_renderId;
 	};
+
+	inline unsigned int Texture::getRenderId()
+	{
+		return m_renderId;
+	}
 }

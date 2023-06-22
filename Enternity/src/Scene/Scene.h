@@ -13,7 +13,7 @@ namespace Enternity
 		Entity createEntity();
 		Entity getEntity(entt::entity id);
 		void deleteEntity(entt::entity id);
-		void onUpdateTime(float deltaTime);
+		void tick(float deltaTime);
 	private:
 		entt::registry m_registry;
 		std::unordered_map<entt::entity, Entity> m_entities;

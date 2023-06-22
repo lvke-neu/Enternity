@@ -3,6 +3,7 @@
 #include "ECS/CameraComponent.h"
 #include "Common/Macro.h"
 #include "CameraController.h"
+#include <glad/glad.h>
 
 namespace Enternity
 {
@@ -55,8 +56,11 @@ namespace Enternity
 		}
 	}
 
-	void Scene::onUpdateTime(float deltaTime)
+	void Scene::tick(float deltaTime)
 	{
+		CHECK_GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+		CHECK_GL_CALL((glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)));
+
 		auto& cameraComponent = m_sceneCamera.getComponent<CameraComponent>();
 		auto& transformComponent = m_sceneCamera.getComponent<TransformComponent>();
 		int i = 0;

@@ -82,7 +82,7 @@ namespace Enternity
 
 	void RenderView::swapBuffers()
 	{
-		m_uiRender->onUpdatetime();
+		m_uiRender->tick();
 		glfwSwapBuffers(m_context);
 		glfwPollEvents();
 	}

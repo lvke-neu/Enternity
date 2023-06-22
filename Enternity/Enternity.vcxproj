@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Common\UnitTest.cpp" />
+    <ClCompile Include="src\Editor\AssetPanel.cpp" />
     <ClCompile Include="src\Editor\Imgui\ImCurveEdit.cpp" />
     <ClCompile Include="src\Editor\Imgui\ImGradient.cpp" />
     <ClCompile Include="src\Editor\Imgui\imgui.cpp" />
@@ -107,7 +108,10 @@
     <ClCompile Include="src\Editor\Imgui\imgui_tables.cpp" />
     <ClCompile Include="src\Editor\Imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\Editor\Imgui\ImSequencer.cpp" />
+    <ClCompile Include="src\Editor\ScenePanel.cpp" />
+    <ClCompile Include="src\Editor\StatePanel.cpp" />
     <ClCompile Include="src\Editor\UiRender.cpp" />
+    <ClCompile Include="src\Editor\ViewPortPanel.cpp" />
     <ClCompile Include="src\Engine\Asset.cpp" />
     <ClCompile Include="src\Engine\Blob.cpp" />
     <ClCompile Include="src\Engine\Detail\glad.c" />
@@ -140,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Common\UnitTest.h" />
+    <ClInclude Include="src\Editor\AssetPanel.h" />
     <ClInclude Include="src\Editor\Imgui\imconfig.h" />
     <ClInclude Include="src\Editor\Imgui\ImCurveEdit.h" />
     <ClInclude Include="src\Editor\Imgui\ImGradient.h" />
@@ -153,7 +158,10 @@
     <ClInclude Include="src\Editor\Imgui\imstb_rectpack.h" />
     <ClInclude Include="src\Editor\Imgui\imstb_textedit.h" />
     <ClInclude Include="src\Editor\Imgui\imstb_truetype.h" />
+    <ClInclude Include="src\Editor\ScenePanel.h" />
+    <ClInclude Include="src\Editor\StatePanel.h" />
     <ClInclude Include="src\Editor\UiRender.h" />
+    <ClInclude Include="src\Editor\ViewPortPanel.h" />
     <ClInclude Include="src\Engine\Asset.h" />
     <ClInclude Include="src\Engine\Blob.h" />
     <ClInclude Include="src\Engine\Detail\WindowsFileAsset.h" />

@@ -12,29 +12,29 @@ namespace Enternity
 	public:
 		Timer();
 
-		float TotalTime()const;
+		float totalTime()const;
 		//the unit is second
-		inline float DeltaTime() const
+		inline float deltaTime() const
 		{
-			return (float)m_DeltaTime;
+			return (float)m_deltaTime;
 		}
 
-		void Reset();
-		void Start();
-		void Stop();
-		void Tick();
+		void reset();
+		void start();
+		void stop();
+		void tick();
 
 	private:
-		double m_SecondsPerCount;
-		double m_DeltaTime;
+		double m_secondsPerCount;
+		double m_deltaTime;
 
-		__int64 m_BaseTime;
-		__int64 m_PausedTime;
-		__int64 m_StopTime;
-		__int64 m_PrevTime;
-		__int64 m_CurrTime;
+		__int64 m_baseTime;
+		__int64 m_pausedTime;
+		__int64 m_stopTime;
+		__int64 m_prevTime;
+		__int64 m_currTime;
 
-		bool m_Stopped;
+		bool m_stopped;
 	};
 }
 #endif // GAMETIMER_H

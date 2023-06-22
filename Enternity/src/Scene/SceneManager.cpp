@@ -14,8 +14,8 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(m_currentScene);
 	}
 
-	void SceneManager::onUpdateTime(float deltaTime)
+	void SceneManager::tick(float deltaTime)
 	{
-		m_currentScene->onUpdateTime(deltaTime);
+		m_currentScene->tick(deltaTime);
 	}
 }

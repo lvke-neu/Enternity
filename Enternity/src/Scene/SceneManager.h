@@ -10,7 +10,7 @@ namespace Enternity
 		~SceneManager();
 	public:
 		Scene* getCurrentScene();
-		void onUpdateTime(float deltaTime);
+		void tick(float deltaTime);
 	private:
 		Scene* m_currentScene{ nullptr };
 	};

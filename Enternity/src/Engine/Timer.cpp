@@ -9,17 +9,17 @@
 namespace Enternity
 {
 	Timer::Timer()
-		: m_SecondsPerCount(0.0), m_DeltaTime(-1.0), m_BaseTime(0), m_StopTime(0),
-		m_PausedTime(0), m_PrevTime(0), m_CurrTime(0), m_Stopped(false)
+		: m_secondsPerCount(0.0), m_deltaTime(-1.0), m_baseTime(0), m_stopTime(0),
+		m_pausedTime(0), m_prevTime(0), m_currTime(0), m_stopped(false)
 	{
 		__int64 countsPerSec;
 		QueryPerformanceFrequency((LARGE_INTEGER*)&countsPerSec);
-		m_SecondsPerCount = 1.0 / (double)countsPerSec;
+		m_secondsPerCount = 1.0 / (double)countsPerSec;
 	}
 
 	// Returns the total time elapsed since Reset() was called, NOT counting any
 	// time when the clock is stopped.
-	float Timer::TotalTime()const
+	float Timer::totalTime()const
 	{
 		// If we are stopped, do not count the time that has passed since we stopped.
 		// Moreover, if we previously already had a pause, the distance 
@@ -30,9 +30,9 @@ namespace Enternity
 		// ----*---------------*-----------------*------------*------------*------> time
 		//  m_BaseTime       m_StopTime        startTime     m_StopTime    m_CurrTime
 
-		if (m_Stopped)
+		if (m_stopped)
 		{
-			return (float)(((m_StopTime - m_PausedTime) - m_BaseTime) * m_SecondsPerCount);
+			return (float)(((m_stopTime - m_pausedTime) - m_baseTime) * m_secondsPerCount);
 		}
 
 		// The distance m_CurrTime - m_BaseTime includes paused time,
@@ -47,23 +47,23 @@ namespace Enternity
 
 		else
 		{
-			return (float)(((m_CurrTime - m_PausedTime) - m_BaseTime) * m_SecondsPerCount);
+			return (float)(((m_currTime - m_pausedTime) - m_baseTime) * m_secondsPerCount);
 		}
 	}
 
-	void Timer::Reset()
+	void Timer::reset()
 	{
 		__int64 currTime;
 		QueryPerformanceCounter((LARGE_INTEGER*)&currTime);
 
-		m_BaseTime = currTime;
-		m_PrevTime = currTime;
-		m_StopTime = 0;
-		m_PausedTime = 0;
-		m_Stopped = false;
+		m_baseTime = currTime;
+		m_prevTime = currTime;
+		m_stopTime = 0;
+		m_pausedTime = 0;
+		m_stopped = false;
 	}
 
-	void Timer::Start()
+	void Timer::start()
 	{
 		__int64 startTime;
 		QueryPerformanceCounter((LARGE_INTEGER*)&startTime);
@@ -75,49 +75,49 @@ namespace Enternity
 		// ----*---------------*-----------------*------------> time
 		//  m_BaseTime       m_StopTime        startTime     
 
-		if (m_Stopped)
+		if (m_stopped)
 		{
-			m_PausedTime += (startTime - m_StopTime);
+			m_pausedTime += (startTime - m_stopTime);
 
-			m_PrevTime = startTime;
-			m_StopTime = 0;
-			m_Stopped = false;
+			m_prevTime = startTime;
+			m_stopTime = 0;
+			m_stopped = false;
 		}
 	}
 
-	void Timer::Stop()
+	void Timer::stop()
 	{
-		if (!m_Stopped)
+		if (!m_stopped)
 		{
 			__int64 currTime;
 			QueryPerformanceCounter((LARGE_INTEGER*)&currTime);
 
-			m_StopTime = currTime;
-			m_Stopped = true;
+			m_stopTime = currTime;
+			m_stopped = true;
 		}
 	}
 
-	void Timer::Tick()
+	void Timer::tick()
 	{
-		if (m_Stopped)
+		if (m_stopped)
 		{
-			m_DeltaTime = 0.0;
+			m_deltaTime = 0.0;
 			return;
 		}
 
 		__int64 currTime;
 		QueryPerformanceCounter((LARGE_INTEGER*)&currTime);
-		m_CurrTime = currTime;
+		m_currTime = currTime;
 
 		// Time difference between this frame and the previous.
-		m_DeltaTime = (m_CurrTime - m_PrevTime) * m_SecondsPerCount;
+		m_deltaTime = (m_currTime - m_prevTime) * m_secondsPerCount;
 
 		// Prepare for next frame.
-		m_PrevTime = m_CurrTime;
+		m_prevTime = m_currTime;
 
-		if (m_DeltaTime < 0.0)
+		if (m_deltaTime < 0.0)
 		{
-			m_DeltaTime = 0.0;
+			m_deltaTime = 0.0;
 		}
 	}
 }
