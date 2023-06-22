@@ -80,9 +80,6 @@
     <ClCompile Include="src\Graphics\RHI\Mesh\VertexArray.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\RHI\Mesh\VertexBuffer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Graphics\RHI\Mesh\IndexBuffer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -161,6 +158,9 @@
     <ClCompile Include="src\Editor\AssetPanel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Graphics\RHI\Mesh\VertexDefine.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Blob.h">
@@ -221,9 +221,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\RHI\Mesh\VertexArray.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\Mesh\VertexBuffer.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\RHI\Mesh\IndexBuffer.h">

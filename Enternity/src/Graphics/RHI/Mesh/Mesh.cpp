@@ -1,6 +1,5 @@
 #include "Mesh.h"
 #include "MeshAsset.h"
-#include "VertexBuffer.h"
 #include "VertexArray.h"
 #include "IndexBuffer.h"
 #include "Common/Macro.h"
@@ -9,28 +8,34 @@ namespace Enternity
 {
 	Mesh::Mesh(MeshAsset* meshAsset)
 	{
-		m_vertexBuffer = new VertexBuffer;
-		m_vertexArray = new VertexArray;
-		m_indexBuffer = new IndexBuffer;
-
 		if (meshAsset)
 		{
-			//TODO: init vb, va, ib
-		}
+			m_vertexArraies.resize(meshAsset->getVertices().size());
+			m_indexBuffers.resize(meshAsset->getIndices().size());
 
-		//TODO: remove
-		if (meshAsset)
-		{
-			m_vertices = meshAsset->getVertices();
-			m_indices = meshAsset->getIndices();
+			for (int i = 0; i < m_vertexArraies.size(); ++i)
+			{
+				m_vertexArraies[i] = new VertexArray{ meshAsset, (unsigned int)i };
+			}
+
+			for (int i = 0; i < m_indexBuffers.size(); ++i)
+			{
+				m_indexBuffers[i] = new IndexBuffer{ meshAsset, (unsigned int)i };
+			}
+
 		}
-		
 	}
 
 	Mesh::~Mesh()
 	{
-		SAFE_DELETE_SET_NULL(m_vertexBuffer);
-		SAFE_DELETE_SET_NULL(m_vertexArray);
-		SAFE_DELETE_SET_NULL(m_indexBuffer);
+		for (auto& vertexArray : m_vertexArraies)
+		{
+			SAFE_DELETE_SET_NULL(vertexArray);
+		}
+		
+		for (auto& indexBuffer : m_indexBuffers)
+		{
+			SAFE_DELETE_SET_NULL(indexBuffer);
+		}
 	}
 }

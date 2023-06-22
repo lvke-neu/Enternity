@@ -43,7 +43,7 @@ namespace Enternity
 		CHECK_GL_CALL(glEnable(GL_DEPTH_TEST));
 		CHECK_GL_CALL(glViewport(0, 0, width, height));
 
-		glfwSetWindowSizeCallback(m_context, Resize);
+		//glfwSetWindowSizeCallback(m_context, Resize);
 		glfwSetKeyCallback(m_context, KeyTrigger);
 		glfwSetMouseButtonCallback(m_context, MouseTrigger);
 		glfwSetCursorPosCallback(m_context, MouseMove);
@@ -66,7 +66,7 @@ namespace Enternity
 
 		m_uiRender = new UiRender(m_context);
 
-		Resize(m_context, width, height);
+		//Resize(m_context, width, height);
 	}
 
 	RenderView::~RenderView()
@@ -94,6 +94,19 @@ namespace Enternity
 
 	void RenderView::Resize(GLFWwindow* window, int width, int height)
 	{
+		CHECK_GL_CALL(glViewport(0, 0, width, height));
+
+		WindowSize ws{ width, height };
+		Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::WindowResize, &ws);
+	}
+
+	void RenderView::Resize(int width, int height)
+	{
+		if (width <= 0 || height <= 0)
+			return;
+
+		LOG_INFO("ViewPortResize: width = " + std::to_string(width) + ", height = " + std::to_string(height));
+
 		CHECK_GL_CALL(glViewport(0, 0, width, height));
 
 		WindowSize ws{ width, height };

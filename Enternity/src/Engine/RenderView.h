@@ -14,6 +14,7 @@ namespace Enternity
 		void swapBuffers();
 		void setTitle(const char* title);
 	public:
+		void Resize(int width, int height);
 		static void Resize(GLFWwindow* window, int width, int height);
 		static void KeyTrigger(GLFWwindow* window, int key, int scancode, int action, int mods);
 		static void MouseTrigger(GLFWwindow* window, int button, int action, int mods);

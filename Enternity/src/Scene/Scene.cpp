@@ -3,6 +3,12 @@
 #include "ECS/CameraComponent.h"
 #include "Common/Macro.h"
 #include "CameraController.h"
+
+#include "Engine/Engine.h"
+#include "Graphics/GraphicsSystem.h"
+#include "Graphics/RHI/Mesh/MeshProvider.h"
+#include "Graphics/RHI/Mesh/Mesh.h"
+
 #include <glad/glad.h>
 
 namespace Enternity
@@ -15,6 +21,10 @@ namespace Enternity
 		m_sceneCamera.addComponent<CameraComponent>();
 
 		m_cameraController = new CameraController(&m_sceneCamera);
+
+		auto mesh = Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMesh("assets/models/2nrtbod1out/2nrtbod1out.obj");
+		auto mesh2 = Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMesh("assets/models/2nrtbod1out/2nrtbod1out.obj");
+		int i = 0;
 	}
 
 	Scene::~Scene()

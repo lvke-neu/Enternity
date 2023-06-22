@@ -120,6 +120,7 @@
     <ClCompile Include="src\Engine\Event\EventSystem.cpp" />
     <ClCompile Include="src\Engine\Log.cpp" />
     <ClCompile Include="src\Engine\RenderView.cpp" />
+    <ClCompile Include="src\Graphics\RHI\Mesh\VertexDefine.cpp" />
     <ClCompile Include="src\Scene\CameraController.cpp" />
     <ClCompile Include="src\Scene\ECS\Entity.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
@@ -131,7 +132,6 @@
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshAsset.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshProvider.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\VertexArray.cpp" />
-    <ClCompile Include="src\Graphics\RHI\Mesh\VertexBuffer.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\RendererAsset.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\RendererProvider.cpp" />
@@ -184,7 +184,6 @@
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshAsset.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshProvider.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\VertexArray.h" />
-    <ClInclude Include="src\Graphics\RHI\Mesh\VertexBuffer.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\VertexDefine.h" />
     <ClInclude Include="src\Graphics\RHI\Renderer\Renderer.h" />
     <ClInclude Include="src\Graphics\RHI\Renderer\RendererAsset.h" />

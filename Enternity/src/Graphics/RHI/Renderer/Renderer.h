@@ -1,6 +1,6 @@
 #pragma once
-//TODO:remove
 #include <string>
+#include <unordered_map>
 
 namespace Enternity
 {
@@ -10,9 +10,15 @@ namespace Enternity
 	public:
 		Renderer(RendererAsset* vsRendererAsset, RendererAsset* psRendererAsset, RendererAsset* gsRendererAsset = nullptr);
 		~Renderer();
-	//TODO:remove
+	public:
+		void bind();
+		void unbind();
 	private:
-		std::string m_vs{ "" };
-		std::string m_ps{ "" };
+		unsigned int compileShader(unsigned int shaderType, const char* shaderSourceCode);
+		unsigned int createProgram(const char* vsShaderCode, const char* psShaderCode);
+		int getUniformLocation(const std::string& name);
+	private:
+		unsigned int m_renderId;
+		std::unordered_map<std::string, int> m_uniformLocationCache;
 	};
 }

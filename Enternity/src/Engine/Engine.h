@@ -20,6 +20,7 @@ namespace Enternity
 		GraphicsSystem* getGraphicsSystem();
 		EventSystem* getEventSystem();
 		SceneManager* getSceneManager();
+		RenderView* getRenderView();
 	private:
 		GraphicsSystem* m_graphicsSystem{ nullptr };
 		EventSystem* m_eventSystem{ nullptr };
@@ -41,5 +42,10 @@ namespace Enternity
 	inline SceneManager* Engine::getSceneManager()
 	{
 		return m_sceneManager;
+	}
+
+	inline RenderView* Engine::getRenderView()
+	{
+		return m_renderView;
 	}
 }
