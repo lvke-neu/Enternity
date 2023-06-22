@@ -5,10 +5,10 @@
 
 namespace Enternity
 {
-	TextureAsset::TextureAsset(const std::string& fullPath) :
+	TextureAsset::TextureAsset(const std::string& fullPath, bool slip) :
 		m_fullPath(fullPath)
 	{
-
+		m_bSlip = slip;
 	}
 
 	TextureAsset::~TextureAsset()
@@ -20,7 +20,7 @@ namespace Enternity
 	{
 		unsigned char* tmpTexture;
 
-		stbi_set_flip_vertically_on_load(1);
+		stbi_set_flip_vertically_on_load(m_bSlip);
 		tmpTexture = stbi_load(m_fullPath.c_str(), &m_width, &m_height, &m_channels, 0);
 		if (!tmpTexture)
 		{

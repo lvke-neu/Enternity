@@ -9,7 +9,14 @@ namespace Enternity
 	{
 		TextureAsset* textureAsset = new TextureAsset(fullPath);
 		textureAsset->load(0);
-		Texture* texture = new Texture(textureAsset);
+
+		Texture* texture = nullptr;
+		
+		if (textureAsset->getLoadingState() == Asset::loading_state_succeeded)
+		{
+			texture = new Texture(textureAsset);
+		}
+		
 		SAFE_DELETE_SET_NULL(textureAsset);
 
 		return texture;

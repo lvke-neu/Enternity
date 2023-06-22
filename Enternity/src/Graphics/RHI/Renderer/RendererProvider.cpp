@@ -13,8 +13,14 @@ namespace Enternity
 		RendererAsset* psRendererAsset = new RendererAsset(psFullPath);
 		psRendererAsset->load(0);
 
-		Renderer* renderer = new Renderer(vsRendererAsset, psRendererAsset);
-
+		Renderer* renderer = nullptr;
+		
+		if (vsRendererAsset->getLoadingState() == Asset::loading_state_succeeded &&
+			psRendererAsset->getLoadingState() == Asset::loading_state_succeeded)
+		{
+			renderer = new Renderer(vsRendererAsset, psRendererAsset);
+		}
+		
 		SAFE_DELETE_SET_NULL(vsRendererAsset);
 		SAFE_DELETE_SET_NULL(psRendererAsset);
 

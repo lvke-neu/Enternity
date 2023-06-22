@@ -10,10 +10,12 @@ namespace Enternity
 	{
 		friend class Texture;
 	public:
-		TextureAsset(const std::string& fullPath);
+		TextureAsset(const std::string& fullPath, bool slip = true);
 		~TextureAsset();
 	public:
 		Blob* getBlob() const;
+		int getWidth();
+		int getHeight();
 	private:
 		virtual void doLoad() override;
 	private:
@@ -22,11 +24,22 @@ namespace Enternity
 		int m_width{ 0 };
 		int m_height{ 0 };
 		int m_channels{ 0 };
+		bool m_bSlip = true;
 	};
 
 	inline Blob* TextureAsset::getBlob() const
 	{
 		return m_content;
+	}
+
+	inline int TextureAsset::getWidth()
+	{
+		return m_width;
+	}
+
+	inline int TextureAsset::getHeight()
+	{
+		return m_height;
 	}
 }
 
