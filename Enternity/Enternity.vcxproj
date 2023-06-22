@@ -14,19 +14,19 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{C07C824F-914A-4BAE-9E62-BBAB127FC59F}</ProjectGuid>
     <RootNamespace>Enternity</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -113,6 +113,7 @@
     <ClCompile Include="src\Engine\Detail\glad.c" />
     <ClCompile Include="src\Engine\Detail\WindowsFileAsset.cpp" />
     <ClCompile Include="src\Engine\Engine.cpp" />
+    <ClCompile Include="src\Engine\Event\EventSystem.cpp" />
     <ClCompile Include="src\Engine\Log.cpp" />
     <ClCompile Include="src\Engine\RenderView.cpp" />
     <ClCompile Include="src\Engine\ThreadPool.cpp" />
@@ -153,6 +154,8 @@
     <ClInclude Include="src\Engine\Blob.h" />
     <ClInclude Include="src\Engine\Detail\WindowsFileAsset.h" />
     <ClInclude Include="src\Engine\Engine.h" />
+    <ClInclude Include="src\Engine\Event\EventDefine.h" />
+    <ClInclude Include="src\Engine\Event\EventSystem.h" />
     <ClInclude Include="src\Engine\Log.h" />
     <ClInclude Include="src\Common\Macro.h" />
     <ClInclude Include="src\Engine\RenderView.h" />

@@ -2,6 +2,8 @@
 #include "Log.h"
 #include "Common/Macro.h"
 #include "Editor/UiRender.h"
+#include "Engine.h"
+#include "Event/EventSystem.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -39,10 +41,10 @@ namespace Enternity
 		CHECK_GL_CALL(glEnable(GL_DEPTH_TEST));
 		CHECK_GL_CALL(glViewport(0, 0, width, height));
 
-		//glfwSetWindowSizeCallback(m_context, Resize);
-		//glfwSetKeyCallback(m_context, KeyTrigger);
-		//glfwSetMouseButtonCallback(m_context, MouseTrigger);
-		//glfwSetCursorPosCallback(m_context, MouseMove);
+		glfwSetWindowSizeCallback(m_context, Resize);
+		glfwSetKeyCallback(m_context, KeyTrigger);
+		glfwSetMouseButtonCallback(m_context, MouseTrigger);
+		glfwSetCursorPosCallback(m_context, MouseMove);
 
 		LOG_INFO((char*)glGetString(GL_VERSION));
 		LOG_INFO((char*)glGetString(GL_VENDOR));
@@ -72,5 +74,65 @@ namespace Enternity
 	void RenderView::setTitle(const char* title)
 	{
 		glfwSetWindowTitle(m_context, title);
+	}
+
+	void RenderView::Resize(GLFWwindow* window, int width, int height)
+	{
+		WindowSize ws{ width, height };
+		Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::WindowResize, &ws);
+	}
+
+	void RenderView::KeyTrigger(GLFWwindow* window, int key, int scancode, int action, int mods)
+	{
+		if (action == GLFW_PRESS || action == GLFW_REPEAT)
+		{
+			Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::KeyPressed, &key);
+		}
+		else if (action == GLFW_RELEASE)
+		{
+			Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::KeyReleased, &key);
+		}
+	}
+
+	void RenderView::MouseTrigger(GLFWwindow* window, int button, int action, int mods)
+	{
+		if (action == GLFW_PRESS)
+		{
+			double x, y;
+			glfwGetCursorPos(window, &x, &y);
+
+			Mouse mouse{ (MouseCode)button,(float)x, (float)y };
+			Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::MousePressed, &mouse);
+		}
+
+		if (action == GLFW_RELEASE)
+		{
+			double x, y;
+			glfwGetCursorPos(window, &x, &y);
+
+			Mouse mouse{ (MouseCode)button,(float)x, (float)y };
+			Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::MouseReleased, &mouse);
+		}
+	}
+
+	void RenderView::MouseMove(GLFWwindow* window, double xpos, double ypos)
+	{
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+		{
+			double x, y;
+			glfwGetCursorPos(window, &x, &y);
+
+			Mouse mouse{ MouseCode::ButtonLeft,(float)x, (float)y };
+			Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::MouseMoved, &mouse);
+		}
+
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+		{
+			double x, y;
+			glfwGetCursorPos(window, &x, &y);
+
+			Mouse mouse{ MouseCode::ButtonRight,(float)x, (float)y };
+			Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::MouseMoved, &mouse);
+		}
 	}
 }
