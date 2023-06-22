@@ -116,6 +116,9 @@
     <ClCompile Include="src\Engine\Event\EventSystem.cpp" />
     <ClCompile Include="src\Engine\Log.cpp" />
     <ClCompile Include="src\Engine\RenderView.cpp" />
+    <ClCompile Include="src\Scene\CameraController.cpp" />
+    <ClCompile Include="src\Scene\ECS\Entity.cpp" />
+    <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\Engine\ThreadPool.cpp" />
     <ClCompile Include="src\Engine\Timer.cpp" />
     <ClCompile Include="src\Graphics\GraphicsSystem.cpp" />
@@ -133,6 +136,7 @@
     <ClCompile Include="src\Graphics\RHI\Texture\TextureAsset.cpp" />
     <ClCompile Include="src\Graphics\RHI\Texture\TextureProvider.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Common\UnitTest.h" />
@@ -159,6 +163,11 @@
     <ClInclude Include="src\Engine\Log.h" />
     <ClInclude Include="src\Common\Macro.h" />
     <ClInclude Include="src\Engine\RenderView.h" />
+    <ClInclude Include="src\Scene\CameraController.h" />
+    <ClInclude Include="src\Scene\ECS\CameraComponent.h" />
+    <ClInclude Include="src\Scene\ECS\Entity.h" />
+    <ClInclude Include="src\Scene\ECS\TransformComponent.h" />
+    <ClInclude Include="src\Scene\Scene.h" />
     <ClInclude Include="src\Engine\ThreadPool.h" />
     <ClInclude Include="src\Engine\Timer.h" />
     <ClInclude Include="src\Graphics\GraphicsSystem.h" />
@@ -176,6 +185,7 @@
     <ClInclude Include="src\Graphics\RHI\Texture\Texture.h" />
     <ClInclude Include="src\Graphics\RHI\Texture\TextureAsset.h" />
     <ClInclude Include="src\Graphics\RHI\Texture\TextureProvider.h" />
+    <ClInclude Include="src\Scene\SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\TestWindowsFileAsset.txt" />

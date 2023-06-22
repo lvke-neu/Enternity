@@ -182,4 +182,8 @@ namespace Enternity
 		EventType type;
 		std::function<void(void*)> callback;
 	};
+
+#define BIND(func) \
+	std::bind(&func, this, std::placeholders::_1)
+
 }

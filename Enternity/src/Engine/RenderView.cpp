@@ -51,6 +51,8 @@ namespace Enternity
 		LOG_INFO((char*)glGetString(GL_RENDERER));
 
 		m_uiRender = new UiRender(m_context);
+
+		Resize(m_context, width, height);
 	}
 
 	RenderView::~RenderView()
@@ -78,6 +80,8 @@ namespace Enternity
 
 	void RenderView::Resize(GLFWwindow* window, int width, int height)
 	{
+		CHECK_GL_CALL(glViewport(0, 0, width, height));
+
 		WindowSize ws{ width, height };
 		Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::WindowResize, &ws);
 	}

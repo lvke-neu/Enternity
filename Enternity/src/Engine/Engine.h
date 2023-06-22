@@ -7,6 +7,7 @@ namespace Enternity
 	class RenderView;
 	class GraphicsSystem;
 	class EventSystem;
+	class SceneManager;
 	class Engine
 	{
 		SINGLETON(Engine);
@@ -18,10 +19,12 @@ namespace Enternity
 	public:
 		GraphicsSystem* getGraphicsSystem();
 		EventSystem* getEventSystem();
+		SceneManager* getSceneManager();
 	private:
 		GraphicsSystem* m_graphicsSystem{ nullptr };
 		EventSystem* m_eventSystem{ nullptr };
 		RenderView* m_renderView{ nullptr };
+		SceneManager* m_sceneManager{ nullptr };
 		Timer* m_timer{ nullptr };
 	};
 
@@ -33,5 +36,10 @@ namespace Enternity
 	inline EventSystem* Engine::getEventSystem()
 	{
 		return m_eventSystem;
+	}
+
+	inline SceneManager* Engine::getSceneManager()
+	{
+		return m_sceneManager;
 	}
 }
