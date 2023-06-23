@@ -1,7 +1,6 @@
 #pragma once
 #include <functional>
-#include <unordered_map>
-#include <string>
+#include <vector>
 
 namespace Enternity
 {
@@ -23,6 +22,6 @@ namespace Enternity
 	private:
 		void tick(void* data);
 	private:
-		std::unordered_map <std::string, MeshAsset_Callback > m_map;
+		std::vector <MeshAsset_Callback > m_map;
 	};
 }

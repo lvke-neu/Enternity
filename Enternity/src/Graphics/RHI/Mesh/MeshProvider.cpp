@@ -39,17 +39,17 @@ namespace Enternity
 		MeshAsset* meshAsset = new MeshAsset(fullPath);
 		meshAsset->load();
 
-		m_map.insert({ fullPath, {meshAsset, callback} });
+		m_map.push_back({meshAsset, callback});
 	}
 
 	void MeshProvider::tick(void* data)
 	{
 		for (auto it = m_map.begin(); it != m_map.end(); )
 		{
-			if (it->second.meshAsset->getLoadingState() == Asset::loading_state_succeeded)
+			if (it->meshAsset->getLoadingState() == Asset::loading_state_succeeded)
 			{
-				it->second.callback(new Mesh(it->second.meshAsset));
-				SAFE_DELETE_SET_NULL(it->second.meshAsset);
+				it->callback(new Mesh(it->meshAsset));
+				SAFE_DELETE_SET_NULL(it->meshAsset);
 				it = m_map.erase(it);
 			}
 			else

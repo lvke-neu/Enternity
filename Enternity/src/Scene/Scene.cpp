@@ -33,7 +33,12 @@ namespace Enternity
 		m_testVisual3DComponent = createEntity();
 		m_testVisual3DComponent.addComponent<TransformComponent>();
 		auto& v3d  = m_testVisual3DComponent.addComponent<Visual3DComponent>();
-		v3d.renderer = Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRenderer("assets/shaders/test/test.vert", "assets/shaders/test/test.frag");
+		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test.vert", "assets/shaders/test/test.frag",
+			[&](Renderer* render)
+			{
+				auto& comp = m_testVisual3DComponent.getComponent<Visual3DComponent>();
+				comp.renderer = render;
+			});
 		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/nanosuit/nanosuit.obj", 
 			[&](Mesh* mesh) 
 			{
@@ -41,12 +46,15 @@ namespace Enternity
 				comp.mesh = mesh;
 			});
 		
-
-
 		m_testVisual3DComponent2 = createEntity();
 		m_testVisual3DComponent2.addComponent<TransformComponent>();
 		auto& v3d2 = m_testVisual3DComponent2.addComponent<Visual3DComponent>();
-		v3d2.renderer = Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRenderer("assets/shaders/test/test.vert", "assets/shaders/test/test.frag");
+		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test.vert", "assets/shaders/test/test.frag",
+			[&](Renderer* render)
+			{
+				auto& comp = m_testVisual3DComponent2.getComponent<Visual3DComponent>();
+				comp.renderer = render;
+			});
 		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/Box.fbx",
 			[&](Mesh* mesh)
 			{
