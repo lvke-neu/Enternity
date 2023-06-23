@@ -38,68 +38,47 @@ namespace Enternity
 		if (scene)
 		{
 			m_frameBuffer1->bind();
+
 			CHECK_GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
 			CHECK_GL_CALL((glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)));
+			
 			//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			auto& cameraComponent = scene->m_sceneCamera.getComponent<CameraComponent>();
 			auto& cameraTransformComponent = scene->m_sceneCamera.getComponent<TransformComponent>();
-			auto& visual3DComponent = scene->m_testVisual3DComponent.getComponent<Visual3DComponent>();
-			auto& v3dTransformComponent = scene->m_testVisual3DComponent.getComponent<TransformComponent>();
-
-			if (visual3DComponent.renderer && visual3DComponent.mesh)
+			
+			for (auto& entity : scene->m_entities)
 			{
-
-
-				const auto& vertexArraies = visual3DComponent.mesh->getVertexArraies();
-				const auto& indexBuffers = visual3DComponent.mesh->getIndexBuffers();
-
-				for (int i = 0; i < vertexArraies.size(); i++)
+				if (entity.second.hasComponent<Visual3DComponent>())
 				{
-					vertexArraies[i]->bind();
-					visual3DComponent.renderer->bind();
-					visual3DComponent.renderer->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * cameraTransformComponent.getInverseWorldMatrix() * v3dTransformComponent.getWorldMatrix());
-					indexBuffers[i]->bind();
-					CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffers[i]->getCount(), GL_UNSIGNED_INT, (void*)0));
-				}
+					auto& visual3DComponent = entity.second.getComponent<Visual3DComponent>();
+					if (visual3DComponent.renderer && visual3DComponent.mesh && visual3DComponent.texture)
+					{
+						const auto& vertexArraies = visual3DComponent.mesh->getVertexArraies();
+						const auto& indexBuffers = visual3DComponent.mesh->getIndexBuffers();
+
+						for (int i = 0; i < vertexArraies.size(); i++)
+						{
+							vertexArraies[i]->bind();
+							visual3DComponent.renderer->bind();
+							TransformComponent tc;
+							visual3DComponent.renderer->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * cameraTransformComponent.getInverseWorldMatrix() *
+								(entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : tc.getWorldMatrix()));
+							visual3DComponent.texture->bind(0);
+							indexBuffers[i]->bind();
+							CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffers[i]->getCount(), GL_UNSIGNED_INT, (void*)0));
+						}
 
 
-				for (int i = 0; i < vertexArraies.size(); i++)
-				{
-					vertexArraies[i]->unbind();
-					visual3DComponent.renderer->unbind();
-					indexBuffers[i]->unbind();
+						for (int i = 0; i < vertexArraies.size(); i++)
+						{
+							vertexArraies[i]->unbind();
+							visual3DComponent.renderer->unbind();
+							indexBuffers[i]->unbind();
+						}
+					}
 				}
 			}
-
-
-			auto& visual3DComponent2 = scene->m_testVisual3DComponent2.getComponent<Visual3DComponent>();
-			auto& v3dTransformComponent2 = scene->m_testVisual3DComponent2.getComponent<TransformComponent>();
-
-			if (visual3DComponent2.renderer && visual3DComponent2.mesh && visual3DComponent2.texture)
-			{
-
-
-				const auto& vertexArraies = visual3DComponent2.mesh->getVertexArraies();
-				const auto& indexBuffers = visual3DComponent2.mesh->getIndexBuffers();
-
-				for (int i = 0; i < vertexArraies.size(); i++)
-				{
-					vertexArraies[i]->bind();
-					visual3DComponent2.renderer->bind();
-					visual3DComponent2.renderer->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * cameraTransformComponent.getInverseWorldMatrix() * v3dTransformComponent2.getWorldMatrix());
-					visual3DComponent2.texture->bind(0);
-					indexBuffers[i]->bind();
-					CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffers[i]->getCount(), GL_UNSIGNED_INT, (void*)0));
-				}
-
-
-				for (int i = 0; i < vertexArraies.size(); i++)
-				{
-					vertexArraies[i]->unbind();
-					visual3DComponent2.renderer->unbind();
-					indexBuffers[i]->unbind();
-				}
-			}
+			
 			m_frameBuffer1->unbind();
 		}
 

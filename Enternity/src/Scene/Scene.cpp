@@ -30,7 +30,7 @@ namespace Enternity
 		m_testVisual3DComponent = createEntity();
 		m_testVisual3DComponent.addComponent<TransformComponent>();
 		auto& v3d  = m_testVisual3DComponent.addComponent<Visual3DComponent>();
-		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test.vert", "assets/shaders/test/test.frag",
+		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
 			[&](Renderer* render)
 			{
 				auto& comp = m_testVisual3DComponent.getComponent<Visual3DComponent>();
@@ -41,6 +41,12 @@ namespace Enternity
 			{
 				auto& comp = m_testVisual3DComponent.getComponent<Visual3DComponent>();
 				comp.mesh = mesh;
+			});
+		Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTextureAsyn("assets/textures/box_diffuse.png",
+			[&](Texture* texture)
+			{
+				auto& comp = m_testVisual3DComponent.getComponent<Visual3DComponent>();
+				comp.texture = texture;
 			});
 		
 		m_testVisual3DComponent2 = createEntity();
