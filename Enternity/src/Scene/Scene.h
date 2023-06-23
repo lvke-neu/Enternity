@@ -20,5 +20,9 @@ namespace Enternity
 
 		Entity m_sceneCamera;
 		CameraController* m_cameraController{ nullptr };
+
+		//TODO:
+		Entity m_testVisual3DComponent;
+		void onLoadFinish();
 	};
 }

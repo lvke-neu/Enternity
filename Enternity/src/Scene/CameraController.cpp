@@ -44,12 +44,12 @@ namespace Enternity
 
 		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::W))
 		{
-			transformComponent.moveZAxis(m_moveSpeed * deltaTime);
+			transformComponent.moveZAxis(-m_moveSpeed * deltaTime);
 		}
 
 		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::S))
 		{
-			transformComponent.moveZAxis(-m_moveSpeed * deltaTime);
+			transformComponent.moveZAxis(m_moveSpeed * deltaTime);
 		}
 
 		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::A))
@@ -94,8 +94,8 @@ namespace Enternity
 			m_deltaMousePosX = mouse.x - m_oldMousePosX;
 			m_deltaMousePosY = mouse.y - m_oldMousePosY;
 
-			transformComponent.rotateAlongXAxis(m_deltaMousePosY * 0.1f);
-			transformComponent.rotateAlongYAxis(m_deltaMousePosX * 0.1f);
+			transformComponent.rotateAlongXAxis(m_deltaMousePosY * 0.01f);
+			transformComponent.rotateAlongYAxis(m_deltaMousePosX * 0.01f);
 
 			m_oldMousePosX = mouse.x;
 			m_oldMousePosY = mouse.y;

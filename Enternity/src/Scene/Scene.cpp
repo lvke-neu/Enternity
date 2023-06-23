@@ -3,6 +3,18 @@
 #include "ECS/CameraComponent.h"
 #include "Common/Macro.h"
 #include "CameraController.h"
+//TODO:
+#include "ECS/Visual3DComponent.h"
+#include "Engine/Engine.h"
+#include "Graphics/GraphicsSystem.h"
+#include "Graphics/RHI/Mesh/MeshProvider.h"
+#include "Graphics/RHI/Mesh/Mesh.h"
+#include "Graphics/RHI/Mesh/VertexArray.h"
+#include "Graphics/RHI/Mesh/IndexBuffer.h"
+#include "Graphics/RHI/Renderer/RendererProvider.h"
+#include "Graphics/RHI/Renderer/Renderer.h"
+
+
 #include <glad/glad.h>
 
 namespace Enternity
@@ -15,6 +27,14 @@ namespace Enternity
 		m_sceneCamera.addComponent<CameraComponent>();
 
 		m_cameraController = new CameraController(&m_sceneCamera);
+
+		//TODO:
+		m_testVisual3DComponent = createEntity();
+		m_testVisual3DComponent.addComponent<TransformComponent>();
+		auto& v3d  = m_testVisual3DComponent.addComponent<Visual3DComponent>();
+		v3d.renderer = Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRenderer("assets/shaders/test/test.vert", "assets/shaders/test/test.frag");
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn(&v3d.mesh, "assets/models/Box.fbx", std::bind(&Scene::onLoadFinish, this));
+		
 	}
 
 	Scene::~Scene()
@@ -60,8 +80,43 @@ namespace Enternity
 	{
 		CHECK_GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
 		CHECK_GL_CALL((glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)));
-
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		auto& cameraComponent = m_sceneCamera.getComponent<CameraComponent>();
-		auto& transformComponent = m_sceneCamera.getComponent<TransformComponent>();
+		auto& cameraTransformComponent = m_sceneCamera.getComponent<TransformComponent>();
+		auto& visual3DComponent = m_testVisual3DComponent.getComponent<Visual3DComponent>();
+		auto& v3dTransformComponent = m_testVisual3DComponent.getComponent<TransformComponent>();
+
+		if (visual3DComponent.renderer && visual3DComponent.mesh)
+		{
+			
+			
+			const auto& vertexArraies = visual3DComponent.mesh->getVertexArraies();
+			const auto& indexBuffers = visual3DComponent.mesh->getIndexBuffers();
+
+			for (int i =0; i<vertexArraies.size();i++)
+			{
+				vertexArraies[i]->bind();
+				visual3DComponent.renderer->bind();
+				visual3DComponent.renderer->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * cameraTransformComponent.getInverseWorldMatrix() * v3dTransformComponent.getWorldMatrix());
+				indexBuffers[i]->bind();
+				CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffers[i]->getCount(), GL_UNSIGNED_INT, (void*)0));
+			}
+
+			
+			for (int i = 0; i < vertexArraies.size(); i++)
+			{
+				vertexArraies[i]->unbind();
+				visual3DComponent.renderer->unbind();
+				indexBuffers[i]->unbind();
+			}
+		}
 	}
+
+	void Scene::onLoadFinish()
+	{
+		auto comp = m_testVisual3DComponent.getComponent<Visual3DComponent>();
+		int i = 0;
+		i++;
+	}
+
 }

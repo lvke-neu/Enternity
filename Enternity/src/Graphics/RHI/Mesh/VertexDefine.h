@@ -20,7 +20,7 @@ namespace Enternity
 	{
 		glm::vec3 position;
 		glm::vec3 normal;
-		glm::vec3 texcoord;
+		glm::vec2 texcoord;
 
 		static std::vector<Layout> layouts;
 	};

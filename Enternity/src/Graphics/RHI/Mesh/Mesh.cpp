@@ -38,4 +38,14 @@ namespace Enternity
 			SAFE_DELETE_SET_NULL(indexBuffer);
 		}
 	}
+
+	const std::vector<VertexArray*>& Mesh::getVertexArraies() const
+	{
+		return m_vertexArraies;
+	}
+
+	const std::vector <IndexBuffer*>& Mesh::getIndexBuffers() const
+	{
+		return m_indexBuffers;
+	}
 }

@@ -95,6 +95,11 @@ namespace Enternity
 		return shader;
 	}
 
+	void Renderer::setMat4(const std::string & name, const glm::mat4 & mat4, bool normalize)
+	{
+		CHECK_GL_CALL(glUniformMatrix4fv(getUniformLocation(name), 1, normalize, &mat4[0][0]));
+	}
+
 	int Renderer::getUniformLocation(const std::string& name)
 	{
 		if (m_uniformLocationCache.find(name) != m_uniformLocationCache.end())

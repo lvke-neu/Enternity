@@ -57,7 +57,7 @@ namespace Enternity
 		//ImGui::ShowDemoWindow(&show);
 		//ImGui::ShowMetricsWindow();
 
-		drawDockSpace();
+		//drawDockSpace();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
