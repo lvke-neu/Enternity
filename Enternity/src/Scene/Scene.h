@@ -3,10 +3,12 @@
 
 namespace Enternity
 {
+	class FrameBuffer;
 	class CameraController;
 	class Mesh;
 	class Scene
 	{
+		friend class RenderSystem;
 	public:
 		Scene();
 		~Scene();

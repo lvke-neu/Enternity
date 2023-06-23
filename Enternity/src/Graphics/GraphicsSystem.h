@@ -1,12 +1,13 @@
 #pragma once
 #include "Common/Macro.h"
+#include "RenderSystem.h"
 
 namespace Enternity
 {
 	class TextureProvider;
 	class RendererProvider;
 	class MeshProvider;
-	class GraphicsSystem
+	class GraphicsSystem : public RenderSystem
 	{
 		friend class Engine;
 	private:

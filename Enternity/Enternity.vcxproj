@@ -120,6 +120,8 @@
     <ClCompile Include="src\Engine\Event\EventSystem.cpp" />
     <ClCompile Include="src\Engine\Log.cpp" />
     <ClCompile Include="src\Engine\RenderView.cpp" />
+    <ClCompile Include="src\Graphics\RenderSystem.cpp" />
+    <ClCompile Include="src\Graphics\RHI\FrameBuffer\FrameBuffer.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\VertexDefine.cpp" />
     <ClCompile Include="src\Scene\CameraController.cpp" />
     <ClCompile Include="src\Scene\ECS\Entity.cpp" />
@@ -171,6 +173,8 @@
     <ClInclude Include="src\Engine\Log.h" />
     <ClInclude Include="src\Common\Macro.h" />
     <ClInclude Include="src\Engine\RenderView.h" />
+    <ClInclude Include="src\Graphics\RenderSystem.h" />
+    <ClInclude Include="src\Graphics\RHI\FrameBuffer\FrameBuffer.h" />
     <ClInclude Include="src\Scene\CameraController.h" />
     <ClInclude Include="src\Scene\ECS\CameraComponent.h" />
     <ClInclude Include="src\Scene\ECS\Entity.h" />
