@@ -4,6 +4,7 @@
 namespace Enternity
 {
 	class CameraController;
+	class Mesh;
 	class Scene
 	{
 	public:
@@ -23,6 +24,6 @@ namespace Enternity
 
 		//TODO:
 		Entity m_testVisual3DComponent;
-		void onLoadFinish();
+		Entity m_testVisual3DComponent2;
 	};
 }

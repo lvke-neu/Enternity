@@ -23,7 +23,8 @@ namespace Enternity
 	{
 		m_sceneCamera = createEntity();
 		
-		m_sceneCamera.addComponent<TransformComponent>();
+		auto& comp = m_sceneCamera.addComponent<TransformComponent>();
+		comp.translation = glm::vec3(0, 0, 20);
 		m_sceneCamera.addComponent<CameraComponent>();
 
 		m_cameraController = new CameraController(&m_sceneCamera);
@@ -33,8 +34,25 @@ namespace Enternity
 		m_testVisual3DComponent.addComponent<TransformComponent>();
 		auto& v3d  = m_testVisual3DComponent.addComponent<Visual3DComponent>();
 		v3d.renderer = Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRenderer("assets/shaders/test/test.vert", "assets/shaders/test/test.frag");
-		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn(&v3d.mesh, "assets/models/Box.fbx", std::bind(&Scene::onLoadFinish, this));
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/nanosuit/nanosuit.obj", 
+			[&](Mesh* mesh) 
+			{
+				auto& comp = m_testVisual3DComponent.getComponent<Visual3DComponent>();
+				comp.mesh = mesh;
+			});
 		
+
+
+		m_testVisual3DComponent2 = createEntity();
+		m_testVisual3DComponent2.addComponent<TransformComponent>();
+		auto& v3d2 = m_testVisual3DComponent2.addComponent<Visual3DComponent>();
+		v3d2.renderer = Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRenderer("assets/shaders/test/test.vert", "assets/shaders/test/test.frag");
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/Box.fbx",
+			[&](Mesh* mesh)
+			{
+				auto& comp = m_testVisual3DComponent2.getComponent<Visual3DComponent>();
+				comp.mesh = mesh;
+			});
 	}
 
 	Scene::~Scene()
@@ -110,13 +128,34 @@ namespace Enternity
 				indexBuffers[i]->unbind();
 			}
 		}
-	}
 
-	void Scene::onLoadFinish()
-	{
-		auto comp = m_testVisual3DComponent.getComponent<Visual3DComponent>();
-		int i = 0;
-		i++;
-	}
 
+		auto& visual3DComponent2 = m_testVisual3DComponent2.getComponent<Visual3DComponent>();
+		auto& v3dTransformComponent2 = m_testVisual3DComponent2.getComponent<TransformComponent>();
+
+		if (visual3DComponent2.renderer && visual3DComponent2.mesh)
+		{
+
+
+			const auto& vertexArraies = visual3DComponent2.mesh->getVertexArraies();
+			const auto& indexBuffers = visual3DComponent2.mesh->getIndexBuffers();
+
+			for (int i = 0; i < vertexArraies.size(); i++)
+			{
+				vertexArraies[i]->bind();
+				visual3DComponent2.renderer->bind();
+				visual3DComponent2.renderer->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * cameraTransformComponent.getInverseWorldMatrix() * v3dTransformComponent2.getWorldMatrix());
+				indexBuffers[i]->bind();
+				CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffers[i]->getCount(), GL_UNSIGNED_INT, (void*)0));
+			}
+
+
+			for (int i = 0; i < vertexArraies.size(); i++)
+			{
+				vertexArraies[i]->unbind();
+				visual3DComponent2.renderer->unbind();
+				indexBuffers[i]->unbind();
+			}
+		}
+	}
 }

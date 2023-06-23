@@ -34,12 +34,12 @@ namespace Enternity
 		return mesh;
 	}
 
-	void MeshProvider::getMeshAsyn(Mesh** mesh, const char* fullPath, std::function<void(void)> callback)
+	void MeshProvider::getMeshAsyn(const char* fullPath, std::function<void(Mesh*)> callback)
 	{
 		MeshAsset* meshAsset = new MeshAsset(fullPath);
 		meshAsset->load();
 
-		m_map.insert({ mesh, {meshAsset, callback} });
+		m_map.insert({ fullPath, {meshAsset, callback} });
 	}
 
 	void MeshProvider::tick(void* data)
@@ -48,9 +48,8 @@ namespace Enternity
 		{
 			if (it->second.meshAsset->getLoadingState() == Asset::loading_state_succeeded)
 			{
-				*it->first = new Mesh(it->second.meshAsset);
+				it->second.callback(new Mesh(it->second.meshAsset));
 				SAFE_DELETE_SET_NULL(it->second.meshAsset);
-				it->second.callback();
 				it = m_map.erase(it);
 			}
 			else

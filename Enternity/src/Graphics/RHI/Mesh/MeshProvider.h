@@ -1,6 +1,7 @@
 #pragma once
 #include <functional>
 #include <unordered_map>
+#include <string>
 
 namespace Enternity
 {
@@ -11,17 +12,17 @@ namespace Enternity
 		struct MeshAsset_Callback
 		{
 			MeshAsset* meshAsset;
-			std::function<void(void)> callback;
+			std::function<void(Mesh*)> callback;
 		};
 	public:
 		MeshProvider();
 		~MeshProvider();
 	public:
 		Mesh* getMeshSync(const char* fullPath);
-		void  getMeshAsyn(Mesh** mesh, const char* fullPath, std::function<void(void)> callback);
+		void  getMeshAsyn(const char* fullPath, std::function<void(Mesh*)> callback);
 	private:
 		void tick(void* data);
 	private:
-		std::unordered_map<Mesh**, MeshAsset_Callback> m_map;
+		std::unordered_map <std::string, MeshAsset_Callback > m_map;
 	};
 }
