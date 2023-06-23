@@ -15,8 +15,8 @@ namespace Enternity
 		ThreadPool::GetInstance().initialize(4);
 
 		m_renderView = new RenderView(1500, 768, "v0.004");
-		m_graphicsSystem = new GraphicsSystem;
 		m_eventSystem = new EventSystem;
+		m_graphicsSystem = new GraphicsSystem;
 		m_sceneManager = new SceneManager;
 		m_timer = new Timer;
 	}
