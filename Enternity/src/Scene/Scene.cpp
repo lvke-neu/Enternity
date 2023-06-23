@@ -57,13 +57,13 @@ namespace Enternity
 				auto& comp = m_testVisual3DComponent2.getComponent<Visual3DComponent>();
 				comp.renderer = render;
 			});
-		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/planet/planet.obj",
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/models/Cube.fbx",
 			[&](Mesh* mesh)
 			{
 				auto& comp = m_testVisual3DComponent2.getComponent<Visual3DComponent>();
 				comp.mesh = mesh;
 			});
-		Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTextureAsyn("assets/textures/box_diffuse.png",
+		Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTextureAsyn("assets/textures/skybox.jpeg",
 			[&](Texture* texture)
 			{
 				auto& comp = m_testVisual3DComponent2.getComponent<Visual3DComponent>();

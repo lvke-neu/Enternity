@@ -52,8 +52,8 @@ namespace Enternity
 
 				if (assimpMesh->HasTextureCoords(0))
 				{
-					vertex.texcoord.x = assimpMesh->mTextureCoords[0][i].x;
-					vertex.texcoord.y = -assimpMesh->mTextureCoords[0][i].y + 1;
+					vertex.texcoord.x = assimpMesh->mTextureCoords[0][j].x;
+					vertex.texcoord.y = -assimpMesh->mTextureCoords[0][j].y + 1;
 				}
 
 				vertices.push_back(vertex);
