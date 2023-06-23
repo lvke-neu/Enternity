@@ -106,6 +106,12 @@ namespace Enternity
 		auto it = m_entities.find(id);
 		if (it != m_entities.end())
 		{
+			if (it->second.hasComponent<Visual3DComponent>())
+			{
+				SAFE_DELETE_SET_NULL(it->second.getComponent<Visual3DComponent>().mesh);
+				SAFE_DELETE_SET_NULL(it->second.getComponent<Visual3DComponent>().renderer);
+				SAFE_DELETE_SET_NULL(it->second.getComponent<Visual3DComponent>().texture);
+			}
 			m_entities.erase(id);
 		}
 	}
