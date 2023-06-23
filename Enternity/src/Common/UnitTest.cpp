@@ -17,7 +17,7 @@ using namespace Enternity;
 void UnitTest::Test()
 {
 	Mesh* mesh = Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshSync("assets/models/2nrtbod1out/2nrtbod1out.obj");
-	Texture* texture = Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTexture("assets/textures/skybox.jpeg");
+	Texture* texture = Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTextureSync("assets/textures/skybox.jpeg");
 	Renderer* renderer = Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererSync("assets/shaders/Phong.vert", "assets/shaders/Phong.frag");
 
 	//MeshAsset ma("assets/models/2nrtbod1out/2nrtbod1out.obj");
