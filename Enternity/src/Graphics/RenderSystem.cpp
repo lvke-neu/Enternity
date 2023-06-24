@@ -36,7 +36,17 @@ namespace Enternity
 
 	void RenderSystem::render(Scene* scene)
 	{
+
 		render_path_1(scene);
+
+	}
+
+	bool RenderSystem::cull(Scene* scene)
+	{
+		auto& cameraTransformComponent = scene->m_sceneCamera.getComponent<TransformComponent>();
+		if (cameraTransformComponent.rotation.y > 54)
+			return true;
+		return false;
 	}
 
 	void RenderSystem::render_path_1(Scene* scene)

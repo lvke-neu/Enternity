@@ -12,7 +12,7 @@ namespace Enternity
 	void Engine::initialize()
 	{
 		Log::Init();
-		ThreadPool::GetInstance().initialize(4);
+		ThreadPool::GetInstance().initialize(8);
 
 		m_renderView = new RenderView(1500, 768, "v0.004");
 		m_eventSystem = new EventSystem;

@@ -13,6 +13,7 @@ namespace Enternity
 		void render(Scene* scene);
 		FrameBuffer* getFrameBuffer();
 	private:
+		bool cull(Scene* scene);
 		void render_path_1(Scene* scene);
 		void render_path_2();
 
