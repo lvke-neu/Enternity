@@ -46,9 +46,9 @@ namespace Enternity
 				vertex.position.y = assimpMesh->mVertices[j].y;
 				vertex.position.z = assimpMesh->mVertices[j].z;
 
-				vertex.normal.x = assimpMesh->mNormals[i].x;
-				vertex.normal.y = assimpMesh->mNormals[i].y;
-				vertex.normal.z = assimpMesh->mNormals[i].z;
+				vertex.normal.x = assimpMesh->mNormals[j].x;
+				vertex.normal.y = assimpMesh->mNormals[j].y;
+				vertex.normal.z = assimpMesh->mNormals[j].z;
 
 				if (assimpMesh->HasTextureCoords(0))
 				{

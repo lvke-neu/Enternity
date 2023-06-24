@@ -16,51 +16,119 @@ namespace Enternity
 {
 	Scene::Scene()
 	{
+		//scene camera
 		m_sceneCamera = createEntity();
-		
 		auto& comp = m_sceneCamera.addComponent<TransformComponent>();
 		comp.translation = glm::vec3(0, 0, 19);
 		comp.rotation = glm::vec3(21, 0, 0);
 		m_sceneCamera.addComponent<CameraComponent>();
-
 		m_cameraController = new CameraController(&m_sceneCamera);
 
-		//TODO:
-		for (int i = 0; i < 200; i++)
-		{
-			auto entity = createEntity();
-			auto& tfc = entity.addComponent<TransformComponent>();
-			tfc.translation.x += i;
-			entity.addComponent<Visual3DComponent>();
-			Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
-				[=](Renderer* render)
-				{
-					auto& comp = entity.getComponent<Visual3DComponent>();
-					comp.renderer = render;
-				});
-			Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/nanosuit/nanosuit.obj",
-				[=](Mesh* mesh)
-				{
-					auto& comp = entity.getComponent<Visual3DComponent>();
-					comp.mesh = mesh;
-				});
-		}
-
-
 		
-		m_testVisual3DComponent2 = createEntity();
-		m_testVisual3DComponent2.addComponent<TransformComponent>();
-		auto& v3d2 = m_testVisual3DComponent2.addComponent<Visual3DComponent>();
+		//test entity 1
+		auto entity = createEntity();
+		entity.addComponent<TransformComponent>();
+		entity.addComponent<Visual3DComponent>();
 		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
-			[&](Renderer* render)
+			[=](Renderer* render)
 			{
-				auto& comp = m_testVisual3DComponent2.getComponent<Visual3DComponent>();
+				auto& comp = entity.getComponent<Visual3DComponent>();
+				comp.renderer = render;
+			});
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/nanosuit/nanosuit.obj",
+			[=](Mesh* mesh)
+			{
+				auto& comp = entity.getComponent<Visual3DComponent>();
+				comp.mesh = mesh;
+			});
+		
+		//test entity 2
+		auto entity2 = createEntity();
+		auto& tfc2 = entity2.addComponent<TransformComponent>();
+		tfc2.translation = glm::vec3(10, 10, 0);
+		entity2.addComponent<Visual3DComponent>();
+		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
+			[=](Renderer* render)
+			{
+				auto& comp = entity2.getComponent<Visual3DComponent>();
+				comp.renderer = render;
+			});
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/planet/planet.obj",
+			[=](Mesh* mesh)
+			{
+				auto& comp = entity2.getComponent<Visual3DComponent>();
+				comp.mesh = mesh;
+			});
+
+		//test entity 3
+		auto entity3 = createEntity();
+		entity3.addComponent<TransformComponent>();
+		entity3.addComponent<Visual3DComponent>();
+		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
+			[=](Renderer* render)
+			{
+				auto& comp = entity3.getComponent<Visual3DComponent>();
 				comp.renderer = render;
 			});
 		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/models/Cube.fbx",
-			[&](Mesh* mesh)
+			[=](Mesh* mesh)
 			{
-				auto& comp = m_testVisual3DComponent2.getComponent<Visual3DComponent>();
+				auto& comp = entity3.getComponent<Visual3DComponent>();
+				comp.mesh = mesh;
+			});
+
+		//test entity 4
+		auto entity4 = createEntity();
+		auto& tfc4 = entity4.addComponent<TransformComponent>();
+		tfc4.translation = glm::vec3(-10, 10, 0);
+		entity4.addComponent<Visual3DComponent>();
+		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
+			[=](Renderer* render)
+			{
+				auto& comp = entity4.getComponent<Visual3DComponent>();
+				comp.renderer = render;
+			});
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/Madara_Uchiha/Madara_Uchiha.obj",
+			[=](Mesh* mesh)
+			{
+				auto& comp = entity4.getComponent<Visual3DComponent>();
+				comp.mesh = mesh;
+			});
+
+		//test entity 5
+		auto entity5 = createEntity();
+		auto& tfc5 = entity5.addComponent<TransformComponent>();
+		tfc5.translation = glm::vec3(-10, 0, 0);
+		entity5.addComponent<Visual3DComponent>();
+		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
+			[=](Renderer* render)
+			{
+				auto& comp = entity5.getComponent<Visual3DComponent>();
+				comp.renderer = render;
+			});
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/models/Pipe.fbx",
+			[=](Mesh* mesh)
+			{
+				auto& comp = entity5.getComponent<Visual3DComponent>();
+				comp.mesh = mesh;
+			});
+
+		//test entity 6
+		auto entity6 = createEntity();
+		auto& tfc6 = entity6.addComponent<TransformComponent>();
+		tfc6.translation = glm::vec3(-10, 5, 0);
+		tfc6.scale = glm::vec3(0.01, 0.01, 0.01);
+		entity6.addComponent<Visual3DComponent>();
+		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
+			[=](Renderer* render)
+			{
+				auto& comp = entity6.getComponent<Visual3DComponent>();
+				comp.renderer = render;
+			});
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/house/house.obj",
+			[=](Mesh* mesh)
+			{
+				auto& comp = entity6.getComponent<Visual3DComponent>();
 				comp.mesh = mesh;
 			});
 	}
