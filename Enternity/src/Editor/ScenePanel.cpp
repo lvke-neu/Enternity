@@ -94,6 +94,12 @@ namespace Enternity
 		DrawVec3("Rotation", rotation, glm::vec3(0.0f));
 		DrawVec3("Scale", scale, glm::vec3(1.0f));
 
+		ImGui::Separator();
+		for (const auto& entity : Engine::GetInstance().getSceneManager()->getCurrentScene()->m_entities)
+		{
+			ImGui::Text(std::to_string((int)entity.first).c_str());
+		}
+
 		ImGui::End();
 	}
 }
