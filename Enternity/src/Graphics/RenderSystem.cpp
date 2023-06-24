@@ -16,15 +16,19 @@
 
 namespace Enternity
 {
+	//TODO: move to class Scene
 	static Texture* defaultTexture =nullptr;
+	
 	RenderSystem::RenderSystem()
 	{
 		m_frameBuffer1 = new FrameBuffer;
 		Engine::GetInstance().getEventSystem()->registerEvent(EventType::WindowResize, BIND(RenderSystem::onWindowResize));				
-		
+	
+		//TODO: move to class Scene
 		TextureAsset ta("assets/textures/white_background.jpeg");
 		ta.load(0);
 		defaultTexture = new Texture(&ta);
+	
 	}
 
 	RenderSystem::~RenderSystem()
