@@ -9,6 +9,5 @@ namespace Enternity
 	{
 		Mesh* mesh{ nullptr };
 		Renderer* renderer{ nullptr };
-		Texture* texture{ nullptr };
 	};
 }

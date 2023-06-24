@@ -2,7 +2,12 @@
 #include "MeshAsset.h"
 #include "VertexArray.h"
 #include "IndexBuffer.h"
+#include "../Texture/Texture.h"
 #include "Common/Macro.h"
+#include "Engine/Engine.h"
+#include "Graphics/GraphicsSystem.h"
+#include "Graphics/RHI/Texture/Texture.h"
+#include "Graphics/RHI/Texture/TextureProvider.h"
 
 namespace Enternity
 {
@@ -12,6 +17,7 @@ namespace Enternity
 		{
 			m_vertexArraies.resize(meshAsset->getVertices().size());
 			m_indexBuffers.resize(meshAsset->getIndices().size());
+			m_textures.resize(meshAsset->getMaterials().size());
 
 			for (int i = 0; i < m_vertexArraies.size(); ++i)
 			{
@@ -22,7 +28,15 @@ namespace Enternity
 			{
 				m_indexBuffers[i] = new IndexBuffer{ meshAsset, (unsigned int)i };
 			}
-
+			
+			for (int i = 0; i < m_textures.size(); ++i)
+			{
+				Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTextureAsyn(meshAsset->getMaterials()[i].c_str(),
+					[=](Texture* texture)
+					{
+						m_textures[i] = texture;
+					});
+			}
 		}
 	}
 
@@ -37,6 +51,11 @@ namespace Enternity
 		{
 			SAFE_DELETE_SET_NULL(indexBuffer);
 		}
+
+		for (auto& texture : m_textures)
+		{
+			SAFE_DELETE_SET_NULL(texture);
+		}
 	}
 
 	const std::vector<VertexArray*>& Mesh::getVertexArraies() const
@@ -47,5 +66,10 @@ namespace Enternity
 	const std::vector <IndexBuffer*>& Mesh::getIndexBuffers() const
 	{
 		return m_indexBuffers;
+	}	
+	
+	const std::vector <Texture*>& Mesh::getTextures() const
+	{
+		return m_textures;
 	}
 }

@@ -51,6 +51,12 @@ namespace Enternity
 		{
 			return m_registry->get<T>(m_enttId);
 		}
+
+		template<typename T>
+		T& getComponent() const 
+		{
+			return m_registry->get<T>(m_enttId);
+		}
 	};
 
 	inline entt::entity Entity::getEnttID()

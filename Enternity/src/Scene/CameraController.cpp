@@ -94,8 +94,8 @@ namespace Enternity
 			m_deltaMousePosX = mouse.x - m_oldMousePosX;
 			m_deltaMousePosY = mouse.y - m_oldMousePosY;
 
-			transformComponent.rotateAlongXAxis(m_deltaMousePosY * 0.01f);
-			transformComponent.rotateAlongYAxis(m_deltaMousePosX * 0.01f);
+			transformComponent.rotateAlongXAxis(m_deltaMousePosY * 0.1f);
+			transformComponent.rotateAlongYAxis(m_deltaMousePosX * 0.1f);
 
 			m_oldMousePosX = mouse.x;
 			m_oldMousePosY = mouse.y;

@@ -9,6 +9,7 @@ namespace Enternity
 	class Scene
 	{
 		friend class RenderSystem;
+		friend class ScenePanel;
 	public:
 		Scene();
 		~Scene();

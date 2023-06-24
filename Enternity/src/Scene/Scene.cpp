@@ -8,8 +8,6 @@
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/RendererProvider.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
-#include "Graphics/RHI/Texture/Texture.h"
-#include "Graphics/RHI/Texture/TextureProvider.h"
 #include "Common/Macro.h"
 #include "CameraController.h"
 
@@ -21,33 +19,34 @@ namespace Enternity
 		m_sceneCamera = createEntity();
 		
 		auto& comp = m_sceneCamera.addComponent<TransformComponent>();
-		comp.translation = glm::vec3(0, 0, 20);
+		comp.translation = glm::vec3(0, 0, 19);
+		comp.rotation = glm::vec3(21, 0, 0);
 		m_sceneCamera.addComponent<CameraComponent>();
 
 		m_cameraController = new CameraController(&m_sceneCamera);
 
 		//TODO:
-		m_testVisual3DComponent = createEntity();
-		m_testVisual3DComponent.addComponent<TransformComponent>();
-		auto& v3d  = m_testVisual3DComponent.addComponent<Visual3DComponent>();
-		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
-			[&](Renderer* render)
-			{
-				auto& comp = m_testVisual3DComponent.getComponent<Visual3DComponent>();
-				comp.renderer = render;
-			});
-		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/nanosuit/nanosuit.obj", 
-			[&](Mesh* mesh) 
-			{
-				auto& comp = m_testVisual3DComponent.getComponent<Visual3DComponent>();
-				comp.mesh = mesh;
-			});
-		Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTextureAsyn("assets/textures/box_diffuse.png",
-			[&](Texture* texture)
-			{
-				auto& comp = m_testVisual3DComponent.getComponent<Visual3DComponent>();
-				comp.texture = texture;
-			});
+		for (int i = 0; i < 200; i++)
+		{
+			auto entity = createEntity();
+			auto& tfc = entity.addComponent<TransformComponent>();
+			tfc.translation.x += i;
+			entity.addComponent<Visual3DComponent>();
+			Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
+				[=](Renderer* render)
+				{
+					auto& comp = entity.getComponent<Visual3DComponent>();
+					comp.renderer = render;
+				});
+			Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/nanosuit/nanosuit.obj",
+				[=](Mesh* mesh)
+				{
+					auto& comp = entity.getComponent<Visual3DComponent>();
+					comp.mesh = mesh;
+				});
+		}
+
+
 		
 		m_testVisual3DComponent2 = createEntity();
 		m_testVisual3DComponent2.addComponent<TransformComponent>();
@@ -63,12 +62,6 @@ namespace Enternity
 			{
 				auto& comp = m_testVisual3DComponent2.getComponent<Visual3DComponent>();
 				comp.mesh = mesh;
-			});
-		Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTextureAsyn("assets/textures/skybox.jpeg",
-			[&](Texture* texture)
-			{
-				auto& comp = m_testVisual3DComponent2.getComponent<Visual3DComponent>();
-				comp.texture = texture;
 			});
 	}
 
@@ -111,7 +104,6 @@ namespace Enternity
 			{
 				SAFE_DELETE_SET_NULL(it->second.getComponent<Visual3DComponent>().mesh);
 				SAFE_DELETE_SET_NULL(it->second.getComponent<Visual3DComponent>().renderer);
-				SAFE_DELETE_SET_NULL(it->second.getComponent<Visual3DComponent>().texture);
 			}
 			m_entities.erase(id);
 		}

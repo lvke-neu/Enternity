@@ -8,13 +8,13 @@ namespace Enternity
 {
 	class MeshAsset : public Asset
 	{
-		friend class Texture;
 	public:
 		MeshAsset(const std::string& fullPath);
 		~MeshAsset();
 	public:
 		const std::vector<std::vector<Vertex_Positon_Normal_Texcoord>>& getVertices() const;
 		const std::vector<std::vector<unsigned int>>& getIndices() const;
+		const std::vector<std::string>& getMaterials() const;
 		std::vector<Layout> getLayouts() const;
 		unsigned int getVertexDataSize(unsigned int location) const;
 		unsigned int getIndexDataSize(unsigned int location) const;
@@ -25,6 +25,7 @@ namespace Enternity
 
 		std::vector<std::vector<Vertex_Positon_Normal_Texcoord>> m_vertices;
 		std::vector<std::vector<unsigned int>> m_indices;
+		std::vector<std::string> m_materials;
 	};
 
 	inline const std::vector<std::vector<Vertex_Positon_Normal_Texcoord>>& MeshAsset::getVertices() const
@@ -35,6 +36,11 @@ namespace Enternity
 	inline const std::vector<std::vector<unsigned int>>& MeshAsset::getIndices() const
 	{
 		return m_indices;
+	}
+
+	inline const std::vector<std::string>& MeshAsset::getMaterials() const
+	{
+		return m_materials;
 	}
 
 	inline std::vector<Layout> MeshAsset::getLayouts() const

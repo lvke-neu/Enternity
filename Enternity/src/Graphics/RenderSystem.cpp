@@ -6,6 +6,7 @@
 #include "RHI/Mesh/IndexBuffer.h"
 #include "RHI/Renderer/Renderer.h"
 #include "RHI/Texture/Texture.h"
+#include "RHI/Texture/TextureAsset.h"
 #include "Engine/Engine.h"
 #include "Engine/Event/EventSystem.h"
 #include "Scene/ECS/CameraComponent.h"
@@ -15,17 +16,22 @@
 
 namespace Enternity
 {
-
+	static Texture* defaultTexture =nullptr;
 	RenderSystem::RenderSystem()
 	{
 		m_frameBuffer1 = new FrameBuffer;
-		Engine::GetInstance().getEventSystem()->registerEvent(EventType::WindowResize, BIND(RenderSystem::onWindowResize));
+		Engine::GetInstance().getEventSystem()->registerEvent(EventType::WindowResize, BIND(RenderSystem::onWindowResize));				
+		
+		TextureAsset ta("assets/textures/white_background.jpeg");
+		ta.load(0);
+		defaultTexture = new Texture(&ta);
 	}
 
 	RenderSystem::~RenderSystem()
 	{
 		Engine::GetInstance().getEventSystem()->unRegisterEvent(EventType::WindowResize, BIND(RenderSystem::onWindowResize));
 		SAFE_DELETE_SET_NULL(m_frameBuffer1);
+		SAFE_DELETE_SET_NULL(defaultTexture);
 	}
 
 	void RenderSystem::render(Scene* scene)
@@ -51,7 +57,7 @@ namespace Enternity
 				if (entity.second.hasComponent<Visual3DComponent>())
 				{
 					auto& visual3DComponent = entity.second.getComponent<Visual3DComponent>();
-					if (visual3DComponent.renderer && visual3DComponent.mesh && visual3DComponent.texture)
+					if (visual3DComponent.renderer && visual3DComponent.mesh)
 					{
 						const auto& vertexArraies = visual3DComponent.mesh->getVertexArraies();
 						const auto& indexBuffers = visual3DComponent.mesh->getIndexBuffers();
@@ -63,18 +69,33 @@ namespace Enternity
 							TransformComponent tc;
 							visual3DComponent.renderer->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * cameraTransformComponent.getInverseWorldMatrix() *
 								(entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : tc.getWorldMatrix()));
-							visual3DComponent.texture->bind(0);
+							
+							if (visual3DComponent.mesh->getTextures()[i])
+							{
+								visual3DComponent.mesh->getTextures()[i]->bind(0);
+							}
+							else
+							{
+								defaultTexture->bind(0);
+							}
+							
 							indexBuffers[i]->bind();
 							CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffers[i]->getCount(), GL_UNSIGNED_INT, (void*)0));
-						}
 
+							if (visual3DComponent.mesh->getTextures()[i])
+							{
+								visual3DComponent.mesh->getTextures()[i]->unbind();
+							}
+							else
+							{
+								defaultTexture->unbind();
+							}
 
-						for (int i = 0; i < vertexArraies.size(); i++)
-						{
 							vertexArraies[i]->unbind();
 							visual3DComponent.renderer->unbind();
 							indexBuffers[i]->unbind();
 						}
+
 					}
 				}
 			}

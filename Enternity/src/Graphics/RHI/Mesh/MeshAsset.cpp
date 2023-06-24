@@ -61,12 +61,25 @@ namespace Enternity
 
 			for (unsigned int j = 0; j < assimpMesh->mNumFaces; j++)
 			{
-				for (unsigned int k = 0; k < assimpMesh->mFaces[i].mNumIndices; k++)
+				for (unsigned int k = 0; k < assimpMesh->mFaces[j].mNumIndices; k++)
 				{
 					indices.push_back(assimpMesh->mFaces[j].mIndices[k]);
 				}
 			}
+	
+			aiMaterial* material = scene->mMaterials[assimpMesh->mMaterialIndex];
+			aiString textureFilepath;
+			material->GetTexture(aiTextureType_DIFFUSE, 0, &textureFilepath);
 
+			//if (std::string(textureFilepath.C_Str()) == "")
+			//{
+			//	m_materials.push_back("assets/textures/white_background.jpeg");
+			//}
+			//else
+			//{
+			//	m_materials.push_back(m_fullPath.substr(0, m_fullPath.find_last_of('/')) + "/" + textureFilepath.C_Str());
+			//}
+			m_materials.push_back(m_fullPath.substr(0, m_fullPath.find_last_of('/')) + "/" + textureFilepath.C_Str());
 			m_vertices.push_back(vertices);
 			m_indices.push_back(indices);
 		}
