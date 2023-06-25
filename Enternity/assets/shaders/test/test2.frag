@@ -7,5 +7,5 @@ layout (binding = 0) uniform sampler2D u_texture;
 
 void main()
 {
-	fragColor = texture(u_texture, v_texcoord);;
+	fragColor = texture(u_texture, v_texcoord);
 };

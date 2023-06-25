@@ -175,6 +175,7 @@
     <ClInclude Include="src\Engine\RenderView.h" />
     <ClInclude Include="src\Graphics\RenderSystem.h" />
     <ClInclude Include="src\Graphics\RHI\FrameBuffer\FrameBuffer.h" />
+    <ClInclude Include="src\Graphics\RHI\Renderer\RenderPass.h" />
     <ClInclude Include="src\Scene\CameraController.h" />
     <ClInclude Include="src\Scene\ECS\CameraComponent.h" />
     <ClInclude Include="src\Scene\ECS\Entity.h" />

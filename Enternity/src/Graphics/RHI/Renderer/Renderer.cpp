@@ -117,4 +117,32 @@ namespace Enternity
 		}
 		return location;
 	}
+
+	void Enternity::Renderer::applyRenderPass()
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, m_renderPass.fillMode + 0x1B00);
+		m_renderPass.enableDepth ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+	}	
+	
+	void Enternity::Renderer::reCompile()
+	{
+		RendererAsset vsRendererAsset(m_vsShader);
+		RendererAsset psRendererAsset(m_psShader);
+		vsRendererAsset.load(0);
+		psRendererAsset.load(0);
+
+		if (vsRendererAsset.getLoadingState() == Asset::loading_state_succeeded &&
+			psRendererAsset.getLoadingState() == Asset::loading_state_succeeded )
+		{
+			std::string vsStr((char*)vsRendererAsset.getBlob()->getData(), vsRendererAsset.getBlob()->getLength());
+			std::string psStr((char*)psRendererAsset.getBlob()->getData(), psRendererAsset.getBlob()->getLength());
+			
+			unsigned int tmpRenderId = createProgram(vsStr.c_str(), psStr.c_str());
+			if (tmpRenderId)
+			{
+				CHECK_GL_CALL(glDeleteProgram(m_renderId));
+				m_renderId = tmpRenderId;
+			}
+		}			
+	}
 }

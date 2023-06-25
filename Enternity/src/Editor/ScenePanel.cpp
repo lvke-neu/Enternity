@@ -84,8 +84,6 @@ namespace Enternity
 		ImGui::PopID();
 	}
 
-
-	template<typename T>
 	void DrawComponent(const std::string& name, std::function<void()> uiFunction)
 	{
 		ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
@@ -112,7 +110,7 @@ namespace Enternity
 	{
 		if (entity.hasComponent<TransformComponent>())
 		{
-			DrawComponent<TransformComponent>("TransformComponent",
+			DrawComponent("TransformComponent",
 				[&]()
 				{
 					auto& transformComponent = entity.getComponent<TransformComponent>();
@@ -128,7 +126,7 @@ namespace Enternity
 
 		if (entity.hasComponent<CameraComponent>())
 		{
-			DrawComponent<CameraComponent>("CameraComponent",
+			DrawComponent("CameraComponent",
 				[&]()
 				{
 					auto& cameraComponent = entity.getComponent<CameraComponent>();
@@ -142,19 +140,66 @@ namespace Enternity
 
 		if (entity.hasComponent<Visual3DComponent>())
 		{
-			DrawComponent<Visual3DComponent>("Visual3DComponent",
+			DrawComponent("Visual3DComponent",
 				[&]()
 				{
 					auto& visual3DComponent = entity.getComponent<Visual3DComponent>();
-					if (visual3DComponent.mesh)
-					{
-						ImGui::Text(("Mesh:" + visual3DComponent.mesh->getFullPath()).c_str());
-					}
-					if (visual3DComponent.renderer)
-					{
-						ImGui::Text(("VsShader:" + visual3DComponent.renderer->getVsShader()).c_str());
-						ImGui::Text(("PsShader:" + visual3DComponent.renderer->getPsShader()).c_str());
-					}
+
+					DrawComponent("Mesh",
+						[&]()
+						{
+							
+							if (visual3DComponent.mesh)
+							{
+								ImGui::Text(("Mesh:" + visual3DComponent.mesh->getFullPath()).c_str());
+							}
+
+						});
+
+					DrawComponent("Renderer",
+						[&]()
+						{
+							if (visual3DComponent.renderer)
+							{
+								ImGui::Text(("VsShader:" + visual3DComponent.renderer->getVsShader()).c_str());
+								ImGui::Text(("PsShader:" + visual3DComponent.renderer->getPsShader()).c_str());
+								if (ImGui::Button("ReCompile"))
+								{
+									visual3DComponent.renderer->reCompile();
+								}
+								DrawComponent("RenderPass",
+									[&]()
+									{
+
+										RenderPass renderPass = visual3DComponent.renderer->getRenderPass();
+										const char* bodyTypeString[] = { "Point", "Line", "Fill" };
+										const char* currentBodyTypeString = bodyTypeString[renderPass.fillMode];
+										if (ImGui::BeginCombo("FillMode", currentBodyTypeString))
+										{
+											for (int i = 0; i < 3; i++)
+											{
+												bool isSelected = currentBodyTypeString == bodyTypeString[i];
+												if (ImGui::Selectable(bodyTypeString[i], isSelected))
+												{
+													currentBodyTypeString = bodyTypeString[i];
+													renderPass.fillMode = (FillMode)i;
+													visual3DComponent.renderer->setRenderPass(renderPass);
+												}
+												if (isSelected)
+													ImGui::SetItemDefaultFocus();
+											}
+											ImGui::EndCombo();
+										}
+
+										if (ImGui::Checkbox("EnableDepth", &renderPass.enableDepth))
+										{
+											visual3DComponent.renderer->setRenderPass(renderPass);
+										}
+
+									});								
+							}
+						});
+					
 				});
 		}
 	}

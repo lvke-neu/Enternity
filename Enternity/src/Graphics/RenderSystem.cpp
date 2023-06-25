@@ -41,7 +41,7 @@ namespace Enternity
 	void RenderSystem::render(Scene* scene)
 	{
 
-		renderPass_Color(scene);
+		renderPath_Color(scene);
 
 	}
 
@@ -53,7 +53,7 @@ namespace Enternity
 		return false;
 	}
 
-	void RenderSystem::renderPass_Color(Scene* scene)
+	void RenderSystem::renderPath_Color(Scene* scene)
 	{
 		if (scene)
 		{
@@ -80,6 +80,7 @@ namespace Enternity
 						{
 							vertexArraies[i]->bind();
 							visual3DComponent.renderer->bind();
+							visual3DComponent.renderer->applyRenderPass();
 							TransformComponent tc;
 							visual3DComponent.renderer->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * cameraTransformComponent.getInverseWorldMatrix() *
 								(entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : tc.getWorldMatrix()));
@@ -119,7 +120,7 @@ namespace Enternity
 
 	}
 
-	void RenderSystem::renderPass_ShadowMap()
+	void RenderSystem::renderPath_ShadowMap()
 	{
 
 	}
