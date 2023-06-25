@@ -14,6 +14,7 @@ namespace Enternity
 		~RendererAsset();
 	public:
 		Blob* getBlob() const;
+		const std::string& getFullPath() const;
 	private:
 		virtual void doLoad() override;
 	private:
@@ -24,6 +25,11 @@ namespace Enternity
 	inline Blob* RendererAsset::getBlob() const
 	{
 		return m_content;
+	}
+
+	inline const std::string& RendererAsset::getFullPath() const
+	{
+		return m_fullPath;
 	}
 }
 

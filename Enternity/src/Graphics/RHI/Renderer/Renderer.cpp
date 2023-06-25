@@ -14,6 +14,9 @@ namespace Enternity
 			std::string vsStr((char*)vsRendererAsset->getBlob()->getData(), vsRendererAsset->getBlob()->getLength());
 			std::string psStr((char*)psRendererAsset->getBlob()->getData(), psRendererAsset->getBlob()->getLength());
 			m_renderId = createProgram(vsStr.c_str(), psStr.c_str());
+
+			m_vsShader = vsRendererAsset->getFullPath();
+			m_psShader = psRendererAsset->getFullPath();
 		}
 	}
 

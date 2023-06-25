@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "NameComponent.h"
 
 namespace Enternity
 {
@@ -6,5 +7,6 @@ namespace Enternity
 	{
 		m_registry = registry;
 		m_enttId = m_registry->create();
+		addComponent<NameComponent>();
 	}
 }

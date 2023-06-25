@@ -41,7 +41,7 @@ namespace Enternity
 	void RenderSystem::render(Scene* scene)
 	{
 
-		render_path_1(scene);
+		renderPass_Color(scene);
 
 	}
 
@@ -53,7 +53,7 @@ namespace Enternity
 		return false;
 	}
 
-	void RenderSystem::render_path_1(Scene* scene)
+	void RenderSystem::renderPass_Color(Scene* scene)
 	{
 		if (scene)
 		{
@@ -119,7 +119,7 @@ namespace Enternity
 
 	}
 
-	void RenderSystem::render_path_2()
+	void RenderSystem::renderPass_ShadowMap()
 	{
 
 	}

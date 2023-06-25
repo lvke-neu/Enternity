@@ -2,6 +2,7 @@
 #include "ECS/TransformComponent.h"
 #include "ECS/CameraComponent.h"
 #include "ECS/Visual3DComponent.h"
+#include "ECS/NameComponent.h"
 #include "Engine/Engine.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/Mesh/MeshProvider.h"
@@ -18,6 +19,7 @@ namespace Enternity
 	{
 		//scene camera
 		m_sceneCamera = createEntity();
+		m_sceneCamera.getComponent<NameComponent>().name = "Camera";
 		auto& comp = m_sceneCamera.addComponent<TransformComponent>();
 		comp.translation = glm::vec3(0, 0, 19);
 		comp.rotation = glm::vec3(21, 0, 0);
@@ -27,6 +29,7 @@ namespace Enternity
 		
 		//test entity 1
 		auto entity = createEntity();
+		entity.getComponent<NameComponent>().name = "nanosuit";
 		entity.addComponent<TransformComponent>();
 		entity.addComponent<Visual3DComponent>();
 		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
@@ -44,6 +47,7 @@ namespace Enternity
 		
 		//test entity 2
 		auto entity2 = createEntity();
+		entity2.getComponent<NameComponent>().name = "planet";
 		auto& tfc2 = entity2.addComponent<TransformComponent>();
 		tfc2.translation = glm::vec3(10, 10, 0);
 		entity2.addComponent<Visual3DComponent>();
@@ -62,6 +66,7 @@ namespace Enternity
 
 		//test entity 3
 		auto entity3 = createEntity();
+		entity3.getComponent<NameComponent>().name = "Cube";
 		entity3.addComponent<TransformComponent>();
 		entity3.addComponent<Visual3DComponent>();
 		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
@@ -79,6 +84,7 @@ namespace Enternity
 
 		//test entity 4
 		auto entity4 = createEntity();
+		entity4.getComponent<NameComponent>().name = "Madara_Uchiha";
 		auto& tfc4 = entity4.addComponent<TransformComponent>();
 		tfc4.translation = glm::vec3(-10, 10, 0);
 		entity4.addComponent<Visual3DComponent>();
@@ -97,6 +103,7 @@ namespace Enternity
 
 		//test entity 5
 		auto entity5 = createEntity();
+		entity5.getComponent<NameComponent>().name = "Pipe";
 		auto& tfc5 = entity5.addComponent<TransformComponent>();
 		tfc5.translation = glm::vec3(-10, 0, 0);
 		entity5.addComponent<Visual3DComponent>();
@@ -115,6 +122,7 @@ namespace Enternity
 
 		//test entity 6
 		auto entity6 = createEntity();
+		entity6.getComponent<NameComponent>().name = "house";
 		auto& tfc6 = entity6.addComponent<TransformComponent>();
 		tfc6.translation = glm::vec3(-10, 5, 0);
 		tfc6.scale = glm::vec3(0.01, 0.01, 0.01);

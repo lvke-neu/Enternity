@@ -14,8 +14,8 @@ namespace Enternity
 		FrameBuffer* getFrameBuffer();
 	private:
 		bool cull(Scene* scene);
-		void render_path_1(Scene* scene);
-		void render_path_2();
+		void renderPass_Color(Scene* scene);
+		void renderPass_ShadowMap();
 
 		void onWindowResize(void* data);
 	private:

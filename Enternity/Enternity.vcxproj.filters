@@ -328,6 +328,9 @@
     <ClInclude Include="src\Graphics\RenderSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scene\ECS\NameComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\TestWindowsFileAsset.txt" />

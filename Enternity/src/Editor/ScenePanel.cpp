@@ -9,7 +9,9 @@
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/Visual3DComponent.h"
 #include "Scene/ECS/CameraComponent.h"
+#include "Scene/ECS/NameComponent.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
+#include "Graphics/RHI/Renderer/Renderer.h"
 
 namespace Enternity
 {
@@ -123,6 +125,38 @@ namespace Enternity
 					DrawVec3("Scale", scale, glm::vec3(1.0f));
 				});
 		}
+
+		if (entity.hasComponent<CameraComponent>())
+		{
+			DrawComponent<CameraComponent>("CameraComponent",
+				[&]()
+				{
+					auto& cameraComponent = entity.getComponent<CameraComponent>();
+					ImGui::DragFloat("FovY", &cameraComponent.fovy, 1.0f, -9999.0f, 9999.0f);
+					ImGui::DragFloat("Aspect", &cameraComponent.aspect, 1.0f, -9999.0f, 9999.0f);
+					ImGui::DragFloat("NearZ", &cameraComponent.nearZ, 1.0f, -9999.0f, 9999.0f);
+					ImGui::DragFloat("FarZ", &cameraComponent.farZ, 1.0f, -9999.0f, 9999.0f);
+
+				});
+		}
+
+		if (entity.hasComponent<Visual3DComponent>())
+		{
+			DrawComponent<Visual3DComponent>("Visual3DComponent",
+				[&]()
+				{
+					auto& visual3DComponent = entity.getComponent<Visual3DComponent>();
+					if (visual3DComponent.mesh)
+					{
+						ImGui::Text(("Mesh:" + visual3DComponent.mesh->getFullPath()).c_str());
+					}
+					if (visual3DComponent.renderer)
+					{
+						ImGui::Text(("VsShader:" + visual3DComponent.renderer->getVsShader()).c_str());
+						ImGui::Text(("PsShader:" + visual3DComponent.renderer->getPsShader()).c_str());
+					}
+				});
+		}
 	}
 
 	void ScenePanel::draw()
@@ -131,10 +165,12 @@ namespace Enternity
 
 		for (const auto& entity : Engine::GetInstance().getSceneManager()->getCurrentScene()->m_entities)
 		{
-			if (ImGui::Selectable(std::to_string((int)entity.first).c_str(), m_selectedEntityId == (int)entity.first))
+			ImGui::PushID((int)entity.first);
+			if (ImGui::Selectable(entity.second.getComponent<NameComponent>().name.c_str(), m_selectedEntityId == (int)entity.first))
 			{
 				m_selectedEntityId = (int)entity.first;
 			}
+			ImGui::PopID();
 		}
 		
 		if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
