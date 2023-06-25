@@ -19,6 +19,6 @@
 *.tmp
 *.grid
 *.VC.VC.opendb
-*.obj
+/tmp
 *.tlog 
 *.idb
