@@ -4,6 +4,8 @@
 #include "StatePanel.h"
 #include "ScenePanel.h"
 #include "AssetPanel.h"
+#include "Engine/Engine.h"
+#include "Graphics/GraphicsSystem.h"
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
 #include "Imgui/imgui_impl_glfw.h"
@@ -163,7 +165,22 @@ namespace Enternity
 			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 		}
 		
-	
+		//menu bar
+		if (ImGui::BeginMenuBar())
+		{
+			if (ImGui::BeginMenu("Debug"))
+			{
+				if (ImGui::BeginMenu("Depth view"))
+				{
+					ImGui::MenuItem("Enabled", "", Engine::GetInstance().getGraphicsSystem()->getIsRenderPathDepth());
+					ImGui::EndMenu();
+				}
+				ImGui::EndMenu();
+			}
+			ImGui::EndMenuBar();
+		}
+
+
 		//panels draw
 		m_viewPortPanel->draw();
 		m_statePanel->draw();

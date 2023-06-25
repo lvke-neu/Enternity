@@ -49,7 +49,10 @@ namespace Enternity
 	void RenderSystem::render(Scene* scene)
 	{
 		renderPath_Color(scene);
-		renderPath_Depth(scene);
+		if (m_bRenderPathDepth)
+		{
+			renderPath_Depth(scene);
+		}
 	}
 
 	bool RenderSystem::cull(Scene* scene)
