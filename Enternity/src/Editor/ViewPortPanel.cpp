@@ -88,7 +88,7 @@ namespace Enternity
 		
 		onViewPortResize();
 
-		auto id = Engine::GetInstance().getGraphicsSystem()->getFrameBuffer()->getTextureId();
+		auto id = Engine::GetInstance().getGraphicsSystem()->getColorFrameBuffer()->getTextureId();
 		ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
 
 		onSelectEntity();

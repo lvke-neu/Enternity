@@ -11,19 +11,27 @@ namespace Enternity
 		~RenderSystem();
 	public:
 		void render(Scene* scene);
-		FrameBuffer* getFrameBuffer();
+		FrameBuffer* getColorFrameBuffer();
+		FrameBuffer* getDepthFrameBuffer();
 	private:
 		bool cull(Scene* scene);
 		void renderPath_Color(Scene* scene);
-		void renderPath_ShadowMap();
+		void renderPath_Depth(Scene* scene);
+		void renderPath_ShadowMap(Scene* scene);
 
 		void onWindowResize(void* data);
 	private:
-		FrameBuffer* m_frameBuffer1{ nullptr };
+		FrameBuffer* m_frameBufferColor{ nullptr };
+		FrameBuffer* m_frameBufferDepth{ nullptr };
 	};
 
-	inline FrameBuffer* RenderSystem::getFrameBuffer()
+	inline FrameBuffer* RenderSystem::getColorFrameBuffer()
 	{
-		return m_frameBuffer1;
+		return m_frameBufferColor;
+	}
+
+	inline FrameBuffer* RenderSystem::getDepthFrameBuffer()
+	{
+		return m_frameBufferDepth;
 	}
 }
