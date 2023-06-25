@@ -3,7 +3,7 @@
 out vec4 fragColor;
 
 float near = 1; 
-float far  = 100.0; 
+float far  = 50.0; 
 
 float LinearizeDepth(float depth) 
 {

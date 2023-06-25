@@ -62,6 +62,7 @@ namespace Enternity
 
 	void RenderSystem::renderPath_Color(Scene* scene)
 	{
+		m_triangleCount = 0;
 		if (scene)
 		{
 			m_frameBufferColor->bind();
@@ -103,6 +104,7 @@ namespace Enternity
 							
 							indexBuffers[i]->bind();
 							CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffers[i]->getCount(), GL_UNSIGNED_INT, (void*)0));
+							m_triangleCount += indexBuffers[i]->getCount();
 
 							if (visual3DComponent.mesh->getTextures()[i])
 							{

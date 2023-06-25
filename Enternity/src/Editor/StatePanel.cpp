@@ -15,6 +15,7 @@ namespace Enternity
 	{
 		ImGui::Begin("State");
 		ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+		ImGui::Text("TriangleCount:%d", Engine::GetInstance().getGraphicsSystem()->getTriangleCount());
 		ImGui::End();
 
 

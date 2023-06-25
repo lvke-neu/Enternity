@@ -13,6 +13,8 @@ namespace Enternity
 		void render(Scene* scene);
 		FrameBuffer* getColorFrameBuffer();
 		FrameBuffer* getDepthFrameBuffer();
+
+		unsigned int getTriangleCount() const;
 	private:
 		bool cull(Scene* scene);
 		void renderPath_Color(Scene* scene);
@@ -23,6 +25,7 @@ namespace Enternity
 	private:
 		FrameBuffer* m_frameBufferColor{ nullptr };
 		FrameBuffer* m_frameBufferDepth{ nullptr };
+		unsigned int m_triangleCount{ 0 };
 	};
 
 	inline FrameBuffer* RenderSystem::getColorFrameBuffer()
@@ -33,5 +36,10 @@ namespace Enternity
 	inline FrameBuffer* RenderSystem::getDepthFrameBuffer()
 	{
 		return m_frameBufferDepth;
+	}
+
+	inline unsigned int RenderSystem::getTriangleCount() const
+	{
+		return m_triangleCount;
 	}
 }
