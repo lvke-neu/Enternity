@@ -7,6 +7,9 @@
 #include "Scene/Scene.h"
 #include "Scene/SceneManager.h"
 #include "Scene/ECS/TransformComponent.h"
+#include "Scene/ECS/Visual3DComponent.h"
+#include "Scene/ECS/CameraComponent.h"
+#include "Graphics/RHI/Mesh/Mesh.h"
 
 namespace Enternity
 {
@@ -79,25 +82,106 @@ namespace Enternity
 		ImGui::PopID();
 	}
 
+
+	template<typename T>
+	void DrawComponent(const std::string& name, std::function<void()> uiFunction)
+	{
+		ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
+
+		ImVec2 contentRegionAvailable = ImGui::GetContentRegionAvail();
+		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 4,4 });
+		float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
+		ImGui::Separator();
+
+		bool b_IsOpen = ImGui::TreeNodeEx(name.c_str(), treeNodeFlags);
+
+		ImGui::PopStyleVar();
+
+
+		if (b_IsOpen)
+		{
+			uiFunction();
+			ImGui::TreePop();
+		}
+		
+	}
+
+	void DrawSelectedEntity(Entity& entity)
+	{
+		if (entity.hasComponent<TransformComponent>())
+		{
+			DrawComponent<TransformComponent>("TransformComponent",
+				[&]()
+				{
+					auto& transformComponent = entity.getComponent<TransformComponent>();
+					auto& translation = transformComponent.translation;
+					auto& rotation = transformComponent.rotation;
+					auto& scale = transformComponent.scale;
+
+					DrawVec3("Translation", translation, glm::vec3(0.0f));
+					DrawVec3("Rotation", rotation, glm::vec3(0.0f));
+					DrawVec3("Scale", scale, glm::vec3(1.0f));
+				});
+		}
+	}
+
 	void ScenePanel::draw()
 	{
-		ImGui::Begin("Scene");
+		ImGui::Begin("Entity");
 
-		auto& camera = Engine::GetInstance().getSceneManager()->getCurrentScene()->m_sceneCamera;
-
-		auto& transformComponent = camera.getComponent<TransformComponent>();
-		auto& translation = transformComponent.translation;
-		auto& rotation = transformComponent.rotation;
-		auto& scale = transformComponent.scale;
-
-		DrawVec3("Translation", translation, glm::vec3(0.0f));
-		DrawVec3("Rotation", rotation, glm::vec3(0.0f));
-		DrawVec3("Scale", scale, glm::vec3(1.0f));
-
-		ImGui::Separator();
 		for (const auto& entity : Engine::GetInstance().getSceneManager()->getCurrentScene()->m_entities)
 		{
-			ImGui::Text(std::to_string((int)entity.first).c_str());
+			if (ImGui::Selectable(std::to_string((int)entity.first).c_str(), m_selectedEntityId == (int)entity.first))
+			{
+				m_selectedEntityId = (int)entity.first;
+			}
+		}
+		
+		if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
+			m_selectedEntityId = -1;
+
+		ImGui::End();
+		
+		//for (const auto& entity : Engine::GetInstance().getSceneManager()->getCurrentScene()->m_entities)
+		//{
+		//	ImGui::Text(std::to_string((int)entity.first).c_str());
+
+		//	if (entity.second.hasComponent<CameraComponent>())
+		//	{
+		//		ImGui::Text("Camera Frustum");
+		//	}
+
+		//	if (entity.second.hasComponent<TransformComponent>())
+		//	{
+		//		auto& transformComponent = entity.second.getComponent<TransformComponent>();
+		//		auto& translation = transformComponent.translation;
+		//		auto& rotation = transformComponent.rotation;
+		//		auto& scale = transformComponent.scale;
+
+		//		ImGui::PushID((int)entity.first);
+		//		DrawVec3("Translation", translation, glm::vec3(0.0f));
+		//		DrawVec3("Rotation", rotation, glm::vec3(0.0f));
+		//		DrawVec3("Scale", scale, glm::vec3(1.0f));
+		//		ImGui::PopID();
+		//	}
+		//	
+		//	if (entity.second.hasComponent<Visual3DComponent>())
+		//	{
+		//		auto& v3d = entity.second.getComponent<Visual3DComponent>();
+		//		if (v3d.mesh)
+		//		{
+		//			ImGui::Text(("Mesh:" + v3d.mesh->getFullPath()).c_str());
+		//		}
+		//	}	
+
+		//	ImGui::Separator();
+		//}
+		ImGui::Begin("Component");
+
+		if (m_selectedEntityId != -1)
+		{
+			auto& selectedEntity = Engine::GetInstance().getSceneManager()->getCurrentScene()->m_entities[(entt::entity)m_selectedEntityId];
+			DrawSelectedEntity(selectedEntity);
 		}
 
 		ImGui::End();

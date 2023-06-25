@@ -8,6 +8,7 @@ namespace Enternity
 		void draw();
 	private:
 		void onViewPortResize();
+		void onSelectEntity();
 	private:
 		unsigned int m_width = 0;
 		unsigned int m_height = 0;

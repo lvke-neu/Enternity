@@ -14,6 +14,7 @@ namespace Enternity
 		UiRender(GLFWwindow* context);
 		~UiRender();
 		void tick();
+		ScenePanel* getScenePanel() const;
 	private:
 		void setDarkThemeColors();
 		void drawDockSpace();
@@ -23,4 +24,9 @@ namespace Enternity
 		ScenePanel* m_scenePanel{ nullptr };
 		AssetPanel* m_assetPanel{ nullptr };
 	};
+
+	inline ScenePanel* UiRender::getScenePanel() const
+	{
+		return m_scenePanel;
+	}
 }

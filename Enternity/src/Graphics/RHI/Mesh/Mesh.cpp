@@ -37,6 +37,8 @@ namespace Enternity
 						m_textures[i] = texture;
 					});
 			}
+
+			m_fullPath = meshAsset->getFullPath();
 		}
 	}
 
@@ -71,5 +73,10 @@ namespace Enternity
 	const std::vector <Texture*>& Mesh::getTextures() const
 	{
 		return m_textures;
+	}
+
+	const std::string& Mesh::getFullPath() const
+	{
+		return m_fullPath;
 	}
 }

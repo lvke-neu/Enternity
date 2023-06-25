@@ -18,6 +18,7 @@ namespace Enternity
 		std::vector<Layout> getLayouts() const;
 		unsigned int getVertexDataSize(unsigned int location) const;
 		unsigned int getIndexDataSize(unsigned int location) const;
+		const std::string& getFullPath() const;
 	private:
 		virtual void doLoad() override;
 	private:
@@ -56,6 +57,11 @@ namespace Enternity
 	inline unsigned int MeshAsset::getIndexDataSize(unsigned int location) const
 	{
 		return (unsigned int)(sizeof(unsigned int) * m_indices[location].size());
+	}
+
+	inline const std::string& MeshAsset::getFullPath() const
+	{
+		return m_fullPath;
 	}
 }
 

@@ -46,6 +46,12 @@ namespace Enternity
 			return m_registry->has<T>(m_enttId);
 		}
 
+		template <typename T>
+		bool hasComponent() const 
+		{
+			return m_registry->has<T>(m_enttId);
+		}
+
 		template<typename T>
 		T& getComponent() 
 		{

@@ -10,6 +10,7 @@ namespace Enternity
 	{
 		friend class RenderSystem;
 		friend class ScenePanel;
+		friend class ViewPortPanel;
 	public:
 		Scene();
 		~Scene();

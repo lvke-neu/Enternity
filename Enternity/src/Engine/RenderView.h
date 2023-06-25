@@ -13,6 +13,7 @@ namespace Enternity
 		bool windowShouldClose();
 		void swapBuffers();
 		void setTitle(const char* title);
+		UiRender* getUiRender() const;
 	public:
 		void Resize(int width, int height);
 		static void Resize(GLFWwindow* window, int width, int height);
@@ -23,4 +24,9 @@ namespace Enternity
 		GLFWwindow* m_context{ nullptr };
 		UiRender* m_uiRender{ nullptr };
 	};
+
+	inline UiRender* RenderView::getUiRender() const
+	{
+		return m_uiRender;
+	}
 }
