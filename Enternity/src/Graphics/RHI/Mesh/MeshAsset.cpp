@@ -86,4 +86,38 @@ namespace Enternity
 
 		m_state = Asset::loading_state_succeeded;
 	}
+
+
+
+	QuadMeshAsset::QuadMeshAsset() : MeshAsset("")
+	{
+
+	}
+
+	QuadMeshAsset::~QuadMeshAsset()
+	{
+
+	}
+
+	void QuadMeshAsset::doLoad()
+	{
+		m_vertices.resize(1);
+		m_indices.resize(1);
+
+		m_vertices[0].resize(4);
+		m_vertices[0][0].position = glm::vec3(-1, 1, 0);
+		m_vertices[0][1].position = glm::vec3(1, 1, 0);
+		m_vertices[0][2].position = glm::vec3(1, -1, 0);
+		m_vertices[0][3].position = glm::vec3(-1, -1, 0);
+
+		m_vertices[0][0].texcoord = glm::vec2(0, 1);
+		m_vertices[0][1].texcoord = glm::vec2(1, 1);
+		m_vertices[0][2].texcoord = glm::vec2(1, 0);
+		m_vertices[0][3].texcoord = glm::vec2(0, 0);
+
+		m_indices[0] = { 0, 3, 2, 0, 2, 1 };
+
+		m_state = Asset::loading_state_succeeded;
+	}
+
 }

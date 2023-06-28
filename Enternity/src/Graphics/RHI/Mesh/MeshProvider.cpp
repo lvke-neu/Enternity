@@ -42,6 +42,23 @@ namespace Enternity
 		m_map.push_back({meshAsset, callback});
 	}
 
+	Mesh* MeshProvider::getQuadMesh()
+	{
+		Mesh* mesh = nullptr;
+
+		QuadMeshAsset* quadMeshAsset = new QuadMeshAsset();
+		quadMeshAsset->load(0);
+
+		if (quadMeshAsset->getLoadingState() == Asset::loading_state_succeeded)
+		{
+			mesh = new Mesh(quadMeshAsset);
+		}
+
+		SAFE_DELETE_SET_NULL(quadMeshAsset);
+
+		return mesh;
+	}
+
 	void MeshProvider::tick(void* data)
 	{
 		for (auto it = m_map.begin(); it != m_map.end(); )

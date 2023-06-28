@@ -10,7 +10,7 @@ namespace Enternity
 	{
 	public:
 		MeshAsset(const std::string& fullPath);
-		~MeshAsset();
+		virtual ~MeshAsset();
 	public:
 		const std::vector<std::vector<Vertex_Positon_Normal_Texcoord>>& getVertices() const;
 		const std::vector<std::vector<unsigned int>>& getIndices() const;
@@ -21,7 +21,7 @@ namespace Enternity
 		const std::string& getFullPath() const;
 	private:
 		virtual void doLoad() override;
-	private:
+	protected:
 		std::string m_fullPath{ "" };
 
 		std::vector<std::vector<Vertex_Positon_Normal_Texcoord>> m_vertices;
@@ -63,5 +63,14 @@ namespace Enternity
 	{
 		return m_fullPath;
 	}
+
+	class QuadMeshAsset : public MeshAsset
+	{
+	public:
+		QuadMeshAsset();
+		~QuadMeshAsset();
+
+		virtual void doLoad() override;
+	};
 }
 
