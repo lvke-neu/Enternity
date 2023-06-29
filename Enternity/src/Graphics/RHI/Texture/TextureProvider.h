@@ -5,6 +5,7 @@
 namespace Enternity
 {
 	class Texture;
+	class CubeMapTexture;
 	class TextureAsset;
 	class TextureProvider
 	{
@@ -19,6 +20,8 @@ namespace Enternity
 	public:
 		Texture* getTextureSync(const char* fullPath);
 		void  getTextureAsyn(const char* fullPath, std::function<void(Texture*)> callback);
+
+		CubeMapTexture* getCubeMapTexture(const std::vector<const char*>& fullPaths);
 	private:
 		void tick(void* data);
 	private:

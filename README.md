@@ -4,6 +4,6 @@
 AssetID, Asset, AssetLoader
 
 
-2、点选framebuffer, 天空盒， 后处理（场景纹理渲染到一个quad上）
+2、点选framebuffer, 天空盒， 后处理（场景纹理渲染到一个quad上）, 阴影
 
 3、粒子，地形...

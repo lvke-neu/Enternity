@@ -21,6 +21,7 @@ namespace Enternity
 		void  getMeshAsyn(const char* fullPath, std::function<void(Mesh*)> callback);
 
 		Mesh* getQuadMesh();
+		Mesh* getBoxMesh();
 	private:
 		void tick(void* data);
 	private:

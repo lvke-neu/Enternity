@@ -9,6 +9,7 @@ namespace Enternity
 	class TextureAsset : public Asset
 	{
 		friend class Texture;
+		friend class CubeMapTexture;
 	public:
 		TextureAsset(const std::string& fullPath, bool slip = true);
 		~TextureAsset();

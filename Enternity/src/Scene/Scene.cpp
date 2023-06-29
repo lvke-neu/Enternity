@@ -10,6 +10,7 @@
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/RendererProvider.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
+#include "Graphics/RHI/Texture/TextureProvider.h"
 #include "Common/Macro.h"
 #include "CameraController.h"
 
@@ -27,6 +28,12 @@ namespace Enternity
 		m_sceneCamera.addComponent<CameraComponent>();
 		m_cameraController = new CameraController(&m_sceneCamera);
 
+		//postprocess
+		m_scenePostprocess = createEntity();
+		m_scenePostprocess.getComponent<NameComponent>().name = "postprocess";
+		auto& ppc = m_scenePostprocess.addComponent<PostprocessComponent>();
+		ppc.renderer = Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererSync("assets/shaders/postprocess/postprocess.vert", "assets/shaders/postprocess/postprocess.frag");
+		ppc.mesh = Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getQuadMesh();
 		
 		//test entity 1
 		auto entity = createEntity();
@@ -140,13 +147,6 @@ namespace Enternity
 				auto& comp = entity6.getComponent<Visual3DComponent>();
 				comp.mesh = mesh;
 			});
-
-		//postprocess
-		m_scenePostprocess = createEntity();
-		m_scenePostprocess.getComponent<NameComponent>().name = "postprocess";
-		auto& ppc = m_scenePostprocess.addComponent<PostprocessComponent>();
-		ppc.renderer = Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererSync("assets/shaders/postprocess/postprocess.vert", "assets/shaders/postprocess/postprocess.frag");
-		ppc.mesh = Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getQuadMesh();
 	}
 
 	Scene::~Scene()

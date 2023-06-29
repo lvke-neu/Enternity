@@ -120,4 +120,62 @@ namespace Enternity
 		m_state = Asset::loading_state_succeeded;
 	}
 
+
+	BoxMeshAsset::BoxMeshAsset() : MeshAsset("")
+	{
+
+	}
+
+	BoxMeshAsset::~BoxMeshAsset()
+	{
+
+	}
+
+	void BoxMeshAsset::doLoad()
+	{
+		m_vertices.resize(1);
+		m_indices.resize(1);
+
+		m_vertices[0].resize(24);
+		m_vertices[0][0].position = glm::vec3(1, -1, 1);
+		m_vertices[0][1].position = glm::vec3(1, 1, 1);
+		m_vertices[0][2].position = glm::vec3(1, 1, -1);
+		m_vertices[0][3].position = glm::vec3(1, -1, -1);
+
+		m_vertices[0][4].position = glm::vec3(-1, -1, -1);
+		m_vertices[0][5].position = glm::vec3(-1, 1, -1);
+		m_vertices[0][6].position = glm::vec3(-1, 1, 1);
+		m_vertices[0][7].position = glm::vec3(-1, -1, 1);
+
+		m_vertices[0][8].position = glm::vec3(-1, 1, 1);
+		m_vertices[0][9].position = glm::vec3(-1, 1, -1);
+		m_vertices[0][10].position = glm::vec3(1, 1, -1);
+		m_vertices[0][11].position = glm::vec3(1, 1, 1);
+
+		m_vertices[0][12].position = glm::vec3(1, -1, 1);
+		m_vertices[0][13].position = glm::vec3(1, -1, -1);
+		m_vertices[0][14].position = glm::vec3(-1, -1, -1);
+		m_vertices[0][15].position = glm::vec3(-1, -1, 1);
+
+		m_vertices[0][16].position = glm::vec3(1, -1, -1);
+		m_vertices[0][17].position = glm::vec3(1, 1, -1);
+		m_vertices[0][18].position = glm::vec3(-1, 1, -1);
+		m_vertices[0][19].position = glm::vec3(-1, -1, -1);
+
+		m_vertices[0][20].position = glm::vec3(-1, -1, 1);
+		m_vertices[0][21].position = glm::vec3(-1, 1, 1);
+		m_vertices[0][22].position = glm::vec3(1, 1, 1);
+		m_vertices[0][23].position = glm::vec3(1, -1, 1);
+
+		m_indices[0] = {
+			0, 1, 2, 2, 3, 0,
+			4, 5, 6, 6, 7, 4,
+			8, 9, 10, 10, 11, 8,
+			12, 13, 14, 14, 15, 12,
+			16, 17, 18, 18, 19, 16,
+			20, 21, 22, 22, 23, 20
+		};
+
+		m_state = Asset::loading_state_succeeded;
+	}
 }

@@ -42,6 +42,35 @@ namespace Enternity
 		m_map.push_back({ textureAsset, callback });
 	}
 
+	CubeMapTexture* TextureProvider::getCubeMapTexture(const std::vector<const char*>& fullPaths)
+	{
+		if (fullPaths.size() != 6)
+		{
+			return nullptr;
+		}
+		
+		std::vector<TextureAsset*> textureAssets;
+
+		for (int i = 0; i < 6; ++i)
+		{
+			TextureAsset* textureAsset = new TextureAsset(fullPaths[i]);
+			textureAsset->load(0);
+			if (textureAsset->getLoadingState() == Asset::loading_state_succeeded)
+			{
+				textureAssets.push_back(textureAsset);
+			}
+		}
+
+		CubeMapTexture* cubeMapTexture = new CubeMapTexture(textureAssets);
+
+		for (int i = 0; i < textureAssets.size(); ++i)
+		{
+			SAFE_DELETE_SET_NULL(textureAssets[i]);
+		}
+
+		return cubeMapTexture;
+	}
+
 	void TextureProvider::tick(void* data)
 	{
 		for (auto it = m_map.begin(); it != m_map.end(); )

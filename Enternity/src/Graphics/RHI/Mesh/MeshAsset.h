@@ -72,5 +72,14 @@ namespace Enternity
 
 		virtual void doLoad() override;
 	};
+
+	class BoxMeshAsset : public MeshAsset
+	{
+	public:
+		BoxMeshAsset();
+		~BoxMeshAsset();
+
+		virtual void doLoad() override;
+	};
 }
 

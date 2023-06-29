@@ -59,6 +59,23 @@ namespace Enternity
 		return mesh;
 	}
 
+	Mesh* MeshProvider::getBoxMesh()
+	{
+		Mesh* mesh = nullptr;
+
+		BoxMeshAsset* boxMeshAsset = new BoxMeshAsset();
+		boxMeshAsset->load(0);
+
+		if (boxMeshAsset->getLoadingState() == Asset::loading_state_succeeded)
+		{
+			mesh = new Mesh(boxMeshAsset);
+		}
+
+		SAFE_DELETE_SET_NULL(boxMeshAsset);
+
+		return mesh;
+	}
+
 	void MeshProvider::tick(void* data)
 	{
 		for (auto it = m_map.begin(); it != m_map.end(); )
