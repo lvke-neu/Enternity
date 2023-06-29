@@ -5,6 +5,7 @@
 #include "ScenePanel.h"
 #include "Engine/Engine.h"
 #include "Engine/RenderView.h"
+#include "Engine/Event/EventSystem.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/FrameBuffer/FrameBuffer.h"
 #include "Scene/Scene.h"
@@ -84,9 +85,17 @@ namespace Enternity
 
 	void ViewPortPanel::draw()
 	{
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0, 0 });
+
 		ImGui::Begin("Viewport");
 		
+		Engine::GetInstance().getEventSystem()->setIsDispatchInputEvent(ImGui::IsWindowHovered());
+
 		onViewPortResize();
+
+		if (ImGui::RadioButton("TRANSLATE", m_gizmoOperation == ImGuizmo::TRANSLATE)) { m_gizmoOperation = ImGuizmo::TRANSLATE; } ImGui::SameLine();
+		if (ImGui::RadioButton("ROTATE", m_gizmoOperation == ImGuizmo::ROTATE)) { m_gizmoOperation = ImGuizmo::ROTATE; } ImGui::SameLine();
+		if (ImGui::RadioButton("SCALE", m_gizmoOperation == ImGuizmo::SCALE)) { m_gizmoOperation = ImGuizmo::SCALE; }
 
 		auto id = Engine::GetInstance().getGraphicsSystem()->getColorFrameBuffer()->getTextureId();
 		ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
@@ -94,6 +103,8 @@ namespace Enternity
 		onSelectEntity();
 
 		ImGui::End();
+
+		ImGui::PopStyleVar();
 	}
 
 	void ViewPortPanel::onViewPortResize()
@@ -132,12 +143,13 @@ namespace Enternity
 			auto modelMatrix = selectedEntity.getComponent<TransformComponent>().getWorldMatrix();
 
 
-			ImGuizmo::Manipulate(&viewMatrix[0][0], &projMatrix[0][0], ImGuizmo::TRANSLATE, ImGuizmo::MODE::LOCAL, &modelMatrix[0][0]);
+			ImGuizmo::Manipulate(&viewMatrix[0][0], &projMatrix[0][0], (ImGuizmo::OPERATION)m_gizmoOperation, ImGuizmo::MODE::LOCAL, &modelMatrix[0][0]);
 
 			if (ImGuizmo::IsUsing())
 			{
 				auto& tc = selectedEntity.getComponent<TransformComponent>();
 				DecomposeTransform(modelMatrix, tc.translation, tc.rotation, tc.scale);
+				tc.rotation = glm::degrees(tc.rotation);
 			}
 		}
 	}

@@ -23,8 +23,8 @@ namespace Enternity
 		m_sceneCamera = createEntity();
 		m_sceneCamera.getComponent<NameComponent>().name = "Camera";
 		auto& comp = m_sceneCamera.addComponent<TransformComponent>();
-		comp.translation = glm::vec3(0, 0, 19);
-		comp.rotation = glm::vec3(21, 0, 0);
+		comp.translation = glm::vec3(0.28, 8.41, 19.70);
+		comp.rotation = glm::vec3(-6.20, -11.00, 0);
 		m_sceneCamera.addComponent<CameraComponent>();
 		m_cameraController = new CameraController(&m_sceneCamera);
 

@@ -43,6 +43,17 @@ namespace Enternity
 
 	void EventSystem::dispatchEvent(EventType type, void* data)
 	{
+		if (m_bDispatchInputEvent == false && (
+			type == EventType::KeyPressed ||
+			type == EventType::KeyReleased ||
+			type == EventType::MousePressed ||
+			type == EventType::MouseReleased ||
+			type == EventType::MouseMoved))
+		{
+			m_keyTriggers.clear();
+			return;
+		}
+
 		if (type == EventType::KeyPressed)
 		{
 			m_keyTriggers[*(KeyCode*)data] = true;
