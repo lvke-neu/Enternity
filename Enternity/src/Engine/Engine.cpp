@@ -14,7 +14,7 @@ namespace Enternity
 		Log::Init();
 		ThreadPool::GetInstance().initialize(8);
 
-		m_renderView = new RenderView(2300, 1200, "v0.004");
+		m_renderView = new RenderView(700, 700, "v0.004");
 		m_eventSystem = new EventSystem;
 		m_graphicsSystem = new GraphicsSystem;
 		m_sceneManager = new SceneManager;

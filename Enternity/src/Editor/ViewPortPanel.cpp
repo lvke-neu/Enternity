@@ -127,15 +127,18 @@ namespace Enternity
 		const auto& viewMatrix = cameraEntity.getComponent<TransformComponent>().getInverseWorldMatrix();
 		const auto& projMatrix = cameraEntity.getComponent<CameraComponent>().getProjectionMatrix();
 
-		auto modelMatrix = selectedEntity.getComponent<TransformComponent>().getWorldMatrix();
-
-
-		ImGuizmo::Manipulate(&viewMatrix[0][0], &projMatrix[0][0], ImGuizmo::TRANSLATE, ImGuizmo::MODE::LOCAL, &modelMatrix[0][0]);
-
-		if (ImGuizmo::IsUsing())
+		if (selectedEntity.hasComponent<TransformComponent>())
 		{
-			auto& tc = selectedEntity.getComponent<TransformComponent>();
-			DecomposeTransform(modelMatrix, tc.translation, tc.rotation, tc.scale);
+			auto modelMatrix = selectedEntity.getComponent<TransformComponent>().getWorldMatrix();
+
+
+			ImGuizmo::Manipulate(&viewMatrix[0][0], &projMatrix[0][0], ImGuizmo::TRANSLATE, ImGuizmo::MODE::LOCAL, &modelMatrix[0][0]);
+
+			if (ImGuizmo::IsUsing())
+			{
+				auto& tc = selectedEntity.getComponent<TransformComponent>();
+				DecomposeTransform(modelMatrix, tc.translation, tc.rotation, tc.scale);
+			}
 		}
 	}
 }
