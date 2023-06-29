@@ -83,12 +83,13 @@ namespace Enternity
 				auto& comp = entity3.getComponent<Visual3DComponent>();
 				comp.renderer = render;
 			});
-		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/models/Cube.fbx",
+		entity3.getComponent<Visual3DComponent>().mesh = Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshSync(BasicPrimitve::Box);
+		/*Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/models/Cube.fbx",
 			[=](Mesh* mesh)
 			{
 				auto& comp = entity3.getComponent<Visual3DComponent>();
 				comp.mesh = mesh;
-			});
+			})*/;
 
 		//test entity 4
 		auto entity4 = createEntity();
