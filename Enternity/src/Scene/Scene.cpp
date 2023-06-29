@@ -33,7 +33,7 @@ namespace Enternity
 		m_scenePostprocess.getComponent<NameComponent>().name = "postprocess";
 		auto& ppc = m_scenePostprocess.addComponent<PostprocessComponent>();
 		ppc.renderer = Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererSync("assets/shaders/postprocess/postprocess.vert", "assets/shaders/postprocess/postprocess.frag");
-		ppc.mesh = Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getQuadMesh();
+		ppc.mesh = Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshSync(BasicPrimitve::Quad);
 		
 		//test entity 1
 		auto entity = createEntity();

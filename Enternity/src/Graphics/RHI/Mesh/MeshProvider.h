@@ -6,6 +6,11 @@ namespace Enternity
 {
 	class Mesh;
 	class MeshAsset;
+	enum BasicPrimitve
+	{
+		Quad,
+		Box
+	};
 	class MeshProvider
 	{
 		struct MeshAsset_Callback
@@ -18,10 +23,9 @@ namespace Enternity
 		~MeshProvider();
 	public:
 		Mesh* getMeshSync(const char* fullPath);
+		Mesh* getMeshSync(BasicPrimitve type);
 		void  getMeshAsyn(const char* fullPath, std::function<void(Mesh*)> callback);
-
-		Mesh* getQuadMesh();
-		Mesh* getBoxMesh();
+		void  getMeshAsyn(BasicPrimitve type, std::function<void(Mesh*)> callback);
 	private:
 		void tick(void* data);
 	private:

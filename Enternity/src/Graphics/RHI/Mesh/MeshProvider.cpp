@@ -34,6 +34,42 @@ namespace Enternity
 		return mesh;
 	}
 
+	Mesh* MeshProvider::getMeshSync(BasicPrimitve type)
+	{
+		Mesh* mesh = nullptr;
+
+		if (type == Quad)
+		{
+			QuadMeshAsset* quadMeshAsset = new QuadMeshAsset();
+			quadMeshAsset->load(0);
+
+			if (quadMeshAsset->getLoadingState() == Asset::loading_state_succeeded)
+			{
+				mesh = new Mesh(quadMeshAsset);
+			}
+
+			SAFE_DELETE_SET_NULL(quadMeshAsset);
+
+			return mesh;
+		}
+		else if (type == Box)
+		{
+			BoxMeshAsset* boxMeshAsset = new BoxMeshAsset();
+			boxMeshAsset->load(0);
+
+			if (boxMeshAsset->getLoadingState() == Asset::loading_state_succeeded)
+			{
+				mesh = new Mesh(boxMeshAsset);
+			}
+
+			SAFE_DELETE_SET_NULL(boxMeshAsset);
+
+			return mesh;
+		}
+
+		return mesh;
+	}
+
 	void MeshProvider::getMeshAsyn(const char* fullPath, std::function<void(Mesh*)> callback)
 	{
 		MeshAsset* meshAsset = new MeshAsset(fullPath);
@@ -42,38 +78,20 @@ namespace Enternity
 		m_map.push_back({meshAsset, callback});
 	}
 
-	Mesh* MeshProvider::getQuadMesh()
+	void MeshProvider::getMeshAsyn(BasicPrimitve type, std::function<void(Mesh*)> callback)
 	{
-		Mesh* mesh = nullptr;
-
-		QuadMeshAsset* quadMeshAsset = new QuadMeshAsset();
-		quadMeshAsset->load(0);
-
-		if (quadMeshAsset->getLoadingState() == Asset::loading_state_succeeded)
+		if (type == Quad)
 		{
-			mesh = new Mesh(quadMeshAsset);
+			QuadMeshAsset* quadMeshAsset = new QuadMeshAsset();
+			quadMeshAsset->load();
+			m_map.push_back({ quadMeshAsset, callback });
 		}
-
-		SAFE_DELETE_SET_NULL(quadMeshAsset);
-
-		return mesh;
-	}
-
-	Mesh* MeshProvider::getBoxMesh()
-	{
-		Mesh* mesh = nullptr;
-
-		BoxMeshAsset* boxMeshAsset = new BoxMeshAsset();
-		boxMeshAsset->load(0);
-
-		if (boxMeshAsset->getLoadingState() == Asset::loading_state_succeeded)
+		else if (type == Box)
 		{
-			mesh = new Mesh(boxMeshAsset);
+			BoxMeshAsset* boxMeshAsset = new BoxMeshAsset();
+			boxMeshAsset->load();
+			m_map.push_back({ boxMeshAsset, callback });
 		}
-
-		SAFE_DELETE_SET_NULL(boxMeshAsset);
-
-		return mesh;
 	}
 
 	void MeshProvider::tick(void* data)
