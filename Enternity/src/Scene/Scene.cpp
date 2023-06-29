@@ -30,7 +30,7 @@ namespace Enternity
 
 		//postprocess
 		m_scenePostprocess = createEntity();
-		m_scenePostprocess.getComponent<NameComponent>().name = "postprocess";
+		m_scenePostprocess.getComponent<NameComponent>().name = "Postprocess";
 		auto& ppc = m_scenePostprocess.addComponent<PostprocessComponent>();
 		ppc.renderer = Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererSync("assets/shaders/postprocess/postprocess.vert", "assets/shaders/postprocess/postprocess.frag");
 		ppc.mesh = Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshSync(BasicPrimitve::Quad);
@@ -74,7 +74,7 @@ namespace Enternity
 
 		//test entity 3
 		auto entity3 = createEntity();
-		entity3.getComponent<NameComponent>().name = "Cube";
+		entity3.getComponent<NameComponent>().name = "cube";
 		entity3.addComponent<TransformComponent>();
 		entity3.addComponent<Visual3DComponent>();
 		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
@@ -93,7 +93,7 @@ namespace Enternity
 
 		//test entity 4
 		auto entity4 = createEntity();
-		entity4.getComponent<NameComponent>().name = "Madara_Uchiha";
+		entity4.getComponent<NameComponent>().name = "madara_uchiha";
 		auto& tfc4 = entity4.addComponent<TransformComponent>();
 		tfc4.translation = glm::vec3(-10, 10, 0);
 		entity4.addComponent<Visual3DComponent>();
@@ -112,7 +112,7 @@ namespace Enternity
 
 		//test entity 5
 		auto entity5 = createEntity();
-		entity5.getComponent<NameComponent>().name = "Pipe";
+		entity5.getComponent<NameComponent>().name = "pipe";
 		auto& tfc5 = entity5.addComponent<TransformComponent>();
 		tfc5.translation = glm::vec3(-10, 0, 0);
 		entity5.addComponent<Visual3DComponent>();

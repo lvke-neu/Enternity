@@ -103,6 +103,11 @@ namespace Enternity
 		CHECK_GL_CALL(glUniformMatrix4fv(getUniformLocation(name), 1, normalize, &mat4[0][0]));
 	}
 
+	void Renderer::setUint1(const std::string& name, unsigned int value)
+	{
+		CHECK_GL_CALL(glUniform1uiv(getUniformLocation(name), 1, &value));
+	}
+
 	int Renderer::getUniformLocation(const std::string& name)
 	{
 		if (m_uniformLocationCache.find(name) != m_uniformLocationCache.end())

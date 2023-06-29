@@ -144,6 +144,7 @@ namespace Enternity
 			auto& postprocessEntity = scene->m_scenePostprocess;
 			auto& ppc = postprocessEntity.getComponent<PostprocessComponent>();
 			ppc.renderer->bind();
+			ppc.renderer->setUint1("u_postProcessType", ppc.postprocessType);
 			if (m_frameBufferColor->getTextureId() != -1)
 			{
 				CHECK_GL_CALL(glActiveTexture(GL_TEXTURE0 + 0));

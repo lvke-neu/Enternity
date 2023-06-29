@@ -10,6 +10,7 @@
 #include "Scene/ECS/Visual3DComponent.h"
 #include "Scene/ECS/CameraComponent.h"
 #include "Scene/ECS/NameComponent.h"
+#include "Scene/ECS/PostprocessComponent.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
 
@@ -200,6 +201,34 @@ namespace Enternity
 							}
 						});
 					
+				});
+		}
+
+		if (entity.hasComponent<PostprocessComponent>())
+		{
+			DrawComponent("PostprocessComponent",
+				[&]()
+				{
+					auto& postprocessComponent = entity.getComponent<PostprocessComponent>();
+
+					PostprocessType postprocessType = postprocessComponent.postprocessType;
+					const char* bodyTypeString[] = { "None", "Inversion", "Grayscale","Sharpen", "Blur", "EdgeDetection"};
+					const char* currentBodyTypeString = bodyTypeString[postprocessType];
+					if (ImGui::BeginCombo("PostprocessType", currentBodyTypeString))
+					{
+						for (int i = 0; i < 6; i++)
+						{
+							bool isSelected = currentBodyTypeString == bodyTypeString[i];
+							if (ImGui::Selectable(bodyTypeString[i], isSelected))
+							{
+								currentBodyTypeString = bodyTypeString[i];
+								postprocessComponent.postprocessType = (PostprocessType)i;
+							}
+							if (isSelected)
+								ImGui::SetItemDefaultFocus();
+						}
+						ImGui::EndCombo();
+					}
 				});
 		}
 	}
