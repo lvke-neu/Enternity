@@ -2,6 +2,7 @@
 #include "Scene/Scene.h"
 #include "RHI/FrameBuffer/FrameBuffer.h"
 #include "RHI/Mesh/Mesh.h"
+#include "RHI/Mesh/MeshAsset.h"
 #include "RHI/Mesh/VertexArray.h"
 #include "RHI/Mesh/IndexBuffer.h"
 #include "RHI/Renderer/Renderer.h"
@@ -13,13 +14,14 @@
 #include "Scene/ECS/CameraComponent.h"
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/Visual3DComponent.h"
+#include "Scene/ECS/PostprocessComponent.h"
 #include <glad/glad.h>
 
 namespace Enternity
 {
 	//TODO: move to class Scene
-	static Texture* defaultTexture =nullptr;
-	static Renderer* depthRender = nullptr;
+	static Texture* s_defaultTexture =nullptr;
+	static Renderer* s_depthRender = nullptr;
 	RenderSystem::RenderSystem()
 	{
 		m_frameBufferColor = new FrameBuffer;
@@ -29,13 +31,13 @@ namespace Enternity
 		//TODO: move to class Scene
 		TextureAsset ta("assets/textures/white_background.jpeg");
 		ta.load(0);
-		defaultTexture = new Texture(&ta);
+		s_defaultTexture = new Texture(&ta);
 
 		RendererAsset vsRa("assets/shaders/depth/depth.vert");
 		RendererAsset psRa("assets/shaders/depth/depth.frag");
 		vsRa.load(0);
 		psRa.load(0);
-		depthRender = new Renderer(&vsRa, &psRa);
+		s_depthRender = new Renderer(&vsRa, &psRa);
 	}
 
 	RenderSystem::~RenderSystem()
@@ -43,12 +45,13 @@ namespace Enternity
 		Engine::GetInstance().getEventSystem()->unRegisterEvent(EventType::WindowResize, BIND(RenderSystem::onWindowResize));
 		SAFE_DELETE_SET_NULL(m_frameBufferColor);
 		SAFE_DELETE_SET_NULL(m_frameBufferDepth);
-		SAFE_DELETE_SET_NULL(defaultTexture);
+		SAFE_DELETE_SET_NULL(s_defaultTexture);
 	}
 
 	void RenderSystem::render(Scene* scene)
 	{
 		renderPath_Color(scene);
+		renderPath_Postprocess(scene);
 		if (m_bRenderPathDepth)
 		{
 			renderPath_Depth(scene);
@@ -102,7 +105,7 @@ namespace Enternity
 							}
 							else
 							{
-								defaultTexture->bind(0);
+								s_defaultTexture->bind(0);
 							}
 							
 							indexBuffers[i]->bind();
@@ -115,7 +118,7 @@ namespace Enternity
 							}
 							else
 							{
-								defaultTexture->unbind();
+								s_defaultTexture->unbind();
 							}
 
 							vertexArraies[i]->unbind();
@@ -132,6 +135,35 @@ namespace Enternity
 
 	}
 
+	void RenderSystem::renderPath_Postprocess(Scene* scene)
+	{
+		if (scene)
+		{
+			m_frameBufferColor->bind();
+			//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			auto& postprocessEntity = scene->m_scenePostprocess;
+			auto& ppc = postprocessEntity.getComponent<PostprocessComponent>();
+			ppc.renderer->bind();
+			if (m_frameBufferColor->getTextureId() != -1)
+			{
+				CHECK_GL_CALL(glActiveTexture(GL_TEXTURE0 + 0));
+				CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, m_frameBufferColor->getTextureId()));
+			}
+			ppc.mesh->getVertexArraies()[0]->bind();
+			ppc.mesh->getIndexBuffers()[0]->bind();
+			CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, ppc.mesh->getIndexBuffers()[0]->getCount(), GL_UNSIGNED_INT, (void*)0));
+			ppc.renderer->unbind();
+			if (m_frameBufferColor->getTextureId() != -1)
+			{
+				CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, 0));
+			}
+			ppc.mesh->getVertexArraies()[0]->unbind();
+			ppc.mesh->getIndexBuffers()[0]->unbind();
+
+			m_frameBufferColor->unbind();
+		}
+	}
+
 	void RenderSystem::renderPath_Depth(Scene* scene)
 	{
 		if (scene)
@@ -141,7 +173,7 @@ namespace Enternity
 			CHECK_GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
 			CHECK_GL_CALL((glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)));
 
-			//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			
 			auto& cameraComponent = scene->m_sceneCamera.getComponent<CameraComponent>();
 			auto& cameraTransformComponent = scene->m_sceneCamera.getComponent<TransformComponent>();
 
@@ -150,7 +182,7 @@ namespace Enternity
 				if (entity.second.hasComponent<Visual3DComponent>())
 				{
 					auto& visual3DComponent = entity.second.getComponent<Visual3DComponent>();
-					if (depthRender && visual3DComponent.mesh)
+					if (s_depthRender && visual3DComponent.mesh)
 					{
 						const auto& vertexArraies = visual3DComponent.mesh->getVertexArraies();
 						const auto& indexBuffers = visual3DComponent.mesh->getIndexBuffers();
@@ -158,16 +190,16 @@ namespace Enternity
 						for (int i = 0; i < vertexArraies.size(); i++)
 						{
 							vertexArraies[i]->bind();
-							depthRender->bind();
+							s_depthRender->bind();
 							TransformComponent tc;
-							depthRender->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * cameraTransformComponent.getInverseWorldMatrix() *
+							s_depthRender->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * cameraTransformComponent.getInverseWorldMatrix() *
 								(entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : tc.getWorldMatrix()));
 
 							indexBuffers[i]->bind();
 							CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffers[i]->getCount(), GL_UNSIGNED_INT, (void*)0));
 
 							vertexArraies[i]->unbind();
-							depthRender->unbind();
+							s_depthRender->unbind();
 							indexBuffers[i]->unbind();
 						}
 					}

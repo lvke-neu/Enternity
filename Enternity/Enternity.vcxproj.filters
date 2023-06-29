@@ -334,6 +334,9 @@
     <ClInclude Include="src\Graphics\RHI\Renderer\RenderPass.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scene\ECS\PostprocessComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\TestWindowsFileAsset.txt" />

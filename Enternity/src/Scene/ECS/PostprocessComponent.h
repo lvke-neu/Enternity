@@ -4,7 +4,7 @@ namespace Enternity
 {
 	class Mesh;
 	class Renderer;
-	struct Visual3DComponent
+	struct PostprocessComponent
 	{
 		Mesh* mesh{ nullptr };
 		Renderer* renderer{ nullptr };

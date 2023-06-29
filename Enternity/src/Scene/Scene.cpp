@@ -3,6 +3,7 @@
 #include "ECS/CameraComponent.h"
 #include "ECS/Visual3DComponent.h"
 #include "ECS/NameComponent.h"
+#include "ECS/PostprocessComponent.h"
 #include "Engine/Engine.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/Mesh/MeshProvider.h"
@@ -139,6 +140,13 @@ namespace Enternity
 				auto& comp = entity6.getComponent<Visual3DComponent>();
 				comp.mesh = mesh;
 			});
+
+		//postprocess
+		m_scenePostprocess = createEntity();
+		m_scenePostprocess.getComponent<NameComponent>().name = "postprocess";
+		auto& ppc = m_scenePostprocess.addComponent<PostprocessComponent>();
+		ppc.renderer = Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererSync("assets/shaders/postprocess/postprocess.vert", "assets/shaders/postprocess/postprocess.frag");
+		ppc.mesh = Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getQuadMesh();
 	}
 
 	Scene::~Scene()

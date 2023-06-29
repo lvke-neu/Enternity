@@ -16,7 +16,7 @@ namespace Enternity
 		void unbind();
 	private:
 		unsigned int m_renderId;
-		unsigned int m_textureId;
+		unsigned int m_textureId = -1;
 		unsigned int m_depthStecilId;
 	};
 

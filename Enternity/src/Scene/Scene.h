@@ -24,6 +24,7 @@ namespace Enternity
 		std::unordered_map<entt::entity, Entity> m_entities;
 
 		Entity m_sceneCamera;
+		Entity m_scenePostprocess;
 		CameraController* m_cameraController{ nullptr };
 	};
 }
