@@ -11,8 +11,10 @@
 #include "Scene/ECS/CameraComponent.h"
 #include "Scene/ECS/NameComponent.h"
 #include "Scene/ECS/PostprocessComponent.h"
+#include "Scene/ECS/SkyboxComponent.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
+#include "Graphics/RHI/Texture/Texture.h"
 
 namespace Enternity
 {
@@ -228,6 +230,23 @@ namespace Enternity
 								ImGui::SetItemDefaultFocus();
 						}
 						ImGui::EndCombo();
+					}
+				});
+		}
+
+		if (entity.hasComponent<SkyboxComponent>())
+		{
+			DrawComponent("SkyboxComponent",
+				[&]()
+				{
+					auto& skyboxComponent = entity.getComponent<SkyboxComponent>();
+					if (skyboxComponent.cubeMapTexture)
+					{
+						const auto& fullPaths = skyboxComponent.cubeMapTexture->getFullPaths();
+						for (const auto& fullPath : fullPaths)
+						{
+							ImGui::Text(fullPath.c_str());
+						}
 					}
 				});
 		}

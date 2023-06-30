@@ -4,6 +4,7 @@
 #include "ECS/Visual3DComponent.h"
 #include "ECS/NameComponent.h"
 #include "ECS/PostprocessComponent.h"
+#include "ECS/SkyboxComponent.h"
 #include "Engine/Engine.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/Mesh/MeshProvider.h"
@@ -35,6 +36,36 @@ namespace Enternity
 		ppc.renderer = Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererSync("assets/shaders/postprocess/postprocess.vert", "assets/shaders/postprocess/postprocess.frag");
 		ppc.mesh = Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshSync(BasicPrimitve::Quad);
 		
+		m_skybox = createEntity();
+		m_skybox.getComponent<NameComponent>().name = "Skybox";
+		m_skybox.addComponent<SkyboxComponent>();
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn(BasicPrimitve::Box,
+			[=](Mesh* mesh)
+			{
+				auto& comp = m_skybox.getComponent<SkyboxComponent>();
+				comp.mesh = mesh;
+			});
+		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/skybox/skybox.vert", "assets/shaders/skybox/skybox.frag",
+			[=](Renderer* render)
+			{
+				auto& comp = m_skybox.getComponent<SkyboxComponent>();
+				comp.renderer = render;
+			});
+		Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getCubeMapTextureAsyn(
+			{ 
+				{"assets/textures/skybox/default/right.jpg"},
+				{"assets/textures/skybox/default/left.jpg"},
+				{"assets/textures/skybox/default/top.jpg"},
+				{"assets/textures/skybox/default/bottom.jpg"},
+				{"assets/textures/skybox/default/front.jpg"},
+				{"assets/textures/skybox/default/back.jpg"}
+			},
+			[=](CubeMapTexture* cubeMapTexture)
+			{
+				auto& comp = m_skybox.getComponent<SkyboxComponent>();
+				comp.cubeMapTexture = cubeMapTexture;
+			});
+
 		//test entity 1
 		auto entity = createEntity();
 		entity.getComponent<NameComponent>().name = "nanosuit";

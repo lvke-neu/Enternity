@@ -60,6 +60,7 @@ namespace Enternity
 				if (textureAssets[i] && textureAssets[i]->m_content)
 				{
 					CHECK_GL_CALL(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, textureAssets[i]->m_width, textureAssets[i]->m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureAssets[i]->m_content->getData()));
+					m_fullPaths.push_back(textureAssets[i]->m_fullPath);
 				}
 			}
 

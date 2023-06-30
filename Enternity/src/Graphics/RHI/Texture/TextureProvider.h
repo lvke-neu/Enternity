@@ -14,6 +14,11 @@ namespace Enternity
 			TextureAsset* textureAsset;
 			std::function<void(Texture*)> callback;
 		};
+		struct TextureAsset_Callback2
+		{
+			std::vector<TextureAsset*> textureAssets;
+			std::function<void(CubeMapTexture*)> callback;
+		};
 	public:
 		TextureProvider();
 		~TextureProvider();
@@ -21,10 +26,12 @@ namespace Enternity
 		Texture* getTextureSync(const char* fullPath);
 		void  getTextureAsyn(const char* fullPath, std::function<void(Texture*)> callback);
 
-		CubeMapTexture* getCubeMapTexture(const std::vector<const char*>& fullPaths);
+		CubeMapTexture* getCubeMapTextureSync(const std::vector<const char*>& fullPaths);
+		void getCubeMapTextureAsyn(const std::vector<const char*>& fullPaths, std::function<void(CubeMapTexture*)> callback);
 	private:
 		void tick(void* data);
 	private:
 		std::vector <TextureAsset_Callback > m_map;
+		std::vector <TextureAsset_Callback2 > m_map2;
 	};
 }
