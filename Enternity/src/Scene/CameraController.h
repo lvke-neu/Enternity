@@ -16,7 +16,6 @@ namespace Enternity
 		void onMouseMove(void* data);
 	private:
 		Entity* m_sceneCamera{ nullptr };
-		float m_moveSpeed = 10.0f;
 
 		float m_oldMousePosX;
 		float m_oldMousePosY;

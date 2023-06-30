@@ -9,6 +9,7 @@ namespace Enternity
 		float aspect = 1.0f;
 		float nearZ = 1.0f;
 		float farZ = 1000.0f;
+		float moveSpeed = 10.0f;
 
 		glm::mat4 getProjectionMatrix()
 		{

@@ -41,25 +41,26 @@ namespace Enternity
 		float deltaTime = *(float*)(data);
 
 		auto& transformComponent = m_sceneCamera->getComponent<TransformComponent>();
+		float moveSpeed = m_sceneCamera->getComponent<CameraComponent>().moveSpeed;
 
 		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::W))
 		{
-			transformComponent.moveZAxis(-m_moveSpeed * deltaTime);
+			transformComponent.moveZAxis(-moveSpeed * deltaTime);
 		}
 
 		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::S))
 		{
-			transformComponent.moveZAxis(m_moveSpeed * deltaTime);
+			transformComponent.moveZAxis(moveSpeed * deltaTime);
 		}
 
 		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::A))
 		{
-			transformComponent.moveXAxis(-m_moveSpeed * deltaTime);
+			transformComponent.moveXAxis(-moveSpeed * deltaTime);
 		}
 
 		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::D))
 		{
-			transformComponent.moveXAxis(m_moveSpeed * deltaTime);
+			transformComponent.moveXAxis(moveSpeed * deltaTime);
 		}
 	}
 

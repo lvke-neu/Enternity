@@ -135,7 +135,7 @@ namespace Enternity
 					ImGui::DragFloat("Aspect", &cameraComponent.aspect, 1.0f, -9999.0f, 9999.0f);
 					ImGui::DragFloat("NearZ", &cameraComponent.nearZ, 1.0f, -9999.0f, 9999.0f);
 					ImGui::DragFloat("FarZ", &cameraComponent.farZ, 1.0f, -9999.0f, 9999.0f);
-
+					ImGui::DragFloat("MoveSpeed", &cameraComponent.moveSpeed, 1.0f, -9999.0f, 9999.0f);
 				});
 		}
 
