@@ -21,11 +21,11 @@ namespace Enternity
 
 			if (textureAsset->m_channels == 3)
 			{
-				CHECK_GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, textureAsset->m_width, textureAsset->m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureAsset->m_content->getData()));
+				CHECK_GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureAsset->m_width, textureAsset->m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureAsset->m_content->getData()));
 			}
 			else if (textureAsset->m_channels == 4)
 			{
-				CHECK_GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, textureAsset->m_width, textureAsset->m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureAsset->m_content->getData()));
+				CHECK_GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureAsset->m_width, textureAsset->m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureAsset->m_content->getData()));
 			}
 
 			CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, 0));

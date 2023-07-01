@@ -65,7 +65,7 @@ namespace Enternity
 				auto& comp = m_skybox.getComponent<SkyboxComponent>();
 				comp.cubeMapTexture = cubeMapTexture;
 			});
-
+		
 		//test entity 1
 		auto entity = createEntity();
 		entity.getComponent<NameComponent>().name = "nanosuit";
@@ -115,12 +115,6 @@ namespace Enternity
 				comp.renderer = render;
 			});
 		entity3.getComponent<Visual3DComponent>().mesh = Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshSync(BasicPrimitve::Box);
-		/*Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/models/Cube.fbx",
-			[=](Mesh* mesh)
-			{
-				auto& comp = entity3.getComponent<Visual3DComponent>();
-				comp.mesh = mesh;
-			})*/;
 
 		//test entity 4
 		auto entity4 = createEntity();
@@ -145,7 +139,7 @@ namespace Enternity
 		auto entity5 = createEntity();
 		entity5.getComponent<NameComponent>().name = "pipe";
 		auto& tfc5 = entity5.addComponent<TransformComponent>();
-		tfc5.translation = glm::vec3(-10, 0, 0);
+		tfc5.translation = glm::vec3(-22.85, 5.07, -2.06);
 		entity5.addComponent<Visual3DComponent>();
 		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
 			[=](Renderer* render)
@@ -153,7 +147,7 @@ namespace Enternity
 				auto& comp = entity5.getComponent<Visual3DComponent>();
 				comp.renderer = render;
 			});
-		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/models/Pipe.fbx",
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/spider/spider.obj",
 			[=](Mesh* mesh)
 			{
 				auto& comp = entity5.getComponent<Visual3DComponent>();

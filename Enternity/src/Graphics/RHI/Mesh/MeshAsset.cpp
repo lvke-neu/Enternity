@@ -92,6 +92,7 @@ namespace Enternity
 	QuadMeshAsset::QuadMeshAsset() : MeshAsset("BasicPrimitive::Quad")
 	{
 		m_materials.resize(1);
+		m_materials[0] = "BasicPrimitive::Quad";
 	}
 
 	QuadMeshAsset::~QuadMeshAsset()
@@ -124,11 +125,12 @@ namespace Enternity
 	BoxMeshAsset::BoxMeshAsset() : MeshAsset("BasicPrimitive::Box")
 	{
 		m_materials.resize(1);
+		m_materials[0] = "BasicPrimitive::Box";
 	}
 
 	BoxMeshAsset::~BoxMeshAsset()
 	{
-
+		
 	}
 
 	void BoxMeshAsset::doLoad()
