@@ -262,6 +262,8 @@ namespace Enternity
 							ImGui::Text(fullPath.c_str());
 						}
 					}
+
+					ImGui::Checkbox("Enable", &skyboxComponent.enable);
 				});
 		}
 	}
