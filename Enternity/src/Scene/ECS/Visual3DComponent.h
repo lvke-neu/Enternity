@@ -8,5 +8,7 @@ namespace Enternity
 	{
 		Mesh* mesh{ nullptr };
 		Renderer* renderer{ nullptr };
+
+		void release();
 	};
 }

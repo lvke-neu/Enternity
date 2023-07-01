@@ -15,6 +15,7 @@
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/Visual3DComponent.h"
 #include "Scene/ECS/PostprocessComponent.h"
+#include "Scene/ECS/SkyboxComponent.h"
 #include <glad/glad.h>
 
 namespace Enternity
@@ -51,6 +52,7 @@ namespace Enternity
 	void RenderSystem::render(Scene* scene)
 	{
 		renderPath_Color(scene);
+		renderPath_SkyBox(scene);
 		renderPath_Postprocess(scene);
 		if (m_bRenderPathDepth)
 		{
@@ -133,6 +135,40 @@ namespace Enternity
 			m_frameBufferColor->unbind();
 		}
 
+	}
+
+	void RenderSystem::renderPath_SkyBox(Scene* scene)
+	{
+		if (scene)
+		{
+			m_frameBufferColor->bind();
+
+			auto& cameraComponent = scene->m_sceneCamera.getComponent<CameraComponent>();
+			auto& cameraTransformComponent = scene->m_sceneCamera.getComponent<TransformComponent>();
+			auto& skyboxComponent = scene->m_skybox.getComponent<SkyboxComponent>();
+
+			if (skyboxComponent.mesh && skyboxComponent.renderer && skyboxComponent.cubeMapTexture)
+			{
+				glDepthFunc(GL_LEQUAL);
+
+				skyboxComponent.renderer->bind();
+				skyboxComponent.renderer->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * glm::mat4(glm::mat3(cameraTransformComponent.getInverseWorldMatrix())));
+				skyboxComponent.mesh->getVertexArraies()[0]->bind();
+				skyboxComponent.mesh->getIndexBuffers()[0]->bind();
+				skyboxComponent.cubeMapTexture->bind(0);
+				CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, skyboxComponent.mesh->getIndexBuffers()[0]->getCount(), GL_UNSIGNED_INT, (void*)0));
+
+				skyboxComponent.renderer->unbind();
+				skyboxComponent.mesh->getVertexArraies()[0]->unbind();
+				skyboxComponent.mesh->getIndexBuffers()[0]->unbind();
+				skyboxComponent.cubeMapTexture->unbind();
+
+				glDepthFunc(GL_LESS);
+			}
+
+	
+			m_frameBufferColor->unbind();
+		}
 	}
 
 	void RenderSystem::renderPath_Postprocess(Scene* scene)

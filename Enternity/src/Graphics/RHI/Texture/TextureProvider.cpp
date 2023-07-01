@@ -53,7 +53,7 @@ namespace Enternity
 
 		for (int i = 0; i < 6; ++i)
 		{
-			TextureAsset* textureAsset = new TextureAsset(fullPaths[i]);
+			TextureAsset* textureAsset = new TextureAsset(fullPaths[i], false);
 			textureAsset->load(0);
 			if (textureAsset->getLoadingState() == Asset::loading_state_succeeded)
 			{
@@ -83,7 +83,7 @@ namespace Enternity
 
 		for (int i = 0; i < 6; ++i)
 		{
-			TextureAsset* textureAsset = new TextureAsset(fullPaths[i]);
+			TextureAsset* textureAsset = new TextureAsset(fullPaths[i], false);
 			textureAsset->load();
 			textureAsset_Callback2.textureAssets.push_back(textureAsset);
 		}

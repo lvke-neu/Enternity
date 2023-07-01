@@ -17,7 +17,8 @@ namespace Enternity
 	public:
 		Entity createEntity();
 		Entity getEntity(entt::entity id);
-		void deleteEntity(entt::entity id);
+		void deleteEntityById(entt::entity id);
+		void deleteAllEntity();
 		void tick(float deltaTime);
 	private:
 		entt::registry m_registry;

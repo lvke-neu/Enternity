@@ -177,11 +177,7 @@ namespace Enternity
 
 	Scene::~Scene()
 	{
-		for (auto& entity : m_entities)
-		{
-			m_registry.destroy(entity.second.getEnttID());
-		}
-		m_entities.clear();
+		deleteAllEntity();
 
 		SAFE_DELETE_SET_NULL(m_cameraController);
 	}
@@ -205,17 +201,53 @@ namespace Enternity
 		return Entity();
 	}
 
-	void Scene::deleteEntity(entt::entity id)
+
+	void Scene::deleteEntityById(entt::entity id)
 	{
-		auto it = m_entities.find(id);
-		if (it != m_entities.end())
+		//auto it = m_entities.find(id);
+		//if (it != m_entities.end())
+		//{
+		//	if (it->second.hasComponent<Visual3DComponent>())
+		//	{
+		//		it->second.getComponent<Visual3DComponent>().release();
+		//	}
+
+		//	if (it->second.hasComponent<PostprocessComponent>())
+		//	{
+		//		it->second.getComponent<PostprocessComponent>().release();
+		//	}			
+		//	
+		//	if (it->second.hasComponent<SkyboxComponent>())
+		//	{
+		//		it->second.getComponent<SkyboxComponent>().release();
+		//	}
+
+		//	m_registry.destroy(it->first);
+		//	m_entities.erase(id);
+		//}
+	}
+
+	void Scene::deleteAllEntity()
+	{
+		for (auto it = m_entities.begin(); it != m_entities.end();)
 		{
 			if (it->second.hasComponent<Visual3DComponent>())
 			{
-				SAFE_DELETE_SET_NULL(it->second.getComponent<Visual3DComponent>().mesh);
-				SAFE_DELETE_SET_NULL(it->second.getComponent<Visual3DComponent>().renderer);
+				it->second.getComponent<Visual3DComponent>().release();
 			}
-			m_entities.erase(id);
+
+			if (it->second.hasComponent<PostprocessComponent>())
+			{
+				it->second.getComponent<PostprocessComponent>().release();
+			}
+
+			if (it->second.hasComponent<SkyboxComponent>())
+			{
+				it->second.getComponent<SkyboxComponent>().release();
+			}
+
+			m_registry.destroy(it->first);
+			it = m_entities.erase(it);
 		}
 	}
 

@@ -19,5 +19,7 @@ namespace Enternity
 		Mesh* mesh{ nullptr };
 		Renderer* renderer{ nullptr };
 		PostprocessType postprocessType{ None };
+
+		void release();
 	};
 }

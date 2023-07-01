@@ -10,5 +10,7 @@ namespace Enternity
 		Mesh* mesh{ nullptr };
 		Renderer* renderer{ nullptr };
 		CubeMapTexture* cubeMapTexture{ nullptr };
+
+		void release();
 	};
 }
