@@ -160,7 +160,7 @@ namespace Enternity
 
 	void RenderSystem::renderPath_SkyBox(Scene* scene)
 	{
-		if (scene && scene->m_skybox.getComponent<SkyboxComponent>().enable)
+		if (scene)
 		{
 			m_frameBufferColor->bind();
 

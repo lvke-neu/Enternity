@@ -76,6 +76,7 @@ namespace Enternity
 		if (fullPaths.size() != 6)
 		{
 			callback(nullptr);
+			return;
 		}
 
 		TextureAsset_Callback2  textureAsset_Callback2;

@@ -51,15 +51,7 @@ namespace Enternity
 				auto& comp = m_skybox.getComponent<SkyboxComponent>();
 				comp.renderer = render;
 			});
-		Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getCubeMapTextureAsyn(
-			{ 
-				{"assets/textures/skybox/default/right.jpg"},
-				{"assets/textures/skybox/default/left.jpg"},
-				{"assets/textures/skybox/default/top.jpg"},
-				{"assets/textures/skybox/default/bottom.jpg"},
-				{"assets/textures/skybox/default/front.jpg"},
-				{"assets/textures/skybox/default/back.jpg"}
-			},
+		Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getCubeMapTextureAsyn(SkyboxComponent::FullPaths[SkyboxType::Default],
 			[=](CubeMapTexture* cubeMapTexture)
 			{
 				auto& comp = m_skybox.getComponent<SkyboxComponent>();

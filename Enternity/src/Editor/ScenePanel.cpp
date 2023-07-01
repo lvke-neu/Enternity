@@ -12,9 +12,11 @@
 #include "Scene/ECS/NameComponent.h"
 #include "Scene/ECS/PostprocessComponent.h"
 #include "Scene/ECS/SkyboxComponent.h"
+#include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"
+#include "Graphics/RHI/Texture/TextureProvider.h"
 
 namespace Enternity
 {
@@ -254,16 +256,34 @@ namespace Enternity
 				[&]()
 				{
 					auto& skyboxComponent = entity.getComponent<SkyboxComponent>();
-					if (skyboxComponent.cubeMapTexture)
+
+					SkyboxType skyboxType = skyboxComponent.skyboxType;
+					const char* bodyTypeString[] = { "None", "Default", "Sunset"};
+					const char* currentBodyTypeString = bodyTypeString[(int)skyboxType];
+					if (ImGui::BeginCombo("SkyboxType", currentBodyTypeString))
 					{
-						const auto& fullPaths = skyboxComponent.cubeMapTexture->getFullPaths();
-						for (const auto& fullPath : fullPaths)
+						for (int i = 0; i < 3; i++)
 						{
-							ImGui::Text(fullPath.c_str());
+							bool isSelected = currentBodyTypeString == bodyTypeString[i];
+							if (ImGui::Selectable(bodyTypeString[i], isSelected))
+							{
+								skyboxComponent.skyboxType = (SkyboxType)i;
+								if (!isSelected)
+								{
+									Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getCubeMapTextureAsyn(SkyboxComponent::FullPaths[skyboxComponent.skyboxType],
+										[=](CubeMapTexture* cubeMapTexture)
+										{
+											auto& comp = entity.getComponent<SkyboxComponent>();
+											SAFE_DELETE_SET_NULL(comp.cubeMapTexture);
+											comp.cubeMapTexture = cubeMapTexture;
+										});
+								}
+
+							}
 						}
+						ImGui::EndCombo();
 					}
 
-					ImGui::Checkbox("Enable", &skyboxComponent.enable);
 				});
 		}
 	}
@@ -286,41 +306,7 @@ namespace Enternity
 			m_selectedEntityId = -1;
 
 		ImGui::End();
-		
-		//for (const auto& entity : Engine::GetInstance().getSceneManager()->getCurrentScene()->m_entities)
-		//{
-		//	ImGui::Text(std::to_string((int)entity.first).c_str());
 
-		//	if (entity.second.hasComponent<CameraComponent>())
-		//	{
-		//		ImGui::Text("Camera Frustum");
-		//	}
-
-		//	if (entity.second.hasComponent<TransformComponent>())
-		//	{
-		//		auto& transformComponent = entity.second.getComponent<TransformComponent>();
-		//		auto& translation = transformComponent.translation;
-		//		auto& rotation = transformComponent.rotation;
-		//		auto& scale = transformComponent.scale;
-
-		//		ImGui::PushID((int)entity.first);
-		//		DrawVec3("Translation", translation, glm::vec3(0.0f));
-		//		DrawVec3("Rotation", rotation, glm::vec3(0.0f));
-		//		DrawVec3("Scale", scale, glm::vec3(1.0f));
-		//		ImGui::PopID();
-		//	}
-		//	
-		//	if (entity.second.hasComponent<Visual3DComponent>())
-		//	{
-		//		auto& v3d = entity.second.getComponent<Visual3DComponent>();
-		//		if (v3d.mesh)
-		//		{
-		//			ImGui::Text(("Mesh:" + v3d.mesh->getFullPath()).c_str());
-		//		}
-		//	}	
-
-		//	ImGui::Separator();
-		//}
 		ImGui::Begin("Component");
 
 		if (m_selectedEntityId != -1)
