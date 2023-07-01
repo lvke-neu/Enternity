@@ -202,7 +202,12 @@ namespace Enternity
 									});								
 							}
 						});
-					
+
+					DrawComponent("EnableEnvironmentMap",
+						[&]()
+						{
+							ImGui::Checkbox("EnableEnvironmentMap", &visual3DComponent.enableEnvironmentMap);
+						});
 				});
 		}
 

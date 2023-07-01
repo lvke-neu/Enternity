@@ -98,9 +98,11 @@ namespace Enternity
 							visual3DComponent.renderer->bind();
 							visual3DComponent.renderer->applyRenderPass();
 							TransformComponent tc;
-							visual3DComponent.renderer->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * cameraTransformComponent.getInverseWorldMatrix() *
-								(entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : tc.getWorldMatrix()));
-							
+
+							visual3DComponent.renderer->setMat4("u_m", entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : tc.getWorldMatrix());
+							visual3DComponent.renderer->setMat4("u_v", cameraTransformComponent.getInverseWorldMatrix());
+							visual3DComponent.renderer->setMat4("u_p", cameraComponent.getProjectionMatrix());
+
 							if (visual3DComponent.mesh->getTextures()[i])
 							{
 								visual3DComponent.mesh->getTextures()[i]->bind(0);
@@ -110,6 +112,18 @@ namespace Enternity
 								s_defaultTexture->bind(0);
 							}
 							
+							visual3DComponent.renderer->setUint1("u_enableEnvironmentMap", visual3DComponent.enableEnvironmentMap);
+							if (visual3DComponent.enableEnvironmentMap)
+							{
+								visual3DComponent.renderer->setUint1("u_enableEnvironmentMap", 1);
+								visual3DComponent.renderer->setVec3("u_cameraPos", cameraTransformComponent.translation);
+
+								if (scene->m_skybox.getComponent<SkyboxComponent>().cubeMapTexture)
+								{
+									scene->m_skybox.getComponent<SkyboxComponent>().cubeMapTexture->bind(1);
+								}
+							}
+
 							indexBuffers[i]->bind();
 							CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffers[i]->getCount(), GL_UNSIGNED_INT, (void*)0));
 							m_triangleCount += indexBuffers[i]->getCount();
@@ -121,6 +135,14 @@ namespace Enternity
 							else
 							{
 								s_defaultTexture->unbind();
+							}
+
+							if (visual3DComponent.enableEnvironmentMap)
+							{
+								if (scene->m_skybox.getComponent<SkyboxComponent>().cubeMapTexture)
+								{
+									scene->m_skybox.getComponent<SkyboxComponent>().cubeMapTexture->unbind();
+								}
 							}
 
 							vertexArraies[i]->unbind();

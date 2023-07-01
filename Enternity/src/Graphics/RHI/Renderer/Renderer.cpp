@@ -103,6 +103,11 @@ namespace Enternity
 		CHECK_GL_CALL(glUniformMatrix4fv(getUniformLocation(name), 1, normalize, &mat4[0][0]));
 	}
 
+	void Renderer::setVec3(const std::string& name, const glm::vec3& vec3, bool normalize)
+	{
+		CHECK_GL_CALL(glUniform3fv(getUniformLocation(name), 1, &vec3[0]));
+	}
+
 	void Renderer::setUint1(const std::string& name, unsigned int value)
 	{
 		CHECK_GL_CALL(glUniform1uiv(getUniformLocation(name), 1, &value));
