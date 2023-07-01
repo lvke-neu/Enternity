@@ -173,7 +173,6 @@ namespace Enternity
 								DrawComponent("RenderPass",
 									[&]()
 									{
-
 										RenderPass renderPass = visual3DComponent.renderer->getRenderPass();
 										const char* bodyTypeString[] = { "Point", "Line", "Fill" };
 										const char* currentBodyTypeString = bodyTypeString[renderPass.fillMode];
@@ -188,8 +187,6 @@ namespace Enternity
 													renderPass.fillMode = (FillMode)i;
 													visual3DComponent.renderer->setRenderPass(renderPass);
 												}
-												if (isSelected)
-													ImGui::SetItemDefaultFocus();
 											}
 											ImGui::EndCombo();
 										}
@@ -206,7 +203,21 @@ namespace Enternity
 					DrawComponent("EnableEnvironmentMap",
 						[&]()
 						{
-							ImGui::Checkbox("EnableEnvironmentMap", &visual3DComponent.enableEnvironmentMap);
+							EnvironmentMapType environmentMapType = visual3DComponent.environmentMapType;
+							const char* bodyTypeString[] = { "None", "Reflection", "Refraction" };
+							const char* currentBodyTypeString = bodyTypeString[(int)environmentMapType];
+							if (ImGui::BeginCombo("EnableEnvironmentMapType", currentBodyTypeString))
+							{
+								for (int i = 0; i < 3; i++)
+								{
+									bool isSelected = currentBodyTypeString == bodyTypeString[i];
+									if (ImGui::Selectable(bodyTypeString[i], isSelected))
+									{
+										visual3DComponent.environmentMapType = (EnvironmentMapType)i;
+									}
+								}
+								ImGui::EndCombo();
+							}
 						});
 				});
 		}
@@ -220,7 +231,7 @@ namespace Enternity
 
 					PostprocessType postprocessType = postprocessComponent.postprocessType;
 					const char* bodyTypeString[] = { "None", "Inversion", "Grayscale","Sharpen", "Blur", "EdgeDetection"};
-					const char* currentBodyTypeString = bodyTypeString[postprocessType];
+					const char* currentBodyTypeString = bodyTypeString[(int)postprocessType];
 					if (ImGui::BeginCombo("PostprocessType", currentBodyTypeString))
 					{
 						for (int i = 0; i < 6; i++)
@@ -231,8 +242,6 @@ namespace Enternity
 								currentBodyTypeString = bodyTypeString[i];
 								postprocessComponent.postprocessType = (PostprocessType)i;
 							}
-							if (isSelected)
-								ImGui::SetItemDefaultFocus();
 						}
 						ImGui::EndCombo();
 					}

@@ -112,10 +112,9 @@ namespace Enternity
 								s_defaultTexture->bind(0);
 							}
 							
-							visual3DComponent.renderer->setUint1("u_enableEnvironmentMap", visual3DComponent.enableEnvironmentMap);
-							if (visual3DComponent.enableEnvironmentMap)
+							visual3DComponent.renderer->setUint1("u_environmentMapType", (unsigned int)visual3DComponent.environmentMapType);
+							if (visual3DComponent.environmentMapType != EnvironmentMapType::None)
 							{
-								visual3DComponent.renderer->setUint1("u_enableEnvironmentMap", 1);
 								visual3DComponent.renderer->setVec3("u_cameraPos", cameraTransformComponent.translation);
 
 								if (scene->m_skybox.getComponent<SkyboxComponent>().cubeMapTexture)
@@ -137,7 +136,7 @@ namespace Enternity
 								s_defaultTexture->unbind();
 							}
 
-							if (visual3DComponent.enableEnvironmentMap)
+							if (visual3DComponent.environmentMapType != EnvironmentMapType::None)
 							{
 								if (scene->m_skybox.getComponent<SkyboxComponent>().cubeMapTexture)
 								{
@@ -202,7 +201,7 @@ namespace Enternity
 			auto& postprocessEntity = scene->m_scenePostprocess;
 			auto& ppc = postprocessEntity.getComponent<PostprocessComponent>();
 			ppc.renderer->bind();
-			ppc.renderer->setUint1("u_postProcessType", ppc.postprocessType);
+			ppc.renderer->setUint1("u_postProcessType", (unsigned int)ppc.postprocessType);
 			if (m_frameBufferColor->getTextureId() != -1)
 			{
 				CHECK_GL_CALL(glActiveTexture(GL_TEXTURE0 + 0));

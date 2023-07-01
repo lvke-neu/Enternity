@@ -2,7 +2,7 @@
 
 namespace Enternity
 {
-	enum PostprocessType
+	enum class PostprocessType
 	{
 		None,
 		Inversion,
@@ -18,7 +18,7 @@ namespace Enternity
 	{
 		Mesh* mesh{ nullptr };
 		Renderer* renderer{ nullptr };
-		PostprocessType postprocessType{ None };
+		PostprocessType postprocessType{ PostprocessType::None};
 
 		void release();
 	};
