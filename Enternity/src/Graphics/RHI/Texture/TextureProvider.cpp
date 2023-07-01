@@ -4,12 +4,9 @@
 #include "Common/Macro.h"
 #include "Engine/Engine.h"
 #include "Engine/Event/EventSystem.h"
-#include <mutex>
 
 namespace Enternity
 {
-	std::mutex mtx;
-
 	TextureProvider::TextureProvider()
 	{
 		Engine::GetInstance().getEventSystem()->registerEvent(EventType::Tick, BIND(TextureProvider::tick));
@@ -26,12 +23,12 @@ namespace Enternity
 		textureAsset->load(0);
 
 		Texture* texture = nullptr;
-		
+
 		if (textureAsset->getLoadingState() == Asset::loading_state_succeeded)
 		{
 			texture = new Texture(textureAsset);
 		}
-		
+
 		SAFE_DELETE_SET_NULL(textureAsset);
 
 		return texture;
@@ -42,9 +39,7 @@ namespace Enternity
 		TextureAsset* textureAsset = new TextureAsset(fullPath);
 		textureAsset->load();
 
-		mtx.lock();
 		m_map.push_back({ textureAsset, callback });
-		mtx.unlock();
 	}
 
 	CubeMapTexture* TextureProvider::getCubeMapTextureSync(const std::vector<const char*>& fullPaths)
@@ -53,7 +48,7 @@ namespace Enternity
 		{
 			return nullptr;
 		}
-		
+
 		std::vector<TextureAsset*> textureAssets;
 
 		for (int i = 0; i < 6; ++i)
@@ -93,14 +88,11 @@ namespace Enternity
 			textureAsset_Callback2.textureAssets.push_back(textureAsset);
 		}
 
-		mtx.lock();
 		m_map2.push_back(textureAsset_Callback2);
-		mtx.unlock();
 	}
 
 	void TextureProvider::tick(void* data)
 	{
-		mtx.lock();
 		for (auto it = m_map.begin(); it != m_map.end(); )
 		{
 			if (it->textureAsset->getLoadingState() == Asset::loading_state_succeeded)
@@ -114,9 +106,10 @@ namespace Enternity
 				it++;
 			}
 		}
+
 		for (auto it = m_map2.begin(); it != m_map2.end(); )
 		{
-			if(	it->textureAssets[0]->getLoadingState() == Asset::loading_state_succeeded &&
+			if (it->textureAssets[0]->getLoadingState() == Asset::loading_state_succeeded &&
 				it->textureAssets[1]->getLoadingState() == Asset::loading_state_succeeded &&
 				it->textureAssets[2]->getLoadingState() == Asset::loading_state_succeeded &&
 				it->textureAssets[3]->getLoadingState() == Asset::loading_state_succeeded &&
@@ -130,13 +123,12 @@ namespace Enternity
 				SAFE_DELETE_SET_NULL(it->textureAssets[3]);
 				SAFE_DELETE_SET_NULL(it->textureAssets[4]);
 				SAFE_DELETE_SET_NULL(it->textureAssets[5]);
-				it = m_map2.erase(it);				   
+				it = m_map2.erase(it);
 			}
 			else
 			{
 				it++;
 			}
 		}
-		mtx.unlock();
 	}
 }

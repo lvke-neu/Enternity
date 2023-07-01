@@ -5,6 +5,7 @@
 
 namespace Enternity
 {
+	std::mutex mtx;
 	TextureAsset::TextureAsset(const std::string& fullPath, bool slip) :
 		m_fullPath(fullPath)
 	{
@@ -18,6 +19,8 @@ namespace Enternity
 
 	void TextureAsset::doLoad()
 	{
+		mtx.lock();
+
 		unsigned char* tmpTexture;
 
 		stbi_set_flip_vertically_on_load(m_bSlip);
@@ -26,6 +29,7 @@ namespace Enternity
 		{
 			m_state = loading_state_failed;
 			LOG_ERROR("Texture load failed:{0}", m_fullPath);
+			mtx.unlock();
 			return;
 		}
 
@@ -36,5 +40,7 @@ namespace Enternity
 		stbi_image_free(tmpTexture);
 
 		m_state = loading_state_succeeded;
+
+		mtx.unlock();
 	}
 }
