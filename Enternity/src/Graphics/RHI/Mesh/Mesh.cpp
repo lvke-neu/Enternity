@@ -36,6 +36,8 @@ namespace Enternity
 					{
 						m_textures[i] = texture;
 					});
+
+				//m_textures[i] = Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTextureSync(meshAsset->getMaterials()[i].c_str());
 			}
 
 			m_fullPath = meshAsset->getFullPath();

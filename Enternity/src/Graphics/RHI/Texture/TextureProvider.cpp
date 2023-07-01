@@ -4,9 +4,12 @@
 #include "Common/Macro.h"
 #include "Engine/Engine.h"
 #include "Engine/Event/EventSystem.h"
+#include <mutex>
 
 namespace Enternity
 {
+	std::mutex mtx;
+
 	TextureProvider::TextureProvider()
 	{
 		Engine::GetInstance().getEventSystem()->registerEvent(EventType::Tick, BIND(TextureProvider::tick));
@@ -39,7 +42,9 @@ namespace Enternity
 		TextureAsset* textureAsset = new TextureAsset(fullPath);
 		textureAsset->load();
 
+		mtx.lock();
 		m_map.push_back({ textureAsset, callback });
+		mtx.unlock();
 	}
 
 	CubeMapTexture* TextureProvider::getCubeMapTextureSync(const std::vector<const char*>& fullPaths)
@@ -88,11 +93,14 @@ namespace Enternity
 			textureAsset_Callback2.textureAssets.push_back(textureAsset);
 		}
 
+		mtx.lock();
 		m_map2.push_back(textureAsset_Callback2);
+		mtx.unlock();
 	}
 
 	void TextureProvider::tick(void* data)
 	{
+		mtx.lock();
 		for (auto it = m_map.begin(); it != m_map.end(); )
 		{
 			if (it->textureAsset->getLoadingState() == Asset::loading_state_succeeded)
@@ -106,7 +114,6 @@ namespace Enternity
 				it++;
 			}
 		}
-
 		for (auto it = m_map2.begin(); it != m_map2.end(); )
 		{
 			if(	it->textureAssets[0]->getLoadingState() == Asset::loading_state_succeeded &&
@@ -130,5 +137,6 @@ namespace Enternity
 				it++;
 			}
 		}
+		mtx.unlock();
 	}
 }

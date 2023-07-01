@@ -120,7 +120,7 @@ namespace Enternity
 		auto entity4 = createEntity();
 		entity4.getComponent<NameComponent>().name = "madara_uchiha";
 		auto& tfc4 = entity4.addComponent<TransformComponent>();
-		tfc4.translation = glm::vec3(-10, 10, 0);
+		tfc4.translation = glm::vec3(18.45, 10.00, 0);
 		entity4.addComponent<Visual3DComponent>();
 		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
 			[=](Renderer* render)
@@ -137,7 +137,7 @@ namespace Enternity
 
 		//test entity 5
 		auto entity5 = createEntity();
-		entity5.getComponent<NameComponent>().name = "pipe";
+		entity5.getComponent<NameComponent>().name = "sponza";
 		auto& tfc5 = entity5.addComponent<TransformComponent>();
 		tfc5.translation = glm::vec3(-22.85, 5.07, -2.06);
 		entity5.addComponent<Visual3DComponent>();
@@ -147,7 +147,7 @@ namespace Enternity
 				auto& comp = entity5.getComponent<Visual3DComponent>();
 				comp.renderer = render;
 			});
-		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/spider/spider.obj",
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/sponza/sponza.obj",
 			[=](Mesh* mesh)
 			{
 				auto& comp = entity5.getComponent<Visual3DComponent>();
@@ -158,7 +158,7 @@ namespace Enternity
 		auto entity6 = createEntity();
 		entity6.getComponent<NameComponent>().name = "house";
 		auto& tfc6 = entity6.addComponent<TransformComponent>();
-		tfc6.translation = glm::vec3(-10, 5, 0);
+		tfc6.translation  = glm::vec3(17.36, 3.57, 3.04);
 		tfc6.scale = glm::vec3(0.01, 0.01, 0.01);
 		entity6.addComponent<Visual3DComponent>();
 		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
