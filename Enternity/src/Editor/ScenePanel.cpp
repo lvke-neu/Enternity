@@ -258,11 +258,11 @@ namespace Enternity
 					auto& skyboxComponent = entity.getComponent<SkyboxComponent>();
 
 					SkyboxType skyboxType = skyboxComponent.skyboxType;
-					const char* bodyTypeString[] = { "None", "Default", "Sunset"};
+					const char* bodyTypeString[] = { "None", "Default", "Sunset", "Daylight"};
 					const char* currentBodyTypeString = bodyTypeString[(int)skyboxType];
 					if (ImGui::BeginCombo("SkyboxType", currentBodyTypeString))
 					{
-						for (int i = 0; i < 3; i++)
+						for (int i = 0; i < 4; i++)
 						{
 							bool isSelected = currentBodyTypeString == bodyTypeString[i];
 							if (ImGui::Selectable(bodyTypeString[i], isSelected))

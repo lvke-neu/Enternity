@@ -38,7 +38,7 @@ namespace Enternity
 		
 		m_skybox = createEntity();
 		m_skybox.getComponent<NameComponent>().name = "Skybox";
-		m_skybox.addComponent<SkyboxComponent>();
+		m_skybox.addComponent<SkyboxComponent>().skyboxType = SkyboxType::Daylight;
 		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn(BasicPrimitve::Box,
 			[=](Mesh* mesh)
 			{
@@ -51,7 +51,7 @@ namespace Enternity
 				auto& comp = m_skybox.getComponent<SkyboxComponent>();
 				comp.renderer = render;
 			});
-		Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getCubeMapTextureAsyn(SkyboxComponent::FullPaths[SkyboxType::Default],
+		Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getCubeMapTextureAsyn(SkyboxComponent::FullPaths[SkyboxType::Daylight],
 			[=](CubeMapTexture* cubeMapTexture)
 			{
 				auto& comp = m_skybox.getComponent<SkyboxComponent>();

@@ -36,6 +36,17 @@ namespace Enternity
 				{"assets/textures/skybox/sunset/front.bmp"},
 				{"assets/textures/skybox/sunset/back.bmp"},
 			}
+		},
+		{
+			SkyboxType::Daylight,
+			{
+				{"assets/textures/skybox/daylight/right.png"},
+				{"assets/textures/skybox/daylight/left.png"},
+				{"assets/textures/skybox/daylight/top.png"},
+				{"assets/textures/skybox/daylight/bottom.png"},
+				{"assets/textures/skybox/daylight/front.png"},
+				{"assets/textures/skybox/daylight/back.png"},
+			}
 		}
 	};
 

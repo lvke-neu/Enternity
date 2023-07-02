@@ -8,7 +8,8 @@ namespace Enternity
 	{
 		None,
 		Default,
-		Sunset
+		Sunset,
+		Daylight
 	};
 
 	class Mesh;
