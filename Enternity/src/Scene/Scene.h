@@ -1,5 +1,6 @@
 #pragma once
 #include "ECS/Entity.h"
+#include <map>
 
 namespace Enternity
 {
@@ -22,7 +23,7 @@ namespace Enternity
 		void tick(float deltaTime);
 	private:
 		entt::registry m_registry;
-		std::unordered_map<entt::entity, Entity> m_entities;
+		std::map<entt::entity, Entity> m_entities;
 
 		Entity m_sceneCamera;
 		Entity m_scenePostprocess;

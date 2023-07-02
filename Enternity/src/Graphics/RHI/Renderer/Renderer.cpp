@@ -38,7 +38,7 @@ namespace Enternity
 	unsigned int Renderer::createProgram(const char* vsShaderCode, const char* psShaderCode)
 	{
 		CHECK_GL_CALL(unsigned int program = glCreateProgram());
-
+		
 		unsigned int vsShader = compileShader(GL_VERTEX_SHADER, vsShaderCode);
 		unsigned int psShader = compileShader(GL_FRAGMENT_SHADER, psShaderCode);
 
