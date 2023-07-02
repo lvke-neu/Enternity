@@ -137,6 +137,7 @@ namespace Enternity
 		entity5.getComponent<NameComponent>().name = "sponza";
 		auto& tfc5 = entity5.addComponent<TransformComponent>();
 		tfc5.translation = glm::vec3(-22.85, 5.07, -2.06);
+		tfc5.scale = glm::vec3(0.01, 0.01, 0.01);
 		entity5.addComponent<Visual3DComponent>();
 		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
 			[=](Renderer* render)
@@ -144,7 +145,7 @@ namespace Enternity
 				auto& comp = entity5.getComponent<Visual3DComponent>();
 				comp.renderer = render;
 			});
-		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/sponza/sponza.obj",
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/sponzapbr/Sponza.gltf",
 			[=](Mesh* mesh)
 			{
 				auto& comp = entity5.getComponent<Visual3DComponent>();
