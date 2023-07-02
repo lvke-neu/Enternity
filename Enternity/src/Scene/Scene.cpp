@@ -171,6 +171,26 @@ namespace Enternity
 				auto& comp = entity6.getComponent<Visual3DComponent>();
 				comp.mesh = mesh;
 			});
+
+		//test entity 7
+		auto entity7 = createEntity();
+		entity7.getComponent<NameComponent>().name = "tree";
+		auto& tfc7 = entity7.addComponent<TransformComponent>();
+		tfc7.translation = glm::vec3(5.26, 2.76, -19.89);
+		tfc7.scale = glm::vec3(0.03f);
+		entity7.addComponent<Visual3DComponent>();
+		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
+			[=](Renderer* render)
+			{
+				auto& comp = entity7.getComponent<Visual3DComponent>();
+				comp.renderer = render;
+			});
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn("assets/models/tree/tree.obj",
+			[=](Mesh* mesh)
+			{
+				auto& comp = entity7.getComponent<Visual3DComponent>();
+				comp.mesh = mesh;
+			});
 	}
 
 	Scene::~Scene()
