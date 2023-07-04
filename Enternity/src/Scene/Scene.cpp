@@ -94,13 +94,13 @@ namespace Enternity
 				auto& comp = entity2.getComponent<Visual3DComponent>();
 				comp.mesh = mesh;
 			});
-
+		
 		//test entity 3
 		auto entity3 = createEntity();
-		entity3.getComponent<NameComponent>().name = "cube";
-		entity3.addComponent<TransformComponent>();
+		entity3.getComponent<NameComponent>().name = "floor";
+		entity3.addComponent<TransformComponent>().scale = glm::vec3(200, 0, 200);
 		entity3.addComponent<Visual3DComponent>();
-		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
+		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/floor.frag",
 			[=](Renderer* render)
 			{
 				auto& comp = entity3.getComponent<Visual3DComponent>();
@@ -179,7 +179,7 @@ namespace Enternity
 		tfc7.translation = glm::vec3(5.26, 2.76, -19.89);
 		tfc7.scale = glm::vec3(0.03f);
 		entity7.addComponent<Visual3DComponent>();
-		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
+		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/tree.frag",
 			[=](Renderer* render)
 			{
 				auto& comp = entity7.getComponent<Visual3DComponent>();
