@@ -9,12 +9,12 @@ namespace Enternity
 {
 	TextureProvider::TextureProvider()
 	{
-		Engine::GetInstance().getEventSystem()->registerEvent(EventType::Tick, BIND(TextureProvider::tick));
+		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::Tick, BIND(TextureProvider::tick));
 	}
 
 	TextureProvider::~TextureProvider()
 	{
-		Engine::GetInstance().getEventSystem()->unRegisterEvent(EventType::Tick, BIND(TextureProvider::tick));
+		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::Tick, BIND(TextureProvider::tick));
 	}
 
 	Texture* TextureProvider::getTextureSync(const char* fullPath)

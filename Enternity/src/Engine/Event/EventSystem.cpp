@@ -17,13 +17,13 @@ namespace Enternity
 		m_events.push_back(event);
 	}
 
-	void EventSystem::registerEvent(EventType type, std::function<void(void*)> callback)
+	void EventSystem::registerEvent(Event::EventType type, std::function<void(void*)> callback)
 	{
 		Event event{ type, callback };
 		registerEvent(event);
 	}
 
-	void EventSystem::unRegisterEvent(EventType type, std::function<void(void*)> callback)
+	void EventSystem::unRegisterEvent(Event::EventType type, std::function<void(void*)> callback)
 	{
 		Event event{ type, callback };
 		unRegisterEvent(event);
@@ -41,24 +41,24 @@ namespace Enternity
 		}
 	}
 
-	void EventSystem::dispatchEvent(EventType type, void* data)
+	void EventSystem::dispatchEvent(Event::EventType type, void* data)
 	{
 		if (m_bDispatchInputEvent == false && (
-			type == EventType::KeyPressed ||
-			type == EventType::KeyReleased ||
-			type == EventType::MousePressed ||
-			type == EventType::MouseReleased ||
-			type == EventType::MouseMoved))
+			type == Event::EventType::KeyPressed ||
+			type == Event::EventType::KeyReleased ||
+			type == Event::EventType::MousePressed ||
+			type == Event::EventType::MouseReleased ||
+			type == Event::EventType::MouseMoved))
 		{
 			m_keyTriggers.clear();
 			return;
 		}
 
-		if (type == EventType::KeyPressed)
+		if (type == Event::EventType::KeyPressed)
 		{
 			m_keyTriggers[*(KeyCode*)data] = true;
 		}
-		else if (type == EventType::KeyReleased)
+		else if (type == Event::EventType::KeyReleased)
 		{
 			m_keyTriggers[*(KeyCode*)data] = false;
 		}

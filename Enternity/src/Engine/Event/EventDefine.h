@@ -3,14 +3,6 @@
 
 namespace Enternity
 {
-	enum class EventType
-	{
-		WindowResize,
-		KeyPressed, KeyReleased, MousePressed, MouseReleased, MouseMoved,
-		Tick
-	};
-
-
 	enum class KeyCode
 	{
 		// From glfw3.h
@@ -179,6 +171,12 @@ namespace Enternity
 
 	struct Event
 	{
+		enum EventType
+		{
+			WindowResize,
+			KeyPressed, KeyReleased, MousePressed, MouseReleased, MouseMoved,
+			Tick
+		};
 		EventType type;
 		std::function<void(void*)> callback;
 	};

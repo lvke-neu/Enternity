@@ -40,25 +40,25 @@ void UnitTest::Test()
 
 UnitTest::UnitTest()
 {
-	Event event{ EventType::WindowResize, std::bind(&UnitTest::callbackFunc, this, std::placeholders::_1) };
+	Event event{ Event::EventType::WindowResize, std::bind(&UnitTest::callbackFunc, this, std::placeholders::_1) };
 	Engine::GetInstance().getEventSystem()->registerEvent(event);
 
 	//event = Event{ EventType::Tick, std::bind(&UnitTest::callbackFunc2, this, std::placeholders::_1) };
 	//Engine::GetInstance().getEventSystem()->registerEvent(event);
 
-	event = Event{ EventType::KeyPressed, std::bind(&UnitTest::callbackFunc3, this, std::placeholders::_1) };
+	event = Event{ Event::EventType::KeyPressed, std::bind(&UnitTest::callbackFunc3, this, std::placeholders::_1) };
 	Engine::GetInstance().getEventSystem()->registerEvent(event);
 
-	event = Event{ EventType::KeyReleased, std::bind(&UnitTest::callbackFunc4, this, std::placeholders::_1) };
+	event = Event{ Event::EventType::KeyReleased, std::bind(&UnitTest::callbackFunc4, this, std::placeholders::_1) };
 	Engine::GetInstance().getEventSystem()->registerEvent(event);	
 	
-	event = Event{ EventType::MousePressed, std::bind(&UnitTest::callbackFunc5, this, std::placeholders::_1) };
+	event = Event{ Event::EventType::MousePressed, std::bind(&UnitTest::callbackFunc5, this, std::placeholders::_1) };
 	Engine::GetInstance().getEventSystem()->registerEvent(event);
 
-	event = Event{ EventType::MouseReleased, std::bind(&UnitTest::callbackFunc6, this, std::placeholders::_1) };
+	event = Event{ Event::EventType::MouseReleased, std::bind(&UnitTest::callbackFunc6, this, std::placeholders::_1) };
 	Engine::GetInstance().getEventSystem()->registerEvent(event);
 
-	event = Event{ EventType::MouseMoved, std::bind(&UnitTest::callbackFunc7, this, std::placeholders::_1) };
+	event = Event{ Event::EventType::MouseMoved, std::bind(&UnitTest::callbackFunc7, this, std::placeholders::_1) };
 	Engine::GetInstance().getEventSystem()->registerEvent(event);
 }
 

@@ -27,7 +27,7 @@ namespace Enternity
 	{
 		m_frameBufferColor = new FrameBuffer;
 		m_frameBufferDepth = new FrameBuffer;
-		Engine::GetInstance().getEventSystem()->registerEvent(EventType::WindowResize, BIND(RenderSystem::onWindowResize));				
+		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::WindowResize, BIND(RenderSystem::onWindowResize));
 	
 		//TODO: move to class Scene
 		TextureAsset ta("assets/textures/white_background.jpeg");
@@ -43,7 +43,7 @@ namespace Enternity
 
 	RenderSystem::~RenderSystem()
 	{
-		Engine::GetInstance().getEventSystem()->unRegisterEvent(EventType::WindowResize, BIND(RenderSystem::onWindowResize));
+		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::WindowResize, BIND(RenderSystem::onWindowResize));
 		SAFE_DELETE_SET_NULL(m_frameBufferColor);
 		SAFE_DELETE_SET_NULL(m_frameBufferDepth);
 		SAFE_DELETE_SET_NULL(s_defaultTexture);

@@ -9,12 +9,12 @@ namespace Enternity
 {
 	MeshProvider::MeshProvider()
 	{
-		Engine::GetInstance().getEventSystem()->registerEvent(EventType::Tick, BIND(MeshProvider::tick));
+		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::Tick, BIND(MeshProvider::tick));
 	}
 
 	MeshProvider::~MeshProvider()
 	{
-		Engine::GetInstance().getEventSystem()->unRegisterEvent(EventType::Tick, BIND(MeshProvider::tick));
+		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::Tick, BIND(MeshProvider::tick));
 	}
 
 	Mesh* MeshProvider::getMeshSync(const char* fullPath)

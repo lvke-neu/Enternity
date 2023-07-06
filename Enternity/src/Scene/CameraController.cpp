@@ -12,20 +12,20 @@ namespace Enternity
 	{
 		m_sceneCamera = sceneCamera;
 
-		Engine::GetInstance().getEventSystem()->registerEvent(EventType::WindowResize, BIND(CameraController::onWindowResize));
-		Engine::GetInstance().getEventSystem()->registerEvent(EventType::Tick, BIND(CameraController::tick));
-		Engine::GetInstance().getEventSystem()->registerEvent(EventType::MousePressed, BIND(CameraController::onMousePress));
-		Engine::GetInstance().getEventSystem()->registerEvent(EventType::MouseReleased, BIND(CameraController::onMouseRelease));
-		Engine::GetInstance().getEventSystem()->registerEvent(EventType::MouseMoved, BIND(CameraController::onMouseMove));
+		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::WindowResize, BIND(CameraController::onWindowResize));
+		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::Tick, BIND(CameraController::tick));
+		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::MousePressed, BIND(CameraController::onMousePress));
+		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::MouseReleased, BIND(CameraController::onMouseRelease));
+		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::MouseMoved, BIND(CameraController::onMouseMove));
 	}
 
 	CameraController::~CameraController()
 	{
-		Engine::GetInstance().getEventSystem()->unRegisterEvent(EventType::WindowResize, BIND(CameraController::onWindowResize));
-		Engine::GetInstance().getEventSystem()->unRegisterEvent(EventType::Tick, BIND(CameraController::tick));
-		Engine::GetInstance().getEventSystem()->unRegisterEvent(EventType::MousePressed, BIND(CameraController::onMousePress));
-		Engine::GetInstance().getEventSystem()->unRegisterEvent(EventType::MouseReleased, BIND(CameraController::onMouseRelease));
-		Engine::GetInstance().getEventSystem()->unRegisterEvent(EventType::MouseMoved, BIND(CameraController::onMouseMove));
+		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::WindowResize, BIND(CameraController::onWindowResize));
+		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::Tick, BIND(CameraController::tick));
+		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::MousePressed, BIND(CameraController::onMousePress));
+		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::MouseReleased, BIND(CameraController::onMouseRelease));
+		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::MouseMoved, BIND(CameraController::onMouseMove));
 	
 	}
 

@@ -97,7 +97,7 @@ namespace Enternity
 		CHECK_GL_CALL(glViewport(0, 0, width, height));
 
 		WindowSize ws{ width, height };
-		Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::WindowResize, &ws);
+		Engine::GetInstance().getEventSystem()->dispatchEvent(Event::EventType::WindowResize, &ws);
 	}
 
 	void RenderView::Resize(int width, int height)
@@ -110,18 +110,18 @@ namespace Enternity
 		CHECK_GL_CALL(glViewport(0, 0, width, height));
 
 		WindowSize ws{ width, height };
-		Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::WindowResize, &ws);
+		Engine::GetInstance().getEventSystem()->dispatchEvent(Event::EventType::WindowResize, &ws);
 	}
 
 	void RenderView::KeyTrigger(GLFWwindow* window, int key, int scancode, int action, int mods)
 	{
 		if (action == GLFW_PRESS || action == GLFW_REPEAT)
 		{
-			Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::KeyPressed, &key);
+			Engine::GetInstance().getEventSystem()->dispatchEvent(Event::EventType::KeyPressed, &key);
 		}
 		else if (action == GLFW_RELEASE)
 		{
-			Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::KeyReleased, &key);
+			Engine::GetInstance().getEventSystem()->dispatchEvent(Event::EventType::KeyReleased, &key);
 		}
 	}
 
@@ -133,7 +133,7 @@ namespace Enternity
 			glfwGetCursorPos(window, &x, &y);
 
 			Mouse mouse{ (MouseCode)button,(float)x, (float)y };
-			Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::MousePressed, &mouse);
+			Engine::GetInstance().getEventSystem()->dispatchEvent(Event::EventType::MousePressed, &mouse);
 		}
 
 		if (action == GLFW_RELEASE)
@@ -142,7 +142,7 @@ namespace Enternity
 			glfwGetCursorPos(window, &x, &y);
 
 			Mouse mouse{ (MouseCode)button,(float)x, (float)y };
-			Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::MouseReleased, &mouse);
+			Engine::GetInstance().getEventSystem()->dispatchEvent(Event::EventType::MouseReleased, &mouse);
 		}
 	}
 
@@ -154,7 +154,7 @@ namespace Enternity
 			glfwGetCursorPos(window, &x, &y);
 
 			Mouse mouse{ MouseCode::ButtonLeft,(float)x, (float)y };
-			Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::MouseMoved, &mouse);
+			Engine::GetInstance().getEventSystem()->dispatchEvent(Event::EventType::MouseMoved, &mouse);
 		}
 
 		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
@@ -163,7 +163,7 @@ namespace Enternity
 			glfwGetCursorPos(window, &x, &y);
 
 			Mouse mouse{ MouseCode::ButtonRight,(float)x, (float)y };
-			Engine::GetInstance().getEventSystem()->dispatchEvent(EventType::MouseMoved, &mouse);
+			Engine::GetInstance().getEventSystem()->dispatchEvent(Event::EventType::MouseMoved, &mouse);
 		}
 	}
 }

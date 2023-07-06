@@ -39,7 +39,7 @@ namespace Enternity
 		{
 			m_timer->tick();
 			float deltaTime = m_timer->deltaTime();
-			m_eventSystem->dispatchEvent(EventType::Tick, &deltaTime);
+			m_eventSystem->dispatchEvent(Event::EventType::Tick, &deltaTime);
 
 			m_sceneManager->tick(deltaTime);
 			m_renderView->swapBuffers();

@@ -9,12 +9,12 @@ namespace Enternity
 {
 	RendererProvider::RendererProvider()
 	{
-		Engine::GetInstance().getEventSystem()->registerEvent(EventType::Tick, BIND(RendererProvider::tick));
+		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::Tick, BIND(RendererProvider::tick));
 	}
 
 	RendererProvider::~RendererProvider()
 	{
-		Engine::GetInstance().getEventSystem()->unRegisterEvent(EventType::Tick, BIND(RendererProvider::tick));
+		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::Tick, BIND(RendererProvider::tick));
 	}
 
 	Renderer* RendererProvider::getRendererSync(const char* vsFullPath, const char* psFullPath)

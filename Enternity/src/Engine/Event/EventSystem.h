@@ -11,11 +11,11 @@ namespace Enternity
 		EventSystem();
 		~EventSystem();
 	public:
-		void registerEvent(EventType type, std::function<void(void*)> callback);
+		void registerEvent(Event::EventType type, std::function<void(void*)> callback);
 		void registerEvent(const Event& event);
-		void unRegisterEvent(EventType type, std::function<void(void*)> callback);
+		void unRegisterEvent(Event::EventType type, std::function<void(void*)> callback);
 		void unRegisterEvent(const Event& event);
-		void dispatchEvent(EventType type, void* data);
+		void dispatchEvent(Event::EventType type, void* data);
 		void setIsDispatchInputEvent(bool flag);
 	public:
 		bool isKeyPressed(KeyCode keyCode);
