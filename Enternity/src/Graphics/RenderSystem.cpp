@@ -113,7 +113,7 @@ namespace Enternity
 							}
 							
 							visual3DComponent.renderer->setUint1("u_environmentMapType", (unsigned int)visual3DComponent.environmentMapType);
-							if (visual3DComponent.environmentMapType != EnvironmentMapType::None)
+							if (visual3DComponent.environmentMapType != Visual3DComponent::EnvironmentMapType::None)
 							{
 								visual3DComponent.renderer->setVec3("u_cameraPos", cameraTransformComponent.translation);
 
@@ -136,7 +136,7 @@ namespace Enternity
 								s_defaultTexture->unbind();
 							}
 
-							if (visual3DComponent.environmentMapType != EnvironmentMapType::None)
+							if (visual3DComponent.environmentMapType != Visual3DComponent::EnvironmentMapType::None)
 							{
 								if (scene->m_skybox.getComponent<SkyboxComponent>().cubeMapTexture)
 								{
@@ -160,7 +160,7 @@ namespace Enternity
 
 	void RenderSystem::renderPath_SkyBox(Scene* scene)
 	{
-		if (scene && scene->m_skybox.getComponent<SkyboxComponent>().skyboxType != SkyboxType::None)
+		if (scene && scene->m_skybox.getComponent<SkyboxComponent>().skyboxType != SkyboxComponent::SkyboxType::None)
 		{
 			m_frameBufferColor->bind();
 

@@ -4,19 +4,19 @@
 
 namespace Enternity
 {
-	enum class SkyboxType
-	{
-		None,
-		Default,
-		Sunset,
-		Daylight
-	};
-
 	class Mesh;
 	class Renderer;
 	class CubeMapTexture;
 	struct SkyboxComponent
 	{
+		enum SkyboxType
+		{
+			None,
+			Default,
+			Sunset,
+			Daylight
+		};
+
 		Mesh* mesh{ nullptr };
 		Renderer* renderer{ nullptr };
 		CubeMapTexture* cubeMapTexture{ nullptr };

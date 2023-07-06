@@ -2,17 +2,17 @@
 
 namespace Enternity
 {
-	enum class EnvironmentMapType
-	{
-		None,
-		Reflection,
-		Refraction
-	};
-
 	class Mesh;
 	class Renderer;
 	struct Visual3DComponent
 	{
+		enum EnvironmentMapType
+		{
+			None,
+			Reflection,
+			Refraction
+		};
+
 		Mesh* mesh{ nullptr };
 		Renderer* renderer{ nullptr };
 		EnvironmentMapType environmentMapType{ EnvironmentMapType::None };

@@ -186,7 +186,7 @@ namespace Enternity
 												if (ImGui::Selectable(bodyTypeString[i], isSelected))
 												{
 													currentBodyTypeString = bodyTypeString[i];
-													renderPass.fillMode = (FillMode)i;
+													renderPass.fillMode = (RenderPass::FillMode)i;
 													visual3DComponent.renderer->setRenderPass(renderPass);
 												}
 											}
@@ -205,7 +205,7 @@ namespace Enternity
 					DrawComponent("EnableEnvironmentMap",
 						[&]()
 						{
-							EnvironmentMapType environmentMapType = visual3DComponent.environmentMapType;
+							Visual3DComponent::EnvironmentMapType environmentMapType = visual3DComponent.environmentMapType;
 							const char* bodyTypeString[] = { "None", "Reflection", "Refraction" };
 							const char* currentBodyTypeString = bodyTypeString[(int)environmentMapType];
 							if (ImGui::BeginCombo("EnableEnvironmentMapType", currentBodyTypeString))
@@ -215,7 +215,7 @@ namespace Enternity
 									bool isSelected = currentBodyTypeString == bodyTypeString[i];
 									if (ImGui::Selectable(bodyTypeString[i], isSelected))
 									{
-										visual3DComponent.environmentMapType = (EnvironmentMapType)i;
+										visual3DComponent.environmentMapType = (Visual3DComponent::EnvironmentMapType)i;
 									}
 								}
 								ImGui::EndCombo();
@@ -231,7 +231,7 @@ namespace Enternity
 				{
 					auto& postprocessComponent = entity.getComponent<PostprocessComponent>();
 
-					PostprocessType postprocessType = postprocessComponent.postprocessType;
+					PostprocessComponent::PostprocessType postprocessType = postprocessComponent.postprocessType;
 					const char* bodyTypeString[] = { "None", "Inversion", "Grayscale","Sharpen", "Blur", "EdgeDetection"};
 					const char* currentBodyTypeString = bodyTypeString[(int)postprocessType];
 					if (ImGui::BeginCombo("PostprocessType", currentBodyTypeString))
@@ -242,7 +242,7 @@ namespace Enternity
 							if (ImGui::Selectable(bodyTypeString[i], isSelected))
 							{
 								currentBodyTypeString = bodyTypeString[i];
-								postprocessComponent.postprocessType = (PostprocessType)i;
+								postprocessComponent.postprocessType = (PostprocessComponent::PostprocessType)i;
 							}
 						}
 						ImGui::EndCombo();
@@ -257,7 +257,7 @@ namespace Enternity
 				{
 					auto& skyboxComponent = entity.getComponent<SkyboxComponent>();
 
-					SkyboxType skyboxType = skyboxComponent.skyboxType;
+					SkyboxComponent::SkyboxType skyboxType = skyboxComponent.skyboxType;
 					const char* bodyTypeString[] = { "None", "Default", "Sunset", "Daylight"};
 					const char* currentBodyTypeString = bodyTypeString[(int)skyboxType];
 					if (ImGui::BeginCombo("SkyboxType", currentBodyTypeString))
@@ -267,7 +267,7 @@ namespace Enternity
 							bool isSelected = currentBodyTypeString == bodyTypeString[i];
 							if (ImGui::Selectable(bodyTypeString[i], isSelected))
 							{
-								skyboxComponent.skyboxType = (SkyboxType)i;
+								skyboxComponent.skyboxType = (SkyboxComponent::SkyboxType)i;
 								if (!isSelected)
 								{
 									Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getCubeMapTextureAsyn(SkyboxComponent::FullPaths[skyboxComponent.skyboxType],

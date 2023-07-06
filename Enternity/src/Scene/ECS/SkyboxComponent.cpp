@@ -6,7 +6,7 @@
 
 namespace Enternity
 {
-	std::map<SkyboxType, std::vector<const char*>> SkyboxComponent::FullPaths =
+	std::map<SkyboxComponent::SkyboxType, std::vector<const char*>> SkyboxComponent::FullPaths =
 	{
 		{
 			SkyboxType::None, 

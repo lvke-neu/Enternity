@@ -6,13 +6,14 @@ namespace Enternity
 {
 	class Mesh;
 	class MeshAsset;
-	enum BasicPrimitve
-	{
-		Quad,
-		Box
-	};
 	class MeshProvider
 	{
+	public:
+		enum BasicPrimitve
+		{
+			Quad,
+			Box
+		};
 		struct MeshAsset_Callback
 		{
 			MeshAsset* meshAsset;
