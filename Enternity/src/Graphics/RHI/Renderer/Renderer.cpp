@@ -141,8 +141,8 @@ namespace Enternity
 		vsRendererAsset.load(0);
 		psRendererAsset.load(0);
 
-		if (vsRendererAsset.getLoadingState() == Asset::loading_state_succeeded &&
-			psRendererAsset.getLoadingState() == Asset::loading_state_succeeded )
+		if (vsRendererAsset.getLoadingState() == Asset::LoadingState::loading_state_succeeded &&
+			psRendererAsset.getLoadingState() == Asset::LoadingState::loading_state_succeeded )
 		{
 			std::string vsStr((char*)vsRendererAsset.getBlob()->getData(), vsRendererAsset.getBlob()->getLength());
 			std::string psStr((char*)psRendererAsset.getBlob()->getData(), psRendererAsset.getBlob()->getLength());

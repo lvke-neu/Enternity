@@ -24,7 +24,7 @@ namespace Enternity
 		MeshAsset* meshAsset = new MeshAsset(fullPath);
 		meshAsset->load(0);
 
-		if (meshAsset->getLoadingState() == Asset::loading_state_succeeded)
+		if (meshAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded)
 		{
 			mesh = new Mesh(meshAsset);
 		}
@@ -43,7 +43,7 @@ namespace Enternity
 			QuadMeshAsset* quadMeshAsset = new QuadMeshAsset();
 			quadMeshAsset->load(0);
 
-			if (quadMeshAsset->getLoadingState() == Asset::loading_state_succeeded)
+			if (quadMeshAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded)
 			{
 				mesh = new Mesh(quadMeshAsset);
 			}
@@ -57,7 +57,7 @@ namespace Enternity
 			BoxMeshAsset* boxMeshAsset = new BoxMeshAsset();
 			boxMeshAsset->load(0);
 
-			if (boxMeshAsset->getLoadingState() == Asset::loading_state_succeeded)
+			if (boxMeshAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded)
 			{
 				mesh = new Mesh(boxMeshAsset);
 			}
@@ -98,7 +98,7 @@ namespace Enternity
 	{
 		for (auto it = m_map.begin(); it != m_map.end(); )
 		{
-			if (it->meshAsset->getLoadingState() == Asset::loading_state_succeeded)
+			if (it->meshAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded)
 			{
 				it->callback(new Mesh(it->meshAsset));
 				SAFE_DELETE_SET_NULL(it->meshAsset);

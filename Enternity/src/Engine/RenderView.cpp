@@ -50,7 +50,7 @@ namespace Enternity
 
 		TextureAsset ta("assets/textures/logo/windowlogo.png", false);
 		ta.load(0);
-		if (ta.getLoadingState() == Asset::loading_state_succeeded)
+		if (ta.getLoadingState() == Asset::LoadingState::loading_state_succeeded)
 		{
 			GLFWimage images[1];
 			images[0].pixels = (unsigned char*)ta.getBlob()->getData();
