@@ -19,7 +19,6 @@ namespace Enternity
 	private:
 		bool cull(Scene* scene);
 		void renderPath_Color(Scene* scene);
-		void renderPath_SkyBox(Scene* scene);
 		void renderPath_Postprocess(Scene* scene);
 		void renderPath_Depth(Scene* scene);
 		void renderPath_ShadowMap(Scene* scene);

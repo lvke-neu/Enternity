@@ -52,12 +52,8 @@ namespace Enternity
 	void RenderSystem::render(Scene* scene)
 	{
 		renderPath_Color(scene);
-		renderPath_SkyBox(scene);
 		renderPath_Postprocess(scene);
-		if (m_bRenderPathDepth)
-		{
-			renderPath_Depth(scene);
-		}
+		renderPath_Depth(scene);
 	}
 
 	bool RenderSystem::cull(Scene* scene)
@@ -82,6 +78,31 @@ namespace Enternity
 			auto& cameraComponent = scene->m_sceneCamera.getComponent<CameraComponent>();
 			auto& cameraTransformComponent = scene->m_sceneCamera.getComponent<TransformComponent>();
 			
+			//skybox
+			if (scene->m_skybox.getComponent<SkyboxComponent>().skyboxType != SkyboxComponent::SkyboxType::None)
+			{
+				auto& skyboxComponent = scene->m_skybox.getComponent<SkyboxComponent>();
+				if (skyboxComponent.mesh && skyboxComponent.renderer && skyboxComponent.cubeMapTexture)
+				{
+					glDepthFunc(GL_LEQUAL);
+
+					skyboxComponent.renderer->bind();
+					skyboxComponent.renderer->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * glm::mat4(glm::mat3(cameraTransformComponent.getInverseWorldMatrix())));
+					skyboxComponent.mesh->getVertexArraies()[0]->bind();
+					skyboxComponent.mesh->getIndexBuffers()[0]->bind();
+					skyboxComponent.cubeMapTexture->bind(0);
+					CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, skyboxComponent.mesh->getIndexBuffers()[0]->getCount(), GL_UNSIGNED_INT, (void*)0));
+
+					skyboxComponent.renderer->unbind();
+					skyboxComponent.mesh->getVertexArraies()[0]->unbind();
+					skyboxComponent.mesh->getIndexBuffers()[0]->unbind();
+					skyboxComponent.cubeMapTexture->unbind();
+
+					glDepthFunc(GL_LESS);
+				}
+			}
+
+			//v3d
 			for (auto& entity : scene->m_entities)
 			{
 				if (entity.second.hasComponent<Visual3DComponent>())
@@ -155,7 +176,6 @@ namespace Enternity
 			
 			m_frameBufferColor->unbind();
 		}
-
 	}
 
 	void RenderSystem::renderPath_SkyBox(Scene* scene)
@@ -224,7 +244,7 @@ namespace Enternity
 
 	void RenderSystem::renderPath_Depth(Scene* scene)
 	{
-		if (scene)
+		if (scene && m_bRenderPathDepth)
 		{
 			m_frameBufferDepth->bind();
 
