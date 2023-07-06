@@ -132,6 +132,15 @@ namespace Enternity
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, m_renderPass.fillMode + 0x1B00);
 		m_renderPass.enableDepth ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+		if (m_renderPass.enableBlend)
+		{
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		}
+		else
+		{
+			glDisable(GL_BLEND);
+		}
 	}	
 	
 	void Enternity::Renderer::reCompile()

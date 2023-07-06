@@ -13,5 +13,6 @@ namespace Enternity
 
 		FillMode fillMode{ Fill };
 		bool enableDepth{ true };
+		bool enableBlend{ false };
 	};
 }

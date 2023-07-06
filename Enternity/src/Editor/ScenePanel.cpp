@@ -197,6 +197,10 @@ namespace Enternity
 										{
 											visual3DComponent.renderer->setRenderPass(renderPass);
 										}
+										if (ImGui::Checkbox("EnableBlend", &renderPass.enableBlend))
+										{
+											visual3DComponent.renderer->setRenderPass(renderPass);
+										}
 
 									});								
 							}
