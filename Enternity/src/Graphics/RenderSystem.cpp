@@ -25,8 +25,8 @@ namespace Enternity
 	static Renderer* s_depthRender = nullptr;
 	RenderSystem::RenderSystem()
 	{
-		m_frameBufferColor = new FrameBuffer;
-		m_frameBufferDepth = new FrameBuffer;
+		m_frameBufferColor = new FrameBuffer(100,100);
+		m_frameBufferDepth = new FrameBuffer(100, 100);;
 		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::WindowResize, BIND(RenderSystem::onWindowResize));
 	
 		//TODO: move to class Scene
@@ -197,19 +197,13 @@ namespace Enternity
 		auto& ppc = postprocessEntity.getComponent<PostprocessComponent>();
 		ppc.renderer->bind();
 		ppc.renderer->setUint1("u_postProcessType", (unsigned int)ppc.postprocessType);
-		if (m_frameBufferColor->getTextureId() != -1)
-		{
-			CHECK_GL_CALL(glActiveTexture(GL_TEXTURE0 + 0));
-			CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, m_frameBufferColor->getTextureId()));
-		}
+		CHECK_GL_CALL(glActiveTexture(GL_TEXTURE0 + 0));
+		CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, m_frameBufferColor->getTextureId()))
 		ppc.mesh->getVertexArraies()[0]->bind();
 		ppc.mesh->getIndexBuffers()[0]->bind();
 		CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, ppc.mesh->getIndexBuffers()[0]->getCount(), GL_UNSIGNED_INT, (void*)0));
 		ppc.renderer->unbind();
-		if (m_frameBufferColor->getTextureId() != -1)
-		{
-			CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, 0));
-		}
+		CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, 0));
 		ppc.mesh->getVertexArraies()[0]->unbind();
 		ppc.mesh->getIndexBuffers()[0]->unbind();
 

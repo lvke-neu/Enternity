@@ -5,7 +5,6 @@ namespace Enternity
 	class FrameBuffer
 	{
 	public:
-		FrameBuffer() = default;
 		FrameBuffer(unsigned int width, unsigned int height);
 		~FrameBuffer();
 	public:
