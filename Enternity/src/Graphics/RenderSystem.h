@@ -17,11 +17,11 @@ namespace Enternity
 		unsigned int getTriangleCount() const;
 		bool* getIsRenderPathDepth();
 	private:
-		bool cull(Scene* scene);
-		void renderPath_Color(Scene* scene);
-		void renderPath_Postprocess(Scene* scene);
-		void renderPath_Depth(Scene* scene);
-		void renderPath_ShadowMap(Scene* scene);
+		void cull(Scene* scene);
+		void skyboxPass(Scene* scene);
+		void shadowmapPass(Scene* scene);
+		void visual3dPass(Scene* scene);
+		void postprocessPass(Scene* scene);
 
 		void onWindowResize(void* data);
 	private:
