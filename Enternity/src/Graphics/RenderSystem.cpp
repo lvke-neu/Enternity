@@ -110,47 +110,45 @@ namespace Enternity
 					auto& visual3DComponent = entity.second.getComponent<Visual3DComponent>();
 					if (visual3DComponent.renderer && visual3DComponent.mesh)
 					{
+						visual3DComponent.renderer->bind();
+						visual3DComponent.renderer->applyRenderPass();
+						visual3DComponent.renderer->setMat4("u_m", entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : glm::mat4(1.0f));
+						visual3DComponent.renderer->setMat4("u_v", cameraTransformComponent.getInverseWorldMatrix());
+						visual3DComponent.renderer->setMat4("u_p", cameraComponent.getProjectionMatrix());
+						visual3DComponent.renderer->setUint1("u_environmentMapType", (unsigned int)visual3DComponent.environmentMapType);
+						if (visual3DComponent.environmentMapType != Visual3DComponent::EnvironmentMapType::None)
+						{
+							visual3DComponent.renderer->setVec3("u_cameraPos", cameraTransformComponent.translation);
+
+							if (scene->m_skybox.getComponent<SkyboxComponent>().cubeMapTexture)
+							{
+								scene->m_skybox.getComponent<SkyboxComponent>().cubeMapTexture->bind(1);
+							}
+						}
+
 						const auto& vertexArraies = visual3DComponent.mesh->getVertexArraies();
 						const auto& indexBuffers = visual3DComponent.mesh->getIndexBuffers();
-
+						const auto& textures = visual3DComponent.mesh->getTextures();
 						for (int i = 0; i < vertexArraies.size(); i++)
 						{
 							vertexArraies[i]->bind();
-							visual3DComponent.renderer->bind();
-							visual3DComponent.renderer->applyRenderPass();
-							TransformComponent tc;
 
-							visual3DComponent.renderer->setMat4("u_m", entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : tc.getWorldMatrix());
-							visual3DComponent.renderer->setMat4("u_v", cameraTransformComponent.getInverseWorldMatrix());
-							visual3DComponent.renderer->setMat4("u_p", cameraComponent.getProjectionMatrix());
-
-							if (visual3DComponent.mesh->getTextures()[i])
+							if (textures[i])
 							{
-								visual3DComponent.mesh->getTextures()[i]->bind(0);
+								textures[i]->bind(0);
 							}
 							else
 							{
 								s_defaultTexture->bind(0);
 							}
 							
-							visual3DComponent.renderer->setUint1("u_environmentMapType", (unsigned int)visual3DComponent.environmentMapType);
-							if (visual3DComponent.environmentMapType != Visual3DComponent::EnvironmentMapType::None)
-							{
-								visual3DComponent.renderer->setVec3("u_cameraPos", cameraTransformComponent.translation);
-
-								if (scene->m_skybox.getComponent<SkyboxComponent>().cubeMapTexture)
-								{
-									scene->m_skybox.getComponent<SkyboxComponent>().cubeMapTexture->bind(1);
-								}
-							}
-
 							indexBuffers[i]->bind();
 							CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffers[i]->getCount(), GL_UNSIGNED_INT, (void*)0));
 							m_triangleCount += indexBuffers[i]->getCount();
 
-							if (visual3DComponent.mesh->getTextures()[i])
+							if (textures[i])
 							{
-								visual3DComponent.mesh->getTextures()[i]->unbind();
+								textures[i]->unbind();
 							}
 							else
 							{
@@ -166,10 +164,10 @@ namespace Enternity
 							}
 
 							vertexArraies[i]->unbind();
-							visual3DComponent.renderer->unbind();
 							indexBuffers[i]->unbind();
 						}
 
+						visual3DComponent.renderer->unbind();
 					}
 				}
 			}

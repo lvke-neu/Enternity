@@ -196,7 +196,7 @@ namespace Enternity
 		auto entity8 = createEntity();
 		entity8.getComponent<NameComponent>().name = "particle";
 		auto& tfc8 = entity8.addComponent<TransformComponent>();
-		tfc8.translation = glm::vec3(0, 5, -5);
+		tfc8.translation = glm::vec3(0, 5, 5);
 		entity8.addComponent<Visual3DComponent>();
 		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
 			[=](Renderer* render)
@@ -204,7 +204,7 @@ namespace Enternity
 				auto& comp = entity8.getComponent<Visual3DComponent>();
 				comp.renderer = render;
 			});
-		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn(BasicMeshType::Box,
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn(BasicMeshType::Quad,
 			[=](Mesh* mesh)
 			{
 				auto& comp = entity8.getComponent<Visual3DComponent>();
