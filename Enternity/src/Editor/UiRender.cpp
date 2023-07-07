@@ -170,11 +170,6 @@ namespace Enternity
 		{
 			if (ImGui::BeginMenu("Debug"))
 			{
-				if (ImGui::BeginMenu("Depth view"))
-				{
-					ImGui::MenuItem("Enabled", "", Engine::GetInstance().getGraphicsSystem()->getIsRenderPathDepth());
-					ImGui::EndMenu();
-				}
 				ImGui::EndMenu();
 			}
 			ImGui::EndMenuBar();

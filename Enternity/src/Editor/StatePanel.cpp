@@ -21,8 +21,8 @@ namespace Enternity
 
 		ImGui::Begin("Depth");
 
-		auto id = Engine::GetInstance().getGraphicsSystem()->getDepthFrameBuffer()->getTextureId();
-		ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
+		//auto id = Engine::GetInstance().getGraphicsSystem()->getDepthFrameBuffer()->getTextureId();
+		//ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
 
 		ImGui::End();
 	}

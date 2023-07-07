@@ -26,7 +26,6 @@ namespace Enternity
 	RenderSystem::RenderSystem()
 	{
 		m_frameBufferColor = new FrameBuffer(100,100);
-		m_frameBufferDepth = new FrameBuffer(100, 100);;
 		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::WindowResize, BIND(RenderSystem::onWindowResize));
 	
 		//TODO: move to class Scene
@@ -45,7 +44,6 @@ namespace Enternity
 	{
 		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::WindowResize, BIND(RenderSystem::onWindowResize));
 		SAFE_DELETE_SET_NULL(m_frameBufferColor);
-		SAFE_DELETE_SET_NULL(m_frameBufferDepth);
 		SAFE_DELETE_SET_NULL(s_defaultTexture);
 	}
 
@@ -214,6 +212,5 @@ namespace Enternity
 	{
 		WindowSize ws = *(WindowSize*)(data);
 		m_frameBufferColor->resize(ws.width, ws.height);
-		m_frameBufferDepth->resize(ws.width, ws.height);
 	}
 }
