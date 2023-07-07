@@ -47,6 +47,7 @@ namespace Enternity
 		glfwSetKeyCallback(m_context, KeyTrigger);
 		glfwSetMouseButtonCallback(m_context, MouseTrigger);
 		glfwSetCursorPosCallback(m_context, MouseMove);
+		glfwSetScrollCallback(m_context, MouseScroll);
 
 		TextureAsset ta("assets/textures/logo/windowlogo.png", false);
 		ta.load(0);
@@ -165,5 +166,10 @@ namespace Enternity
 			Mouse mouse{ MouseCode::ButtonRight,(float)x, (float)y };
 			Engine::GetInstance().getEventSystem()->dispatchEvent(Event::EventType::MouseMoved, &mouse);
 		}
+	}
+	void RenderView::MouseScroll(GLFWwindow * window, double xoffset, double yoffset)
+	{
+		float delta = (float)yoffset;
+		Engine::GetInstance().getEventSystem()->dispatchEvent(Event::EventType::MouseScroll, &delta);
 	}
 }

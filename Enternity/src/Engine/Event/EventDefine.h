@@ -174,7 +174,7 @@ namespace Enternity
 		enum EventType
 		{
 			WindowResize,
-			KeyPressed, KeyReleased, MousePressed, MouseReleased, MouseMoved,
+			KeyPressed, KeyReleased, MousePressed, MouseReleased, MouseMoved, MouseScroll,
 			Tick
 		};
 		EventType type;

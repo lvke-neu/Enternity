@@ -4,6 +4,7 @@
 #include "ECS/CameraComponent.h"
 #include "ECS/TransformComponent.h"
 #include "Engine/Engine.h"
+#include "Engine/Timer.h"
 #include "Engine/Event/EventSystem.h"
 
 namespace Enternity
@@ -17,6 +18,7 @@ namespace Enternity
 		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::MousePressed, BIND(CameraController::onMousePress));
 		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::MouseReleased, BIND(CameraController::onMouseRelease));
 		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::MouseMoved, BIND(CameraController::onMouseMove));
+		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::MouseScroll, BIND(CameraController::onMouseScroll));
 	}
 
 	CameraController::~CameraController()
@@ -26,6 +28,7 @@ namespace Enternity
 		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::MousePressed, BIND(CameraController::onMousePress));
 		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::MouseReleased, BIND(CameraController::onMouseRelease));
 		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::MouseMoved, BIND(CameraController::onMouseMove));
+		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::MouseScroll, BIND(CameraController::onMouseScroll));
 	
 	}
 
@@ -101,5 +104,13 @@ namespace Enternity
 			m_oldMousePosX = mouse.x;
 			m_oldMousePosY = mouse.y;
 		}
+	}
+
+	void CameraController::onMouseScroll(void * data)
+	{
+		float delta = *(float*)data;
+		float moveSpeed = m_sceneCamera->getComponent<CameraComponent>().moveSpeed;
+		auto& transformComponent = m_sceneCamera->getComponent<TransformComponent>();
+		transformComponent.moveZAxis(-delta * moveSpeed * Engine::GetInstance().getTimer()->deltaTime() * 100);
 	}
 }

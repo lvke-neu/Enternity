@@ -14,6 +14,7 @@ namespace Enternity
 		void onMousePress(void* data);
 		void onMouseRelease(void* data);
 		void onMouseMove(void* data);
+		void onMouseScroll(void* data);
 	private:
 		Entity* m_sceneCamera{ nullptr };
 

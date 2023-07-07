@@ -20,6 +20,7 @@ namespace Enternity
 		static void KeyTrigger(GLFWwindow* window, int key, int scancode, int action, int mods);
 		static void MouseTrigger(GLFWwindow* window, int button, int action, int mods);
 		static void MouseMove(GLFWwindow* window, double xpos, double ypos);
+		static void MouseScroll(GLFWwindow* window, double xoffset, double yoffset);
 	private:
 		GLFWwindow* m_context{ nullptr };
 		UiRender* m_uiRender{ nullptr };

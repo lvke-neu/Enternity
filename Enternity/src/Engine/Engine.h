@@ -16,6 +16,7 @@ namespace Enternity
 		void initialize();
 		void uninitialize();
 		void run();
+		Timer* getTimer();
 	public:
 		GraphicsSystem* getGraphicsSystem();
 		EventSystem* getEventSystem();
@@ -47,5 +48,10 @@ namespace Enternity
 	inline RenderView* Engine::getRenderView()
 	{
 		return m_renderView;
+	}
+
+	inline Timer* Engine::getTimer()
+	{
+		return m_timer;
 	}
 }
