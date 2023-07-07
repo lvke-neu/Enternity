@@ -34,12 +34,12 @@ namespace Enternity
 		m_scenePostprocess.getComponent<NameComponent>().name = "Postprocess";
 		auto& ppc = m_scenePostprocess.addComponent<PostprocessComponent>();
 		ppc.renderer = Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererSync("assets/shaders/postprocess/postprocess.vert", "assets/shaders/postprocess/postprocess.frag");
-		ppc.mesh = Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshSync(MeshProvider::BasicPrimitve::Quad);
+		ppc.mesh = Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshSync(BasicMeshType::Quad);
 		
 		m_skybox = createEntity();
 		m_skybox.getComponent<NameComponent>().name = "Skybox";
 		m_skybox.addComponent<SkyboxComponent>().skyboxType = SkyboxComponent::SkyboxType::Daylight;
-		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn(MeshProvider::BasicPrimitve::Box,
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn(BasicMeshType::Box,
 			[=](Mesh* mesh)
 			{
 				auto& comp = m_skybox.getComponent<SkyboxComponent>();
@@ -191,6 +191,25 @@ namespace Enternity
 				auto& comp = entity7.getComponent<Visual3DComponent>();
 				comp.mesh = mesh;
 			});
+
+		//test entity 8
+		auto entity8 = createEntity();
+		entity8.getComponent<NameComponent>().name = "particle";
+		auto& tfc8 = entity8.addComponent<TransformComponent>();
+		tfc8.translation = glm::vec3(0, 5, -5);
+		entity8.addComponent<Visual3DComponent>();
+		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
+			[=](Renderer* render)
+			{
+				auto& comp = entity8.getComponent<Visual3DComponent>();
+				comp.renderer = render;
+			});
+		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn(BasicMeshType::Box,
+			[=](Mesh* mesh)
+			{
+				auto& comp = entity8.getComponent<Visual3DComponent>();
+				comp.mesh = mesh;
+			}, "assets/textures/atmosphere.png");
 	}
 
 	Scene::~Scene()

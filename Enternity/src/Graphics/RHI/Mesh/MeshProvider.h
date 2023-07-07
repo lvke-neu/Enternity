@@ -1,4 +1,5 @@
 #pragma once
+#include "MeshDefine.h"
 #include <functional>
 #include <vector>
 
@@ -9,11 +10,6 @@ namespace Enternity
 	class MeshProvider
 	{
 	public:
-		enum BasicPrimitve
-		{
-			Quad,
-			Box
-		};
 		struct MeshAsset_Callback
 		{
 			MeshAsset* meshAsset;
@@ -24,9 +20,9 @@ namespace Enternity
 		~MeshProvider();
 	public:
 		Mesh* getMeshSync(const char* fullPath);
-		Mesh* getMeshSync(BasicPrimitve type);
+		Mesh* getMeshSync(BasicMeshType type, const std::string& texturePath = "");
 		void  getMeshAsyn(const char* fullPath, std::function<void(Mesh*)> callback);
-		void  getMeshAsyn(BasicPrimitve type, std::function<void(Mesh*)> callback);
+		void  getMeshAsyn(BasicMeshType type, std::function<void(Mesh*)> callback, const std::string& texturePath = "");
 	private:
 		void tick(void* data);
 	private:

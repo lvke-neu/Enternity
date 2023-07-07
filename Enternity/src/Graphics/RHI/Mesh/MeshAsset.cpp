@@ -88,19 +88,48 @@ namespace Enternity
 	}
 
 
-
-	QuadMeshAsset::QuadMeshAsset() : MeshAsset("BasicPrimitive::Quad")
+	BasicMeshAsset::BasicMeshAsset(BasicMeshType type, const std::string& texturePath) : MeshAsset("BasicMeshAsset:" + mapType(type))
 	{
+		m_type = type;
 		m_materials.resize(1);
-		m_materials[0] = "BasicPrimitive::Quad";
+		m_materials[0] = texturePath;
 	}
 
-	QuadMeshAsset::~QuadMeshAsset()
+	BasicMeshAsset::~BasicMeshAsset()
 	{
 
 	}
 
-	void QuadMeshAsset::doLoad()
+	void BasicMeshAsset::doLoad()
+	{
+		if (m_type == BasicMeshType::Quad)
+		{
+			buildQuadMesh();
+			return;
+		}
+		else if (m_type == BasicMeshType::Box)
+		{
+			buildBoxMesh();
+			return;
+		}
+	}
+
+	std::string BasicMeshAsset::mapType(BasicMeshType type)
+	{
+		if (type == BasicMeshType::Quad)
+		{
+			return "Quad";
+		}
+
+		if (type == BasicMeshType::Box)
+		{
+			return "Box";
+		}
+
+		return "None";
+	}
+
+	void BasicMeshAsset::buildQuadMesh()
 	{
 		m_vertices.resize(1);
 		m_indices.resize(1);
@@ -110,6 +139,11 @@ namespace Enternity
 		m_vertices[0][1].position = glm::vec3(1, 1, 0);
 		m_vertices[0][2].position = glm::vec3(1, -1, 0);
 		m_vertices[0][3].position = glm::vec3(-1, -1, 0);
+
+		m_vertices[0][0].normal = glm::vec3(0, 0, 1);
+		m_vertices[0][1].normal = glm::vec3(0, 0, 1);
+		m_vertices[0][2].normal = glm::vec3(0, 0, 1);
+		m_vertices[0][3].normal = glm::vec3(0, 0, 1);
 
 		m_vertices[0][0].texcoord = glm::vec2(0, 1);
 		m_vertices[0][1].texcoord = glm::vec2(1, 1);
@@ -121,19 +155,7 @@ namespace Enternity
 		m_state = Asset::LoadingState::loading_state_succeeded;
 	}
 
-
-	BoxMeshAsset::BoxMeshAsset() : MeshAsset("BasicPrimitive::Box")
-	{
-		m_materials.resize(1);
-		m_materials[0] = "BasicPrimitive::Box";
-	}
-
-	BoxMeshAsset::~BoxMeshAsset()
-	{
-		
-	}
-
-	void BoxMeshAsset::doLoad()
+	void BasicMeshAsset::buildBoxMesh()
 	{
 		m_vertices.resize(1);
 		m_indices.resize(1);
@@ -168,6 +190,30 @@ namespace Enternity
 		m_vertices[0][21].position = glm::vec3(-1, 1, 1);
 		m_vertices[0][22].position = glm::vec3(1, 1, 1);
 		m_vertices[0][23].position = glm::vec3(1, -1, 1);
+
+
+		for (UINT i = 0; i < 4; ++i)
+		{
+			m_vertices[0][i].normal = glm::vec3(1.0f, 0.0f, 0.0f);
+
+			m_vertices[0][i + 4].normal = glm::vec3(-1.0f, 0.0f, 0.0f);
+
+			m_vertices[0][i + 8].normal = glm::vec3(0.0f, 1.0f, 0.0f);
+
+			m_vertices[0][i + 12].normal = glm::vec3(0.0f, -1.0f, 0.0f);
+
+			m_vertices[0][i + 16].normal = glm::vec3(0.0f, 0.0f, -1.0f);
+
+			m_vertices[0][i + 20].normal = glm::vec3(0.0f, 0.0f, 1.0f);
+		}
+
+		for (UINT i = 0; i < 6; ++i)
+		{
+			m_vertices[0][i * 4].texcoord = glm::vec2(0.0f, 0.0f);
+			m_vertices[0][i * 4 + 1].texcoord = glm::vec2(0.0f, 1.0f);
+			m_vertices[0][i * 4 + 2].texcoord = glm::vec2(1.0f, 1.0f);
+			m_vertices[0][i * 4 + 3].texcoord = glm::vec2(1.0f, 0.0f);
+		}
 
 		m_indices[0] = {
 			0, 1, 2, 2, 3, 0,

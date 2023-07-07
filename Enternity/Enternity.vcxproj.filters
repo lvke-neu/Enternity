@@ -349,6 +349,9 @@
     <ClInclude Include="src\Scene\ECS\SkyboxComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\Graphics\RHI\Mesh\MeshDefine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\TestWindowsFileAsset.txt" />

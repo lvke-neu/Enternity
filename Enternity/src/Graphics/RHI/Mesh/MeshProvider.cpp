@@ -34,38 +34,19 @@ namespace Enternity
 		return mesh;
 	}
 
-	Mesh* MeshProvider::getMeshSync(BasicPrimitve type)
+	Mesh* MeshProvider::getMeshSync(BasicMeshType type, const std::string& texturePath)
 	{
 		Mesh* mesh = nullptr;
 
-		if (type == Quad)
+		BasicMeshAsset* basicMeshAsset = new BasicMeshAsset(type, texturePath);
+		basicMeshAsset->load(0);
+
+		if (basicMeshAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded)
 		{
-			QuadMeshAsset* quadMeshAsset = new QuadMeshAsset();
-			quadMeshAsset->load(0);
-
-			if (quadMeshAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded)
-			{
-				mesh = new Mesh(quadMeshAsset);
-			}
-
-			SAFE_DELETE_SET_NULL(quadMeshAsset);
-
-			return mesh;
+			mesh = new Mesh(basicMeshAsset);
 		}
-		else if (type == Box)
-		{
-			BoxMeshAsset* boxMeshAsset = new BoxMeshAsset();
-			boxMeshAsset->load(0);
 
-			if (boxMeshAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded)
-			{
-				mesh = new Mesh(boxMeshAsset);
-			}
-
-			SAFE_DELETE_SET_NULL(boxMeshAsset);
-
-			return mesh;
-		}
+		SAFE_DELETE_SET_NULL(basicMeshAsset);
 
 		return mesh;
 	}
@@ -78,20 +59,11 @@ namespace Enternity
 		m_map.push_back({meshAsset, callback});
 	}
 
-	void MeshProvider::getMeshAsyn(BasicPrimitve type, std::function<void(Mesh*)> callback)
+	void MeshProvider::getMeshAsyn(BasicMeshType type, std::function<void(Mesh*)> callback, const std::string& texturePath)
 	{
-		if (type == Quad)
-		{
-			QuadMeshAsset* quadMeshAsset = new QuadMeshAsset();
-			quadMeshAsset->load();
-			m_map.push_back({ quadMeshAsset, callback });
-		}
-		else if (type == Box)
-		{
-			BoxMeshAsset* boxMeshAsset = new BoxMeshAsset();
-			boxMeshAsset->load();
-			m_map.push_back({ boxMeshAsset, callback });
-		}
+		BasicMeshAsset* basicMeshAsset = new BasicMeshAsset(type, texturePath);
+		basicMeshAsset->load();
+		m_map.push_back({ basicMeshAsset, callback });
 	}
 
 	void MeshProvider::tick(void* data)

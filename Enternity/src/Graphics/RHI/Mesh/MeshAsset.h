@@ -1,6 +1,7 @@
 #pragma once
 #include "Engine/Asset.h"
 #include "VertexDefine.h"
+#include "MeshDefine.h"
 #include <string>
 #include <vector>
 
@@ -63,23 +64,20 @@ namespace Enternity
 	{
 		return m_fullPath;
 	}
-
-	class QuadMeshAsset : public MeshAsset
+	
+	class BasicMeshAsset : public MeshAsset
 	{
 	public:
-		QuadMeshAsset();
-		~QuadMeshAsset();
+		BasicMeshAsset(BasicMeshType type, const std::string& texturePath = "");
+		~BasicMeshAsset();
 
 		virtual void doLoad() override;
-	};
-
-	class BoxMeshAsset : public MeshAsset
-	{
-	public:
-		BoxMeshAsset();
-		~BoxMeshAsset();
-
-		virtual void doLoad() override;
+	private:
+		std::string mapType(BasicMeshType type);
+		void buildQuadMesh();
+		void buildBoxMesh();
+	private:
+		BasicMeshType m_type;
 	};
 }
 
