@@ -217,7 +217,7 @@ namespace Enternity
 		int height = 256;
 		int channels = 4;
 		Blob data(width * height * channels);
-		float maxDistance = std::sqrtf(width * height + width * height) / 2.0f;
+		float maxDistance = std::sqrtf((float)width * height + (float)width * height) / 2.0f;
 		for (int x = 0; x < height; ++x)
 		{
 			for (int y = 0; y < width; ++y)
@@ -229,7 +229,7 @@ namespace Enternity
 				unsigned char r = 255;
 				unsigned char g = 255;
 				unsigned char b = 255;
-				unsigned char a = std::powf(1.0f - (distance / maxDistance), 8.0f) * 255;
+				unsigned char a = (unsigned char)(std::powf(1.0f - (distance / maxDistance), 4.0f) * 255);
 
 				int currentPixel = (x * height + y) * channels;
 				*((char*)data.getData() + currentPixel) = r;

@@ -10,6 +10,7 @@
 #include "RHI/Texture/Texture.h"
 #include "RHI/Texture/TextureAsset.h"
 #include "Engine/Engine.h"
+#include "Engine/Timer.h"
 #include "Engine/Event/EventSystem.h"
 #include "Scene/ECS/CameraComponent.h"
 #include "Scene/ECS/TransformComponent.h"
@@ -254,7 +255,18 @@ namespace Enternity
 				{
 					particleComponent.renderer->bind();
 					particleComponent.renderer->applyRenderPass();
-					particleComponent.renderer->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * cameraTransformComponent.getInverseWorldMatrix() * (entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : glm::mat4(1.0f)));
+
+					glm::mat4 m{ 1.0f }; 
+					if (entity.second.hasComponent<TransformComponent>())
+					{
+						auto& transformComponent = entity.second.getComponent<TransformComponent>();
+						static glm::vec3 rotation{ 0.0,0.0,0.0 };
+						rotation.y = std::sin(Engine::GetInstance().getTimer()->totalTime() * 0.0005f);
+						transformComponent.translation = transformComponent.translation * glm::mat3(glm::mat4_cast(glm::qua<float>(rotation)));
+						m = entity.second.getComponent<TransformComponent>().getWorldMatrix();
+					}
+
+					particleComponent.renderer->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * cameraTransformComponent.getInverseWorldMatrix() * m);
 					particleComponent.texture->bind(0);
 
 					const auto& vertexArraies = particleComponent.mesh->getVertexArraies();
