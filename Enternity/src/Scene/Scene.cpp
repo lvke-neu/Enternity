@@ -5,7 +5,9 @@
 #include "ECS/NameComponent.h"
 #include "ECS/PostprocessComponent.h"
 #include "ECS/SkyboxComponent.h"
+#include "ECS/ParticleComponent.h"
 #include "Engine/Engine.h"
+#include "Engine/Blob.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/Mesh/MeshProvider.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
@@ -197,19 +199,47 @@ namespace Enternity
 		entity8.getComponent<NameComponent>().name = "particle";
 		auto& tfc8 = entity8.addComponent<TransformComponent>();
 		tfc8.translation = glm::vec3(0, 5, 5);
-		entity8.addComponent<Visual3DComponent>();
-		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/test/test2.vert", "assets/shaders/test/test2.frag",
+		entity8.addComponent<ParticleComponent>().renderer;
+		Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRendererAsyn("assets/shaders/particle/particle.vert", "assets/shaders/particle/particle.frag",
 			[=](Renderer* render)
 			{
-				auto& comp = entity8.getComponent<Visual3DComponent>();
+				auto& comp = entity8.getComponent<ParticleComponent>();
 				comp.renderer = render;
+				comp.renderer->setRenderPass({ RenderPass::Fill, true, true });
 			});
 		Engine::GetInstance().getGraphicsSystem()->getMeshProvider()->getMeshAsyn(BasicMeshType::Quad,
 			[=](Mesh* mesh)
 			{
-				auto& comp = entity8.getComponent<Visual3DComponent>();
+				auto& comp = entity8.getComponent<ParticleComponent>();
 				comp.mesh = mesh;
-			}, "assets/textures/atmosphere.png");
+			});
+		int width = 256;
+		int height = 256;
+		int channels = 4;
+		Blob data(width * height * channels);
+		float maxDistance = std::sqrtf(width * height + width * height) / 2.0f;
+		for (int x = 0; x < height; ++x)
+		{
+			for (int y = 0; y < width; ++y)
+			{
+				float deltaX = x - height / 2.0f;
+				float deltaY = y - width / 2.0f;
+				float distance = std::sqrtf(deltaX* deltaX + deltaY * deltaY);
+
+				unsigned char r = 255;
+				unsigned char g = 255;
+				unsigned char b = 255;
+				unsigned char a = std::powf(1.0f - (distance / maxDistance), 8.0f) * 255;
+
+				int currentPixel = (x * height + y) * channels;
+				*((char*)data.getData() + currentPixel) = r;
+				*((char*)data.getData() + currentPixel + 1) = g;
+				*((char*)data.getData() + currentPixel + 2) = b;
+				*((char*)data.getData() + currentPixel + 3) = a;
+			}
+		}
+		entity8.getComponent<ParticleComponent>().texture = 
+			Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTextureFromData(&data, width, height, channels);
 	}
 
 	Scene::~Scene()

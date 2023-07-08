@@ -125,6 +125,7 @@
     <ClCompile Include="src\Graphics\RHI\Mesh\VertexDefine.cpp" />
     <ClCompile Include="src\Scene\CameraController.cpp" />
     <ClCompile Include="src\Scene\ECS\Entity.cpp" />
+    <ClCompile Include="src\Scene\ECS\ParticleComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\PostprocessComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\SkyboxComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\Visual3DComponent.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="src\Scene\ECS\CameraComponent.h" />
     <ClInclude Include="src\Scene\ECS\Entity.h" />
     <ClInclude Include="src\Scene\ECS\NameComponent.h" />
+    <ClInclude Include="src\Scene\ECS\ParticleComponent.h" />
     <ClInclude Include="src\Scene\ECS\PostprocessComponent.h" />
     <ClInclude Include="src\Scene\ECS\SkyboxComponent.h" />
     <ClInclude Include="src\Scene\ECS\TransformComponent.h" />

@@ -4,6 +4,7 @@
 
 namespace Enternity
 {
+	class Blob;
 	class Texture;
 	class CubeMapTexture;
 	class TextureAsset;
@@ -25,6 +26,7 @@ namespace Enternity
 	public:
 		Texture* getTextureSync(const char* fullPath);
 		void  getTextureAsyn(const char* fullPath, std::function<void(Texture*)> callback);
+		Texture* getTextureFromData(Blob* data, int width, int height, int channels);
 
 		CubeMapTexture* getCubeMapTextureSync(const std::vector<const char*>& fullPaths);
 		void getCubeMapTextureAsyn(const std::vector<const char*>& fullPaths, std::function<void(CubeMapTexture*)> callback);

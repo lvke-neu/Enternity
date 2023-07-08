@@ -3,6 +3,7 @@
 #include "TextureAsset.h"
 #include "Common/Macro.h"
 #include "Engine/Engine.h"
+#include "Engine/Blob.h"
 #include "Engine/Event/EventSystem.h"
 
 namespace Enternity
@@ -40,6 +41,16 @@ namespace Enternity
 		textureAsset->load();
 
 		m_map.push_back({ textureAsset, callback });
+	}
+
+	Texture* TextureProvider::getTextureFromData(Blob* data, int width, int height, int channels)
+	{
+		TextureAsset textureAsset(data, width, height, channels);
+
+		if(textureAsset.getLoadingState() == Asset::loading_state_succeeded)
+			return new Texture(&textureAsset);
+
+		return nullptr;
 	}
 
 	CubeMapTexture* TextureProvider::getCubeMapTextureSync(const std::vector<const char*>& fullPaths)

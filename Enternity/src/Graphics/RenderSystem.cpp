@@ -16,6 +16,7 @@
 #include "Scene/ECS/Visual3DComponent.h"
 #include "Scene/ECS/PostprocessComponent.h"
 #include "Scene/ECS/SkyboxComponent.h"
+#include "Scene/ECS/ParticleComponent.h"
 #include <glad/glad.h>
 
 namespace Enternity
@@ -53,6 +54,7 @@ namespace Enternity
 			color_path_skyboxPass(scene);
 			color_path_shadowmapPass(scene);
 			color_path_visual3dPass(scene);
+			color_path_particlePass(scene);
 
 			m_colorFrameBuffer->unbind();
 		}
@@ -233,6 +235,45 @@ namespace Enternity
 					}
 
 					visual3DComponent.renderer->unbind();
+				}
+			}
+		}
+	}
+
+	void RenderSystem::color_path_particlePass(Scene* scene)
+	{
+		auto& cameraComponent = scene->m_sceneCamera.getComponent<CameraComponent>();
+		auto& cameraTransformComponent = scene->m_sceneCamera.getComponent<TransformComponent>();
+
+		for (auto& entity : scene->m_entities)
+		{
+			if (entity.second.hasComponent<ParticleComponent>())
+			{
+				auto& particleComponent = entity.second.getComponent<ParticleComponent>();
+				if (particleComponent.renderer && particleComponent.mesh && particleComponent.texture)
+				{
+					particleComponent.renderer->bind();
+					particleComponent.renderer->applyRenderPass();
+					particleComponent.renderer->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * cameraTransformComponent.getInverseWorldMatrix() * (entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : glm::mat4(1.0f)));
+					particleComponent.texture->bind(0);
+
+					const auto& vertexArraies = particleComponent.mesh->getVertexArraies();
+					const auto& indexBuffers = particleComponent.mesh->getIndexBuffers();
+					const auto& textures = particleComponent.mesh->getTextures();
+					for (int i = 0; i < vertexArraies.size(); i++)
+					{
+						vertexArraies[i]->bind();
+
+						indexBuffers[i]->bind();
+						CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffers[i]->getCount(), GL_UNSIGNED_INT, (void*)0));
+						m_triangleCount += indexBuffers[i]->getCount();
+
+						vertexArraies[i]->unbind();
+						indexBuffers[i]->unbind();
+					}
+
+					particleComponent.texture->unbind();
+					particleComponent.renderer->unbind();
 				}
 			}
 		}

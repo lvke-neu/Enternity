@@ -12,6 +12,17 @@ namespace Enternity
 		m_bSlip = slip;
 	}
 
+	TextureAsset::TextureAsset(Blob* data, int width, int height, int channels) :
+		m_width(width), m_height(height), m_channels(channels)
+	{
+		if (!data)
+			return;
+
+		m_content = new Blob(data->getLength());
+		memcpy_s(m_content->getData(), m_content->getLength(), data->getData(), data->getLength());
+		m_state = loading_state_succeeded;
+	}
+
 	TextureAsset::~TextureAsset()
 	{
 		SAFE_DELETE_SET_NULL(m_content);

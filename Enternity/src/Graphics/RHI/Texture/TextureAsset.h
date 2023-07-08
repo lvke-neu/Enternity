@@ -12,6 +12,7 @@ namespace Enternity
 		friend class CubeMapTexture;
 	public:
 		TextureAsset(const std::string& fullPath, bool slip = true);
+		TextureAsset(Blob* data, int width, int height, int channels);
 		~TextureAsset();
 	public:
 		Blob* getBlob() const;
