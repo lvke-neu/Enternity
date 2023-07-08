@@ -25,7 +25,8 @@ namespace Enternity
 	static Renderer* s_depthRender = nullptr;
 	RenderSystem::RenderSystem()
 	{
-		m_frameBufferColor = new FrameBuffer(100, 100, {ColorAttachmentFormat::RGBA8, ColorAttachmentFormat::RGB8 });
+		m_colorFrameBuffer = new FrameBuffer(100, 100, {ColorAttachmentFormat::RGBA8, ColorAttachmentFormat::RGB8 });
+		m_postprocessFrameBuffer = new FrameBuffer(100, 100, { ColorAttachmentFormat::RGBA8 });
 		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::WindowResize, BIND(RenderSystem::onWindowResize));
 	
 		//TODO: move to class Scene
@@ -43,37 +44,42 @@ namespace Enternity
 	RenderSystem::~RenderSystem()
 	{
 		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::WindowResize, BIND(RenderSystem::onWindowResize));
-		SAFE_DELETE_SET_NULL(m_frameBufferColor);
+		SAFE_DELETE_SET_NULL(m_colorFrameBuffer);
+		SAFE_DELETE_SET_NULL(m_postprocessFrameBuffer);
 		SAFE_DELETE_SET_NULL(s_defaultTexture);
 	}
 
 	void RenderSystem::render(Scene* scene)
 	{
-		if (scene)
-		{
-			m_frameBufferColor->bind();
-			CHECK_GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
-			CHECK_GL_CALL((glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)));
-			m_frameBufferColor->unbind();
-
-			cull(scene);
-			skyboxPass(scene);
-			shadowmapPass(scene);
-			visual3dPass(scene);
-			postprocessPass(scene);
-		}
-
+		color_path(scene);
+		postprocess_path(scene);
 	}
 
-	void RenderSystem::cull(Scene* scene)
+	void RenderSystem::color_path(Scene* scene)
+	{
+		if (scene)
+		{
+			m_colorFrameBuffer->bind();
+
+			CHECK_GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+			CHECK_GL_CALL((glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)));
+			
+			color_path_cull(scene);
+			color_path_skyboxPass(scene);
+			color_path_shadowmapPass(scene);
+			color_path_visual3dPass(scene);
+
+			m_colorFrameBuffer->unbind();
+		}
+	}
+
+	void RenderSystem::color_path_cull(Scene* scene)
 	{
 		
 	}
 
-	void RenderSystem::skyboxPass(Scene* scene)
+	void RenderSystem::color_path_skyboxPass(Scene* scene)
 	{
-		m_frameBufferColor->bind();
-
 		auto& cameraComponent = scene->m_sceneCamera.getComponent<CameraComponent>();
 		auto& cameraTransformComponent = scene->m_sceneCamera.getComponent<TransformComponent>();
 
@@ -99,19 +105,16 @@ namespace Enternity
 				glDepthFunc(GL_LESS);
 			}
 		}
-
-		m_frameBufferColor->unbind();
 	}
 
-	void RenderSystem::shadowmapPass(Scene* scene)
+	void RenderSystem::color_path_shadowmapPass(Scene* scene)
 	{
 
 	}
 
-	void RenderSystem::visual3dPass(Scene* scene)
+	void RenderSystem::color_path_visual3dPass(Scene* scene)
 	{
 		m_triangleCount = 0;
-		m_frameBufferColor->bind();
 
 		auto& cameraComponent = scene->m_sceneCamera.getComponent<CameraComponent>();
 		auto& cameraTransformComponent = scene->m_sceneCamera.getComponent<TransformComponent>();
@@ -264,20 +267,21 @@ namespace Enternity
 				}
 			}
 		}
-
-		m_frameBufferColor->unbind();
 	}
 
-	void RenderSystem::postprocessPass(Scene* scene)
+	void RenderSystem::postprocess_path(Scene* scene)
 	{
-		m_frameBufferColor->bind();
+		m_postprocessFrameBuffer->bind();
+
+		CHECK_GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+		CHECK_GL_CALL((glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)));
 
 		auto& postprocessEntity = scene->m_scenePostprocess;
 		auto& ppc = postprocessEntity.getComponent<PostprocessComponent>();
 		ppc.renderer->bind();
 		ppc.renderer->setUint1("u_postProcessType", (unsigned int)ppc.postprocessType);
 		CHECK_GL_CALL(glActiveTexture(GL_TEXTURE0 + 0));
-		CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, m_frameBufferColor->getTextureId(0)))
+		CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, m_colorFrameBuffer->getTextureId(0)))
 		ppc.mesh->getVertexArraies()[0]->bind();
 		ppc.mesh->getIndexBuffers()[0]->bind();
 		CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, ppc.mesh->getIndexBuffers()[0]->getCount(), GL_UNSIGNED_INT, (void*)0));
@@ -286,12 +290,13 @@ namespace Enternity
 		ppc.mesh->getVertexArraies()[0]->unbind();
 		ppc.mesh->getIndexBuffers()[0]->unbind();
 
-		m_frameBufferColor->unbind();
+		m_postprocessFrameBuffer->unbind();
 	}
 
 	void RenderSystem::onWindowResize(void* data)
 	{
 		WindowSize ws = *(WindowSize*)(data);
-		m_frameBufferColor->resize(ws.width, ws.height);
+		m_colorFrameBuffer->resize(ws.width, ws.height);
+		m_postprocessFrameBuffer->resize(ws.width, ws.height);
 	}
 }

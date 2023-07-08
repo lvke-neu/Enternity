@@ -97,7 +97,7 @@ namespace Enternity
 		if (ImGui::RadioButton("ROTATE", m_gizmoOperation == ImGuizmo::ROTATE)) { m_gizmoOperation = ImGuizmo::ROTATE; } ImGui::SameLine();
 		if (ImGui::RadioButton("SCALE", m_gizmoOperation == ImGuizmo::SCALE)) { m_gizmoOperation = ImGuizmo::SCALE; }
 
-		auto id = Engine::GetInstance().getGraphicsSystem()->getColorFrameBuffer()->getTextureId(0);
+		auto id = Engine::GetInstance().getGraphicsSystem()->getPostprocessFrameBuffer()->getTextureId(0);
 		ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
 
 		onSelectEntity();

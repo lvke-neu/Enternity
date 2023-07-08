@@ -54,6 +54,14 @@ namespace Enternity
 		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 			LOG_ERROR("Framebuffer is not complete!");
 
+		std::vector<unsigned int> buffers;
+		buffers.resize(m_colorFormat.size());
+		for (int i = 0; i < m_colorFormat.size(); i++)
+		{
+			buffers[i]= GL_COLOR_ATTACHMENT0 + i;
+		}
+		glDrawBuffers(GLsizei(buffers.size()), buffers.data());
+
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
