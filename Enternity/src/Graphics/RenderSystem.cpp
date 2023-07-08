@@ -20,25 +20,11 @@
 
 namespace Enternity
 {
-	//TODO: move to class Scene
-	static Texture* s_defaultTexture =nullptr;
-	static Renderer* s_depthRender = nullptr;
 	RenderSystem::RenderSystem()
 	{
 		m_colorFrameBuffer = new FrameBuffer(100, 100, {ColorAttachmentFormat::RGBA8, ColorAttachmentFormat::RGB8 });
 		m_postprocessFrameBuffer = new FrameBuffer(100, 100, { ColorAttachmentFormat::RGBA8 });
 		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::WindowResize, BIND(RenderSystem::onWindowResize));
-	
-		//TODO: move to class Scene
-		TextureAsset ta("assets/textures/white_background.jpeg");
-		ta.load(0);
-		s_defaultTexture = new Texture(&ta);
-
-		RendererAsset vsRa("assets/shaders/depth/depth.vert");
-		RendererAsset psRa("assets/shaders/depth/depth.frag");
-		vsRa.load(0);
-		psRa.load(0);
-		s_depthRender = new Renderer(&vsRa, &psRa);
 	}
 
 	RenderSystem::~RenderSystem()
@@ -46,7 +32,6 @@ namespace Enternity
 		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::WindowResize, BIND(RenderSystem::onWindowResize));
 		SAFE_DELETE_SET_NULL(m_colorFrameBuffer);
 		SAFE_DELETE_SET_NULL(m_postprocessFrameBuffer);
-		SAFE_DELETE_SET_NULL(s_defaultTexture);
 	}
 
 	void RenderSystem::render(Scene* scene)
@@ -163,10 +148,6 @@ namespace Enternity
 						{
 							textures[i]->bind(0);
 						}
-						else
-						{
-							s_defaultTexture->bind(0);
-						}
 
 						indexBuffers[i]->bind();
 						CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffers[i]->getCount(), GL_UNSIGNED_INT, (void*)0));
@@ -175,10 +156,6 @@ namespace Enternity
 						if (textures[i])
 						{
 							textures[i]->unbind();
-						}
-						else
-						{
-							s_defaultTexture->unbind();
 						}
 
 						if (visual3DComponent.environmentMapType != Visual3DComponent::EnvironmentMapType::None)
@@ -233,10 +210,6 @@ namespace Enternity
 						{
 							textures[i]->bind(0);
 						}
-						else
-						{
-							s_defaultTexture->bind(0);
-						}
 
 						indexBuffers[i]->bind();
 						CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, indexBuffers[i]->getCount(), GL_UNSIGNED_INT, (void*)0));
@@ -245,10 +218,6 @@ namespace Enternity
 						if (textures[i])
 						{
 							textures[i]->unbind();
-						}
-						else
-						{
-							s_defaultTexture->unbind();
 						}
 
 						if (visual3DComponent.environmentMapType != Visual3DComponent::EnvironmentMapType::None)
