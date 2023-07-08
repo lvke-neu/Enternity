@@ -178,6 +178,7 @@
     <ClInclude Include="src\Engine\RenderView.h" />
     <ClInclude Include="src\Graphics\RenderSystem.h" />
     <ClInclude Include="src\Graphics\RHI\FrameBuffer\FrameBuffer.h" />
+    <ClInclude Include="src\Graphics\RHI\FrameBuffer\FrameBufferDefine.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshDefine.h" />
     <ClInclude Include="src\Graphics\RHI\Renderer\RenderPass.h" />
     <ClInclude Include="src\Scene\CameraController.h" />

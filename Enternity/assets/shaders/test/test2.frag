@@ -4,7 +4,8 @@ in vec3 v_position;
 in vec3 v_normal;
 in vec2 v_texcoord;
 
-out vec4 fragColor;
+layout (location = 0) out vec4 fragColor;
+
 
 layout (binding = 0) uniform sampler2D u_texture;
 layout (binding = 1) uniform samplerCube u_skybox;
@@ -31,4 +32,6 @@ void main()
 		vec3 R = refract(I, normalize(v_normal), ratio);
 		fragColor = vec4(texture(u_skybox, R).rgb, 1.0);
 	}
+
+
 };
