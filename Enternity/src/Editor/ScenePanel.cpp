@@ -297,7 +297,7 @@ namespace Enternity
 	{
 		ImGui::Begin("Entity");
 
-		for (const auto& entity : Engine::GetInstance().getSceneManager()->getCurrentScene()->m_entities)
+		for (const auto& entity : Engine::GetInstance().getSceneManager()->getCurrentScene()->getEntities())
 		{
 			ImGui::PushID((int)entity.first);
 			if (ImGui::Selectable(entity.second.getComponent<NameComponent>().name.c_str(), 
@@ -317,12 +317,12 @@ namespace Enternity
 
 		ImGui::Begin("Component");
 
-		if (Engine::GetInstance().getPickSystem()->getPickEntityId() != -1)
+		Entity selectedEntity = Engine::GetInstance().getSceneManager()->getCurrentScene()->getEntity((entt::entity)Engine::GetInstance().getPickSystem()->getPickEntityId());
+		if (selectedEntity.isValidEntity())
 		{
-			auto& selectedEntity = Engine::GetInstance().getSceneManager()->getCurrentScene()->m_entities[(entt::entity)Engine::GetInstance().getPickSystem()->getPickEntityId()];
 			DrawSelectedEntity(selectedEntity);
 		}
-
+		
 		ImGui::End();
 	}
 }

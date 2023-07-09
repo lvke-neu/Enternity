@@ -92,16 +92,16 @@ namespace Enternity
 
 		onViewPortResize();
 
-		if (ImGui::RadioButton("TRANSLATE", m_gizmoOperation == ImGuizmo::TRANSLATE)) { m_gizmoOperation = ImGuizmo::TRANSLATE; } ImGui::SameLine();
-		if (ImGui::RadioButton("ROTATE", m_gizmoOperation == ImGuizmo::ROTATE)) { m_gizmoOperation = ImGuizmo::ROTATE; } ImGui::SameLine();
-		if (ImGui::RadioButton("SCALE", m_gizmoOperation == ImGuizmo::SCALE)) { m_gizmoOperation = ImGuizmo::SCALE; }
+		//if (ImGui::RadioButton("TRANSLATE", m_gizmoOperation == ImGuizmo::TRANSLATE)) { m_gizmoOperation = ImGuizmo::TRANSLATE; } ImGui::SameLine();
+		//if (ImGui::RadioButton("ROTATE", m_gizmoOperation == ImGuizmo::ROTATE)) { m_gizmoOperation = ImGuizmo::ROTATE; } ImGui::SameLine();
+		//if (ImGui::RadioButton("SCALE", m_gizmoOperation == ImGuizmo::SCALE)) { m_gizmoOperation = ImGuizmo::SCALE; }
 
 		auto id = Engine::GetInstance().getGraphicsSystem()->getPostprocessFrameBuffer()->getTextureId(0);
 		ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
-
-		onSelectEntityInScene();
+		
 		onSelectEntityInPanel();
-
+		onSelectEntityInScene();
+		
 		ImGui::End();
 
 		ImGui::PopStyleVar();
@@ -141,6 +141,7 @@ namespace Enternity
 		mouseY = int(viewportSizeY - my);
 
 		if (mouseX >= 0 && mouseY >= 0 && mouseX <= viewportSizeX && mouseY <= viewportSizeY &&
+			!ImGuizmo::IsUsing() &&
 			Engine::GetInstance().getEventSystem()->isMousePressed(MouseCode::ButtonLeft))
 		{
 			int id;
@@ -153,8 +154,14 @@ namespace Enternity
 	{
 		int selectedEntityId = Engine::GetInstance().getPickSystem()->getPickEntityId();
 
-		if (selectedEntityId == -1)
+		Entity selectedEntity = Engine::GetInstance().getSceneManager()->getCurrentScene()->getEntity((entt::entity)selectedEntityId);
+		if (!selectedEntity.isValidEntity())
 			return;
+
+		Entity cameraEntity = Engine::GetInstance().getSceneManager()->getCurrentScene()->getSceneCamera();
+
+		const auto& viewMatrix = cameraEntity.getComponent<TransformComponent>().getInverseWorldMatrix();
+		const auto& projMatrix = cameraEntity.getComponent<CameraComponent>().getProjectionMatrix();
 
 		ImGuizmo::SetOrthographic(false);
 		ImGuizmo::SetDrawlist();
@@ -163,16 +170,9 @@ namespace Enternity
 		float windowHeight = (float)ImGui::GetWindowHeight();
 		ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
 
-		Entity selectedEntity = Engine::GetInstance().getSceneManager()->getCurrentScene()->m_entities[(entt::entity)selectedEntityId];
-		Entity cameraEntity = Engine::GetInstance().getSceneManager()->getCurrentScene()->m_sceneCamera;
-
-		const auto& viewMatrix = cameraEntity.getComponent<TransformComponent>().getInverseWorldMatrix();
-		const auto& projMatrix = cameraEntity.getComponent<CameraComponent>().getProjectionMatrix();
-
 		if (selectedEntity.hasComponent<TransformComponent>())
 		{
 			auto modelMatrix = selectedEntity.getComponent<TransformComponent>().getWorldMatrix();
-
 
 			ImGuizmo::Manipulate(&viewMatrix[0][0], &projMatrix[0][0], (ImGuizmo::OPERATION)m_gizmoOperation, ImGuizmo::MODE::LOCAL, &modelMatrix[0][0]);
 

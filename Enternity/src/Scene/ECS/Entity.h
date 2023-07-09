@@ -11,6 +11,7 @@ namespace Enternity
 		Entity(entt::registry* registry);
 	public:
 		entt::entity getEnttID();
+		bool isValidEntity();
 	private:
 		entt::registry* m_registry{ nullptr };
 		entt::entity m_enttId{ entt::null };
@@ -68,5 +69,13 @@ namespace Enternity
 	inline entt::entity Entity::getEnttID()
 	{
 		return m_enttId;
+	}
+
+
+	inline bool Entity::isValidEntity()
+	{
+		if (!m_registry)
+			return false;
+		return m_registry->valid(m_enttId);
 	}
 }

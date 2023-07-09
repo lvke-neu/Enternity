@@ -10,14 +10,14 @@ namespace Enternity
 	class Scene
 	{
 		friend class RenderSystem;
-		friend class ScenePanel;
-		friend class ViewPortPanel;
 	public:
 		Scene();
 		~Scene();
 	public:
 		Entity createEntity();
 		Entity getEntity(entt::entity id);
+		Entity getSceneCamera();
+		const std::map<entt::entity, Entity>& getEntities();
 		void deleteEntityById(entt::entity id);
 		void deleteAllEntity();
 		void tick(float deltaTime);
@@ -30,4 +30,14 @@ namespace Enternity
 		Entity m_skybox;
 		CameraController* m_cameraController{ nullptr };
 	};
+
+	inline Entity Scene::getSceneCamera()
+	{
+		return m_sceneCamera;
+	}
+
+	inline const std::map<entt::entity, Entity>& Scene::getEntities()
+	{
+		return m_entities;
+	}
 }
