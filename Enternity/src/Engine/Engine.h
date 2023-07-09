@@ -7,6 +7,7 @@ namespace Enternity
 	class RenderView;
 	class GraphicsSystem;
 	class EventSystem;
+	class PickSystem;
 	class SceneManager;
 	class Engine
 	{
@@ -20,11 +21,13 @@ namespace Enternity
 	public:
 		GraphicsSystem* getGraphicsSystem();
 		EventSystem* getEventSystem();
+		PickSystem* getPickSystem();
 		SceneManager* getSceneManager();
 		RenderView* getRenderView();
 	private:
 		GraphicsSystem* m_graphicsSystem{ nullptr };
 		EventSystem* m_eventSystem{ nullptr };
+		PickSystem* m_pickSystem{ nullptr };
 		RenderView* m_renderView{ nullptr };
 		SceneManager* m_sceneManager{ nullptr };
 		Timer* m_timer{ nullptr };
@@ -38,6 +41,11 @@ namespace Enternity
 	inline EventSystem* Engine::getEventSystem()
 	{
 		return m_eventSystem;
+	}
+
+	inline PickSystem* Engine::getPickSystem()
+	{
+		return m_pickSystem;
 	}
 
 	inline SceneManager* Engine::getSceneManager()

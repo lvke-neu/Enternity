@@ -1,16 +1,12 @@
 #include "UiRender.h"
-#include "Engine/Log.h"
 #include "ViewPortPanel.h"
 #include "StatePanel.h"
 #include "ScenePanel.h"
 #include "AssetPanel.h"
-#include "Engine/Engine.h"
-#include "Graphics/GraphicsSystem.h"
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
 #include "Imgui/imgui_impl_glfw.h"
 #include "Imgui/imgui_impl_opengl3.h"
-
 
 namespace Enternity
 {

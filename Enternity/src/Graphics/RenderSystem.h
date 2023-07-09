@@ -6,9 +6,9 @@ namespace Enternity
 	class FrameBuffer;
 	class RenderSystem
 	{
-	public:
+	protected:
 		RenderSystem();
-		~RenderSystem();
+		virtual ~RenderSystem();
 	public:
 		void render(Scene* scene);
 		FrameBuffer* getColorFrameBuffer();

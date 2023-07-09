@@ -1,8 +1,6 @@
 #pragma warning(disable:4312) 
 
 #include "ViewPortPanel.h"
-#include "UiRender.h"
-#include "ScenePanel.h"
 #include "Engine/Engine.h"
 #include "Engine/RenderView.h"
 #include "Engine/Event/EventSystem.h"
@@ -12,6 +10,7 @@
 #include "Scene/SceneManager.h"
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/CameraComponent.h"
+#include "Pick/PickSystem.h"
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
 #include "Imgui/imgui_impl_glfw.h"
@@ -120,7 +119,7 @@ namespace Enternity
 
 	void ViewPortPanel::onSelectEntity()
 	{
-		int selectedEntityId = Engine::GetInstance().getRenderView()->getUiRender()->getScenePanel()->getSelectedEntityId();
+		int selectedEntityId = Engine::GetInstance().getPickSystem()->getPickEntityId();
 
 		if (selectedEntityId == -1)
 			return;

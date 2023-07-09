@@ -12,7 +12,7 @@ namespace Enternity
 		friend class Engine;
 	private:
 		GraphicsSystem();
-		~GraphicsSystem();
+		virtual ~GraphicsSystem();
 	public:
 		TextureProvider* getTextureProvider();
 		RendererProvider* getRendererProvider();

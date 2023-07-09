@@ -3,6 +3,7 @@
 #include "Engine/Log.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Event/EventSystem.h"
+#include "Pick/PickSystem.h"
 #include "Scene/SceneManager.h"
 #include "RenderView.h"
 #include "Timer.h"
@@ -17,6 +18,7 @@ namespace Enternity
 		m_renderView = new RenderView(1920, 900, "v0.004");
 		m_eventSystem = new EventSystem;
 		m_graphicsSystem = new GraphicsSystem;
+		m_pickSystem = new PickSystem;
 		m_sceneManager = new SceneManager;
 		m_timer = new Timer;
 	}
@@ -27,6 +29,7 @@ namespace Enternity
 
 		SAFE_DELETE_SET_NULL(m_sceneManager);
 		SAFE_DELETE_SET_NULL(m_graphicsSystem);
+		SAFE_DELETE_SET_NULL(m_pickSystem);
 		SAFE_DELETE_SET_NULL(m_eventSystem);
 		SAFE_DELETE_SET_NULL(m_renderView);
 		SAFE_DELETE_SET_NULL(m_timer);

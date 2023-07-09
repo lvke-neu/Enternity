@@ -1,8 +1,4 @@
 #include "ScenePanel.h"
-#include "Imgui/imgui.h"
-#include "Imgui/imgui_internal.h"
-#include "Imgui/imgui_impl_glfw.h"
-#include "Imgui/imgui_impl_opengl3.h"
 #include "Engine/Engine.h"
 #include "Scene/Scene.h"
 #include "Scene/SceneManager.h"
@@ -13,10 +9,15 @@
 #include "Scene/ECS/PostprocessComponent.h"
 #include "Scene/ECS/SkyboxComponent.h"
 #include "Graphics/GraphicsSystem.h"
+#include "Pick/PickSystem.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"
 #include "Graphics/RHI/Texture/TextureProvider.h"
+#include "Imgui/imgui.h"
+#include "Imgui/imgui_internal.h"
+#include "Imgui/imgui_impl_glfw.h"
+#include "Imgui/imgui_impl_opengl3.h"
 
 namespace Enternity
 {
@@ -299,23 +300,26 @@ namespace Enternity
 		for (const auto& entity : Engine::GetInstance().getSceneManager()->getCurrentScene()->m_entities)
 		{
 			ImGui::PushID((int)entity.first);
-			if (ImGui::Selectable(entity.second.getComponent<NameComponent>().name.c_str(), m_selectedEntityId == (int)entity.first))
+			if (ImGui::Selectable(entity.second.getComponent<NameComponent>().name.c_str(), 
+				Engine::GetInstance().getPickSystem()->getPickEntityId() == (int)entity.first))
 			{
-				m_selectedEntityId = (int)entity.first;
+				Engine::GetInstance().getPickSystem()->setPickEntityId((int)entity.first);
 			}
 			ImGui::PopID();
 		}
 		
 		if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
-			m_selectedEntityId = -1;
+		{
+			Engine::GetInstance().getPickSystem()->setPickEntityId(-1);
+		}
 
 		ImGui::End();
 
 		ImGui::Begin("Component");
 
-		if (m_selectedEntityId != -1)
+		if (Engine::GetInstance().getPickSystem()->getPickEntityId() != -1)
 		{
-			auto& selectedEntity = Engine::GetInstance().getSceneManager()->getCurrentScene()->m_entities[(entt::entity)m_selectedEntityId];
+			auto& selectedEntity = Engine::GetInstance().getSceneManager()->getCurrentScene()->m_entities[(entt::entity)Engine::GetInstance().getPickSystem()->getPickEntityId()];
 			DrawSelectedEntity(selectedEntity);
 		}
 
