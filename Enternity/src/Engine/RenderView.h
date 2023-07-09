@@ -13,6 +13,7 @@ namespace Enternity
 		bool windowShouldClose();
 		void swapBuffers();
 		void setTitle(const char* title);
+		void pollEvents();
 		UiRender* getUiRender() const;
 	public:
 		void Resize(int width, int height);

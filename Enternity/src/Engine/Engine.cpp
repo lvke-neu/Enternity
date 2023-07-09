@@ -40,6 +40,8 @@ namespace Enternity
 		m_timer->reset();
 		while (!m_renderView->windowShouldClose())
 		{
+			m_renderView->pollEvents();
+
 			m_timer->tick();
 			float deltaTime = m_timer->deltaTime();
 			m_eventSystem->dispatchEvent(Event::EventType::Tick, &deltaTime);

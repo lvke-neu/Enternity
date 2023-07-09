@@ -85,12 +85,16 @@ namespace Enternity
 	{
 		m_uiRender->tick();
 		glfwSwapBuffers(m_context);
-		glfwPollEvents();
 	}
 
 	void RenderView::setTitle(const char* title)
 	{
 		glfwSetWindowTitle(m_context, title);
+	}
+
+	void RenderView::pollEvents()
+	{
+		glfwPollEvents();
 	}
 
 	void RenderView::Resize(GLFWwindow* window, int width, int height)

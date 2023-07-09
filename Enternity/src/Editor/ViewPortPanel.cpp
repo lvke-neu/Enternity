@@ -87,11 +87,23 @@ namespace Enternity
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0, 0 });
 
 		ImGui::Begin("Viewport");
-		
+
 		Engine::GetInstance().getEventSystem()->setIsDispatchInputEvent(ImGui::IsWindowHovered());
 
 		onViewPortResize();
 
+		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::D1))
+		{
+			m_gizmoOperation = ImGuizmo::TRANSLATE;
+		}
+		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::D2))
+		{
+			m_gizmoOperation = ImGuizmo::ROTATE;
+		}
+		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::D3))
+		{
+			m_gizmoOperation = ImGuizmo::SCALE;
+		}
 		//if (ImGui::RadioButton("TRANSLATE", m_gizmoOperation == ImGuizmo::TRANSLATE)) { m_gizmoOperation = ImGuizmo::TRANSLATE; } ImGui::SameLine();
 		//if (ImGui::RadioButton("ROTATE", m_gizmoOperation == ImGuizmo::ROTATE)) { m_gizmoOperation = ImGuizmo::ROTATE; } ImGui::SameLine();
 		//if (ImGui::RadioButton("SCALE", m_gizmoOperation == ImGuizmo::SCALE)) { m_gizmoOperation = ImGuizmo::SCALE; }
