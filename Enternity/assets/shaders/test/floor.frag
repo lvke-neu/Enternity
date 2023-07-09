@@ -2,6 +2,9 @@
 
 layout (location = 0) out vec4 fragColor;
 layout (location = 1) out vec4 depthColor;
+layout (location = 2) out int entityId;
+
+uniform int u_entityId;
 
 float near = 1; 
 float far  = 50.0; 
@@ -16,4 +19,5 @@ void main()
 	fragColor = vec4(0.22, 0.35, 0.03, 1);
 	float depth = LinearizeDepth(gl_FragCoord.z) / far;
     depthColor = vec4(depth, 0, 0, 1.0);
+	entityId = u_entityId;
 };

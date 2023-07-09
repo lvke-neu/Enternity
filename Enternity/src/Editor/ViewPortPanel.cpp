@@ -99,7 +99,8 @@ namespace Enternity
 		auto id = Engine::GetInstance().getGraphicsSystem()->getPostprocessFrameBuffer()->getTextureId(0);
 		ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
 
-		onSelectEntity();
+		onSelectEntityInScene();
+		onSelectEntityInPanel();
 
 		ImGui::End();
 
@@ -117,7 +118,38 @@ namespace Enternity
 		}
 	}
 
-	void ViewPortPanel::onSelectEntity()
+	void ViewPortPanel::onSelectEntityInScene()
+	{
+		auto viewportMinRegion = ImGui::GetWindowContentRegionMin();
+		auto viewportMaxRegion = ImGui::GetWindowContentRegionMax();
+		auto viewportOffset = ImGui::GetWindowPos();
+
+		glm::vec2 viewportBounds[2];
+		viewportBounds[0] = { viewportMinRegion.x + viewportOffset.x, viewportMinRegion.y + viewportOffset.y };
+		viewportBounds[1] = { viewportMaxRegion.x + viewportOffset.x, viewportMaxRegion.y + viewportOffset.y };
+
+		auto[mx, my] = ImGui::GetMousePos();
+
+		mx -= viewportBounds[0].x;
+		my -= viewportBounds[0].y;
+
+		int mouseX = (int)mx;
+		int mouseY = (int)my;
+
+		auto viewportSizeX = viewportBounds[1].x - viewportBounds[0].x;
+		auto viewportSizeY = viewportBounds[1].y - viewportBounds[0].y;
+		mouseY = int(viewportSizeY - my);
+
+		if (mouseX >= 0 && mouseY >= 0 && mouseX <= viewportSizeX && mouseY <= viewportSizeY &&
+			Engine::GetInstance().getEventSystem()->isMousePressed(MouseCode::ButtonLeft))
+		{
+			int id;
+			Engine::GetInstance().getGraphicsSystem()->getColorFrameBuffer()->readPixelInt(2, mouseX, mouseY, &id);
+			Engine::GetInstance().getPickSystem()->setPickEntityId(id);
+		}
+	}
+
+	void ViewPortPanel::onSelectEntityInPanel()
 	{
 		int selectedEntityId = Engine::GetInstance().getPickSystem()->getPickEntityId();
 

@@ -24,7 +24,7 @@ namespace Enternity
 {
 	RenderSystem::RenderSystem()
 	{
-		m_colorFrameBuffer = new FrameBuffer(100, 100, {ColorAttachmentFormat::RGBA8, ColorAttachmentFormat::RGB8 });
+		m_colorFrameBuffer = new FrameBuffer(100, 100, {ColorAttachmentFormat::RGBA8, ColorAttachmentFormat::RGB8, ColorAttachmentFormat::RED_INTEGER });
 		m_postprocessFrameBuffer = new FrameBuffer(100, 100, { ColorAttachmentFormat::RGBA8 });
 		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::WindowResize, BIND(RenderSystem::onWindowResize));
 	}
@@ -80,6 +80,7 @@ namespace Enternity
 
 				skyboxComponent.renderer->bind();
 				skyboxComponent.renderer->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * glm::mat4(glm::mat3(cameraTransformComponent.getInverseWorldMatrix())));
+				skyboxComponent.renderer->setInt1("u_entityId", -1);
 				skyboxComponent.mesh->getVertexArraies()[0]->bind();
 				skyboxComponent.mesh->getIndexBuffers()[0]->bind();
 				skyboxComponent.cubeMapTexture->bind(0);
@@ -130,6 +131,7 @@ namespace Enternity
 					visual3DComponent.renderer->setMat4("u_v", cameraTransformComponent.getInverseWorldMatrix());
 					visual3DComponent.renderer->setMat4("u_p", cameraComponent.getProjectionMatrix());
 					visual3DComponent.renderer->setUint1("u_environmentMapType", (unsigned int)visual3DComponent.environmentMapType);
+					visual3DComponent.renderer->setInt1("u_entityId", (int)entity.first);
 					if (visual3DComponent.environmentMapType != Visual3DComponent::EnvironmentMapType::None)
 					{
 						visual3DComponent.renderer->setVec3("u_cameraPos", cameraTransformComponent.translation);
@@ -192,6 +194,7 @@ namespace Enternity
 					visual3DComponent.renderer->setMat4("u_v", cameraTransformComponent.getInverseWorldMatrix());
 					visual3DComponent.renderer->setMat4("u_p", cameraComponent.getProjectionMatrix());
 					visual3DComponent.renderer->setUint1("u_environmentMapType", (unsigned int)visual3DComponent.environmentMapType);
+					visual3DComponent.renderer->setInt1("u_entityId", (int)it->first);
 					if (visual3DComponent.environmentMapType != Visual3DComponent::EnvironmentMapType::None)
 					{
 						visual3DComponent.renderer->setVec3("u_cameraPos", cameraTransformComponent.translation);

@@ -6,6 +6,7 @@ in vec2 v_texcoord;
 
 layout (location = 0) out vec4 fragColor;
 layout (location = 1) out vec4 depthColor;
+layout (location = 2) out int entityId;
 
 float near = 1; 
 float far  = 50.0; 
@@ -19,6 +20,7 @@ float LinearizeDepth(float depth)
 layout (binding = 0) uniform sampler2D u_texture;
 layout (binding = 1) uniform samplerCube u_skybox;
 
+uniform int u_entityId;
 uniform vec3 u_cameraPos;
 uniform uint u_environmentMapType;
 
@@ -48,4 +50,5 @@ void main()
 
 	float depth = LinearizeDepth(gl_FragCoord.z) / far;
     depthColor = vec4(depth, 0, 0, 1.0);
+	entityId = u_entityId;
 };

@@ -62,6 +62,15 @@ namespace Enternity
 		{
 			m_keyTriggers[*(KeyCode*)data] = false;
 		}
+		
+		if (type == Event::EventType::MousePressed)
+		{
+			m_MouseTriggers[*(MouseCode*)data] = true;
+		}
+		else if (type == Event::EventType::MouseReleased)
+		{
+			m_MouseTriggers[*(MouseCode*)data] = false;
+		}
 
 		for (auto& event : m_events)
 		{
@@ -75,5 +84,10 @@ namespace Enternity
 	bool EventSystem::isKeyPressed(KeyCode keyCode)
 	{
 		return m_keyTriggers[keyCode];
+	}
+
+	bool EventSystem::isMousePressed(MouseCode mouseCode)
+	{
+		return m_MouseTriggers[mouseCode];
 	}
 }

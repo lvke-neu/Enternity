@@ -65,6 +65,14 @@ namespace Enternity
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
+	void FrameBuffer::readPixelInt(unsigned int index, int x, int y, int* data)
+	{
+		bind();
+		glReadBuffer(GL_COLOR_ATTACHMENT0 + index);
+		glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, data);
+		unbind();
+	}
+
 	void FrameBuffer::bind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_renderId);

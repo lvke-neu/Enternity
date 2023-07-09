@@ -19,9 +19,11 @@ namespace Enternity
 		void setIsDispatchInputEvent(bool flag);
 	public:
 		bool isKeyPressed(KeyCode keyCode);
+		bool isMousePressed(MouseCode mouseCode);
 	private:
 		std::vector<Event> m_events;
 		std::unordered_map<KeyCode, bool> m_keyTriggers;
+		std::unordered_map<MouseCode, bool> m_MouseTriggers;
 		bool m_bDispatchInputEvent{ true };
 	};
 

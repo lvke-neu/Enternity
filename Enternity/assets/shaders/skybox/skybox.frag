@@ -2,6 +2,7 @@
 
 layout (location = 0) out vec4 fragColor;
 layout (location = 1) out vec4 depthColor;
+layout (location = 2) out int entityId;
 
 float near = 1; 
 float far  = 50.0; 
@@ -12,7 +13,7 @@ float LinearizeDepth(float depth)
 }
 
 in vec3 v_position;
-
+uniform int u_entityId;
 layout(location = 0) uniform samplerCube skybox;
 
 void main()
@@ -20,4 +21,5 @@ void main()
 	fragColor = texture(skybox, v_position);
 	float depth = LinearizeDepth(gl_FragCoord.z) / far;
     depthColor = vec4(depth, 0, 0, 1.0);
+	entityId = u_entityId;
 };

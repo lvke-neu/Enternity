@@ -12,6 +12,7 @@ namespace Enternity
 	public:
 		void resize(unsigned int width, unsigned int height);
 		unsigned int getTextureId(unsigned int index);
+		void readPixelInt(unsigned int index, int x, int y , int* data);
 
 		void bind();
 		void unbind();

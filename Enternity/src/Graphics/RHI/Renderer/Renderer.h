@@ -19,6 +19,7 @@ namespace Enternity
 		void setMat4(const std::string& name, const glm::mat4& mat4, bool normalize = false);
 		void setVec3(const std::string& name, const glm::vec3& vec3, bool normalize = false);
 		void setUint1(const std::string& name, unsigned int value);
+		void setInt1(const std::string& name, int value);
 		const std::string& getVsShader() const;
 		const std::string& getPsShader() const;
 		RenderPass getRenderPass() const;
