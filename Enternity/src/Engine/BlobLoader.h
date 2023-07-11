@@ -1,33 +1,18 @@
 #pragma once
-#include <string>
+#include "AssetID.h"
 
 namespace Enternity
 {
-	class Blob;
+	class BlobHolder;
 	class BlobLoader
 	{
+		friend class BlobLoaderManager;
 	public:
-		enum LoadingPriority
-		{
-			loading_priority_sync,
-			loading_priority_asyn
-		};
-		enum LoadingState
-		{
-			loading_state_pending,
-			loading_state_succeeded,
-			loading_state_failed
-		};
-	public:
-		BlobLoader(const std::string& storagePath);
+		BlobLoader(const AssetID& assetID);
 		virtual ~BlobLoader();
 	public:
-		void load(LoadingPriority priority);
+		virtual BlobHolder* createBlobHolder(const AssetID& assetID) = 0;
 	private:
-		virtual void doLoad() = 0;
-	private:
-		std::string m_storagePath;
-		Blob* m_blob;
-		LoadingState m_loadingState;
+		AssetID m_assetID;
 	};
 }

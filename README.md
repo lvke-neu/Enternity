@@ -15,4 +15,4 @@ AssetID, Asset, AssetLoader
 用hdr填充cubemap
 
 
-blobloader:"shader://", "texture://", "mesh://"
+blobloader:"shader://", "texture://", "mesh://", "file://"
