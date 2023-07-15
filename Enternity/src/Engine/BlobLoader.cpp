@@ -1,15 +1,17 @@
 #include "BlobLoader.h"
+#include "ThreadPool.h"
 
 namespace Enternity
 {
-	BlobLoader::BlobLoader(const AssetID& assetID) :
-		m_assetID(assetID)
+	void BlobLoader::load(int priority)
 	{
-
-	}
-
-	BlobLoader::~BlobLoader()
-	{
-		
+		if (priority)
+		{
+			ThreadPool::GetInstance().commitTask(std::bind(&BlobLoader::doLoad, this));
+		}
+		else
+		{
+			doLoad();
+		}
 	}
 }

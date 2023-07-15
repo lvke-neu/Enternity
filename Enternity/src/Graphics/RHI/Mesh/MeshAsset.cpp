@@ -26,7 +26,7 @@ namespace Enternity
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
 			LOG_ERROR("ERROR::ASSIMP::{0}", importer.GetErrorString());
-			m_state = Asset::LoadingState::loading_state_failed;
+			m_state = BlobLoader::LoadingState::loading_state_failed;
 			return;
 		}
 
@@ -84,7 +84,7 @@ namespace Enternity
 			m_indices.push_back(indices);
 		}
 
-		m_state = Asset::LoadingState::loading_state_succeeded;
+		m_state = BlobLoader::LoadingState::loading_state_succeeded;
 	}
 
 
@@ -152,7 +152,7 @@ namespace Enternity
 
 		m_indices[0] = { 0, 3, 2, 0, 2, 1 };
 
-		m_state = Asset::LoadingState::loading_state_succeeded;
+		m_state = BlobLoader::LoadingState::loading_state_succeeded;
 	}
 
 	void BasicMeshAsset::buildBoxMesh()
@@ -224,6 +224,6 @@ namespace Enternity
 			20, 21, 22, 22, 23, 20
 		};
 
-		m_state = Asset::LoadingState::loading_state_succeeded;
+		m_state = BlobLoader::LoadingState::loading_state_succeeded;
 	}
 }

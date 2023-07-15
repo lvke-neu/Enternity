@@ -1,5 +1,5 @@
 #pragma once
-#include "Engine/Asset.h"
+#include "Engine/BlobLoader.h"
 #include "VertexDefine.h"
 #include "MeshDefine.h"
 #include <string>
@@ -7,7 +7,7 @@
 
 namespace Enternity
 {
-	class MeshAsset : public Asset
+	class MeshAsset : public BlobLoader
 	{
 	public:
 		MeshAsset(const std::string& fullPath);

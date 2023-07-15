@@ -1,18 +1,28 @@
 #pragma once
-#include "AssetID.h"
-
 namespace Enternity
 {
-	class BlobHolder;
 	class BlobLoader
 	{
-		friend class BlobLoaderManager;
 	public:
-		BlobLoader(const AssetID& assetID);
-		virtual ~BlobLoader();
+		enum LoadingState
+		{
+			loading_state_pending,
+			loading_state_succeeded,
+			loading_state_failed
+		};
 	public:
-		virtual BlobHolder* createBlobHolder(const AssetID& assetID) = 0;
+		virtual ~BlobLoader(){}
+	public:
+		LoadingState getLoadingState() const;
+		void load(int priority = 1);
 	private:
-		AssetID m_assetID;
+		virtual void doLoad() = 0;
+	protected:
+		LoadingState m_state{ loading_state_pending };
 	};
+
+	inline BlobLoader::LoadingState BlobLoader::getLoadingState() const
+	{
+		return m_state;
+	}
 }

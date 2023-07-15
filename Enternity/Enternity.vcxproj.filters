@@ -29,9 +29,6 @@
     <ClCompile Include="src\Engine\Blob.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Asset.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\ThreadPool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -182,27 +179,9 @@
     <ClCompile Include="src\Engine\BlobLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\BlobHolder.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\BlobLoaderManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Detail\ShaderBlobLoader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Detail\ShaderBlobHolder.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\AssetID.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Blob.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Asset.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\ThreadPool.h">
@@ -380,21 +359,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\BlobLoader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\BlobHolder.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\BlobLoaderManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Detail\ShaderBlobLoader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Detail\ShaderBlobHolder.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\AssetID.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -9,7 +9,6 @@ namespace Enternity
 	class EventSystem;
 	class PickSystem;
 	class SceneManager;
-	class BlobLoaderManager;
 	class Engine
 	{
 		SINGLETON(Engine);
@@ -25,14 +24,12 @@ namespace Enternity
 		PickSystem* getPickSystem();
 		SceneManager* getSceneManager();
 		RenderView* getRenderView();
-		BlobLoaderManager* getBlobLoaderManager();
 	private:
 		GraphicsSystem* m_graphicsSystem{ nullptr };
 		EventSystem* m_eventSystem{ nullptr };
 		PickSystem* m_pickSystem{ nullptr };
 		RenderView* m_renderView{ nullptr };
 		SceneManager* m_sceneManager{ nullptr };
-		BlobLoaderManager* m_blobLoaderManager{ nullptr };
 		Timer* m_timer{ nullptr };
 	};
 
@@ -54,11 +51,6 @@ namespace Enternity
 	inline SceneManager* Engine::getSceneManager()
 	{
 		return m_sceneManager;
-	}
-
-	inline BlobLoaderManager* Engine::getBlobLoaderManager()
-	{
-		return m_blobLoaderManager;
 	}
 
 	inline RenderView* Engine::getRenderView()

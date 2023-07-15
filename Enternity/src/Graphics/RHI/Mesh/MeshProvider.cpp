@@ -24,7 +24,7 @@ namespace Enternity
 		MeshAsset* meshAsset = new MeshAsset(fullPath);
 		meshAsset->load(0);
 
-		if (meshAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded)
+		if (meshAsset->getLoadingState() == BlobLoader::LoadingState::loading_state_succeeded)
 		{
 			mesh = new Mesh(meshAsset);
 		}
@@ -41,7 +41,7 @@ namespace Enternity
 		BasicMeshAsset* basicMeshAsset = new BasicMeshAsset(type, texturePath);
 		basicMeshAsset->load(0);
 
-		if (basicMeshAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded)
+		if (basicMeshAsset->getLoadingState() == BlobLoader::LoadingState::loading_state_succeeded)
 		{
 			mesh = new Mesh(basicMeshAsset);
 		}
@@ -70,7 +70,7 @@ namespace Enternity
 	{
 		for (auto it = m_map.begin(); it != m_map.end(); )
 		{
-			if (it->meshAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded)
+			if (it->meshAsset->getLoadingState() == BlobLoader::LoadingState::loading_state_succeeded)
 			{
 				it->callback(new Mesh(it->meshAsset));
 				SAFE_DELETE_SET_NULL(it->meshAsset);
