@@ -27,8 +27,8 @@ namespace Enternity
 
 		Renderer* renderer = nullptr;
 		
-		if (vsRendererAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded &&
-			psRendererAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded)
+		if (vsRendererAsset->getLoadingState() == Asset2::LoadingState::loading_state_succeeded &&
+			psRendererAsset->getLoadingState() == Asset2::LoadingState::loading_state_succeeded)
 		{
 			renderer = new Renderer(vsRendererAsset, psRendererAsset);
 		}
@@ -54,8 +54,8 @@ namespace Enternity
 	{
 		for (auto it = m_map.begin(); it != m_map.end(); )
 		{
-			if (it->vsRendererAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded
-				&& it->psRendererAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded)
+			if (it->vsRendererAsset->getLoadingState() == Asset2::LoadingState::loading_state_succeeded
+				&& it->psRendererAsset->getLoadingState() == Asset2::LoadingState::loading_state_succeeded)
 			{
 				it->callback(new Renderer(it->vsRendererAsset, it->psRendererAsset));
 				SAFE_DELETE_SET_NULL(it->vsRendererAsset);

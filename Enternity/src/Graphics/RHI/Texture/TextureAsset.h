@@ -1,12 +1,12 @@
 #pragma once
-#include "Engine/Asset.h"
+#include "Engine/Asset2.h"
 #include <string>
 
 namespace Enternity
 {
 	class Texture;
 	class Blob;
-	class TextureAsset : public Asset
+	class TextureAsset : public Asset2
 	{
 		friend class Texture;
 		friend class CubeMapTexture;

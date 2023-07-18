@@ -2,12 +2,14 @@
 #include "BlobLoader.h"
 #include "Common/Macro.h"
 #include "Detail/WindowsFileBlobLoader.h"
+#include "Detail/ShaderBlobLoader.h"
 
 namespace Enternity
 {
 	BlobLoaderManager::BlobLoaderManager()
 	{
 		registerBlobLoader(new WindowsFileBlobLoader);
+		registerBlobLoader(new ShaderBlobLoader);
 	}
 
 	BlobLoaderManager::~BlobLoaderManager()

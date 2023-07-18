@@ -29,9 +29,6 @@
     <ClCompile Include="src\Engine\Blob.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Asset.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\ThreadPool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -191,12 +188,15 @@
     <ClCompile Include="src\Engine\Detail\WindowsFileBlobLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Detail\ShaderBlobLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Asset2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Blob.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Asset.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\ThreadPool.h">
@@ -383,6 +383,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Detail\WindowsFileBlobLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Detail\ShaderBlobLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Asset2.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

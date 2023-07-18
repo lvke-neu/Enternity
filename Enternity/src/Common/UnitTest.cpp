@@ -11,7 +11,7 @@ int main(int argc, const char** argv) {
 
 	Enternity::Engine::GetInstance().initialize();
 
-	std::string path = "file://assets/shaders/test/test2.frag";
+	std::string path = "shader://assets/shaders/test/test2.frag";
 	BlobLoader* blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(path);
 	BlobHolder* blobHolder = nullptr;
 	if (blobLoader)
@@ -20,15 +20,15 @@ int main(int argc, const char** argv) {
 		blobHolder->load();
 	}
 
-	while (true)
-	{
-		if (blobHolder->isLoadSucceeded())
-		{
-			std::string str((char*)blobHolder->getBlob()->getData(), blobHolder->getBlob()->getLength());
-			int i = 0;
-			i++;
-		}
-	}
+	//while (true)
+	//{
+	//	if (blobHolder->isLoadSucceeded())
+	//	{
+	//		std::string str((char*)blobHolder->getBlob()->getData(), blobHolder->getBlob()->getLength());
+	//		int i = 0;
+	//		i++;
+	//	}
+	//}
 	Enternity::Engine::GetInstance().run();
 	Enternity::Engine::GetInstance().uninitialize();
 

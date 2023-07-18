@@ -25,7 +25,7 @@ namespace Enternity
 
 		Texture* texture = nullptr;
 
-		if (textureAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded)
+		if (textureAsset->getLoadingState() == Asset2::LoadingState::loading_state_succeeded)
 		{
 			texture = new Texture(textureAsset);
 		}
@@ -47,7 +47,7 @@ namespace Enternity
 	{
 		TextureAsset textureAsset(data, width, height, channels);
 
-		if(textureAsset.getLoadingState() == Asset::loading_state_succeeded)
+		if(textureAsset.getLoadingState() == Asset2::loading_state_succeeded)
 			return new Texture(&textureAsset);
 
 		return nullptr;
@@ -66,7 +66,7 @@ namespace Enternity
 		{
 			TextureAsset* textureAsset = new TextureAsset(fullPaths[i], false);
 			textureAsset->load(0);
-			if (textureAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded)
+			if (textureAsset->getLoadingState() == Asset2::LoadingState::loading_state_succeeded)
 			{
 				textureAssets.push_back(textureAsset);
 			}
@@ -107,7 +107,7 @@ namespace Enternity
 	{
 		for (auto it = m_map.begin(); it != m_map.end(); )
 		{
-			if (it->textureAsset->getLoadingState() == Asset::LoadingState::loading_state_succeeded)
+			if (it->textureAsset->getLoadingState() == Asset2::LoadingState::loading_state_succeeded)
 			{
 				it->callback(new Texture(it->textureAsset));
 				SAFE_DELETE_SET_NULL(it->textureAsset);
@@ -121,12 +121,12 @@ namespace Enternity
 
 		for (auto it = m_map2.begin(); it != m_map2.end(); )
 		{
-			if (it->textureAssets[0]->getLoadingState() == Asset::LoadingState::loading_state_succeeded &&
-				it->textureAssets[1]->getLoadingState() == Asset::LoadingState::loading_state_succeeded &&
-				it->textureAssets[2]->getLoadingState() == Asset::LoadingState::loading_state_succeeded &&
-				it->textureAssets[3]->getLoadingState() == Asset::LoadingState::loading_state_succeeded &&
-				it->textureAssets[4]->getLoadingState() == Asset::LoadingState::loading_state_succeeded &&
-				it->textureAssets[5]->getLoadingState() == Asset::LoadingState::loading_state_succeeded)
+			if (it->textureAssets[0]->getLoadingState() == Asset2::LoadingState::loading_state_succeeded &&
+				it->textureAssets[1]->getLoadingState() == Asset2::LoadingState::loading_state_succeeded &&
+				it->textureAssets[2]->getLoadingState() == Asset2::LoadingState::loading_state_succeeded &&
+				it->textureAssets[3]->getLoadingState() == Asset2::LoadingState::loading_state_succeeded &&
+				it->textureAssets[4]->getLoadingState() == Asset2::LoadingState::loading_state_succeeded &&
+				it->textureAssets[5]->getLoadingState() == Asset2::LoadingState::loading_state_succeeded)
 			{
 				it->callback(new CubeMapTexture(it->textureAssets));
 				SAFE_DELETE_SET_NULL(it->textureAssets[0]);

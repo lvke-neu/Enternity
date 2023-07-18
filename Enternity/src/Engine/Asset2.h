@@ -1,7 +1,7 @@
 #pragma once
 namespace Enternity
 {
-	class Asset
+	class Asset2
 	{
 	public:
 		enum LoadingState
@@ -11,7 +11,7 @@ namespace Enternity
 			loading_state_failed
 		};
 	public:
-		virtual ~Asset(){}
+		virtual ~Asset2(){}
 	public:
 		LoadingState getLoadingState() const;
 		void load(int priority = 1);
@@ -21,7 +21,7 @@ namespace Enternity
 		LoadingState m_state{ loading_state_pending };
 	};
 
-	inline Asset::LoadingState Asset::getLoadingState() const
+	inline Asset2::LoadingState Asset2::getLoadingState() const
 	{
 		return m_state;
 	}
