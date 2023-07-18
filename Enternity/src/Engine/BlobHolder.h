@@ -1,9 +1,10 @@
 #pragma once
-#include "AssetID.h"
+#include <string>
 
 namespace Enternity
 {
 	class Blob;
+	class BlobLoader;
 	class BlobHolder
 	{
 	public:
@@ -14,15 +15,15 @@ namespace Enternity
 			loading_state_failed
 		};
 	public:
-		BlobHolder(const AssetID& assetID);
-		virtual ~BlobHolder();
+		BlobHolder(BlobLoader* blobLoader, const std::string& path);
+		~BlobHolder();
 	public:
 		void load();
-	private:
-		virtual void doLoad() = 0;
 	protected:
 		Blob* m_blob;
 		LoadingState m_state;
-		AssetID m_assetID;
+
+		BlobLoader* m_blobLoader;
+		std::string m_path;
 	};
 }

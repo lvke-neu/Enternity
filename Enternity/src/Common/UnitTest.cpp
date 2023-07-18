@@ -1,4 +1,3 @@
-#include "UnitTest.h"
 #include "Engine/Engine.h"
 #include "Engine/BlobLoader.h"
 #include "Engine/BlobHolder.h"
@@ -6,24 +5,23 @@
 
 using namespace Enternity;
 
-UnitTest::UnitTest()
-{
-	AssetID assetID("shader://assets/shaders/test/test2.vert");
-	auto blobloader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoaderByAssetID(assetID);
-	BlobHolder* blobHolder;
-	if (blobloader)
-	{
-		blobHolder = blobloader->createBlobHolder(assetID);
-		blobHolder->load();
-		int i = 0;
-		i++;
+int main(int argc, const char** argv) {
 
-	}
-	while (true)
+	Enternity::Engine::GetInstance().initialize();
+
+	BlobLoader* blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader("file://asdad");
+
+	if (blobLoader)
 	{
-		
+		BlobHolder* blobHolder = blobLoader->createBlobHolder("file://asdad");
+		blobHolder->load();
 	}
-	int i = 0;
-	i++;
+
+
+	Enternity::Engine::GetInstance().run();
+	Enternity::Engine::GetInstance().uninitialize();
+
+	return 0;
 }
+
 

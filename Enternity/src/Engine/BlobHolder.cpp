@@ -1,13 +1,15 @@
 #include "BlobHolder.h"
 #include "Blob.h"
+#include "BlobLoader.h"
 #include "ThreadPool.h"
 
 namespace Enternity
 {
-	BlobHolder::BlobHolder(const AssetID& assetID) :
+	BlobHolder::BlobHolder(BlobLoader* blobLoader, const std::string& path) :
 		m_blob(nullptr),
 		m_state(loading_state_pending),
-		m_assetID(assetID)
+		m_blobLoader(blobLoader),
+		m_path(path)
 	{
 
 	}
@@ -19,6 +21,6 @@ namespace Enternity
 
 	void BlobHolder::load()
 	{
-		ThreadPool::GetInstance().commitTask(std::bind(&BlobHolder::doLoad, this));
+		ThreadPool::GetInstance().commitTask(std::bind(&BlobLoader::doLoad, m_blobLoader, this));
 	}
 }

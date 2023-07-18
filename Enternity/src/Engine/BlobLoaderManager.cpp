@@ -1,13 +1,13 @@
 #include "BlobLoaderManager.h"
 #include "BlobLoader.h"
-#include "Detail/ShaderBlobLoader.h"
 #include "Common/Macro.h"
+#include "Detail/WindowsFileBlobLoader.h"
 
 namespace Enternity
 {
 	BlobLoaderManager::BlobLoaderManager()
 	{
-		registerBlobLoader(new ShaderBlobLoader);
+		registerBlobLoader(new WindowsFileBlobLoader);
 	}
 
 	BlobLoaderManager::~BlobLoaderManager()
@@ -31,7 +31,7 @@ namespace Enternity
 		auto end = m_blobLoaders.end();
 		for (; it != end; ++it)
 		{
-			if ((*it)->m_assetID.m_path == blobLoader->m_assetID.m_path)
+			if ((*it)->m_storagePath == blobLoader->m_storagePath)
 			{
 				return;
 			}
@@ -39,14 +39,14 @@ namespace Enternity
 		m_blobLoaders.push_back(blobLoader);
 	}
 
-	BlobLoader* BlobLoaderManager::getBlobLoaderByAssetID(const AssetID& assetID)
+	BlobLoader* BlobLoaderManager::getBlobLoader(const std::string& path)
 	{
 		auto it = m_blobLoaders.begin();
 		auto end = m_blobLoaders.end();
 		for (; it != end; ++it)
 		{
 			BlobLoader* blobLoader = *it;
-			if (0 == strncmp(blobLoader->m_assetID.m_path.c_str(), assetID.m_path.c_str(), blobLoader->m_assetID.m_path.size()))
+			if (0 == strncmp(blobLoader->m_storagePath.c_str(), path.c_str(), blobLoader->m_storagePath.size()))
 			{
 				return blobLoader;
 			}

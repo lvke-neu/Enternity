@@ -1,5 +1,5 @@
 #pragma once
-#include "AssetID.h"
+#include <string>
 #include <vector>
 
 namespace Enternity
@@ -12,7 +12,7 @@ namespace Enternity
 		~BlobLoaderManager();
 	public:
 		void registerBlobLoader(BlobLoader* blobLoader);
-		BlobLoader* getBlobLoaderByAssetID(const AssetID& assetID);
+		BlobLoader* getBlobLoader(const std::string& path);
 	private:
 		std::vector<BlobLoader*> m_blobLoaders;
 	};

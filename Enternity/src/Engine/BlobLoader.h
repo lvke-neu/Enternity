@@ -1,5 +1,5 @@
 #pragma once
-#include "AssetID.h"
+#include <string>
 
 namespace Enternity
 {
@@ -8,11 +8,12 @@ namespace Enternity
 	{
 		friend class BlobLoaderManager;
 	public:
-		BlobLoader(const AssetID& assetID);
+		BlobLoader(const std::string& storagePath);
 		virtual ~BlobLoader();
 	public:
-		virtual BlobHolder* createBlobHolder(const AssetID& assetID) = 0;
+		BlobHolder* createBlobHolder(const std::string& path);
+		virtual void doLoad(BlobHolder* blobHolder) = 0;
 	private:
-		AssetID m_assetID;
+		std::string m_storagePath;
 	};
 }
