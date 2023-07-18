@@ -17,3 +17,4 @@ AssetID, Asset, AssetLoader
 
 blobloader:"shader://", "texture://", "mesh://", "file://"
 1111
+2222
