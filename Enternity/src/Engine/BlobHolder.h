@@ -19,6 +19,11 @@ namespace Enternity
 		~BlobHolder();
 	public:
 		void load();
+		void loadSucceeded__(Blob* blob);
+		void loadFailed__();
+		bool isLoadSucceeded();
+		Blob* getBlob();
+		const char* getPath();
 	protected:
 		Blob* m_blob;
 		LoadingState m_state;
@@ -26,4 +31,19 @@ namespace Enternity
 		BlobLoader* m_blobLoader;
 		std::string m_path;
 	};
+
+	inline bool BlobHolder::isLoadSucceeded()
+	{
+		return loading_state_succeeded == m_state;
+	}
+
+	inline Blob* BlobHolder::getBlob()
+	{
+		return m_blob;
+	}
+
+	inline const char* BlobHolder::getPath()
+	{
+		return m_path.c_str();
+	}
 }
