@@ -3,10 +3,10 @@
 
 namespace Enternity
 {
-	class ShaderBlobLoader : public BlobLoader
+	class RendererBlobLoader : public BlobLoader
 	{
 	public:
-		ShaderBlobLoader();
+		RendererBlobLoader();
 	public:
 		virtual void doLoad(BlobHolder* blobHolder) override;
 	};

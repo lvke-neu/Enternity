@@ -24,6 +24,7 @@ namespace Enternity
 		bool isLoadSucceeded();
 		Blob* getBlob();
 		const char* getPath();
+		LoadingState getLoadingState();
 	private:
 		Blob* m_blob;
 		LoadingState m_state;
@@ -45,5 +46,10 @@ namespace Enternity
 	inline const char* BlobHolder::getPath()
 	{
 		return m_path.c_str();
+	}
+
+	inline BlobHolder::LoadingState BlobHolder::getLoadingState()
+	{
+		return m_state;
 	}
 }

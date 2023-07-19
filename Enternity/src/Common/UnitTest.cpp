@@ -11,14 +11,19 @@ int main(int argc, const char** argv) {
 
 	Enternity::Engine::GetInstance().initialize();
 
-	std::string path = "shader://assets/shaders/test/test2.frag";
+	std::string path = "renderer://assets/shaders/test/test2.frag";
 	BlobLoader* blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(path);
-	BlobHolder* blobHolder = nullptr;
+
 	if (blobLoader)
 	{
-		blobHolder = blobLoader->createBlobHolder(path);
+		BlobHolder* blobHolder = blobLoader->createBlobHolder(path);
 		blobHolder->load();
+		while (blobHolder->isLoadSucceeded())
+		{
+			
+		}
 	}
+
 
 	//while (true)
 	//{

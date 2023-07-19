@@ -1,4 +1,4 @@
-#include "ShaderBlobLoader.h"
+#include "RendererBlobLoader.h"
 #include "Engine/Blob.h"
 #include "Engine/BlobHolder.h"
 #include "Engine/Log.h"
@@ -6,13 +6,16 @@
 
 namespace Enternity
 {
-	ShaderBlobLoader::ShaderBlobLoader() : BlobLoader("shader://")
+	RendererBlobLoader::RendererBlobLoader() : BlobLoader("renderer://")
 	{
 
 	}
 
-	void ShaderBlobLoader::doLoad(BlobHolder* blobHolder)
+	void RendererBlobLoader::doLoad(BlobHolder* blobHolder)
 	{
+		if (blobHolder->getLoadingState() != BlobHolder::loading_state_pending)
+			return;
+
 		m_mtx.lock();
 
 		std::ifstream ifs(blobHolder->getPath(), std::ios::in | std::ios::binary);
