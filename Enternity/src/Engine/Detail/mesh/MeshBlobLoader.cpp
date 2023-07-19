@@ -3,6 +3,7 @@
 #include "Engine/BlobHolder.h"
 #include "Engine/Log.h"
 #include "MeshBlobHolder.h"
+#include "Graphics/RHI/Mesh/VertexDefine.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -47,13 +48,6 @@ namespace Enternity
 			m_mtx.unlock();
 			return;
 		}
-
-		struct Vertex_Positon_Normal_Texcoord
-		{
-			glm::vec3 position;
-			glm::vec3 normal;
-			glm::vec2 texcoord;
-		};
 
 		struct Mesh
 		{
