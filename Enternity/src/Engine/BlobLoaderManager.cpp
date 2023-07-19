@@ -1,13 +1,15 @@
 #include "BlobLoaderManager.h"
 #include "BlobLoader.h"
 #include "Common/Macro.h"
-#include "Detail/RendererBlobLoader.h"
+#include "Detail/renderer/RendererBlobLoader.h"
+#include "Detail/texture/TextureBlobLoader.h"
 
 namespace Enternity
 {
 	BlobLoaderManager::BlobLoaderManager()
 	{
 		registerBlobLoader(new RendererBlobLoader);
+		registerBlobLoader(new TextureBlobLoader);
 	}
 
 	BlobLoaderManager::~BlobLoaderManager()

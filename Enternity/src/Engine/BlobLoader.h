@@ -12,7 +12,7 @@ namespace Enternity
 		BlobLoader(const std::string& storagePath);
 		virtual ~BlobLoader();
 	public:
-		BlobHolder* createBlobHolder(const std::string& path);
+		virtual BlobHolder* createBlobHolder(const std::string& path);
 		virtual void doLoad(BlobHolder* blobHolder) = 0;
 	protected:
 		std::string m_storagePath;

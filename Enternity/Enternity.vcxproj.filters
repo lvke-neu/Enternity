@@ -185,13 +185,16 @@
     <ClCompile Include="src\Engine\BlobLoaderManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Detail\RendererBlobLoader.cpp">
+    <ClCompile Include="src\Engine\Detail\renderer\RendererBlobLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Asset2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Asset.cpp">
+    <ClCompile Include="src\Engine\Detail\texture\TextureBlobLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Detail\texture\TextureBlobHolder.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -382,13 +385,19 @@
     <ClInclude Include="src\Engine\BlobLoaderManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Detail\RendererBlobLoader.h">
+    <ClInclude Include="src\Engine\Detail\renderer\RendererBlobLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Asset2.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Asset.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Detail\texture\TextureBlobLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Detail\texture\TextureBlobHolder.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -23,6 +23,7 @@ namespace Enternity
 		{
 			blobHolder->loadFailed__();
 			LOG_ERROR("WindowsFile load failed:{0}", blobHolder->getPath());
+			m_mtx.unlock();
 			return;
 		}
 
