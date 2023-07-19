@@ -6,16 +6,24 @@ namespace Enternity
 {
 	class MeshBlobHolder : public BlobHolder
 	{
+		friend class MeshBlobLoader;
 	public:
-		MeshBlobHolder(BlobLoader* blobLoader, const std::string& path);
-	private:
-		struct SubMesh
+		struct SubMeshDesc
 		{
 			unsigned int vertexDataOffset;
 			unsigned int vertexDataSize;
 			unsigned int indexDataOffset;
 			unsigned int indexDataSize;
 		};
-		std::vector<SubMesh> m_subMeshDesc;
+	public:
+		MeshBlobHolder(BlobLoader* blobLoader, const std::string& path);
+		const std::vector<SubMeshDesc>& getSubMeshDescs() const;
+	private:
+		std::vector<SubMeshDesc> m_subMeshDescs;
 	};
+
+	inline const std::vector<MeshBlobHolder::SubMeshDesc>& MeshBlobHolder::getSubMeshDescs() const
+	{
+		return m_subMeshDescs;
+	}
 }
