@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <mutex>
 
 namespace Enternity
 {
@@ -13,7 +14,8 @@ namespace Enternity
 	public:
 		BlobHolder* createBlobHolder(const std::string& path);
 		virtual void doLoad(BlobHolder* blobHolder) = 0;
-	private:
+	protected:
 		std::string m_storagePath;
+		std::mutex m_mtx;
 	};
 }

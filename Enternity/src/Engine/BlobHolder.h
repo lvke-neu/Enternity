@@ -24,7 +24,7 @@ namespace Enternity
 		bool isLoadSucceeded();
 		Blob* getBlob();
 		const char* getPath();
-	protected:
+	private:
 		Blob* m_blob;
 		LoadingState m_state;
 

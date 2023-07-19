@@ -13,6 +13,8 @@ namespace Enternity
 
 	void WindowsFileBlobLoader::doLoad(BlobHolder* blobHolder)
 	{
+		m_mtx.lock();
+
 		std::ifstream ifs(blobHolder->getPath(), std::ios::in | std::ios::binary);
 		if (!ifs.is_open())
 		{
@@ -32,5 +34,7 @@ namespace Enternity
 		
 		blobHolder->loadSucceeded__(blob);
 		SAFE_DELETE_SET_NULL(blob);
+
+		m_mtx.unlock();
 	}
 }
