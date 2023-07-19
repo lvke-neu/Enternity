@@ -33,7 +33,6 @@ int main(int argc, const char** argv) {
 	if (blobLoader)
 	{
 		BlobHolder* blobHolder = blobLoader->createBlobHolder(path);
-		dynamic_cast<TextureBlobHolder*>(blobHolder)->setSlip(false);
 		blobHolder->load();
 		while (!blobHolder->isLoadSucceeded())
 		{

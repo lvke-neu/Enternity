@@ -197,6 +197,12 @@
     <ClCompile Include="src\Engine\Detail\texture\TextureBlobHolder.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Detail\mesh\MeshBlobHolder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Detail\mesh\MeshBlobLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Blob.h">
@@ -398,6 +404,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Detail\texture\TextureBlobHolder.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Detail\mesh\MeshBlobHolder.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Detail\mesh\MeshBlobLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -30,10 +30,11 @@ namespace Enternity
 
 		unsigned char* tmpTexture;
 
-		stbi_set_flip_vertically_on_load(*textureBlobHolder->getSlip());
-		tmpTexture = stbi_load(textureBlobHolder->getPath(), textureBlobHolder->getWidth(), textureBlobHolder->getHeight(), textureBlobHolder->getChannels(), 0);
+		stbi_set_flip_vertically_on_load(textureBlobHolder->m_bSlip);
+		tmpTexture = stbi_load(textureBlobHolder->getPath(), &textureBlobHolder->m_width, &textureBlobHolder->m_height, &textureBlobHolder->m_channels, 0);
 		if (!tmpTexture)
 		{
+			LOG_ERROR("Texture load failed:{0}", textureBlobHolder->getPath());
 			textureBlobHolder->loadFailed__();
 			m_mtx.unlock();
 			return;

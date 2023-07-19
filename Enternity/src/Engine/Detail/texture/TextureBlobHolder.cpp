@@ -2,7 +2,6 @@
 
 namespace Enternity
 {
-
 	TextureBlobHolder::TextureBlobHolder(BlobLoader* blobLoader, const std::string& path) : 
 		BlobHolder(blobLoader, path),
 		m_width(0),
