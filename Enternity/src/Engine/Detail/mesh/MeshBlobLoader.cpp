@@ -36,14 +36,14 @@ namespace Enternity
 	{
 		m_mtx.lock();
 
-		/*Assimp::Importer importer;
+		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(blobHolder->getPath(), aiProcess_Triangulate | aiProcess_FlipUVs
 			| aiProcess_GenNormals | aiProcess_GenBoundingBoxes | aiProcess_GenUVCoords | aiProcess_JoinIdenticalVertices);
 
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
-			LOG_ERROR("ERROR::ASSIMP::{0}", importer.GetErrorString());
 			blobHolder->loadFailed__();
+			LOG_ERROR("ERROR::ASSIMP::{0}", importer.GetErrorString());
 			m_mtx.unlock();
 			return;
 		}
@@ -94,7 +94,7 @@ namespace Enternity
 			indices.push_back(indices);
 		}
 
-		m_state = Asset2::LoadingState::loading_state_succeeded;*/
+		m_state = Asset2::LoadingState::loading_state_succeeded;
 
 		m_mtx.unlock();
 	}
