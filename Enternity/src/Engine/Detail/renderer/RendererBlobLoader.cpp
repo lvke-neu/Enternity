@@ -1,9 +1,12 @@
 #include "RendererBlobLoader.h"
+#include "Engine/Engine.h"
 #include "Engine/Blob.h"
 #include "Engine/BlobHolder.h"
 #include "Engine/Log.h"
 #include "RendererBlobHolder.h"
+#include "Engine/NativeFileSystem.h"
 #include <fstream>
+#include <rapidjson/document.h>
 
 namespace Enternity
 {
@@ -23,8 +26,20 @@ namespace Enternity
 
 		m_mtx.lock();
 
-		std::ifstream ifs(rendererBlobHolder->getPath(), std::ios::in | std::ios::binary);
-		if (!ifs.is_open())
+		Blob* blob = nullptr;
+		Engine::GetInstance().getNativeFileSystem()->read(blob, rendererBlobHolder->getPath());
+		if (!blob)
+		{
+			rendererBlobHolder->loadFailed__();
+			LOG_ERROR("Renderer load failed:{0}", rendererBlobHolder->getPath());
+			m_mtx.unlock();
+			return;
+		}
+		
+		std::string jsonStr((char*)blob->getData(), blob->getLength());
+		SAFE_DELETE_SET_NULL(blob);
+		rapidjson::Document doc;
+		if (doc.Parse(jsonStr.c_str()).HasParseError())
 		{
 			rendererBlobHolder->loadFailed__();
 			LOG_ERROR("Renderer load failed:{0}", rendererBlobHolder->getPath());
@@ -32,18 +47,78 @@ namespace Enternity
 			return;
 		}
 
-		std::filebuf* pFilebuf = ifs.rdbuf();
-		size_t size = pFilebuf->pubseekoff(0, ifs.end, ifs.in);
-		pFilebuf->pubseekpos(0, ifs.in);
+		int offset = 0;
+		Blob* vertBlob = nullptr;
+		if (doc.HasMember("VertexShader") && doc["VertexShader"].IsString())
+		{
+			rendererBlobHolder->m_shaderTypes.insert(RendererBlobHolder::VertexShader);
+			Engine::GetInstance().getNativeFileSystem()->read(vertBlob, doc["VertexShader"].GetString());
+			if (vertBlob)
+			{
+				rendererBlobHolder->m_shaderDesc.vertDataOffset = offset;
+				rendererBlobHolder->m_shaderDesc.vertDataSize = vertBlob->getLength();
+				offset += rendererBlobHolder->m_shaderDesc.vertDataSize;
+			}
+		}
 
-		Blob* blob = new Blob(size);
-		pFilebuf->sgetn((char*)blob->getData(), blob->getLength());
+		Blob* geomBlob = nullptr;
+		if (doc.HasMember("GeometryShader") && doc["GeometryShader"].IsString())
+		{
+			rendererBlobHolder->m_shaderTypes.insert(RendererBlobHolder::GeometryShader);
+			Engine::GetInstance().getNativeFileSystem()->read(geomBlob, doc["GeometryShader"].GetString());
+			if (geomBlob)
+			{
+				rendererBlobHolder->m_shaderDesc.geomDataOffset = offset;
+				rendererBlobHolder->m_shaderDesc.geomDataSize = geomBlob->getLength();
+				offset += rendererBlobHolder->m_shaderDesc.geomDataSize;
+			}
+		}
 
-		ifs.close();
+		Blob* fragBlob = nullptr;
+		if (doc.HasMember("FragmentShader") && doc["FragmentShader"].IsString())
+		{
+			rendererBlobHolder->m_shaderTypes.insert(RendererBlobHolder::FragmentShader);
+			Engine::GetInstance().getNativeFileSystem()->read(fragBlob, doc["FragmentShader"].GetString());
+			if (fragBlob)
+			{
+				rendererBlobHolder->m_shaderDesc.fragDataOffset = offset;
+				rendererBlobHolder->m_shaderDesc.fragDataSize = fragBlob->getLength();
+				offset += rendererBlobHolder->m_shaderDesc.fragDataSize;
+			}
+		}
 
-		rendererBlobHolder->loadSucceeded__(blob);
-		SAFE_DELETE_SET_NULL(blob);
+		Blob* renderer = new Blob(offset);
+
+		if (vertBlob)
+		{
+			memcpy_s((char*)renderer->getData() + rendererBlobHolder->m_shaderDesc.vertDataOffset,
+				rendererBlobHolder->m_shaderDesc.vertDataSize, vertBlob->getData(), rendererBlobHolder->m_shaderDesc.vertDataSize);
+		}
+
+		if (geomBlob)
+		{
+			memcpy_s((char*)renderer->getData() + rendererBlobHolder->m_shaderDesc.geomDataOffset,
+				rendererBlobHolder->m_shaderDesc.geomDataSize, geomBlob->getData(), rendererBlobHolder->m_shaderDesc.geomDataSize);
+		}
+
+		if (fragBlob)
+		{
+			memcpy_s((char*)renderer->getData() + rendererBlobHolder->m_shaderDesc.fragDataOffset,
+				rendererBlobHolder->m_shaderDesc.fragDataSize, fragBlob->getData(), rendererBlobHolder->m_shaderDesc.fragDataSize);
+		}
+
+		SAFE_DELETE_SET_NULL(vertBlob);
+		SAFE_DELETE_SET_NULL(geomBlob);
+		SAFE_DELETE_SET_NULL(fragBlob);
+
+		rendererBlobHolder->loadSucceeded__(renderer);
+
 
 		m_mtx.unlock();
+	}
+
+	BlobHolder* RendererBlobLoader::createBlobHolder(const std::string& path)
+	{
+		return new RendererBlobHolder(this, path);
 	}
 }

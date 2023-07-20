@@ -8,6 +8,7 @@
 #include "BlobLoaderManager.h"
 #include "RenderView.h"
 #include "Timer.h"
+#include "NativeFileSystem.h"
 
 namespace Enternity
 {
@@ -23,6 +24,7 @@ namespace Enternity
 		m_pickSystem = new PickSystem;
 		m_sceneManager = new SceneManager;
 		m_timer = new Timer;
+		m_nativeFileSystem = new NativeFileSystem;
 	}
 
 	void Engine::uninitialize()
@@ -36,6 +38,7 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(m_blobLoaderManager);
 		SAFE_DELETE_SET_NULL(m_renderView);
 		SAFE_DELETE_SET_NULL(m_timer);
+		SAFE_DELETE_SET_NULL(m_nativeFileSystem);
 	}
 
 	void Engine::run()

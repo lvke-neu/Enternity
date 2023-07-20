@@ -5,8 +5,6 @@
 #include "RHI/Mesh/MeshAsset.h"
 #include "RHI/Mesh/VertexArray.h"
 #include "RHI/Mesh/IndexBuffer.h"
-#include "RHI/Renderer/Renderer.h"
-#include "RHI/Renderer/RendererAsset.h"
 #include "RHI/Texture/Texture.h"
 #include "RHI/Texture/TextureAsset.h"
 #include "Engine/Engine.h"

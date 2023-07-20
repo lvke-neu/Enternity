@@ -57,7 +57,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\;$(SolutionDir)\Enternity\Engine\;$(SolutionDir)\Enternity\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\;$(SolutionDir)\Enternity\Engine\;$(SolutionDir)\Enternity\src\;$(SolutionDir)\3rdparty\rapidjson\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG;_DEBUG</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -76,7 +76,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\;$(SolutionDir)\Enternity\Engine\;$(SolutionDir)\Enternity\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\;$(SolutionDir)\Enternity\Engine\;$(SolutionDir)\Enternity\src\;$(SolutionDir)\3rdparty\rapidjson\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -91,7 +91,7 @@
   <ItemGroup>
     <None Include="..\README.md" />
     <None Include="assets\model\cube.bin" />
-    <None Include="assets\shaders\test\test2.glsl" />
+    <None Include="assets\shaders\test\test2.rdr" />
     <None Include="src\Editor\Imgui\LICENSE" />
     <None Include="src\Editor\Imgui\README.md" />
   </ItemGroup>
@@ -128,6 +128,7 @@
     <ClCompile Include="src\Engine\Engine.cpp" />
     <ClCompile Include="src\Engine\Event\EventSystem.cpp" />
     <ClCompile Include="src\Engine\Log.cpp" />
+    <ClCompile Include="src\Engine\NativeFileSystem.cpp" />
     <ClCompile Include="src\Engine\RenderView.cpp" />
     <ClCompile Include="src\Graphics\RenderSystem.cpp" />
     <ClCompile Include="src\Graphics\RHI\FrameBuffer\FrameBuffer.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="src\Engine\Event\EventSystem.h" />
     <ClInclude Include="src\Engine\Log.h" />
     <ClInclude Include="src\Common\Macro.h" />
+    <ClInclude Include="src\Engine\NativeFileSystem.h" />
     <ClInclude Include="src\Engine\RenderView.h" />
     <ClInclude Include="src\Graphics\RenderSystem.h" />
     <ClInclude Include="src\Graphics\RHI\FrameBuffer\FrameBuffer.h" />

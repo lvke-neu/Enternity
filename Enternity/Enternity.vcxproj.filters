@@ -21,7 +21,7 @@
     </None>
     <None Include="src\Editor\Imgui\LICENSE" />
     <None Include="src\Editor\Imgui\README.md" />
-    <None Include="assets\shaders\test\test2.glsl" />
+    <None Include="assets\shaders\test\test2.rdr" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -187,6 +187,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Detail\renderer\RendererBlobHolder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\NativeFileSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -378,6 +381,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Detail\renderer\RendererBlobHolder.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\NativeFileSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

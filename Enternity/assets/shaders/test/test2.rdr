@@ -1,0 +1,5 @@
+{
+  "VertexShader": "assets/shaders/test/test2.vert",
+  "GeometryShader": "assets/shaders/test/floor.frag",
+  "FragmentShader": "assets/shaders/test/test2.frag"
+}

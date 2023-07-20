@@ -10,6 +10,7 @@ namespace Enternity
 	class PickSystem;
 	class SceneManager;
 	class BlobLoaderManager;
+	class NativeFileSystem;
 	class Engine
 	{
 		SINGLETON(Engine);
@@ -26,6 +27,7 @@ namespace Enternity
 		SceneManager* getSceneManager();
 		RenderView* getRenderView();
 		BlobLoaderManager* getBlobLoaderManager();
+		NativeFileSystem* getNativeFileSystem();
 	private:
 		GraphicsSystem* m_graphicsSystem{ nullptr };
 		EventSystem* m_eventSystem{ nullptr };
@@ -33,6 +35,7 @@ namespace Enternity
 		RenderView* m_renderView{ nullptr };
 		SceneManager* m_sceneManager{ nullptr };
 		BlobLoaderManager* m_blobLoaderManager{ nullptr };
+		NativeFileSystem* m_nativeFileSystem{ nullptr };
 		Timer* m_timer{ nullptr };
 	};
 
@@ -69,5 +72,10 @@ namespace Enternity
 	inline Timer* Engine::getTimer()
 	{
 		return m_timer;
+	}
+
+	inline NativeFileSystem* Engine::getNativeFileSystem()
+	{
+		return m_nativeFileSystem;
 	}
 }
