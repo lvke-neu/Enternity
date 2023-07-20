@@ -1,8 +1,10 @@
 #include "RendererProvider.h"
 #include "Renderer.h"
 #include "RendererAsset.h"
+#include "RendererBlobLoader.h"
 #include "Common/Macro.h"
 #include "Engine/Engine.h"
+#include "Engine/BlobLoaderManager.h"
 #include "Engine/Event/EventSystem.h"
 
 namespace Enternity
@@ -10,6 +12,7 @@ namespace Enternity
 	RendererProvider::RendererProvider()
 	{
 		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::Tick, BIND(RendererProvider::tick));
+		Engine::GetInstance().getBlobLoaderManager()->registerBlobLoader(new RendererBlobLoader);
 	}
 
 	RendererProvider::~RendererProvider()

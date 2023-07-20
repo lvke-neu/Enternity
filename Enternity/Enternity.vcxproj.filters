@@ -173,9 +173,6 @@
     <ClCompile Include="src\Engine\BlobLoaderManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Detail\renderer\RendererBlobLoader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Asset2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -189,6 +186,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Detail\mesh\MeshBlobLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\RHI\Renderer\RendererBlobLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -367,9 +367,6 @@
     <ClInclude Include="src\Engine\BlobLoaderManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Detail\renderer\RendererBlobLoader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\Asset2.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -386,6 +383,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Detail\mesh\MeshBlobLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\RHI\Renderer\RendererBlobLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
