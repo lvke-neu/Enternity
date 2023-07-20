@@ -8,7 +8,6 @@
 #include "Graphics/RHI/Mesh/MeshProvider.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/RendererProvider.h"
-#include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/TextureProvider.h"
 #include "Common/Macro.h"
 #include "CameraController.h"

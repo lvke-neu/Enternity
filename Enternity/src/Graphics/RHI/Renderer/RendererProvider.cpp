@@ -1,7 +1,5 @@
 #include "RendererProvider.h"
-#include "Renderer.h"
-#include "RendererAsset.h"
-#include "RendererBlobLoader.h"
+#include "Engine/Detail/renderer/RendererBlobLoader.h"
 #include "Common/Macro.h"
 #include "Engine/Engine.h"
 #include "Engine/BlobLoaderManager.h"
@@ -22,53 +20,18 @@ namespace Enternity
 
 	Renderer* RendererProvider::getRendererSync(const char* vsFullPath, const char* psFullPath)
 	{
-		RendererAsset* vsRendererAsset = new RendererAsset(vsFullPath);
-		vsRendererAsset->load(0);
-
-		RendererAsset* psRendererAsset = new RendererAsset(psFullPath);
-		psRendererAsset->load(0);
-
-		Renderer* renderer = nullptr;
 		
-		if (vsRendererAsset->getLoadingState() == Asset2::LoadingState::loading_state_succeeded &&
-			psRendererAsset->getLoadingState() == Asset2::LoadingState::loading_state_succeeded)
-		{
-			renderer = new Renderer(vsRendererAsset, psRendererAsset);
-		}
-		
-		SAFE_DELETE_SET_NULL(vsRendererAsset);
-		SAFE_DELETE_SET_NULL(psRendererAsset);
 
-		return renderer;
+		return nullptr;
 	}
 
 	void RendererProvider::getRendererAsyn(const char* vsFullPath, const char* psFullPath, std::function<void(Renderer*)> callback)
 	{
-		RendererAsset* vsRendererAsset = new RendererAsset(vsFullPath);
-		vsRendererAsset->load();
-
-		RendererAsset* psRendererAsset = new RendererAsset(psFullPath);
-		psRendererAsset->load();
-
-		m_map.push_back({ vsRendererAsset, psRendererAsset, callback });
+	
 	}
 
 	void RendererProvider::tick(void* data)
 	{
-		for (auto it = m_map.begin(); it != m_map.end(); )
-		{
-			if (it->vsRendererAsset->getLoadingState() == Asset2::LoadingState::loading_state_succeeded
-				&& it->psRendererAsset->getLoadingState() == Asset2::LoadingState::loading_state_succeeded)
-			{
-				it->callback(new Renderer(it->vsRendererAsset, it->psRendererAsset));
-				SAFE_DELETE_SET_NULL(it->vsRendererAsset);
-				SAFE_DELETE_SET_NULL(it->psRendererAsset);
-				it = m_map.erase(it);
-			}
-			else
-			{
-				it++;
-			}
-		}
+		
 	}
 }

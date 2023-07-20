@@ -21,6 +21,7 @@
     </None>
     <None Include="src\Editor\Imgui\LICENSE" />
     <None Include="src\Editor\Imgui\README.md" />
+    <None Include="assets\shaders\test\test2.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -54,12 +55,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Graphics\RHI\Texture\TextureProvider.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Graphics\RHI\Renderer\RendererAsset.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Graphics\RHI\Renderer\Renderer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Graphics\RHI\Renderer\RendererProvider.cpp">
@@ -188,7 +183,10 @@
     <ClCompile Include="src\Engine\Detail\mesh\MeshBlobLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\RHI\Renderer\RendererBlobLoader.cpp">
+    <ClCompile Include="src\Engine\Detail\renderer\RendererBlobLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Detail\renderer\RendererBlobHolder.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -224,12 +222,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\RHI\Texture\TextureProvider.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\Renderer\RendererAsset.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\Renderer\Renderer.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\RHI\Renderer\RendererProvider.h">
@@ -346,9 +338,6 @@
     <ClInclude Include="src\Scene\ECS\NameComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\Renderer\RenderPass.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshDefine.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -385,7 +374,10 @@
     <ClInclude Include="src\Engine\Detail\mesh\MeshBlobLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\Renderer\RendererBlobLoader.h">
+    <ClInclude Include="src\Engine\Detail\renderer\RendererBlobLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Detail\renderer\RendererBlobHolder.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

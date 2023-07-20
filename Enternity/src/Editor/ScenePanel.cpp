@@ -8,7 +8,6 @@
 #include "Graphics/GraphicsSystem.h"
 #include "Pick/PickSystem.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
-#include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"
 #include "Graphics/RHI/Texture/TextureProvider.h"
 #include "Imgui/imgui.h"
