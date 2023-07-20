@@ -3,11 +3,8 @@
 #include "Scene/Scene.h"
 #include "Scene/SceneManager.h"
 #include "Scene/ECS/TransformComponent.h"
-#include "Scene/ECS/Visual3DComponent.h"
 #include "Scene/ECS/CameraComponent.h"
 #include "Scene/ECS/NameComponent.h"
-#include "Scene/ECS/PostprocessComponent.h"
-#include "Scene/ECS/SkyboxComponent.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Pick/PickSystem.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
@@ -144,153 +141,153 @@ namespace Enternity
 				});
 		}
 
-		if (entity.hasComponent<Visual3DComponent>())
-		{
-			DrawComponent("Visual3DComponent",
-				[&]()
-				{
-					auto& visual3DComponent = entity.getComponent<Visual3DComponent>();
+		//if (entity.hasComponent<Visual3DComponent>())
+		//{
+		//	DrawComponent("Visual3DComponent",
+		//		[&]()
+		//		{
+		//			auto& visual3DComponent = entity.getComponent<Visual3DComponent>();
 
-					DrawComponent("Mesh",
-						[&]()
-						{
-							
-							if (visual3DComponent.mesh)
-							{
-								ImGui::Text(("Mesh:" + visual3DComponent.mesh->getFullPath()).c_str());
-							}
+		//			DrawComponent("Mesh",
+		//				[&]()
+		//				{
+		//					
+		//					if (visual3DComponent.mesh)
+		//					{
+		//						ImGui::Text(("Mesh:" + visual3DComponent.mesh->getFullPath()).c_str());
+		//					}
 
-						});
+		//				});
 
-					DrawComponent("Renderer",
-						[&]()
-						{
-							if (visual3DComponent.renderer)
-							{
-								ImGui::Text(("VsShader:" + visual3DComponent.renderer->getVsShader()).c_str());
-								ImGui::Text(("PsShader:" + visual3DComponent.renderer->getPsShader()).c_str());
-								if (ImGui::Button("ReCompile"))
-								{
-									visual3DComponent.renderer->reCompile();
-								}
-								DrawComponent("RenderPass",
-									[&]()
-									{
-										RenderPass renderPass = visual3DComponent.renderer->getRenderPass();
-										const char* bodyTypeString[] = { "Point", "Line", "Fill" };
-										const char* currentBodyTypeString = bodyTypeString[renderPass.fillMode];
-										if (ImGui::BeginCombo("FillMode", currentBodyTypeString))
-										{
-											for (int i = 0; i < 3; i++)
-											{
-												bool isSelected = currentBodyTypeString == bodyTypeString[i];
-												if (ImGui::Selectable(bodyTypeString[i], isSelected))
-												{
-													currentBodyTypeString = bodyTypeString[i];
-													renderPass.fillMode = (RenderPass::FillMode)i;
-													visual3DComponent.renderer->setRenderPass(renderPass);
-												}
-											}
-											ImGui::EndCombo();
-										}
+		//			DrawComponent("Renderer",
+		//				[&]()
+		//				{
+		//					if (visual3DComponent.renderer)
+		//					{
+		//						ImGui::Text(("VsShader:" + visual3DComponent.renderer->getVsShader()).c_str());
+		//						ImGui::Text(("PsShader:" + visual3DComponent.renderer->getPsShader()).c_str());
+		//						if (ImGui::Button("ReCompile"))
+		//						{
+		//							visual3DComponent.renderer->reCompile();
+		//						}
+		//						DrawComponent("RenderPass",
+		//							[&]()
+		//							{
+		//								RenderPass renderPass = visual3DComponent.renderer->getRenderPass();
+		//								const char* bodyTypeString[] = { "Point", "Line", "Fill" };
+		//								const char* currentBodyTypeString = bodyTypeString[renderPass.fillMode];
+		//								if (ImGui::BeginCombo("FillMode", currentBodyTypeString))
+		//								{
+		//									for (int i = 0; i < 3; i++)
+		//									{
+		//										bool isSelected = currentBodyTypeString == bodyTypeString[i];
+		//										if (ImGui::Selectable(bodyTypeString[i], isSelected))
+		//										{
+		//											currentBodyTypeString = bodyTypeString[i];
+		//											renderPass.fillMode = (RenderPass::FillMode)i;
+		//											visual3DComponent.renderer->setRenderPass(renderPass);
+		//										}
+		//									}
+		//									ImGui::EndCombo();
+		//								}
 
-										if (ImGui::Checkbox("EnableDepth", &renderPass.enableDepth))
-										{
-											visual3DComponent.renderer->setRenderPass(renderPass);
-										}
-										if (ImGui::Checkbox("EnableBlend", &renderPass.enableBlend))
-										{
-											visual3DComponent.renderer->setRenderPass(renderPass);
-										}
+		//								if (ImGui::Checkbox("EnableDepth", &renderPass.enableDepth))
+		//								{
+		//									visual3DComponent.renderer->setRenderPass(renderPass);
+		//								}
+		//								if (ImGui::Checkbox("EnableBlend", &renderPass.enableBlend))
+		//								{
+		//									visual3DComponent.renderer->setRenderPass(renderPass);
+		//								}
 
-									});								
-							}
-						});
+		//							});								
+		//					}
+		//				});
 
-					DrawComponent("EnableEnvironmentMap",
-						[&]()
-						{
-							Visual3DComponent::EnvironmentMapType environmentMapType = visual3DComponent.environmentMapType;
-							const char* bodyTypeString[] = { "None", "Reflection", "Refraction" };
-							const char* currentBodyTypeString = bodyTypeString[(int)environmentMapType];
-							if (ImGui::BeginCombo("EnableEnvironmentMapType", currentBodyTypeString))
-							{
-								for (int i = 0; i < 3; i++)
-								{
-									bool isSelected = currentBodyTypeString == bodyTypeString[i];
-									if (ImGui::Selectable(bodyTypeString[i], isSelected))
-									{
-										visual3DComponent.environmentMapType = (Visual3DComponent::EnvironmentMapType)i;
-									}
-								}
-								ImGui::EndCombo();
-							}
-						});
-				});
-		}
+		//			DrawComponent("EnableEnvironmentMap",
+		//				[&]()
+		//				{
+		//					Visual3DComponent::EnvironmentMapType environmentMapType = visual3DComponent.environmentMapType;
+		//					const char* bodyTypeString[] = { "None", "Reflection", "Refraction" };
+		//					const char* currentBodyTypeString = bodyTypeString[(int)environmentMapType];
+		//					if (ImGui::BeginCombo("EnableEnvironmentMapType", currentBodyTypeString))
+		//					{
+		//						for (int i = 0; i < 3; i++)
+		//						{
+		//							bool isSelected = currentBodyTypeString == bodyTypeString[i];
+		//							if (ImGui::Selectable(bodyTypeString[i], isSelected))
+		//							{
+		//								visual3DComponent.environmentMapType = (Visual3DComponent::EnvironmentMapType)i;
+		//							}
+		//						}
+		//						ImGui::EndCombo();
+		//					}
+		//				});
+		//		});
+		//}
 
-		if (entity.hasComponent<PostprocessComponent>())
-		{
-			DrawComponent("PostprocessComponent",
-				[&]()
-				{
-					auto& postprocessComponent = entity.getComponent<PostprocessComponent>();
+		//if (entity.hasComponent<PostprocessComponent>())
+		//{
+		//	DrawComponent("PostprocessComponent",
+		//		[&]()
+		//		{
+		//			auto& postprocessComponent = entity.getComponent<PostprocessComponent>();
 
-					PostprocessComponent::PostprocessType postprocessType = postprocessComponent.postprocessType;
-					const char* bodyTypeString[] = { "None", "Inversion", "Grayscale","Sharpen", "Blur", "EdgeDetection"};
-					const char* currentBodyTypeString = bodyTypeString[(int)postprocessType];
-					if (ImGui::BeginCombo("PostprocessType", currentBodyTypeString))
-					{
-						for (int i = 0; i < 6; i++)
-						{
-							bool isSelected = currentBodyTypeString == bodyTypeString[i];
-							if (ImGui::Selectable(bodyTypeString[i], isSelected))
-							{
-								currentBodyTypeString = bodyTypeString[i];
-								postprocessComponent.postprocessType = (PostprocessComponent::PostprocessType)i;
-							}
-						}
-						ImGui::EndCombo();
-					}
-				});
-		}
+		//			PostprocessComponent::PostprocessType postprocessType = postprocessComponent.postprocessType;
+		//			const char* bodyTypeString[] = { "None", "Inversion", "Grayscale","Sharpen", "Blur", "EdgeDetection"};
+		//			const char* currentBodyTypeString = bodyTypeString[(int)postprocessType];
+		//			if (ImGui::BeginCombo("PostprocessType", currentBodyTypeString))
+		//			{
+		//				for (int i = 0; i < 6; i++)
+		//				{
+		//					bool isSelected = currentBodyTypeString == bodyTypeString[i];
+		//					if (ImGui::Selectable(bodyTypeString[i], isSelected))
+		//					{
+		//						currentBodyTypeString = bodyTypeString[i];
+		//						postprocessComponent.postprocessType = (PostprocessComponent::PostprocessType)i;
+		//					}
+		//				}
+		//				ImGui::EndCombo();
+		//			}
+		//		});
+		//}
 
-		if (entity.hasComponent<SkyboxComponent>())
-		{
-			DrawComponent("SkyboxComponent",
-				[&]()
-				{
-					auto& skyboxComponent = entity.getComponent<SkyboxComponent>();
+		//if (entity.hasComponent<SkyboxComponent>())
+		//{
+		//	DrawComponent("SkyboxComponent",
+		//		[&]()
+		//		{
+		//			auto& skyboxComponent = entity.getComponent<SkyboxComponent>();
 
-					SkyboxComponent::SkyboxType skyboxType = skyboxComponent.skyboxType;
-					const char* bodyTypeString[] = { "None", "Default", "Sunset", "Daylight"};
-					const char* currentBodyTypeString = bodyTypeString[(int)skyboxType];
-					if (ImGui::BeginCombo("SkyboxType", currentBodyTypeString))
-					{
-						for (int i = 0; i < 4; i++)
-						{
-							bool isSelected = currentBodyTypeString == bodyTypeString[i];
-							if (ImGui::Selectable(bodyTypeString[i], isSelected))
-							{
-								skyboxComponent.skyboxType = (SkyboxComponent::SkyboxType)i;
-								if (!isSelected)
-								{
-									Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getCubeMapTextureAsyn(SkyboxComponent::FullPaths[skyboxComponent.skyboxType],
-										[=](CubeMapTexture* cubeMapTexture)
-										{
-											auto& comp = entity.getComponent<SkyboxComponent>();
-											SAFE_DELETE_SET_NULL(comp.cubeMapTexture);
-											comp.cubeMapTexture = cubeMapTexture;
-										});
-								}
+		//			SkyboxComponent::SkyboxType skyboxType = skyboxComponent.skyboxType;
+		//			const char* bodyTypeString[] = { "None", "Default", "Sunset", "Daylight"};
+		//			const char* currentBodyTypeString = bodyTypeString[(int)skyboxType];
+		//			if (ImGui::BeginCombo("SkyboxType", currentBodyTypeString))
+		//			{
+		//				for (int i = 0; i < 4; i++)
+		//				{
+		//					bool isSelected = currentBodyTypeString == bodyTypeString[i];
+		//					if (ImGui::Selectable(bodyTypeString[i], isSelected))
+		//					{
+		//						skyboxComponent.skyboxType = (SkyboxComponent::SkyboxType)i;
+		//						if (!isSelected)
+		//						{
+		//							Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getCubeMapTextureAsyn(SkyboxComponent::FullPaths[skyboxComponent.skyboxType],
+		//								[=](CubeMapTexture* cubeMapTexture)
+		//								{
+		//									auto& comp = entity.getComponent<SkyboxComponent>();
+		//									SAFE_DELETE_SET_NULL(comp.cubeMapTexture);
+		//									comp.cubeMapTexture = cubeMapTexture;
+		//								});
+		//						}
 
-							}
-						}
-						ImGui::EndCombo();
-					}
+		//					}
+		//				}
+		//				ImGui::EndCombo();
+		//			}
 
-				});
-		}
+		//		});
+		//}
 	}
 
 	void ScenePanel::draw()

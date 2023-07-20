@@ -161,18 +161,6 @@
     <ClCompile Include="src\Graphics\RenderSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\ECS\Visual3DComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\ECS\SkyboxComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\ECS\PostprocessComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\ECS\ParticleComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Pick\PickSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -349,9 +337,6 @@
     <ClInclude Include="src\Editor\AssetPanel.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\ECS\Visual3DComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Graphics\RHI\FrameBuffer\FrameBuffer.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -364,19 +349,10 @@
     <ClInclude Include="src\Graphics\RHI\Renderer\RenderPass.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\ECS\PostprocessComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\ECS\SkyboxComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshDefine.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\RHI\FrameBuffer\FrameBufferDefine.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\ECS\ParticleComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Pick\PickSystem.h">
