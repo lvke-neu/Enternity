@@ -56,7 +56,7 @@ namespace Enternity
 			if (vertBlob)
 			{
 				rendererBlobHolder->m_shaderDesc.vertDataOffset = offset;
-				rendererBlobHolder->m_shaderDesc.vertDataSize = vertBlob->getLength();
+				rendererBlobHolder->m_shaderDesc.vertDataSize = (unsigned int)vertBlob->getLength();
 				offset += rendererBlobHolder->m_shaderDesc.vertDataSize;
 			}
 		}
@@ -69,7 +69,7 @@ namespace Enternity
 			if (geomBlob)
 			{
 				rendererBlobHolder->m_shaderDesc.geomDataOffset = offset;
-				rendererBlobHolder->m_shaderDesc.geomDataSize = geomBlob->getLength();
+				rendererBlobHolder->m_shaderDesc.geomDataSize = (unsigned int)geomBlob->getLength();
 				offset += rendererBlobHolder->m_shaderDesc.geomDataSize;
 			}
 		}
@@ -82,7 +82,7 @@ namespace Enternity
 			if (fragBlob)
 			{
 				rendererBlobHolder->m_shaderDesc.fragDataOffset = offset;
-				rendererBlobHolder->m_shaderDesc.fragDataSize = fragBlob->getLength();
+				rendererBlobHolder->m_shaderDesc.fragDataSize = (unsigned int)fragBlob->getLength();
 				offset += rendererBlobHolder->m_shaderDesc.fragDataSize;
 			}
 		}

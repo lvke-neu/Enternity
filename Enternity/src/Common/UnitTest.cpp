@@ -7,7 +7,7 @@
 #include "Engine/Detail/texture/TextureBlobHolder.h"
 #include "Engine/Detail/mesh/MeshBlobHolder.h"
 #include "Engine/NativeFileSystem.h"
-#include "Engine/Detail/renderer/RendererBlobHolder.h"
+#include "Graphics/RHI/Renderer/RendererBlobHolder.h"
 #include <glm/glm.hpp>
 
 using namespace Enternity;

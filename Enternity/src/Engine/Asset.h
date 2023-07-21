@@ -4,12 +4,10 @@ namespace Enternity
 {
 	class BlobHolder;
 	class Asset
-	{	
+	{
 	public:
-		Asset() = default;
 		virtual ~Asset() = default;
 	public:
-		virtual void initialize(BlobHolder* blobHolder)  = 0;
+		virtual void load(BlobHolder* blobHolder) = 0;
 	};
-
 }

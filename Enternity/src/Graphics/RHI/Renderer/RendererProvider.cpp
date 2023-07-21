@@ -1,5 +1,7 @@
 #include "RendererProvider.h"
-#include "Engine/Detail/renderer/RendererBlobLoader.h"
+#include "Renderer.h"
+#include "RendererBlobHolder.h"
+#include "RendererBlobLoader.h"
 #include "Common/Macro.h"
 #include "Engine/Engine.h"
 #include "Engine/BlobLoaderManager.h"
@@ -18,16 +20,20 @@ namespace Enternity
 		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::Tick, BIND(RendererProvider::tick));
 	}
 
-	Renderer* RendererProvider::getRendererSync(const char* vsFullPath, const char* psFullPath)
+	Renderer* RendererProvider::getRenderer(const char* path)
 	{
-		
+		BlobLoader* blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(path);
+		if (blobLoader)
+		{
+			BlobHolder* blobHolder = blobLoader->createBlobHolder(path);
+			if (blobHolder)
+			{
+				blobHolder->load();
 
+				
+			}
+		}
 		return nullptr;
-	}
-
-	void RendererProvider::getRendererAsyn(const char* vsFullPath, const char* psFullPath, std::function<void(Renderer*)> callback)
-	{
-	
 	}
 
 	void RendererProvider::tick(void* data)
