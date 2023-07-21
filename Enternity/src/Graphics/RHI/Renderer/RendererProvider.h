@@ -1,19 +1,13 @@
 #pragma once
-#include <vector>
+#include "Graphics/RHI/RHIAssetProvider.h"
 
 namespace Enternity
 {
-	class Renderer;
-	class BlobHolder;
-	class RendererProvider
+	class RendererProvider : public RHIAssetProvider
 	{
 	public:
 		RendererProvider();
-		~RendererProvider();
-	public:
-		Renderer* getRenderer(const char* path);
 	private:
-		void tick(void* data);
-
+		virtual void tick(void* data) override;
 	};
 }

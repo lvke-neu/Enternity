@@ -7,7 +7,5 @@ namespace Enternity
 	{
 	public:
 		virtual void load(BlobHolder* blobHolder) override;
-	private:
-		unsigned int m_renderId;
 	};
 }

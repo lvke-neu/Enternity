@@ -195,6 +195,9 @@
     <ClCompile Include="src\Graphics\RHI\Renderer\Renderer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Graphics\RHI\RHIAssetProvider.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Blob.h">
@@ -393,6 +396,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\RHI\RHIAsset.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\RHI\RHIAssetProvider.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

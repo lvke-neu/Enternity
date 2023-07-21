@@ -3,6 +3,7 @@
 #include "Common/Macro.h"
 #include "Detail/texture/TextureBlobLoader.h"
 #include "Detail/mesh/MeshBlobLoader.h"
+#include "Log.h"
 
 namespace Enternity
 {
@@ -53,6 +54,9 @@ namespace Enternity
 				return blobLoader;
 			}
 		}
+
+		LOG_ERROR("GetBlobLoader failed:{0}", path);
+
 		return nullptr;
 	}
 }
