@@ -25,7 +25,7 @@ int main(int argc, const char** argv) {
 		[=](RHIAsset* rhiAsset)
 		{
 			Renderer* rdr = dynamic_cast<Renderer*>(rhiAsset);
-
+			rdr->bind();
 			int i = 0;
 			i++;
 		});

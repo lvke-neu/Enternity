@@ -1,18 +1,18 @@
 #pragma once
 #include "Graphics/RHI/RHIAsset.h"
-//TODO:REMOVE
-#include <string>
 
 namespace Enternity
 {
 	class Renderer : public RHIAsset
 	{
 	public:
+		virtual ~Renderer();
+	public:
 		virtual void load(BlobHolder* blobHolder) override;
-		//TODO:REMOVE
+		virtual void unload() override;
+		void bind();
+		void unbind();
 	private:
-		std::string m_vscode;
-		std::string m_gscode;
-		std::string m_pscode;
+		bool compileShader(unsigned int& shader, unsigned int shaderType, const char* shaderSourceCode, const char* path);
 	};
 }
