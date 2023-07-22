@@ -6,7 +6,6 @@
 
 namespace Enternity
 {
-
 	Renderer::~Renderer()
 	{
 		glDeleteProgram(m_renderId);

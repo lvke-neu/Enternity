@@ -1,14 +1,13 @@
 #include "BlobLoaderManager.h"
 #include "BlobLoader.h"
-#include "Common/Macro.h"
-#include "Detail/mesh/MeshBlobLoader.h"
 #include "Log.h"
+#include "Common/Macro.h"
 
 namespace Enternity
 {
 	BlobLoaderManager::BlobLoaderManager()
 	{
-		registerBlobLoader(new MeshBlobLoader);
+
 	}
 
 	BlobLoaderManager::~BlobLoaderManager()
@@ -40,14 +39,14 @@ namespace Enternity
 		m_blobLoaders.push_back(blobLoader);
 	}
 
-	BlobLoader* BlobLoaderManager::getBlobLoader(const std::string& path)
+	BlobLoader* BlobLoaderManager::getBlobLoader(const char* path)
 	{
 		auto it = m_blobLoaders.begin();
 		auto end = m_blobLoaders.end();
 		for (; it != end; ++it)
 		{
 			BlobLoader* blobLoader = *it;
-			if (0 == strncmp(blobLoader->m_storagePath.c_str(), path.c_str(), blobLoader->m_storagePath.size()))
+			if (0 == strncmp(blobLoader->m_storagePath.c_str(), path, blobLoader->m_storagePath.size()))
 			{
 				return blobLoader;
 			}

@@ -7,7 +7,7 @@
 #include "RHI/Mesh/IndexBuffer.h"
 #include "Engine/Engine.h"
 #include "Engine/Timer.h"
-#include "Engine/Event/EventSystem.h"
+#include "Engine/EventSystem.h"
 #include "Scene/ECS/CameraComponent.h"
 #include "Scene/ECS/TransformComponent.h"
 #include <glad/glad.h>

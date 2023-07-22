@@ -9,19 +9,20 @@ namespace Enternity
 	class BlobHolder;
 	class AssetLoader
 	{
+		friend class Engine;
 	private:
 		struct BlobHolder_Callback
 		{
 			BlobHolder* blobHolder;
 			std::function<void(Asset*)> callback;
 		};
-	public:
+	private:
 		AssetLoader();
-		virtual ~AssetLoader();
-
-		void getAsset(const char* path, std::function<void(Asset*)> callback);
+		~AssetLoader();
 	private:
 		void tick(void* data);
+	public:
+		void getAsset(const char* path, std::function<void(Asset*)> callback);
 	protected:
 		std::vector<BlobHolder_Callback> m_task;
 	};

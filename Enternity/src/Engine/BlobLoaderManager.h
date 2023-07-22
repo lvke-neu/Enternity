@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 #include <vector>
 
 namespace Enternity
@@ -7,12 +6,13 @@ namespace Enternity
 	class BlobLoader;
 	class BlobLoaderManager
 	{
-	public:
+		friend class Engine;
+	private:
 		BlobLoaderManager();
 		~BlobLoaderManager();
 	public:
 		void registerBlobLoader(BlobLoader* blobLoader);
-		BlobLoader* getBlobLoader(const std::string& path);
+		BlobLoader* getBlobLoader(const char* path);
 	private:
 		std::vector<BlobLoader*> m_blobLoaders;
 	};

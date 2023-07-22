@@ -5,7 +5,8 @@ namespace Enternity
 	class Scene;
 	class SceneManager
 	{
-	public:
+		friend class Engine;
+	private:
 		SceneManager();
 		~SceneManager();
 	public:

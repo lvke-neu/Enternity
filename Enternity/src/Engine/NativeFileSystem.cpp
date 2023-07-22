@@ -1,5 +1,6 @@
 #include "NativeFileSystem.h"
 #include "Blob.h"
+#include "Common/Macro.h"
 #include <fstream>
 
 namespace Enternity

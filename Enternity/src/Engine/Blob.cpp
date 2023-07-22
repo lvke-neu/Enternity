@@ -1,4 +1,5 @@
 #include "Blob.h"
+#include "Common/Macro.h"
 #include <string.h>
 
 namespace Enternity

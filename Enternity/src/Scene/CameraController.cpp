@@ -5,7 +5,7 @@
 #include "ECS/TransformComponent.h"
 #include "Engine/Engine.h"
 #include "Engine/Timer.h"
-#include "Engine/Event/EventSystem.h"
+#include "Engine/EventSystem.h"
 
 namespace Enternity
 {

@@ -111,9 +111,6 @@
     <ClCompile Include="src\Engine\Timer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Event\EventSystem.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Scene\Scene.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -187,6 +184,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\AssetLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\EventSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -284,12 +284,6 @@
     <ClInclude Include="src\Engine\Timer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Event\EventDefine.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Event\EventSystem.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Scene\Scene.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -381,6 +375,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\AssetLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\EventDefine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\EventSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

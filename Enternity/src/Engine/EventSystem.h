@@ -1,6 +1,5 @@
 #pragma once
 #include "EventDefine.h"
-#include <vector>
 
 namespace Enternity
 {

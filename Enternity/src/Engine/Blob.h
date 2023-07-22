@@ -1,5 +1,4 @@
 #pragma once
-#include "Common/Macro.h"
 
 namespace Enternity
 {

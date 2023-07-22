@@ -3,7 +3,7 @@
 #include "MeshAsset.h"
 #include "Common/Macro.h"
 #include "Engine/Engine.h"
-#include "Engine/Event/EventSystem.h"
+#include "Engine/EventSystem.h"
 
 namespace Enternity
 {

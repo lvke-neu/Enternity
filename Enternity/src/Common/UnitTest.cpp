@@ -24,7 +24,7 @@ int main(int argc, const char** argv) {
 			i++;
 		});
 
-	path = "texture://assets/textures/atmosphere.pngs";
+	path = "texture://assets/textures/atmosphere.png";
 	Engine::GetInstance().getAssetLoader()->getAsset(path.c_str(),
 		[=](Asset* asset)
 		{

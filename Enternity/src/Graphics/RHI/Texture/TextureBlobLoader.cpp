@@ -1,5 +1,6 @@
 #include "TextureBlobLoader.h"
 #include "stb_image.h"
+#include "Common/Macro.h"
 #include "Engine/Blob.h"
 #include "Engine/BlobHolder.h"
 #include "Engine/Log.h"

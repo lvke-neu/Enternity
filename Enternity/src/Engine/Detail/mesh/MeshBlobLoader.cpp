@@ -4,6 +4,7 @@
 #include "Engine/Log.h"
 #include "MeshBlobHolder.h"
 #include "Graphics/RHI/Mesh/VertexDefine.h"
+#include "Common/Macro.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>

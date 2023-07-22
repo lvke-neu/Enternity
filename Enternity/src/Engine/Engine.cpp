@@ -1,15 +1,15 @@
 #include "Engine.h"
-#include "Engine/ThreadPool.h"
-#include "Engine/Log.h"
-#include "Graphics/GraphicsSystem.h"
-#include "Event/EventSystem.h"
-#include "Pick/PickSystem.h"
-#include "Scene/SceneManager.h"
-#include "BlobLoaderManager.h"
-#include "RenderView.h"
+#include "Log.h"
+#include "ThreadPool.h"
 #include "Timer.h"
+#include "RenderView.h"
+#include "EventSystem.h"
+#include "BlobLoaderManager.h"
 #include "NativeFileSystem.h"
 #include "AssetLoader.h"
+#include "Graphics/GraphicsSystem.h"
+#include "Pick/PickSystem.h"
+#include "Scene/SceneManager.h"
 
 namespace Enternity
 {
@@ -27,7 +27,6 @@ namespace Enternity
 		m_graphicsSystem = new GraphicsSystem;
 		m_pickSystem = new PickSystem;
 		m_sceneManager = new SceneManager;
-		
 	}
 
 	void Engine::uninitialize()
