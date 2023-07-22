@@ -25,20 +25,9 @@ int main(int argc, const char** argv) {
 		});
 
 	path = "texture://assets/textures/atmosphere.png";
-	Engine::GetInstance().getAssetLoader()->getAsset(path.c_str(),
-		[=](Asset* asset)
-		{
-			Texture2D* texture2D = dynamic_cast<Texture2D*>(asset);
-			if (texture2D && texture2D->isLoadSucceeded())
-			{
-				texture2D->bind();
-			}
-
-			int i = 0;
-			i++;
-		}
-	);
-
+	auto asset = Engine::GetInstance().getAssetLoader()->getAsset(path.c_str());
+	int i = 0;
+	i++;
 	//std::string path = "renderer://assets/shaders/test/test2.rdr";
 
 	//Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRHIAsset(path.c_str(),

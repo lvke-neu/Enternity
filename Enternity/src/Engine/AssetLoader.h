@@ -23,6 +23,7 @@ namespace Enternity
 		void tick(void* data);
 	public:
 		void getAsset(const char* path, std::function<void(Asset*)> callback);
+		Asset* getAsset(const char* path);
 	protected:
 		std::vector<BlobHolder_Callback> m_task;
 	};

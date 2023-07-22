@@ -32,6 +32,26 @@ namespace Enternity
 		}
 	}
 	
+	Asset* AssetLoader::getAsset(const char* path)
+	{
+		BlobLoader* blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(path);
+		if (blobLoader)
+		{
+			BlobHolder* blobHolder = blobLoader->createBlobHolder(path);
+			if (blobHolder)
+			{
+				blobHolder->load(0);
+				Asset* asset = blobHolder->createAsset();
+				asset->load(blobHolder);
+				SAFE_DELETE_SET_NULL(blobHolder);
+				return asset;
+			}
+			return nullptr;
+		}
+
+		return nullptr;
+	}
+
 	void AssetLoader::tick(void* data)
 	{
 		for (auto it = m_task.begin(); it != m_task.end(); )
