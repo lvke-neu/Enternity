@@ -1,22 +1,20 @@
 #include "GraphicsSystem.h"
-#include "RHI/Texture/TextureProvider.h"
-#include "RHI/Renderer/RendererProvider.h"
-#include "RHI/Mesh/MeshProvider.h"
+#include "Engine/Engine.h"
+#include "Engine/BlobLoaderManager.h"
+#include "RHI/Renderer/RendererBlobLoader.h"
+#include "RHI/Texture/TextureBlobLoader.h"
 
 namespace Enternity
 {
 	GraphicsSystem::GraphicsSystem()
 	{
-		m_textureProvider = new TextureProvider;
-		m_rendererProvider = new RendererProvider;
-		m_meshProvider = new MeshProvider;
+		Engine::GetInstance().getBlobLoaderManager()->registerBlobLoader(new RendererBlobLoader);
+		Engine::GetInstance().getBlobLoaderManager()->registerBlobLoader(new TextureBlobLoader);
 	}
 
 	GraphicsSystem::~GraphicsSystem()
 	{
-		SAFE_DELETE_SET_NULL(m_textureProvider);
-		SAFE_DELETE_SET_NULL(m_rendererProvider)
-		SAFE_DELETE_SET_NULL(m_meshProvider)
+
 	}
 }
 

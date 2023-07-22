@@ -15,7 +15,7 @@ namespace Enternity
 	void Renderer::load(BlobHolder* blobHolder)
 	{
 		RendererBlobHolder* rendererBlobHolder = dynamic_cast<RendererBlobHolder*>(blobHolder);
-		if (!rendererBlobHolder)
+		if (!rendererBlobHolder || !rendererBlobHolder->isLoadSucceeded())
 		{
 			m_state = loading_state_failed;
 			return;
@@ -25,26 +25,26 @@ namespace Enternity
 		std::string geomShaderCode;
 		std::string fragShaderCode;
 
-		for (auto type : rendererBlobHolder->getShaderTypes())
+		for (auto type : rendererBlobHolder->m_shaderTypes)
 		{
 			bool bShaderCorrent = false;
 			
 			if (type == RendererBlobHolder::VertexShader)
 			{
-				vertShaderCode = std::string((char*)rendererBlobHolder->getBlob()->getData() + rendererBlobHolder->getShaderDesc().vertDataOffset,
-					rendererBlobHolder->getShaderDesc().vertDataSize);
+				vertShaderCode = std::string((char*)rendererBlobHolder->getBlob()->getData() + rendererBlobHolder->m_shaderDesc.vertDataOffset,
+					rendererBlobHolder->m_shaderDesc.vertDataSize);
 			}
 
 			if (type == RendererBlobHolder::GeometryShader)
 			{
-				geomShaderCode = std::string((char*)rendererBlobHolder->getBlob()->getData() + rendererBlobHolder->getShaderDesc().geomDataOffset,
-					rendererBlobHolder->getShaderDesc().geomDataSize);
+				geomShaderCode = std::string((char*)rendererBlobHolder->getBlob()->getData() + rendererBlobHolder->m_shaderDesc.geomDataOffset,
+					rendererBlobHolder->m_shaderDesc.geomDataSize);
 			}
 
 			if (type == RendererBlobHolder::FragmentShader)
 			{
-				fragShaderCode = std::string((char*)rendererBlobHolder->getBlob()->getData() + rendererBlobHolder->getShaderDesc().fragDataOffset,
-					rendererBlobHolder->getShaderDesc().fragDataSize);
+				fragShaderCode = std::string((char*)rendererBlobHolder->getBlob()->getData() + rendererBlobHolder->m_shaderDesc.fragDataOffset,
+					rendererBlobHolder->m_shaderDesc.fragDataSize);
 			}
 		}
 

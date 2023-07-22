@@ -1,16 +1,7 @@
 #include "Engine/Engine.h"
-#include "Engine/Blob.h"
-#include "Engine/BlobLoader.h"
-#include "Engine/BlobHolder.h"
-#include "Engine/BlobLoaderManager.h"
-#include "Engine/Log.h"
-#include "Engine/Detail/texture/TextureBlobHolder.h"
-#include "Engine/Detail/mesh/MeshBlobHolder.h"
-#include "Engine/NativeFileSystem.h"
-#include "Graphics/RHI/Renderer/RendererBlobHolder.h"
-#include "Graphics/RHI/Renderer/RendererProvider.h"
-#include "Graphics/GraphicsSystem.h"
+#include "Engine/AssetLoader.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
+#include "Graphics/RHI/Texture/Texture.h"
 #include <glm/glm.hpp>
 
 using namespace Enternity;
@@ -20,15 +11,51 @@ int main(int argc, const char** argv) {
 	Enternity::Engine::GetInstance().initialize();
 
 	std::string path = "renderer://assets/shaders/test/test2.rdr";
-
-	Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRHIAsset(path.c_str(),
-		[=](RHIAsset* rhiAsset)
+	Engine::GetInstance().getAssetLoader()->getAsset(path.c_str(),
+		[=](Asset* asset)
 		{
-			Renderer* rdr = dynamic_cast<Renderer*>(rhiAsset);
-			rdr->bind();
+			Renderer* rdr = dynamic_cast<Renderer*>(asset);
+			if (rdr && rdr->isLoadSucceeded())
+			{
+				rdr->bind();
+			}
+
 			int i = 0;
 			i++;
 		});
+
+	path = "texture://assets/textures/atmosphere.pngs";
+	Engine::GetInstance().getAssetLoader()->getAsset(path.c_str(),
+		[=](Asset* asset)
+		{
+			Texture2D* texture2D = dynamic_cast<Texture2D*>(asset);
+			if (texture2D && texture2D->isLoadSucceeded())
+			{
+				texture2D->bind();
+			}
+
+			int i = 0;
+			i++;
+		}
+	);
+
+	//std::string path = "renderer://assets/shaders/test/test2.rdr";
+
+	//Engine::GetInstance().getGraphicsSystem()->getRendererProvider()->getRHIAsset(path.c_str(),
+	//	[=](RHIAsset* rhiAsset)
+	//	{
+	//		Renderer* rdr = dynamic_cast<Renderer*>(rhiAsset);
+	//		if (rdr && rdr->isLoadSucceeded())
+	//		{
+	//			rdr->bind();
+	//		}
+	//		
+	//		int i = 0;
+	//		i++;
+	//	});
+
+	//path = "renderer://assets/textures/atmosphere.png";
+	//Engine::GetInstance()
 
 
 	//BlobLoader* blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(path);

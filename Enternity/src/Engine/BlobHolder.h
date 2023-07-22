@@ -3,6 +3,7 @@
 
 namespace Enternity
 {
+	class Asset;
 	class Blob;
 	class BlobLoader;
 	class BlobHolder
@@ -25,6 +26,7 @@ namespace Enternity
 		Blob* getBlob();
 		const char* getPath();
 		LoadingState getLoadingState();
+		virtual Asset* createAsset();
 	private:
 		Blob* m_blob;
 		LoadingState m_state;

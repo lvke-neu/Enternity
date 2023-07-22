@@ -1,4 +1,5 @@
 #include "RendererBlobHolder.h"
+#include "Renderer.h"
 
 namespace Enternity
 {
@@ -8,4 +9,8 @@ namespace Enternity
 
 	}
 
+	Asset* RendererBlobHolder::createAsset()
+	{
+		return new Renderer;
+	}
 }

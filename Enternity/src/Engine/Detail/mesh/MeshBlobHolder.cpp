@@ -7,4 +7,9 @@ namespace Enternity
 	{
 
 	}
+
+	Asset* MeshBlobHolder::createAsset()
+	{
+		return nullptr;
+	}
 }

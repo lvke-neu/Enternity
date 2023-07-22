@@ -41,4 +41,9 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(m_blob);
 		m_state = loading_state_failed;
 	}
+
+	Asset* BlobHolder::createAsset()
+	{
+		return nullptr;
+	}
 }

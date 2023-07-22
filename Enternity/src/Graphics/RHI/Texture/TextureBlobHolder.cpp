@@ -1,4 +1,5 @@
 #include "TextureBlobHolder.h"
+#include "Texture.h"
 
 namespace Enternity
 {
@@ -12,4 +13,8 @@ namespace Enternity
 
 	}
 
+	Asset* TextureBlobHolder::createAsset()
+	{
+		return new Texture2D;
+	}
 }

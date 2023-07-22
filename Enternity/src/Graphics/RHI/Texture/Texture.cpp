@@ -1,91 +1,60 @@
 #include "Texture.h"
-#include "TextureAsset.h"
-#include "Engine/Log.h"
+#include "TextureBlobHolder.h"
 #include "Engine/Blob.h"
-#include "Common/Macro.h"
+#include "Engine/Log.h"
 #include <glad/glad.h>
 
 namespace Enternity
 {
-	Texture::Texture(TextureAsset* textureAsset)
-	{
-		if (textureAsset && textureAsset->m_content)
-		{
-			CHECK_GL_CALL(glGenTextures(1, &m_renderId));
-			CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, m_renderId));
-
-			CHECK_GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-			CHECK_GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-			CHECK_GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
-			CHECK_GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
-
-			if (textureAsset->m_channels == 3)
-			{
-				CHECK_GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureAsset->m_width, textureAsset->m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureAsset->m_content->getData()));
-			}
-			else if (textureAsset->m_channels == 4)
-			{
-				CHECK_GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureAsset->m_width, textureAsset->m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureAsset->m_content->getData()));
-			}
-
-			CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, 0));
-		}
-	}
-
-	Texture::~Texture()
-	{
-		CHECK_GL_CALL(glDeleteTextures(1, &m_renderId));
-	}
-
-	void Texture::bind(unsigned int slot)
-	{
-		CHECK_GL_CALL(glActiveTexture(GL_TEXTURE0 + slot));
-		CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, m_renderId));
-	}
-
-	void Texture::unbind()
-	{
-		CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, 0));
-	}
-
-	CubeMapTexture::CubeMapTexture(const std::vector<TextureAsset*>& textureAssets)
-	{
-		if (textureAssets.size() == 6)
-		{
-			CHECK_GL_CALL(glGenTextures(1, &m_renderId));
-			CHECK_GL_CALL(glBindTexture(GL_TEXTURE_CUBE_MAP, m_renderId));
-
-			for (int i = 0; i < textureAssets.size(); ++i)
-			{
-				if (textureAssets[i] && textureAssets[i]->m_content)
-				{
-					CHECK_GL_CALL(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, textureAssets[i]->m_width, textureAssets[i]->m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureAssets[i]->m_content->getData()));
-					m_fullPaths.push_back(textureAssets[i]->m_fullPath);
-				}
-			}
-
-			CHECK_GL_CALL(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-			CHECK_GL_CALL(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-			CHECK_GL_CALL(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-			CHECK_GL_CALL(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
-			CHECK_GL_CALL(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE));
-		}
-	}
-
-	CubeMapTexture::~CubeMapTexture()
+	Texture2D::~Texture2D()
 	{
 		glDeleteTextures(1, &m_renderId);
 	}
 
-	void CubeMapTexture::bind(unsigned int slot)
+	void Texture2D::load(BlobHolder* blobHolder)
 	{
-		CHECK_GL_CALL(glActiveTexture(GL_TEXTURE0 + slot));
-		CHECK_GL_CALL(glBindTexture(GL_TEXTURE_CUBE_MAP, m_renderId));
+		TextureBlobHolder* textureBlobHolder = dynamic_cast<TextureBlobHolder*>(blobHolder);
+		if (!textureBlobHolder || 
+			!textureBlobHolder->isLoadSucceeded() ||
+			!textureBlobHolder->getBlob())
+		{
+			m_state = loading_state_failed;
+			return;
+		}
+
+		glGenTextures(1, &m_renderId);
+		glBindTexture(GL_TEXTURE_2D, m_renderId);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+		if (textureBlobHolder->m_channels == 3)
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureBlobHolder->m_width, textureBlobHolder->m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureBlobHolder->getBlob()->getData());
+		}
+		else if (textureBlobHolder->m_channels == 4)
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureBlobHolder->m_width, textureBlobHolder->m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureBlobHolder->getBlob()->getData());
+		}
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+		m_state = Asset::loading_state_succeeded;
 	}
 
-	void CubeMapTexture::unbind()
+	void Texture2D::unload()
 	{
-		CHECK_GL_CALL(glBindTexture(GL_TEXTURE_CUBE_MAP, 0));
+		glDeleteTextures(1, &m_renderId);
 	}
 
+	void Texture2D::bind()
+	{
+		glBindTexture(GL_TEXTURE_2D, m_renderId);
+	}
+
+	void Texture2D::unbind()
+	{
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 }

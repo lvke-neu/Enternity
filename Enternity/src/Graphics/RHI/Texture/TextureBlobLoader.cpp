@@ -1,8 +1,8 @@
 #include "TextureBlobLoader.h"
+#include "stb_image.h"
 #include "Engine/Blob.h"
 #include "Engine/BlobHolder.h"
 #include "Engine/Log.h"
-#include "Graphics/RHI/Texture/stb_image.h"
 #include "TextureBlobHolder.h"
 
 namespace Enternity
@@ -40,7 +40,7 @@ namespace Enternity
 			return;
 		}
 
-		Blob* blob = new Blob(textureBlobHolder->getLength());
+		Blob* blob = new Blob(textureBlobHolder->m_width * textureBlobHolder->m_height * textureBlobHolder->m_channels);
 
 		memcpy_s(blob->getData(), blob->getLength(), tmpTexture, blob->getLength());
 

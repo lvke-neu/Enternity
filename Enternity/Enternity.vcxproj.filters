@@ -51,15 +51,6 @@
     <ClCompile Include="src\Graphics\RHI\Texture\Texture.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\RHI\Texture\TextureAsset.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Graphics\RHI\Texture\TextureProvider.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Graphics\RHI\Renderer\RendererProvider.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshAsset.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -171,12 +162,6 @@
     <ClCompile Include="src\Engine\Asset2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Detail\texture\TextureBlobLoader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Detail\texture\TextureBlobHolder.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Detail\mesh\MeshBlobHolder.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -195,7 +180,13 @@
     <ClCompile Include="src\Graphics\RHI\Renderer\Renderer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\RHI\RHIAssetProvider.cpp">
+    <ClCompile Include="src\Graphics\RHI\Texture\TextureBlobHolder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\RHI\Texture\TextureBlobLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\AssetLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -225,15 +216,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\RHI\Texture\Texture.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\Texture\TextureAsset.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\Texture\TextureProvider.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\Renderer\RendererProvider.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\RHI\Mesh\VertexDefine.h">
@@ -368,12 +350,6 @@
     <ClInclude Include="src\Engine\Asset2.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Detail\texture\TextureBlobLoader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Detail\texture\TextureBlobHolder.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\Detail\mesh\MeshBlobHolder.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -398,7 +374,13 @@
     <ClInclude Include="src\Graphics\RHI\RHIAsset.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\RHIAssetProvider.h">
+    <ClInclude Include="src\Graphics\RHI\Texture\TextureBlobHolder.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\RHI\Texture\TextureBlobLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\AssetLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

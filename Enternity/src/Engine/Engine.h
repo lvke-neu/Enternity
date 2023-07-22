@@ -5,12 +5,13 @@ namespace Enternity
 {
 	class Timer;
 	class RenderView;
-	class GraphicsSystem;
 	class EventSystem;
-	class PickSystem;
-	class SceneManager;
 	class BlobLoaderManager;
 	class NativeFileSystem;
+	class AssetLoader;
+	class GraphicsSystem;
+	class PickSystem;
+	class SceneManager;
 	class Engine
 	{
 		SINGLETON(Engine);
@@ -28,6 +29,7 @@ namespace Enternity
 		RenderView* getRenderView();
 		BlobLoaderManager* getBlobLoaderManager();
 		NativeFileSystem* getNativeFileSystem();
+		AssetLoader* getAssetLoader();
 	private:
 		GraphicsSystem* m_graphicsSystem{ nullptr };
 		EventSystem* m_eventSystem{ nullptr };
@@ -37,6 +39,7 @@ namespace Enternity
 		BlobLoaderManager* m_blobLoaderManager{ nullptr };
 		NativeFileSystem* m_nativeFileSystem{ nullptr };
 		Timer* m_timer{ nullptr };
+		AssetLoader* m_assetLoader{ nullptr };
 	};
 
 	inline GraphicsSystem* Engine::getGraphicsSystem()
@@ -77,5 +80,10 @@ namespace Enternity
 	inline NativeFileSystem* Engine::getNativeFileSystem()
 	{
 		return m_nativeFileSystem;
+	}
+
+	inline AssetLoader* Engine::getAssetLoader()
+	{
+		return m_assetLoader;
 	}
 }

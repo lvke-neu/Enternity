@@ -18,6 +18,7 @@ namespace Enternity
 	public:
 		MeshBlobHolder(BlobLoader* blobLoader, const std::string& path);
 		const std::vector<SubMeshDesc>& getSubMeshDescs() const;
+		virtual Asset* createAsset() override;
 	private:
 		std::vector<SubMeshDesc> m_subMeshDescs;
 	};

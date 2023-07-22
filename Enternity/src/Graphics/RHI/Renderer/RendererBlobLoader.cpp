@@ -31,7 +31,7 @@ namespace Enternity
 		if (!blob)
 		{
 			rendererBlobHolder->loadFailed__();
-			LOG_ERROR("Renderer load failed:{0}", rendererBlobHolder->getPath());
+			LOG_ERROR("Renderer load failed(read rdr file):{0}", rendererBlobHolder->getPath());
 			m_mtx.unlock();
 			return;
 		}
@@ -42,7 +42,7 @@ namespace Enternity
 		if (doc.Parse(jsonStr.c_str()).HasParseError())
 		{
 			rendererBlobHolder->loadFailed__();
-			LOG_ERROR("Renderer load failed:{0}", rendererBlobHolder->getPath());
+			LOG_ERROR("Renderer load failed(parse json file):{0}", rendererBlobHolder->getPath());
 			m_mtx.unlock();
 			return;
 		}

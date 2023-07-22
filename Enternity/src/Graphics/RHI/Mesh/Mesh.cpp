@@ -7,7 +7,6 @@
 #include "Engine/Engine.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/Texture/Texture.h"
-#include "Graphics/RHI/Texture/TextureProvider.h"
 
 namespace Enternity
 {
@@ -29,16 +28,16 @@ namespace Enternity
 				m_indexBuffers[i] = new IndexBuffer{ meshAsset, (unsigned int)i };
 			}
 			
-			for (int i = 0; i < m_textures.size(); ++i)
-			{
-				Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTextureAsyn(meshAsset->getMaterials()[i].c_str(),
-					[=](Texture* texture)
-					{
-						m_textures[i] = texture;
-					});
+			//for (int i = 0; i < m_textures.size(); ++i)
+			//{
+			//	Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTextureAsyn(meshAsset->getMaterials()[i].c_str(),
+			//		[=](Texture* texture)
+			//		{
+			//			m_textures[i] = texture;
+			//		});
 
-				//m_textures[i] = Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTextureSync(meshAsset->getMaterials()[i].c_str());
-			}
+			//	//m_textures[i] = Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTextureSync(meshAsset->getMaterials()[i].c_str());
+			//}
 
 			m_fullPath = meshAsset->getFullPath();
 		}

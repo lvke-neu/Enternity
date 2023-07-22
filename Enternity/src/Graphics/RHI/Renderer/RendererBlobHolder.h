@@ -6,6 +6,7 @@ namespace Enternity
 {
 	class RendererBlobHolder : public BlobHolder
 	{
+		friend class Renderer;
 		friend class RendererBlobLoader;
 	public:
 		enum ShaderType
@@ -25,20 +26,9 @@ namespace Enternity
 		};
 	public:
 		RendererBlobHolder(BlobLoader* blobLoader, const std::string& path);
-		ShaderDesc getShaderDesc();
-		const std::set<ShaderType>& getShaderTypes();
+		virtual Asset* createAsset() override;
 	private:
 		std::set<ShaderType> m_shaderTypes;
 		ShaderDesc m_shaderDesc;
 	};
-
-	inline RendererBlobHolder::ShaderDesc RendererBlobHolder::getShaderDesc()
-	{
-		return m_shaderDesc;
-	}
-
-	inline const std::set<RendererBlobHolder::ShaderType>& RendererBlobHolder::getShaderTypes()
-	{
-		return m_shaderTypes;
-	}
 }

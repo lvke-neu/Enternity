@@ -1,6 +1,5 @@
 #include "NativeFileSystem.h"
 #include "Blob.h"
-#include "Log.h"
 #include <fstream>
 
 namespace Enternity
@@ -11,7 +10,6 @@ namespace Enternity
 		ifs.open(path, std::ios::in | std::ios::binary);
 		if (!ifs.is_open())
 		{
-			LOG_ERROR("Read file failed:{0}", path);
 			return;
 		}
 

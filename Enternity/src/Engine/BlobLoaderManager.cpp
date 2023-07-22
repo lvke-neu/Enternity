@@ -1,7 +1,6 @@
 #include "BlobLoaderManager.h"
 #include "BlobLoader.h"
 #include "Common/Macro.h"
-#include "Detail/texture/TextureBlobLoader.h"
 #include "Detail/mesh/MeshBlobLoader.h"
 #include "Log.h"
 
@@ -9,7 +8,6 @@ namespace Enternity
 {
 	BlobLoaderManager::BlobLoaderManager()
 	{
-		registerBlobLoader(new TextureBlobLoader);
 		registerBlobLoader(new MeshBlobLoader);
 	}
 
