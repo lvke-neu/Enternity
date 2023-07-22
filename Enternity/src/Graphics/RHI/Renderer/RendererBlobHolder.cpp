@@ -3,7 +3,7 @@
 
 namespace Enternity
 {
-	RendererBlobHolder::RendererBlobHolder(BlobLoader* blobLoader, const std::string& path) :
+	RendererBlobHolder::RendererBlobHolder(BlobLoader* blobLoader, const char* path) :
 		BlobHolder(blobLoader, path)
 	{
 

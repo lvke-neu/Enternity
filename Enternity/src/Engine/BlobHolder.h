@@ -19,7 +19,7 @@ namespace Enternity
 		BlobHolder(BlobLoader* blobLoader, const std::string& path);
 		virtual ~BlobHolder();
 	public:
-		void load();
+		void load(int priority = 1);
 		void loadSucceeded__(Blob* blob);
 		void loadFailed__();
 		bool isLoadSucceeded();

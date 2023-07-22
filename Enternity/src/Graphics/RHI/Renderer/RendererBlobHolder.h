@@ -25,7 +25,7 @@ namespace Enternity
 			unsigned int fragDataSize;
 		};
 	public:
-		RendererBlobHolder(BlobLoader* blobLoader, const std::string& path);
+		RendererBlobHolder(BlobLoader* blobLoader, const char* path);
 		virtual Asset* createAsset() override;
 	private:
 		std::set<ShaderType> m_shaderTypes;

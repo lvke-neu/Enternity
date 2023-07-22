@@ -18,8 +18,8 @@ namespace Enternity
 		Log::Init();
 		ThreadPool::GetInstance().initialize(8);
 
+		m_renderView = new RenderView;
 		m_timer = new Timer;
-		m_renderView = new RenderView(1920, 900, "v0.004");
 		m_eventSystem = new EventSystem;
 		m_blobLoaderManager = new BlobLoaderManager;
 		m_nativeFileSystem = new NativeFileSystem;
@@ -27,6 +27,8 @@ namespace Enternity
 		m_graphicsSystem = new GraphicsSystem;
 		m_pickSystem = new PickSystem;
 		m_sceneManager = new SceneManager;
+
+		m_renderView->setWindowProperty(1900, 900, "Version:0.004,Author:lvke", "texture://assets/textures/logo/windowlogo.png");
 	}
 
 	void Engine::uninitialize()

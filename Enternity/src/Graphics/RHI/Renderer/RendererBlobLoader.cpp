@@ -117,7 +117,7 @@ namespace Enternity
 		m_mtx.unlock();
 	}
 
-	BlobHolder* RendererBlobLoader::createBlobHolder(const std::string& path)
+	BlobHolder* RendererBlobLoader::createBlobHolder(const char* path)
 	{
 		return new RendererBlobHolder(this, path);
 	}

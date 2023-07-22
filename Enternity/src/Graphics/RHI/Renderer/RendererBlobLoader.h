@@ -9,6 +9,6 @@ namespace Enternity
 		RendererBlobLoader();
 	public:
 		virtual void doLoad(BlobHolder* blobHolder) override;
-		virtual BlobHolder* createBlobHolder(const std::string& path) override;
+		virtual BlobHolder* createBlobHolder(const char* path) override;
 	};
 }

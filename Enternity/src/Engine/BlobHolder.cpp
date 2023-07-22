@@ -23,9 +23,16 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(m_blob);
 	}
 
-	void BlobHolder::load()
+	void BlobHolder::load(int priority)
 	{
-		ThreadPool::GetInstance().commitTask(std::bind(&BlobLoader::doLoad, m_blobLoader, this));
+		if (priority)
+		{
+			ThreadPool::GetInstance().commitTask(std::bind(&BlobLoader::doLoad, m_blobLoader, this));
+		}
+		else
+		{
+			m_blobLoader->doLoad(this);
+		}
 	}
 
 	void BlobHolder::loadSucceeded__(Blob* blob)

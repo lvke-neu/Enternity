@@ -2,6 +2,10 @@
 #include "Log.h"
 #include "Engine.h"
 #include "EventSystem.h"
+#include "Blob.h"
+#include "BlobLoader.h"
+#include "Graphics/RHI/Texture/TextureBlobHolder.h"
+#include "BlobLoaderManager.h"
 #include "Editor/UiRender.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -46,18 +50,6 @@ namespace Enternity
 		glfwSetCursorPosCallback(m_context, MouseMove);
 		glfwSetScrollCallback(m_context, MouseScroll);
 
-		//TextureAsset ta("assets/textures/logo/windowlogo.png", false);
-		//ta.load(0);
-		//if (ta.getLoadingState() == Asset2::LoadingState::loading_state_succeeded)
-		//{
-		//	GLFWimage images[1];
-		//	images[0].pixels = (unsigned char*)ta.getBlob()->getData();
-		//	images[0].width = ta.getWidth();
-		//	images[0].height = ta.getHeight();
-		//	glfwSetWindowIcon(m_context, 1, images);
-		//}
-
-
 		LOG_INFO((char*)glGetString(GL_VERSION));
 		LOG_INFO((char*)glGetString(GL_VENDOR));
 		LOG_INFO((char*)glGetString(GL_RENDERER));
@@ -92,6 +84,33 @@ namespace Enternity
 	void RenderView::pollEvents()
 	{
 		glfwPollEvents();
+	}
+
+	void RenderView::setWindowProperty(unsigned int width, unsigned int height, const char* title, const char* path)
+	{
+		glfwSetWindowSize(m_context, width, height);
+		glfwSetWindowTitle(m_context, title);
+
+		BlobLoader* blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(path);
+		if (blobLoader)
+		{
+			TextureBlobHolder* textureBlobHolder = dynamic_cast<TextureBlobHolder*>(blobLoader->createBlobHolder(path));
+			if (textureBlobHolder)
+			{
+				textureBlobHolder->setSlip(false);
+				textureBlobHolder->load(0);
+				if (textureBlobHolder->isLoadSucceeded())
+				{
+					GLFWimage images[1];
+					images[0].pixels = (unsigned char*)textureBlobHolder->getBlob()->getData();
+					images[0].width = textureBlobHolder->getWidth();
+					images[0].height = textureBlobHolder->getHeight();
+					glfwSetWindowIcon(m_context, 1, images);
+				}
+
+				SAFE_DELETE_SET_NULL(textureBlobHolder);
+			}
+		}
 	}
 
 	void RenderView::Resize(GLFWwindow* window, int width, int height)

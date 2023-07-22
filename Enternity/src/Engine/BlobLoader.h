@@ -9,10 +9,10 @@ namespace Enternity
 	{
 		friend class BlobLoaderManager;
 	public:
-		BlobLoader(const std::string& storagePath);
+		BlobLoader(const char* storagePath);
 		virtual ~BlobLoader();
 	public:
-		virtual BlobHolder* createBlobHolder(const std::string& path);
+		virtual BlobHolder* createBlobHolder(const char* path);
 		virtual void doLoad(BlobHolder* blobHolder) = 0;
 	protected:
 		std::string m_storagePath;

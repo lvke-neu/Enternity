@@ -7,7 +7,7 @@ namespace Enternity
 	class RenderView
 	{
 	public:
-		RenderView(unsigned int width, unsigned int height, const char* title);
+		RenderView(unsigned int width = 500, unsigned int height = 500, const char* title = "No Title");
 		~RenderView();
 	public:
 		bool windowShouldClose();
@@ -15,6 +15,7 @@ namespace Enternity
 		void setTitle(const char* title);
 		void pollEvents();
 		UiRender* getUiRender() const;
+		void setWindowProperty(unsigned int width, unsigned int height, const char* title, const char* path);
 	public:
 		void Resize(int width, int height);
 		static void Resize(GLFWwindow* window, int width, int height);

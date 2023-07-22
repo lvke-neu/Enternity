@@ -8,7 +8,7 @@ namespace Enternity
 	public:
 		TextureBlobLoader();
 	public:
-		virtual BlobHolder* createBlobHolder(const std::string& path);
+		virtual BlobHolder* createBlobHolder(const char* path);
 		virtual void doLoad(BlobHolder* blobHolder) override;
 	};
 }

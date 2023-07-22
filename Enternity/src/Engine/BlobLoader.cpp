@@ -3,7 +3,7 @@
 
 namespace Enternity
 {
-	BlobLoader::BlobLoader(const std::string& storagePath) :
+	BlobLoader::BlobLoader(const char* storagePath) :
 		m_storagePath(storagePath)
 	{
 
@@ -14,7 +14,7 @@ namespace Enternity
 
 	}
 
-	BlobHolder* BlobLoader::createBlobHolder(const std::string& path)
+	BlobHolder* BlobLoader::createBlobHolder(const char* path)
 	{
 		return new BlobHolder(this, path);
 	}

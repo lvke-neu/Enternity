@@ -13,11 +13,6 @@ namespace Enternity
 
 	}
 
-	BlobHolder* TextureBlobLoader::createBlobHolder(const std::string& path)
-	{
-		return new TextureBlobHolder(this, path);
-	}
-
 	void TextureBlobLoader::doLoad(BlobHolder* blobHolder)
 	{
 		if (blobHolder->getLoadingState() != BlobHolder::loading_state_pending)
@@ -52,4 +47,10 @@ namespace Enternity
 
 		m_mtx.unlock();
 	}
+
+	BlobHolder* TextureBlobLoader::createBlobHolder(const char* path)
+	{
+		return new TextureBlobHolder(this, path);
+	}
+
 }
