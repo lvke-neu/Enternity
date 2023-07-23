@@ -119,8 +119,10 @@
     <ClCompile Include="src\Engine\BlobLoader.cpp" />
     <ClCompile Include="src\Engine\BlobLoaderManager.cpp" />
     <ClCompile Include="src\Engine\Detail\glad.c" />
-    <ClCompile Include="src\Engine\Detail\mesh\MeshBlobHolder.cpp" />
-    <ClCompile Include="src\Engine\Detail\mesh\MeshBlobLoader.cpp" />
+    <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobHolder.cpp" />
+    <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobLoader.cpp" />
+    <ClCompile Include="src\Engine\Detail\model\ModelBlobHolder.cpp" />
+    <ClCompile Include="src\Engine\Detail\model\ModelBlobLoader.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\RendererBlobHolder.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\RendererBlobLoader.cpp" />
@@ -178,8 +180,10 @@
     <ClInclude Include="src\Engine\BlobHolder.h" />
     <ClInclude Include="src\Engine\BlobLoader.h" />
     <ClInclude Include="src\Engine\BlobLoaderManager.h" />
-    <ClInclude Include="src\Engine\Detail\mesh\MeshBlobHolder.h" />
-    <ClInclude Include="src\Engine\Detail\mesh\MeshBlobLoader.h" />
+    <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobHolder.h" />
+    <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobLoader.h" />
+    <ClInclude Include="src\Engine\Detail\model\ModelBlobHolder.h" />
+    <ClInclude Include="src\Engine\Detail\model\ModelBlobLoader.h" />
     <ClInclude Include="src\Graphics\RHI\Renderer\Renderer.h" />
     <ClInclude Include="src\Graphics\RHI\Renderer\RendererBlobHolder.h" />
     <ClInclude Include="src\Graphics\RHI\Renderer\RendererBlobLoader.h" />

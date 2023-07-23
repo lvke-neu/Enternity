@@ -3,10 +3,10 @@
 
 namespace Enternity
 {
-	class MeshBlobLoader : public BlobLoader
+	class ModelBlobLoader : public BlobLoader
 	{
 	public:
-		MeshBlobLoader();
+		ModelBlobLoader();
 	public:
 		virtual BlobHolder* createBlobHolder(const std::string& path);
 		virtual void doLoad(BlobHolder* blobHolder) override;

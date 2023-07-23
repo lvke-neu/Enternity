@@ -4,9 +4,9 @@
 
 namespace Enternity
 {
-	class MeshBlobHolder : public BlobHolder
+	class ModelBlobHolder : public BlobHolder
 	{
-		friend class MeshBlobLoader;
+		friend class ModelBlobLoader;
 	public:
 		struct SubMeshDesc
 		{
@@ -16,14 +16,14 @@ namespace Enternity
 			unsigned int indexDataSize;
 		};
 	public:
-		MeshBlobHolder(BlobLoader* blobLoader, const std::string& path);
+		ModelBlobHolder(BlobLoader* blobLoader, const std::string& path);
 		const std::vector<SubMeshDesc>& getSubMeshDescs() const;
 		virtual Asset* createAsset() override;
 	private:
 		std::vector<SubMeshDesc> m_subMeshDescs;
 	};
 
-	inline const std::vector<MeshBlobHolder::SubMeshDesc>& MeshBlobHolder::getSubMeshDescs() const
+	inline const std::vector<ModelBlobHolder::SubMeshDesc>& ModelBlobHolder::getSubMeshDescs() const
 	{
 		return m_subMeshDescs;
 	}
