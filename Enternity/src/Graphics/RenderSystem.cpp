@@ -31,7 +31,7 @@ namespace Enternity
 	void RenderSystem::render(Scene* scene)
 	{
 		//color_path(scene);
-		//postprocess_path(scene);
+		postprocess_path(scene);
 	}
 
 	void RenderSystem::color_path(Scene* scene)
@@ -288,10 +288,10 @@ namespace Enternity
 
 	void RenderSystem::postprocess_path(Scene* scene)
 	{
-		//m_postprocessFrameBuffer->bind();
+		m_postprocessFrameBuffer->bind();
 
-		//CHECK_GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
-		//CHECK_GL_CALL((glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)));
+		CHECK_GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+		CHECK_GL_CALL((glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)));
 
 		//auto& postprocessEntity = scene->m_scenePostprocess;
 		//auto& ppc = postprocessEntity.getComponent<PostprocessComponent>();
@@ -299,7 +299,7 @@ namespace Enternity
 		//ppc.renderer->setUint1("u_postProcessType", (unsigned int)ppc.postprocessType);
 		//CHECK_GL_CALL(glActiveTexture(GL_TEXTURE0 + 0));
 		//CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, m_colorFrameBuffer->getTextureId(0)))
-		//ppc.mesh->getVertexArraies()[0]->bind();
+		//	ppc.mesh->getVertexArraies()[0]->bind();
 		//ppc.mesh->getIndexBuffers()[0]->bind();
 		//CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, ppc.mesh->getIndexBuffers()[0]->getCount(), GL_UNSIGNED_INT, (void*)0));
 		//ppc.renderer->unbind();
@@ -307,7 +307,7 @@ namespace Enternity
 		//ppc.mesh->getVertexArraies()[0]->unbind();
 		//ppc.mesh->getIndexBuffers()[0]->unbind();
 
-		//m_postprocessFrameBuffer->unbind();
+		m_postprocessFrameBuffer->unbind();
 	}
 
 	void RenderSystem::onWindowResize(void* data)
