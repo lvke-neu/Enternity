@@ -1,27 +1,22 @@
 #pragma once
-#include <vector>
-#include <string>
+#include "Engine/Asset.h"
 
 namespace Enternity
 {
 	class VertexArray;
 	class IndexBuffer;
-	class MeshAsset;
-	class Texture;
-	class Mesh
+	class Mesh : public Asset
 	{
 	public:
-		Mesh(MeshAsset* meshAsset);
-		~Mesh();
-		const std::vector<VertexArray*>& getVertexArraies() const;
-		const std::vector <IndexBuffer*>& getIndexBuffers() const;
-		const std::vector <Texture*>& getTextures() const;
-		const std::string& getFullPath() const;
+		virtual ~Mesh();
+	public:
+		virtual void load(BlobHolder* blobHolder) override;
+		virtual void unload() override;
+		void bind();
+		void unbind();
+		void draw();
 	private:
-		std::vector<VertexArray*> m_vertexArraies{ nullptr };
-		std::vector <IndexBuffer*> m_indexBuffers{ nullptr };
-		std::vector <Texture*> m_textures{ nullptr };
-
-		std::string m_fullPath{ "" };
+		VertexArray* m_vertexArray{ nullptr };
+		IndexBuffer* m_indexBuffer{ nullptr };
 	};
 }

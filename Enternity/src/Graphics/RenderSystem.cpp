@@ -2,7 +2,6 @@
 #include "Scene/Scene.h"
 #include "RHI/FrameBuffer/FrameBuffer.h"
 #include "RHI/Mesh/Mesh.h"
-#include "RHI/Mesh/MeshAsset.h"
 #include "RHI/Mesh/VertexArray.h"
 #include "RHI/Mesh/IndexBuffer.h"
 #include "Engine/Engine.h"

@@ -1,17 +1,19 @@
+#pragma once
+#include "Graphics/RHI/RHIAsset.h"
+
 namespace Enternity
 {
-	class MeshAsset;
-	class IndexBuffer
+	class IndexBuffer : public RHIAsset
 	{
 	public:
-		IndexBuffer(MeshAsset* meshAsset, unsigned int location);
-		~IndexBuffer();
+		virtual ~IndexBuffer();
 	public:
+		virtual void load(BlobHolder* blobHolder) override;
+		virtual void unload() override;
 		void bind();
 		void unbind();
-		inline unsigned int getCount();
+		unsigned int getCount();
 	private:
-		unsigned int m_renderId;
 		unsigned int m_count;
 	};
 

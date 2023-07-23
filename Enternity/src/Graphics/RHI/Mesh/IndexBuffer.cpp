@@ -1,36 +1,47 @@
 #include "IndexBuffer.h"
-#include "MeshAsset.h"
-#include "Common/Macro.h"
-#include "Engine/Log.h"
+#include "MeshBlobHolder.h"
+#include "Engine/Blob.h"
 #include <glad/glad.h>
 
 namespace Enternity
 {
-	IndexBuffer::IndexBuffer(MeshAsset* meshAsset, unsigned int location)
-	{
-		if (meshAsset)
-		{
-			m_count = (unsigned int)meshAsset->getIndices()[location].size();
-
-			CHECK_GL_CALL(glGenBuffers(1, &m_renderId));
-			CHECK_GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_renderId));
-			CHECK_GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, meshAsset->getIndexDataSize(location), meshAsset->getIndices()[location].data(), GL_STATIC_DRAW));
-			CHECK_GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-		}
-	}
-
 	IndexBuffer::~IndexBuffer()
 	{
-		CHECK_GL_CALL(glDeleteBuffers(1, &m_renderId));
+		glDeleteBuffers(1, &m_renderId);
+	}
+
+	void IndexBuffer::load(BlobHolder* blobHolder)
+	{
+		MeshBlobHolder* meshBlobHolder = dynamic_cast<MeshBlobHolder*>(blobHolder);
+		if (!meshBlobHolder || !meshBlobHolder->isLoadSucceeded() || !meshBlobHolder->getBlob())
+		{
+			m_state = loading_state_failed;
+			return;
+		}
+
+		m_count = meshBlobHolder->getMeshDesc().indexDataSize / sizeof(unsigned int);
+
+		glGenBuffers(1, &m_renderId);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_renderId);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, meshBlobHolder->getMeshDesc().indexDataSize, (char*)meshBlobHolder->getBlob()->getData() + meshBlobHolder->getMeshDesc().indexDataOffset, GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+		m_state = loading_state_succeeded;
+	}
+
+	void IndexBuffer::unload()
+	{
+		glDeleteBuffers(1, &m_renderId);
+		m_state = loading_state_pending;
 	}
 
 	void IndexBuffer::bind()
 	{
-		CHECK_GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_renderId));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_renderId);
 	}
 
 	void IndexBuffer::unbind()
 	{
-		CHECK_GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 }

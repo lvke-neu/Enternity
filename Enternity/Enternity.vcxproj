@@ -91,6 +91,7 @@
   <ItemGroup>
     <None Include="..\README.md" />
     <None Include="assets\model\cube.bin" />
+    <None Include="assets\shaders\postprocess\postprocess.rdr" />
     <None Include="assets\shaders\test\test2.rdr" />
     <None Include="src\Editor\Imgui\LICENSE" />
     <None Include="src\Editor\Imgui\README.md" />
@@ -146,8 +147,6 @@
     <ClCompile Include="src\Graphics\GraphicsSystem.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\IndexBuffer.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\Mesh.cpp" />
-    <ClCompile Include="src\Graphics\RHI\Mesh\MeshAsset.cpp" />
-    <ClCompile Include="src\Graphics\RHI\Mesh\MeshProvider.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\VertexArray.cpp" />
     <ClCompile Include="src\Graphics\RHI\Texture\stb_image.cpp" />
     <ClCompile Include="src\Graphics\RHI\Texture\Texture.cpp" />
@@ -200,7 +199,6 @@
     <ClInclude Include="src\Graphics\RenderSystem.h" />
     <ClInclude Include="src\Graphics\RHI\FrameBuffer\FrameBuffer.h" />
     <ClInclude Include="src\Graphics\RHI\FrameBuffer\FrameBufferDefine.h" />
-    <ClInclude Include="src\Graphics\RHI\Mesh\MeshDefine.h" />
     <ClInclude Include="src\Engine\AssetLoader.h" />
     <ClInclude Include="src\Pick\PickSystem.h" />
     <ClInclude Include="src\Scene\CameraController.h" />
@@ -214,8 +212,6 @@
     <ClInclude Include="src\Graphics\GraphicsSystem.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\IndexBuffer.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\Mesh.h" />
-    <ClInclude Include="src\Graphics\RHI\Mesh\MeshAsset.h" />
-    <ClInclude Include="src\Graphics\RHI\Mesh\MeshProvider.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\VertexArray.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\VertexDefine.h" />
     <ClInclude Include="src\Graphics\RHI\Texture\stb_image.h" />

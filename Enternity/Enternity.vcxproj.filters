@@ -22,6 +22,7 @@
     <None Include="src\Editor\Imgui\LICENSE" />
     <None Include="src\Editor\Imgui\README.md" />
     <None Include="assets\shaders\test\test2.rdr" />
+    <None Include="assets\shaders\postprocess\postprocess.rdr" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -51,9 +52,6 @@
     <ClCompile Include="src\Graphics\RHI\Texture\Texture.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\RHI\Mesh\MeshAsset.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Graphics\RHI\Mesh\Mesh.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -61,9 +59,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Graphics\RHI\Mesh\IndexBuffer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Graphics\RHI\Mesh\MeshProvider.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\RenderView.cpp">
@@ -227,9 +222,6 @@
     <ClInclude Include="src\Graphics\RHI\Mesh\VertexDefine.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\Mesh\MeshAsset.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Graphics\RHI\Mesh\Mesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -237,9 +229,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\RHI\Mesh\IndexBuffer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\Mesh\MeshProvider.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\RenderView.h">
@@ -327,9 +316,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\ECS\NameComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\Mesh\MeshDefine.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\RHI\FrameBuffer\FrameBufferDefine.h">

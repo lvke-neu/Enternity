@@ -1,83 +1,70 @@
 #include "Mesh.h"
-#include "MeshAsset.h"
+#include "Common/Macro.h"
 #include "VertexArray.h"
 #include "IndexBuffer.h"
-#include "../Texture/Texture.h"
-#include "Common/Macro.h"
-#include "Engine/Engine.h"
-#include "Graphics/GraphicsSystem.h"
-#include "Graphics/RHI/Texture/Texture.h"
+#include <glad/glad.h>
 
 namespace Enternity
 {
-	Mesh::Mesh(MeshAsset* meshAsset)
-	{
-		if (meshAsset)
-		{
-			m_vertexArraies.resize(meshAsset->getVertices().size());
-			m_indexBuffers.resize(meshAsset->getIndices().size());
-			m_textures.resize(meshAsset->getMaterials().size());
-
-			for (int i = 0; i < m_vertexArraies.size(); ++i)
-			{
-				m_vertexArraies[i] = new VertexArray{ meshAsset, (unsigned int)i };
-			}
-
-			for (int i = 0; i < m_indexBuffers.size(); ++i)
-			{
-				m_indexBuffers[i] = new IndexBuffer{ meshAsset, (unsigned int)i };
-			}
-			
-			//for (int i = 0; i < m_textures.size(); ++i)
-			//{
-			//	Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTextureAsyn(meshAsset->getMaterials()[i].c_str(),
-			//		[=](Texture* texture)
-			//		{
-			//			m_textures[i] = texture;
-			//		});
-
-			//	//m_textures[i] = Engine::GetInstance().getGraphicsSystem()->getTextureProvider()->getTextureSync(meshAsset->getMaterials()[i].c_str());
-			//}
-
-			m_fullPath = meshAsset->getFullPath();
-		}
-	}
-
 	Mesh::~Mesh()
 	{
-		for (auto& vertexArray : m_vertexArraies)
-		{
-			SAFE_DELETE_SET_NULL(vertexArray);
-		}
-		
-		for (auto& indexBuffer : m_indexBuffers)
-		{
-			SAFE_DELETE_SET_NULL(indexBuffer);
-		}
+		SAFE_DELETE_SET_NULL(m_vertexArray);
+		SAFE_DELETE_SET_NULL(m_indexBuffer);
+	}
 
-		for (auto& texture : m_textures)
+	void Mesh::load(BlobHolder* blobHolder)
+	{
+		m_vertexArray = new VertexArray;
+		m_indexBuffer = new IndexBuffer;
+		m_vertexArray->load(blobHolder);
+		m_indexBuffer->load(blobHolder);
+		m_state = m_vertexArray->isLoadSucceeded() && m_indexBuffer->isLoadSucceeded() ? loading_state_succeeded : loading_state_failed;
+	}
+
+	void Mesh::unload()
+	{
+		if (m_vertexArray)
 		{
-			SAFE_DELETE_SET_NULL(texture);
+			m_vertexArray->unload();
+		}
+		if (m_indexBuffer)
+		{
+			m_indexBuffer->unload();
+		}
+		SAFE_DELETE_SET_NULL(m_vertexArray);
+		SAFE_DELETE_SET_NULL(m_indexBuffer);
+		m_state = loading_state_pending;
+	}
+
+	void Mesh::bind()
+	{
+		if (m_vertexArray)
+		{
+			m_vertexArray->bind();
+		}
+		if (m_indexBuffer)
+		{
+			m_indexBuffer->bind();
 		}
 	}
 
-	const std::vector<VertexArray*>& Mesh::getVertexArraies() const
+	void Mesh::unbind()
 	{
-		return m_vertexArraies;
+		if (m_vertexArray)
+		{
+			m_vertexArray->unbind();
+		}
+		if (m_indexBuffer)
+		{
+			m_indexBuffer->unbind();
+		}
 	}
 
-	const std::vector <IndexBuffer*>& Mesh::getIndexBuffers() const
+	void Mesh::draw()
 	{
-		return m_indexBuffers;
-	}	
-	
-	const std::vector <Texture*>& Mesh::getTextures() const
-	{
-		return m_textures;
-	}
-
-	const std::string& Mesh::getFullPath() const
-	{
-		return m_fullPath;
+		if (m_indexBuffer)
+		{
+			glDrawElements(GL_TRIANGLES, m_indexBuffer->getCount(), GL_UNSIGNED_INT, (void*)0);
+		}
 	}
 }

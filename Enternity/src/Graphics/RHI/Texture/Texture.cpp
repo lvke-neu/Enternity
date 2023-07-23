@@ -46,6 +46,7 @@ namespace Enternity
 	void Texture2D::unload()
 	{
 		glDeleteTextures(1, &m_renderId);
+		m_state = loading_state_pending;
 	}
 
 	void Texture2D::bind()

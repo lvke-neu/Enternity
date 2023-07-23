@@ -14,7 +14,7 @@ namespace Enternity
 	void Renderer::load(BlobHolder* blobHolder)
 	{
 		RendererBlobHolder* rendererBlobHolder = dynamic_cast<RendererBlobHolder*>(blobHolder);
-		if (!rendererBlobHolder || !rendererBlobHolder->isLoadSucceeded())
+		if (!rendererBlobHolder || !rendererBlobHolder->isLoadSucceeded() || !rendererBlobHolder->getBlob())
 		{
 			m_state = loading_state_failed;
 			return;
@@ -110,6 +110,7 @@ namespace Enternity
 	void Renderer::unload()
 	{
 		glDeleteProgram(m_renderId);
+		m_state = loading_state_pending;
 	}
 
 	void Renderer::bind()

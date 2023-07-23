@@ -1,18 +1,18 @@
 #pragma once
+#include "Graphics/RHI/RHIAsset.h"
 
 namespace Enternity
 {
-	class MeshAsset;
-	class VertexArray
+	class VertexArray : public RHIAsset
 	{
 	public:
-		VertexArray(MeshAsset* meshAsset, unsigned int location);
-		~VertexArray();
+		virtual ~VertexArray();
 	public:
+		virtual void load(BlobHolder* blobHolder) override;
+		virtual void unload() override;
 		void bind();
 		void unbind();
 	private:
-		unsigned int m_renderId;
 		unsigned int m_vbId;
 	};
 }

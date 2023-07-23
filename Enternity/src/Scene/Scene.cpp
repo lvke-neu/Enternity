@@ -5,8 +5,6 @@
 #include "Engine/Engine.h"
 #include "Engine/Blob.h"
 #include "Graphics/GraphicsSystem.h"
-#include "Graphics/RHI/Mesh/MeshProvider.h"
-#include "Graphics/RHI/Mesh/Mesh.h"
 #include "Common/Macro.h"
 #include "CameraController.h"
 

@@ -1,4 +1,5 @@
 #include "MeshBlobHolder.h"
+#include "Mesh.h"
 
 namespace Enternity
 {
@@ -10,7 +11,7 @@ namespace Enternity
 
 	Asset* MeshBlobHolder::createAsset()
 	{
-		return nullptr;
+		return new Mesh;
 	}
 }
 

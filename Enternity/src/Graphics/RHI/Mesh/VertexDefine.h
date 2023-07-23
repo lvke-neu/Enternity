@@ -14,15 +14,13 @@ namespace Enternity
 		long long start;
 	};
 
-
-
 	struct Vertex_Positon_Normal_Texcoord
 	{
 		glm::vec3 position;
 		glm::vec3 normal;
 		glm::vec2 texcoord;
 
-		static std::vector<Layout> layouts;
+		static std::vector<Layout> s_layout;
 	};
 }
 
