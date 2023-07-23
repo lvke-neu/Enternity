@@ -7,7 +7,13 @@ namespace Enternity
 	{
 	public:
 		virtual ~RHIAsset() = default;
+		unsigned int getRenderId();
 	protected:
 		unsigned int m_renderId;
 	};
+
+	inline unsigned int RHIAsset::getRenderId()
+	{
+		return m_renderId;
+	}
 }

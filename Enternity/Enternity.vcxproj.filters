@@ -381,6 +381,9 @@
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scene\ECS\PostProcessComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\TestWindowsFileAsset.txt" />

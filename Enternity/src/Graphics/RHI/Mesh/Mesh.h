@@ -12,9 +12,11 @@ namespace Enternity
 	public:
 		virtual void load(BlobHolder* blobHolder) override;
 		virtual void unload() override;
+		
+		void draw();
+	private:
 		void bind();
 		void unbind();
-		void draw();
 	private:
 		VertexArray* m_vertexArray{ nullptr };
 		IndexBuffer* m_indexBuffer{ nullptr };

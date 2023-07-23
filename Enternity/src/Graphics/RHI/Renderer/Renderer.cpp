@@ -123,6 +123,11 @@ namespace Enternity
 		glUseProgram(0);
 	}
 
+	void Renderer::setUint1(const std::string& name, unsigned int value)
+	{
+		glUniform1uiv(getUniformLocation(name), 1, &value);
+	}
+
 	bool Renderer::compileShader(unsigned int& shader, unsigned int shaderType, const char* shaderSourceCode, const char* path)
 	{
 		shader = glCreateShader(shaderType);
@@ -163,5 +168,20 @@ namespace Enternity
 		}
 
 		return true;
+	}
+
+	int Renderer::getUniformLocation(const std::string& name)
+	{
+		if (m_uniformLocationCache.find(name) != m_uniformLocationCache.end())
+			return m_uniformLocationCache[name];
+
+		int location;
+		location = glGetUniformLocation(m_renderId, name.c_str());
+		m_uniformLocationCache[name] = location;
+		if (location == -1)
+		{
+			LOG_ERROR("uniform: " + name + " doesn't exist (or never use)");
+		}
+		return location;
 	}
 }

@@ -1,14 +1,15 @@
 #include "RenderSystem.h"
 #include "Scene/Scene.h"
 #include "RHI/FrameBuffer/FrameBuffer.h"
-#include "RHI/Mesh/Mesh.h"
-#include "RHI/Mesh/VertexArray.h"
-#include "RHI/Mesh/IndexBuffer.h"
 #include "Engine/Engine.h"
 #include "Engine/Timer.h"
 #include "Engine/EventSystem.h"
 #include "Scene/ECS/CameraComponent.h"
 #include "Scene/ECS/TransformComponent.h"
+#include "Scene/ECS/PostProcessComponent.h"
+#include "RHI/Mesh/Mesh.h"
+#include "RHI/Texture/Texture.h"
+#include "RHI/Renderer/Renderer.h"
 #include <glad/glad.h>
 
 namespace Enternity
@@ -289,22 +290,19 @@ namespace Enternity
 	{
 		m_postprocessFrameBuffer->bind();
 
-		CHECK_GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
-		CHECK_GL_CALL((glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)));
+		glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-		//auto& postprocessEntity = scene->m_scenePostprocess;
-		//auto& ppc = postprocessEntity.getComponent<PostprocessComponent>();
-		//ppc.renderer->bind();
-		//ppc.renderer->setUint1("u_postProcessType", (unsigned int)ppc.postprocessType);
-		//CHECK_GL_CALL(glActiveTexture(GL_TEXTURE0 + 0));
-		//CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, m_colorFrameBuffer->getTextureId(0)))
-		//	ppc.mesh->getVertexArraies()[0]->bind();
-		//ppc.mesh->getIndexBuffers()[0]->bind();
-		//CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, ppc.mesh->getIndexBuffers()[0]->getCount(), GL_UNSIGNED_INT, (void*)0));
-		//ppc.renderer->unbind();
-		//CHECK_GL_CALL(glBindTexture(GL_TEXTURE_2D, 0));
-		//ppc.mesh->getVertexArraies()[0]->unbind();
-		//ppc.mesh->getIndexBuffers()[0]->unbind();
+		auto& postprocessEntity = scene->m_scenePostprocess;
+		auto& ppc = postprocessEntity.getComponent<PostProcessComponent>();
+
+		ppc.renderer->bind();
+		ppc.renderer->setUint1("u_postProcessType", 1);
+		ppc.texture2D->bind(0);
+		ppc.mesh->draw();
+
+		ppc.texture2D->unbind();
+		ppc.renderer->unbind();
 
 		m_postprocessFrameBuffer->unbind();
 	}

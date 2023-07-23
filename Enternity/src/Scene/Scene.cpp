@@ -2,9 +2,13 @@
 #include "ECS/TransformComponent.h"
 #include "ECS/CameraComponent.h"
 #include "ECS/NameComponent.h"
+#include "ECS/PostProcessComponent.h"
 #include "Engine/Engine.h"
-#include "Engine/Blob.h"
-#include "Graphics/GraphicsSystem.h"
+#include "Engine/AssetLoader.h"
+#include "Graphics/RHI/Mesh/Mesh.h"
+#include "Graphics/RHI/Texture/Texture.h"
+#include "Graphics/RHI/Renderer/Renderer.h"
+
 #include "Common/Macro.h"
 #include "CameraController.h"
 
@@ -22,6 +26,12 @@ namespace Enternity
 		m_sceneCamera.addComponent<CameraComponent>().moveSpeed = 30;
 		m_cameraController = new CameraController(&m_sceneCamera);
 
+		m_scenePostprocess = createEntity();
+		m_scenePostprocess.getComponent<NameComponent>().name = "PostProcess";
+		auto& ppc = m_scenePostprocess.addComponent<PostProcessComponent>();
+		ppc.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=plane"));
+		ppc.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/postprocess/postprocess.rdr"));
+		ppc.texture2D = dynamic_cast<Texture2D*>(Engine::GetInstance().getAssetLoader()->getAsset("texture://assets/textures/box_diffuse.png"));
 	}
 
 	Scene::~Scene()

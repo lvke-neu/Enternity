@@ -78,4 +78,5 @@ void main()
         col += sampleTex[i] * kernel[i];
 
     fragColor = vec4(col, 1.0);
+	fragColor =vec4(1,0,0,1);
 };

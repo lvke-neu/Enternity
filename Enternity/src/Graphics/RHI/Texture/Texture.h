@@ -10,7 +10,7 @@ namespace Enternity
 	public:
 		virtual void load(BlobHolder* blobHolder) override;
 		virtual void unload() override;
-		void bind();
+		void bind(unsigned int slot);
 		void unbind();
 	};
 }

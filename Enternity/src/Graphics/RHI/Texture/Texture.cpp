@@ -49,8 +49,9 @@ namespace Enternity
 		m_state = loading_state_pending;
 	}
 
-	void Texture2D::bind()
+	void Texture2D::bind(unsigned int slot)
 	{
+		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_2D, m_renderId);
 	}
 

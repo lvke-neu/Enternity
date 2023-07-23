@@ -205,6 +205,7 @@
     <ClInclude Include="src\Scene\ECS\CameraComponent.h" />
     <ClInclude Include="src\Scene\ECS\Entity.h" />
     <ClInclude Include="src\Scene\ECS\NameComponent.h" />
+    <ClInclude Include="src\Scene\ECS\PostProcessComponent.h" />
     <ClInclude Include="src\Scene\ECS\TransformComponent.h" />
     <ClInclude Include="src\Scene\Scene.h" />
     <ClInclude Include="src\Engine\ThreadPool.h" />

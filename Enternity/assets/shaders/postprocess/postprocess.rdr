@@ -1,4 +1,4 @@
 {
-  "VertexShader": "assets/shaders/test/postprocess.vert",
-  "FragmentShader": "assets/shaders/test/postprocess.frag"
+  "VertexShader": "assets/shaders/postprocess/postprocess.vert",
+  "FragmentShader": "assets/shaders/postprocess/postprocess.frag"
 }

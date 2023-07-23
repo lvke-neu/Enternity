@@ -127,6 +127,7 @@ namespace Enternity
 			indices.data(),
 			meshBlobHolder->m_meshDesc.indexDataSize);
 		meshBlobHolder->loadSucceeded__(blob);
+
 		SAFE_DELETE_SET_NULL(blob);
 	}
 
@@ -156,9 +157,19 @@ namespace Enternity
 		meshBlobHolder->m_meshDesc.vertexDataSize = (unsigned int)vertices.size() * sizeof(Vertex_Positon_Normal_Texcoord);
 		meshBlobHolder->m_meshDesc.indexDataOffset = meshBlobHolder->m_meshDesc.vertexDataSize;
 		meshBlobHolder->m_meshDesc.indexDataSize = (unsigned int)indices.size() * sizeof(unsigned int);
+		meshBlobHolder->m_layout = Vertex_Positon_Normal_Texcoord::s_layout;
 
 		Blob* blob = new Blob(meshBlobHolder->m_meshDesc.vertexDataSize + meshBlobHolder->m_meshDesc.indexDataSize);
+		memcpy_s((char*)blob->getData() + meshBlobHolder->m_meshDesc.vertexDataOffset,
+			meshBlobHolder->m_meshDesc.vertexDataSize,
+			vertices.data(),
+			meshBlobHolder->m_meshDesc.vertexDataSize);
+		memcpy_s((char*)blob->getData() + meshBlobHolder->m_meshDesc.indexDataOffset,
+			meshBlobHolder->m_meshDesc.indexDataSize,
+			indices.data(),
+			meshBlobHolder->m_meshDesc.indexDataSize);
 		meshBlobHolder->loadSucceeded__(blob);
+
 		SAFE_DELETE_SET_NULL(blob);
 	}
 }

@@ -62,9 +62,11 @@ namespace Enternity
 
 	void Mesh::draw()
 	{
+		bind();
 		if (m_indexBuffer)
 		{
 			glDrawElements(GL_TRIANGLES, m_indexBuffer->getCount(), GL_UNSIGNED_INT, (void*)0);
 		}
+		unbind();
 	}
 }
