@@ -10,7 +10,5 @@ namespace Enternity
 	public:
 		virtual BlobHolder* createBlobHolder(const std::string& path);
 		virtual void doLoad(BlobHolder* blobHolder) override;
-	private:
-		void assimpLoad(BlobHolder* blobHolder);
 	};
 }

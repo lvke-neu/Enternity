@@ -29,11 +29,6 @@ namespace Enternity
 		if (!modelBlobHolder)
 			return;
 
-		assimpLoad(blobHolder);
-	}
-
-	void ModelBlobLoader::assimpLoad(BlobHolder* blobHolder)
-	{
 		m_mtx.lock();
 
 		Assimp::Importer importer;
@@ -55,9 +50,8 @@ namespace Enternity
 		};
 
 		std::vector<Mesh> meshes;
-		ModelBlobHolder* modelBlobHolder = dynamic_cast<ModelBlobHolder*>(blobHolder);
-
 		unsigned int offset = 0;
+
 		for (unsigned int i = 0; i < scene->mNumMeshes; i++)
 		{
 			Mesh mesh;
@@ -109,7 +103,7 @@ namespace Enternity
 		{
 			memcpy_s((char*)blob->getData() + modelBlobHolder->m_subMeshDescs[i].vertexDataOffset,
 				modelBlobHolder->m_subMeshDescs[i].vertexDataSize,
-				meshes[i].vertices.data(), 
+				meshes[i].vertices.data(),
 				modelBlobHolder->m_subMeshDescs[i].vertexDataSize);
 
 			memcpy_s((char*)blob->getData() + modelBlobHolder->m_subMeshDescs[i].indexDataOffset,
@@ -117,7 +111,7 @@ namespace Enternity
 				meshes[i].indices.data(),
 				modelBlobHolder->m_subMeshDescs[i].indexDataSize);
 		}
-		
+
 		modelBlobHolder->loadSucceeded__(blob);
 		SAFE_DELETE_SET_NULL(blob);
 

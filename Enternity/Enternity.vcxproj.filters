@@ -151,9 +151,6 @@
     <ClCompile Include="src\Engine\BlobLoaderManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Asset2.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Graphics\RHI\Renderer\RendererBlobLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -178,10 +175,10 @@
     <ClCompile Include="src\Engine\EventSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Detail\model\ModelBlobLoader.cpp">
+    <ClCompile Include="src\Scene\Model\ModelBlobLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Detail\model\ModelBlobHolder.cpp">
+    <ClCompile Include="src\Scene\Model\ModelBlobHolder.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobHolder.cpp">
@@ -333,9 +330,6 @@
     <ClInclude Include="src\Engine\BlobLoaderManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Asset2.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Graphics\RHI\Renderer\RendererBlobLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -369,10 +363,10 @@
     <ClInclude Include="src\Engine\EventSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Detail\model\ModelBlobLoader.h">
+    <ClInclude Include="src\Scene\Model\ModelBlobLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Detail\model\ModelBlobHolder.h">
+    <ClInclude Include="src\Scene\Model\ModelBlobHolder.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobHolder.h">

@@ -14,19 +14,19 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{C07C824F-914A-4BAE-9E62-BBAB127FC59F}</ProjectGuid>
     <RootNamespace>Enternity</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -114,7 +114,6 @@
     <ClCompile Include="src\Editor\StatePanel.cpp" />
     <ClCompile Include="src\Editor\UiRender.cpp" />
     <ClCompile Include="src\Editor\ViewPortPanel.cpp" />
-    <ClCompile Include="src\Engine\Asset2.cpp" />
     <ClCompile Include="src\Engine\Blob.cpp" />
     <ClCompile Include="src\Engine\BlobHolder.cpp" />
     <ClCompile Include="src\Engine\BlobLoader.cpp" />
@@ -122,8 +121,8 @@
     <ClCompile Include="src\Engine\Detail\glad.c" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobHolder.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobLoader.cpp" />
-    <ClCompile Include="src\Engine\Detail\model\ModelBlobHolder.cpp" />
-    <ClCompile Include="src\Engine\Detail\model\ModelBlobLoader.cpp" />
+    <ClCompile Include="src\Scene\Model\ModelBlobHolder.cpp" />
+    <ClCompile Include="src\Scene\Model\ModelBlobLoader.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\RendererBlobHolder.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\RendererBlobLoader.cpp" />
@@ -174,15 +173,14 @@
     <ClInclude Include="src\Editor\UiRender.h" />
     <ClInclude Include="src\Editor\ViewPortPanel.h" />
     <ClInclude Include="src\Engine\Asset.h" />
-    <ClInclude Include="src\Engine\Asset2.h" />
     <ClInclude Include="src\Engine\Blob.h" />
     <ClInclude Include="src\Engine\BlobHolder.h" />
     <ClInclude Include="src\Engine\BlobLoader.h" />
     <ClInclude Include="src\Engine\BlobLoaderManager.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobHolder.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobLoader.h" />
-    <ClInclude Include="src\Engine\Detail\model\ModelBlobHolder.h" />
-    <ClInclude Include="src\Engine\Detail\model\ModelBlobLoader.h" />
+    <ClInclude Include="src\Scene\Model\ModelBlobHolder.h" />
+    <ClInclude Include="src\Scene\Model\ModelBlobLoader.h" />
     <ClInclude Include="src\Graphics\RHI\Renderer\Renderer.h" />
     <ClInclude Include="src\Graphics\RHI\Renderer\RendererBlobHolder.h" />
     <ClInclude Include="src\Graphics\RHI\Renderer\RendererBlobLoader.h" />
