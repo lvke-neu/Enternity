@@ -19,6 +19,5 @@ namespace Enternity
 		void unbind();
 	private:
 		VertexArray* m_vertexArray{ nullptr };
-		IndexBuffer* m_indexBuffer{ nullptr };
 	};
 }

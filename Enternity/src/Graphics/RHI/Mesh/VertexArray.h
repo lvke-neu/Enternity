@@ -12,7 +12,16 @@ namespace Enternity
 		virtual void unload() override;
 		void bind();
 		void unbind();
+
+		unsigned int getCount();
 	private:
 		unsigned int m_vbId;
+		unsigned int m_ibId;
+		unsigned int m_count;
 	};
+
+	inline unsigned int VertexArray::getCount()
+	{
+		return m_count;
+	}
 }

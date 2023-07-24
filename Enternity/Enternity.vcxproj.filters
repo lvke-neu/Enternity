@@ -58,9 +58,6 @@
     <ClCompile Include="src\Graphics\RHI\Mesh\VertexArray.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\RHI\Mesh\IndexBuffer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\RenderView.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -223,9 +220,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\RHI\Mesh\VertexArray.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Graphics\RHI\Mesh\IndexBuffer.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\RenderView.h">
