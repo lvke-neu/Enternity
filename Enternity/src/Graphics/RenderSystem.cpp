@@ -8,13 +8,14 @@
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/PostProcessComponent.h"
 #include "Scene/ECS/SkyBoxComponent.h"
+#include "Scene/ECS/Visual3DComponent.h"
 #include <glad/glad.h>
 
 namespace Enternity
 {
 	RenderSystem::RenderSystem()
 	{
-		m_colorFrameBuffer = new FrameBuffer(100, 100, {ColorAttachmentFormat::RGBA8, ColorAttachmentFormat::RGB8, ColorAttachmentFormat::RED_INTEGER });
+		m_colorFrameBuffer = new FrameBuffer(100, 100, { ColorAttachmentFormat::RGBA8, ColorAttachmentFormat::RGB8, ColorAttachmentFormat::RED_INTEGER });
 		m_postprocessFrameBuffer = new FrameBuffer(100, 100, { ColorAttachmentFormat::RGBA8 });
 		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::WindowResize, BIND(RenderSystem::onWindowResize));
 	}
@@ -40,7 +41,7 @@ namespace Enternity
 
 			CHECK_GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
 			CHECK_GL_CALL((glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)));
-			
+
 			color_path_cull(scene);
 			color_path_skyboxPass(scene);
 			color_path_shadowmapPass(scene);
@@ -53,7 +54,7 @@ namespace Enternity
 
 	void RenderSystem::color_path_cull(Scene* scene)
 	{
-		
+
 	}
 
 	void RenderSystem::color_path_skyboxPass(Scene* scene)
@@ -68,6 +69,15 @@ namespace Enternity
 
 	void RenderSystem::color_path_visual3dPass(Scene* scene)
 	{
+		for (auto& entity : scene->m_entities)
+		{
+			if (entity.second.hasComponent<Visual3DComponent>())
+			{
+				entity.second.getComponent<Visual3DComponent>().draw();
+			}
+		}
+
+
 		//m_triangleCount = 0;
 
 		//auto& cameraComponent = scene->m_sceneCamera.getComponent<CameraComponent>();
