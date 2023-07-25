@@ -17,4 +17,17 @@ namespace Enternity
 		static void Bind(unsigned int renderId, unsigned int slot);
 		static void UnBind();
 	};
+
+	class TextureCubeMap : public RHIAsset
+	{
+		//	virtual ~TextureCubeMap();
+		//public:
+		//	virtual void load(BlobHolder* blobHolder) override;
+		//	virtual void unload() override;
+		//	void bind(unsigned int slot);
+		//	void unbind();
+
+		virtual void load(BlobHolder* blobHolder) override {}
+		virtual void unload() override {}
+	};
 }

@@ -13,10 +13,10 @@ namespace Enternity
 
 	void Texture2D::load(BlobHolder* blobHolder)
 	{
-		TextureBlobHolder* textureBlobHolder = dynamic_cast<TextureBlobHolder*>(blobHolder);
-		if (!textureBlobHolder || 
-			!textureBlobHolder->isLoadSucceeded() ||
-			!textureBlobHolder->getBlob())
+		Texture2DBlobHolder* texture2DBlobHolder = dynamic_cast<Texture2DBlobHolder*>(blobHolder);
+		if (!texture2DBlobHolder ||
+			!texture2DBlobHolder->isLoadSucceeded() ||
+			!texture2DBlobHolder->getBlob())
 		{
 			m_state = loading_state_failed;
 			return;
@@ -30,13 +30,13 @@ namespace Enternity
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-		if (textureBlobHolder->m_channels == 3)
+		if (texture2DBlobHolder->m_channels == 3)
 		{
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureBlobHolder->m_width, textureBlobHolder->m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureBlobHolder->getBlob()->getData());
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture2DBlobHolder->m_width, texture2DBlobHolder->m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, texture2DBlobHolder->getBlob()->getData());
 		}
-		else if (textureBlobHolder->m_channels == 4)
+		else if (texture2DBlobHolder->m_channels == 4)
 		{
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureBlobHolder->m_width, textureBlobHolder->m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureBlobHolder->getBlob()->getData());
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture2DBlobHolder->m_width, texture2DBlobHolder->m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture2DBlobHolder->getBlob()->getData());
 		}
 
 		glBindTexture(GL_TEXTURE_2D, 0);

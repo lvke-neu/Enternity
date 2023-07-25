@@ -3,12 +3,34 @@
 
 namespace Enternity
 {
+	//#########################################################################################
 	class TextureBlobHolder : public BlobHolder
+	{
+	public:
+		TextureBlobHolder(BlobLoader* blobLoader, const char* path);
+		enum TextureType
+		{
+			None,
+			Texture_2D,
+			Texture_Cube_Map
+		};
+		TextureType getTextureType();
+	protected:
+		TextureType m_textureType{ None };
+	};
+
+	inline TextureBlobHolder::TextureType TextureBlobHolder::getTextureType()
+	{
+		return m_textureType;
+	}
+
+	//#########################################################################################
+	class Texture2DBlobHolder : public TextureBlobHolder
 	{
 		friend class Texture2D;
 		friend class TextureBlobLoader;
 	public:
-		TextureBlobHolder(BlobLoader* blobLoader, const char* path);
+		Texture2DBlobHolder(BlobLoader* blobLoader, const char* path);
 		virtual Asset* createAsset() override;
 	public:
 		int getWidth();
@@ -22,23 +44,33 @@ namespace Enternity
 		bool m_bSlip;
 	};
 
-	inline void TextureBlobHolder::setSlip(bool flag)
+	inline void Texture2DBlobHolder::setSlip(bool flag)
 	{
 		m_bSlip = flag;
 	}
 
-	inline int TextureBlobHolder::getWidth()
+	inline int Texture2DBlobHolder::getWidth()
 	{
 		return m_width;
 	}
 
-	inline int TextureBlobHolder::getHeight()
+	inline int Texture2DBlobHolder::getHeight()
 	{
 		return m_height;
 	}
 
-	inline int TextureBlobHolder::getChannels()
+	inline int Texture2DBlobHolder::getChannels()
 	{
 		return m_channels;
 	}
+
+	//#########################################################################################
+	class TextureCubeMapBlobHolder : public TextureBlobHolder
+	{
+		friend class TextureCubeMap;
+		friend class TextureBlobLoader;
+	public:
+		TextureCubeMapBlobHolder(BlobLoader* blobLoader, const char* path);
+		virtual Asset* createAsset() override;
+	};
 }

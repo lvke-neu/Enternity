@@ -15,42 +15,71 @@ namespace Enternity
 
 	void TextureBlobLoader::doLoad(BlobHolder* blobHolder)
 	{
-		if (blobHolder->getLoadingState() != BlobHolder::loading_state_pending)
-			return;
-
 		TextureBlobHolder* textureBlobHolder = dynamic_cast<TextureBlobHolder*>(blobHolder);
-		if (!textureBlobHolder)
+		if (!textureBlobHolder || blobHolder->getLoadingState() != BlobHolder::loading_state_pending)
 			return;
 
-		m_mtx.lock();
-
-		unsigned char* tmpTexture;
-
-		stbi_set_flip_vertically_on_load(textureBlobHolder->m_bSlip);
-		tmpTexture = stbi_load(textureBlobHolder->getPath(), &textureBlobHolder->m_width, &textureBlobHolder->m_height, &textureBlobHolder->m_channels, 0);
-		if (!tmpTexture)
+		if (textureBlobHolder->getTextureType() == TextureBlobHolder::Texture_2D)
 		{
-			LOG_ERROR("Texture load failed:{0}", textureBlobHolder->getPath());
-			textureBlobHolder->loadFailed__();
+			m_mtx.lock();
+
+			Texture2DBlobHolder* texture2DBlobHolder = dynamic_cast<Texture2DBlobHolder*>(textureBlobHolder);
+
+			unsigned char* tmpTexture;
+
+			stbi_set_flip_vertically_on_load(texture2DBlobHolder->m_bSlip);
+			tmpTexture = stbi_load(texture2DBlobHolder->getPath(), &texture2DBlobHolder->m_width, &texture2DBlobHolder->m_height, &texture2DBlobHolder->m_channels, 0);
+			if (!tmpTexture)
+			{
+				LOG_ERROR("Texture load failed:{0}", texture2DBlobHolder->getPath());
+				texture2DBlobHolder->loadFailed__();
+				m_mtx.unlock();
+				return;
+			}
+
+			Blob* blob = new Blob(texture2DBlobHolder->m_width * texture2DBlobHolder->m_height * texture2DBlobHolder->m_channels);
+
+			memcpy_s(blob->getData(), blob->getLength(), tmpTexture, blob->getLength());
+
+			stbi_image_free(tmpTexture);
+
+			texture2DBlobHolder->loadSucceeded__(blob);
+			SAFE_DELETE_SET_NULL(blob);
+
 			m_mtx.unlock();
+
 			return;
 		}
+		else if (textureBlobHolder->getTextureType() == TextureBlobHolder::Texture_Cube_Map)
+		{
+			return;
+		}
+		else
+		{
+			LOG_ERROR("TextureBlobHolder type==None");
+		}
 
-		Blob* blob = new Blob(textureBlobHolder->m_width * textureBlobHolder->m_height * textureBlobHolder->m_channels);
-
-		memcpy_s(blob->getData(), blob->getLength(), tmpTexture, blob->getLength());
-
-		stbi_image_free(tmpTexture);
-
-		textureBlobHolder->loadSucceeded__(blob);
-		SAFE_DELETE_SET_NULL(blob);
-
-		m_mtx.unlock();
 	}
 
 	BlobHolder* TextureBlobLoader::createBlobHolder(const char* path)
 	{
-		return new TextureBlobHolder(this, path);
+		std::string texPath(path);
+		size_t pos = texPath.find("://");
+		if (pos != texPath.npos)
+		{
+			texPath = texPath.substr(pos + 3);
+		}
+
+		if (strncmp("TEXTURE_2D?", texPath.c_str(), 11) == 0)
+		{
+			return new Texture2DBlobHolder(this, texPath.substr(11).c_str());
+		}
+		else if(strncmp("CUBE_MAP?", texPath.c_str(), 9) == 0)
+		{
+			return new TextureCubeMapBlobHolder(this, texPath.substr(9).c_str());
+		}
+
+		return  nullptr;
 	}
 
 }

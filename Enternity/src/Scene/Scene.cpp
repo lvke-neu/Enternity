@@ -29,6 +29,9 @@ namespace Enternity
 		auto& ppc = m_scenePostprocess.addComponent<PostProcessComponent>();
 		ppc.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=plane"));
 		ppc.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/postprocess/postprocess.rdr"));
+
+		auto tex = dynamic_cast<Texture2D*>(Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/box_diffuse.png"));
+		int i = 0;
 	}
 
 	Scene::~Scene()

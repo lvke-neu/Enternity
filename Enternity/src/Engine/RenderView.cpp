@@ -94,21 +94,21 @@ namespace Enternity
 		BlobLoader* blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(path);
 		if (blobLoader)
 		{
-			TextureBlobHolder* textureBlobHolder = dynamic_cast<TextureBlobHolder*>(blobLoader->createBlobHolder(path));
-			if (textureBlobHolder)
+			Texture2DBlobHolder* texture2DBlobHolder = dynamic_cast<Texture2DBlobHolder*>(blobLoader->createBlobHolder(path));
+			if (texture2DBlobHolder)
 			{
-				textureBlobHolder->setSlip(false);
-				textureBlobHolder->load(0);
-				if (textureBlobHolder->isLoadSucceeded())
+				texture2DBlobHolder->setSlip(false);
+				texture2DBlobHolder->load(0);
+				if (texture2DBlobHolder->isLoadSucceeded())
 				{
 					GLFWimage images[1];
-					images[0].pixels = (unsigned char*)textureBlobHolder->getBlob()->getData();
-					images[0].width = textureBlobHolder->getWidth();
-					images[0].height = textureBlobHolder->getHeight();
+					images[0].pixels = (unsigned char*)texture2DBlobHolder->getBlob()->getData();
+					images[0].width = texture2DBlobHolder->getWidth();
+					images[0].height = texture2DBlobHolder->getHeight();
 					glfwSetWindowIcon(m_context, 1, images);
 				}
 
-				SAFE_DELETE_SET_NULL(textureBlobHolder);
+				SAFE_DELETE_SET_NULL(texture2DBlobHolder);
 			}
 		}
 	}
