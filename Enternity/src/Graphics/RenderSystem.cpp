@@ -27,7 +27,7 @@ namespace Enternity
 
 	void RenderSystem::render(Scene* scene)
 	{
-		//color_path(scene);
+		color_path(scene);
 		postprocess_path(scene);
 	}
 
@@ -292,7 +292,7 @@ namespace Enternity
 
 		auto& postprocessEntity = scene->m_scenePostprocess;
 		auto& ppc = postprocessEntity.getComponent<PostProcessComponent>();
-		ppc.draw();
+		ppc.draw(m_colorFrameBuffer->getTextureId(0));
 
 		m_postprocessFrameBuffer->unbind();
 	}

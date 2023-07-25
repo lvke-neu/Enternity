@@ -8,10 +8,8 @@
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Texture/Texture.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
-
 #include "Common/Macro.h"
 #include "CameraController.h"
-
 
 namespace Enternity
 {
@@ -31,7 +29,6 @@ namespace Enternity
 		auto& ppc = m_scenePostprocess.addComponent<PostProcessComponent>();
 		ppc.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=plane"));
 		ppc.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/postprocess/postprocess.rdr"));
-		ppc.texture2D = dynamic_cast<Texture2D*>(Engine::GetInstance().getAssetLoader()->getAsset("texture://assets/textures/box_diffuse.png"));
 	}
 
 	Scene::~Scene()

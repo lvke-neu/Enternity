@@ -12,5 +12,9 @@ namespace Enternity
 		virtual void unload() override;
 		void bind(unsigned int slot);
 		void unbind();
+	public:
+		//bind existing texture
+		static void Bind(unsigned int renderId, unsigned int slot);
+		static void UnBind();
 	};
 }

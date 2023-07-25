@@ -59,4 +59,15 @@ namespace Enternity
 	{
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
+
+	void Texture2D::Bind(unsigned int renderId, unsigned int slot)
+	{
+		glActiveTexture(GL_TEXTURE0 + slot);
+		glBindTexture(GL_TEXTURE_2D, renderId);
+	}
+
+	void Texture2D::UnBind()
+	{
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 }
