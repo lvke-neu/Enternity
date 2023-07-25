@@ -63,27 +63,27 @@ namespace Enternity
 
 	void Scene::deleteEntityById(entt::entity id)
 	{
-		//auto it = m_entities.find(id);
-		//if (it != m_entities.end())
-		//{
-		//	if (it->second.hasComponent<Visual3DComponent>())
-		//	{
-		//		it->second.getComponent<Visual3DComponent>().release();
-		//	}
+		auto it = m_entities.find(id);
+		if (it != m_entities.end())
+		{
+			//if (it->second.hasComponent<Visual3DComponent>())
+			//{
+			//	it->second.getComponent<Visual3DComponent>().release();
+			//}
 
-		//	if (it->second.hasComponent<PostprocessComponent>())
-		//	{
-		//		it->second.getComponent<PostprocessComponent>().release();
-		//	}			
-		//	
-		//	if (it->second.hasComponent<SkyboxComponent>())
-		//	{
-		//		it->second.getComponent<SkyboxComponent>().release();
-		//	}
+			if (it->second.hasComponent<PostProcessComponent>())
+			{
+				it->second.getComponent<PostProcessComponent>().release();
+			}			
+			
+			//if (it->second.hasComponent<SkyboxComponent>())
+			//{
+			//	it->second.getComponent<SkyboxComponent>().release();
+			//}
 
-		//	m_registry.destroy(it->first);
-		//	m_entities.erase(id);
-		//}
+			m_registry.destroy(it->first);
+			m_entities.erase(id);
+		}
 	}
 
 	void Scene::deleteAllEntity()
@@ -95,10 +95,10 @@ namespace Enternity
 			//	it->second.getComponent<Visual3DComponent>().release();
 			//}
 
-			//if (it->second.hasComponent<PostprocessComponent>())
-			//{
-			//	it->second.getComponent<PostprocessComponent>().release();
-			//}
+			if (it->second.hasComponent<PostProcessComponent>())
+			{
+				it->second.getComponent<PostProcessComponent>().release();
+			}
 
 			//if (it->second.hasComponent<SkyboxComponent>())
 			//{

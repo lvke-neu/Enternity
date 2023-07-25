@@ -121,6 +121,7 @@
     <ClCompile Include="src\Engine\Detail\glad.c" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobHolder.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobLoader.cpp" />
+    <ClCompile Include="src\Scene\ECS\PostProcessComponent.cpp" />
     <ClCompile Include="src\Scene\Model\ModelBlobHolder.cpp" />
     <ClCompile Include="src\Scene\Model\ModelBlobLoader.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\Renderer.cpp" />

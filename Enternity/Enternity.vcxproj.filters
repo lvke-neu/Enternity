@@ -181,6 +181,9 @@
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scene\ECS\PostProcessComponent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Blob.h">

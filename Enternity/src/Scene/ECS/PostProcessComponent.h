@@ -10,5 +10,8 @@ namespace Enternity
 		Mesh* mesh{ nullptr };
 		Renderer* renderer{ nullptr };
 		Texture2D* texture2D{ nullptr };
+
+		void draw();
+		void release();
 	};
 }

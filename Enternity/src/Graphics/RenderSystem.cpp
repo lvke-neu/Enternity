@@ -7,9 +7,6 @@
 #include "Scene/ECS/CameraComponent.h"
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/PostProcessComponent.h"
-#include "RHI/Mesh/Mesh.h"
-#include "RHI/Texture/Texture.h"
-#include "RHI/Renderer/Renderer.h"
 #include <glad/glad.h>
 
 namespace Enternity
@@ -295,14 +292,7 @@ namespace Enternity
 
 		auto& postprocessEntity = scene->m_scenePostprocess;
 		auto& ppc = postprocessEntity.getComponent<PostProcessComponent>();
-
-		ppc.renderer->bind();
-		ppc.renderer->setUint1("u_postProcessType", 1);
-		ppc.texture2D->bind(0);
-		ppc.mesh->draw();
-
-		ppc.texture2D->unbind();
-		ppc.renderer->unbind();
+		ppc.draw();
 
 		m_postprocessFrameBuffer->unbind();
 	}
