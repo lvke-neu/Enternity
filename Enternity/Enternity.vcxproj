@@ -145,7 +145,6 @@
     <ClCompile Include="src\Engine\Timer.cpp" />
     <ClCompile Include="src\Graphics\GraphicsSystem.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\Mesh.cpp" />
-    <ClCompile Include="src\Graphics\RHI\Mesh\VertexArray.cpp" />
     <ClCompile Include="src\Graphics\RHI\Texture\stb_image.cpp" />
     <ClCompile Include="src\Graphics\RHI\Texture\Texture.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -209,7 +208,6 @@
     <ClInclude Include="src\Engine\Timer.h" />
     <ClInclude Include="src\Graphics\GraphicsSystem.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\Mesh.h" />
-    <ClInclude Include="src\Graphics\RHI\Mesh\VertexArray.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\VertexDefine.h" />
     <ClInclude Include="src\Graphics\RHI\Texture\stb_image.h" />
     <ClInclude Include="src\Graphics\RHI\Texture\Texture.h" />

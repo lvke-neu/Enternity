@@ -1,55 +1,76 @@
 #include "Mesh.h"
-#include "Common/Macro.h"
-#include "VertexArray.h"
+#include "MeshBlobHolder.h"
+#include "Engine/Blob.h"
 #include <glad/glad.h>
 
 namespace Enternity
 {
 	Mesh::~Mesh()
 	{
-		SAFE_DELETE_SET_NULL(m_vertexArray);
+		glDeleteBuffers(1, &m_vbId);
+		glDeleteBuffers(1, &m_ibId);
+		glDeleteVertexArrays(1, &m_renderId);
 	}
 
 	void Mesh::load(BlobHolder* blobHolder)
 	{
-		m_vertexArray = new VertexArray;
-		m_vertexArray->load(blobHolder);
-		m_state = m_vertexArray->isLoadSucceeded() ? loading_state_succeeded : loading_state_failed;
+		MeshBlobHolder* meshBlobHolder = dynamic_cast<MeshBlobHolder*>(blobHolder);
+		if (!meshBlobHolder || !meshBlobHolder->isLoadSucceeded() || !meshBlobHolder->getBlob())
+		{
+			m_state = loading_state_failed;
+			return;
+		}
+
+		glGenVertexArrays(1, &m_renderId);
+		glBindVertexArray(m_renderId);
+
+		//generate vertexbuffer
+		glGenBuffers(1, &m_vbId);
+		glBindBuffer(GL_ARRAY_BUFFER, m_vbId);
+		glBufferData(GL_ARRAY_BUFFER, meshBlobHolder->getMeshDesc().vertexDataSize, (char*)meshBlobHolder->getBlob()->getData() + meshBlobHolder->getMeshDesc().vertexDataOffset, GL_STATIC_DRAW);
+
+		//generate indexbuffer
+		m_count = meshBlobHolder->getMeshDesc().indexDataSize / sizeof(unsigned int);
+		glGenBuffers(1, &m_ibId);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibId);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, meshBlobHolder->getMeshDesc().indexDataSize, (char*)meshBlobHolder->getBlob()->getData() + meshBlobHolder->getMeshDesc().indexDataOffset, GL_STATIC_DRAW);
+
+		const auto& Layout = meshBlobHolder->getLayout();
+		for (const auto& layout : Layout)
+		{
+			glEnableVertexAttribArray(layout.index);
+			glVertexAttribPointer(layout.index, layout.count, layout.type, layout.normalized, layout.stride, (void*)(layout.start));
+		}
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		glBindVertexArray(0);	
+
+		m_state = loading_state_succeeded;
 	}
 
 	void Mesh::unload()
 	{
-		if (m_vertexArray)
-		{
-			m_vertexArray->unload();
-		}
-		SAFE_DELETE_SET_NULL(m_vertexArray);
+		glDeleteBuffers(1, &m_vbId);
+		glDeleteBuffers(1, &m_ibId);
+		glDeleteVertexArrays(1, &m_renderId);
 		m_state = loading_state_pending;
 	}
 
 	void Mesh::bind()
 	{
-		if (m_vertexArray)
-		{
-			m_vertexArray->bind();
-		}
+		glBindVertexArray(m_renderId);
 	}
 
 	void Mesh::unbind()
 	{
-		if (m_vertexArray)
-		{
-			m_vertexArray->unbind();
-		}
+		glBindVertexArray(0);
 	}
 
 	void Mesh::draw()
 	{
 		bind();
-		if (m_vertexArray)
-		{
-			glDrawElements(GL_TRIANGLES, m_vertexArray->getCount(), GL_UNSIGNED_INT, (void*)0);
-		}
+		glDrawElements(GL_TRIANGLES, m_count, GL_UNSIGNED_INT, (void*)0);
 		unbind();
 	}
 }

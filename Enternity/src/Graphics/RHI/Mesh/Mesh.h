@@ -1,23 +1,23 @@
 #pragma once
-#include "Engine/Asset.h"
+#include "Graphics/RHI/RHIAsset.h"
 
 namespace Enternity
 {
-	class VertexArray;
-	class IndexBuffer;
-	class Mesh : public Asset
+	class Mesh : public RHIAsset
 	{
 	public:
 		virtual ~Mesh();
 	public:
 		virtual void load(BlobHolder* blobHolder) override;
 		virtual void unload() override;
-		
+	public:
 		void draw();
 	private:
 		void bind();
 		void unbind();
 	private:
-		VertexArray* m_vertexArray{ nullptr };
+		unsigned int m_vbId;
+		unsigned int m_ibId;
+		unsigned int m_count;
 	};
 }
