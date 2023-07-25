@@ -49,7 +49,14 @@ namespace Enternity
 		auto& v3d = entity1.addComponent<Visual3DComponent>();
 		v3d.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube"));
 		v3d.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/hdr/hdr.rdr"));
-		v3d.texture2D = dynamic_cast<Texture2D*>(Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D_HDR?assets/textures/hdr/newport_loft.hdr"));
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D_HDR?assets/textures/hdr/spree_bank_4k.hdr",
+			[=](Asset* asset)
+			{
+				auto& v3d = entity1.getComponent<Visual3DComponent>();
+				v3d.texture2D = dynamic_cast<Texture2D*>(asset);
+			});
+		
+		//v3d.texture2D = dynamic_cast<Texture2D*>(Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D_HDR?assets/textures/hdr/blue_photo_studio_4k.hdr"));
 	}
 
 	Scene::~Scene()
