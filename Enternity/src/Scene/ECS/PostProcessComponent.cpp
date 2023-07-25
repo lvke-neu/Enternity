@@ -1,4 +1,7 @@
 #include "PostProcessComponent.h"
+#include "Engine/Engine.h"
+#include "Graphics/GraphicsSystem.h"
+#include "Graphics/RHI/FrameBuffer/FrameBuffer.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"
@@ -6,13 +9,13 @@
 
 namespace Enternity
 {
-	void PostProcessComponent::draw(unsigned int textureId)
+	void PostProcessComponent::draw()
 	{
 		if (renderer && mesh)
 		{
 			renderer->bind();
 			renderer->setUint1("u_postProcessType", 0);
-			Texture2D::Bind(textureId, 0);
+			Texture2D::Bind(Engine::GetInstance().getGraphicsSystem()->getColorFrameBuffer()->getTextureId(0), 0);
 			mesh->draw();
 			Texture2D::UnBind();
 			renderer->unbind();

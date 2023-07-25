@@ -75,8 +75,17 @@ namespace Enternity
 		for (int i = 0; i < 6; i++)
 		{
 			textureCubeMapBlobHolder->m_texture2DBlobHolders[i] = new Texture2DBlobHolder(this, textureCubeMapBlobHolder->m_paths[i].c_str());
+			textureCubeMapBlobHolder->m_texture2DBlobHolders[i]->setSlip(false);
 			textureCubeMapBlobHolder->m_texture2DBlobHolders[i]->load(0);
+			if (!textureCubeMapBlobHolder->m_texture2DBlobHolders[i]->isLoadSucceeded())
+			{
+				textureCubeMapBlobHolder->loadFailed__();
+				m_mtx2.unlock();
+				return;
+			}
 		}
+
+		textureCubeMapBlobHolder->loadSucceeded__();
 
 		m_mtx2.unlock();
 	}

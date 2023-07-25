@@ -7,6 +7,7 @@
 #include "Scene/ECS/CameraComponent.h"
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/PostProcessComponent.h"
+#include "Scene/ECS/SkyBoxComponent.h"
 #include <glad/glad.h>
 
 namespace Enternity
@@ -57,32 +58,7 @@ namespace Enternity
 
 	void RenderSystem::color_path_skyboxPass(Scene* scene)
 	{
-		//auto& cameraComponent = scene->m_sceneCamera.getComponent<CameraComponent>();
-		//auto& cameraTransformComponent = scene->m_sceneCamera.getComponent<TransformComponent>();
-
-		//if (scene->m_skybox.getComponent<SkyboxComponent>().skyboxType != SkyboxComponent::SkyboxType::None)
-		//{
-		//	auto& skyboxComponent = scene->m_skybox.getComponent<SkyboxComponent>();
-		//	if (skyboxComponent.mesh && skyboxComponent.renderer && skyboxComponent.cubeMapTexture)
-		//	{
-		//		glDepthFunc(GL_LEQUAL);
-
-		//		skyboxComponent.renderer->bind();
-		//		skyboxComponent.renderer->setMat4("u_mvp", cameraComponent.getProjectionMatrix() * glm::mat4(glm::mat3(cameraTransformComponent.getInverseWorldMatrix())));
-		//		skyboxComponent.renderer->setInt1("u_entityId", -1);
-		//		skyboxComponent.mesh->getVertexArraies()[0]->bind();
-		//		skyboxComponent.mesh->getIndexBuffers()[0]->bind();
-		//		skyboxComponent.cubeMapTexture->bind(0);
-		//		CHECK_GL_CALL(glDrawElements(GL_TRIANGLES, skyboxComponent.mesh->getIndexBuffers()[0]->getCount(), GL_UNSIGNED_INT, (void*)0));
-
-		//		skyboxComponent.renderer->unbind();
-		//		skyboxComponent.mesh->getVertexArraies()[0]->unbind();
-		//		skyboxComponent.mesh->getIndexBuffers()[0]->unbind();
-		//		skyboxComponent.cubeMapTexture->unbind();
-
-		//		glDepthFunc(GL_LESS);
-		//	}
-		//}
+		scene->m_sceneSkybox.getComponent<SkyBoxComponent>().draw();
 	}
 
 	void RenderSystem::color_path_shadowmapPass(Scene* scene)
@@ -292,7 +268,7 @@ namespace Enternity
 
 		auto& postprocessEntity = scene->m_scenePostprocess;
 		auto& ppc = postprocessEntity.getComponent<PostProcessComponent>();
-		ppc.draw(m_colorFrameBuffer->getTextureId(0));
+		ppc.draw();
 
 		m_postprocessFrameBuffer->unbind();
 	}

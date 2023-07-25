@@ -23,6 +23,7 @@
     <None Include="src\Editor\Imgui\README.md" />
     <None Include="assets\shaders\test\test2.rdr" />
     <None Include="assets\shaders\postprocess\postprocess.rdr" />
+    <None Include="assets\shaders\skybox\skybox.rdr" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -182,6 +183,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\ECS\PostProcessComponent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\ECS\SkyBoxComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -367,6 +371,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\ECS\PostProcessComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\ECS\SkyBoxComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

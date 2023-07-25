@@ -123,9 +123,19 @@ namespace Enternity
 		glUseProgram(0);
 	}
 
+	void Renderer::setInt1(const std::string& name, int value)
+	{
+		glUniform1iv(getUniformLocation(name), 1, &value);
+	}
+
 	void Renderer::setUint1(const std::string& name, unsigned int value)
 	{
 		glUniform1uiv(getUniformLocation(name), 1, &value);
+	}
+
+	void Renderer::setMat4(const std::string& name, const glm::mat4& mat4, bool normalize)
+	{
+		glUniformMatrix4fv(getUniformLocation(name), 1, normalize, &mat4[0][0]);
 	}
 
 	bool Renderer::compileShader(unsigned int& shader, unsigned int shaderType, const char* shaderSourceCode, const char* path)

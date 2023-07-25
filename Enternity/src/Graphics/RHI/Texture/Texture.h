@@ -3,6 +3,7 @@
 
 namespace Enternity
 {
+	//#########################################################################################
 	class Texture2D : public RHIAsset
 	{
 	public:
@@ -18,16 +19,15 @@ namespace Enternity
 		static void UnBind();
 	};
 
+	//#########################################################################################
 	class TextureCubeMap : public RHIAsset
 	{
-		//	virtual ~TextureCubeMap();
-		//public:
-		//	virtual void load(BlobHolder* blobHolder) override;
-		//	virtual void unload() override;
-		//	void bind(unsigned int slot);
-		//	void unbind();
-
-		virtual void load(BlobHolder* blobHolder) override {}
-		virtual void unload() override {}
+	public:
+			virtual ~TextureCubeMap();
+		public:
+			virtual void load(BlobHolder* blobHolder) override;
+			virtual void unload() override;
+			void bind(unsigned int slot);
+			void unbind();
 	};
 }

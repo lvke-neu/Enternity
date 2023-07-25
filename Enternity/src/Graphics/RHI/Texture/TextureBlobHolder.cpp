@@ -50,4 +50,9 @@ namespace Enternity
 	{
 		return new TextureCubeMap;
 	}
+
+	void TextureCubeMapBlobHolder::loadSucceeded__()
+	{
+		m_state = loading_state_succeeded;
+	}
 }

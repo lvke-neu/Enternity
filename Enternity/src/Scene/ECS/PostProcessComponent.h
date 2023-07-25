@@ -9,7 +9,7 @@ namespace Enternity
 		Mesh* mesh{ nullptr };
 		Renderer* renderer{ nullptr };
 
-		void draw(unsigned int textureId);
+		void draw();
 		void release();
 	};
 }

@@ -3,6 +3,7 @@
 #include "ECS/CameraComponent.h"
 #include "ECS/NameComponent.h"
 #include "ECS/PostProcessComponent.h"
+#include "ECS/SkyBoxComponent.h"
 #include "Engine/Engine.h"
 #include "Engine/AssetLoader.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
@@ -30,8 +31,17 @@ namespace Enternity
 		ppc.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=plane"));
 		ppc.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/postprocess/postprocess.rdr"));
 
-		auto tex = dynamic_cast<TextureCubeMap*>(Engine::GetInstance().getAssetLoader()->getAsset("texture://CUBE_MAP?assets/textures/skybox/daylight/.png"));
-		int i = 0;
+		m_sceneSkybox = createEntity();
+		m_sceneSkybox.getComponent<NameComponent>().name = "SkyBox";
+		auto& skybox = m_sceneSkybox.addComponent<SkyBoxComponent>();
+		skybox.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube"));
+		skybox.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/skybox/skybox.rdr"));
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://CUBE_MAP?assets/textures/skybox/daylight/.png",
+			[&](Asset* asset)
+			{
+				auto& skybox = m_sceneSkybox.getComponent<SkyBoxComponent>();
+				skybox.textureCubeMap = dynamic_cast<TextureCubeMap*>(asset);
+			});
 	}
 
 	Scene::~Scene()
@@ -76,10 +86,10 @@ namespace Enternity
 				it->second.getComponent<PostProcessComponent>().release();
 			}			
 			
-			//if (it->second.hasComponent<SkyboxComponent>())
-			//{
-			//	it->second.getComponent<SkyboxComponent>().release();
-			//}
+			if (it->second.hasComponent<SkyBoxComponent>())
+			{
+				it->second.getComponent<SkyBoxComponent>().release();
+			}
 
 			m_registry.destroy(it->first);
 			m_entities.erase(id);
@@ -100,10 +110,10 @@ namespace Enternity
 				it->second.getComponent<PostProcessComponent>().release();
 			}
 
-			//if (it->second.hasComponent<SkyboxComponent>())
-			//{
-			//	it->second.getComponent<SkyboxComponent>().release();
-			//}
+			if (it->second.hasComponent<SkyBoxComponent>())
+			{
+				it->second.getComponent<SkyBoxComponent>().release();
+			}
 
 			m_registry.destroy(it->first);
 			it = m_entities.erase(it);

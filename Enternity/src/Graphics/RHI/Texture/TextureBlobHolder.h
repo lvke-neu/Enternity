@@ -72,6 +72,7 @@ namespace Enternity
 	public:
 		TextureCubeMapBlobHolder(BlobLoader* blobLoader, const char* path);
 		virtual Asset* createAsset() override;
+		void loadSucceeded__();
 	private:
 		Texture2DBlobHolder* m_texture2DBlobHolders[6];
 		std::string m_paths[6];
