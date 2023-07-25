@@ -20,6 +20,13 @@ namespace Enternity
 	};
 
 	//#########################################################################################
+	class Texture2DHDR : public Texture2D
+	{
+	public:
+		virtual void load(BlobHolder* blobHolder) override;
+	};
+
+	//#########################################################################################
 	class TextureCubeMap : public RHIAsset
 	{
 	public:

@@ -72,6 +72,35 @@ namespace Enternity
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
+
+	//#########################################################################################
+	void Texture2DHDR::load(BlobHolder* blobHolder)
+	{
+		Texture2DHDRBlobHolder* texture2DHDRBlobHolder = dynamic_cast<Texture2DHDRBlobHolder*>(blobHolder);
+		if (!texture2DHDRBlobHolder ||
+			!texture2DHDRBlobHolder->isLoadSucceeded() ||
+			!texture2DHDRBlobHolder->getBlob())
+		{
+			m_state = loading_state_failed;
+			return;
+		}
+
+		glGenTextures(1, &m_renderId);
+		glBindTexture(GL_TEXTURE_2D, m_renderId);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, texture2DHDRBlobHolder->m_width, texture2DHDRBlobHolder->m_height, 0, GL_RGB, GL_FLOAT, texture2DHDRBlobHolder->getBlob()->getData());
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+		m_state = Asset::loading_state_succeeded;
+	}
+
+
+
 	//#########################################################################################
 	TextureCubeMap::~TextureCubeMap()
 	{

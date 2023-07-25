@@ -27,6 +27,18 @@ namespace Enternity
 	}
 
 	//#########################################################################################
+	Texture2DHDRBlobHolder::Texture2DHDRBlobHolder(BlobLoader* blobLoader, const char* path) :
+		Texture2DBlobHolder(blobLoader, path)
+	{
+		m_textureType = Texture_2D_HDR;
+	}
+
+	Asset* Texture2DHDRBlobHolder::createAsset()
+	{
+		return new Texture2DHDR;
+	}
+
+	//#########################################################################################
 	TextureCubeMapBlobHolder::TextureCubeMapBlobHolder(BlobLoader* blobLoader, const char* path) :
 		TextureBlobHolder(blobLoader, path)
 	{

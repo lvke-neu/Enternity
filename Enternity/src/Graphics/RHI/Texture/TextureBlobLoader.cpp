@@ -24,6 +24,11 @@ namespace Enternity
 			doLoadTexture2D(blobHolder);
 			return;
 		}
+		else if (textureBlobHolder->getTextureType() == TextureBlobHolder::Texture_2D_HDR)
+		{
+			doLoadTexture2DHDR(blobHolder);
+			return;
+		}
 		else if (textureBlobHolder->getTextureType() == TextureBlobHolder::Texture_Cube_Map)
 		{
 			doLoadTextureCubeMap(blobHolder);
@@ -66,6 +71,36 @@ namespace Enternity
 		m_mtx.unlock();
 	}
 
+	void TextureBlobLoader::doLoadTexture2DHDR(BlobHolder* blobHolder)
+	{
+		m_mtx.lock();
+
+		Texture2DHDRBlobHolder* texture2DHDRBlobHolder = dynamic_cast<Texture2DHDRBlobHolder*>(blobHolder);
+
+		float* tmpTexture;
+
+		stbi_set_flip_vertically_on_load(texture2DHDRBlobHolder->m_bSlip);
+		tmpTexture = stbi_loadf(texture2DHDRBlobHolder->getPath(), &texture2DHDRBlobHolder->m_width, &texture2DHDRBlobHolder->m_height, &texture2DHDRBlobHolder->m_channels, 0);
+		if (!tmpTexture)
+		{
+			LOG_ERROR("Texture load failed:{0}", texture2DHDRBlobHolder->getPath());
+			texture2DHDRBlobHolder->loadFailed__();
+			m_mtx.unlock();
+			return;
+		}
+
+		Blob* blob = new Blob(texture2DHDRBlobHolder->m_width * texture2DHDRBlobHolder->m_height * texture2DHDRBlobHolder->m_channels * 4);
+
+		memcpy_s(blob->getData(), blob->getLength(), tmpTexture, blob->getLength());
+
+		stbi_image_free(tmpTexture);
+
+		texture2DHDRBlobHolder->loadSucceeded__(blob);
+		SAFE_DELETE_SET_NULL(blob);
+
+		m_mtx.unlock();
+	}
+
 	void TextureBlobLoader::doLoadTextureCubeMap(BlobHolder* blobHolder)
 	{
 		m_mtx2.lock();
@@ -103,10 +138,15 @@ namespace Enternity
 		{
 			return new Texture2DBlobHolder(this, texPath.substr(11).c_str());
 		}
+		else if (strncmp("TEXTURE_2D_HDR?", texPath.c_str(), 15) == 0)
+		{
+			return new Texture2DHDRBlobHolder(this, texPath.substr(15).c_str());
+		}
 		else if(strncmp("CUBE_MAP?", texPath.c_str(), 9) == 0)
 		{
 			return new TextureCubeMapBlobHolder(this, texPath.substr(9).c_str());
 		}
+
 
 		return  nullptr;
 	}

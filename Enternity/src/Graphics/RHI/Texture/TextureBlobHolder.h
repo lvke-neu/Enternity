@@ -12,6 +12,7 @@ namespace Enternity
 		{
 			None,
 			Texture_2D,
+			Texture_2D_HDR,
 			Texture_Cube_Map
 		};
 		TextureType getTextureType();
@@ -37,7 +38,7 @@ namespace Enternity
 		int getHeight();
 		int getChannels();
 		void setSlip(bool flag);
-	private:
+	protected:
 		int m_width;
 		int m_height;
 		int m_channels;
@@ -63,6 +64,16 @@ namespace Enternity
 	{
 		return m_channels;
 	}
+
+	//#########################################################################################
+	class Texture2DHDRBlobHolder : public Texture2DBlobHolder
+	{
+		friend class Texture2DHDR;
+		friend class TextureBlobLoader;
+	public:
+		Texture2DHDRBlobHolder(BlobLoader* blobLoader, const char* path);
+		virtual Asset* createAsset() override;
+	};
 
 	//#########################################################################################
 	class TextureCubeMapBlobHolder : public TextureBlobHolder
