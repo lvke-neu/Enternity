@@ -21,37 +21,12 @@ namespace Enternity
 
 		if (textureBlobHolder->getTextureType() == TextureBlobHolder::Texture_2D)
 		{
-			m_mtx.lock();
-
-			Texture2DBlobHolder* texture2DBlobHolder = dynamic_cast<Texture2DBlobHolder*>(textureBlobHolder);
-
-			unsigned char* tmpTexture;
-
-			stbi_set_flip_vertically_on_load(texture2DBlobHolder->m_bSlip);
-			tmpTexture = stbi_load(texture2DBlobHolder->getPath(), &texture2DBlobHolder->m_width, &texture2DBlobHolder->m_height, &texture2DBlobHolder->m_channels, 0);
-			if (!tmpTexture)
-			{
-				LOG_ERROR("Texture load failed:{0}", texture2DBlobHolder->getPath());
-				texture2DBlobHolder->loadFailed__();
-				m_mtx.unlock();
-				return;
-			}
-
-			Blob* blob = new Blob(texture2DBlobHolder->m_width * texture2DBlobHolder->m_height * texture2DBlobHolder->m_channels);
-
-			memcpy_s(blob->getData(), blob->getLength(), tmpTexture, blob->getLength());
-
-			stbi_image_free(tmpTexture);
-
-			texture2DBlobHolder->loadSucceeded__(blob);
-			SAFE_DELETE_SET_NULL(blob);
-
-			m_mtx.unlock();
-
+			doLoadTexture2D(blobHolder);
 			return;
 		}
 		else if (textureBlobHolder->getTextureType() == TextureBlobHolder::Texture_Cube_Map)
 		{
+			doLoadTextureCubeMap(blobHolder);
 			return;
 		}
 		else
@@ -59,6 +34,51 @@ namespace Enternity
 			LOG_ERROR("TextureBlobHolder type==None");
 		}
 
+	}
+
+	void TextureBlobLoader::doLoadTexture2D(BlobHolder* blobHolder)
+	{
+		m_mtx.lock();
+
+		Texture2DBlobHolder* texture2DBlobHolder = dynamic_cast<Texture2DBlobHolder*>(blobHolder);
+
+		unsigned char* tmpTexture;
+
+		stbi_set_flip_vertically_on_load(texture2DBlobHolder->m_bSlip);
+		tmpTexture = stbi_load(texture2DBlobHolder->getPath(), &texture2DBlobHolder->m_width, &texture2DBlobHolder->m_height, &texture2DBlobHolder->m_channels, 0);
+		if (!tmpTexture)
+		{
+			LOG_ERROR("Texture load failed:{0}", texture2DBlobHolder->getPath());
+			texture2DBlobHolder->loadFailed__();
+			m_mtx.unlock();
+			return;
+		}
+
+		Blob* blob = new Blob(texture2DBlobHolder->m_width * texture2DBlobHolder->m_height * texture2DBlobHolder->m_channels);
+
+		memcpy_s(blob->getData(), blob->getLength(), tmpTexture, blob->getLength());
+
+		stbi_image_free(tmpTexture);
+
+		texture2DBlobHolder->loadSucceeded__(blob);
+		SAFE_DELETE_SET_NULL(blob);
+
+		m_mtx.unlock();
+	}
+
+	void TextureBlobLoader::doLoadTextureCubeMap(BlobHolder* blobHolder)
+	{
+		m_mtx2.lock();
+
+		TextureCubeMapBlobHolder* textureCubeMapBlobHolder = dynamic_cast<TextureCubeMapBlobHolder*>(blobHolder);
+
+		for (int i = 0; i < 6; i++)
+		{
+			textureCubeMapBlobHolder->m_texture2DBlobHolders[i] = new Texture2DBlobHolder(this, textureCubeMapBlobHolder->m_paths[i].c_str());
+			textureCubeMapBlobHolder->m_texture2DBlobHolders[i]->load(0);
+		}
+
+		m_mtx2.unlock();
 	}
 
 	BlobHolder* TextureBlobLoader::createBlobHolder(const char* path)

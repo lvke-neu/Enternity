@@ -27,7 +27,7 @@ namespace Enternity
 		const char* getPath();
 		LoadingState getLoadingState();
 		virtual Asset* createAsset();
-	private:
+	protected:
 		Blob* m_blob;
 		LoadingState m_state;
 

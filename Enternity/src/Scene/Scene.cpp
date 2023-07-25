@@ -30,7 +30,7 @@ namespace Enternity
 		ppc.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=plane"));
 		ppc.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/postprocess/postprocess.rdr"));
 
-		auto tex = dynamic_cast<Texture2D*>(Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/box_diffuse.png"));
+		auto tex = dynamic_cast<TextureCubeMap*>(Engine::GetInstance().getAssetLoader()->getAsset("texture://CUBE_MAP?assets/textures/skybox/daylight/.png"));
 		int i = 0;
 	}
 

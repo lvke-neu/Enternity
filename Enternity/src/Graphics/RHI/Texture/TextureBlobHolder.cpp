@@ -31,6 +31,19 @@ namespace Enternity
 		TextureBlobHolder(blobLoader, path)
 	{
 		m_textureType = Texture_Cube_Map;
+
+		size_t pos = m_path.rfind('/');
+		if (pos != std::string::npos)
+		{
+			std::string prefix = m_path.substr(0, pos);
+			std::string suffix = m_path.substr(pos + 1);
+			m_paths[0] = prefix + "/right" + suffix;
+			m_paths[1] = prefix + "/left" + suffix;
+			m_paths[2] = prefix + "/top" + suffix;
+			m_paths[3] = prefix + "/bottom" + suffix;
+			m_paths[4] = prefix + "/front" + suffix;
+			m_paths[5] = prefix + "/back" + suffix;
+		}
 	}
 
 	Asset* TextureCubeMapBlobHolder::createAsset()
