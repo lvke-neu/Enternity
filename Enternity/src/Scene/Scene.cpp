@@ -48,7 +48,7 @@ namespace Enternity
 		entity1.getComponent<NameComponent>().name = "hdr test";
 		auto& v3d = entity1.addComponent<Visual3DComponent>();
 		v3d.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube"));
-		v3d.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/visual3d/visual3d.rdr"));
+		v3d.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/hdr/hdr.rdr"));
 		v3d.texture2D = dynamic_cast<Texture2D*>(Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D_HDR?assets/textures/hdr/newport_loft.hdr"));
 	}
 

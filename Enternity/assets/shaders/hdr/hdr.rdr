@@ -1,0 +1,4 @@
+{
+  "VertexShader": "assets/shaders/hdr/hdr.vert",
+  "FragmentShader": "assets/shaders/hdr/hdr.frag"
+}
