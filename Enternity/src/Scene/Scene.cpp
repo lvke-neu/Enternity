@@ -30,7 +30,7 @@ namespace Enternity
 		//scene skybox
 		m_sceneSkybox = createEntity();
 		m_sceneSkybox.getComponent<NameComponent>().name = "SkyBox";
-		m_sceneSkybox.addComponent<SkyBoxComponent>().load("texture://CUBE_MAP_HDR?assets/textures/hdr/spree_bank_4k.hdr");
+		m_sceneSkybox.addComponent<SkyBoxComponent>().load("texture://CUBE_MAP_HDR?assets/textures/hdr/little_paris_eiffel_tower_4k.hdr");
 
 		//auto entity1 = createEntity();
 		//entity1.getComponent<NameComponent>().name = "cube";

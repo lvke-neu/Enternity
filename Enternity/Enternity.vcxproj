@@ -89,6 +89,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\..\..\download\little_paris_eiffel_tower_4k.hdr" />
     <None Include="..\README.md" />
     <None Include="assets\model\cube.bin" />
     <None Include="assets\shaders\postprocess\postprocess.rdr" />
