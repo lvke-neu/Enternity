@@ -27,7 +27,6 @@ namespace Enternity
 			glm::mat4 proj = Engine::GetInstance().getSceneManager()->getCurrentScene()->getSceneCamera().getComponent<CameraComponent>().getProjectionMatrix();
 			
 			renderer->setMat4("u_mvp", proj * glm::mat4(glm::mat3(view)));
-			renderer->setInt1("u_entityId", -1);
 			mesh->draw();
 			
 			textureCubeMapHDR->unbind();
