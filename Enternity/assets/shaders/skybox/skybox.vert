@@ -5,7 +5,6 @@ layout(location = 0) in vec3 position;
 uniform mat4 u_mvp;
 out vec3 v_position;
 
-
 void main()
 {
 	v_position = position;

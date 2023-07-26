@@ -17,6 +17,7 @@ namespace Enternity
 {
 	Scene::Scene()
 	{
+		//scene postprocess
 		m_scenePostprocess = createEntity();
 		m_scenePostprocess.getComponent<NameComponent>().name = "PostProcess";
 		auto& ppc = m_scenePostprocess.addComponent<PostProcessComponent>();
@@ -32,6 +33,7 @@ namespace Enternity
 		m_sceneCamera.addComponent<CameraComponent>().moveSpeed = 30;
 		m_cameraController = new CameraController(&m_sceneCamera);
 
+		//scene skybox
 		m_sceneSkybox = createEntity();
 		m_sceneSkybox.getComponent<NameComponent>().name = "SkyBox";
 		auto& skybox = m_sceneSkybox.addComponent<SkyBoxComponent>();
