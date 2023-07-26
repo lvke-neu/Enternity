@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "CameraController.h"
 #include "ECS/TransformComponent.h"
 #include "ECS/CameraComponent.h"
 #include "ECS/NameComponent.h"
@@ -6,12 +7,7 @@
 #include "ECS/SkyBoxComponent.h"
 #include "ECS/Visual3DComponent.h"
 #include "Engine/Engine.h"
-#include "Engine/AssetLoader.h"
-#include "Graphics/RHI/Mesh/Mesh.h"
-#include "Graphics/RHI/Texture/Texture.h"
-#include "Graphics/RHI/Renderer/Renderer.h"
 #include "Common/Macro.h"
-#include "CameraController.h"
 
 namespace Enternity
 {
@@ -36,17 +32,17 @@ namespace Enternity
 		m_sceneSkybox.getComponent<NameComponent>().name = "SkyBox";
 		m_sceneSkybox.addComponent<SkyBoxComponent>().load("texture://CUBE_MAP_HDR?assets/textures/hdr/spree_bank_4k.hdr");
 
-		auto entity1 = createEntity();
-		entity1.getComponent<NameComponent>().name = "cube";
-		auto& v3d = entity1.addComponent<Visual3DComponent>();
-		v3d.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube"));
-		v3d.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/visual3d/visual3d.rdr"));
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/box_diffuse.png",
-			[=](Asset* asset)
-			{
-				auto& v3d = entity1.getComponent<Visual3DComponent>();
-				v3d.texture2D = dynamic_cast<Texture2D*>(asset);
-			});
+		//auto entity1 = createEntity();
+		//entity1.getComponent<NameComponent>().name = "cube";
+		//auto& v3d = entity1.addComponent<Visual3DComponent>();
+		//v3d.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube"));
+		//v3d.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/visual3d/visual3d.rdr"));
+		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/box_diffuse.png",
+		//	[=](Asset* asset)
+		//	{
+		//		auto& v3d = entity1.getComponent<Visual3DComponent>();
+		//		v3d.texture2D = dynamic_cast<Texture2D*>(asset);
+		//	});
 	}
 
 	Scene::~Scene()
