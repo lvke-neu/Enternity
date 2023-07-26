@@ -110,4 +110,40 @@ namespace Enternity
 		}
 		return -1;
 	}
+
+	FrameBufferWithoutColorAttachment::FrameBufferWithoutColorAttachment(unsigned int width, unsigned int height)
+	{
+		glDeleteFramebuffers(1, &m_renderId);
+		glDeleteRenderbuffers(1, &m_depthStecilId);
+
+		glGenFramebuffers(1, &m_renderId);
+		glBindFramebuffer(GL_FRAMEBUFFER, m_renderId);
+
+		//depth stecil
+		glGenRenderbuffers(1, &m_depthStecilId);
+		glBindRenderbuffer(GL_RENDERBUFFER, m_depthStecilId);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
+
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_depthStecilId);
+
+		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			LOG_ERROR("Framebuffer is not complete!");
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	FrameBufferWithoutColorAttachment::~FrameBufferWithoutColorAttachment()
+	{
+
+	}
+
+	void FrameBufferWithoutColorAttachment::bind()
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, m_renderId);
+	}
+
+	void FrameBufferWithoutColorAttachment::unbind()
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
 }

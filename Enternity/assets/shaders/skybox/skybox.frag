@@ -19,6 +19,10 @@ layout(location = 0) uniform samplerCube skybox;
 void main()
 {
 	fragColor = texture(skybox, v_position);
+    float gamma = 2.2;
+    fragColor.rgb = pow(fragColor.rgb, vec3(1.0/gamma));
+
+
 	float depth = LinearizeDepth(gl_FragCoord.z) / far;
     depthColor = vec4(depth, 0, 0, 1.0);
 	entityId = u_entityId;

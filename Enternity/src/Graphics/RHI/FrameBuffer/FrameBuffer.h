@@ -31,4 +31,17 @@ namespace Enternity
 	{
 		return m_textureIds[index];
 	}
+
+	class FrameBufferWithoutColorAttachment
+	{
+	public:
+		FrameBufferWithoutColorAttachment(unsigned int width, unsigned int height);
+		~FrameBufferWithoutColorAttachment();
+	public:
+		void bind();
+		void unbind();
+	private:
+		unsigned int m_renderId;
+		unsigned int m_depthStecilId;
+	};
 }

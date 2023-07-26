@@ -1,7 +1,7 @@
 #version 440 core
 
 in vec3 v_position;
-in vec2 v_texcoord;
+
 layout (location = 0) out vec4 fragColor;
 
 layout (binding = 0) uniform sampler2D u_texture;
@@ -18,5 +18,5 @@ vec2 SampleSphericalMap(vec3 v)
 void main()
 {
 	
-	fragColor = texture(u_texture, SampleSphericalMap(normalize(v_position)));
+	fragColor = vec4(texture(u_texture, SampleSphericalMap(normalize(v_position))).rgb, 1.0);
 };

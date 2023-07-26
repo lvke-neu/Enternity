@@ -43,28 +43,27 @@ namespace Enternity
 				auto& skybox = m_sceneSkybox.getComponent<SkyBoxComponent>();
 				skybox.textureCubeMap = dynamic_cast<TextureCubeMap*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://CUBE_MAP_HDR?assets/textures/hdr/newport_loft.hdr",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://CUBE_MAP_HDR?assets/textures/hdr/spree_bank_4k.hdr",
 			[&](Asset* asset)
 			{
 				auto& skybox = m_sceneSkybox.getComponent<SkyBoxComponent>();
 				skybox.textureCubeMapHDR = dynamic_cast<TextureCubeMapHDR*>(asset);
 			});
 		//skybox.textureCubeMapHDR = dynamic_cast<TextureCubeMapHDR*>(Engine::GetInstance().getAssetLoader()->getAsset("texture://CUBE_MAP_HDR?assets/textures/hdr/newport_loft.hdr"));
-		//auto entity1 = createEntity();
-		//entity1.getComponent<NameComponent>().name = "hdr test";
-		//auto& v3d = entity1.addComponent<Visual3DComponent>();
-		//v3d.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube"));
-		//v3d.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/hdr/hdr.rdr"));
-		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D_HDR?assets/textures/hdr/spree_bank_4k.hdr",
-		//	[=](Asset* asset)
-		//	{
-		//		auto& v3d = entity1.getComponent<Visual3DComponent>();
-		//		v3d.texture2D = dynamic_cast<Texture2D*>(asset);
-		//	});
 		
-		//v3d.texture2D = dynamic_cast<Texture2D*>(Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D_HDR?assets/textures/hdr/blue_photo_studio_4k.hdr"));
-		//auto asset = dynamic_cast<TextureCubeMapHDR*>(Engine::GetInstance().getAssetLoader()->getAsset("texture://CUBE_MAP_HDR?assets/textures/hdr/blue_photo_studio_4k.hdr"));
-		//int i = 0;
+		auto entity1 = createEntity();
+		entity1.getComponent<NameComponent>().name = "cube";
+		auto& v3d = entity1.addComponent<Visual3DComponent>();
+		v3d.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube"));
+		v3d.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/visual3d/visual3d.rdr"));
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/box_diffuse.png",
+			[=](Asset* asset)
+			{
+				auto& v3d = entity1.getComponent<Visual3DComponent>();
+				v3d.texture2D = dynamic_cast<Texture2D*>(asset);
+			});
+		
+		int i = 0;
 	}
 
 	Scene::~Scene()
