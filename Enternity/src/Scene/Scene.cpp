@@ -37,19 +37,12 @@ namespace Enternity
 		auto& skybox = m_sceneSkybox.addComponent<SkyBoxComponent>();
 		skybox.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube"));
 		skybox.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/skybox/skybox.rdr"));
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://CUBE_MAP?assets/textures/skybox/daylight/.png",
-			[&](Asset* asset)
-			{
-				auto& skybox = m_sceneSkybox.getComponent<SkyBoxComponent>();
-				skybox.textureCubeMap = dynamic_cast<TextureCubeMap*>(asset);
-			});
 		Engine::GetInstance().getAssetLoader()->getAsset("texture://CUBE_MAP_HDR?assets/textures/hdr/spree_bank_4k.hdr",
 			[&](Asset* asset)
 			{
 				auto& skybox = m_sceneSkybox.getComponent<SkyBoxComponent>();
 				skybox.textureCubeMapHDR = dynamic_cast<TextureCubeMapHDR*>(asset);
 			});
-		//skybox.textureCubeMapHDR = dynamic_cast<TextureCubeMapHDR*>(Engine::GetInstance().getAssetLoader()->getAsset("texture://CUBE_MAP_HDR?assets/textures/hdr/newport_loft.hdr"));
 		
 		auto entity1 = createEntity();
 		entity1.getComponent<NameComponent>().name = "cube";
@@ -62,8 +55,6 @@ namespace Enternity
 				auto& v3d = entity1.getComponent<Visual3DComponent>();
 				v3d.texture2D = dynamic_cast<Texture2D*>(asset);
 			});
-		
-		int i = 0;
 	}
 
 	Scene::~Scene()

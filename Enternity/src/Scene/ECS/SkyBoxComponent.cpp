@@ -20,7 +20,6 @@ namespace Enternity
 			&& renderer->isLoadSucceeded() && mesh->isLoadSucceeded() && textureCubeMapHDR->isLoadSucceeded())
 		{
 			glDepthFunc(GL_LEQUAL);
-			//glEnable(GL_FRAMEBUFFER_SRGB);
 			renderer->bind();
 			textureCubeMapHDR->bind(0);
 
@@ -34,7 +33,6 @@ namespace Enternity
 			textureCubeMapHDR->unbind();
 			renderer->unbind();
 
-			//glDisable(GL_FRAMEBUFFER_SRGB);
 			glDepthFunc(GL_LESS);
 		}
 	}
@@ -43,7 +41,6 @@ namespace Enternity
 	{
 		SAFE_DELETE_SET_NULL(renderer);
 		SAFE_DELETE_SET_NULL(mesh);
-		SAFE_DELETE_SET_NULL(textureCubeMap);
 		SAFE_DELETE_SET_NULL(textureCubeMapHDR);
 	}
 }
