@@ -6,6 +6,7 @@
 #include "Scene/ECS/CameraComponent.h"
 #include "Scene/ECS/NameComponent.h"
 #include "Scene/ECS/PostProcessComponent.h"
+#include "Scene/ECS/SkyBoxComponent.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Pick/PickSystem.h"
 #include "Imgui/imgui.h"
@@ -134,19 +135,23 @@ namespace Enternity
 				});
 		}
 
-		if (entity.hasComponent<TransformComponent>())
+		if (entity.hasComponent<SkyBoxComponent>())
 		{
-			DrawComponent("TransformComponent",
+			DrawComponent("SkyBoxComponent",
 				[&]()
 				{
-					auto& transformComponent = entity.getComponent<TransformComponent>();
-					auto& translation = transformComponent.translation;
-					auto& rotation = transformComponent.rotation;
-					auto& scale = transformComponent.scale;
-
-					DrawVec3("Translation", translation, glm::vec3(0.0f));
-					DrawVec3("Rotation", rotation, glm::vec3(0.0f));
-					DrawVec3("Scale", scale, glm::vec3(1.0f));
+					std::string str[3] = {"texture://CUBE_MAP_HDR?assets/textures/hdr/blue_photo_studio_4k.hdr", "texture://CUBE_MAP_HDR?assets/textures/hdr/newport_loft.hdr","texture://CUBE_MAP_HDR?assets/textures/hdr/spree_bank_4k.hdr"};
+					static int index = 0;
+					if (ImGui::Button("click"))
+					{
+						str[index++];
+						if (index > 2)
+						{
+							index = 0;
+						}
+						entity.getComponent<SkyBoxComponent>().load(str[index].c_str());
+					}
+					
 				});
 		}
 
@@ -163,6 +168,24 @@ namespace Enternity
 					ImGui::DragFloat("MoveSpeed", &cameraComponent.moveSpeed, 1.0f, -9999.0f, 9999.0f);
 				});
 		}
+
+		if (entity.hasComponent<TransformComponent>())
+		{
+			DrawComponent("TransformComponent",
+				[&]()
+				{
+					auto& transformComponent = entity.getComponent<TransformComponent>();
+					auto& translation = transformComponent.translation;
+					auto& rotation = transformComponent.rotation;
+					auto& scale = transformComponent.scale;
+
+					DrawVec3("Translation", translation, glm::vec3(0.0f));
+					DrawVec3("Rotation", rotation, glm::vec3(0.0f));
+					DrawVec3("Scale", scale, glm::vec3(1.0f));
+				});
+		}
+
+
 
 		//if (entity.hasComponent<Visual3DComponent>())
 		//{

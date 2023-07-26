@@ -20,9 +20,7 @@ namespace Enternity
 		//scene postprocess
 		m_scenePostprocess = createEntity();
 		m_scenePostprocess.getComponent<NameComponent>().name = "PostProcess";
-		auto& ppc = m_scenePostprocess.addComponent<PostProcessComponent>();
-		ppc.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=plane"));
-		ppc.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/postprocess/postprocess.rdr"));
+		m_scenePostprocess.addComponent<PostProcessComponent>().load();
 
 		//scene camera
 		m_sceneCamera = createEntity();
@@ -36,16 +34,8 @@ namespace Enternity
 		//scene skybox
 		m_sceneSkybox = createEntity();
 		m_sceneSkybox.getComponent<NameComponent>().name = "SkyBox";
-		auto& skybox = m_sceneSkybox.addComponent<SkyBoxComponent>();
-		skybox.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube"));
-		skybox.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/skybox/skybox.rdr"));
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://CUBE_MAP_HDR?assets/textures/hdr/spree_bank_4k.hdr",
-			[&](Asset* asset)
-			{
-				auto& skybox = m_sceneSkybox.getComponent<SkyBoxComponent>();
-				skybox.textureCubeMapHDR = dynamic_cast<TextureCubeMapHDR*>(asset);
-			});
-		
+		m_sceneSkybox.addComponent<SkyBoxComponent>().load("texture://CUBE_MAP_HDR?assets/textures/hdr/spree_bank_4k.hdr");
+
 		auto entity1 = createEntity();
 		entity1.getComponent<NameComponent>().name = "cube";
 		auto& v3d = entity1.addComponent<Visual3DComponent>();
@@ -98,12 +88,12 @@ namespace Enternity
 
 			if (it->second.hasComponent<PostProcessComponent>())
 			{
-				it->second.getComponent<PostProcessComponent>().release();
+				it->second.getComponent<PostProcessComponent>().unload();
 			}			
 			
 			if (it->second.hasComponent<SkyBoxComponent>())
 			{
-				it->second.getComponent<SkyBoxComponent>().release();
+				it->second.getComponent<SkyBoxComponent>().unload();
 			}
 
 			m_registry.destroy(it->first);
@@ -122,12 +112,12 @@ namespace Enternity
 
 			if (it->second.hasComponent<PostProcessComponent>())
 			{
-				it->second.getComponent<PostProcessComponent>().release();
+				it->second.getComponent<PostProcessComponent>().unload();
 			}
 
 			if (it->second.hasComponent<SkyBoxComponent>())
 			{
-				it->second.getComponent<SkyBoxComponent>().release();
+				it->second.getComponent<SkyBoxComponent>().unload();
 			}
 
 			m_registry.destroy(it->first);

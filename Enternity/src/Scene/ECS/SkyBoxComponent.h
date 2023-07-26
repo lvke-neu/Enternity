@@ -11,7 +11,8 @@ namespace Enternity
 		Renderer* renderer{ nullptr };
 		TextureCubeMapHDR* textureCubeMapHDR{ nullptr };
 
+		void load(const char* texturePath);
+		void unload();
 		void draw();
-		void release();
 	};
 }

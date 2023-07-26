@@ -1,5 +1,6 @@
 #include "SkyBoxComponent.h"
 #include "Engine/Engine.h"
+#include "Engine/AssetLoader.h"
 #include "Scene/SceneManager.h"
 #include "Scene/Scene.h"
 #include "Scene/ECS/Entity.h"
@@ -14,6 +15,29 @@
 
 namespace Enternity
 {
+
+	void SkyBoxComponent::load(const char* texturePath)
+	{
+		Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube",
+			[&](Asset* asset)
+			{
+				SAFE_DELETE_SET_NULL(mesh);
+				mesh = dynamic_cast<Mesh*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/skybox/skybox.rdr",
+			[&](Asset* asset)
+			{
+				SAFE_DELETE_SET_NULL(renderer);
+				renderer = dynamic_cast<Renderer*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset(texturePath,
+			[&](Asset* asset)
+			{
+				SAFE_DELETE_SET_NULL(textureCubeMapHDR);
+				textureCubeMapHDR = dynamic_cast<TextureCubeMapHDR*>(asset);
+			});
+	}
+
 	void SkyBoxComponent::draw()
 	{
 		if (renderer && mesh && textureCubeMapHDR
@@ -36,10 +60,10 @@ namespace Enternity
 		}
 	}
 
-	void SkyBoxComponent::release()
+	void SkyBoxComponent::unload()
 	{
-		SAFE_DELETE_SET_NULL(renderer);
 		SAFE_DELETE_SET_NULL(mesh);
+		SAFE_DELETE_SET_NULL(renderer);
 		SAFE_DELETE_SET_NULL(textureCubeMapHDR);
 	}
 }
