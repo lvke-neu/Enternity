@@ -25,7 +25,6 @@
     <None Include="assets\shaders\postprocess\postprocess.rdr" />
     <None Include="assets\shaders\skybox\skybox.rdr" />
     <None Include="assets\shaders\visual3d\visual3d.rdr" />
-    <None Include="..\..\..\download\little_paris_eiffel_tower_4k.hdr" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">

@@ -1,7 +1,8 @@
 #include "Visual3DComponent.h"
 #include "Engine/Engine.h"
-#include "Scene/SceneManager.h"
+#include "Engine/AssetLoader.h"
 #include "Scene/Scene.h"
+#include "Scene/SceneManager.h"
 #include "Scene/ECS/Entity.h"
 #include "Scene/ECS/CameraComponent.h"
 #include "Scene/ECS/TransformComponent.h"
@@ -14,6 +15,28 @@
 
 namespace Enternity
 {
+	void Visual3DComponent::load(const char* meshPath, const char* rendererPath, const char* texturePath)
+	{
+		Engine::GetInstance().getAssetLoader()->getAsset(meshPath,
+			[&](Asset* asset)
+			{
+				SAFE_DELETE_SET_NULL(mesh);
+				mesh = dynamic_cast<Mesh*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset(rendererPath,
+			[&](Asset* asset)
+			{
+				SAFE_DELETE_SET_NULL(renderer);
+				renderer = dynamic_cast<Renderer*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset(texturePath,
+			[&](Asset* asset)
+			{
+				SAFE_DELETE_SET_NULL(texture2D);
+				texture2D = dynamic_cast<Texture2D*>(asset);
+			});
+	}
+
 	void Visual3DComponent::draw()
 	{
 		if (renderer && mesh && texture2D
@@ -33,7 +56,7 @@ namespace Enternity
 		}
 	}
 
-	void Visual3DComponent::release()
+	void Visual3DComponent::unload()
 	{
 		SAFE_DELETE_SET_NULL(renderer);
 		SAFE_DELETE_SET_NULL(mesh);

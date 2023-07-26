@@ -11,7 +11,8 @@ namespace Enternity
 		Renderer* renderer{ nullptr };
 		Texture2D* texture2D{ nullptr };
 
+		void load(const char* meshPath, const char* rendererPath, const char* texturePath);
+		void unload();
 		void draw();
-		void release();
 	};
 }
