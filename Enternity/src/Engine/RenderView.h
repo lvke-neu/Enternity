@@ -16,6 +16,8 @@ namespace Enternity
 		void pollEvents();
 		UiRender* getUiRender() const;
 		void setWindowProperty(unsigned int width, unsigned int height, const char* title, const char* path);
+		int getWidth();
+		int getHeight();
 	public:
 		void Resize(int width, int height);
 		static void Resize(GLFWwindow* window, int width, int height);
@@ -26,10 +28,23 @@ namespace Enternity
 	private:
 		GLFWwindow* m_context{ nullptr };
 		UiRender* m_uiRender{ nullptr };
+	private:
+		int m_width;
+		int m_height;
 	};
 
 	inline UiRender* RenderView::getUiRender() const
 	{
 		return m_uiRender;
+	}
+
+	inline int RenderView::getWidth()
+	{
+		return m_width;
+	}
+
+	inline int RenderView::getHeight()
+	{
+		return m_height;
 	}
 }

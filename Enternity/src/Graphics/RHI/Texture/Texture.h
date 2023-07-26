@@ -37,4 +37,11 @@ namespace Enternity
 			void bind(unsigned int slot);
 			void unbind();
 	};
+
+
+	class TextureCubeMapHDR : public TextureCubeMap
+	{
+	public:
+		virtual void load(BlobHolder* blobHolder) override;
+	};
 }

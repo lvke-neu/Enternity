@@ -8,12 +8,14 @@ namespace Enternity
 	{
 	public:
 		TextureBlobHolder(BlobLoader* blobLoader, const char* path);
+		virtual ~TextureBlobHolder() = default;
 		enum TextureType
 		{
 			None,
 			Texture_2D,
 			Texture_2D_HDR,
-			Texture_Cube_Map
+			Texture_Cube_Map,
+			Texture_Cube_Map_HDR,
 		};
 		TextureType getTextureType();
 	protected:
@@ -32,6 +34,7 @@ namespace Enternity
 		friend class TextureBlobLoader;
 	public:
 		Texture2DBlobHolder(BlobLoader* blobLoader, const char* path);
+		virtual ~Texture2DBlobHolder() = default;
 		virtual Asset* createAsset() override;
 	public:
 		int getWidth();
@@ -65,7 +68,7 @@ namespace Enternity
 		return m_channels;
 	}
 
-	//#########################################################################################
+	
 	class Texture2DHDRBlobHolder : public Texture2DBlobHolder
 	{
 		friend class Texture2DHDR;
@@ -82,10 +85,28 @@ namespace Enternity
 		friend class TextureBlobLoader;
 	public:
 		TextureCubeMapBlobHolder(BlobLoader* blobLoader, const char* path);
+		virtual ~TextureCubeMapBlobHolder();
 		virtual Asset* createAsset() override;
-		void loadSucceeded__();
 	private:
 		Texture2DBlobHolder* m_texture2DBlobHolders[6];
 		std::string m_paths[6];
+	};
+
+	//#########################################################################################
+	class MeshBlobHolder;
+	class RendererBlobHolder;
+	class Texture2DHDRBlobHolder;
+	class TextureCubeMapHDRBlobHolder : public TextureBlobHolder
+	{
+		friend class TextureCubeMapHDR;
+		friend class TextureBlobLoader;
+	public:
+		TextureCubeMapHDRBlobHolder(BlobLoader* blobLoader, const char* path);
+		virtual ~TextureCubeMapHDRBlobHolder();
+		virtual Asset* createAsset() override;
+	private:
+		MeshBlobHolder* m_meshBlobHolder;
+		RendererBlobHolder* m_rendererBlobHolder;
+		Texture2DHDRBlobHolder* m_texture2DHDRBlobHolder;
 	};
 }

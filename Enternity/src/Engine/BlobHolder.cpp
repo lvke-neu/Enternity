@@ -37,10 +37,14 @@ namespace Enternity
 
 	void BlobHolder::loadSucceeded__(Blob* blob)
 	{
+		m_state = loading_state_succeeded;
+		if (!blob)
+		{
+			return;
+		}
 		SAFE_DELETE_SET_NULL(m_blob);
 		m_blob = new Blob(blob->getLength());
 		memcpy_s(m_blob->getData(), m_blob->getLength(), blob->getData(), m_blob->getLength());
-		m_state = loading_state_succeeded;
 	}
 
 	void BlobHolder::loadFailed__()

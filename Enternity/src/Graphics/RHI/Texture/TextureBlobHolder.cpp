@@ -1,5 +1,8 @@
 #include "TextureBlobHolder.h"
 #include "Texture.h"
+#include "Graphics/RHI/Mesh/MeshBlobHolder.h"
+#include "Graphics/RHI/Renderer/RendererBlobHolder.h"
+#include "Common/Macro.h"
 
 namespace Enternity
 {
@@ -58,13 +61,38 @@ namespace Enternity
 		}
 	}
 
+	TextureCubeMapBlobHolder::~TextureCubeMapBlobHolder()
+	{
+		for (auto& blobHolder : m_texture2DBlobHolders)
+		{
+			SAFE_DELETE_SET_NULL(blobHolder);
+		}
+	}
+
 	Asset* TextureCubeMapBlobHolder::createAsset()
 	{
 		return new TextureCubeMap;
 	}
 
-	void TextureCubeMapBlobHolder::loadSucceeded__()
+	//#########################################################################################
+	TextureCubeMapHDRBlobHolder::TextureCubeMapHDRBlobHolder(BlobLoader* blobLoader, const char* path) :
+		TextureBlobHolder(blobLoader, path),
+		m_meshBlobHolder(nullptr),
+		m_rendererBlobHolder(nullptr),
+		m_texture2DHDRBlobHolder(nullptr)
 	{
-		m_state = loading_state_succeeded;
+		m_textureType = Texture_Cube_Map_HDR;
+	}
+
+	TextureCubeMapHDRBlobHolder::~TextureCubeMapHDRBlobHolder()
+	{
+		SAFE_DELETE_SET_NULL(m_meshBlobHolder);
+		SAFE_DELETE_SET_NULL(m_rendererBlobHolder);
+		SAFE_DELETE_SET_NULL(m_texture2DHDRBlobHolder);
+	}
+
+	Asset* TextureCubeMapHDRBlobHolder::createAsset()
+	{
+		return new TextureCubeMapHDR;
 	}
 }

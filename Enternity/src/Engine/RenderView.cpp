@@ -126,6 +126,9 @@ namespace Enternity
 		if (width <= 0 || height <= 0)
 			return;
 
+		m_width = width;
+		m_height = height;
+
 		LOG_INFO("ViewPortResize: width = " + std::to_string(width) + ", height = " + std::to_string(height));
 
 		CHECK_GL_CALL(glViewport(0, 0, width, height));

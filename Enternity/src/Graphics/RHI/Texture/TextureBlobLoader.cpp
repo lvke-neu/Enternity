@@ -1,10 +1,15 @@
 #include "TextureBlobLoader.h"
 #include "stb_image.h"
+#include "Texture.h"
+#include "TextureBlobHolder.h"
 #include "Common/Macro.h"
 #include "Engine/Blob.h"
 #include "Engine/BlobHolder.h"
 #include "Engine/Log.h"
-#include "TextureBlobHolder.h"
+#include "Engine/Engine.h"
+#include "Engine/BlobLoaderManager.h"
+#include "Graphics/RHI/Mesh/MeshBlobHolder.h"
+#include "Graphics/RHI/Renderer/RendererBlobHolder.h"
 
 namespace Enternity
 {
@@ -32,6 +37,11 @@ namespace Enternity
 		else if (textureBlobHolder->getTextureType() == TextureBlobHolder::Texture_Cube_Map)
 		{
 			doLoadTextureCubeMap(blobHolder);
+			return;
+		}
+		else if (textureBlobHolder->getTextureType() == TextureBlobHolder::Texture_Cube_Map_HDR)
+		{
+			doLoadTextureCubeMapHDR(blobHolder);
 			return;
 		}
 		else
@@ -120,8 +130,41 @@ namespace Enternity
 			}
 		}
 
-		textureCubeMapBlobHolder->loadSucceeded__();
+		textureCubeMapBlobHolder->loadSucceeded__(nullptr);
 
+		m_mtx2.unlock();
+	}
+
+	void TextureBlobLoader::doLoadTextureCubeMapHDR(BlobHolder* blobHolder)
+	{
+		m_mtx2.lock();
+
+		TextureCubeMapHDRBlobHolder* textureCubeMapHDRBlobHolder = dynamic_cast<TextureCubeMapHDRBlobHolder*>(blobHolder);
+		
+		std::string meshPath = "mesh://primitive=cube";
+		textureCubeMapHDRBlobHolder->m_meshBlobHolder = dynamic_cast<MeshBlobHolder*>(Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(meshPath.c_str())->createBlobHolder(meshPath.c_str()));
+
+		std::string rendererPath = "renderer://assets/shaders/hdr/hdr.rdr";
+		textureCubeMapHDRBlobHolder->m_rendererBlobHolder = dynamic_cast<RendererBlobHolder*>(Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(rendererPath.c_str())->createBlobHolder(rendererPath.c_str()));
+
+		std::string texture2DHDRPath = "texture://TEXTURE_2D_HDR?" + textureCubeMapHDRBlobHolder->m_path;
+		textureCubeMapHDRBlobHolder->m_texture2DHDRBlobHolder = dynamic_cast<Texture2DHDRBlobHolder*>(Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(texture2DHDRPath.c_str())->createBlobHolder(texture2DHDRPath.c_str()));
+
+		if (textureCubeMapHDRBlobHolder->m_meshBlobHolder && textureCubeMapHDRBlobHolder->m_rendererBlobHolder && textureCubeMapHDRBlobHolder->m_texture2DHDRBlobHolder)
+		{
+			textureCubeMapHDRBlobHolder->m_meshBlobHolder->load(0);
+			textureCubeMapHDRBlobHolder->m_rendererBlobHolder->load(0);
+			textureCubeMapHDRBlobHolder->m_texture2DHDRBlobHolder->load(0);
+
+			if (textureCubeMapHDRBlobHolder->m_meshBlobHolder->isLoadSucceeded() && textureCubeMapHDRBlobHolder->m_rendererBlobHolder->isLoadSucceeded() && textureCubeMapHDRBlobHolder->m_texture2DHDRBlobHolder->isLoadSucceeded())
+			{
+				textureCubeMapHDRBlobHolder->loadSucceeded__(nullptr);
+				m_mtx2.unlock();
+				return;
+			}
+
+		}
+		textureCubeMapHDRBlobHolder->loadFailed__();
 		m_mtx2.unlock();
 	}
 
@@ -146,7 +189,10 @@ namespace Enternity
 		{
 			return new TextureCubeMapBlobHolder(this, texPath.substr(9).c_str());
 		}
-
+		else if (strncmp("CUBE_MAP_HDR?", texPath.c_str(), 13) == 0)
+		{
+			return new TextureCubeMapHDRBlobHolder(this, texPath.substr(13).c_str());
+		}
 
 		return  nullptr;
 	}

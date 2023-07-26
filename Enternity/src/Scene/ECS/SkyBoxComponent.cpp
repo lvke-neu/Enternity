@@ -16,13 +16,13 @@ namespace Enternity
 {
 	void SkyBoxComponent::draw()
 	{
-		if (renderer && mesh && textureCubeMap 
-			&& renderer->isLoadSucceeded() && mesh->isLoadSucceeded() && textureCubeMap->isLoadSucceeded())
+		if (renderer && mesh && textureCubeMapHDR
+			&& renderer->isLoadSucceeded() && mesh->isLoadSucceeded() && textureCubeMapHDR->isLoadSucceeded())
 		{
 			glDepthFunc(GL_LEQUAL);
 
 			renderer->bind();
-			textureCubeMap->bind(0);
+			textureCubeMapHDR->bind(0);
 
 			glm::mat4 view = Engine::GetInstance().getSceneManager()->getCurrentScene()->getSceneCamera().getComponent<TransformComponent>().getInverseWorldMatrix();
 			glm::mat4 proj = Engine::GetInstance().getSceneManager()->getCurrentScene()->getSceneCamera().getComponent<CameraComponent>().getProjectionMatrix();
@@ -31,7 +31,7 @@ namespace Enternity
 			renderer->setInt1("u_entityId", -1);
 			mesh->draw();
 			
-			textureCubeMap->unbind();
+			textureCubeMapHDR->unbind();
 			renderer->unbind();
 
 			glDepthFunc(GL_LESS);
@@ -43,5 +43,6 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(renderer);
 		SAFE_DELETE_SET_NULL(mesh);
 		SAFE_DELETE_SET_NULL(textureCubeMap);
+		SAFE_DELETE_SET_NULL(textureCubeMapHDR);
 	}
 }

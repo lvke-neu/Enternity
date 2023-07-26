@@ -1,7 +1,13 @@
 #include "Texture.h"
+#include "Engine/Engine.h"
 #include "TextureBlobHolder.h"
 #include "Engine/Blob.h"
 #include "Engine/Log.h"
+#include "Engine/RenderView.h"
+#include "Graphics/RHI/Mesh/Mesh.h"
+#include "Graphics/RHI/Renderer/Renderer.h"
+#include "Graphics/RHI/FrameBuffer/FrameBuffer.h"
+#include <glm/gtc/quaternion.hpp>
 #include <glad/glad.h>
 
 namespace Enternity
@@ -162,4 +168,78 @@ namespace Enternity
 	{
 		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 	}
+
+	//#########################################################################################
+	void TextureCubeMapHDR::load(BlobHolder* blobHolder)
+	{
+		TextureCubeMapHDRBlobHolder* textureCubeMapHDRBlobHolder = dynamic_cast<TextureCubeMapHDRBlobHolder*>(blobHolder);
+		if (!textureCubeMapHDRBlobHolder ||
+			!textureCubeMapHDRBlobHolder->isLoadSucceeded())
+		{
+			m_state = loading_state_failed;
+			return;
+		}
+
+		glGenTextures(1, &m_renderId);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, m_renderId);
+
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+		for (int i = 0; i < 6; ++i)
+		{
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB16F, 512, 512, 0, GL_RGB, GL_FLOAT, nullptr);
+		}
+
+		glm::mat4 captureProjection = glm::perspective(glm::radians(90.0f), 1.0f, 0.1f, 10.0f);
+		glm::mat4 captureViews[] =
+		{
+		   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f,  0.0f,  0.0f), glm::vec3(0.0f, -1.0f,  0.0f)),
+		   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f,  0.0f,  0.0f), glm::vec3(0.0f, -1.0f,  0.0f)),
+		   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f,  1.0f,  0.0f), glm::vec3(0.0f,  0.0f,  1.0f)),
+		   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f,  0.0f), glm::vec3(0.0f,  0.0f, -1.0f)),
+		   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f,  0.0f,  1.0f), glm::vec3(0.0f, -1.0f,  0.0f)),
+		   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f,  0.0f, -1.0f), glm::vec3(0.0f, -1.0f,  0.0f))
+		};
+
+		Mesh mesh;
+		Renderer renderer;
+		Texture2DHDR texture2DHDR;
+		FrameBuffer frameBuffer(500, 500, { ColorAttachmentFormat::RGB8 });
+		mesh.load((BlobHolder*)textureCubeMapHDRBlobHolder->m_meshBlobHolder);
+		renderer.load((BlobHolder*)textureCubeMapHDRBlobHolder->m_rendererBlobHolder);
+		texture2DHDR.load((BlobHolder*)textureCubeMapHDRBlobHolder->m_texture2DHDRBlobHolder);
+
+		if (!mesh.isLoadSucceeded() || !renderer.isLoadSucceeded() || !texture2DHDR.isLoadSucceeded())
+		{
+			m_state = loading_state_failed;
+			return;
+		}
+
+		renderer.bind();
+		renderer.setMat4("u_p", captureProjection);
+		texture2DHDR.bind(0);
+		glViewport(0, 0, 512, 512);
+		frameBuffer.bind();
+		for (int i = 0; i < 6; ++i)
+		{
+			renderer.setMat4("u_v", captureViews[i]);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
+				GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, m_renderId, 0);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			mesh.draw();
+		}
+		frameBuffer.unbind();
+		texture2DHDR.unbind();
+		renderer.unbind();
+		glViewport(0, 0, Engine::GetInstance().getRenderView()->getWidth(), Engine::GetInstance().getRenderView()->getHeight());
+
+		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+
+		m_state = Asset::loading_state_succeeded;
+	}
+
 }
