@@ -26,13 +26,13 @@ namespace Enternity
 	void PostProcessComponent::load()
 	{
 		Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=plane",
-			[&](Asset* asset)
+			[this](Asset* asset)
 			{
 				SAFE_DELETE_SET_NULL(mesh);
 				mesh = dynamic_cast<Mesh*>(asset);
 			});
 		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/postprocess/postprocess.rdr",
-			[&](Asset* asset)
+			[this](Asset* asset)
 			{
 				SAFE_DELETE_SET_NULL(renderer);
 				renderer = dynamic_cast<Renderer*>(asset);

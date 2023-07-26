@@ -140,18 +140,10 @@ namespace Enternity
 			DrawComponent("SkyBoxComponent",
 				[&]()
 				{
-					std::string str[3] = {"texture://CUBE_MAP_HDR?assets/textures/hdr/blue_photo_studio_4k.hdr", "texture://CUBE_MAP_HDR?assets/textures/hdr/newport_loft.hdr","texture://CUBE_MAP_HDR?assets/textures/hdr/spree_bank_4k.hdr"};
-					static int index = 0;
-					if (ImGui::Button("click"))
-					{
-						str[index++];
-						if (index > 2)
-						{
-							index = 0;
-						}
-						entity.getComponent<SkyBoxComponent>().load(str[index].c_str());
-					}
-					
+					//if (ImGui::InputText("##Path", entity.getComponent<SkyBoxComponent>().textureCubeMapHDR->getPath(), 256));
+					//{
+
+					//}
 				});
 		}
 

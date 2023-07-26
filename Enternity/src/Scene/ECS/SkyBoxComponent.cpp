@@ -16,22 +16,24 @@
 namespace Enternity
 {
 
-	void SkyBoxComponent::load(const char* texturePath)
+	void SkyBoxComponent::load(const char* __texturePath)
 	{
+		int*p = new int(6);
+
 		Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube",
-			[&](Asset* asset)
+			[this](Asset* asset)
 			{
 				SAFE_DELETE_SET_NULL(mesh);
 				mesh = dynamic_cast<Mesh*>(asset);
 			});
 		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/skybox/skybox.rdr",
-			[&](Asset* asset)
+			[this](Asset* asset)
 			{
 				SAFE_DELETE_SET_NULL(renderer);
 				renderer = dynamic_cast<Renderer*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset(texturePath,
-			[&](Asset* asset)
+		Engine::GetInstance().getAssetLoader()->getAsset(__texturePath,
+			[this](Asset* asset)
 			{
 				SAFE_DELETE_SET_NULL(textureCubeMapHDR);
 				textureCubeMapHDR = dynamic_cast<TextureCubeMapHDR*>(asset);

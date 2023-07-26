@@ -18,19 +18,19 @@ namespace Enternity
 	void Visual3DComponent::load(const char* meshPath, const char* rendererPath, const char* texturePath)
 	{
 		Engine::GetInstance().getAssetLoader()->getAsset(meshPath,
-			[&](Asset* asset)
+			[this](Asset* asset)
 			{
 				SAFE_DELETE_SET_NULL(mesh);
 				mesh = dynamic_cast<Mesh*>(asset);
 			});
 		Engine::GetInstance().getAssetLoader()->getAsset(rendererPath,
-			[&](Asset* asset)
+			[this](Asset* asset)
 			{
 				SAFE_DELETE_SET_NULL(renderer);
 				renderer = dynamic_cast<Renderer*>(asset);
 			});
 		Engine::GetInstance().getAssetLoader()->getAsset(texturePath,
-			[&](Asset* asset)
+			[this](Asset* asset)
 			{
 				SAFE_DELETE_SET_NULL(texture2D);
 				texture2D = dynamic_cast<Texture2D*>(asset);
