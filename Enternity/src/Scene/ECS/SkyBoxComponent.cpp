@@ -18,7 +18,7 @@ namespace Enternity
 
 	void SkyBoxComponent::load(const char* __texturePath)
 	{
-		int*p = new int(6);
+		std::string tmpTexturePath(__texturePath);
 
 		Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube",
 			[this](Asset* asset)
@@ -33,8 +33,14 @@ namespace Enternity
 				renderer = dynamic_cast<Renderer*>(asset);
 			});
 		Engine::GetInstance().getAssetLoader()->getAsset(__texturePath,
-			[this](Asset* asset)
+			[tmpTexturePath, this](Asset* asset)
 			{
+				auto pos = tmpTexturePath.find("texture://CUBE_MAP_HDR?");
+				if (pos != std::string::npos)
+				{
+					texturePath = tmpTexturePath.substr(pos + 23);
+				}
+
 				SAFE_DELETE_SET_NULL(textureCubeMapHDR);
 				textureCubeMapHDR = dynamic_cast<TextureCubeMapHDR*>(asset);
 			});

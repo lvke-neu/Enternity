@@ -144,6 +144,13 @@ namespace Enternity
 					//{
 
 					//}
+					//ImGui::Text(entity.getComponent<SkyBoxComponent>().texturePath.c_str());
+					//if (ImGui::BeginDragDropTarget())
+					//{
+
+					//	ImGui::EndDragDropTarget();
+					//}
+					
 				});
 		}
 
@@ -343,10 +350,10 @@ namespace Enternity
 			ImGui::PopID();
 		}
 		
-		if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
-		{
-			Engine::GetInstance().getPickSystem()->setPickEntityId(-1);
-		}
+		//if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
+		//{
+		//	Engine::GetInstance().getPickSystem()->setPickEntityId(-1);
+		//}
 
 		ImGui::End();
 
