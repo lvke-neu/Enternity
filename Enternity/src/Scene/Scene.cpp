@@ -17,6 +17,12 @@ namespace Enternity
 {
 	Scene::Scene()
 	{
+		m_scenePostprocess = createEntity();
+		m_scenePostprocess.getComponent<NameComponent>().name = "PostProcess";
+		auto& ppc = m_scenePostprocess.addComponent<PostProcessComponent>();
+		ppc.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=plane"));
+		ppc.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/postprocess/postprocess.rdr"));
+
 		//scene camera
 		m_sceneCamera = createEntity();
 		m_sceneCamera.getComponent<NameComponent>().name = "Camera";
@@ -25,12 +31,6 @@ namespace Enternity
 		comp.rotation = glm::vec3(-6.20, -11.00, 0);
 		m_sceneCamera.addComponent<CameraComponent>().moveSpeed = 30;
 		m_cameraController = new CameraController(&m_sceneCamera);
-
-		m_scenePostprocess = createEntity();
-		m_scenePostprocess.getComponent<NameComponent>().name = "PostProcess";
-		auto& ppc = m_scenePostprocess.addComponent<PostProcessComponent>();
-		ppc.mesh = dynamic_cast<Mesh*>(Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=plane"));
-		ppc.renderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/postprocess/postprocess.rdr"));
 
 		m_sceneSkybox = createEntity();
 		m_sceneSkybox.getComponent<NameComponent>().name = "SkyBox";

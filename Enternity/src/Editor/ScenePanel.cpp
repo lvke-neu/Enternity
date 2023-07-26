@@ -5,9 +5,9 @@
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/CameraComponent.h"
 #include "Scene/ECS/NameComponent.h"
+#include "Scene/ECS/PostProcessComponent.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Pick/PickSystem.h"
-#include "Graphics/RHI/Mesh/Mesh.h"
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
 #include "Imgui/imgui_impl_glfw.h"
@@ -108,6 +108,32 @@ namespace Enternity
 
 	void DrawSelectedEntity(Entity& entity)
 	{
+		if (entity.hasComponent<PostProcessComponent>())
+		{
+			DrawComponent("PostProcessComponent",
+				[&]()
+				{
+					auto& postprocessComponent = entity.getComponent<PostProcessComponent>();
+
+					PostProcessComponent::PostProcessType postprocessType = postprocessComponent.postprocessType;
+					const char* bodyTypeString[] = { "None", "Inversion", "Grayscale","Sharpen", "Blur", "EdgeDetection"};
+					const char* currentBodyTypeString = bodyTypeString[(int)postprocessType];
+					if (ImGui::BeginCombo("PostprocessType", currentBodyTypeString))
+					{
+						for (int i = 0; i < 6; i++)
+						{
+							bool isSelected = currentBodyTypeString == bodyTypeString[i];
+							if (ImGui::Selectable(bodyTypeString[i], isSelected))
+							{
+								currentBodyTypeString = bodyTypeString[i];
+								postprocessComponent.postprocessType = (PostProcessComponent::PostProcessType)i;
+							}
+						}
+						ImGui::EndCombo();
+					}
+				});
+		}
+
 		if (entity.hasComponent<TransformComponent>())
 		{
 			DrawComponent("TransformComponent",

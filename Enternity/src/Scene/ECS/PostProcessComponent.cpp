@@ -14,7 +14,7 @@ namespace Enternity
 		if (renderer && mesh)
 		{
 			renderer->bind();
-			renderer->setUint1("u_postProcessType", 0);
+			renderer->setUint1("u_postProcessType", postprocessType);
 			Texture2D::Bind(Engine::GetInstance().getGraphicsSystem()->getColorFrameBuffer()->getTextureId(0), 0);
 			mesh->draw();
 			Texture2D::UnBind();
