@@ -12,13 +12,13 @@ namespace Enternity
 	void ModelComponent::load(const char* modelPath, const char* rendererPath)
 	{
 		Engine::GetInstance().getAssetLoader()->getAsset(modelPath,
-			[this](Asset* asset)
+			[&](Asset* asset)
 			{
 				SAFE_DELETE_SET_NULL(model);
 				model = dynamic_cast<Model*>(asset);
 			});
 		Engine::GetInstance().getAssetLoader()->getAsset(rendererPath,
-			[this](Asset* asset)
+			[&](Asset* asset)
 			{
 				SAFE_DELETE_SET_NULL(renderer);
 				renderer = dynamic_cast<Renderer*>(asset);

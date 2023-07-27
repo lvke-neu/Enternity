@@ -48,15 +48,59 @@ namespace Enternity
 		//entity1.addComponent<TransformComponent>();
 
 		auto entity1 = createEntity();
-		entity1.getComponent<NameComponent>().name = "sphere.fbx";
+		entity1.getComponent<NameComponent>().name = "sphere.fbx1";
 		entity1.addComponent<ModelComponent>().load("model://assets/models/basic/Sphere.fbx", "renderer://assets/shaders/pbr/pbr.rdr");
 		entity1.addComponent<TransformComponent>();
 		entity1.addComponent<PBRMaterialComponent>().load(
-			"texture://TEXTURE_2D&Slip=true?assets/textures/pbr/rusted_iron/albedo.png",
-			"texture://TEXTURE_2D&Slip=true?assets/textures/pbr/rusted_iron/normal.png",
-			"texture://TEXTURE_2D&Slip=true?assets/textures/pbr/rusted_iron/metallic.png",
-			"texture://TEXTURE_2D&Slip=true?assets/textures/pbr/rusted_iron/roughness.png",
-			"texture://TEXTURE_2D&Slip=true?assets/textures/pbr/rusted_iron/ao.png");
+			"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/albedo.png",
+			"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/normal.png",
+			"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/metallic.png",
+			"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/roughness.png",
+			"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/ao.png");
+
+		//auto entity2 = createEntity();
+		//entity2.getComponent<NameComponent>().name = "sphere.fbx2";
+		//entity2.addComponent<ModelComponent>().load("model://assets/models/basic/Sphere.fbx", "renderer://assets/shaders/pbr/pbr.rdr");
+		//entity2.addComponent<TransformComponent>().translation = { -5,0,0 };
+		//entity2.addComponent<PBRMaterialComponent>().load(
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/albedo.png",
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/normal.png",
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/metallic.png",
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/roughness.png",
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/ao.png");
+
+		//auto entity3 = createEntity();
+		//entity3.getComponent<NameComponent>().name = "sphere.fbx3";
+		//entity3.addComponent<ModelComponent>().load("model://assets/models/basic/Sphere.fbx", "renderer://assets/shaders/pbr/pbr.rdr");
+		//entity3.addComponent<TransformComponent>().translation = { -2,0,0 };
+		//entity3.addComponent<PBRMaterialComponent>().load(
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/albedo.png",
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/normal.png",
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/metallic.png",
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/roughness.png",
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/ao.png");
+
+		//auto entity4 = createEntity();
+		//entity4.getComponent<NameComponent>().name = "sphere.fbx4";
+		//entity4.addComponent<ModelComponent>().load("model://assets/models/basic/Sphere.fbx", "renderer://assets/shaders/pbr/pbr.rdr");
+		//entity4.addComponent<TransformComponent>().translation = { 2,0,0 };
+		//entity4.addComponent<PBRMaterialComponent>().load(
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/albedo.png",
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/normal.png",
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/metallic.png",
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/roughness.png",
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/ao.png");
+
+		//auto entity5 = createEntity();
+		//entity5.getComponent<NameComponent>().name = "sphere.fbx5";
+		//entity5.addComponent<ModelComponent>().load("model://assets/models/basic/Sphere.fbx", "renderer://assets/shaders/pbr/pbr.rdr");
+		//entity5.addComponent<TransformComponent>().translation = { 5,0,0 };
+		//entity5.addComponent<PBRMaterialComponent>().load(
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/albedo.png",
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/normal.png",
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/metallic.png",
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/roughness.png",
+		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/ao.png");
 
 	}
 

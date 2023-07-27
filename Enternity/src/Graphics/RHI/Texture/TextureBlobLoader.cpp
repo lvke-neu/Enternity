@@ -179,10 +179,10 @@ namespace Enternity
 		{
 			return new Texture2DBlobHolder(this, texPath.substr(11).c_str());
 		}
-		else if (strncmp("TEXTURE_2D&Slip=true?", texPath.c_str(), 21) == 0)
+		else if (strncmp("TEXTURE_2D&Slip=false?", texPath.c_str(), 22) == 0)
 		{
-			Texture2DBlobHolder* texture2DBlobHolder = new Texture2DBlobHolder(this, texPath.substr(21).c_str());
-			texture2DBlobHolder->setSlip(true);
+			Texture2DBlobHolder* texture2DBlobHolder = new Texture2DBlobHolder(this, texPath.substr(22).c_str());
+			texture2DBlobHolder->setSlip(false);
 			return texture2DBlobHolder;
 		}
 		else if (strncmp("TEXTURE_2D_HDR?", texPath.c_str(), 15) == 0)
