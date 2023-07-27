@@ -126,6 +126,7 @@
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobHolder.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobLoader.cpp" />
     <ClCompile Include="src\Scene\ECS\ModelComponent.cpp" />
+    <ClCompile Include="src\Scene\ECS\PBRMaterialComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\PostProcessComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\SkyBoxComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\Visual3DComponent.cpp" />

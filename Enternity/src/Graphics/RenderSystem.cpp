@@ -115,15 +115,31 @@ namespace Enternity
 					modelComponent.renderer->setMat4("u_p", proj);
 
 					auto& pbrMaterialComponent = entity.second.getComponent<PBRMaterialComponent>();
-					modelComponent.renderer->setVec3("albedo", pbrMaterialComponent.albedo);
-					modelComponent.renderer->setVec1("metallic", pbrMaterialComponent.metallic);
-					modelComponent.renderer->setVec1("roughness", pbrMaterialComponent.roughness);
-					modelComponent.renderer->setVec1("ao", pbrMaterialComponent.ao);
+					if (pbrMaterialComponent.albedo && pbrMaterialComponent.albedo->isLoadSucceeded())
+					{
+						pbrMaterialComponent.albedo->bind(0);
+					}
+					if (pbrMaterialComponent.normal && pbrMaterialComponent.normal->isLoadSucceeded())
+					{
+						pbrMaterialComponent.normal->bind(1);
+					}
+					if (pbrMaterialComponent.metallic && pbrMaterialComponent.metallic->isLoadSucceeded())
+					{
+						pbrMaterialComponent.metallic->bind(2);
+					}
+					if (pbrMaterialComponent.roughness && pbrMaterialComponent.roughness->isLoadSucceeded())
+					{
+						pbrMaterialComponent.roughness->bind(3);
+					}
+					if (pbrMaterialComponent.ao && pbrMaterialComponent.ao->isLoadSucceeded())
+					{
+						pbrMaterialComponent.ao->bind(4);
+					}
 
 					auto& pointLightComponent = scene->m_scenePointLight.getComponent<PointLightComponent>();
-					modelComponent.renderer->setVec3("lightPosition", pointLightComponent.position);
-					modelComponent.renderer->setVec3("lightColor", pointLightComponent.color);
-					modelComponent.renderer->setVec3("cameraPosition", scene->m_sceneCamera.getComponent<TransformComponent>().translation);
+					modelComponent.renderer->setVec3("u_lightPosition", pointLightComponent.position);
+					modelComponent.renderer->setVec3("u_lightColor", pointLightComponent.color);
+					modelComponent.renderer->setVec3("u_cameraPosition", scene->m_sceneCamera.getComponent<TransformComponent>().translation);
 
 					modelComponent.model->draw();
 

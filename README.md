@@ -18,6 +18,7 @@ AssetID, Asset, AssetLoader
 blobloader:"renderer://", "texture://", "mesh://primitive=cube", "model://"
 
 "texture://TEXTURE_2D?assest/"
+"texture://TEXTURE_2D?Slip=true?assest/"
 "texture://TEXTURE_2D_HDR?assest/"
 "texture://CUBE_MAP?assest/textures/skybox/daylight/.png"
 "texture://CUBE_MAP_HDR?assets/textures/hdr/spree_bank_4k.hdr"

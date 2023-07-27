@@ -51,11 +51,13 @@ namespace Enternity
 		entity1.getComponent<NameComponent>().name = "sphere.fbx";
 		entity1.addComponent<ModelComponent>().load("model://assets/models/basic/Sphere.fbx", "renderer://assets/shaders/pbr/pbr.rdr");
 		entity1.addComponent<TransformComponent>();
-		auto& pbrMaterialComponent = entity1.addComponent<PBRMaterialComponent>();
-		pbrMaterialComponent.albedo = glm::vec3(1.0f, 0.0f, 0.0f);
-		pbrMaterialComponent.metallic = 0.14f;
-		pbrMaterialComponent.roughness = 0.08f;
-		pbrMaterialComponent.ao = 1.0f;
+		entity1.addComponent<PBRMaterialComponent>().load(
+			"texture://TEXTURE_2D&Slip=true?assets/textures/pbr/rusted_iron/albedo.png",
+			"texture://TEXTURE_2D&Slip=true?assets/textures/pbr/rusted_iron/normal.png",
+			"texture://TEXTURE_2D&Slip=true?assets/textures/pbr/rusted_iron/metallic.png",
+			"texture://TEXTURE_2D&Slip=true?assets/textures/pbr/rusted_iron/roughness.png",
+			"texture://TEXTURE_2D&Slip=true?assets/textures/pbr/rusted_iron/ao.png");
+
 	}
 
 	Scene::~Scene()
@@ -110,6 +112,11 @@ namespace Enternity
 				it->second.getComponent<ModelComponent>().unload();
 			}
 
+			if (it->second.hasComponent<PBRMaterialComponent>())
+			{
+				it->second.getComponent<PBRMaterialComponent>().unload();
+			}
+
 			m_registry.destroy(it->first);
 			m_entities.erase(id);
 		}
@@ -137,6 +144,11 @@ namespace Enternity
 			if (it->second.hasComponent<ModelComponent>())
 			{
 				it->second.getComponent<ModelComponent>().unload();
+			}
+
+			if (it->second.hasComponent<PBRMaterialComponent>())
+			{
+				it->second.getComponent<PBRMaterialComponent>().unload();
 			}
 
 			m_registry.destroy(it->first);
