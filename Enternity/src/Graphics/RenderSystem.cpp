@@ -136,9 +136,8 @@ namespace Enternity
 						pbrMaterialComponent.ao->bind(4);
 					}
 
-					auto& pointLightComponent = scene->m_scenePointLight.getComponent<PointLightComponent>();
-					modelComponent.renderer->setVec3("u_lightPosition", pointLightComponent.position);
-					modelComponent.renderer->setVec3("u_lightColor", pointLightComponent.color);
+					modelComponent.renderer->setVec3("u_lightPosition", scene->m_scenePointLight.getComponent<TransformComponent>().translation);
+					modelComponent.renderer->setVec3("u_lightColor", scene->m_scenePointLight.getComponent<PointLightComponent>().color);
 					modelComponent.renderer->setVec3("u_cameraPosition", scene->m_sceneCamera.getComponent<TransformComponent>().translation);
 
 					modelComponent.model->draw();
@@ -157,20 +156,31 @@ namespace Enternity
 			{
 				auto& visual3DComponent = entity.second.getComponent<Visual3DComponent>();
 
-				if (visual3DComponent.renderer && visual3DComponent.mesh && visual3DComponent.texture2D && 
-					visual3DComponent.renderer->isLoadSucceeded() && visual3DComponent.mesh->isLoadSucceeded() && visual3DComponent.texture2D->isLoadSucceeded())
+				
+				if (visual3DComponent.renderer && visual3DComponent.renderer->isLoadSucceeded())
 				{
 					visual3DComponent.renderer->bind();
-					visual3DComponent.texture2D->bind(0);
 
 					glm::mat4 model = entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : glm::mat4(1);
 					glm::mat4 view = scene->m_sceneCamera.getComponent<TransformComponent>().getInverseWorldMatrix();
 					glm::mat4 proj = scene->m_sceneCamera.getComponent<CameraComponent>().getProjectionMatrix();
-
 					visual3DComponent.renderer->setMat4("u_mvp", proj * view * model);
-					visual3DComponent.mesh->draw();
 
-					visual3DComponent.texture2D->unbind();
+					if (visual3DComponent.texture2D &&visual3DComponent.texture2D->isLoadSucceeded())
+					{
+						visual3DComponent.texture2D->bind(0);
+					}
+					
+					if (visual3DComponent.mesh && visual3DComponent.mesh->isLoadSucceeded())
+					{
+						visual3DComponent.mesh->draw();
+					}
+					
+					if (visual3DComponent.texture2D &&visual3DComponent.texture2D->isLoadSucceeded())
+					{
+						visual3DComponent.texture2D->unbind();
+					}
+					
 					visual3DComponent.renderer->unbind();
 				}
 			}

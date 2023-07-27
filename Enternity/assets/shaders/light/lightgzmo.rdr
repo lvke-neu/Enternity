@@ -1,0 +1,4 @@
+{
+  "VertexShader": "assets/shaders/light/lightgzmo.vert",
+  "FragmentShader": "assets/shaders/light/lightgzmo.frag"
+}

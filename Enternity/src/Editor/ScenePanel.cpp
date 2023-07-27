@@ -206,8 +206,8 @@ namespace Enternity
 				[&]()
 				{
 					auto& pointLightComponent = entity.getComponent<PointLightComponent>();
-
-					DrawVec3("Position", pointLightComponent.position, glm::vec3(0.0f), 0.1f);
+					auto& transformComponent = entity.getComponent<TransformComponent>();
+					DrawVec3("Position", transformComponent.translation, glm::vec3(0.0f), 0.1f);
 					DrawVec3("Color", pointLightComponent.color, glm::vec3(1.0f));
 				});
 		}

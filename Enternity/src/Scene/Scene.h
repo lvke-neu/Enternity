@@ -26,6 +26,7 @@ namespace Enternity
 		void initCamera();
 		void initSkyBox();
 		void initLight();
+
 	private:
 		entt::registry m_registry;
 		std::map<entt::entity, Entity> m_entities;
