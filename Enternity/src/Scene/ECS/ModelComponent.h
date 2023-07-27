@@ -9,7 +9,6 @@ namespace Enternity
 		Model* model{ nullptr };
 		Renderer* renderer{ nullptr };
 
-		void load(const char* modelPath, const char* rendererPath);
 		void unload();
 	};
 }

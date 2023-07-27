@@ -1,5 +1,7 @@
 #include "Scene.h"
 #include "CameraController.h"
+#include "Engine/Engine.h"
+#include "Engine/AssetLoader.h"
 #include "ECS/TransformComponent.h"
 #include "ECS/CameraComponent.h"
 #include "ECS/NameComponent.h"
@@ -9,99 +11,102 @@
 #include "ECS/ModelComponent.h"
 #include "ECS/PBRMaterialComponent.h"
 #include "ECS/PointLightComponent.h"
-#include "Engine/Engine.h"
+#include "Graphics/RHI/Mesh/Mesh.h"
+#include "Graphics/RHI/Renderer/Renderer.h"
+#include "Graphics/RHI/Texture/Texture.h"
+#include "Scene/Model/Model.h"
 #include "Common/Macro.h"
 
 namespace Enternity
 {
 	Scene::Scene()
 	{
-		//scene postprocess
-		m_scenePostprocess = createEntity();
-		m_scenePostprocess.getComponent<NameComponent>().name = "PostProcess";
-		m_scenePostprocess.addComponent<PostProcessComponent>().load();
-
-		//scene camera
-		m_sceneCamera = createEntity();
-		m_sceneCamera.getComponent<NameComponent>().name = "Camera";
-		auto& comp = m_sceneCamera.addComponent<TransformComponent>();
-		comp.translation = glm::vec3(0.0f, 0.0f, 10.0f);
-		//comp.rotation = glm::vec3(-6.20, -11.00, 0);
-		m_sceneCamera.addComponent<CameraComponent>().moveSpeed = 30;
-		m_cameraController = new CameraController(&m_sceneCamera);
-
-		//scene skybox
-		m_sceneSkybox = createEntity();
-		m_sceneSkybox.getComponent<NameComponent>().name = "SkyBox";
-		m_sceneSkybox.addComponent<SkyBoxComponent>().load("texture://CUBE_MAP_HDR?assets/textures/hdr/evening_meadow_4k.hdr");
-
-		//scene light
-		m_scenePointLight = createEntity();
-		m_scenePointLight.getComponent<NameComponent>().name = "PointLight";
-		auto& pointLightComponent = m_scenePointLight.addComponent<PointLightComponent>();
-		pointLightComponent.position = glm::vec3(10.0f, 10.0f, 10.0f);
-		pointLightComponent.color = glm::vec3(300.f);
-
-		//auto entity1 = createEntity();
-		//entity1.getComponent<NameComponent>().name = "cube";
-		//entity1.addComponent<Visual3DComponent>().load("mesh://primitive=cube", "renderer://assets/shaders/visual3d/visual3d.rdr", "texture://TEXTURE_2D?assets/textures/box_diffuse.png");
-		//entity1.addComponent<TransformComponent>();
+		initPostProcess();
+		initCamera();
+		initSkyBox();
+		initLight();
 
 		auto entity1 = createEntity();
 		entity1.getComponent<NameComponent>().name = "sphere.fbx1";
-		entity1.addComponent<ModelComponent>().load("model://assets/models/basic/Sphere.fbx", "renderer://assets/shaders/pbr/pbr.rdr");
-		entity1.addComponent<TransformComponent>();
-		entity1.addComponent<PBRMaterialComponent>().load(
-			"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/albedo.png",
-			"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/normal.png",
-			"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/metallic.png",
-			"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/roughness.png",
-			"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/ao.png");
+		entity1.addComponent<TransformComponent>().translation = { -5.0f, 0.0f, 0.0f };
+		entity1.addComponent<ModelComponent>();
+		entity1.addComponent<PBRMaterialComponent>();
+		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/basic/Sphere.fbx",
+			[=](Asset* asset)
+			{
+				entity1.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/pbr/pbr.rdr",
+			[=](Asset* asset)
+			{
+				entity1.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/rusted_iron/albedo.png",
+			[=](Asset* asset)
+			{
+				entity1.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/rusted_iron/normal.png",
+			[=](Asset* asset)
+			{
+				entity1.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
+			});		
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/rusted_iron/metallic.png",
+			[=](Asset* asset)
+			{
+				entity1.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/rusted_iron/roughness.png",
+			[=](Asset* asset)
+			{
+				entity1.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/rusted_iron/ao.png",
+			[=](Asset* asset)
+			{
+				entity1.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
+			});
 
-		//auto entity2 = createEntity();
-		//entity2.getComponent<NameComponent>().name = "sphere.fbx2";
-		//entity2.addComponent<ModelComponent>().load("model://assets/models/basic/Sphere.fbx", "renderer://assets/shaders/pbr/pbr.rdr");
-		//entity2.addComponent<TransformComponent>().translation = { -5,0,0 };
-		//entity2.addComponent<PBRMaterialComponent>().load(
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/albedo.png",
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/normal.png",
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/metallic.png",
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/roughness.png",
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/ao.png");
-
-		//auto entity3 = createEntity();
-		//entity3.getComponent<NameComponent>().name = "sphere.fbx3";
-		//entity3.addComponent<ModelComponent>().load("model://assets/models/basic/Sphere.fbx", "renderer://assets/shaders/pbr/pbr.rdr");
-		//entity3.addComponent<TransformComponent>().translation = { -2,0,0 };
-		//entity3.addComponent<PBRMaterialComponent>().load(
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/albedo.png",
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/normal.png",
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/metallic.png",
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/roughness.png",
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/ao.png");
-
-		//auto entity4 = createEntity();
-		//entity4.getComponent<NameComponent>().name = "sphere.fbx4";
-		//entity4.addComponent<ModelComponent>().load("model://assets/models/basic/Sphere.fbx", "renderer://assets/shaders/pbr/pbr.rdr");
-		//entity4.addComponent<TransformComponent>().translation = { 2,0,0 };
-		//entity4.addComponent<PBRMaterialComponent>().load(
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/albedo.png",
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/normal.png",
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/metallic.png",
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/roughness.png",
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/ao.png");
-
-		//auto entity5 = createEntity();
-		//entity5.getComponent<NameComponent>().name = "sphere.fbx5";
-		//entity5.addComponent<ModelComponent>().load("model://assets/models/basic/Sphere.fbx", "renderer://assets/shaders/pbr/pbr.rdr");
-		//entity5.addComponent<TransformComponent>().translation = { 5,0,0 };
-		//entity5.addComponent<PBRMaterialComponent>().load(
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/albedo.png",
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/normal.png",
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/metallic.png",
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/roughness.png",
-		//	"texture://TEXTURE_2D&Slip=false?assets/textures/pbr/wall/ao.png");
-
+		auto entity2 = createEntity();
+		entity2.getComponent<NameComponent>().name = "sphere.fbx1";
+		entity2.addComponent<TransformComponent>().translation = {5.0f, 0.0f, 0.0f };
+		entity2.addComponent<ModelComponent>();
+		entity2.addComponent<PBRMaterialComponent>();
+		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/basic/Sphere.fbx",
+			[=](Asset* asset)
+			{
+				entity2.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/pbr/pbr.rdr",
+			[=](Asset* asset)
+			{
+				entity2.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/rusted_iron/albedo.png",
+			[=](Asset* asset)
+			{
+				entity2.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/rusted_iron/normal.png",
+			[=](Asset* asset)
+			{
+				entity2.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/rusted_iron/metallic.png",
+			[=](Asset* asset)
+			{
+				entity2.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/rusted_iron/roughness.png",
+			[=](Asset* asset)
+			{
+				entity2.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/rusted_iron/ao.png",
+			[=](Asset* asset)
+			{
+				entity2.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
+			});
 	}
 
 	Scene::~Scene()
@@ -129,7 +134,6 @@ namespace Enternity
 
 		return Entity();
 	}
-
 
 	void Scene::deleteEntityById(entt::entity id)
 	{
@@ -203,5 +207,66 @@ namespace Enternity
 	void Scene::tick(float deltaTime)
 	{
 
+	}
+
+	void Scene::initPostProcess()
+	{
+		m_scenePostprocess = createEntity();
+		m_scenePostprocess.getComponent<NameComponent>().name = "PostProcess";
+		m_scenePostprocess.addComponent<PostProcessComponent>();
+
+		Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=plane",
+			[&](Asset* asset)
+			{
+				m_scenePostprocess.getComponent<PostProcessComponent>().mesh= dynamic_cast<Mesh*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/postprocess/postprocess.rdr",
+			[&](Asset* asset)
+			{
+				m_scenePostprocess.getComponent<PostProcessComponent>().renderer = dynamic_cast<Renderer*>(asset);
+			});
+	}
+
+	void Scene::initCamera()
+	{
+		m_sceneCamera = createEntity();
+		m_sceneCamera.getComponent<NameComponent>().name = "Camera";
+		auto& comp = m_sceneCamera.addComponent<TransformComponent>();
+		comp.translation = glm::vec3(0.0f, 0.0f, 10.0f);
+		//comp.rotation = glm::vec3(-6.20, -11.00, 0);
+		m_sceneCamera.addComponent<CameraComponent>().moveSpeed = 30;
+		m_cameraController = new CameraController(&m_sceneCamera);
+	}
+
+	void Scene::initSkyBox()
+	{
+		m_sceneSkybox = createEntity();
+		m_sceneSkybox.getComponent<NameComponent>().name = "SkyBox";
+		m_sceneSkybox.addComponent<SkyBoxComponent>();
+
+		Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube",
+			[&](Asset* asset)
+			{
+				m_sceneSkybox.getComponent<SkyBoxComponent>().mesh = dynamic_cast<Mesh*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/skybox/skybox.rdr",
+			[&](Asset* asset)
+			{
+				m_sceneSkybox.getComponent<SkyBoxComponent>().renderer = dynamic_cast<Renderer*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://CUBE_MAP_HDR?assets/textures/hdr/evening_meadow_4k.hdr",
+			[&](Asset* asset)
+			{
+				m_sceneSkybox.getComponent<SkyBoxComponent>().textureCubeMapHDR = dynamic_cast<TextureCubeMapHDR*>(asset);
+			});
+	}
+
+	void Scene::initLight()
+	{
+		m_scenePointLight = createEntity();
+		m_scenePointLight.getComponent<NameComponent>().name = "PointLight";
+		auto& pointLightComponent = m_scenePointLight.addComponent<PointLightComponent>();
+		pointLightComponent.position = { 0.0f };
+		pointLightComponent.color = glm::vec3(300.f);
 	}
 }

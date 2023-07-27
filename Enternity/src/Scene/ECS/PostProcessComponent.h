@@ -19,7 +19,6 @@ namespace Enternity
 		Renderer* renderer{ nullptr };
 		PostProcessType postprocessType{ None };
 
-		void load();
 		void unload();
 	};
 }
