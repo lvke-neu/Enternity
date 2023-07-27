@@ -32,6 +32,9 @@ namespace Enternity
 			{0.0f, 5.0f, 0.0f},{0.0f, -5.0f, 0.0f},
 			{0.0f, 0.0f, 5.0f},{0.0f, 0.0f, -5.0f}
 		};
+
+		std::string path[6] = { {"rusted_iron"},{"rusted_iron"},{"gold"},{"grass"},{"plastic"},{"wall"} };
+
 		for (int i = 0; i < 6; i++)
 		{
 			auto entity = createEntity();
@@ -49,27 +52,27 @@ namespace Enternity
 				{
 					entity.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
 				});
-			Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/rusted_iron/albedo.png",
+			Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] +"/albedo.png").c_str(),
 				[=](Asset* asset)
 				{
 					entity.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
 				});
-			Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/rusted_iron/normal.png",
+			Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] + "/normal.png").c_str(),
 				[=](Asset* asset)
 				{
 					entity.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
 				});
-			Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/rusted_iron/metallic.png",
+			Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] + "/metallic.png").c_str(),
 				[=](Asset* asset)
 				{
 					entity.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
 				});
-			Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/rusted_iron/roughness.png",
+			Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] + "/roughness.png").c_str(),
 				[=](Asset* asset)
 				{
 					entity.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
 				});
-			Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/rusted_iron/ao.png",
+			Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] + "/ao.png").c_str(),
 				[=](Asset* asset)
 				{
 					entity.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);

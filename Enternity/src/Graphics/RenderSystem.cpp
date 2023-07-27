@@ -97,6 +97,7 @@ namespace Enternity
 	{
 		for (auto& entity : scene->m_entities)
 		{
+			
 			if (entity.second.hasComponent<ModelComponent>())
 			{
 				auto& modelComponent = entity.second.getComponent<ModelComponent>();
@@ -142,6 +143,26 @@ namespace Enternity
 
 					modelComponent.model->draw();
 
+					if (pbrMaterialComponent.albedo && pbrMaterialComponent.albedo->isLoadSucceeded())
+					{
+						pbrMaterialComponent.albedo->unbind();
+					}
+					if (pbrMaterialComponent.normal && pbrMaterialComponent.normal->isLoadSucceeded())
+					{
+						pbrMaterialComponent.normal->unbind();
+					}
+					if (pbrMaterialComponent.metallic && pbrMaterialComponent.metallic->isLoadSucceeded())
+					{
+						pbrMaterialComponent.metallic->unbind();
+					}
+					if (pbrMaterialComponent.roughness && pbrMaterialComponent.roughness->isLoadSucceeded())
+					{
+						pbrMaterialComponent.roughness->unbind();
+					}
+					if (pbrMaterialComponent.ao && pbrMaterialComponent.ao->isLoadSucceeded())
+					{
+						pbrMaterialComponent.ao->unbind();
+					}
 					modelComponent.renderer->unbind();
 				}
 			}

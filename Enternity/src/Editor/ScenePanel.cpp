@@ -1,3 +1,5 @@
+#pragma warning(disable:4312) 
+
 #include "ScenePanel.h"
 #include "Engine/Engine.h"
 #include "Scene/Scene.h"
@@ -10,6 +12,7 @@
 #include "Scene/ECS/PBRMaterialComponent.h"
 #include "Scene/ECS/PointLightComponent.h"
 #include "Graphics/GraphicsSystem.h"
+#include "Graphics/RHI/Texture/Texture.h"
 #include "Pick/PickSystem.h"
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
@@ -192,6 +195,33 @@ namespace Enternity
 				[&]()
 				{
 					auto& pbrMaterialComponent = entity.getComponent<PBRMaterialComponent>();
+					if (pbrMaterialComponent.albedo &&
+						pbrMaterialComponent.normal &&
+						pbrMaterialComponent.metallic &&
+						pbrMaterialComponent.roughness &&
+						pbrMaterialComponent.ao)
+					{
+						
+						ImGui::ImageButton((void*)pbrMaterialComponent.albedo->getRenderId(), { 64, 64 }, { 0, 1 }, { 1, 0 });
+						ImGui::SameLine();
+						ImGui::Text("Albedo");
+						
+						ImGui::ImageButton((void*)pbrMaterialComponent.normal->getRenderId(), { 64, 64 }, { 0, 1 }, { 1, 0 });
+						ImGui::SameLine();
+						ImGui::Text("Normal"); 
+						
+						ImGui::ImageButton((void*)pbrMaterialComponent.metallic->getRenderId(), { 64, 64 }, { 0, 1 }, { 1, 0 });
+						ImGui::SameLine();
+						ImGui::Text("Metallic"); 
+						
+						ImGui::ImageButton((void*)pbrMaterialComponent.roughness->getRenderId(), { 64, 64 }, { 0, 1 }, { 1, 0 });
+						ImGui::SameLine();
+						ImGui::Text("Roughness"); 
+						
+						ImGui::ImageButton((void*)pbrMaterialComponent.ao->getRenderId(), { 64, 64 }, { 0, 1 }, { 1, 0 });
+						ImGui::SameLine();
+						ImGui::Text("Ao"); 
+					}
 
 					//ImGui::ColorEdit3("Albedo", &pbrMaterialComponent.albedo[0]);
 					//ImGui::DragFloat("Metallic", &pbrMaterialComponent.metallic, 0.01f, 0.0f, 1.0f);
