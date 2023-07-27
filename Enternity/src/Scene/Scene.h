@@ -28,6 +28,7 @@ namespace Enternity
 		Entity m_sceneCamera;
 		Entity m_scenePostprocess;
 		Entity m_sceneSkybox;
+		Entity m_scenePointLight;
 		CameraController* m_cameraController{ nullptr };
 	};
 

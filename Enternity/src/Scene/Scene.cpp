@@ -7,6 +7,8 @@
 #include "ECS/SkyBoxComponent.h"
 #include "ECS/Visual3DComponent.h"
 #include "ECS/ModelComponent.h"
+#include "ECS/PBRMaterialComponent.h"
+#include "ECS/PointLightComponent.h"
 #include "Engine/Engine.h"
 #include "Common/Macro.h"
 
@@ -23,8 +25,8 @@ namespace Enternity
 		m_sceneCamera = createEntity();
 		m_sceneCamera.getComponent<NameComponent>().name = "Camera";
 		auto& comp = m_sceneCamera.addComponent<TransformComponent>();
-		comp.translation = glm::vec3(0.28, 8.41, 19.70);
-		comp.rotation = glm::vec3(-6.20, -11.00, 0);
+		//comp.translation = glm::vec3(0.28, 8.41, 19.70);
+		//comp.rotation = glm::vec3(-6.20, -11.00, 0);
 		m_sceneCamera.addComponent<CameraComponent>().moveSpeed = 30;
 		m_cameraController = new CameraController(&m_sceneCamera);
 
@@ -32,6 +34,12 @@ namespace Enternity
 		m_sceneSkybox = createEntity();
 		m_sceneSkybox.getComponent<NameComponent>().name = "SkyBox";
 		m_sceneSkybox.addComponent<SkyBoxComponent>().load("texture://CUBE_MAP_HDR?assets/textures/hdr/evening_meadow_4k.hdr");
+
+		//scene light
+		m_scenePointLight = createEntity();
+		m_scenePointLight.getComponent<NameComponent>().name = "PointLight";
+		m_scenePointLight.addComponent<PointLightComponent>();
+
 
 		//auto entity1 = createEntity();
 		//entity1.getComponent<NameComponent>().name = "cube";
@@ -42,6 +50,7 @@ namespace Enternity
 		entity1.getComponent<NameComponent>().name = "sphere.fbx";
 		entity1.addComponent<ModelComponent>().load("model://assets/models/basic/Sphere.fbx", "renderer://assets/shaders/pbr/pbr.rdr");
 		entity1.addComponent<TransformComponent>();
+		entity1.addComponent<PBRMaterialComponent>();
 	}
 
 	Scene::~Scene()

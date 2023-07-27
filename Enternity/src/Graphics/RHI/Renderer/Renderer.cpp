@@ -133,6 +133,16 @@ namespace Enternity
 		glUniform1uiv(getUniformLocation(name), 1, &value);
 	}
 
+	void Renderer::setVec1(const std::string& name, float value)
+	{
+		glUniform1fv(getUniformLocation(name), 1, &value);
+	}
+
+	void Renderer::setVec3(const std::string& name, const glm::vec3& vec3)
+	{
+		glUniform3fv(getUniformLocation(name), 1, &vec3[0]);
+	}
+
 	void Renderer::setMat4(const std::string& name, const glm::mat4& mat4, bool normalize)
 	{
 		glUniformMatrix4fv(getUniformLocation(name), 1, normalize, &mat4[0][0]);

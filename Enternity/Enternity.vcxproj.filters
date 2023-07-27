@@ -397,6 +397,12 @@
     <ClInclude Include="src\Scene\ECS\ModelComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scene\ECS\PBRMaterialComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\ECS\PointLightComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\TestWindowsFileAsset.txt" />

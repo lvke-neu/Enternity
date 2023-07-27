@@ -10,6 +10,8 @@
 #include "Scene/ECS/SkyBoxComponent.h"
 #include "Scene/ECS/Visual3DComponent.h"
 #include "Scene/ECS/ModelComponent.h"
+#include "Scene/ECS/PBRMaterialComponent.h"
+#include "Scene/ECS/PointLightComponent.h"
 #include "Scene/Model/Model.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
@@ -108,7 +110,21 @@ namespace Enternity
 					glm::mat4 view = scene->m_sceneCamera.getComponent<TransformComponent>().getInverseWorldMatrix();
 					glm::mat4 proj = scene->m_sceneCamera.getComponent<CameraComponent>().getProjectionMatrix();
 
-					modelComponent.renderer->setMat4("u_mvp", proj * view * model);
+					modelComponent.renderer->setMat4("u_m", model);
+					modelComponent.renderer->setMat4("u_v", view);
+					modelComponent.renderer->setMat4("u_p", proj);
+
+					auto& pbrMaterialComponent = entity.second.getComponent<PBRMaterialComponent>();
+					modelComponent.renderer->setVec3("albedo", pbrMaterialComponent.albedo);
+					modelComponent.renderer->setVec1("metallic", pbrMaterialComponent.metallic);
+					modelComponent.renderer->setVec1("roughness", pbrMaterialComponent.roughness);
+					modelComponent.renderer->setVec1("ao", pbrMaterialComponent.ao);
+
+					auto& pointLightComponent = scene->m_scenePointLight.getComponent<PointLightComponent>();
+					modelComponent.renderer->setVec3("lightPosition", pointLightComponent.position);
+					modelComponent.renderer->setVec3("lightColor", pointLightComponent.color);
+					modelComponent.renderer->setVec3("cameraPosition", scene->m_sceneCamera.getComponent<TransformComponent>().translation);
+
 					modelComponent.model->draw();
 
 					modelComponent.renderer->unbind();

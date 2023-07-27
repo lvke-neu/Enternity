@@ -7,6 +7,8 @@
 #include "Scene/ECS/NameComponent.h"
 #include "Scene/ECS/PostProcessComponent.h"
 #include "Scene/ECS/SkyBoxComponent.h"
+#include "Scene/ECS/PBRMaterialComponent.h"
+#include "Scene/ECS/PointLightComponent.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Pick/PickSystem.h"
 #include "Imgui/imgui.h"
@@ -16,7 +18,7 @@
 
 namespace Enternity
 {
-	void DrawVec3(const std::string& label, glm::vec3& value, const glm::vec3& resetValue = glm::vec3{ 0.0f }, float columnWidth = 100.0f)
+	void DrawVec3(const std::string& label, glm::vec3& value, const glm::vec3& resetValue = glm::vec3{ 0.0f }, float step = 1.0f, float columnWidth = 100.0f)
 	{
 		ImGuiIO& io = ImGui::GetIO();
 		auto boldFont = io.Fonts->Fonts[0];
@@ -45,7 +47,7 @@ namespace Enternity
 		ImGui::PopFont();
 		ImGui::PopStyleColor(3);
 		ImGui::SameLine();
-		ImGui::DragFloat("##X", &value.x, 1.0f, 0.0f, 0.0f, "%.2f");
+		ImGui::DragFloat("##X", &value.x, step, 0.0f, 0.0f, "%.2f");
 		ImGui::PopItemWidth();
 		ImGui::SameLine();
 
@@ -60,7 +62,7 @@ namespace Enternity
 		ImGui::PopFont();
 		ImGui::PopStyleColor(3);
 		ImGui::SameLine();
-		ImGui::DragFloat("##Y", &value.y, 1.0f, 0.0f, 0.0f, "%.2f");
+		ImGui::DragFloat("##Y", &value.y, step, 0.0f, 0.0f, "%.2f");
 		ImGui::PopItemWidth();
 		ImGui::SameLine();
 
@@ -75,7 +77,7 @@ namespace Enternity
 		ImGui::PopFont();
 		ImGui::PopStyleColor(3);
 		ImGui::SameLine();
-		ImGui::DragFloat("##Z", &value.z, 1.0f, 0.0f, 0.0f, "%.2f");
+		ImGui::DragFloat("##Z", &value.z, step, 0.0f, 0.0f, "%.2f");
 		ImGui::PopItemWidth();
 
 
@@ -184,7 +186,31 @@ namespace Enternity
 				});
 		}
 
+		if (entity.hasComponent<PBRMaterialComponent>())
+		{
+			DrawComponent("PBRMaterialComponent",
+				[&]()
+				{
+					auto& pbrMaterialComponent = entity.getComponent<PBRMaterialComponent>();
 
+					DrawVec3("Albedo", pbrMaterialComponent.albedo, glm::vec3(1.0f));
+					ImGui::DragFloat("Metallic", &pbrMaterialComponent.metallic, 0.01f, 0.0f, 1.0f);
+					ImGui::DragFloat("Roughness", &pbrMaterialComponent.roughness, 0.01f, 0.0f, 1.0f);
+					ImGui::DragFloat("Ao", &pbrMaterialComponent.ao, 0.01f, 0.0f, 1.0f);
+				});
+		}
+
+		if (entity.hasComponent<PointLightComponent>())
+		{
+			DrawComponent("PointLightComponent",
+				[&]()
+				{
+					auto& pointLightComponent = entity.getComponent<PointLightComponent>();
+
+					DrawVec3("Position", pointLightComponent.position, glm::vec3(0.0f), 0.1);
+					DrawVec3("Color", pointLightComponent.color, glm::vec3(1.0f));
+				});
+		}
 
 		//if (entity.hasComponent<Visual3DComponent>())
 		//{

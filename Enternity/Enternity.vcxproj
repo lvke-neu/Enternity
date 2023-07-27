@@ -186,7 +186,9 @@
     <ClInclude Include="src\Engine\BlobLoaderManager.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobHolder.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobLoader.h" />
+    <ClInclude Include="src\Scene\ECS\PointLightComponent.h" />
     <ClInclude Include="src\Scene\ECS\ModelComponent.h" />
+    <ClInclude Include="src\Scene\ECS\PBRMaterialComponent.h" />
     <ClInclude Include="src\Scene\ECS\SkyBoxComponent.h" />
     <ClInclude Include="src\Scene\ECS\Visual3DComponent.h" />
     <ClInclude Include="src\Scene\Model\Model.h" />
