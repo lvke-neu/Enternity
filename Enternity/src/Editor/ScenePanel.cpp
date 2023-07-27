@@ -193,7 +193,7 @@ namespace Enternity
 				{
 					auto& pbrMaterialComponent = entity.getComponent<PBRMaterialComponent>();
 
-					DrawVec3("Albedo", pbrMaterialComponent.albedo, glm::vec3(1.0f));
+					ImGui::ColorEdit3("Albedo", &pbrMaterialComponent.albedo[0]);
 					ImGui::DragFloat("Metallic", &pbrMaterialComponent.metallic, 0.01f, 0.0f, 1.0f);
 					ImGui::DragFloat("Roughness", &pbrMaterialComponent.roughness, 0.01f, 0.0f, 1.0f);
 					ImGui::DragFloat("Ao", &pbrMaterialComponent.ao, 0.01f, 0.0f, 1.0f);
