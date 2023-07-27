@@ -37,7 +37,11 @@ namespace Enternity
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-		if (texture2DBlobHolder->m_channels == 3)
+		if (texture2DBlobHolder->m_channels == 1)
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, texture2DBlobHolder->m_width, texture2DBlobHolder->m_height, 0, GL_RED, GL_UNSIGNED_BYTE, texture2DBlobHolder->getBlob()->getData());
+		}
+		else if (texture2DBlobHolder->m_channels == 3)
 		{
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture2DBlobHolder->m_width, texture2DBlobHolder->m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, texture2DBlobHolder->getBlob()->getData());
 		}
