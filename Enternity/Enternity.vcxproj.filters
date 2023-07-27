@@ -26,6 +26,7 @@
     <None Include="assets\shaders\skybox\skybox.rdr" />
     <None Include="assets\shaders\visual3d\visual3d.rdr" />
     <None Include="assets\shaders\model\model.rdr" />
+    <None Include="assets\shaders\pbr\pbr.rdr" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">

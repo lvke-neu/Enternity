@@ -1,0 +1,4 @@
+{
+  "VertexShader": "assets/shaders/pbr/pbr.vert",
+  "FragmentShader": "assets/shaders/pbr/pbr.frag"
+}

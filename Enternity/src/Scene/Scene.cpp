@@ -39,8 +39,8 @@ namespace Enternity
 		//entity1.addComponent<TransformComponent>();
 
 		auto entity1 = createEntity();
-		entity1.getComponent<NameComponent>().name = "cube.fbx";
-		entity1.addComponent<ModelComponent>().load("model://assets/models/nanosuit/nanosuit.obj", "renderer://assets/shaders/model/model.rdr");
+		entity1.getComponent<NameComponent>().name = "sphere.fbx";
+		entity1.addComponent<ModelComponent>().load("model://assets/models/basic/Sphere.fbx", "renderer://assets/shaders/pbr/pbr.rdr");
 		entity1.addComponent<TransformComponent>();
 	}
 
