@@ -21,6 +21,5 @@ namespace Enternity
 
 		void load();
 		void unload();
-		void draw();
 	};
 }

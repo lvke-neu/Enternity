@@ -9,6 +9,9 @@
 #include "Scene/ECS/PostProcessComponent.h"
 #include "Scene/ECS/SkyBoxComponent.h"
 #include "Scene/ECS/Visual3DComponent.h"
+#include "Graphics/RHI/Mesh/Mesh.h"
+#include "Graphics/RHI/Renderer/Renderer.h"
+#include "Graphics/RHI/Texture/Texture.h"
 #include <glad/glad.h>
 
 namespace Enternity
@@ -59,7 +62,25 @@ namespace Enternity
 
 	void RenderSystem::color_path_skyboxPass(Scene* scene)
 	{
-		scene->m_sceneSkybox.getComponent<SkyBoxComponent>().draw();
+		auto& skyBoxComponent = scene->m_sceneSkybox.getComponent<SkyBoxComponent>();
+		if (skyBoxComponent.renderer && skyBoxComponent.mesh && skyBoxComponent.textureCubeMapHDR && 
+			skyBoxComponent.renderer->isLoadSucceeded() && skyBoxComponent.mesh->isLoadSucceeded() && skyBoxComponent.textureCubeMapHDR->isLoadSucceeded())
+		{
+			glDepthFunc(GL_LEQUAL);
+			skyBoxComponent.renderer->bind();
+			skyBoxComponent.textureCubeMapHDR->bind(0);
+
+			glm::mat4 view = scene->m_sceneCamera.getComponent<TransformComponent>().getInverseWorldMatrix();
+			glm::mat4 proj = scene->m_sceneCamera.getComponent<CameraComponent>().getProjectionMatrix();
+
+			skyBoxComponent.renderer->setMat4("u_mvp", proj * glm::mat4(glm::mat3(view)));
+			skyBoxComponent.mesh->draw();
+
+			skyBoxComponent.textureCubeMapHDR->unbind();
+			skyBoxComponent.renderer->unbind();
+
+			glDepthFunc(GL_LESS);
+		}
 	}
 
 	void RenderSystem::color_path_shadowmapPass(Scene* scene)
@@ -73,7 +94,24 @@ namespace Enternity
 		{
 			if (entity.second.hasComponent<Visual3DComponent>())
 			{
-				entity.second.getComponent<Visual3DComponent>().draw();
+				auto& visual3DComponent = entity.second.getComponent<Visual3DComponent>();
+
+				if (visual3DComponent.renderer && visual3DComponent.mesh && visual3DComponent.texture2D && 
+					visual3DComponent.renderer->isLoadSucceeded() && visual3DComponent.mesh->isLoadSucceeded() && visual3DComponent.texture2D->isLoadSucceeded())
+				{
+					visual3DComponent.renderer->bind();
+					visual3DComponent.texture2D->bind(0);
+
+					glm::mat4 model = entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : glm::mat4(1);
+					glm::mat4 view = scene->m_sceneCamera.getComponent<TransformComponent>().getInverseWorldMatrix();
+					glm::mat4 proj = scene->m_sceneCamera.getComponent<CameraComponent>().getProjectionMatrix();
+
+					visual3DComponent.renderer->setMat4("u_mvp", proj * view * model);
+					visual3DComponent.mesh->draw();
+
+					visual3DComponent.texture2D->unbind();
+					visual3DComponent.renderer->unbind();
+				}
 			}
 		}
 
@@ -278,7 +316,15 @@ namespace Enternity
 
 		auto& postprocessEntity = scene->m_scenePostprocess;
 		auto& ppc = postprocessEntity.getComponent<PostProcessComponent>();
-		ppc.draw();
+		if (ppc.renderer && ppc.mesh)
+		{
+			ppc.renderer->bind();
+			ppc.renderer->setUint1("u_postProcessType", ppc.postprocessType);
+			Texture2D::Bind(m_colorFrameBuffer->getTextureId(0), 0);
+			ppc.mesh->draw();
+			Texture2D::UnBind();
+			ppc.renderer->unbind();
+		}
 
 		m_postprocessFrameBuffer->unbind();
 	}

@@ -10,19 +10,6 @@
 
 namespace Enternity
 {
-	void PostProcessComponent::draw()
-	{
-		if (renderer && mesh)
-		{
-			renderer->bind();
-			renderer->setUint1("u_postProcessType", postprocessType);
-			Texture2D::Bind(Engine::GetInstance().getGraphicsSystem()->getColorFrameBuffer()->getTextureId(0), 0);
-			mesh->draw();
-			Texture2D::UnBind();
-			renderer->unbind();
-		}
-	}
-
 	void PostProcessComponent::load()
 	{
 		Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=plane",

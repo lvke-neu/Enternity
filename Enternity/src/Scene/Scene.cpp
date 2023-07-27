@@ -30,11 +30,12 @@ namespace Enternity
 		//scene skybox
 		m_sceneSkybox = createEntity();
 		m_sceneSkybox.getComponent<NameComponent>().name = "SkyBox";
-		m_sceneSkybox.addComponent<SkyBoxComponent>().load("texture://CUBE_MAP_HDR?assets/textures/hdr/little_paris_eiffel_tower_4k.hdr");
+		m_sceneSkybox.addComponent<SkyBoxComponent>().load("texture://CUBE_MAP_HDR?assets/textures/hdr/evening_meadow_4k.hdr");
 
 		auto entity1 = createEntity();
 		entity1.getComponent<NameComponent>().name = "cube";
 		entity1.addComponent<Visual3DComponent>().load("mesh://primitive=cube", "renderer://assets/shaders/visual3d/visual3d.rdr", "texture://TEXTURE_2D?assets/textures/box_diffuse.png");
+		entity1.addComponent<TransformComponent>();
 	}
 
 	Scene::~Scene()

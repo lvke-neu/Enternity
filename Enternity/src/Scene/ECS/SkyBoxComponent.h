@@ -14,8 +14,5 @@ namespace Enternity
 
 		void load(const char* _texturePath);
 		void unload();
-		void draw();
-
-		std::string texturePath;
 	};
 }
