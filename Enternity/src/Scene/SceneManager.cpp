@@ -10,8 +10,8 @@ namespace Enternity
 {
 	SceneManager::SceneManager()
 	{
-		m_currentScene = new Scene;
 		Engine::GetInstance().getBlobLoaderManager()->registerBlobLoader(new ModelBlobLoader);
+		m_currentScene = new Scene;	
 	}
 
 	SceneManager::~SceneManager()

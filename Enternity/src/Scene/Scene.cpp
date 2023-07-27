@@ -6,6 +6,7 @@
 #include "ECS/PostProcessComponent.h"
 #include "ECS/SkyBoxComponent.h"
 #include "ECS/Visual3DComponent.h"
+#include "ECS/ModelComponent.h"
 #include "Engine/Engine.h"
 #include "Common/Macro.h"
 
@@ -32,9 +33,14 @@ namespace Enternity
 		m_sceneSkybox.getComponent<NameComponent>().name = "SkyBox";
 		m_sceneSkybox.addComponent<SkyBoxComponent>().load("texture://CUBE_MAP_HDR?assets/textures/hdr/evening_meadow_4k.hdr");
 
+		//auto entity1 = createEntity();
+		//entity1.getComponent<NameComponent>().name = "cube";
+		//entity1.addComponent<Visual3DComponent>().load("mesh://primitive=cube", "renderer://assets/shaders/visual3d/visual3d.rdr", "texture://TEXTURE_2D?assets/textures/box_diffuse.png");
+		//entity1.addComponent<TransformComponent>();
+
 		auto entity1 = createEntity();
-		entity1.getComponent<NameComponent>().name = "cube";
-		entity1.addComponent<Visual3DComponent>().load("mesh://primitive=cube", "renderer://assets/shaders/visual3d/visual3d.rdr", "texture://TEXTURE_2D?assets/textures/box_diffuse.png");
+		entity1.getComponent<NameComponent>().name = "cube.fbx";
+		entity1.addComponent<ModelComponent>().load("model://assets/models/nanosuit/nanosuit.obj", "renderer://assets/shaders/model/model.rdr");
 		entity1.addComponent<TransformComponent>();
 	}
 

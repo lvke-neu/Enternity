@@ -9,6 +9,8 @@
 #include "Scene/ECS/PostProcessComponent.h"
 #include "Scene/ECS/SkyBoxComponent.h"
 #include "Scene/ECS/Visual3DComponent.h"
+#include "Scene/ECS/ModelComponent.h"
+#include "Scene/Model/Model.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"
@@ -48,6 +50,7 @@ namespace Enternity
 			color_path_cull(scene);
 			color_path_skyboxPass(scene);
 			color_path_shadowmapPass(scene);
+			color_path_modelPass(scene);
 			color_path_visual3dPass(scene);
 			color_path_particlePass(scene);
 
@@ -86,6 +89,32 @@ namespace Enternity
 	void RenderSystem::color_path_shadowmapPass(Scene* scene)
 	{
 
+	}
+	
+	void RenderSystem::color_path_modelPass(Scene* scene)
+	{
+		for (auto& entity : scene->m_entities)
+		{
+			if (entity.second.hasComponent<ModelComponent>())
+			{
+				auto& modelComponent = entity.second.getComponent<ModelComponent>();
+
+				if (modelComponent.renderer && modelComponent.renderer->isLoadSucceeded() &&
+					modelComponent.model && modelComponent.model->isLoadSucceeded())
+				{
+					modelComponent.renderer->bind();
+
+					glm::mat4 model = entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : glm::mat4(1);
+					glm::mat4 view = scene->m_sceneCamera.getComponent<TransformComponent>().getInverseWorldMatrix();
+					glm::mat4 proj = scene->m_sceneCamera.getComponent<CameraComponent>().getProjectionMatrix();
+
+					modelComponent.renderer->setMat4("u_mvp", proj * view * model);
+					modelComponent.model->draw();
+
+					modelComponent.renderer->unbind();
+				}
+			}
+		}
 	}
 
 	void RenderSystem::color_path_visual3dPass(Scene* scene)

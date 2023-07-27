@@ -27,15 +27,15 @@ namespace Enternity
 		//generate vertexbuffer
 		glGenBuffers(1, &m_vbId);
 		glBindBuffer(GL_ARRAY_BUFFER, m_vbId);
-		glBufferData(GL_ARRAY_BUFFER, meshBlobHolder->getMeshDesc().vertexDataSize, (char*)meshBlobHolder->getBlob()->getData() + meshBlobHolder->getMeshDesc().vertexDataOffset, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, meshBlobHolder->m_meshDesc.vertexDataSize, (char*)meshBlobHolder->getBlob()->getData() + meshBlobHolder->m_meshDesc.vertexDataOffset, GL_STATIC_DRAW);
 
 		//generate indexbuffer
-		m_count = meshBlobHolder->getMeshDesc().indexDataSize / sizeof(unsigned int);
+		m_count = meshBlobHolder->m_meshDesc.indexDataSize / sizeof(unsigned int);
 		glGenBuffers(1, &m_ibId);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibId);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, meshBlobHolder->getMeshDesc().indexDataSize, (char*)meshBlobHolder->getBlob()->getData() + meshBlobHolder->getMeshDesc().indexDataOffset, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, meshBlobHolder->m_meshDesc.indexDataSize, (char*)meshBlobHolder->getBlob()->getData() + meshBlobHolder->m_meshDesc.indexDataOffset, GL_STATIC_DRAW);
 
-		const auto& Layout = meshBlobHolder->getLayout();
+		const auto& Layout = meshBlobHolder->m_layout;
 		for (const auto& layout : Layout)
 		{
 			glEnableVertexAttribArray(layout.index);

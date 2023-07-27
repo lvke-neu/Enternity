@@ -8,6 +8,7 @@
 //#include "Graphics/RHI/Mesh/MeshBlobHolder.h"
 //#include "Graphics/RHI/Mesh/VertexDefine.h"
 //#include "Graphics/RHI/Mesh/MeshBlobLoader.h"
+//#include "Scene/Model/Model.h"
 //#include "Engine/Blob.h"
 //#include <glm/glm.hpp>
 //
@@ -17,34 +18,38 @@
 //
 //	Enternity::Engine::GetInstance().initialize();
 //
-//	std::string path = "mesh://primitive=plane";
-//	auto blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(path.c_str());
+//	std::string path = "model://assets/models/basic/Cube.fbx";
 //
-//	if (blobLoader)
-//	{
-//		MeshBlobHolder* meshBlobHolder = dynamic_cast<MeshBlobHolder*>(blobLoader->createBlobHolder(path.c_str()));
+//	auto model = dynamic_cast<Model*>(Engine::GetInstance().getAssetLoader()->getAsset(path.c_str()));
+//	int i = 0;
+//	//std::string path = "mesh://primitive=plane";
+//	//auto blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(path.c_str());
 //
-//		if (meshBlobHolder)
-//		{
-//			meshBlobHolder->load(0);
-//			while (!meshBlobHolder->isLoadSucceeded())
-//			{
+//	//if (blobLoader)
+//	//{
+//	//	MeshBlobHolder* meshBlobHolder = dynamic_cast<MeshBlobHolder*>(blobLoader->createBlobHolder(path.c_str()));
 //
-//			}
-//			std::vector<Vertex_Positon_Normal_Texcoord> vertices;
-//			vertices.resize(4);
-//			std::vector<unsigned int> indices;
-//			indices.resize(36);
-//			memcpy_s(vertices.data(), meshBlobHolder->getMeshDesc().vertexDataSize,
-//				(char*)meshBlobHolder->getBlob()->getData() + meshBlobHolder->getMeshDesc().vertexDataOffset,
-//				meshBlobHolder->getMeshDesc().vertexDataSize);
-//			memcpy_s(indices.data(), meshBlobHolder->getMeshDesc().indexDataSize,
-//				(char*)meshBlobHolder->getBlob()->getData() + meshBlobHolder->getMeshDesc().indexDataOffset,
-//				meshBlobHolder->getMeshDesc().indexDataSize);
-//			int i = 0;
-//			i++;
-//		}
-//	}
+//	//	if (meshBlobHolder)
+//	//	{
+//	//		meshBlobHolder->load(0);
+//	//		while (!meshBlobHolder->isLoadSucceeded())
+//	//		{
+//
+//	//		}
+//	//		std::vector<Vertex_Positon_Normal_Texcoord> vertices;
+//	//		vertices.resize(4);
+//	//		std::vector<unsigned int> indices;
+//	//		indices.resize(36);
+//	//		memcpy_s(vertices.data(), meshBlobHolder->getMeshDesc().vertexDataSize,
+//	//			(char*)meshBlobHolder->getBlob()->getData() + meshBlobHolder->getMeshDesc().vertexDataOffset,
+//	//			meshBlobHolder->getMeshDesc().vertexDataSize);
+//	//		memcpy_s(indices.data(), meshBlobHolder->getMeshDesc().indexDataSize,
+//	//			(char*)meshBlobHolder->getBlob()->getData() + meshBlobHolder->getMeshDesc().indexDataOffset,
+//	//			meshBlobHolder->getMeshDesc().indexDataSize);
+//	//		int i = 0;
+//	//		i++;
+//	//	}
+//	//}
 //
 //	//std::string path = "renderer://assets/shaders/test/test2.rdr";
 //	//Engine::GetInstance().getAssetLoader()->getAsset(path.c_str(),

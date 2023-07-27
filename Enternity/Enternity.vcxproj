@@ -91,6 +91,7 @@
   <ItemGroup>
     <None Include="..\README.md" />
     <None Include="assets\model\cube.bin" />
+    <None Include="assets\shaders\model\model.rdr" />
     <None Include="assets\shaders\postprocess\postprocess.rdr" />
     <None Include="assets\shaders\skybox\skybox.rdr" />
     <None Include="assets\shaders\test\test2.rdr" />
@@ -123,9 +124,11 @@
     <ClCompile Include="src\Engine\Detail\glad.c" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobHolder.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobLoader.cpp" />
+    <ClCompile Include="src\Scene\ECS\ModelComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\PostProcessComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\SkyBoxComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\Visual3DComponent.cpp" />
+    <ClCompile Include="src\Scene\Model\Model.cpp" />
     <ClCompile Include="src\Scene\Model\ModelBlobHolder.cpp" />
     <ClCompile Include="src\Scene\Model\ModelBlobLoader.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\Renderer.cpp" />
@@ -182,8 +185,10 @@
     <ClInclude Include="src\Engine\BlobLoaderManager.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobHolder.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobLoader.h" />
+    <ClInclude Include="src\Scene\ECS\ModelComponent.h" />
     <ClInclude Include="src\Scene\ECS\SkyBoxComponent.h" />
     <ClInclude Include="src\Scene\ECS\Visual3DComponent.h" />
+    <ClInclude Include="src\Scene\Model\Model.h" />
     <ClInclude Include="src\Scene\Model\ModelBlobHolder.h" />
     <ClInclude Include="src\Scene\Model\ModelBlobLoader.h" />
     <ClInclude Include="src\Graphics\RHI\Renderer\Renderer.h" />

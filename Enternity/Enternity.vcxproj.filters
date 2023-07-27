@@ -25,6 +25,7 @@
     <None Include="assets\shaders\postprocess\postprocess.rdr" />
     <None Include="assets\shaders\skybox\skybox.rdr" />
     <None Include="assets\shaders\visual3d\visual3d.rdr" />
+    <None Include="assets\shaders\model\model.rdr" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -190,6 +191,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\ECS\Visual3DComponent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Model\Model.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\ECS\ModelComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -381,6 +388,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\ECS\Visual3DComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Model\Model.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\ECS\ModelComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,7 @@
 #include "Engine/Blob.h"
 #include "Engine/Log.h"
 #include "ModelBlobHolder.h"
+#include "Graphics/RHI/Mesh/MeshBlobHolder.h"
 #include "Graphics/RHI/Mesh/VertexDefine.h"
 #include "Common/Macro.h"
 #include <assimp/Importer.hpp>
@@ -15,7 +16,7 @@ namespace Enternity
 
 	}
 
-	BlobHolder* ModelBlobLoader::createBlobHolder(const std::string& path)
+	BlobHolder* ModelBlobLoader::createBlobHolder(const char* path)
 	{
 		return new ModelBlobHolder(this, path);
 	}
@@ -43,19 +44,17 @@ namespace Enternity
 			return;
 		}
 
-		struct Mesh
+		struct MeshData
 		{
 			std::vector<Vertex_Positon_Normal_Texcoord> vertices;
 			std::vector<unsigned int> indices;
 		};
 
-		std::vector<Mesh> meshes;
-		unsigned int offset = 0;
-
 		for (unsigned int i = 0; i < scene->mNumMeshes; i++)
 		{
-			Mesh mesh;
-			ModelBlobHolder::SubMeshDesc subMeshDesc;
+			MeshData meshData;
+			MeshBlobHolder::MeshDesc meshDesc;
+			unsigned int offset = 0;
 
 			aiMesh* assimpMesh = scene->mMeshes[i];
 			for (unsigned int j = 0; j < assimpMesh->mNumVertices; j++)
@@ -75,46 +74,46 @@ namespace Enternity
 					vertex.texcoord.y = -assimpMesh->mTextureCoords[0][j].y + 1;
 				}
 
-				mesh.vertices.push_back(vertex);
+				meshData.vertices.push_back(vertex);
 			}
 
-			subMeshDesc.vertexDataOffset = offset;
-			subMeshDesc.vertexDataSize = (unsigned int)mesh.vertices.size() * sizeof(Vertex_Positon_Normal_Texcoord);
-			offset += subMeshDesc.vertexDataSize;
+			meshDesc.vertexDataOffset = offset;
+			meshDesc.vertexDataSize = (unsigned int)meshData.vertices.size() * sizeof(Vertex_Positon_Normal_Texcoord);
+			offset += meshDesc.vertexDataSize;
 
 			for (unsigned int j = 0; j < assimpMesh->mNumFaces; j++)
 			{
 				for (unsigned int k = 0; k < assimpMesh->mFaces[j].mNumIndices; k++)
 				{
-					mesh.indices.push_back(assimpMesh->mFaces[j].mIndices[k]);
+					meshData.indices.push_back(assimpMesh->mFaces[j].mIndices[k]);
 				}
 			}
 
-			subMeshDesc.indexDataOffset = offset;
-			subMeshDesc.indexDataSize = (unsigned int)mesh.indices.size() * sizeof(unsigned int);
-			offset += subMeshDesc.indexDataSize;
+			meshDesc.indexDataOffset = offset;
+			meshDesc.indexDataSize = (unsigned int)meshData.indices.size() * sizeof(unsigned int);
+			offset += meshDesc.indexDataSize;
 
-			meshes.push_back(mesh);
-			modelBlobHolder->m_subMeshDescs.push_back(subMeshDesc);
+			MeshBlobHolder* meshBlobHolder = new MeshBlobHolder(nullptr, "");
+			meshBlobHolder->m_layout = Vertex_Positon_Normal_Texcoord::s_layout;
+			meshBlobHolder->m_meshDesc = meshDesc;
+
+			Blob* blob = new Blob(offset);
+
+			memcpy_s((char*)blob->getData() + meshDesc.vertexDataOffset,
+				meshDesc.vertexDataSize,
+				meshData.vertices.data(),
+				meshDesc.vertexDataSize);
+			memcpy_s((char*)blob->getData() + meshDesc.indexDataOffset,
+				meshDesc.indexDataSize,
+				meshData.indices.data(),
+				meshDesc.indexDataSize);
+
+			meshBlobHolder->loadSucceeded__(blob);
+			SAFE_DELETE_SET_NULL(blob);
+
+			modelBlobHolder->m_meshBlobHolders.push_back(meshBlobHolder);
 		}
-
-		Blob* blob = new Blob(offset);
-		for (int i = 0; i < modelBlobHolder->m_subMeshDescs.size(); ++i)
-		{
-			memcpy_s((char*)blob->getData() + modelBlobHolder->m_subMeshDescs[i].vertexDataOffset,
-				modelBlobHolder->m_subMeshDescs[i].vertexDataSize,
-				meshes[i].vertices.data(),
-				modelBlobHolder->m_subMeshDescs[i].vertexDataSize);
-
-			memcpy_s((char*)blob->getData() + modelBlobHolder->m_subMeshDescs[i].indexDataOffset,
-				modelBlobHolder->m_subMeshDescs[i].indexDataSize,
-				meshes[i].indices.data(),
-				modelBlobHolder->m_subMeshDescs[i].indexDataSize);
-		}
-
-		modelBlobHolder->loadSucceeded__(blob);
-		SAFE_DELETE_SET_NULL(blob);
-
+		modelBlobHolder->loadSucceeded__(nullptr);
 		m_mtx.unlock();
 	}
 }

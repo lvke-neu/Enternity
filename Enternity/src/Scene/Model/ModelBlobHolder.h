@@ -4,27 +4,16 @@
 
 namespace Enternity
 {
+	class MeshBlobHolder;
 	class ModelBlobHolder : public BlobHolder
 	{
+		friend class Model;
 		friend class ModelBlobLoader;
 	public:
-		struct SubMeshDesc
-		{
-			unsigned int vertexDataOffset;
-			unsigned int vertexDataSize;
-			unsigned int indexDataOffset;
-			unsigned int indexDataSize;
-		};
-	public:
 		ModelBlobHolder(BlobLoader* blobLoader, const std::string& path);
-		const std::vector<SubMeshDesc>& getSubMeshDescs() const;
+		virtual ~ModelBlobHolder();
 		virtual Asset* createAsset() override;
 	private:
-		std::vector<SubMeshDesc> m_subMeshDescs;
+		std::vector<MeshBlobHolder*> m_meshBlobHolders;
 	};
-
-	inline const std::vector<ModelBlobHolder::SubMeshDesc>& ModelBlobHolder::getSubMeshDescs() const
-	{
-		return m_subMeshDescs;
-	}
 }
