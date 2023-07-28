@@ -92,12 +92,11 @@ namespace Enternity
 	{
 
 	}
-	
+
 	void RenderSystem::color_path_modelPass(Scene* scene)
 	{
 		for (auto& entity : scene->m_entities)
 		{
-			
 			if (entity.second.hasComponent<ModelComponent>())
 			{
 				auto& modelComponent = entity.second.getComponent<ModelComponent>();
@@ -137,11 +136,11 @@ namespace Enternity
 						pbrMaterialComponent.ao->bind(4);
 					}
 
-					auto& skyBoxComponent = scene->m_sceneSkybox.getComponent<SkyBoxComponent>();
-					if (skyBoxComponent.textureCubeMapHDR && skyBoxComponent.textureCubeMapHDR->isLoadSucceeded())
-					{
-						skyBoxComponent.textureCubeMapHDR->bind(5);
-					}
+					//auto& skyBoxComponent = scene->m_sceneSkybox.getComponent<SkyBoxComponent>();
+					//if (skyBoxComponent.textureCubeMapHDR && skyBoxComponent.textureCubeMapHDR->isLoadSucceeded())
+					//{
+					//	skyBoxComponent.textureCubeMapHDR->bind(5);
+					//}
 
 					modelComponent.renderer->setVec3("u_lightPosition", scene->m_scenePointLight.getComponent<TransformComponent>().translation);
 					modelComponent.renderer->setVec3("u_lightColor", scene->m_scenePointLight.getComponent<PointLightComponent>().color);
@@ -151,23 +150,23 @@ namespace Enternity
 
 					if (pbrMaterialComponent.albedo && pbrMaterialComponent.albedo->isLoadSucceeded())
 					{
-						pbrMaterialComponent.albedo->unbind();
+						pbrMaterialComponent.albedo->unbind(0);
 					}
 					if (pbrMaterialComponent.normal && pbrMaterialComponent.normal->isLoadSucceeded())
 					{
-						pbrMaterialComponent.normal->unbind();
+						pbrMaterialComponent.normal->unbind(1);
 					}
 					if (pbrMaterialComponent.metallic && pbrMaterialComponent.metallic->isLoadSucceeded())
 					{
-						pbrMaterialComponent.metallic->unbind();
+						pbrMaterialComponent.metallic->unbind(2);
 					}
 					if (pbrMaterialComponent.roughness && pbrMaterialComponent.roughness->isLoadSucceeded())
 					{
-						pbrMaterialComponent.roughness->unbind();
+						pbrMaterialComponent.roughness->unbind(3);
 					}
 					if (pbrMaterialComponent.ao && pbrMaterialComponent.ao->isLoadSucceeded())
 					{
-						pbrMaterialComponent.ao->unbind();
+						pbrMaterialComponent.ao->unbind(4);
 					}
 					modelComponent.renderer->unbind();
 				}
@@ -205,7 +204,7 @@ namespace Enternity
 					
 					if (visual3DComponent.texture2D &&visual3DComponent.texture2D->isLoadSucceeded())
 					{
-						visual3DComponent.texture2D->unbind();
+						visual3DComponent.texture2D->unbind(0);
 					}
 					
 					visual3DComponent.renderer->unbind();

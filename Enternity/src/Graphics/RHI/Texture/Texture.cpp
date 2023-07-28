@@ -66,8 +66,9 @@ namespace Enternity
 		glBindTexture(GL_TEXTURE_2D, m_renderId);
 	}
 
-	void Texture2D::unbind()
+	void Texture2D::unbind(unsigned int slot)
 	{
+		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
@@ -239,7 +240,7 @@ namespace Enternity
 		}
 		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 		glViewport(0, 0, Engine::GetInstance().getRenderView()->getWidth(), Engine::GetInstance().getRenderView()->getHeight());
-		texture2DHDR.unbind();
+		texture2DHDR.unbind(0);
 		renderer.unbind();
 		frameBuffer.unbind();
 

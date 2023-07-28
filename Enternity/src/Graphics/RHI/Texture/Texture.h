@@ -12,7 +12,7 @@ namespace Enternity
 		virtual void load(BlobHolder* blobHolder) override;
 		virtual void unload() override;
 		void bind(unsigned int slot);
-		void unbind();
+		void unbind(unsigned int slot);
 	public:
 		//bind existing texture
 		static void Bind(unsigned int renderId, unsigned int slot);
