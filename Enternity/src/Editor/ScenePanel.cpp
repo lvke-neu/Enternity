@@ -15,6 +15,7 @@
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/Texture/Texture.h"
 #include "Pick/PickSystem.h"
+#include "Common/Macro.h"
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
 #include "Imgui/imgui_impl_glfw.h"
@@ -158,10 +159,10 @@ namespace Enternity
 
 							if (skyBoxComponent.textureCubeMapHDR)
 							{
-								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D_HDR?" + path).c_str(),
+								Engine::GetInstance().getAssetLoader()->getAsset(("texture://CUBE_MAP_HDR?" + path).c_str(),
 									[=](Asset* asset)
 									{
-										//entity.getComponent<SkyBoxComponent>().textureCubeMapHDR->unload();
+										SAFE_DELETE_SET_NULL(entity.getComponent<SkyBoxComponent>().textureCubeMapHDR);
 										entity.getComponent<SkyBoxComponent>().textureCubeMapHDR = dynamic_cast<TextureCubeMapHDR*>(asset);
 									});
 							}
@@ -239,7 +240,7 @@ namespace Enternity
 								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?" + path).c_str(),
 									[=](Asset* asset)
 									{
-										entity.getComponent<PBRMaterialComponent>().albedo->unbind();
+										SAFE_DELETE_SET_NULL(entity.getComponent<PBRMaterialComponent>().albedo);
 										entity.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
 									});
 							}
@@ -268,7 +269,7 @@ namespace Enternity
 								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?" + path).c_str(),
 									[=](Asset* asset)
 									{
-										entity.getComponent<PBRMaterialComponent>().normal->unbind();
+										SAFE_DELETE_SET_NULL(entity.getComponent<PBRMaterialComponent>().normal);
 										entity.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
 									});
 							}
@@ -296,7 +297,7 @@ namespace Enternity
 								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?" + path).c_str(),
 									[=](Asset* asset)
 									{
-										entity.getComponent<PBRMaterialComponent>().metallic->unbind();
+										SAFE_DELETE_SET_NULL(entity.getComponent<PBRMaterialComponent>().metallic);
 										entity.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
 									});
 							}
@@ -325,7 +326,7 @@ namespace Enternity
 								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?" + path).c_str(),
 									[=](Asset* asset)
 									{
-										entity.getComponent<PBRMaterialComponent>().roughness->unbind();
+										SAFE_DELETE_SET_NULL(entity.getComponent<PBRMaterialComponent>().roughness);
 										entity.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
 									});
 							}
@@ -353,7 +354,7 @@ namespace Enternity
 								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?" + path).c_str(),
 									[=](Asset* asset)
 									{
-										entity.getComponent<PBRMaterialComponent>().ao->unbind();
+										SAFE_DELETE_SET_NULL(entity.getComponent<PBRMaterialComponent>().ao);
 										entity.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
 									});
 							}
