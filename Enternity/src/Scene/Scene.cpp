@@ -33,7 +33,7 @@ namespace Enternity
 			{0.0f, 0.0f, 5.0f},{0.0f, 0.0f, -5.0f}
 		};
 
-		std::string path[6] = { {"rusted_iron"},{"rusted_iron"},{"gold"},{"grass"},{"plastic"},{"wall"} };
+		std::string path[6] = { {"gold"},{"grass"},{"plastic"},{"wall"},{"rusted_iron"},{"rusted_iron"} };
 
 		for (int i = 0; i < 6; i++)
 		{
@@ -226,7 +226,7 @@ namespace Enternity
 			{
 				m_sceneSkybox.getComponent<SkyBoxComponent>().renderer = dynamic_cast<Renderer*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://CUBE_MAP_HDR?assets/textures/hdr/evening_meadow_4k.hdr",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://CUBE_MAP_HDR?assets/textures/hdr/blue_photo_studio_4k.hdr",
 			[&](Asset* asset)
 			{
 				m_sceneSkybox.getComponent<SkyBoxComponent>().textureCubeMapHDR = dynamic_cast<TextureCubeMapHDR*>(asset);

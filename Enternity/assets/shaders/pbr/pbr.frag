@@ -11,6 +11,7 @@ layout (binding = 1) uniform sampler2D u_normalTexture;
 layout (binding = 2) uniform sampler2D u_metallicTexture;
 layout (binding = 3) uniform sampler2D u_roughnessTexture;
 layout (binding = 4) uniform sampler2D u_aoTexture;
+layout (binding = 5) uniform samplerCube u_environmentTexture;
 
 uniform vec3 u_lightPosition;
 uniform vec3 u_lightColor;
@@ -142,5 +143,9 @@ void main()
     // gamma correct
     color = pow(color, vec3(1.0/2.2)); 
 
-    fragColor = vec4(color, 1.0);
+//    vec3 I = normalize(v_worldPos - u_cameraPosition);
+//	vec3 R = reflect(I, normalize(v_normal));
+//    vec4(texture(u_environmentTexture, R).rgb, 1.0) * 0.01; 
+
+    fragColor =  vec4(color, 1.0);
 }
