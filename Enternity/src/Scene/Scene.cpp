@@ -97,27 +97,27 @@ namespace Enternity
 			{
 				entity.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/grass/albedo.png",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/grass/albedo.png",
 			[=](Asset* asset)
 			{
 				entity.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/grass/normal.png",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/grass/normal.png",
 			[=](Asset* asset)
 			{
 				entity.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/grass/metallic.png",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/grass/metallic.png",
 			[=](Asset* asset)
 			{
 				entity.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/grass/roughness.png",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/grass/roughness.png",
 			[=](Asset* asset)
 			{
 				entity.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/grass/ao.png",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/grass/ao.png",
 			[=](Asset* asset)
 			{
 				entity.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
@@ -129,7 +129,7 @@ namespace Enternity
 
 		entity2.addComponent<ModelComponent>();
 		entity2.addComponent<PBRMaterialComponent>();
-		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/silly_dancing.fbx",
+		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/basic/sphere.fbx",
 			[=](Asset* asset)
 			{
 				entity2.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
@@ -139,27 +139,27 @@ namespace Enternity
 			{
 				entity2.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/plastic/albedo.png",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/albedo.png",
 			[=](Asset* asset)
 			{
 				entity2.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/plastic/normal.png",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/normal.png",
 			[=](Asset* asset)
 			{
 				entity2.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/plastic/metallic.png",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/metallic.png",
 			[=](Asset* asset)
 			{
 				entity2.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/plastic/roughness.png",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/roughness.png",
 			[=](Asset* asset)
 			{
 				entity2.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/plastic/ao.png",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/ao.png",
 			[=](Asset* asset)
 			{
 				entity2.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);

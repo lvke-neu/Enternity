@@ -235,7 +235,7 @@ namespace Enternity
 
 							if (pbrMaterialComponent.albedo)
 							{
-								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?" + path).c_str(),
+								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D?" + path).c_str(),
 									[=](Asset* asset)
 									{
 										SAFE_DELETE_SET_NULL(entity.getComponent<PBRMaterialComponent>().albedo);
@@ -264,7 +264,7 @@ namespace Enternity
 
 							if (pbrMaterialComponent.normal)
 							{
-								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?" + path).c_str(),
+								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D?" + path).c_str(),
 									[=](Asset* asset)
 									{
 										SAFE_DELETE_SET_NULL(entity.getComponent<PBRMaterialComponent>().normal);
@@ -292,7 +292,7 @@ namespace Enternity
 
 							if (pbrMaterialComponent.metallic)
 							{
-								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?" + path).c_str(),
+								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D?" + path).c_str(),
 									[=](Asset* asset)
 									{
 										SAFE_DELETE_SET_NULL(entity.getComponent<PBRMaterialComponent>().metallic);
@@ -321,7 +321,7 @@ namespace Enternity
 
 							if (pbrMaterialComponent.roughness)
 							{
-								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?" + path).c_str(),
+								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D?" + path).c_str(),
 									[=](Asset* asset)
 									{
 										SAFE_DELETE_SET_NULL(entity.getComponent<PBRMaterialComponent>().roughness);
@@ -349,7 +349,7 @@ namespace Enternity
 
 							if (pbrMaterialComponent.ao)
 							{
-								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?" + path).c_str(),
+								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D?" + path).c_str(),
 									[=](Asset* asset)
 									{
 										SAFE_DELETE_SET_NULL(entity.getComponent<PBRMaterialComponent>().ao);
