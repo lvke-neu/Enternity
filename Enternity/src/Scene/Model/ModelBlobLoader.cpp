@@ -112,6 +112,12 @@ namespace Enternity
 			SAFE_DELETE_SET_NULL(blob);
 
 			modelBlobHolder->m_meshBlobHolders.push_back(meshBlobHolder);
+
+
+			aiMaterial* material = scene->mMaterials[assimpMesh->mMaterialIndex];
+			aiString str;
+			material->GetTexture(aiTextureType_DIFFUSE, 0, &str);
+			int j = 0;
 		}
 		modelBlobHolder->loadSucceeded__(nullptr);
 		m_mtx.unlock();

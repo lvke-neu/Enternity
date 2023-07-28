@@ -26,59 +26,99 @@ namespace Enternity
 		initSkyBox();
 		initLight();
 
-		glm::vec3 trans[6] = 
-		{ 
-			{5.0f, 0.0f, 0.0f},{-5.0f, 0.0f, 0.0f},
-			{0.0f, 5.0f, 0.0f},{0.0f, -5.0f, 0.0f},
-			{0.0f, 0.0f, 5.0f},{0.0f, 0.0f, -5.0f}
-		};
+		//glm::vec3 trans[6] = 
+		//{ 
+		//	{5.0f, 0.0f, 0.0f},{-5.0f, 0.0f, 0.0f},
+		//	{0.0f, 5.0f, 0.0f},{0.0f, -5.0f, 0.0f},
+		//	{0.0f, 0.0f, 5.0f},{0.0f, 0.0f, -5.0f}
+		//};
 
-		std::string path[6] = { {"gold"},{"grass"},{"plastic"},{"wall"},{"rusted_iron"},{"rusted_iron"} };
+		//std::string path[6] = { {"default"},{"default"},{"plastic"},{"wall"},{"rusted_iron"},{"rusted_iron"} };
 
-		for (int i = 0; i < 6; i++)
-		{
-			auto entity = createEntity();
-			entity.getComponent<NameComponent>().name = "sphere.fbx1";
-			entity.addComponent<TransformComponent>().translation = trans[i];
-			entity.addComponent<ModelComponent>();
-			entity.addComponent<PBRMaterialComponent>();
-			Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/basic/Sphere.fbx",
-				[=](Asset* asset)
-				{
-					entity.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
-				});
-			Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/pbr/pbr.rdr",
-				[=](Asset* asset)
-				{
-					entity.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
-				});
-			Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] +"/albedo.png").c_str(),
-				[=](Asset* asset)
-				{
-					entity.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
-				});
-			Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] + "/normal.png").c_str(),
-				[=](Asset* asset)
-				{
-					entity.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
-				});
-			Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] + "/metallic.png").c_str(),
-				[=](Asset* asset)
-				{
-					entity.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
-				});
-			Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] + "/roughness.png").c_str(),
-				[=](Asset* asset)
-				{
-					entity.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
-				});
-			Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] + "/ao.png").c_str(),
-				[=](Asset* asset)
-				{
-					entity.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
-				});
-		}
+		//for (int i = 0; i < 6; i++)
+		//{
+		//	auto entity = createEntity();
+		//	entity.getComponent<NameComponent>().name = "sphere.fbx1";
+		//	entity.addComponent<TransformComponent>().translation = trans[i];
+		//	entity.addComponent<ModelComponent>();
+		//	entity.addComponent<PBRMaterialComponent>();
+		//	Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/basic/Sphere.fbx",
+		//		[=](Asset* asset)
+		//		{
+		//			entity.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
+		//		});
+		//	Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/pbr/pbr.rdr",
+		//		[=](Asset* asset)
+		//		{
+		//			entity.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
+		//		});
+		//	Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] +"/albedo.png").c_str(),
+		//		[=](Asset* asset)
+		//		{
+		//			entity.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
+		//		});
+		//	Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] + "/normal.png").c_str(),
+		//		[=](Asset* asset)
+		//		{
+		//			entity.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
+		//		});
+		//	Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] + "/metallic.png").c_str(),
+		//		[=](Asset* asset)
+		//		{
+		//			entity.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
+		//		});
+		//	Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] + "/roughness.png").c_str(),
+		//		[=](Asset* asset)
+		//		{
+		//			entity.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
+		//		});
+		//	Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] + "/ao.png").c_str(),
+		//		[=](Asset* asset)
+		//		{
+		//			entity.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
+		//		});
+		//}
 
+		auto entity = createEntity();
+		entity.getComponent<NameComponent>().name = "sphere.fbx1";
+		entity.addComponent<TransformComponent>();
+		entity.addComponent<ModelComponent>();
+		entity.addComponent<PBRMaterialComponent>();
+		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/silly_dancing.fbx",
+			[=](Asset* asset)
+			{
+				entity.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/pbr/pbr.rdr",
+			[=](Asset* asset)
+			{
+				entity.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
+			});
+		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/default/ao.png",
+		//	[=](Asset* asset)
+		//	{
+		//		entity.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
+		//	});
+		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/default/normal.png",
+		//	[=](Asset* asset)
+		//	{
+		//		entity.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
+		//	});
+		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/default/metallic.png",
+		//	[=](Asset* asset)
+		//	{
+		//		entity.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
+		//	});
+		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/default/roughness.png",
+		//	[=](Asset* asset)
+		//	{
+		//		entity.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
+		//	});
+		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/default/ao.png",
+		//	[=](Asset* asset)
+		//	{
+		//		entity.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
+		//	});
 	}
 
 	Scene::~Scene()

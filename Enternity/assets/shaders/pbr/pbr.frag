@@ -147,5 +147,5 @@ void main()
 //	vec3 R = reflect(I, normalize(v_normal));
 //    vec4(texture(u_environmentTexture, R).rgb, 1.0) * 0.01; 
 
-    fragColor =  vec4(color, 1.0);
+    fragColor = vec4(color, 1.0);
 }
