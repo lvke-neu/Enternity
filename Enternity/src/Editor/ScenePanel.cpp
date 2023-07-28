@@ -12,6 +12,8 @@
 #include "Scene/ECS/SkyBoxComponent.h"
 #include "Scene/ECS/PBRMaterialComponent.h"
 #include "Scene/ECS/PointLightComponent.h"
+#include "Scene/ECS/ModelComponent.h"
+#include "Scene/Model/Model.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/Texture/Texture.h"
 #include "Pick/PickSystem.h"
@@ -169,11 +171,7 @@ namespace Enternity
 						}
 						ImGui::EndDragDropTarget();
 					}
-					//if (ImGui::InputText("##Path", entity.getComponent<SkyBoxComponent>().textureCubeMapHDR->getPath(), 256));
-					//{
 
-					//}
-					//ImGui::Text(entity.getComponent<SkyBoxComponent>().texturePath.c_str());
 					//if (ImGui::BeginDragDropTarget())
 					//{
 
@@ -376,6 +374,46 @@ namespace Enternity
 					DrawVec3("Color", pointLightComponent.color, glm::vec3(1.0f));
 				});
 		}
+
+		if (entity.hasComponent<ModelComponent>())
+		{
+			DrawComponent("ModelComponent",
+				[&]()
+				{
+					auto& modelComponent = entity.getComponent<ModelComponent>();
+
+					char buffer[256];
+					memset(buffer, 0, 256);
+					if (modelComponent.model)
+					{
+						memcpy_s(buffer, modelComponent.model->getPath().size(), modelComponent.model->getPath().c_str(), modelComponent.model->getPath().size());
+					}
+					ImGui::InputText("##Path", buffer, 256, ImGuiInputTextFlags_ReadOnly);
+					if (ImGui::BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
+						{
+							std::string path((char*)payload->Data);
+							path = path.substr(0, payload->DataSize);
+							LOG_INFO(path);
+
+							if (modelComponent.model)
+							{
+								Engine::GetInstance().getAssetLoader()->getAsset(("model://" + path).c_str(),
+									[=](Asset* asset)
+									{
+										SAFE_DELETE_SET_NULL(entity.getComponent<ModelComponent>().model);
+										entity.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
+									});
+							}
+						}
+						ImGui::EndDragDropTarget();
+					}
+
+				});
+		}
+
+
 
 		//if (entity.hasComponent<Visual3DComponent>())
 		//{

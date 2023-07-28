@@ -31,7 +31,7 @@ namespace Enternity
 			}
 			m_meshs.push_back(mesh);
 		}
-
+		m_path = modelBlobHolder->getPath();
 		m_state = loading_state_succeeded;
 	}
 
