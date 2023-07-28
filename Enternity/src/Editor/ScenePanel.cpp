@@ -146,6 +146,28 @@ namespace Enternity
 			DrawComponent("SkyBoxComponent",
 				[&]()
 				{
+					auto& skyBoxComponent = entity.getComponent<SkyBoxComponent>();
+					ImGui::ImageButton((void*)-1, { 64, 64 }, { 0, 1 }, { 1, 0 });
+					if (ImGui::BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
+						{
+							std::string path((char*)payload->Data);
+							path = path.substr(0, payload->DataSize);
+							LOG_INFO(path);
+
+							if (skyBoxComponent.textureCubeMapHDR)
+							{
+								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D_HDR?" + path).c_str(),
+									[=](Asset* asset)
+									{
+										//entity.getComponent<SkyBoxComponent>().textureCubeMapHDR->unload();
+										entity.getComponent<SkyBoxComponent>().textureCubeMapHDR = dynamic_cast<TextureCubeMapHDR*>(asset);
+									});
+							}
+						}
+						ImGui::EndDragDropTarget();
+					}
 					//if (ImGui::InputText("##Path", entity.getComponent<SkyBoxComponent>().textureCubeMapHDR->getPath(), 256));
 					//{
 
@@ -350,7 +372,6 @@ namespace Enternity
 				{
 					auto& pointLightComponent = entity.getComponent<PointLightComponent>();
 					auto& transformComponent = entity.getComponent<TransformComponent>();
-					DrawVec3("Position", transformComponent.translation, glm::vec3(0.0f), 0.1f);
 					DrawVec3("Color", pointLightComponent.color, glm::vec3(1.0f));
 				});
 		}
