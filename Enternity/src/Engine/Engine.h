@@ -12,6 +12,7 @@ namespace Enternity
 	class GraphicsSystem;
 	class PickSystem;
 	class SceneManager;
+	class UiRender;
 	class Engine
 	{
 		SINGLETON(Engine);
@@ -40,6 +41,7 @@ namespace Enternity
 		NativeFileSystem* m_nativeFileSystem{ nullptr };
 		Timer* m_timer{ nullptr };
 		AssetLoader* m_assetLoader{ nullptr };
+		UiRender* m_uiRender{ nullptr };
 	};
 
 	inline GraphicsSystem* Engine::getGraphicsSystem()

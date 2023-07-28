@@ -2,6 +2,7 @@
 
 #include "ScenePanel.h"
 #include "Engine/Engine.h"
+#include "Engine/AssetLoader.h"
 #include "Scene/Scene.h"
 #include "Scene/SceneManager.h"
 #include "Scene/ECS/TransformComponent.h"
@@ -195,38 +196,150 @@ namespace Enternity
 				[&]()
 				{
 					auto& pbrMaterialComponent = entity.getComponent<PBRMaterialComponent>();
-					if (pbrMaterialComponent.albedo &&
-						pbrMaterialComponent.normal &&
-						pbrMaterialComponent.metallic &&
-						pbrMaterialComponent.roughness &&
-						pbrMaterialComponent.ao)
-					{
-						
-						ImGui::ImageButton((void*)pbrMaterialComponent.albedo->getRenderId(), { 64, 64 }, { 0, 1 }, { 1, 0 });
-						ImGui::SameLine();
-						ImGui::Text("Albedo");
-						
-						ImGui::ImageButton((void*)pbrMaterialComponent.normal->getRenderId(), { 64, 64 }, { 0, 1 }, { 1, 0 });
-						ImGui::SameLine();
-						ImGui::Text("Normal"); 
-						
-						ImGui::ImageButton((void*)pbrMaterialComponent.metallic->getRenderId(), { 64, 64 }, { 0, 1 }, { 1, 0 });
-						ImGui::SameLine();
-						ImGui::Text("Metallic"); 
-						
-						ImGui::ImageButton((void*)pbrMaterialComponent.roughness->getRenderId(), { 64, 64 }, { 0, 1 }, { 1, 0 });
-						ImGui::SameLine();
-						ImGui::Text("Roughness"); 
-						
-						ImGui::ImageButton((void*)pbrMaterialComponent.ao->getRenderId(), { 64, 64 }, { 0, 1 }, { 1, 0 });
-						ImGui::SameLine();
-						ImGui::Text("Ao"); 
-					}
 
-					//ImGui::ColorEdit3("Albedo", &pbrMaterialComponent.albedo[0]);
-					//ImGui::DragFloat("Metallic", &pbrMaterialComponent.metallic, 0.01f, 0.0f, 1.0f);
-					//ImGui::DragFloat("Roughness", &pbrMaterialComponent.roughness, 0.01f, 0.0f, 1.0f);
-					//ImGui::DragFloat("Ao", &pbrMaterialComponent.ao, 0.01f, 0.0f, 1.0f);
+					int id = -1;
+
+					if (pbrMaterialComponent.albedo)
+					{
+						id = pbrMaterialComponent.albedo->getRenderId();
+					}
+					ImGui::ImageButton((void*)id, { 64, 64 }, { 0, 1 }, { 1, 0 });
+					if (ImGui::BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
+						{
+							std::string path((char*)payload->Data);
+							path = path.substr(0, payload->DataSize);
+							LOG_INFO(path);
+
+							if (pbrMaterialComponent.albedo)
+							{
+								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?" + path).c_str(),
+									[=](Asset* asset)
+									{
+										entity.getComponent<PBRMaterialComponent>().albedo->unbind();
+										entity.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
+									});
+							}
+						}
+						ImGui::EndDragDropTarget();
+					}
+					ImGui::SameLine();
+					ImGui::Text("Albedo");
+
+
+					if (pbrMaterialComponent.normal)
+					{
+						id = pbrMaterialComponent.normal->getRenderId();
+					}
+					ImGui::ImageButton((void*)id, { 64, 64 }, { 0, 1 }, { 1, 0 });
+					if (ImGui::BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
+						{
+							std::string path((char*)payload->Data);
+							path = path.substr(0, payload->DataSize);
+							LOG_INFO(path);
+
+							if (pbrMaterialComponent.normal)
+							{
+								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?" + path).c_str(),
+									[=](Asset* asset)
+									{
+										entity.getComponent<PBRMaterialComponent>().normal->unbind();
+										entity.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
+									});
+							}
+						}
+						ImGui::EndDragDropTarget();
+					}
+					ImGui::SameLine();
+					ImGui::Text("Normal");
+
+					if (pbrMaterialComponent.metallic)
+					{
+						id = pbrMaterialComponent.metallic->getRenderId();
+					}
+					ImGui::ImageButton((void*)id, { 64, 64 }, { 0, 1 }, { 1, 0 });
+					if (ImGui::BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
+						{
+							std::string path((char*)payload->Data);
+							path = path.substr(0, payload->DataSize);
+							LOG_INFO(path);
+
+							if (pbrMaterialComponent.metallic)
+							{
+								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?" + path).c_str(),
+									[=](Asset* asset)
+									{
+										entity.getComponent<PBRMaterialComponent>().metallic->unbind();
+										entity.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
+									});
+							}
+						}
+						ImGui::EndDragDropTarget();
+					}
+					ImGui::SameLine();
+					ImGui::Text("Metallic");
+
+
+					if (pbrMaterialComponent.roughness)
+					{
+						id = pbrMaterialComponent.roughness->getRenderId();
+					}
+					ImGui::ImageButton((void*)id, { 64, 64 }, { 0, 1 }, { 1, 0 });
+					if (ImGui::BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
+						{
+							std::string path((char*)payload->Data);
+							path = path.substr(0, payload->DataSize);
+							LOG_INFO(path);
+
+							if (pbrMaterialComponent.roughness)
+							{
+								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?" + path).c_str(),
+									[=](Asset* asset)
+									{
+										entity.getComponent<PBRMaterialComponent>().roughness->unbind();
+										entity.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
+									});
+							}
+						}
+						ImGui::EndDragDropTarget();
+					}
+					ImGui::SameLine();
+					ImGui::Text("Roughness");
+
+					if (pbrMaterialComponent.ao)
+					{
+						id = pbrMaterialComponent.ao->getRenderId();
+					}
+					ImGui::ImageButton((void*)id, { 64, 64 }, { 0, 1 }, { 1, 0 });
+					if (ImGui::BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
+						{
+							std::string path((char*)payload->Data);
+							path = path.substr(0, payload->DataSize);
+							LOG_INFO(path);
+
+							if (pbrMaterialComponent.ao)
+							{
+								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?" + path).c_str(),
+									[=](Asset* asset)
+									{
+										entity.getComponent<PBRMaterialComponent>().ao->unbind();
+										entity.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
+									});
+							}
+						}
+						ImGui::EndDragDropTarget();
+					}
+					ImGui::SameLine();
+					ImGui::Text("Ao");
 				});
 		}
 

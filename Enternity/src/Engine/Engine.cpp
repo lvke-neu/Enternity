@@ -10,6 +10,7 @@
 #include "Graphics/GraphicsSystem.h"
 #include "Pick/PickSystem.h"
 #include "Scene/SceneManager.h"
+#include "Editor/UiRender.h"
 
 namespace Enternity
 {
@@ -27,6 +28,7 @@ namespace Enternity
 		m_graphicsSystem = new GraphicsSystem;
 		m_pickSystem = new PickSystem;
 		m_sceneManager = new SceneManager;
+		m_uiRender = new UiRender(m_renderView->getContext());
 
 		m_renderView->setWindowProperty(1900, 900, "Version:0.004,Author:lvke", "texture://assets/textures/logo/windowlogo.png");
 	}
@@ -44,7 +46,7 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(m_eventSystem);
 		SAFE_DELETE_SET_NULL(m_renderView);
 		SAFE_DELETE_SET_NULL(m_timer);
-		
+		SAFE_DELETE_SET_NULL(m_uiRender);	
 	}
 
 	void Engine::run()
@@ -59,6 +61,7 @@ namespace Enternity
 			m_eventSystem->dispatchEvent(Event::EventType::Tick, &deltaTime);
 
 			m_sceneManager->tick(deltaTime);
+			m_uiRender->tick();
 			m_renderView->swapBuffers();
 		}
 	}

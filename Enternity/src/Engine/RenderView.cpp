@@ -6,7 +6,6 @@
 #include "BlobLoader.h"
 #include "Graphics/RHI/Texture/TextureBlobHolder.h"
 #include "BlobLoaderManager.h"
-#include "Editor/UiRender.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -54,14 +53,11 @@ namespace Enternity
 		LOG_INFO((char*)glGetString(GL_VENDOR));
 		LOG_INFO((char*)glGetString(GL_RENDERER));
 
-		m_uiRender = new UiRender(m_context);
-
 		//Resize(m_context, width, height);
 	}
 
 	RenderView::~RenderView()
 	{
-		SAFE_DELETE_SET_NULL(m_uiRender);
 		glfwTerminate();
 	}
 
@@ -72,7 +68,6 @@ namespace Enternity
 
 	void RenderView::swapBuffers()
 	{
-		m_uiRender->tick();
 		glfwSwapBuffers(m_context);
 	}
 
