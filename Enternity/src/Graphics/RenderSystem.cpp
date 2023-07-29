@@ -114,27 +114,31 @@ namespace Enternity
 					modelComponent.renderer->setMat4("u_v", view);
 					modelComponent.renderer->setMat4("u_p", proj);
 
-					auto& pbrMaterialComponent = entity.second.getComponent<PBRMaterialComponent>();
-					if (pbrMaterialComponent.albedo && pbrMaterialComponent.albedo->isLoadSucceeded())
+					if (entity.second.hasComponent<PBRMaterialComponent>())
 					{
-						pbrMaterialComponent.albedo->bind(0);
+						auto& pbrMaterialComponent = entity.second.getComponent<PBRMaterialComponent>();
+						if (pbrMaterialComponent.albedo && pbrMaterialComponent.albedo->isLoadSucceeded())
+						{
+							pbrMaterialComponent.albedo->bind(0);
+						}
+						if (pbrMaterialComponent.normal && pbrMaterialComponent.normal->isLoadSucceeded())
+						{
+							pbrMaterialComponent.normal->bind(1);
+						}
+						if (pbrMaterialComponent.metallic && pbrMaterialComponent.metallic->isLoadSucceeded())
+						{
+							pbrMaterialComponent.metallic->bind(2);
+						}
+						if (pbrMaterialComponent.roughness && pbrMaterialComponent.roughness->isLoadSucceeded())
+						{
+							pbrMaterialComponent.roughness->bind(3);
+						}
+						if (pbrMaterialComponent.ao && pbrMaterialComponent.ao->isLoadSucceeded())
+						{
+							pbrMaterialComponent.ao->bind(4);
+						}
 					}
-					if (pbrMaterialComponent.normal && pbrMaterialComponent.normal->isLoadSucceeded())
-					{
-						pbrMaterialComponent.normal->bind(1);
-					}
-					if (pbrMaterialComponent.metallic && pbrMaterialComponent.metallic->isLoadSucceeded())
-					{
-						pbrMaterialComponent.metallic->bind(2);
-					}
-					if (pbrMaterialComponent.roughness && pbrMaterialComponent.roughness->isLoadSucceeded())
-					{
-						pbrMaterialComponent.roughness->bind(3);
-					}
-					if (pbrMaterialComponent.ao && pbrMaterialComponent.ao->isLoadSucceeded())
-					{
-						pbrMaterialComponent.ao->bind(4);
-					}
+
 
 					//auto& skyBoxComponent = scene->m_sceneSkybox.getComponent<SkyBoxComponent>();
 					//if (skyBoxComponent.textureCubeMapHDR && skyBoxComponent.textureCubeMapHDR->isLoadSucceeded())
@@ -148,26 +152,31 @@ namespace Enternity
 
 					modelComponent.model->draw();
 
-					if (pbrMaterialComponent.albedo && pbrMaterialComponent.albedo->isLoadSucceeded())
+					if (entity.second.hasComponent<PBRMaterialComponent>())
 					{
-						pbrMaterialComponent.albedo->unbind(0);
+						auto& pbrMaterialComponent = entity.second.getComponent<PBRMaterialComponent>();
+						if (pbrMaterialComponent.albedo && pbrMaterialComponent.albedo->isLoadSucceeded())
+						{
+							pbrMaterialComponent.albedo->unbind(0);
+						}
+						if (pbrMaterialComponent.normal && pbrMaterialComponent.normal->isLoadSucceeded())
+						{
+							pbrMaterialComponent.normal->unbind(1);
+						}
+						if (pbrMaterialComponent.metallic && pbrMaterialComponent.metallic->isLoadSucceeded())
+						{
+							pbrMaterialComponent.metallic->unbind(2);
+						}
+						if (pbrMaterialComponent.roughness && pbrMaterialComponent.roughness->isLoadSucceeded())
+						{
+							pbrMaterialComponent.roughness->unbind(3);
+						}
+						if (pbrMaterialComponent.ao && pbrMaterialComponent.ao->isLoadSucceeded())
+						{
+							pbrMaterialComponent.ao->unbind(4);
+						}
 					}
-					if (pbrMaterialComponent.normal && pbrMaterialComponent.normal->isLoadSucceeded())
-					{
-						pbrMaterialComponent.normal->unbind(1);
-					}
-					if (pbrMaterialComponent.metallic && pbrMaterialComponent.metallic->isLoadSucceeded())
-					{
-						pbrMaterialComponent.metallic->unbind(2);
-					}
-					if (pbrMaterialComponent.roughness && pbrMaterialComponent.roughness->isLoadSucceeded())
-					{
-						pbrMaterialComponent.roughness->unbind(3);
-					}
-					if (pbrMaterialComponent.ao && pbrMaterialComponent.ao->isLoadSucceeded())
-					{
-						pbrMaterialComponent.ao->unbind(4);
-					}
+
 					modelComponent.renderer->unbind();
 				}
 			}

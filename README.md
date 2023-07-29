@@ -24,3 +24,8 @@ blobloader:"renderer://", "texture://", "mesh://primitive=cube", "model://"
 "texture://CUBE_MAP_HDR?assets/textures/hdr/spree_bank_4k.hdr"
 1111
 2222
+
+
+===================================================================================
+阴影，骨骼动画，粒子特效
+地形，河流，体积云 ---- https://github.com/fede-vaccaro/TerrainEngine-OpenGL
