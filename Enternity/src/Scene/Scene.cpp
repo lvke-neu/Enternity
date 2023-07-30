@@ -97,27 +97,27 @@ namespace Enternity
 			{
 				entity.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/grass/albedo.png",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/rusted_iron/albedo.png",
 			[=](Asset* asset)
 			{
 				entity.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/grass/normal.png",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/rusted_iron/normal.png",
 			[=](Asset* asset)
 			{
 				entity.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/grass/metallic.png",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/rusted_iron/metallic.png",
 			[=](Asset* asset)
 			{
 				entity.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/grass/roughness.png",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/rusted_iron/roughness.png",
 			[=](Asset* asset)
 			{
 				entity.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/grass/ao.png",
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/rusted_iron/ao.png",
 			[=](Asset* asset)
 			{
 				entity.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
@@ -322,7 +322,9 @@ namespace Enternity
 	{
 		m_sceneSunlight = createEntity();
 		m_sceneSunlight.getComponent<NameComponent>().name = "Sunlight";
-		m_sceneSunlight.addComponent<SunLightComponent>().color = { 5.0f };
+		auto& sunLightComponent = m_sceneSunlight.addComponent<SunLightComponent>();
+		sunLightComponent.color = { 5.0f };
+		sunLightComponent.direction = {0.0f, -1.0f, -1.0f };
 		//m_sceneSunlight.addComponent<TransformComponent>().scale = { 0.2f };
 		//m_sceneSunlight.addComponent<Visual3DComponent>();
 

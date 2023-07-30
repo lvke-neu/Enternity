@@ -16,7 +16,7 @@ namespace Enternity
 	public:
 		//bind existing texture
 		static void Bind(unsigned int renderId, unsigned int slot);
-		static void UnBind();
+		static void UnBind(unsigned int slot);
 	};
 
 	//#########################################################################################

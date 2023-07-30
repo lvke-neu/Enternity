@@ -16,12 +16,9 @@ namespace Enternity
 		unsigned int getTriangleCount() const;
 	private:
 		void color_path(Scene* scene);
-		void color_path_cull(Scene* scene);
 		void color_path_skyboxPass(Scene* scene);
-		void color_path_shadowmapPass(Scene* scene);
 		void color_path_modelPass(Scene* scene);
-		void color_path_visual3dPass(Scene* scene);
-		void color_path_particlePass(Scene* scene);
+
 
 		void postprocess_path(Scene* scene);
 
