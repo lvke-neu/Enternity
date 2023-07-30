@@ -34,7 +34,7 @@ namespace Enternity
 		Entity m_sceneCamera;
 		Entity m_scenePostprocess;
 		Entity m_sceneSkybox;
-		Entity m_scenePointLight;
+		Entity m_sceneSunlight;
 		CameraController* m_cameraController{ nullptr };
 	};
 

@@ -10,7 +10,7 @@
 #include "ECS/Visual3DComponent.h"
 #include "ECS/ModelComponent.h"
 #include "ECS/PBRMaterialComponent.h"
-#include "ECS/PointLightComponent.h"
+#include "ECS/SunLightComponent.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"
@@ -320,21 +320,21 @@ namespace Enternity
 
 	void Scene::initLight()
 	{
-		m_scenePointLight = createEntity();
-		m_scenePointLight.getComponent<NameComponent>().name = "PointLight";
-		m_scenePointLight.addComponent<PointLightComponent>().color = { 300.f };
-		m_scenePointLight.addComponent<TransformComponent>().scale = { 0.2f };
-		m_scenePointLight.addComponent<Visual3DComponent>();
+		m_sceneSunlight = createEntity();
+		m_sceneSunlight.getComponent<NameComponent>().name = "Sunlight";
+		m_sceneSunlight.addComponent<SunLightComponent>().color = { 5.0f };
+		//m_sceneSunlight.addComponent<TransformComponent>().scale = { 0.2f };
+		//m_sceneSunlight.addComponent<Visual3DComponent>();
 
-		Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube",
-			[&](Asset* asset)
-			{
-				m_scenePointLight.getComponent<Visual3DComponent>().mesh = dynamic_cast<Mesh*>(asset);
-			});
-		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/light/lightgzmo.rdr",
-			[&](Asset* asset)
-			{
-				m_scenePointLight.getComponent<Visual3DComponent>().renderer = dynamic_cast<Renderer*>(asset);
-			});
+		//Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube",
+		//	[&](Asset* asset)
+		//	{
+		//		m_sceneSunlight.getComponent<Visual3DComponent>().mesh = dynamic_cast<Mesh*>(asset);
+		//	});
+		//Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/light/lightgzmo.rdr",
+		//	[&](Asset* asset)
+		//	{
+		//		m_sceneSunlight.getComponent<Visual3DComponent>().renderer = dynamic_cast<Renderer*>(asset);
+		//	});
 	}
 }

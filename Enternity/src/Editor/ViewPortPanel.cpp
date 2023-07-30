@@ -10,6 +10,7 @@
 #include "Scene/SceneManager.h"
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/CameraComponent.h"
+#include "Scene/ECS/SunLightComponent.h"
 #include "Pick/PickSystem.h"
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
@@ -193,6 +194,18 @@ namespace Enternity
 				auto& tc = selectedEntity.getComponent<TransformComponent>();
 				DecomposeTransform(modelMatrix, tc.translation, tc.rotation, tc.scale);
 				tc.rotation = glm::degrees(tc.rotation);
+			}
+		}
+		else if (selectedEntity.hasComponent<SunLightComponent>())
+		{
+			TransformComponent tc;
+			tc.translation = selectedEntity.getComponent<SunLightComponent>().direction;
+			auto modelMatrix = tc.getWorldMatrix();
+			ImGuizmo::Manipulate(&viewMatrix[0][0], &projMatrix[0][0], (ImGuizmo::OPERATION)m_gizmoOperation, ImGuizmo::MODE::LOCAL, &modelMatrix[0][0]);
+
+			if (ImGuizmo::IsUsing())
+			{
+				DecomposeTransform(modelMatrix, selectedEntity.getComponent<SunLightComponent>().direction, tc.rotation, tc.scale);
 			}
 		}
 	}

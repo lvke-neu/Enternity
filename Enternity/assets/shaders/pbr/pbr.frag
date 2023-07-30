@@ -13,8 +13,8 @@ layout (binding = 3) uniform sampler2D u_roughnessTexture;
 layout (binding = 4) uniform sampler2D u_aoTexture;
 layout (binding = 5) uniform samplerCube u_environmentTexture;
 
-uniform vec3 u_lightPosition;
-uniform vec3 u_lightColor;
+uniform vec3 u_sunLightDirection;
+uniform vec3 u_sunLightColor;
 uniform vec3 u_cameraPosition;
 
 const float PI = 3.14159265359;
@@ -99,11 +99,11 @@ void main()
     vec3 Lo = vec3(0.0);
 
     // calculate per-light radiance
-    vec3 L = normalize(u_lightPosition - v_worldPos);
+    vec3 L = normalize(u_sunLightDirection);
     vec3 H = normalize(V + L);
-    float distance = length(u_lightPosition - v_worldPos);
-    float attenuation = 1.0 / (distance * distance);
-    vec3 radiance = u_lightColor * attenuation;
+   // float distance = length(u_lightPosition - v_worldPos);
+   // float attenuation = 1.0 / (distance * distance);
+    vec3 radiance = u_sunLightColor;
 
     // Cook-Torrance BRDF
     float NDF = DistributionGGX(N, H, roughness);   

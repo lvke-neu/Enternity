@@ -146,8 +146,8 @@ namespace Enternity
 					//	skyBoxComponent.textureCubeMapHDR->bind(5);
 					//}
 
-					modelComponent.renderer->setVec3("u_lightPosition", scene->m_scenePointLight.getComponent<TransformComponent>().translation);
-					modelComponent.renderer->setVec3("u_lightColor", scene->m_scenePointLight.getComponent<PointLightComponent>().color);
+					modelComponent.renderer->setVec3("u_sunLightDirection", -scene->m_sceneSunlight.getComponent<SunLightComponent>().direction);
+					modelComponent.renderer->setVec3("u_sunLightColor", scene->m_sceneSunlight.getComponent<SunLightComponent>().color);
 					modelComponent.renderer->setVec3("u_cameraPosition", scene->m_sceneCamera.getComponent<TransformComponent>().translation);
 
 					modelComponent.model->draw();

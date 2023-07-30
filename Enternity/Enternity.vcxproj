@@ -128,7 +128,7 @@
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobLoader.cpp" />
     <ClCompile Include="src\Scene\ECS\ModelComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\PBRMaterialComponent.cpp" />
-    <ClCompile Include="src\Scene\ECS\PointLightComponent.cpp" />
+    <ClCompile Include="src\Scene\ECS\SunLightComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\PostProcessComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\SkyBoxComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\Visual3DComponent.cpp" />
@@ -189,7 +189,7 @@
     <ClInclude Include="src\Engine\BlobLoaderManager.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobHolder.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobLoader.h" />
-    <ClInclude Include="src\Scene\ECS\PointLightComponent.h" />
+    <ClInclude Include="src\Scene\ECS\SunLightComponent.h" />
     <ClInclude Include="src\Scene\ECS\ModelComponent.h" />
     <ClInclude Include="src\Scene\ECS\PBRMaterialComponent.h" />
     <ClInclude Include="src\Scene\ECS\SkyBoxComponent.h" />

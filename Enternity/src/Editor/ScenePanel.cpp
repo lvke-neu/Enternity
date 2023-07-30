@@ -11,7 +11,7 @@
 #include "Scene/ECS/PostProcessComponent.h"
 #include "Scene/ECS/SkyBoxComponent.h"
 #include "Scene/ECS/PBRMaterialComponent.h"
-#include "Scene/ECS/PointLightComponent.h"
+#include "Scene/ECS/SunLightComponent.h"
 #include "Scene/ECS/ModelComponent.h"
 #include "Scene/Model/Model.h"
 #include "Graphics/GraphicsSystem.h"
@@ -364,14 +364,14 @@ namespace Enternity
 				});
 		}
 
-		if (entity.hasComponent<PointLightComponent>())
+		if (entity.hasComponent<SunLightComponent>())
 		{
-			DrawComponent("PointLightComponent",
+			DrawComponent("SunLightComponent",
 				[&]()
 				{
-					auto& pointLightComponent = entity.getComponent<PointLightComponent>();
-					auto& transformComponent = entity.getComponent<TransformComponent>();
-					DrawVec3("Color", pointLightComponent.color, glm::vec3(1.0f));
+					auto& sunLightComponent = entity.getComponent<SunLightComponent>();
+					DrawVec3("Direction", sunLightComponent.direction, glm::vec3(0.0f));
+					DrawVec3("Color", sunLightComponent.color, glm::vec3(1.0f));
 				});
 		}
 
