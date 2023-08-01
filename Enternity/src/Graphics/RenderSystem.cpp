@@ -39,7 +39,7 @@ namespace Enternity
 		m_shadowMapFrameBuffer = new FrameBufferShadowMap(SHADOW_MAP_WIDTH, SHADOW_MAP_HEIGHT);
 		m_colorFrameBuffer = new FrameBuffer(100, 100, { ColorAttachmentFormat::RGBA8, ColorAttachmentFormat::RGB8, ColorAttachmentFormat::RED_INTEGER });
 		m_postprocessFrameBuffer = new FrameBuffer(100, 100, { ColorAttachmentFormat::RGBA8 });
-		m_shadowmapShader = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/shadowmap/shadowmap.rdr"));
+		m_shadowmapRenderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/shadowmap/shadowmap.rdr"));
 
 		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::WindowResize, BIND(RenderSystem::onWindowResize));
 	}
@@ -79,21 +79,21 @@ namespace Enternity
 			{
 				auto& modelComponent = entity.second.getComponent<ModelComponent>();
 
-				if (m_shadowmapShader && m_shadowmapShader->isLoadSucceeded() &&
+				if (m_shadowmapRenderer && m_shadowmapRenderer->isLoadSucceeded() &&
 					modelComponent.model && modelComponent.model->isLoadSucceeded())
 				{
-					m_shadowmapShader->bind();
+					m_shadowmapRenderer->bind();
 
 					glm::mat4 model = entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : glm::mat4(1);
 					glm::mat4 view = glm::lookAt(-scene->m_sceneSunlight.getComponent<SunLightComponent>().direction, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 					glm::mat4 proj = glm::ortho(-ORTHO_LENGTH, ORTHO_LENGTH, -ORTHO_LENGTH, ORTHO_LENGTH, 1.0f, 100.0f);
 
-					m_shadowmapShader->setMat4("u_m", model);
-					m_shadowmapShader->setMat4("u_v", view);
-					m_shadowmapShader->setMat4("u_p", proj);
+					m_shadowmapRenderer->setMat4("u_m", model);
+					m_shadowmapRenderer->setMat4("u_v", view);
+					m_shadowmapRenderer->setMat4("u_p", proj);
 
 					modelComponent.model->draw();
-					m_shadowmapShader->unbind();
+					m_shadowmapRenderer->unbind();
 				}
 			}
 		}

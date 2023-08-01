@@ -33,7 +33,7 @@ namespace Enternity
 		FrameBuffer* m_postprocessFrameBuffer{ nullptr };
 		FrameBufferShadowMap* m_shadowMapFrameBuffer{ nullptr };
 
-		Renderer* m_shadowmapShader{ nullptr };
+		Renderer* m_shadowmapRenderer{ nullptr };
 		unsigned int m_triangleCount{ 0 };
 	};
 
