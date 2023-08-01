@@ -29,3 +29,5 @@ blobloader:"renderer://", "texture://", "mesh://primitive=cube", "model://"
 ===================================================================================
 先改成方向光，太阳光晕效果，阴影，骨骼动画，粒子特效
 地形，河流，体积云 ---- https://github.com/fede-vaccaro/TerrainEngine-OpenGL
+
+https://blog.csdn.net/itzyjr/category_10995404.html

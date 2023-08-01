@@ -207,6 +207,9 @@
     <ClCompile Include="src\Scene\ECS\SunLightComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Libcurl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Blob.h">
@@ -408,6 +411,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\ECS\SunLightComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Libcurl.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

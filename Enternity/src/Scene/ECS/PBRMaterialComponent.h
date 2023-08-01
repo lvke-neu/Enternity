@@ -11,7 +11,6 @@ namespace Enternity
 		Texture2D* roughness{ nullptr };
 		Texture2D* ao{ nullptr };
 
-		void load(const char* albedoTexturePath, const char* normalTexturePath, const char* metallicTexturePath, const char* roughnessTexturePath, const char* aoTexturePath);
 		void unload();
 	};
 }

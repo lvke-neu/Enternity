@@ -30,7 +30,7 @@ namespace Enternity
 		m_sceneManager = new SceneManager;
 		m_uiRender = new UiRender(m_renderView->getContext());
 
-		m_renderView->setWindowProperty(1900, 900, "Version:0.004,Author:lvke", "texture://assets/textures/logo/windowlogo.png");
+		m_renderView->setWindowProperty(1900, 900, "Version:0.004,Author:lvke", "texture://TEXTURE_2D?assets/textures/logo/windowlogo.png");
 	}
 
 	void Engine::uninitialize()
