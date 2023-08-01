@@ -199,13 +199,14 @@ namespace Enternity
 		else if (selectedEntity.hasComponent<SunLightComponent>())
 		{
 			TransformComponent tc;
-			tc.translation = selectedEntity.getComponent<SunLightComponent>().direction;
+			tc.translation = -selectedEntity.getComponent<SunLightComponent>().direction;
 			auto modelMatrix = tc.getWorldMatrix();
 			ImGuizmo::Manipulate(&viewMatrix[0][0], &projMatrix[0][0], (ImGuizmo::OPERATION)m_gizmoOperation, ImGuizmo::MODE::LOCAL, &modelMatrix[0][0]);
 
 			if (ImGuizmo::IsUsing())
 			{
-				DecomposeTransform(modelMatrix, selectedEntity.getComponent<SunLightComponent>().direction, tc.rotation, tc.scale);
+				DecomposeTransform(modelMatrix, tc.translation, tc.rotation, tc.scale);
+				selectedEntity.getComponent<SunLightComponent>().direction = -tc.translation;
 			}
 		}
 	}

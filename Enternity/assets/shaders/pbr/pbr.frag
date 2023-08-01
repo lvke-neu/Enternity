@@ -5,6 +5,7 @@ layout (location = 0) out vec4 fragColor;
 in vec3 v_worldPos;
 in vec3 v_normal;
 in vec2 v_texcoord;
+in vec4 v_fragPosLightSpace;
 
 layout (binding = 0) uniform sampler2D u_albedoTexture;
 layout (binding = 1) uniform sampler2D u_normalTexture;
@@ -12,6 +13,7 @@ layout (binding = 2) uniform sampler2D u_metallicTexture;
 layout (binding = 3) uniform sampler2D u_roughnessTexture;
 layout (binding = 4) uniform sampler2D u_aoTexture;
 layout (binding = 5) uniform samplerCube u_environmentTexture;
+layout (binding = 6) uniform sampler2D u_shadowMapTexture;
 
 uniform vec3 u_sunLightDirection;
 uniform vec3 u_sunLightColor;
@@ -80,6 +82,43 @@ vec3 fresnelSchlick(float cosTheta, vec3 F0)
     return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
 }
 // ----------------------------------------------------------------------------
+
+
+float shadowCalculation(vec4 fragPosLightSpace)
+{
+  	// perform perspective divide
+    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+    // Transform to [0,1] range
+    projCoords = projCoords * 0.5 + 0.5;
+    // Get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
+    float closestDepth = texture(u_shadowMapTexture, projCoords.xy).r; 
+    // Get depth of current fragment from light's perspective
+    float currentDepth = projCoords.z;
+    // Calculate bias (based on depth map resolution and slope)
+
+    float bias = 0.005;
+    // Check whether current frag pos is in shadow
+    // float shadow = currentDepth - bias > closestDepth  ? 1.0 : 0.0;
+    // PCF
+    float shadow = 0.0;
+    vec2 texelSize = 1.0 / textureSize(u_shadowMapTexture, 0);
+    for(int x = -1; x <= 1; ++x)
+    {
+        for(int y = -1; y <= 1; ++y)
+        {
+            float pcfDepth = texture(u_shadowMapTexture, projCoords.xy + vec2(x, y) * texelSize).r; 
+            shadow += currentDepth - bias > pcfDepth  ? 1.0 : 0.0;        
+        }    
+    }
+    shadow /= 9.0;
+    
+    // Keep the shadow at 0.0 when outside the far_plane region of the light's frustum.
+    if(projCoords.z > 1.0)
+        shadow = 0.0;
+        
+    return shadow;
+}
+
 void main()
 {		
     vec3 albedo     = pow(texture(u_albedoTexture, v_texcoord).rgb, vec3(2.2));
@@ -136,16 +175,16 @@ void main()
     // this ambient lighting with environment lighting).
     vec3 ambient = vec3(0.03) * albedo * ao;
     
-    vec3 color = ambient + Lo;
+    float shadow = 1.0 - shadowCalculation(v_fragPosLightSpace);  
+
+    vec3 color = ambient + shadow * Lo;
 
     // HDR tonemapping
     color = color / (color + vec3(1.0));
     // gamma correct
     color = pow(color, vec3(1.0/2.2)); 
 
-//    vec3 I = normalize(v_worldPos - u_cameraPosition);
-//	vec3 R = reflect(I, normalize(v_normal));
-//    vec4(texture(u_environmentTexture, R).rgb, 1.0) * 0.01; 
+    
 
     fragColor = vec4(color, 1.0);
 }

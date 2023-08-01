@@ -134,7 +134,8 @@ namespace Enternity
 
 	FrameBufferWithoutColorAttachment::~FrameBufferWithoutColorAttachment()
 	{
-
+		glDeleteFramebuffers(1, &m_renderId);
+		glDeleteRenderbuffers(1, &m_depthStecilId);
 	}
 
 	void FrameBufferWithoutColorAttachment::bind()
@@ -146,4 +147,48 @@ namespace Enternity
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
+
+	FrameBufferShadowMap::FrameBufferShadowMap(unsigned int width, unsigned int height)
+	{
+		glGenFramebuffers(1, &m_renderId);
+
+		glGenTextures(1, &m_textureId);
+		glBindTexture(GL_TEXTURE_2D, m_textureId);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+
+		GLfloat borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
+		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, m_renderId);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_textureId, 0);
+		glDrawBuffer(GL_NONE);
+		glReadBuffer(GL_NONE);
+
+		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			LOG_ERROR("Framebuffer is not complete!");
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	FrameBufferShadowMap::~FrameBufferShadowMap()
+	{
+		glDeleteFramebuffers(1, &m_renderId);
+		glDeleteTextures(1, &m_textureId);
+	}
+
+	void FrameBufferShadowMap::bind()
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, m_renderId);
+	}
+
+	void FrameBufferShadowMap::unbind()
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
 }

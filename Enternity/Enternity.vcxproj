@@ -95,6 +95,7 @@
     <None Include="assets\shaders\pbr\pbr.rdr" />
     <None Include="assets\shaders\light\lightgzmo.rdr" />
     <None Include="assets\shaders\postprocess\postprocess.rdr" />
+    <None Include="assets\shaders\shadowmap\shadowmap.rdr" />
     <None Include="assets\shaders\skybox\skybox.rdr" />
     <None Include="assets\shaders\test\test2.rdr" />
     <None Include="assets\shaders\visual3d\visual3d.rdr" />

@@ -44,4 +44,23 @@ namespace Enternity
 		unsigned int m_renderId;
 		unsigned int m_depthStecilId;
 	};
+
+	class FrameBufferShadowMap
+	{
+	public:
+		FrameBufferShadowMap(unsigned int width, unsigned int height);
+		~FrameBufferShadowMap();
+	public:
+		void bind();
+		void unbind();
+		unsigned int getTextureId();
+	private:
+		unsigned int m_renderId;
+		unsigned int m_textureId;
+	};
+
+	inline unsigned int FrameBufferShadowMap::getTextureId()
+	{
+		return m_textureId;
+	}
 }

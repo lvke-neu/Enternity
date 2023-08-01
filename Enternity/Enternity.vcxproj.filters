@@ -28,6 +28,7 @@
     <None Include="assets\shaders\model\model.rdr" />
     <None Include="assets\shaders\pbr\pbr.rdr" />
     <None Include="assets\shaders\light\lightgzmo.rdr" />
+    <None Include="assets\shaders\shadowmap\shadowmap.rdr" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">

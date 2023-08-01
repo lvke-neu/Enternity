@@ -21,10 +21,17 @@ namespace Enternity
 		ImGui::End();
 
 
-		ImGui::Begin("Depth");
+		//ImGui::Begin("Depth");
 
-		auto id = Engine::GetInstance().getGraphicsSystem()->getColorFrameBuffer()->getTextureId(1);
-		//ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
+		//auto id = Engine::GetInstance().getGraphicsSystem()->getColorFrameBuffer()->getTextureId(1);
+		////ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
+
+		//ImGui::End();
+
+		ImGui::Begin("ShadowMap");
+
+		auto id = Engine::GetInstance().getGraphicsSystem()->getShadowMapFrameBuffer()->getTextureId();
+		ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
 
 		ImGui::End();
 	}

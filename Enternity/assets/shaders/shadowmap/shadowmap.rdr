@@ -1,0 +1,4 @@
+{
+  "VertexShader": "assets/shaders/shadowmap/shadowmap.vert",
+  "FragmentShader": "assets/shaders/shadowmap/shadowmap.frag"
+}
