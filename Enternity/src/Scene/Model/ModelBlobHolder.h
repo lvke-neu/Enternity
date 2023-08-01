@@ -1,6 +1,9 @@
 #pragma once
 #include "Engine/BlobHolder.h"
+#include "Graphics/RHI/Mesh/VertexDefine.h"
 #include <vector>
+#include <string>
+#include <map>
 
 namespace Enternity
 {
@@ -15,5 +18,7 @@ namespace Enternity
 		virtual Asset* createAsset() override;
 	private:
 		std::vector<MeshBlobHolder*> m_meshBlobHolders;
+		std::map<std::string, BoneInfo> m_boneInfoMap;
+		int m_boneCounter = 0;
 	};
 }

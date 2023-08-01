@@ -16,6 +16,6 @@ namespace Enternity
 		virtual void doLoad(BlobHolder* blobHolder) override;
 	private:
 		void processNode(BlobHolder* blobHolder, aiNode* node, const aiScene* scene);
-		MeshBlobHolder* processMesh(aiMesh* mesh, const aiScene* scene);
+		MeshBlobHolder* processMesh(BlobHolder* blobHolder, aiMesh* mesh, const aiScene* scene);
 	};
 }
