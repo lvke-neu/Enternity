@@ -1,5 +1,6 @@
 #include "Model.h"
 #include "ModelBlobHolder.h"
+#include "Animator.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Common/Macro.h"
 
@@ -31,6 +32,9 @@ namespace Enternity
 			}
 			m_meshs.push_back(mesh);
 		}
+
+		m_animator = new Animator(modelBlobHolder->m_animation);
+
 		m_path = modelBlobHolder->getPath();
 		m_state = loading_state_succeeded;
 	}
@@ -42,6 +46,8 @@ namespace Enternity
 			SAFE_DELETE_SET_NULL(mesh);
 		}
 		m_meshs.clear();
+
+		SAFE_DELETE_SET_NULL(m_animator);
 	}
 
 	void Model::draw()

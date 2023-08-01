@@ -6,6 +6,7 @@
 namespace Enternity
 {
 	class Mesh;
+	class Animator;
 	class Model : public Asset
 	{
 	public:
@@ -18,6 +19,7 @@ namespace Enternity
 	private:
 		std::vector<Mesh*> m_meshs;
 		std::string m_path;
+		Animator* m_animator{ nullptr };
 	};
 
 	inline const std::string& Model::getPath()

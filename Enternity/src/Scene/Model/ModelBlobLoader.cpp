@@ -2,12 +2,12 @@
 #include "Engine/Blob.h"
 #include "Engine/Log.h"
 #include "ModelBlobHolder.h"
+#include "Animation.h"
 #include "Graphics/RHI/Mesh/MeshBlobHolder.h"
 #include "Common/Macro.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include<glm/glm.hpp>
 #include<glm/gtc/quaternion.hpp>
 
 
@@ -68,6 +68,9 @@ namespace Enternity
 		}
 
 		processNode(modelBlobHolder, scene->mRootNode, scene);
+
+		modelBlobHolder->m_animation = new Animation(scene, modelBlobHolder);
+
 		modelBlobHolder->loadSucceeded__(nullptr);
 
 		m_mtx.unlock();

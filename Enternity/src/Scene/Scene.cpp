@@ -83,7 +83,7 @@ namespace Enternity
 		entity.getComponent<NameComponent>().name = "plane";
 		auto& trans = entity.addComponent<TransformComponent>();
 		trans.scale = { 100.0f };
-		trans.translation = { 0.0f, -10.0f, 0.0f };
+		//trans.translation = { 0.0f, -10.0f, 0.0f };
 		
 		entity.addComponent<ModelComponent>();
 		entity.addComponent<PBRMaterialComponent>();
@@ -125,11 +125,11 @@ namespace Enternity
 
 		auto entity2 = createEntity();
 		entity2.getComponent<NameComponent>().name = "model";
-		entity2.addComponent<TransformComponent>().scale = { 1.0f };
+		entity2.addComponent<TransformComponent>().scale = { 5.0f };
 
 		entity2.addComponent<ModelComponent>();
 		entity2.addComponent<PBRMaterialComponent>();
-		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/basic/sphere.fbx",
+		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/silly_dancing.fbx",
 			[=](Asset* asset)
 			{
 				entity2.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
@@ -289,8 +289,8 @@ namespace Enternity
 		m_sceneCamera = createEntity();
 		m_sceneCamera.getComponent<NameComponent>().name = "Camera";
 		auto& comp = m_sceneCamera.addComponent<TransformComponent>();
-		comp.translation = glm::vec3(0.0f, 0.0f, 10.0f);
-		//comp.rotation = glm::vec3(-6.20, -11.00, 0);
+		comp.translation = glm::vec3(-24.75, 19.59, 18.22);
+		comp.rotation = glm::vec3(-16.00, -65.90, 0);
 		m_sceneCamera.addComponent<CameraComponent>().moveSpeed = 30;
 		m_cameraController = new CameraController(&m_sceneCamera);
 	}
@@ -324,7 +324,7 @@ namespace Enternity
 		m_sceneSunlight.getComponent<NameComponent>().name = "Sunlight";
 		auto& sunLightComponent = m_sceneSunlight.addComponent<SunLightComponent>();
 		sunLightComponent.color = { 5.0f };
-		sunLightComponent.direction = {0.0f, -1.0f, -1.0f };
+		sunLightComponent.direction = {0.0f, -20.0f, -20.0f };
 		//m_sceneSunlight.addComponent<TransformComponent>().scale = { 0.2f };
 		//m_sceneSunlight.addComponent<Visual3DComponent>();
 

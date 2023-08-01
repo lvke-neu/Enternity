@@ -15,7 +15,7 @@ AssetID, Asset, AssetLoader
 用hdr填充cubemap
 
 
-blobloader:"renderer://", "texture://", "mesh://primitive=cube", "model://"
+blobloader:"renderer://", "texture://", "mesh://primitive=cube", "model://STATIC_MESH?", "model://ANIMATION?"
 
 "texture://TEXTURE_2D?assest/"
 "texture://TEXTURE_2D?Slip=true?assest/"

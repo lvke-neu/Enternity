@@ -1,17 +1,17 @@
 #pragma once
 #include "Engine/BlobHolder.h"
-#include "Graphics/RHI/Mesh/VertexDefine.h"
-#include <vector>
-#include <string>
+#include "AnimationDefine.h"
 #include <map>
 
 namespace Enternity
-{
+{	
+	class Animation;
 	class MeshBlobHolder;
 	class ModelBlobHolder : public BlobHolder
 	{
 		friend class Model;
 		friend class ModelBlobLoader;
+		friend class Animation;
 	public:
 		ModelBlobHolder(BlobLoader* blobLoader, const std::string& path);
 		virtual ~ModelBlobHolder();
@@ -20,5 +20,6 @@ namespace Enternity
 		std::vector<MeshBlobHolder*> m_meshBlobHolders;
 		std::map<std::string, BoneInfo> m_boneInfoMap;
 		int m_boneCounter = 0;
+		Animation* m_animation{ nullptr };
 	};
 }
