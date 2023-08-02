@@ -10,6 +10,7 @@ namespace Enternity
 	class Animation
 	{
 	public:
+		Animation() = default;
 		Animation(const aiScene* scene, ModelBlobHolder* modelBlobHolder);
 	public:
 		Bone* FindBone(const std::string& name);
@@ -18,6 +19,8 @@ namespace Enternity
 		inline float GetDuration() { return m_Duration; }
 		inline const AssimpNodeData& GetRootNode() { return m_RootNode; }
 		inline const std::map<std::string, BoneInfo>& GetBoneIDMap() { return m_BoneInfoMap; }
+
+		Animation* clone();
 	private:
 		void ReadMissingBones(const aiAnimation* animation, ModelBlobHolder* modelBlobHolder);
 		void ReadHierarchyData(AssimpNodeData& dest, const aiNode* src);

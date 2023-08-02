@@ -32,6 +32,19 @@ namespace Enternity
 		else return &(*iter);
 	}
 
+	Animation* Animation::clone()
+	{
+		Animation* animation = new Animation;
+		animation->m_Duration = this->m_Duration;
+		animation->m_TicksPerSecond = this->m_TicksPerSecond;
+		animation->m_Bones = this->m_Bones;
+		animation->m_RootNode = this->m_RootNode;
+		animation->m_BoneInfoMap = this->m_BoneInfoMap;
+
+
+		return animation;
+	}
+
 	void Animation::ReadMissingBones(const aiAnimation* animation, ModelBlobHolder* modelBlobHolder)
 	{
 		int size = animation->mNumChannels;
