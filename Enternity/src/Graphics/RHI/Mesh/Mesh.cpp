@@ -39,7 +39,14 @@ namespace Enternity
 		for (const auto& layout : Layout)
 		{
 			glEnableVertexAttribArray(layout.index);
-			glVertexAttribPointer(layout.index, layout.count, layout.type, layout.normalized, layout.stride, (void*)(layout.start));
+			if (layout.type == GL_INT)
+			{
+				glVertexAttribIPointer(layout.index, layout.count, layout.type, layout.stride, (void*)(layout.start));
+			}
+			else if (layout.type == GL_FLOAT)
+			{
+				glVertexAttribPointer(layout.index, layout.count, layout.type, layout.normalized, layout.stride, (void*)(layout.start));
+			}	
 		}
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);

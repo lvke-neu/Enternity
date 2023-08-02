@@ -85,43 +85,43 @@ namespace Enternity
 		trans.scale = { 100.0f };
 		//trans.translation = { 0.0f, -10.0f, 0.0f };
 		
-		entity.addComponent<ModelComponent>();
-		entity.addComponent<PBRMaterialComponent>();
-		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/basic/Plane.fbx",
-			[=](Asset* asset)
-			{
-				entity.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
-			});
-		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/pbr/pbr.rdr",
-			[=](Asset* asset)
-			{
-				entity.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
-			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/albedo.png",
-			[=](Asset* asset)
-			{
-				entity.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
-			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/normal.png",
-			[=](Asset* asset)
-			{
-				entity.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
-			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/metallic.png",
-			[=](Asset* asset)
-			{
-				entity.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
-			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/roughness.png",
-			[=](Asset* asset)
-			{
-				entity.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
-			});
-		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/ao.png",
-			[=](Asset* asset)
-			{
-				entity.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
-			});
+		//entity.addComponent<ModelComponent>();
+		//entity.addComponent<PBRMaterialComponent>();
+		//Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/basic/Plane.fbx",
+		//	[=](Asset* asset)
+		//	{
+		//		entity.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
+		//	});
+		//Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/pbr/pbr.rdr",
+		//	[=](Asset* asset)
+		//	{
+		//		entity.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
+		//	});
+		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/albedo.png",
+		//	[=](Asset* asset)
+		//	{
+		//		entity.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
+		//	});
+		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/normal.png",
+		//	[=](Asset* asset)
+		//	{
+		//		entity.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
+		//	});
+		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/metallic.png",
+		//	[=](Asset* asset)
+		//	{
+		//		entity.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
+		//	});
+		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/roughness.png",
+		//	[=](Asset* asset)
+		//	{
+		//		entity.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
+		//	});
+		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/ao.png",
+		//	[=](Asset* asset)
+		//	{
+		//		entity.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
+		//	});
 
 		auto entity2 = createEntity();
 		entity2.getComponent<NameComponent>().name = "model";

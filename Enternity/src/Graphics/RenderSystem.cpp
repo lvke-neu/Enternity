@@ -16,6 +16,7 @@
 #include "Scene/ECS/PBRMaterialComponent.h"
 #include "Scene/ECS/SunLightComponent.h"
 #include "Scene/Model/Model.h"
+#include "Scene/Model/Animator.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"
@@ -171,6 +172,13 @@ namespace Enternity
 					modelComponent.renderer->setVec3("u_sunLightColor", scene->m_sceneSunlight.getComponent<SunLightComponent>().color);
 					modelComponent.renderer->setVec3("u_cameraPosition", scene->m_sceneCamera.getComponent<TransformComponent>().translation); 
 
+					modelComponent.model->getAnimator()->UpdateAnimation(Engine::GetInstance().getTimer()->deltaTime());
+					auto transforms = modelComponent.model->getAnimator()->GetFinalBoneMatrices();
+					for (int i = 0; i < transforms.size(); ++i)
+					{
+						modelComponent.renderer->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+					}
+					
 					modelComponent.model->draw();
 
 					if (entity.second.hasComponent<PBRMaterialComponent>())

@@ -17,6 +17,7 @@ namespace Enternity
 		virtual void unload() override;
 		void draw();
 		const std::string& getPath();
+		Animator* getAnimator();
 	private:
 		std::vector<Mesh*> m_meshs;
 		std::string m_path;
@@ -27,5 +28,10 @@ namespace Enternity
 	inline const std::string& Model::getPath()
 	{
 		return m_path;
+	}
+
+	inline Animator* Model::getAnimator()
+	{
+		return m_animator;
 	}
 }
