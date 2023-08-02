@@ -13,6 +13,7 @@
 #include "Scene/ECS/PBRMaterialComponent.h"
 #include "Scene/ECS/SunLightComponent.h"
 #include "Scene/ECS/ModelComponent.h"
+#include "Scene/ECS/StaticModelComponent.h"
 #include "Scene/Model/Model.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/Texture/Texture.h"
@@ -375,18 +376,18 @@ namespace Enternity
 				});
 		}
 
-		if (entity.hasComponent<ModelComponent>())
+		if (entity.hasComponent<StaticModelComponent>())
 		{
-			DrawComponent("ModelComponent",
+			DrawComponent("StaticModelComponent",
 				[&]()
 				{
-					auto& modelComponent = entity.getComponent<ModelComponent>();
+					auto& saticModelComponent = entity.getComponent<StaticModelComponent>();
 
 					char buffer[256];
 					memset(buffer, 0, 256);
-					if (modelComponent.model)
+					if (saticModelComponent.model)
 					{
-						memcpy_s(buffer, modelComponent.model->getPath().size(), modelComponent.model->getPath().c_str(), modelComponent.model->getPath().size());
+						memcpy_s(buffer, saticModelComponent.model->getPath().size(), saticModelComponent.model->getPath().c_str(), saticModelComponent.model->getPath().size());
 					}
 					ImGui::InputText("##Path", buffer, 256, ImGuiInputTextFlags_ReadOnly);
 					if (ImGui::BeginDragDropTarget())
@@ -397,13 +398,13 @@ namespace Enternity
 							path = path.substr(0, payload->DataSize);
 							LOG_INFO(path);
 
-							if (modelComponent.model)
+							if (saticModelComponent.model)
 							{
 								Engine::GetInstance().getAssetLoader()->getAsset(("model://" + path).c_str(),
 									[=](Asset* asset)
 									{
-										SAFE_DELETE_SET_NULL(entity.getComponent<ModelComponent>().model);
-										entity.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
+										SAFE_DELETE_SET_NULL(entity.getComponent<StaticModelComponent>().model);
+										entity.getComponent<StaticModelComponent>().model = dynamic_cast<Model*>(asset);
 									});
 							}
 						}

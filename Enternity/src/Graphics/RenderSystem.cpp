@@ -13,6 +13,7 @@
 #include "Scene/ECS/SkyBoxComponent.h"
 #include "Scene/ECS/Visual3DComponent.h"
 #include "Scene/ECS/ModelComponent.h"
+#include "Scene/ECS/StaticModelComponent.h"
 #include "Scene/ECS/PBRMaterialComponent.h"
 #include "Scene/ECS/SunLightComponent.h"
 #include "Scene/Model/Model.h"
@@ -76,12 +77,12 @@ namespace Enternity
 	{
 		for (auto& entity : scene->m_entities)
 		{
-			if (entity.second.hasComponent<ModelComponent>())
+			if (entity.second.hasComponent<StaticModelComponent>())
 			{
-				auto& modelComponent = entity.second.getComponent<ModelComponent>();
+				auto& staticModelComponent = entity.second.getComponent<StaticModelComponent>();
 
 				if (m_shadowmapRenderer && m_shadowmapRenderer->isLoadSucceeded() &&
-					modelComponent.model && modelComponent.model->isLoadSucceeded())
+					staticModelComponent.model && staticModelComponent.model->isLoadSucceeded())
 				{
 					m_shadowmapRenderer->bind();
 
@@ -93,7 +94,7 @@ namespace Enternity
 					m_shadowmapRenderer->setMat4("u_v", view);
 					m_shadowmapRenderer->setMat4("u_p", proj);
 
-					modelComponent.model->draw();
+					staticModelComponent.model->draw();
 					m_shadowmapRenderer->unbind();
 				}
 			}
@@ -120,6 +121,95 @@ namespace Enternity
 	{
 		for (auto& entity : scene->m_entities)
 		{
+			if (entity.second.hasComponent<StaticModelComponent>())
+			{
+				auto& staticModelComponent = entity.second.getComponent<StaticModelComponent>();
+
+				if (staticModelComponent.model && staticModelComponent.model->isLoadSucceeded())
+				{
+					if (entity.second.hasComponent<PBRMaterialComponent>())
+					{
+						auto& pbrMaterialComponent = entity.second.getComponent<PBRMaterialComponent>();
+						if (pbrMaterialComponent.renderer && pbrMaterialComponent.renderer->isLoadSucceeded())
+						{
+							pbrMaterialComponent.renderer->bind();
+
+							glm::mat4 model = entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : glm::mat4(1);
+							glm::mat4 view = scene->m_sceneCamera.getComponent<TransformComponent>().getInverseWorldMatrix();
+							glm::mat4 proj = scene->m_sceneCamera.getComponent<CameraComponent>().getProjectionMatrix();
+
+							pbrMaterialComponent.renderer->setMat4("u_m", model);
+							pbrMaterialComponent.renderer->setMat4("u_v", view);
+							pbrMaterialComponent.renderer->setMat4("u_p", proj);
+
+							view = glm::lookAt(-scene->m_sceneSunlight.getComponent<SunLightComponent>().direction, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+							proj = glm::ortho(-ORTHO_LENGTH, ORTHO_LENGTH, -ORTHO_LENGTH, ORTHO_LENGTH, 1.0f, 100.0f);
+							pbrMaterialComponent.renderer->setMat4("u_lightVP", proj * view);
+
+							if (pbrMaterialComponent.albedo && pbrMaterialComponent.albedo->isLoadSucceeded())
+							{
+								pbrMaterialComponent.albedo->bind(0);
+							}
+							if (pbrMaterialComponent.normal && pbrMaterialComponent.normal->isLoadSucceeded())
+							{
+								pbrMaterialComponent.normal->bind(1);
+							}
+							if (pbrMaterialComponent.metallic && pbrMaterialComponent.metallic->isLoadSucceeded())
+							{
+								pbrMaterialComponent.metallic->bind(2);
+							}
+							if (pbrMaterialComponent.roughness && pbrMaterialComponent.roughness->isLoadSucceeded())
+							{
+								pbrMaterialComponent.roughness->bind(3);
+							}
+							if (pbrMaterialComponent.ao && pbrMaterialComponent.ao->isLoadSucceeded())
+							{
+								pbrMaterialComponent.ao->bind(4);
+							}
+
+
+							Texture2D::Bind(m_shadowMapFrameBuffer->getTextureId(), 6);
+
+							pbrMaterialComponent.renderer->setVec3("u_sunLightDirection", -scene->m_sceneSunlight.getComponent<SunLightComponent>().direction);
+							pbrMaterialComponent.renderer->setVec3("u_sunLightColor", scene->m_sceneSunlight.getComponent<SunLightComponent>().color);
+							pbrMaterialComponent.renderer->setVec3("u_cameraPosition", scene->m_sceneCamera.getComponent<TransformComponent>().translation);
+
+							staticModelComponent.model->draw();
+
+							if (entity.second.hasComponent<PBRMaterialComponent>())
+							{
+								auto& pbrMaterialComponent = entity.second.getComponent<PBRMaterialComponent>();
+								if (pbrMaterialComponent.albedo && pbrMaterialComponent.albedo->isLoadSucceeded())
+								{
+									pbrMaterialComponent.albedo->unbind(0);
+								}
+								if (pbrMaterialComponent.normal && pbrMaterialComponent.normal->isLoadSucceeded())
+								{
+									pbrMaterialComponent.normal->unbind(1);
+								}
+								if (pbrMaterialComponent.metallic && pbrMaterialComponent.metallic->isLoadSucceeded())
+								{
+									pbrMaterialComponent.metallic->unbind(2);
+								}
+								if (pbrMaterialComponent.roughness && pbrMaterialComponent.roughness->isLoadSucceeded())
+								{
+									pbrMaterialComponent.roughness->unbind(3);
+								}
+								if (pbrMaterialComponent.ao && pbrMaterialComponent.ao->isLoadSucceeded())
+								{
+									pbrMaterialComponent.ao->unbind(4);
+								}
+							}
+							Texture2D::UnBind(6);
+
+							pbrMaterialComponent.renderer->unbind();
+						}
+					}
+
+				}
+			}
+
+
 			if (entity.second.hasComponent<ModelComponent>())
 			{
 				auto& modelComponent = entity.second.getComponent<ModelComponent>();
