@@ -126,18 +126,17 @@ namespace Enternity
 		auto entity2 = createEntity();
 		entity2.getComponent<NameComponent>().name = "model";
 		entity2.addComponent<TransformComponent>().scale = { 5.0f };
-
 		entity2.addComponent<ModelComponent>();
-		entity2.addComponent<PBRMaterialComponent>();
 		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/silly_dancing.fbx",
 			[=](Asset* asset)
 			{
 				entity2.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
 			});
+		entity2.addComponent<PBRMaterialComponent>();
 		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/pbr/pbr.rdr",
 			[=](Asset* asset)
 			{
-				entity2.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
+				entity2.getComponent<PBRMaterialComponent>().renderer = dynamic_cast<Renderer*>(asset);
 			});
 		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/rusted_iron/albedo.png",
 			[=](Asset* asset)

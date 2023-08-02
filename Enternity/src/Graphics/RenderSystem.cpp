@@ -124,90 +124,94 @@ namespace Enternity
 			{
 				auto& modelComponent = entity.second.getComponent<ModelComponent>();
 
-				if (modelComponent.renderer && modelComponent.renderer->isLoadSucceeded() &&
-					modelComponent.model && modelComponent.model->isLoadSucceeded())
+				if (modelComponent.model && modelComponent.model->isLoadSucceeded())
 				{
-					modelComponent.renderer->bind();
-
-					glm::mat4 model = entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : glm::mat4(1);
-					glm::mat4 view = scene->m_sceneCamera.getComponent<TransformComponent>().getInverseWorldMatrix();
-					glm::mat4 proj = scene->m_sceneCamera.getComponent<CameraComponent>().getProjectionMatrix();
-
-					modelComponent.renderer->setMat4("u_m", model);
-					modelComponent.renderer->setMat4("u_v", view);
-					modelComponent.renderer->setMat4("u_p", proj);
-
-					view = glm::lookAt(-scene->m_sceneSunlight.getComponent<SunLightComponent>().direction, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-					proj = glm::ortho(-ORTHO_LENGTH, ORTHO_LENGTH, -ORTHO_LENGTH, ORTHO_LENGTH, 1.0f, 100.0f);
-					modelComponent.renderer->setMat4("u_lightVP", proj * view);
-
 					if (entity.second.hasComponent<PBRMaterialComponent>())
 					{
 						auto& pbrMaterialComponent = entity.second.getComponent<PBRMaterialComponent>();
-						if (pbrMaterialComponent.albedo && pbrMaterialComponent.albedo->isLoadSucceeded())
+						if (pbrMaterialComponent.renderer && pbrMaterialComponent.renderer->isLoadSucceeded())
 						{
-							pbrMaterialComponent.albedo->bind(0);
-						}
-						if (pbrMaterialComponent.normal && pbrMaterialComponent.normal->isLoadSucceeded())
-						{
-							pbrMaterialComponent.normal->bind(1);
-						}
-						if (pbrMaterialComponent.metallic && pbrMaterialComponent.metallic->isLoadSucceeded())
-						{
-							pbrMaterialComponent.metallic->bind(2);
-						}
-						if (pbrMaterialComponent.roughness && pbrMaterialComponent.roughness->isLoadSucceeded())
-						{
-							pbrMaterialComponent.roughness->bind(3);
-						}
-						if (pbrMaterialComponent.ao && pbrMaterialComponent.ao->isLoadSucceeded())
-						{
-							pbrMaterialComponent.ao->bind(4);
+							pbrMaterialComponent.renderer->bind();
+
+							glm::mat4 model = entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : glm::mat4(1);
+							glm::mat4 view = scene->m_sceneCamera.getComponent<TransformComponent>().getInverseWorldMatrix();
+							glm::mat4 proj = scene->m_sceneCamera.getComponent<CameraComponent>().getProjectionMatrix();
+
+							pbrMaterialComponent.renderer->setMat4("u_m", model);
+							pbrMaterialComponent.renderer->setMat4("u_v", view);
+							pbrMaterialComponent.renderer->setMat4("u_p", proj);
+
+							view = glm::lookAt(-scene->m_sceneSunlight.getComponent<SunLightComponent>().direction, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+							proj = glm::ortho(-ORTHO_LENGTH, ORTHO_LENGTH, -ORTHO_LENGTH, ORTHO_LENGTH, 1.0f, 100.0f);
+							pbrMaterialComponent.renderer->setMat4("u_lightVP", proj * view);
+
+							if (pbrMaterialComponent.albedo && pbrMaterialComponent.albedo->isLoadSucceeded())
+							{
+								pbrMaterialComponent.albedo->bind(0);
+							}
+							if (pbrMaterialComponent.normal && pbrMaterialComponent.normal->isLoadSucceeded())
+							{
+								pbrMaterialComponent.normal->bind(1);
+							}
+							if (pbrMaterialComponent.metallic && pbrMaterialComponent.metallic->isLoadSucceeded())
+							{
+								pbrMaterialComponent.metallic->bind(2);
+							}
+							if (pbrMaterialComponent.roughness && pbrMaterialComponent.roughness->isLoadSucceeded())
+							{
+								pbrMaterialComponent.roughness->bind(3);
+							}
+							if (pbrMaterialComponent.ao && pbrMaterialComponent.ao->isLoadSucceeded())
+							{
+								pbrMaterialComponent.ao->bind(4);
+							}
+							
+
+							Texture2D::Bind(m_shadowMapFrameBuffer->getTextureId(), 6);
+
+							pbrMaterialComponent.renderer->setVec3("u_sunLightDirection", -scene->m_sceneSunlight.getComponent<SunLightComponent>().direction);
+							pbrMaterialComponent.renderer->setVec3("u_sunLightColor", scene->m_sceneSunlight.getComponent<SunLightComponent>().color);
+							pbrMaterialComponent.renderer->setVec3("u_cameraPosition", scene->m_sceneCamera.getComponent<TransformComponent>().translation);
+
+							modelComponent.model->getAnimator()->UpdateAnimation(Engine::GetInstance().getTimer()->deltaTime());
+							auto transforms = modelComponent.model->getAnimator()->GetFinalBoneMatrices();
+							for (int i = 0; i < transforms.size(); ++i)
+							{
+								pbrMaterialComponent.renderer->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+							}
+
+							modelComponent.model->draw();
+
+							if (entity.second.hasComponent<PBRMaterialComponent>())
+							{
+								auto& pbrMaterialComponent = entity.second.getComponent<PBRMaterialComponent>();
+								if (pbrMaterialComponent.albedo && pbrMaterialComponent.albedo->isLoadSucceeded())
+								{
+									pbrMaterialComponent.albedo->unbind(0);
+								}
+								if (pbrMaterialComponent.normal && pbrMaterialComponent.normal->isLoadSucceeded())
+								{
+									pbrMaterialComponent.normal->unbind(1);
+								}
+								if (pbrMaterialComponent.metallic && pbrMaterialComponent.metallic->isLoadSucceeded())
+								{
+									pbrMaterialComponent.metallic->unbind(2);
+								}
+								if (pbrMaterialComponent.roughness && pbrMaterialComponent.roughness->isLoadSucceeded())
+								{
+									pbrMaterialComponent.roughness->unbind(3);
+								}
+								if (pbrMaterialComponent.ao && pbrMaterialComponent.ao->isLoadSucceeded())
+								{
+									pbrMaterialComponent.ao->unbind(4);
+								}
+							}
+							Texture2D::UnBind(6);
+
+							pbrMaterialComponent.renderer->unbind();
 						}
 					}
-
-					Texture2D::Bind(m_shadowMapFrameBuffer->getTextureId(), 6);
-
-					modelComponent.renderer->setVec3("u_sunLightDirection", -scene->m_sceneSunlight.getComponent<SunLightComponent>().direction);
-					modelComponent.renderer->setVec3("u_sunLightColor", scene->m_sceneSunlight.getComponent<SunLightComponent>().color);
-					modelComponent.renderer->setVec3("u_cameraPosition", scene->m_sceneCamera.getComponent<TransformComponent>().translation); 
-
-					modelComponent.model->getAnimator()->UpdateAnimation(Engine::GetInstance().getTimer()->deltaTime());
-					auto transforms = modelComponent.model->getAnimator()->GetFinalBoneMatrices();
-					for (int i = 0; i < transforms.size(); ++i)
-					{
-						modelComponent.renderer->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
-					}
-					
-					modelComponent.model->draw();
-
-					if (entity.second.hasComponent<PBRMaterialComponent>())
-					{
-						auto& pbrMaterialComponent = entity.second.getComponent<PBRMaterialComponent>();
-						if (pbrMaterialComponent.albedo && pbrMaterialComponent.albedo->isLoadSucceeded())
-						{
-							pbrMaterialComponent.albedo->unbind(0);
-						}
-						if (pbrMaterialComponent.normal && pbrMaterialComponent.normal->isLoadSucceeded())
-						{
-							pbrMaterialComponent.normal->unbind(1);
-						}
-						if (pbrMaterialComponent.metallic && pbrMaterialComponent.metallic->isLoadSucceeded())
-						{
-							pbrMaterialComponent.metallic->unbind(2);
-						}
-						if (pbrMaterialComponent.roughness && pbrMaterialComponent.roughness->isLoadSucceeded())
-						{
-							pbrMaterialComponent.roughness->unbind(3);
-						}
-						if (pbrMaterialComponent.ao && pbrMaterialComponent.ao->isLoadSucceeded())
-						{
-							pbrMaterialComponent.ao->unbind(4);
-						}
-					}
-					Texture2D::UnBind(6);
-
-					modelComponent.renderer->unbind();
+				
 				}
 			}
 		}

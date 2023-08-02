@@ -1,4 +1,5 @@
 #include "PBRMaterialComponent.h"
+#include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"
 #include "Common/Macro.h"
 
@@ -11,5 +12,6 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(metallic);
 		SAFE_DELETE_SET_NULL(roughness);
 		SAFE_DELETE_SET_NULL(ao);
+		SAFE_DELETE_SET_NULL(renderer);
 	}
 }
