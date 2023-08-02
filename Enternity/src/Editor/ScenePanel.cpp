@@ -12,7 +12,7 @@
 #include "Scene/ECS/SkyBoxComponent.h"
 #include "Scene/ECS/PBRMaterialComponent.h"
 #include "Scene/ECS/SunLightComponent.h"
-#include "Scene/ECS/ModelComponent.h"
+#include "Scene/ECS/SkeletonModelComponent.h"
 #include "Scene/ECS/StaticModelComponent.h"
 #include "Scene/Model/Model.h"
 #include "Graphics/GraphicsSystem.h"
@@ -414,6 +414,43 @@ namespace Enternity
 				});
 		}
 
+		if (entity.hasComponent<SkeletonModelComponent>())
+		{
+			DrawComponent("StaticModelComponent",
+				[&]()
+				{
+					auto& skeletonModelComponent = entity.getComponent<SkeletonModelComponent>();
+
+					char buffer[256];
+					memset(buffer, 0, 256);
+					if (skeletonModelComponent.model)
+					{
+						memcpy_s(buffer, skeletonModelComponent.model->getPath().size(), skeletonModelComponent.model->getPath().c_str(), skeletonModelComponent.model->getPath().size());
+					}
+					ImGui::InputText("##Path", buffer, 256, ImGuiInputTextFlags_ReadOnly);
+					if (ImGui::BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
+						{
+							std::string path((char*)payload->Data);
+							path = path.substr(0, payload->DataSize);
+							LOG_INFO(path);
+
+							if (skeletonModelComponent.model)
+							{
+								Engine::GetInstance().getAssetLoader()->getAsset(("model://" + path).c_str(),
+									[=](Asset* asset)
+									{
+										SAFE_DELETE_SET_NULL(entity.getComponent<SkeletonModelComponent>().model);
+										entity.getComponent<SkeletonModelComponent>().model = dynamic_cast<Model*>(asset);
+									});
+							}
+						}
+						ImGui::EndDragDropTarget();
+					}
+
+				});
+		}
 
 
 		//if (entity.hasComponent<Visual3DComponent>())

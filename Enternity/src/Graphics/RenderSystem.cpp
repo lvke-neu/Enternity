@@ -12,7 +12,7 @@
 #include "Scene/ECS/PostProcessComponent.h"
 #include "Scene/ECS/SkyBoxComponent.h"
 #include "Scene/ECS/Visual3DComponent.h"
-#include "Scene/ECS/ModelComponent.h"
+#include "Scene/ECS/SkeletonModelComponent.h"
 #include "Scene/ECS/StaticModelComponent.h"
 #include "Scene/ECS/PBRMaterialComponent.h"
 #include "Scene/ECS/SunLightComponent.h"
@@ -42,6 +42,7 @@ namespace Enternity
 		m_colorFrameBuffer = new FrameBuffer(100, 100, { ColorAttachmentFormat::RGBA8, ColorAttachmentFormat::RGB8, ColorAttachmentFormat::RED_INTEGER });
 		m_postprocessFrameBuffer = new FrameBuffer(100, 100, { ColorAttachmentFormat::RGBA8 });
 		m_shadowmapRenderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/shadowmap/shadowmap.rdr"));
+		m_shadowmapRenderer2 = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/shadowmap/shadowmap2.rdr"));
 
 		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::WindowResize, BIND(RenderSystem::onWindowResize));
 	}
@@ -52,6 +53,8 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(m_shadowMapFrameBuffer);
 		SAFE_DELETE_SET_NULL(m_colorFrameBuffer);
 		SAFE_DELETE_SET_NULL(m_postprocessFrameBuffer);	
+		SAFE_DELETE_SET_NULL(m_shadowmapRenderer);
+		SAFE_DELETE_SET_NULL(m_shadowmapRenderer2);
 	}
 
 	void RenderSystem::render(Scene* scene)
@@ -96,6 +99,36 @@ namespace Enternity
 
 					staticModelComponent.model->draw();
 					m_shadowmapRenderer->unbind();
+				}
+			}
+
+			if (entity.second.hasComponent<SkeletonModelComponent>())
+			{
+				auto& skeletonModelComponent = entity.second.getComponent<SkeletonModelComponent>();
+
+				if (m_shadowmapRenderer2 && m_shadowmapRenderer2->isLoadSucceeded() &&
+					skeletonModelComponent.model && skeletonModelComponent.model->isLoadSucceeded())
+				{
+					m_shadowmapRenderer2->bind();
+
+					glm::mat4 model = entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : glm::mat4(1);
+					glm::mat4 view = glm::lookAt(-scene->m_sceneSunlight.getComponent<SunLightComponent>().direction, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+					glm::mat4 proj = glm::ortho(-ORTHO_LENGTH, ORTHO_LENGTH, -ORTHO_LENGTH, ORTHO_LENGTH, 1.0f, 100.0f);
+
+
+					skeletonModelComponent.model->getAnimator()->UpdateAnimation(Engine::GetInstance().getTimer()->deltaTime());
+					auto transforms = skeletonModelComponent.model->getAnimator()->GetFinalBoneMatrices();
+					for (int i = 0; i < transforms.size(); ++i)
+					{
+						m_shadowmapRenderer2->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+					}
+
+					m_shadowmapRenderer2->setMat4("u_m", model);
+					m_shadowmapRenderer2->setMat4("u_v", view);
+					m_shadowmapRenderer2->setMat4("u_p", proj);
+
+					skeletonModelComponent.model->draw();
+					m_shadowmapRenderer2->unbind();
 				}
 			}
 		}
@@ -210,11 +243,11 @@ namespace Enternity
 			}
 
 
-			if (entity.second.hasComponent<ModelComponent>())
+			if (entity.second.hasComponent<SkeletonModelComponent>())
 			{
-				auto& modelComponent = entity.second.getComponent<ModelComponent>();
+				auto& skeletonModelComponent = entity.second.getComponent<SkeletonModelComponent>();
 
-				if (modelComponent.model && modelComponent.model->isLoadSucceeded())
+				if (skeletonModelComponent.model && skeletonModelComponent.model->isLoadSucceeded())
 				{
 					if (entity.second.hasComponent<PBRMaterialComponent>())
 					{
@@ -239,38 +272,17 @@ namespace Enternity
 							{
 								pbrMaterialComponent.albedo->bind(0);
 							}
-							if (pbrMaterialComponent.normal && pbrMaterialComponent.normal->isLoadSucceeded())
-							{
-								pbrMaterialComponent.normal->bind(1);
-							}
-							if (pbrMaterialComponent.metallic && pbrMaterialComponent.metallic->isLoadSucceeded())
-							{
-								pbrMaterialComponent.metallic->bind(2);
-							}
-							if (pbrMaterialComponent.roughness && pbrMaterialComponent.roughness->isLoadSucceeded())
-							{
-								pbrMaterialComponent.roughness->bind(3);
-							}
-							if (pbrMaterialComponent.ao && pbrMaterialComponent.ao->isLoadSucceeded())
-							{
-								pbrMaterialComponent.ao->bind(4);
-							}
-							
 
 							Texture2D::Bind(m_shadowMapFrameBuffer->getTextureId(), 6);
 
-							pbrMaterialComponent.renderer->setVec3("u_sunLightDirection", -scene->m_sceneSunlight.getComponent<SunLightComponent>().direction);
-							pbrMaterialComponent.renderer->setVec3("u_sunLightColor", scene->m_sceneSunlight.getComponent<SunLightComponent>().color);
-							pbrMaterialComponent.renderer->setVec3("u_cameraPosition", scene->m_sceneCamera.getComponent<TransformComponent>().translation);
-
-							modelComponent.model->getAnimator()->UpdateAnimation(Engine::GetInstance().getTimer()->deltaTime());
-							auto transforms = modelComponent.model->getAnimator()->GetFinalBoneMatrices();
+							//skeletonModelComponent.model->getAnimator()->UpdateAnimation(Engine::GetInstance().getTimer()->deltaTime());
+							auto transforms = skeletonModelComponent.model->getAnimator()->GetFinalBoneMatrices();
 							for (int i = 0; i < transforms.size(); ++i)
 							{
 								pbrMaterialComponent.renderer->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
 							}
 
-							modelComponent.model->draw();
+							skeletonModelComponent.model->draw();
 
 							if (entity.second.hasComponent<PBRMaterialComponent>())
 							{
@@ -278,22 +290,6 @@ namespace Enternity
 								if (pbrMaterialComponent.albedo && pbrMaterialComponent.albedo->isLoadSucceeded())
 								{
 									pbrMaterialComponent.albedo->unbind(0);
-								}
-								if (pbrMaterialComponent.normal && pbrMaterialComponent.normal->isLoadSucceeded())
-								{
-									pbrMaterialComponent.normal->unbind(1);
-								}
-								if (pbrMaterialComponent.metallic && pbrMaterialComponent.metallic->isLoadSucceeded())
-								{
-									pbrMaterialComponent.metallic->unbind(2);
-								}
-								if (pbrMaterialComponent.roughness && pbrMaterialComponent.roughness->isLoadSucceeded())
-								{
-									pbrMaterialComponent.roughness->unbind(3);
-								}
-								if (pbrMaterialComponent.ao && pbrMaterialComponent.ao->isLoadSucceeded())
-								{
-									pbrMaterialComponent.ao->unbind(4);
 								}
 							}
 							Texture2D::UnBind(6);

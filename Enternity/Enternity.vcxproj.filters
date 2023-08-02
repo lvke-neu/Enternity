@@ -26,7 +26,7 @@
     <None Include="assets\shaders\skybox\skybox.rdr" />
     <None Include="assets\shaders\visual3d\visual3d.rdr" />
     <None Include="assets\shaders\model\model.rdr" />
-    <None Include="assets\shaders\pbr\pbr.rdr" />
+    <None Include="assets\shaders\pbr\skeletonModelpbr.rdr" />
     <None Include="assets\shaders\light\lightgzmo.rdr" />
     <None Include="assets\shaders\shadowmap\shadowmap.rdr" />
   </ItemGroup>
@@ -199,7 +199,7 @@
     <ClCompile Include="src\Scene\Model\Model.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\ECS\ModelComponent.cpp">
+    <ClCompile Include="src\Scene\ECS\SkeletonModelComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\ECS\PBRMaterialComponent.cpp">
@@ -414,7 +414,7 @@
     <ClInclude Include="src\Scene\Model\Model.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\ECS\ModelComponent.h">
+    <ClInclude Include="src\Scene\ECS\SkeletonModelComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\ECS\PBRMaterialComponent.h">

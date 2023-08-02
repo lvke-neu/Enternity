@@ -92,7 +92,7 @@
     <None Include="..\README.md" />
     <None Include="assets\model\cube.bin" />
     <None Include="assets\shaders\model\model.rdr" />
-    <None Include="assets\shaders\pbr\pbr.rdr" />
+    <None Include="assets\shaders\pbr\skeletonModelpbr.rdr" />
     <None Include="assets\shaders\light\lightgzmo.rdr" />
     <None Include="assets\shaders\postprocess\postprocess.rdr" />
     <None Include="assets\shaders\shadowmap\shadowmap.rdr" />
@@ -128,7 +128,7 @@
     <ClCompile Include="src\Engine\Libcurl.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobHolder.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobLoader.cpp" />
-    <ClCompile Include="src\Scene\ECS\ModelComponent.cpp" />
+    <ClCompile Include="src\Scene\ECS\SkeletonModelComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\PBRMaterialComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\StaticModelComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\SunLightComponent.cpp" />
@@ -197,7 +197,7 @@
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobLoader.h" />
     <ClInclude Include="src\Scene\ECS\StaticModelComponent.h" />
     <ClInclude Include="src\Scene\ECS\SunLightComponent.h" />
-    <ClInclude Include="src\Scene\ECS\ModelComponent.h" />
+    <ClInclude Include="src\Scene\ECS\SkeletonModelComponent.h" />
     <ClInclude Include="src\Scene\ECS\PBRMaterialComponent.h" />
     <ClInclude Include="src\Scene\ECS\SkyBoxComponent.h" />
     <ClInclude Include="src\Scene\ECS\Visual3DComponent.h" />

@@ -34,6 +34,7 @@ namespace Enternity
 		FrameBufferShadowMap* m_shadowMapFrameBuffer{ nullptr };
 
 		Renderer* m_shadowmapRenderer{ nullptr };
+		Renderer* m_shadowmapRenderer2{ nullptr };
 		unsigned int m_triangleCount{ 0 };
 	};
 

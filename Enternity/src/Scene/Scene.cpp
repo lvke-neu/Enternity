@@ -8,7 +8,7 @@
 #include "ECS/PostProcessComponent.h"
 #include "ECS/SkyBoxComponent.h"
 #include "ECS/Visual3DComponent.h"
-#include "ECS/ModelComponent.h"
+#include "ECS/SkeletonModelComponent.h"
 #include "ECS/StaticModelComponent.h"
 #include "ECS/PBRMaterialComponent.h"
 #include "ECS/SunLightComponent.h"
@@ -125,7 +125,7 @@ namespace Enternity
 			});
 
 		auto entity2 = createEntity();
-		entity2.getComponent<NameComponent>().name = "model";
+		entity2.getComponent<NameComponent>().name = "static model";
 		entity2.addComponent<TransformComponent>().scale = { 5.0f };
 		entity2.addComponent<StaticModelComponent>();
 		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/silly_dancing.fbx",
@@ -163,6 +163,95 @@ namespace Enternity
 			[=](Asset* asset)
 			{
 				entity2.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
+			});
+
+
+		auto entity3 = createEntity();
+		entity3.getComponent<NameComponent>().name = "skeleton model";
+		auto& trans3 = entity3.addComponent<TransformComponent>();
+		trans3.scale = { 7.0f };
+		trans3.translation = { -14.00, 1.13, -2.16 };
+		entity3.addComponent<SkeletonModelComponent>();
+		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/vampire/dancing_vampire.dae",
+			[=](Asset* asset)
+			{
+				entity3.getComponent<SkeletonModelComponent>().model = dynamic_cast<Model*>(asset);
+			});
+		entity3.addComponent<PBRMaterialComponent>();
+		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/pbr/skeletonModelpbr.rdr",
+			[=](Asset* asset)
+			{
+				entity3.getComponent<PBRMaterialComponent>().renderer = dynamic_cast<Renderer*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/models/animation/vampire/textures/Vampire_diffuse.png",
+			[=](Asset* asset)
+			{
+				entity3.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/rusted_iron/normal.png",
+			[=](Asset* asset)
+			{
+				entity3.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/rusted_iron/metallic.png",
+			[=](Asset* asset)
+			{
+				entity3.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/rusted_iron/roughness.png",
+			[=](Asset* asset)
+			{
+				entity3.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/rusted_iron/ao.png",
+			[=](Asset* asset)
+			{
+				entity3.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
+			});
+
+
+
+		auto entity4 = createEntity();
+		entity4.getComponent<NameComponent>().name = "skeleton model2";
+		auto& trans4 = entity4.addComponent<TransformComponent>();
+		trans4.scale = { 5.0f };
+		trans4.translation = { 14.00, 1.13, -2.16 };
+		entity4.addComponent<SkeletonModelComponent>();
+		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/silly_dancing.fbx",
+			[=](Asset* asset)
+			{
+				entity4.getComponent<SkeletonModelComponent>().model = dynamic_cast<Model*>(asset);
+			});
+		entity4.addComponent<PBRMaterialComponent>();
+		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/pbr/skeletonModelpbr.rdr",
+			[=](Asset* asset)
+			{
+				entity4.getComponent<PBRMaterialComponent>().renderer = dynamic_cast<Renderer*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/box_diffuse.png",
+			[=](Asset* asset)
+			{
+				entity4.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/rusted_iron/normal.png",
+			[=](Asset* asset)
+			{
+				entity4.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/rusted_iron/metallic.png",
+			[=](Asset* asset)
+			{
+				entity4.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/rusted_iron/roughness.png",
+			[=](Asset* asset)
+			{
+				entity4.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/rusted_iron/ao.png",
+			[=](Asset* asset)
+			{
+				entity4.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
 			});
 	}
 
@@ -212,9 +301,9 @@ namespace Enternity
 				it->second.getComponent<Visual3DComponent>().unload();
 			}
 
-			if (it->second.hasComponent<ModelComponent>())
+			if (it->second.hasComponent<SkeletonModelComponent>())
 			{
-				it->second.getComponent<ModelComponent>().unload();
+				it->second.getComponent<SkeletonModelComponent>().unload();
 			}			
 			
 			if (it->second.hasComponent<StaticModelComponent>())
@@ -251,9 +340,9 @@ namespace Enternity
 				it->second.getComponent<Visual3DComponent>().unload();
 			}
 
-			if (it->second.hasComponent<ModelComponent>())
+			if (it->second.hasComponent<SkeletonModelComponent>())
 			{
-				it->second.getComponent<ModelComponent>().unload();
+				it->second.getComponent<SkeletonModelComponent>().unload();
 			}
 
 			if (it->second.hasComponent<StaticModelComponent>())
