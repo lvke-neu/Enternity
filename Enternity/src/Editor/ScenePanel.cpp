@@ -15,6 +15,8 @@
 #include "Scene/ECS/SkeletonModelComponent.h"
 #include "Scene/ECS/StaticModelComponent.h"
 #include "Scene/Model/Model.h"
+#include "Scene/Model/Animator.h"
+#include "Scene/Model/Animation.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/Texture/Texture.h"
 #include "Pick/PickSystem.h"
@@ -398,28 +400,37 @@ namespace Enternity
 							path = path.substr(0, payload->DataSize);
 							LOG_INFO(path);
 
-							if (saticModelComponent.model)
-							{
-								Engine::GetInstance().getAssetLoader()->getAsset(("model://" + path).c_str(),
-									[=](Asset* asset)
-									{
-										SAFE_DELETE_SET_NULL(entity.getComponent<StaticModelComponent>().model);
-										entity.getComponent<StaticModelComponent>().model = dynamic_cast<Model*>(asset);
-									});
-							}
+							Engine::GetInstance().getAssetLoader()->getAsset(("model://" + path).c_str(),
+								[=](Asset* asset)
+								{
+									SAFE_DELETE_SET_NULL(entity.getComponent<StaticModelComponent>().model);
+									entity.getComponent<StaticModelComponent>().model = dynamic_cast<Model*>(asset);
+								});
 						}
 						ImGui::EndDragDropTarget();
 					}
-
+					ImGui::SameLine();
+					ImGui::Text("ath");
 				});
 		}
 
 		if (entity.hasComponent<SkeletonModelComponent>())
 		{
-			DrawComponent("StaticModelComponent",
+			DrawComponent("SkeletonModelComponent",
 				[&]()
 				{
 					auto& skeletonModelComponent = entity.getComponent<SkeletonModelComponent>();
+
+					if (skeletonModelComponent.model)
+					{
+						float coefficient =  skeletonModelComponent.model->getAnimator()->getAnimation()->getCoefficient();
+						if (ImGui::DragFloat("##coefficient", &coefficient, 0.1))
+						{
+							skeletonModelComponent.model->getAnimator()->getAnimation()->setCoefficient(coefficient);
+						}
+						ImGui::SameLine();
+						ImGui::Text("coefficient");
+					}
 
 					char buffer[256];
 					memset(buffer, 0, 256);
@@ -436,18 +447,18 @@ namespace Enternity
 							path = path.substr(0, payload->DataSize);
 							LOG_INFO(path);
 
-							if (skeletonModelComponent.model)
-							{
-								Engine::GetInstance().getAssetLoader()->getAsset(("model://" + path).c_str(),
-									[=](Asset* asset)
-									{
-										SAFE_DELETE_SET_NULL(entity.getComponent<SkeletonModelComponent>().model);
-										entity.getComponent<SkeletonModelComponent>().model = dynamic_cast<Model*>(asset);
-									});
-							}
+
+							Engine::GetInstance().getAssetLoader()->getAsset(("model://" + path).c_str(),
+								[=](Asset* asset)
+								{
+									SAFE_DELETE_SET_NULL(entity.getComponent<SkeletonModelComponent>().model);
+									entity.getComponent<SkeletonModelComponent>().model = dynamic_cast<Model*>(asset);
+								});
 						}
 						ImGui::EndDragDropTarget();
 					}
+					ImGui::SameLine();
+					ImGui::Text("path");
 
 				});
 		}

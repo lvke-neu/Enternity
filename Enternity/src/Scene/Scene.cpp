@@ -27,59 +27,6 @@ namespace Enternity
 		initSkyBox();
 		initLight();
 
-		//glm::vec3 trans[6] = 
-		//{ 
-		//	{5.0f, 0.0f, 0.0f},{-5.0f, 0.0f, 0.0f},
-		//	{0.0f, 5.0f, 0.0f},{0.0f, -5.0f, 0.0f},
-		//	{0.0f, 0.0f, 5.0f},{0.0f, 0.0f, -5.0f}
-		//};
-
-		//std::string path[6] = { {"default"},{"default"},{"plastic"},{"wall"},{"rusted_iron"},{"rusted_iron"} };
-
-		//for (int i = 0; i < 6; i++)
-		//{
-		//	auto entity = createEntity();
-		//	entity.getComponent<NameComponent>().name = "sphere.fbx1";
-		//	entity.addComponent<TransformComponent>().translation = trans[i];
-		//	entity.addComponent<ModelComponent>();
-		//	entity.addComponent<PBRMaterialComponent>();
-		//	Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/basic/Sphere.fbx",
-		//		[=](Asset* asset)
-		//		{
-		//			entity.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
-		//		});
-		//	Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/pbr/pbr.rdr",
-		//		[=](Asset* asset)
-		//		{
-		//			entity.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
-		//		});
-		//	Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] +"/albedo.png").c_str(),
-		//		[=](Asset* asset)
-		//		{
-		//			entity.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
-		//		});
-		//	Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] + "/normal.png").c_str(),
-		//		[=](Asset* asset)
-		//		{
-		//			entity.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
-		//		});
-		//	Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] + "/metallic.png").c_str(),
-		//		[=](Asset* asset)
-		//		{
-		//			entity.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
-		//		});
-		//	Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] + "/roughness.png").c_str(),
-		//		[=](Asset* asset)
-		//		{
-		//			entity.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
-		//		});
-		//	Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D&Slip=false?assets/textures/pbr/" + path[i] + "/ao.png").c_str(),
-		//		[=](Asset* asset)
-		//		{
-		//			entity.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
-		//		});
-		//}
-
 		auto entity = createEntity();
 		entity.getComponent<NameComponent>().name = "plane";
 		auto& trans = entity.addComponent<TransformComponent>();
@@ -169,10 +116,10 @@ namespace Enternity
 		auto entity3 = createEntity();
 		entity3.getComponent<NameComponent>().name = "skeleton model";
 		auto& trans3 = entity3.addComponent<TransformComponent>();
-		trans3.scale = { 7.0f };
+		trans3.scale = { 1.0f };
 		trans3.translation = { -14.00, 1.13, -2.16 };
 		entity3.addComponent<SkeletonModelComponent>();
-		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/vampire/dancing_vampire.dae",
+		Engine::GetInstance().getAssetLoader()->getAsset("",
 			[=](Asset* asset)
 			{
 				entity3.getComponent<SkeletonModelComponent>().model = dynamic_cast<Model*>(asset);
