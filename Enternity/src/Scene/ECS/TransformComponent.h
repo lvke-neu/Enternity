@@ -5,6 +5,14 @@ namespace Enternity
 {
 	struct TransformComponent
 	{
+		TransformComponent() = default;
+		TransformComponent(const glm::vec3& trans, const glm::vec3& rot, const glm::vec3& sca)
+		{
+			translation = trans;
+			rotation = rot;
+			scale = sca;
+		}
+
 		glm::vec3 translation{ 0.0f, 0.0f, 0.0f };
 		glm::vec3 rotation{ 0.0f, 0.0f, 0.0f };
 		glm::vec3 scale{ 1.0f, 1.0f, 1.0f };

@@ -50,5 +50,5 @@ void main()
     float shadow = 1.0 - shadowCalculation(v_fragPosLightSpace);  
 
 
-    fragColor = texture(u_albedoTexture, v_texcoord) * shadow;
+    fragColor = texture(u_albedoTexture, v_texcoord) + shadow * 0.1;
 }

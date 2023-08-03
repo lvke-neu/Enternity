@@ -424,7 +424,7 @@ namespace Enternity
 					if (skeletonModelComponent.model)
 					{
 						float coefficient =  skeletonModelComponent.model->getAnimator()->getAnimation()->getCoefficient();
-						if (ImGui::DragFloat("##coefficient", &coefficient, 0.1))
+						if (ImGui::DragFloat("##coefficient", &coefficient, 0.1f))
 						{
 							skeletonModelComponent.model->getAnimator()->getAnimation()->setCoefficient(coefficient);
 						}
