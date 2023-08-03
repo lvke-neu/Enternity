@@ -109,6 +109,10 @@ namespace Enternity
 		for (unsigned int j = 0; j < mesh->mNumVertices; j++)
 		{
 			Vertex_Skeleton vertex;
+			//vertex.m_boneIDs[0] = -1;
+			//vertex.m_boneIDs[1] = -1;
+			//vertex.m_boneIDs[2] = -1;
+			//vertex.m_boneIDs[3] = -1;
 			vertex.position.x = mesh->mVertices[j].x;
 			vertex.position.y = mesh->mVertices[j].y;
 			vertex.position.z = mesh->mVertices[j].z;

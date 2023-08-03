@@ -216,12 +216,10 @@ namespace Enternity
 		auto& trans4 = entity4.addComponent<TransformComponent>();
 		trans4.scale = { 5.0f };
 		trans4.translation = { 14.00, 1.13, -2.16 };
-		entity4.addComponent<SkeletonModelComponent>();
-		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/silly_dancing.fbx",
-			[=](Asset* asset)
-			{
-				entity4.getComponent<SkeletonModelComponent>().model = dynamic_cast<Model*>(asset);
-			});
+		entity4.addComponent<SkeletonModelComponent>().model = dynamic_cast<Model*>(Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/silly_dancing.fbx"));
+
+		auto& modelcomp = entity4.getComponent<SkeletonModelComponent>();
+
 		entity4.addComponent<PBRMaterialComponent>();
 		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/pbr/skeletonModelpbr.rdr",
 			[=](Asset* asset)

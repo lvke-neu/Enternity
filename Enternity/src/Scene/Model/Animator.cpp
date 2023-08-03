@@ -37,12 +37,12 @@ namespace Enternity
 		std::string nodeName = node->name;
 		glm::mat4 nodeTransform = node->transformation;
 
-		Bone* Bone = m_CurrentAnimation->FindBone(nodeName);
+		Bone* bone = m_CurrentAnimation->FindBone(nodeName);
 
-		if (Bone)
+		if (bone)
 		{
-			Bone->Update(m_CurrentTime);
-			nodeTransform = Bone->GetLocalTransform();
+			bone->Update(m_CurrentTime);
+			nodeTransform = bone->GetLocalTransform();
 		}
 
 		glm::mat4 globalTransformation = parentTransform * nodeTransform;

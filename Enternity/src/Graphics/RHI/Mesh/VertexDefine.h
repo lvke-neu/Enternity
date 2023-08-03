@@ -31,9 +31,9 @@ namespace Enternity
 		glm::vec3 normal;
 		glm::vec2 texcoord;
 
-		int m_boneIDs[MAX_BONE_INFLUENCE];
+		int m_boneIDs[MAX_BONE_INFLUENCE] = {-1, -1, -1, -1};
 
-		float m_weights[MAX_BONE_INFLUENCE];
+		float m_weights[MAX_BONE_INFLUENCE] = { -1.0f, -1.0f, -1.0f, -1.0f };
 
 		static std::vector<Layout> s_layout;
 	};
