@@ -2,6 +2,7 @@
 #include "CameraController.h"
 #include "Engine/Engine.h"
 #include "Engine/AssetLoader.h"
+#include "Engine/EventSystem.h"
 #include "ECS/TransformComponent.h"
 #include "ECS/CameraComponent.h"
 #include "ECS/NameComponent.h"
@@ -20,6 +21,7 @@
 
 namespace Enternity
 {
+	static Entity s_Entity;
 	Scene::Scene()
 	{
 		initPostProcess();
@@ -112,14 +114,15 @@ namespace Enternity
 				entity2.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
 			});
 
-
+	
 		auto entity3 = createEntity();
+		s_Entity = entity3;
 		entity3.getComponent<NameComponent>().name = "skeleton model";
 		auto& trans3 = entity3.addComponent<TransformComponent>();
-		trans3.scale = { 1.0f };
+		trans3.scale = { 10.0f };
 		trans3.translation = { -14.00, 1.13, -2.16 };
 		entity3.addComponent<SkeletonModelComponent>();
-		Engine::GetInstance().getAssetLoader()->getAsset("",
+		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/walk/in place/Walking.dae",
 			[=](Asset* asset)
 			{
 				entity3.getComponent<SkeletonModelComponent>().model = dynamic_cast<Model*>(asset);
@@ -163,7 +166,12 @@ namespace Enternity
 		auto& trans4 = entity4.addComponent<TransformComponent>();
 		trans4.scale = { 5.0f };
 		trans4.translation = { 14.00, 1.13, -2.16 };
-		entity4.addComponent<SkeletonModelComponent>().model = dynamic_cast<Model*>(Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/silly_dancing.fbx"));
+		entity4.addComponent<SkeletonModelComponent>();
+		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/silly_dancing.fbx",
+			[=](Asset* asset)
+			{
+				entity4.getComponent<SkeletonModelComponent>().model = dynamic_cast<Model*>(asset);
+			});
 
 		auto& modelcomp = entity4.getComponent<SkeletonModelComponent>();
 
@@ -307,7 +315,25 @@ namespace Enternity
 
 	void Scene::tick(float deltaTime)
 	{
+		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::Up))
+		{
+			s_Entity.getComponent<TransformComponent>().moveZAxis(10 * deltaTime);
+		}
 
+		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::Down))
+		{
+			s_Entity.getComponent<TransformComponent>().moveZAxis(-10 * deltaTime);
+		}
+
+		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::Left))
+		{
+			s_Entity.getComponent<TransformComponent>().rotateAlongYAxis(-100 * deltaTime);
+		}
+
+		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::Right))
+		{
+			s_Entity.getComponent<TransformComponent>().rotateAlongYAxis(100 * deltaTime);
+		}
 	}
 
 	void Scene::initPostProcess()
