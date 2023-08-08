@@ -1,9 +1,12 @@
 #include "ModelBlobLoader.h"
+#include "Engine/Engine.h"
 #include "Engine/Blob.h"
 #include "Engine/Log.h"
+#include "Engine/BlobLoaderManager.h"
 #include "ModelBlobHolder.h"
 #include "Animation.h"
 #include "Graphics/RHI/Mesh/MeshBlobHolder.h"
+#include "Graphics/RHI/Texture/TextureBlobHolder.h"
 #include "Common/Macro.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -83,7 +86,9 @@ namespace Enternity
 		for (unsigned int i = 0; i < node->mNumMeshes; i++)
 		{	
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+			aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 			modelBlobHolder->m_meshBlobHolders.push_back(processMesh(modelBlobHolder, mesh, scene));
+			modelBlobHolder->m_texture2DBlobHolders.push_back(processMaterial(modelBlobHolder->m_path, material));
 		}
 	
 		for (unsigned int i = 0; i < node->mNumChildren; i++)
@@ -207,4 +212,24 @@ namespace Enternity
 		return meshBlobHolder;
 	}
 
+	Texture2DBlobHolder* ModelBlobLoader::processMaterial(const std::string& path, aiMaterial* material)
+	{
+		aiString str;
+		material->GetTexture(aiTextureType_DIFFUSE, 0, &str);
+
+		std::string tmpPath = "texture://TEXTURE_2D?" + path.substr(0, path.rfind("/") + 1) + str.C_Str();
+
+		BlobLoader* blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(tmpPath.c_str());
+		if (blobLoader)
+		{
+			BlobHolder* blobHolder = blobLoader->createBlobHolder(tmpPath.c_str());
+			if (blobHolder)
+			{
+				blobHolder->load(0);
+			}
+			return dynamic_cast<Texture2DBlobHolder*>(blobHolder);
+		}
+
+		return nullptr;
+	}
 }

@@ -268,10 +268,10 @@ namespace Enternity
 							proj = glm::ortho(-ORTHO_LENGTH, ORTHO_LENGTH, -ORTHO_LENGTH, ORTHO_LENGTH, 1.0f, 100.0f);
 							pbrMaterialComponent.renderer->setMat4("u_lightVP", proj * view);
 
-							if (pbrMaterialComponent.albedo && pbrMaterialComponent.albedo->isLoadSucceeded())
-							{
-								pbrMaterialComponent.albedo->bind(0);
-							}
+							//if (pbrMaterialComponent.albedo && pbrMaterialComponent.albedo->isLoadSucceeded())
+							//{
+							//	pbrMaterialComponent.albedo->bind(0);
+							//}
 
 							Texture2D::Bind(m_shadowMapFrameBuffer->getTextureId(), 6);
 
@@ -282,7 +282,7 @@ namespace Enternity
 								pbrMaterialComponent.renderer->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
 							}
 
-							skeletonModelComponent.model->draw();
+							skeletonModelComponent.model->draw2();
 
 							if (entity.second.hasComponent<PBRMaterialComponent>())
 							{

@@ -86,26 +86,26 @@ namespace Enternity
 		glfwSetWindowSize(m_context, width, height);
 		glfwSetWindowTitle(m_context, title);
 
-		BlobLoader* blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(path);
-		if (blobLoader)
-		{
-			Texture2DBlobHolder* texture2DBlobHolder = dynamic_cast<Texture2DBlobHolder*>(blobLoader->createBlobHolder(path));
-			if (texture2DBlobHolder)
-			{
-				texture2DBlobHolder->setSlip(false);
-				texture2DBlobHolder->load(0);
-				if (texture2DBlobHolder->isLoadSucceeded())
-				{
-					GLFWimage images[1];
-					images[0].pixels = (unsigned char*)texture2DBlobHolder->getBlob()->getData();
-					images[0].width = texture2DBlobHolder->getWidth();
-					images[0].height = texture2DBlobHolder->getHeight();
-					glfwSetWindowIcon(m_context, 1, images);
-				}
+		//BlobLoader* blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(path);
+		//if (blobLoader)
+		//{
+		//	Texture2DBlobHolder* texture2DBlobHolder = dynamic_cast<Texture2DBlobHolder*>(blobLoader->createBlobHolder(path));
+		//	if (texture2DBlobHolder)
+		//	{
+		//		texture2DBlobHolder->setSlip(false);
+		//		texture2DBlobHolder->load(0);
+		//		if (texture2DBlobHolder->isLoadSucceeded())
+		//		{
+		//			GLFWimage images[1];
+		//			images[0].pixels = (unsigned char*)texture2DBlobHolder->getBlob()->getData();
+		//			images[0].width = texture2DBlobHolder->getWidth();
+		//			images[0].height = texture2DBlobHolder->getHeight();
+		//			glfwSetWindowIcon(m_context, 1, images);
+		//		}
 
-				SAFE_DELETE_SET_NULL(texture2DBlobHolder);
-			}
-		}
+		//		SAFE_DELETE_SET_NULL(texture2DBlobHolder);
+		//	}
+		//}
 	}
 
 	void RenderView::Resize(GLFWwindow* window, int width, int height)

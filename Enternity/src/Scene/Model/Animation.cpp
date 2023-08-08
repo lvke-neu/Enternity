@@ -13,7 +13,7 @@ namespace Enternity
 
 		auto animation = scene->mAnimations[0];
 		m_Duration = (float)animation->mDuration;
-		m_TicksPerSecond = (float)animation->mTicksPerSecond;
+		m_TicksPerSecond = (int)animation->mTicksPerSecond;
 		aiMatrix4x4 globalTransformation = scene->mRootNode->mTransformation;
 		globalTransformation = globalTransformation.Inverse();
 		ReadHierarchyData(m_RootNode, scene->mRootNode);

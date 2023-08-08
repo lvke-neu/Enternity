@@ -7,6 +7,7 @@ namespace Enternity
 {	
 	class Animation;
 	class MeshBlobHolder;
+	class Texture2DBlobHolder;
 	class ModelBlobHolder : public BlobHolder
 	{
 		friend class Model;
@@ -18,6 +19,7 @@ namespace Enternity
 		virtual Asset* createAsset() override;
 	private:
 		std::vector<MeshBlobHolder*> m_meshBlobHolders;
+		std::vector<Texture2DBlobHolder*> m_texture2DBlobHolders;
 		std::map<std::string, BoneInfo> m_boneInfoMap;
 		int m_boneCounter = 0;
 		Animation* m_animation{ nullptr };

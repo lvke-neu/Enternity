@@ -3,6 +3,7 @@
 #include "Animation.h"
 #include "Animator.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
+#include "Graphics/RHI/Texture/Texture.h"
 #include "Common/Macro.h"
 
 namespace Enternity
@@ -33,6 +34,20 @@ namespace Enternity
 			}
 			m_meshs.push_back(mesh);
 		}
+
+		for (auto texture2DBlobHolder : modelBlobHolder->m_texture2DBlobHolders)
+		{
+			Texture2D* texture2D = new Texture2D;
+			texture2D->load((BlobHolder*)texture2DBlobHolder);
+			if (!texture2D->isLoadSucceeded())
+			{
+				SAFE_DELETE_SET_NULL(texture2D);
+				//m_state = loading_state_failed;
+				return;
+			}
+			m_materials.push_back(texture2D);
+		}
+
 		m_animation = modelBlobHolder->m_animation->clone();
 		m_animator = new Animator(m_animation);
 
@@ -48,6 +63,12 @@ namespace Enternity
 		}
 		m_meshs.clear();
 
+		for (auto& texture2D : m_materials)
+		{
+			SAFE_DELETE_SET_NULL(texture2D);
+		}
+		m_materials.clear();
+
 		SAFE_DELETE_SET_NULL(m_animation);
 		SAFE_DELETE_SET_NULL(m_animator);
 	}
@@ -59,6 +80,18 @@ namespace Enternity
 			if (mesh)
 			{
 				mesh->draw();
+			}
+		}
+	}
+
+	void Model::draw2()
+	{
+		for (int i = 0; i < m_materials.size(); i++) 
+		{
+			if (m_meshs[i])
+			{
+				m_materials[i]->bind(0);
+				m_meshs[i]->draw();
 			}
 		}
 	}
