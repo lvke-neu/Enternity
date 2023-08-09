@@ -43,7 +43,6 @@ namespace Enternity
 			{
 				SAFE_DELETE_SET_NULL(texture2D);
 				//m_state = loading_state_failed;
-				return;
 			}
 			m_materials.push_back(texture2D);
 		}
@@ -86,7 +85,7 @@ namespace Enternity
 
 	void Model::draw2()
 	{
-		for (int i = 0; i < m_materials.size(); i++) 
+		for (int i = 0; i < m_meshs.size(); i++)
 		{
 			if (m_meshs[i])
 			{
