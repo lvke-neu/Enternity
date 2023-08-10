@@ -31,3 +31,7 @@ blobloader:"renderer://", "texture://", "mesh://primitive=cube", "model://STATIC
 地形，河流，体积云 ---- https://github.com/fede-vaccaro/TerrainEngine-OpenGL
 
 https://blog.csdn.net/itzyjr/category_10995404.html
+
+
+===================================================================================
+把模型进行拆分（model + material + animation）

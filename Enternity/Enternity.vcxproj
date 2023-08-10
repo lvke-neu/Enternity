@@ -128,6 +128,7 @@
     <ClCompile Include="src\Engine\Libcurl.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobHolder.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobLoader.cpp" />
+    <ClCompile Include="src\Scene\ECS\ModelComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\SkeletonModelComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\PBRMaterialComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\StaticModelComponent.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="src\Engine\Libcurl.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobHolder.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobLoader.h" />
+    <ClInclude Include="src\Scene\ECS\ModelComponent.h" />
     <ClInclude Include="src\Scene\ECS\StaticModelComponent.h" />
     <ClInclude Include="src\Scene\ECS\SunLightComponent.h" />
     <ClInclude Include="src\Scene\ECS\SkeletonModelComponent.h" />

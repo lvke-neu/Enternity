@@ -17,24 +17,15 @@ namespace Enternity
 		virtual void load(BlobHolder* blobHolder) override;
 		virtual void unload() override;
 		void draw();
-		void draw2();
 		const std::string& getPath();
-		Animator* getAnimator();
 	private:
 		std::vector<Mesh*> m_meshs;
-		std::vector<Texture2D*> m_materials;
+
 		std::string m_path;
-		std::vector<Animation*> m_animations;
-		Animator* m_animator{ nullptr };
 	};
 
 	inline const std::string& Model::getPath()
 	{
 		return m_path;
-	}
-
-	inline Animator* Model::getAnimator()
-	{
-		return m_animator;
 	}
 }

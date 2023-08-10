@@ -2,23 +2,16 @@
 #include "Engine/Engine.h"
 #include "Engine/Blob.h"
 #include "Engine/Log.h"
-#include "Engine/BlobLoaderManager.h"
 #include "ModelBlobHolder.h"
-#include "Animation.h"
 #include "Graphics/RHI/Mesh/MeshBlobHolder.h"
-#include "Graphics/RHI/Texture/TextureBlobHolder.h"
 #include "Common/Macro.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include<glm/gtc/quaternion.hpp>
 
-
 namespace Enternity
 {
-	static std::map<std::string, BoneInfo> s_boneInfoMap;
-	static int s_boneCounter;
-
 	static glm::mat4 ConvertMatrixToGLMFormat(const aiMatrix4x4& from)
 	{
 		glm::mat4 to;
@@ -73,15 +66,7 @@ namespace Enternity
 			return;
 		}
 
-		s_boneInfoMap.clear();
-		s_boneCounter = 0;
-
 		processNode(modelBlobHolder, scene->mRootNode, scene);
-
-		for (int i = 0; i < scene->mNumAnimations; i++)
-		{
-			modelBlobHolder->m_animations.push_back(new Animation(scene, i, s_boneInfoMap, s_boneCounter));
-		}
 
 		modelBlobHolder->loadSucceeded__(nullptr);
 
@@ -97,7 +82,6 @@ namespace Enternity
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 			aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 			modelBlobHolder->m_meshBlobHolders.push_back(processMesh(modelBlobHolder, mesh, scene));
-			modelBlobHolder->m_texture2DBlobHolders.push_back(processMaterial(modelBlobHolder->m_path, material));
 		}
 	
 		for (unsigned int i = 0; i < node->mNumChildren; i++)
@@ -156,46 +140,6 @@ namespace Enternity
 			}
 		}
 
-		//process bone
-		for (unsigned int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
-		{
-			int boneID = -1;
-			std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
-			if (s_boneInfoMap.find(boneName) == s_boneInfoMap.end())
-			{
-				BoneInfo newBoneInfo;
-				newBoneInfo.id = s_boneCounter;
-				newBoneInfo.offset = ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
-				s_boneInfoMap[boneName] = newBoneInfo;
-				boneID = s_boneCounter;
-				s_boneCounter++;
-			}
-			else
-			{
-				boneID = s_boneInfoMap[boneName].id;
-			}
-			assert(boneID != -1);
-			auto weights = mesh->mBones[boneIndex]->mWeights;
-			int numWeights = mesh->mBones[boneIndex]->mNumWeights;
-
-			for (int weightIndex = 0; weightIndex < numWeights; ++weightIndex)
-			{
-				int vertexId = weights[weightIndex].mVertexId;
-				float weight = weights[weightIndex].mWeight;
-
-				for (int i = 0; i < MAX_BONE_INFLUENCE; ++i)
-				{
-
-					if (meshData.vertices[vertexId].m_boneIDs[i] < 0)
-					{
-						meshData.vertices[vertexId].m_weights[i] = weight;
-						meshData.vertices[vertexId].m_boneIDs[i] = boneID;
-						break;
-					}
-				}
-			}
-		}
-
 		meshDesc.indexDataOffset = offset;
 		meshDesc.indexDataSize = (unsigned int)meshData.indices.size() * sizeof(unsigned int);
 		offset += meshDesc.indexDataSize;
@@ -219,30 +163,5 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(blob);
 
 		return meshBlobHolder;
-	}
-
-	Texture2DBlobHolder* ModelBlobLoader::processMaterial(const std::string& path, aiMaterial* material)
-	{
-		aiString str;
-		material->GetTexture(aiTextureType_DIFFUSE, 0, &str);
-
-		std::string tmpPath = "texture://TEXTURE_2D?" + path.substr(0, path.rfind("/") + 1) + str.C_Str();
-
-		aiColor4D color;
-
-		material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
-
-		BlobLoader* blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(tmpPath.c_str());
-		if (blobLoader)
-		{
-			BlobHolder* blobHolder = blobLoader->createBlobHolder(tmpPath.c_str());
-			if (blobHolder)
-			{
-				blobHolder->load(0);
-			}
-			return dynamic_cast<Texture2DBlobHolder*>(blobHolder);
-		}
-
-		return nullptr;
 	}
 }
