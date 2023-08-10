@@ -175,12 +175,6 @@
     <ClCompile Include="src\Engine\EventSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\Model\ModelBlobLoader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Model\ModelBlobHolder.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobHolder.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -194,9 +188,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\ECS\Visual3DComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Model\Model.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\ECS\SkeletonModelComponent.cpp">
@@ -221,6 +212,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\ECS\ModelComponent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Model\Model\Model.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Model\Model\ModelBlobHolder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Model\Model\ModelBlobLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -393,12 +393,6 @@
     <ClInclude Include="src\Engine\EventSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\Model\ModelBlobLoader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Model\ModelBlobHolder.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobHolder.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -412,9 +406,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\ECS\Visual3DComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Model\Model.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\ECS\SkeletonModelComponent.h">
@@ -448,6 +439,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\ECS\ModelComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Model\Model\Model.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Model\Model\ModelBlobHolder.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Model\Model\ModelBlobLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

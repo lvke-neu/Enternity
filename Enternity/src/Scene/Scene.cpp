@@ -17,7 +17,7 @@
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"
-#include "Scene/Model/Model.h"
+#include "Scene/Model/Model/Model.h"
 #include "Common/Macro.h"
 
 namespace Enternity

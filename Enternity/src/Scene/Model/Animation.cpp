@@ -1,5 +1,4 @@
 #include "Animation.h"
-#include "ModelBlobHolder.h"
 #include <assimp/scene.h>
 
 namespace Enternity

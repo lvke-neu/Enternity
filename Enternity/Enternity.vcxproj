@@ -138,9 +138,9 @@
     <ClCompile Include="src\Scene\ECS\Visual3DComponent.cpp" />
     <ClCompile Include="src\Scene\Model\Animation.cpp" />
     <ClCompile Include="src\Scene\Model\Animator.cpp" />
-    <ClCompile Include="src\Scene\Model\Model.cpp" />
-    <ClCompile Include="src\Scene\Model\ModelBlobHolder.cpp" />
-    <ClCompile Include="src\Scene\Model\ModelBlobLoader.cpp" />
+    <ClCompile Include="src\Scene\Model\Model\Model.cpp" />
+    <ClCompile Include="src\Scene\Model\Model\ModelBlobHolder.cpp" />
+    <ClCompile Include="src\Scene\Model\Model\ModelBlobLoader.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\RendererBlobHolder.cpp" />
     <ClCompile Include="src\Graphics\RHI\Renderer\RendererBlobLoader.cpp" />
@@ -208,9 +208,9 @@
     <ClInclude Include="src\Scene\Model\Animator.h" />
     <ClInclude Include="src\Scene\Model\assimp_glm_helpers.h" />
     <ClInclude Include="src\Scene\Model\bone.h" />
-    <ClInclude Include="src\Scene\Model\Model.h" />
-    <ClInclude Include="src\Scene\Model\ModelBlobHolder.h" />
-    <ClInclude Include="src\Scene\Model\ModelBlobLoader.h" />
+    <ClInclude Include="src\Scene\Model\Model\Model.h" />
+    <ClInclude Include="src\Scene\Model\Model\ModelBlobHolder.h" />
+    <ClInclude Include="src\Scene\Model\Model\ModelBlobLoader.h" />
     <ClInclude Include="src\Graphics\RHI\Renderer\Renderer.h" />
     <ClInclude Include="src\Graphics\RHI\Renderer\RendererBlobHolder.h" />
     <ClInclude Include="src\Graphics\RHI\Renderer\RendererBlobLoader.h" />

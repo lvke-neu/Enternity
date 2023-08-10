@@ -4,7 +4,7 @@
 #include "Engine/Engine.h"
 #include "Engine/BlobLoaderManager.h"
 #include "Graphics/GraphicsSystem.h"
-#include "Model/ModelBlobLoader.h"
+#include "Model/Model/ModelBlobLoader.h"
 
 namespace Enternity
 {

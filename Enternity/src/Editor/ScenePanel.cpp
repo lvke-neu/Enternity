@@ -14,7 +14,7 @@
 #include "Scene/ECS/SunLightComponent.h"
 #include "Scene/ECS/SkeletonModelComponent.h"
 #include "Scene/ECS/StaticModelComponent.h"
-#include "Scene/Model/Model.h"
+#include "Scene/Model/Model/Model.h"
 #include "Scene/Model/Animator.h"
 #include "Scene/Model/Animation.h"
 #include "Graphics/GraphicsSystem.h"

@@ -1,5 +1,5 @@
 #include "StaticModelComponent.h"
-#include "Scene/Model/Model.h"
+#include "Scene/Model/Model/Model.h"
 #include "Common/Macro.h"
 
 namespace Enternity
