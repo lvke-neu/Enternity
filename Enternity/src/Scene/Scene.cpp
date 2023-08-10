@@ -238,6 +238,11 @@ namespace Enternity
 				it->second.getComponent<PBRMaterialComponent>().unload();
 			}
 
+			if (it->second.hasComponent<ModelComponent>())
+			{
+				it->second.getComponent<ModelComponent>().unload();
+			}
+
 			m_registry.destroy(it->first);
 			m_entities.erase(id);
 		}
@@ -275,6 +280,11 @@ namespace Enternity
 			if (it->second.hasComponent<PBRMaterialComponent>())
 			{
 				it->second.getComponent<PBRMaterialComponent>().unload();
+			}
+			
+			if (it->second.hasComponent<ModelComponent>())
+			{
+				it->second.getComponent<ModelComponent>().unload();
 			}
 
 			m_registry.destroy(it->first);
