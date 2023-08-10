@@ -45,6 +45,21 @@ namespace Enternity
 				entity.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
 			});
 
+		
+		auto entity2 = createEntity();
+		entity2.getComponent<NameComponent>().name = "test model2";
+		entity2.addComponent<TransformComponent>(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
+		entity2.addComponent<ModelComponent>();
+		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/Ymca Dance/Ymca Dance.dae",
+			[=](Asset* asset)
+			{
+				entity2.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/model/model.rdr",
+			[=](Asset* asset)
+			{
+				entity2.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
+			});
 
 		//auto entity2 = createEntity();
 		//entity2.getComponent<NameComponent>().name = "static model";

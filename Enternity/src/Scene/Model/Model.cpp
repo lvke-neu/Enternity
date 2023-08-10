@@ -26,8 +26,7 @@ namespace Enternity
 			if (!mesh->isLoadSucceeded())
 			{
 				SAFE_DELETE_SET_NULL(mesh);
-				m_state = loading_state_failed;
-				return;
+				continue;
 			}
 			m_meshs.push_back(mesh);
 		}

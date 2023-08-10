@@ -6,9 +6,6 @@
 namespace Enternity
 {
 	class Mesh;
-	class Texture2D;
-	class Animation;
-	class Animator;
 	class Model : public Asset
 	{
 	public:
@@ -20,7 +17,6 @@ namespace Enternity
 		const std::string& getPath();
 	private:
 		std::vector<Mesh*> m_meshs;
-
 		std::string m_path;
 	};
 

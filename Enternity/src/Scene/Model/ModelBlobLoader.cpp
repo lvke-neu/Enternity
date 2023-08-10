@@ -1,5 +1,4 @@
 #include "ModelBlobLoader.h"
-#include "Engine/Engine.h"
 #include "Engine/Blob.h"
 #include "Engine/Log.h"
 #include "ModelBlobHolder.h"
@@ -8,7 +7,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include<glm/gtc/quaternion.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 namespace Enternity
 {
@@ -81,7 +80,7 @@ namespace Enternity
 		{	
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 			aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-			modelBlobHolder->m_meshBlobHolders.push_back(processMesh(modelBlobHolder, mesh, scene));
+			modelBlobHolder->m_meshBlobHolders.push_back(processMesh(mesh, scene));
 		}
 	
 		for (unsigned int i = 0; i < node->mNumChildren; i++)
@@ -90,10 +89,8 @@ namespace Enternity
 		}
 	}
 
-	MeshBlobHolder* ModelBlobLoader::processMesh(BlobHolder* blobHolder, aiMesh* mesh, const aiScene* scene)
+	MeshBlobHolder* ModelBlobLoader::processMesh(aiMesh* mesh, const aiScene* scene)
 	{
-		ModelBlobHolder* modelBlobHolder = dynamic_cast<ModelBlobHolder*>(blobHolder);
-
 		struct MeshData
 		{
 			std::vector<Vertex_Skeleton> vertices;
@@ -107,10 +104,7 @@ namespace Enternity
 		for (unsigned int j = 0; j < mesh->mNumVertices; j++)
 		{
 			Vertex_Skeleton vertex;
-			//vertex.m_boneIDs[0] = -1;
-			//vertex.m_boneIDs[1] = -1;
-			//vertex.m_boneIDs[2] = -1;
-			//vertex.m_boneIDs[3] = -1;
+
 			vertex.position.x = mesh->mVertices[j].x;
 			vertex.position.y = mesh->mVertices[j].y;
 			vertex.position.z = mesh->mVertices[j].z;
