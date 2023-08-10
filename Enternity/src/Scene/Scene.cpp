@@ -157,49 +157,49 @@ namespace Enternity
 
 
 
-		//auto entity4 = createEntity();
-		//entity4.getComponent<NameComponent>().name = "run skeleton model";
-		//entity4.addComponent<TransformComponent>(glm::vec3(14.00f, 1.13f, -2.16f), glm::vec3(0.0f), glm::vec3(10.0f));
-		//entity4.addComponent<SkeletonModelComponent>();
-		//Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/Ymca Dance/Ymca Dance.dae",
-		//	[=](Asset* asset)
-		//	{
-		//		entity4.getComponent<SkeletonModelComponent>().model = dynamic_cast<Model*>(asset);
-		//	});
+		auto entity4 = createEntity();
+		entity4.getComponent<NameComponent>().name = "dance skeleton model";
+		entity4.addComponent<TransformComponent>(glm::vec3(14.00f, 1.13f, -2.16f), glm::vec3(0.0f), glm::vec3(10.0f));
+		entity4.addComponent<SkeletonModelComponent>();
+		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/Ymca Dance/Ymca Dance.dae",
+			[=](Asset* asset)
+			{
+				entity4.getComponent<SkeletonModelComponent>().model = dynamic_cast<Model*>(asset);
+			});
 
-		//auto& modelcomp = entity4.getComponent<SkeletonModelComponent>();
+		auto& modelcomp = entity4.getComponent<SkeletonModelComponent>();
 
-		//entity4.addComponent<PBRMaterialComponent>();
-		//Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/pbr/skeletonModelpbr.rdr",
-		//	[=](Asset* asset)
-		//	{
-		//		entity4.getComponent<PBRMaterialComponent>().renderer = dynamic_cast<Renderer*>(asset);
-		//	});
-		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/models/animation/Ymca Dance/textures/Ch06_1001_Diffuse.png",
-		//	[=](Asset* asset)
-		//	{
-		//		entity4.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
-		//	});
-		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/normal.png",
-		//	[=](Asset* asset)
-		//	{
-		//		entity4.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
-		//	});
-		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/metallic.png",
-		//	[=](Asset* asset)
-		//	{
-		//		entity4.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
-		//	});
-		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/roughness.png",
-		//	[=](Asset* asset)
-		//	{
-		//		entity4.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
-		//	});
-		//Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/ao.png",
-		//	[=](Asset* asset)
-		//	{
-		//		entity4.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
-		//	});
+		entity4.addComponent<PBRMaterialComponent>();
+		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/pbr/skeletonModelpbr.rdr",
+			[=](Asset* asset)
+			{
+				entity4.getComponent<PBRMaterialComponent>().renderer = dynamic_cast<Renderer*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/models/animation/Ymca Dance/textures/Ch06_1001_Diffuse.png",
+			[=](Asset* asset)
+			{
+				entity4.getComponent<PBRMaterialComponent>().albedo = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/normal.png",
+			[=](Asset* asset)
+			{
+				entity4.getComponent<PBRMaterialComponent>().normal = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/metallic.png",
+			[=](Asset* asset)
+			{
+				entity4.getComponent<PBRMaterialComponent>().metallic = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/roughness.png",
+			[=](Asset* asset)
+			{
+				entity4.getComponent<PBRMaterialComponent>().roughness = dynamic_cast<Texture2D*>(asset);
+			});
+		Engine::GetInstance().getAssetLoader()->getAsset("texture://TEXTURE_2D?assets/textures/pbr/default/ao.png",
+			[=](Asset* asset)
+			{
+				entity4.getComponent<PBRMaterialComponent>().ao = dynamic_cast<Texture2D*>(asset);
+			});
 	}
 
 	Scene::~Scene()

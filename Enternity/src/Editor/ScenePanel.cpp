@@ -423,13 +423,13 @@ namespace Enternity
 
 					if (skeletonModelComponent.model)
 					{
-						float coefficient =  skeletonModelComponent.model->getAnimator()->getAnimation()->getCoefficient();
-						if (ImGui::DragFloat("##coefficient", &coefficient, 0.1f))
-						{
-							skeletonModelComponent.model->getAnimator()->getAnimation()->setCoefficient(coefficient);
-						}
-						ImGui::SameLine();
-						ImGui::Text("coefficient");
+						//float coefficient =  skeletonModelComponent.model->getAnimator()->getAnimation()->getCoefficient();
+						//if (ImGui::DragFloat("##coefficient", &coefficient, 0.1f))
+						//{
+						//	skeletonModelComponent.model->getAnimator()->getAnimation()->setCoefficient(coefficient);
+						//}
+						//ImGui::SameLine();
+						//ImGui::Text("coefficient");
 					}
 
 					char buffer[256];

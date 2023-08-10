@@ -6,12 +6,11 @@
 struct aiScene;
 namespace Enternity
 {
-	class ModelBlobHolder;
 	class Animation
 	{
 	public:
 		Animation() = default;
-		Animation(const aiScene* scene, ModelBlobHolder* modelBlobHolder);
+		Animation(const aiScene* scene, int animationIndex, const std::map<std::string, BoneInfo>& boneInfoMap, int boneCounter);
 	public:
 		Bone* FindBone(const std::string& name);
 
@@ -25,7 +24,7 @@ namespace Enternity
 		inline float getCoefficient() { return m_coefficient; }
 		inline void setCoefficient(float coefficient) { m_coefficient = coefficient; }
 	private:
-		void ReadMissingBones(const aiAnimation* animation, ModelBlobHolder* modelBlobHolder);
+		void ReadMissingBones(const aiAnimation* animation, const std::map<std::string, BoneInfo>& boneInfoMap, int boneCounter);
 		void ReadHierarchyData(AssimpNodeData& dest, const aiNode* src);
 	private:
 		float m_Duration;

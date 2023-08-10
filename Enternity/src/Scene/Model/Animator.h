@@ -7,7 +7,7 @@ namespace Enternity
 	class Animator
 	{
 	public:
-		Animator(Animation* animation);
+		Animator();
 		void UpdateAnimation(float dt);
 		void PlayAnimation(Animation* pAnimation);
 		void CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform);

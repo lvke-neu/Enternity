@@ -1,5 +1,6 @@
 #include "ModelBlobHolder.h"
 #include "Graphics/RHI/Mesh/MeshBlobHolder.h"
+#include "Graphics/RHI/Texture/TextureBlobHolder.h"
 #include "Model.h"
 #include "Animation.h"
 #include "Common/Macro.h"
@@ -20,7 +21,18 @@ namespace Enternity
 		}
 		m_meshBlobHolders.clear();
 
-		SAFE_DELETE_SET_NULL(m_animation);
+		for (auto& texture2DBlobHolder : m_texture2DBlobHolders)
+		{
+			SAFE_DELETE_SET_NULL(texture2DBlobHolder);
+		}
+		m_texture2DBlobHolders.clear();
+
+
+		for (auto& animation : m_animations)
+		{
+			SAFE_DELETE_SET_NULL(animation);
+		}
+		m_animations.clear();
 	}
 
 	Asset* ModelBlobHolder::createAsset()

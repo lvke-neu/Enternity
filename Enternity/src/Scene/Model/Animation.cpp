@@ -4,20 +4,20 @@
 
 namespace Enternity
 {
-	Animation::Animation(const aiScene* scene, ModelBlobHolder* modelBlobHolder)
+	Animation::Animation(const aiScene* scene, int animationIndex, const std::map<std::string, BoneInfo>& boneInfoMap, int boneCounter)
 	{
-		if (scene->mNumAnimations == 0)
+		if (animationIndex < 0 || (unsigned int)animationIndex > (scene->mNumAnimations - 1))
 		{
 			return;
 		}
 
-		auto animation = scene->mAnimations[0];
+		auto animation = scene->mAnimations[animationIndex];
 		m_Duration = (float)animation->mDuration;
 		m_TicksPerSecond = (int)animation->mTicksPerSecond;
 		aiMatrix4x4 globalTransformation = scene->mRootNode->mTransformation;
 		globalTransformation = globalTransformation.Inverse();
 		ReadHierarchyData(m_RootNode, scene->mRootNode);
-		ReadMissingBones(animation, modelBlobHolder);
+		ReadMissingBones(animation, boneInfoMap, boneCounter);
 	}
 
 	Bone* Animation::FindBone(const std::string& name)
@@ -45,12 +45,12 @@ namespace Enternity
 		return animation;
 	}
 
-	void Animation::ReadMissingBones(const aiAnimation* animation, ModelBlobHolder* modelBlobHolder)
+	void Animation::ReadMissingBones(const aiAnimation* animation, const std::map<std::string, BoneInfo>& boneInfoMap, int boneCounter)
 	{
 		int size = animation->mNumChannels;
 
-		auto& boneInfoMap = modelBlobHolder->m_boneInfoMap;//getting m_BoneInfoMap from Model class
-		int& boneCount = modelBlobHolder->m_boneCounter; //getting the m_BoneCounter from Model class
+		std::map<std::string, BoneInfo> tmpBoneInfoMap = boneInfoMap;
+
 
 		//reading channels(bones engaged in an animation and their keyframes)
 		for (int i = 0; i < size; i++)
@@ -58,16 +58,16 @@ namespace Enternity
 			auto channel = animation->mChannels[i];
 			std::string boneName = channel->mNodeName.data;
 
-			if (boneInfoMap.find(boneName) == boneInfoMap.end())
+			if (tmpBoneInfoMap.find(boneName) == tmpBoneInfoMap.end())
 			{
-				boneInfoMap[boneName].id = boneCount;
-				boneCount++;
+				tmpBoneInfoMap[boneName].id = boneCounter;
+				boneCounter++;
 			}
 			m_Bones.push_back(Bone(channel->mNodeName.data,
-				boneInfoMap[channel->mNodeName.data].id, channel));
+				tmpBoneInfoMap[channel->mNodeName.data].id, channel));
 		}
 
-		m_BoneInfoMap = boneInfoMap;
+		m_BoneInfoMap = tmpBoneInfoMap;
 	}
 
 	void Animation::ReadHierarchyData(AssimpNodeData& dest, const aiNode* src)

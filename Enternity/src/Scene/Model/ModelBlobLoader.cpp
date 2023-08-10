@@ -16,6 +16,9 @@
 
 namespace Enternity
 {
+	static std::map<std::string, BoneInfo> s_boneInfoMap;
+	static int s_boneCounter;
+
 	static glm::mat4 ConvertMatrixToGLMFormat(const aiMatrix4x4& from)
 	{
 		glm::mat4 to;
@@ -70,9 +73,15 @@ namespace Enternity
 			return;
 		}
 
+		s_boneInfoMap.clear();
+		s_boneCounter = 0;
+
 		processNode(modelBlobHolder, scene->mRootNode, scene);
 
-		modelBlobHolder->m_animation = new Animation(scene, modelBlobHolder);
+		for (int i = 0; i < scene->mNumAnimations; i++)
+		{
+			modelBlobHolder->m_animations.push_back(new Animation(scene, i, s_boneInfoMap, s_boneCounter));
+		}
 
 		modelBlobHolder->loadSucceeded__(nullptr);
 
@@ -152,18 +161,18 @@ namespace Enternity
 		{
 			int boneID = -1;
 			std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
-			if (modelBlobHolder->m_boneInfoMap.find(boneName) == modelBlobHolder->m_boneInfoMap.end())
+			if (s_boneInfoMap.find(boneName) == s_boneInfoMap.end())
 			{
 				BoneInfo newBoneInfo;
-				newBoneInfo.id = modelBlobHolder->m_boneCounter;
+				newBoneInfo.id = s_boneCounter;
 				newBoneInfo.offset = ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
-				modelBlobHolder->m_boneInfoMap[boneName] = newBoneInfo;
-				boneID = modelBlobHolder->m_boneCounter;
-				modelBlobHolder->m_boneCounter++;
+				s_boneInfoMap[boneName] = newBoneInfo;
+				boneID = s_boneCounter;
+				s_boneCounter++;
 			}
 			else
 			{
-				boneID = modelBlobHolder->m_boneInfoMap[boneName].id;
+				boneID = s_boneInfoMap[boneName].id;
 			}
 			assert(boneID != -1);
 			auto weights = mesh->mBones[boneIndex]->mWeights;
@@ -218,6 +227,10 @@ namespace Enternity
 		material->GetTexture(aiTextureType_DIFFUSE, 0, &str);
 
 		std::string tmpPath = "texture://TEXTURE_2D?" + path.substr(0, path.rfind("/") + 1) + str.C_Str();
+
+		aiColor4D color;
+
+		material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
 
 		BlobLoader* blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader(tmpPath.c_str());
 		if (blobLoader)

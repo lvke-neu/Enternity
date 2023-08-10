@@ -47,9 +47,18 @@ namespace Enternity
 			m_materials.push_back(texture2D);
 		}
 
-		m_animation = modelBlobHolder->m_animation->clone();
-		m_animator = new Animator(m_animation);
 
+		for (auto animation : modelBlobHolder->m_animations)
+		{
+			m_animations.push_back(animation->clone());
+		}
+
+		m_animator = new Animator();
+		if (m_animations.size() >= 1)
+		{
+			m_animator->PlayAnimation(m_animations[0]);
+		}
+		
 		m_path = modelBlobHolder->getPath();
 		m_state = loading_state_succeeded;
 	}
@@ -68,7 +77,12 @@ namespace Enternity
 		}
 		m_materials.clear();
 
-		SAFE_DELETE_SET_NULL(m_animation);
+		for (auto& animation : m_animations)
+		{
+			SAFE_DELETE_SET_NULL(animation);
+		}
+		m_animations.clear();
+
 		SAFE_DELETE_SET_NULL(m_animator);
 	}
 

@@ -4,10 +4,9 @@
 namespace Enternity
 {
 
-	Animator::Animator(Animation* animation)
+	Animator::Animator()
 	{
 		m_CurrentTime = 0.0;
-		m_CurrentAnimation = animation;
 
 		m_FinalBoneMatrices.reserve(100);
 

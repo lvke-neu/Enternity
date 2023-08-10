@@ -24,7 +24,7 @@ namespace Enternity
 		std::vector<Mesh*> m_meshs;
 		std::vector<Texture2D*> m_materials;
 		std::string m_path;
-		Animation* m_animation{ nullptr };
+		std::vector<Animation*> m_animations;
 		Animator* m_animator{ nullptr };
 	};
 
