@@ -136,8 +136,8 @@
     <ClCompile Include="src\Scene\ECS\PostProcessComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\SkyBoxComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\Visual3DComponent.cpp" />
-    <ClCompile Include="src\Scene\Model\Animation.cpp" />
-    <ClCompile Include="src\Scene\Model\Animator.cpp" />
+    <ClCompile Include="src\Scene\Model\Animation\Animation.cpp" />
+    <ClCompile Include="src\Scene\Model\Animation\Animator.cpp" />
     <ClCompile Include="src\Scene\Model\Model\Model.cpp" />
     <ClCompile Include="src\Scene\Model\Model\ModelBlobHolder.cpp" />
     <ClCompile Include="src\Scene\Model\Model\ModelBlobLoader.cpp" />
@@ -203,11 +203,11 @@
     <ClInclude Include="src\Scene\ECS\PBRMaterialComponent.h" />
     <ClInclude Include="src\Scene\ECS\SkyBoxComponent.h" />
     <ClInclude Include="src\Scene\ECS\Visual3DComponent.h" />
-    <ClInclude Include="src\Scene\Model\Animation.h" />
-    <ClInclude Include="src\Scene\Model\AnimationDefine.h" />
-    <ClInclude Include="src\Scene\Model\Animator.h" />
-    <ClInclude Include="src\Scene\Model\assimp_glm_helpers.h" />
-    <ClInclude Include="src\Scene\Model\bone.h" />
+    <ClInclude Include="src\Scene\Model\Animation\Animation.h" />
+    <ClInclude Include="src\Scene\Model\Animation\AnimationDefine.h" />
+    <ClInclude Include="src\Scene\Model\Animation\Animator.h" />
+    <ClInclude Include="src\Scene\Model\Animation\assimp_glm_helpers.h" />
+    <ClInclude Include="src\Scene\Model\Animation\bone.h" />
     <ClInclude Include="src\Scene\Model\Model\Model.h" />
     <ClInclude Include="src\Scene\Model\Model\ModelBlobHolder.h" />
     <ClInclude Include="src\Scene\Model\Model\ModelBlobLoader.h" />

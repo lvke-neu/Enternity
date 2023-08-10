@@ -18,7 +18,6 @@
 #include "Scene/ECS/PBRMaterialComponent.h"
 #include "Scene/ECS/SunLightComponent.h"
 #include "Scene/Model/Model/Model.h"
-#include "Scene/Model/Animator.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"

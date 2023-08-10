@@ -202,12 +202,6 @@
     <ClCompile Include="src\Engine\Libcurl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\Model\Animation.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Model\Animator.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Scene\ECS\StaticModelComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -221,6 +215,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\Model\Model\ModelBlobLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Model\Animation\Animation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Model\Animation\Animator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -420,21 +420,6 @@
     <ClInclude Include="src\Engine\Libcurl.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\Model\Animation.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Model\bone.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Model\assimp_glm_helpers.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Model\AnimationDefine.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Model\Animator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Scene\ECS\StaticModelComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -448,6 +433,21 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\Model\Model\ModelBlobLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Model\Animation\Animation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Model\Animation\AnimationDefine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Model\Animation\Animator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Model\Animation\assimp_glm_helpers.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Model\Animation\bone.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
