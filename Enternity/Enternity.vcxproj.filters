@@ -450,5 +450,8 @@
     <ClInclude Include="src\Scene\Model\Animation\bone.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scene\Model\Model\Material.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

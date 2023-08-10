@@ -1,8 +1,12 @@
 #include "ModelBlobLoader.h"
+#include "Engine/Engine.h"
+#include "Engine/BlobLoaderManager.h"
+#include "Engine/BlobLoader.h"
 #include "Engine/Blob.h"
 #include "Engine/Log.h"
 #include "ModelBlobHolder.h"
 #include "Graphics/RHI/Mesh/MeshBlobHolder.h"
+#include "Graphics/RHI/Texture/TextureBlobHolder.h"
 #include "Common/Macro.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -11,27 +15,6 @@
 
 namespace Enternity
 {
-	static glm::mat4 ConvertMatrixToGLMFormat(const aiMatrix4x4& from)
-	{
-		glm::mat4 to;
-		//the a,b,c,d in assimp is the row ; the 1,2,3,4 is the column
-		to[0][0] = from.a1; to[1][0] = from.a2; to[2][0] = from.a3; to[3][0] = from.a4;
-		to[0][1] = from.b1; to[1][1] = from.b2; to[2][1] = from.b3; to[3][1] = from.b4;
-		to[0][2] = from.c1; to[1][2] = from.c2; to[2][2] = from.c3; to[3][2] = from.c4;
-		to[0][3] = from.d1; to[1][3] = from.d2; to[2][3] = from.d3; to[3][3] = from.d4;
-		return to;
-	}
-
-	static glm::vec3 GetGLMVec(const aiVector3D& vec)
-	{
-		return glm::vec3(vec.x, vec.y, vec.z);
-	}
-
-	static glm::quat GetGLMQuat(const aiQuaternion& pOrientation)
-	{
-		return glm::quat(pOrientation.w, pOrientation.x, pOrientation.y, pOrientation.z);
-	}
-
 	ModelBlobLoader::ModelBlobLoader() : BlobLoader("model://")
 	{
 
@@ -65,97 +48,119 @@ namespace Enternity
 			return;
 		}
 
-		processNode(modelBlobHolder, scene->mRootNode, scene);
+		for (unsigned int i = 0; i < scene->mNumMeshes; i++)
+		{
+			aiMesh* mesh = scene->mMeshes[i];
+
+
+			//mesh
+			struct MeshData
+			{
+				std::vector<Vertex_Skeleton> vertices;
+				std::vector<unsigned int> indices;
+			};
+
+			MeshData meshData;
+			MeshBlobHolder::MeshDesc meshDesc;
+			unsigned int offset = 0;
+
+			for (unsigned int j = 0; j < mesh->mNumVertices; j++)
+			{
+				Vertex_Skeleton vertex;
+
+				vertex.position.x = mesh->mVertices[j].x;
+				vertex.position.y = mesh->mVertices[j].y;
+				vertex.position.z = mesh->mVertices[j].z;
+
+				vertex.normal.x = mesh->mNormals[j].x;
+				vertex.normal.y = mesh->mNormals[j].y;
+				vertex.normal.z = mesh->mNormals[j].z;
+
+				if (mesh->HasTextureCoords(0))
+				{
+					vertex.texcoord.x = mesh->mTextureCoords[0][j].x;
+					vertex.texcoord.y = -mesh->mTextureCoords[0][j].y + 1;
+				}
+
+				meshData.vertices.push_back(vertex);
+			}
+
+			meshDesc.vertexDataOffset = offset;
+			meshDesc.vertexDataSize = (unsigned int)meshData.vertices.size() * sizeof(Vertex_Skeleton);
+			offset += meshDesc.vertexDataSize;
+
+			for (unsigned int j = 0; j < mesh->mNumFaces; j++)
+			{
+				for (unsigned int k = 0; k < mesh->mFaces[j].mNumIndices; k++)
+				{
+					meshData.indices.push_back(mesh->mFaces[j].mIndices[k]);
+				}
+			}
+
+			meshDesc.indexDataOffset = offset;
+			meshDesc.indexDataSize = (unsigned int)meshData.indices.size() * sizeof(unsigned int);
+			offset += meshDesc.indexDataSize;
+
+			MeshBlobHolder* meshBlobHolder = new MeshBlobHolder(nullptr, "");
+			meshBlobHolder->m_layout = Vertex_Skeleton::s_layout;
+			meshBlobHolder->m_meshDesc = meshDesc;
+
+			Blob* blob = new Blob(offset);
+
+			memcpy_s((char*)blob->getData() + meshDesc.vertexDataOffset,
+				meshDesc.vertexDataSize,
+				meshData.vertices.data(),
+				meshDesc.vertexDataSize);
+			memcpy_s((char*)blob->getData() + meshDesc.indexDataOffset,
+				meshDesc.indexDataSize,
+				meshData.indices.data(),
+				meshDesc.indexDataSize);
+
+			meshBlobHolder->loadSucceeded__(blob);
+			SAFE_DELETE_SET_NULL(blob);
+
+			modelBlobHolder->m_meshBlobHolders.push_back(meshBlobHolder);
+
+
+			//material
+			MaterialBlobHolder materialBlobHolder;
+			aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+			aiString str;
+			aiColor4D color;
+			std::string tmpPath;
+
+			BlobLoader* blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader("texture://");
+
+			material->Get(AI_MATKEY_COLOR_AMBIENT, color);
+			material->GetTexture(aiTextureType_AMBIENT, 0, &str);
+			tmpPath = modelBlobHolder->getPath();
+			tmpPath = "texture://TEXTURE_2D?" + tmpPath.substr(0, tmpPath.rfind("/") + 1) + str.C_Str();
+			materialBlobHolder.m_ambientColor = glm::vec4(color.r, color.g, color.b, color.a);
+			materialBlobHolder.m_ambientTextureBlobHolder = (Texture2DBlobHolder*)blobLoader->createBlobHolder(tmpPath.c_str());
+			materialBlobHolder.m_ambientTextureBlobHolder->load(0);
+
+			material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
+			material->GetTexture(aiTextureType_DIFFUSE, 0, &str);
+			tmpPath = modelBlobHolder->getPath();
+			tmpPath = "texture://TEXTURE_2D?" + tmpPath.substr(0, tmpPath.rfind("/") + 1) + str.C_Str();
+			materialBlobHolder.m_diffuseColor = glm::vec4(color.r, color.g, color.b, color.a);
+			materialBlobHolder.m_diffuseTextureBlobHolder = (Texture2DBlobHolder*)blobLoader->createBlobHolder(tmpPath.c_str());
+			materialBlobHolder.m_diffuseTextureBlobHolder->load(0);
+
+
+			material->Get(AI_MATKEY_COLOR_SPECULAR, color);
+			material->GetTexture(aiTextureType_SPECULAR, 0, &str);
+			tmpPath = modelBlobHolder->getPath();
+			tmpPath = "texture://TEXTURE_2D?" + tmpPath.substr(0, tmpPath.rfind("/") + 1) + str.C_Str();
+			materialBlobHolder.m_specularColor = glm::vec4(color.r, color.g, color.b, color.a);
+			materialBlobHolder.m_specularTextureBlobHolder = (Texture2DBlobHolder*)blobLoader->createBlobHolder(tmpPath.c_str());
+			materialBlobHolder.m_specularTextureBlobHolder->load(0);
+
+			modelBlobHolder->m_materialBlobHolders.push_back(materialBlobHolder);
+		}
 
 		modelBlobHolder->loadSucceeded__(nullptr);
 
 		m_mtx.unlock();
-	}
-
-	void ModelBlobLoader::processNode(BlobHolder* blobHolder, aiNode* node, const aiScene* scene)
-	{
-		ModelBlobHolder* modelBlobHolder = dynamic_cast<ModelBlobHolder*>(blobHolder);
-
-		for (unsigned int i = 0; i < node->mNumMeshes; i++)
-		{	
-			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-			modelBlobHolder->m_meshBlobHolders.push_back(processMesh(mesh, scene));
-		}
-	
-		for (unsigned int i = 0; i < node->mNumChildren; i++)
-		{
-			processNode(modelBlobHolder, node->mChildren[i], scene);
-		}
-	}
-
-	MeshBlobHolder* ModelBlobLoader::processMesh(aiMesh* mesh, const aiScene* scene)
-	{
-		struct MeshData
-		{
-			std::vector<Vertex_Skeleton> vertices;
-			std::vector<unsigned int> indices;
-		};
-
-		MeshData meshData;
-		MeshBlobHolder::MeshDesc meshDesc;
-		unsigned int offset = 0;
-
-		for (unsigned int j = 0; j < mesh->mNumVertices; j++)
-		{
-			Vertex_Skeleton vertex;
-
-			vertex.position.x = mesh->mVertices[j].x;
-			vertex.position.y = mesh->mVertices[j].y;
-			vertex.position.z = mesh->mVertices[j].z;
-
-			vertex.normal.x = mesh->mNormals[j].x;
-			vertex.normal.y = mesh->mNormals[j].y;
-			vertex.normal.z = mesh->mNormals[j].z;
-
-			if (mesh->HasTextureCoords(0))
-			{
-				vertex.texcoord.x = mesh->mTextureCoords[0][j].x;
-				vertex.texcoord.y = -mesh->mTextureCoords[0][j].y + 1;
-			}
-
-			meshData.vertices.push_back(vertex);
-		}
-
-		meshDesc.vertexDataOffset = offset;
-		meshDesc.vertexDataSize = (unsigned int)meshData.vertices.size() * sizeof(Vertex_Skeleton);
-		offset += meshDesc.vertexDataSize;
-
-		for (unsigned int j = 0; j < mesh->mNumFaces; j++)
-		{
-			for (unsigned int k = 0; k < mesh->mFaces[j].mNumIndices; k++)
-			{
-				meshData.indices.push_back(mesh->mFaces[j].mIndices[k]);
-			}
-		}
-
-		meshDesc.indexDataOffset = offset;
-		meshDesc.indexDataSize = (unsigned int)meshData.indices.size() * sizeof(unsigned int);
-		offset += meshDesc.indexDataSize;
-
-		MeshBlobHolder* meshBlobHolder = new MeshBlobHolder(nullptr, "");
-		meshBlobHolder->m_layout = Vertex_Skeleton::s_layout;
-		meshBlobHolder->m_meshDesc = meshDesc;
-
-		Blob* blob = new Blob(offset);
-
-		memcpy_s((char*)blob->getData() + meshDesc.vertexDataOffset,
-			meshDesc.vertexDataSize,
-			meshData.vertices.data(),
-			meshDesc.vertexDataSize);
-		memcpy_s((char*)blob->getData() + meshDesc.indexDataOffset,
-			meshDesc.indexDataSize,
-			meshData.indices.data(),
-			meshDesc.indexDataSize);
-
-		meshBlobHolder->loadSucceeded__(blob);
-		SAFE_DELETE_SET_NULL(blob);
-
-		return meshBlobHolder;
 	}
 }

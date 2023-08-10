@@ -378,87 +378,87 @@ namespace Enternity
 
 		if (entity.hasComponent<StaticModelComponent>())
 		{
-			DrawComponent("StaticModelComponent",
-				[&]()
-				{
-					auto& saticModelComponent = entity.getComponent<StaticModelComponent>();
+			//DrawComponent("StaticModelComponent",
+			//	[&]()
+			//	{
+			//		auto& saticModelComponent = entity.getComponent<StaticModelComponent>();
 
-					char buffer[256];
-					memset(buffer, 0, 256);
-					if (saticModelComponent.model)
-					{
-						memcpy_s(buffer, saticModelComponent.model->getPath().size(), saticModelComponent.model->getPath().c_str(), saticModelComponent.model->getPath().size());
-					}
-					ImGui::InputText("##Path", buffer, 256, ImGuiInputTextFlags_ReadOnly);
-					if (ImGui::BeginDragDropTarget())
-					{
-						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
-						{
-							std::string path((char*)payload->Data);
-							path = path.substr(0, payload->DataSize);
-							LOG_INFO(path);
+			//		char buffer[256];
+			//		memset(buffer, 0, 256);
+			//		if (saticModelComponent.model)
+			//		{
+			//			memcpy_s(buffer, saticModelComponent.model->getPath().size(), saticModelComponent.model->getPath().c_str(), saticModelComponent.model->getPath().size());
+			//		}
+			//		ImGui::InputText("##Path", buffer, 256, ImGuiInputTextFlags_ReadOnly);
+			//		if (ImGui::BeginDragDropTarget())
+			//		{
+			//			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
+			//			{
+			//				std::string path((char*)payload->Data);
+			//				path = path.substr(0, payload->DataSize);
+			//				LOG_INFO(path);
 
-							Engine::GetInstance().getAssetLoader()->getAsset(("model://" + path).c_str(),
-								[=](Asset* asset)
-								{
-									SAFE_DELETE_SET_NULL(entity.getComponent<StaticModelComponent>().model);
-									entity.getComponent<StaticModelComponent>().model = dynamic_cast<Model*>(asset);
-								});
-						}
-						ImGui::EndDragDropTarget();
-					}
-					ImGui::SameLine();
-					ImGui::Text("ath");
-				});
+			//				Engine::GetInstance().getAssetLoader()->getAsset(("model://" + path).c_str(),
+			//					[=](Asset* asset)
+			//					{
+			//						SAFE_DELETE_SET_NULL(entity.getComponent<StaticModelComponent>().model);
+			//						entity.getComponent<StaticModelComponent>().model = dynamic_cast<Model*>(asset);
+			//					});
+			//			}
+			//			ImGui::EndDragDropTarget();
+			//		}
+			//		ImGui::SameLine();
+			//		ImGui::Text("ath");
+			//	});
 		}
 
 		if (entity.hasComponent<SkeletonModelComponent>())
 		{
-			DrawComponent("SkeletonModelComponent",
-				[&]()
-				{
-					auto& skeletonModelComponent = entity.getComponent<SkeletonModelComponent>();
+			//DrawComponent("SkeletonModelComponent",
+			//	[&]()
+			//	{
+			//		auto& skeletonModelComponent = entity.getComponent<SkeletonModelComponent>();
 
-					if (skeletonModelComponent.model)
-					{
-						//float coefficient =  skeletonModelComponent.model->getAnimator()->getAnimation()->getCoefficient();
-						//if (ImGui::DragFloat("##coefficient", &coefficient, 0.1f))
-						//{
-						//	skeletonModelComponent.model->getAnimator()->getAnimation()->setCoefficient(coefficient);
-						//}
-						//ImGui::SameLine();
-						//ImGui::Text("coefficient");
-					}
+			//		if (skeletonModelComponent.model)
+			//		{
+			//			//float coefficient =  skeletonModelComponent.model->getAnimator()->getAnimation()->getCoefficient();
+			//			//if (ImGui::DragFloat("##coefficient", &coefficient, 0.1f))
+			//			//{
+			//			//	skeletonModelComponent.model->getAnimator()->getAnimation()->setCoefficient(coefficient);
+			//			//}
+			//			//ImGui::SameLine();
+			//			//ImGui::Text("coefficient");
+			//		}
 
-					char buffer[256];
-					memset(buffer, 0, 256);
-					if (skeletonModelComponent.model)
-					{
-						memcpy_s(buffer, skeletonModelComponent.model->getPath().size(), skeletonModelComponent.model->getPath().c_str(), skeletonModelComponent.model->getPath().size());
-					}
-					ImGui::InputText("##Path", buffer, 256, ImGuiInputTextFlags_ReadOnly);
-					if (ImGui::BeginDragDropTarget())
-					{
-						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
-						{
-							std::string path((char*)payload->Data);
-							path = path.substr(0, payload->DataSize);
-							LOG_INFO(path);
+			//		char buffer[256];
+			//		memset(buffer, 0, 256);
+			//		if (skeletonModelComponent.model)
+			//		{
+			//			memcpy_s(buffer, skeletonModelComponent.model->getPath().size(), skeletonModelComponent.model->getPath().c_str(), skeletonModelComponent.model->getPath().size());
+			//		}
+			//		ImGui::InputText("##Path", buffer, 256, ImGuiInputTextFlags_ReadOnly);
+			//		if (ImGui::BeginDragDropTarget())
+			//		{
+			//			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
+			//			{
+			//				std::string path((char*)payload->Data);
+			//				path = path.substr(0, payload->DataSize);
+			//				LOG_INFO(path);
 
 
-							Engine::GetInstance().getAssetLoader()->getAsset(("model://" + path).c_str(),
-								[=](Asset* asset)
-								{
-									SAFE_DELETE_SET_NULL(entity.getComponent<SkeletonModelComponent>().model);
-									entity.getComponent<SkeletonModelComponent>().model = dynamic_cast<Model*>(asset);
-								});
-						}
-						ImGui::EndDragDropTarget();
-					}
-					ImGui::SameLine();
-					ImGui::Text("path");
+			//				Engine::GetInstance().getAssetLoader()->getAsset(("model://" + path).c_str(),
+			//					[=](Asset* asset)
+			//					{
+			//						SAFE_DELETE_SET_NULL(entity.getComponent<SkeletonModelComponent>().model);
+			//						entity.getComponent<SkeletonModelComponent>().model = dynamic_cast<Model*>(asset);
+			//					});
+			//			}
+			//			ImGui::EndDragDropTarget();
+			//		}
+			//		ImGui::SameLine();
+			//		ImGui::Text("path");
 
-				});
+			//	});
 		}
 
 
