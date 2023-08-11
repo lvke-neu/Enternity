@@ -141,7 +141,7 @@ namespace Enternity
 					modelComponent.renderer->setMat4("u_v", view);
 					modelComponent.renderer->setMat4("u_p", proj);
 
-					modelComponent.model->draw();
+					modelComponent.model->draw(modelComponent.renderer, modelComponent.material);
 
 					modelComponent.renderer->unbind();
 				}

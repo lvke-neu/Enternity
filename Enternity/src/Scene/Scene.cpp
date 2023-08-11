@@ -45,7 +45,7 @@ namespace Enternity
 			{
 				entity.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("material://assets/models/animation/robot-max-animation.FBX",
+		Engine::GetInstance().getAssetLoader()->getAsset("material://assets/models/animation/walk/Standard Walk.dae",
 			[=](Asset* asset)
 			{
 				entity.getComponent<ModelComponent>().material = dynamic_cast<Material*>(asset);

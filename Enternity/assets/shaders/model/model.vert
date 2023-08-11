@@ -8,7 +8,10 @@ uniform mat4 u_m;
 uniform mat4 u_v;
 uniform mat4 u_p;
 
+out vec2 v_texcoord;
+
 void main()
 {
 	gl_Position = u_p * u_v * u_m * vec4(a_position, 1);
+	v_texcoord = a_texcoord;
 };

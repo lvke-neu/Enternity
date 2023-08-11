@@ -1,7 +1,6 @@
 #include "ModelBlobHolder.h"
 #include "Model.h"
 #include "Graphics/RHI/Mesh/MeshBlobHolder.h"
-#include "Graphics/RHI/Texture/TextureBlobHolder.h"
 #include "Common/Macro.h"
 
 namespace Enternity

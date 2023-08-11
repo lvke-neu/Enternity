@@ -7,6 +7,7 @@ namespace Enternity
 {
 	class Material : public Asset
 	{
+		friend class Model;
 	public:
 		virtual ~Material();
 	public:
