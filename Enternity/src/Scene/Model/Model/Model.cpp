@@ -3,7 +3,6 @@
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"
-#include "Scene/Model/Material/Material.h"
 #include "Common/Macro.h"
 
 namespace Enternity
@@ -34,6 +33,28 @@ namespace Enternity
 			m_meshs.push_back(mesh);
 		}
 
+		for (const auto& material : modelBlobHolder->m_materials)
+		{
+			Texture2D* m_ambientTexture = new Texture2D;
+			Texture2D* m_diffuseTexture = new Texture2D;
+			Texture2D* m_specularTexture = new Texture2D;
+
+			m_ambientTexture->load((BlobHolder*)material.m_ambientTextureBlobHolder);
+			m_diffuseTexture->load((BlobHolder*)material.m_diffuseTextureBlobHolder);
+			m_specularTexture->load((BlobHolder*)material.m_specularTextureBlobHolder);
+
+			m_materials.push_back({
+					material.m_ambientColor,
+					material.m_diffuseColor,
+					material.m_specularColor,
+					m_ambientTexture,
+					m_diffuseTexture,
+					m_specularTexture
+				});		
+		}
+
+		m_path = modelBlobHolder->m_path;
+
 		m_state = loading_state_succeeded;
 	}
 
@@ -44,62 +65,61 @@ namespace Enternity
 			SAFE_DELETE_SET_NULL(mesh);
 		}
 		m_meshs.clear();
+
+		for (auto& materials : m_materials)
+		{
+			SAFE_DELETE_SET_NULL(materials.m_ambientTexture);
+			SAFE_DELETE_SET_NULL(materials.m_diffuseTexture);
+			SAFE_DELETE_SET_NULL(materials.m_specularTexture);
+		}
+		m_materials.clear();
 	}
 
-	void Model::draw(Renderer* renderer, Material* material)
+	void Model::draw(Renderer* renderer)
 	{
-		for (int i = 0; i < m_meshs.size(); i++)
+		if (!renderer || !renderer->isLoadSucceeded())
 		{
-			if (material && material->isLoadSucceeded())
-			{
-				renderer->setVec4("u_ambientColor", material->m_materialPropertyImpls[i].m_ambientColor);
-				renderer->setVec4("u_diffuseColor", material->m_materialPropertyImpls[i].m_diffuseColor);
-				renderer->setVec4("u_specularColor", material->m_materialPropertyImpls[i].m_specularColor);
-
-				if (material->m_materialPropertyImpls[i].m_ambientTexture->isLoadSucceeded())
-				{
-					material->m_materialPropertyImpls[i].m_ambientTexture->bind(0);
-				}
-
-				if (material->m_materialPropertyImpls[i].m_diffuseTexture->isLoadSucceeded())
-				{
-					material->m_materialPropertyImpls[i].m_diffuseTexture->bind(1);
-				}
-
-				if (material->m_materialPropertyImpls[i].m_specularTexture->isLoadSucceeded())
-				{
-					material->m_materialPropertyImpls[i].m_specularTexture->bind(2);
-				}
-			}
-
-			m_meshs[i]->draw();
-
-			if (material && material->isLoadSucceeded())
-			{
-				if (material->m_materialPropertyImpls[i].m_ambientTexture->isLoadSucceeded())
-				{
-					material->m_materialPropertyImpls[i].m_ambientTexture->unbind(0);
-				}
-
-				if (material->m_materialPropertyImpls[i].m_diffuseTexture->isLoadSucceeded())
-				{
-					material->m_materialPropertyImpls[i].m_diffuseTexture->unbind(1);
-				}
-
-				if (material->m_materialPropertyImpls[i].m_specularTexture->isLoadSucceeded())
-				{
-					material->m_materialPropertyImpls[i].m_specularTexture->unbind(2);
-				}
-			}
+			return;
 		}
 
-		for (auto& mesh : m_meshs)
+		for (int i = 0; i < m_meshs.size(); i++)
 		{
-			if (mesh)
-			{
+			renderer->setInt1("u_bUseTexture", m_bUseTexture);
+			renderer->setVec4("u_ambientColor", m_materials[i].m_ambientColor);
+			renderer->setVec4("u_diffuseColor", m_materials[i].m_diffuseColor);
+			renderer->setVec4("u_specularColor", m_materials[i].m_specularColor);
 
-				mesh->draw();
+			if (m_materials[i].m_ambientTexture->isLoadSucceeded())
+			{
+				m_materials[i].m_ambientTexture->bind(0);
 			}
+
+			if (m_materials[i].m_diffuseTexture->isLoadSucceeded())
+			{
+				m_materials[i].m_diffuseTexture->bind(1);
+			}
+
+			if (m_materials[i].m_specularTexture->isLoadSucceeded())
+			{
+				m_materials[i].m_specularTexture->bind(2);
+			}
+			
+			m_meshs[i]->draw();
+
+			if (m_materials[i].m_ambientTexture->isLoadSucceeded())
+			{
+				m_materials[i].m_ambientTexture->unbind(0);
+			}
+
+			if (m_materials[i].m_diffuseTexture->isLoadSucceeded())
+			{
+				m_materials[i].m_diffuseTexture->unbind(1);
+			}
+
+			if (m_materials[i].m_specularTexture->isLoadSucceeded())
+			{
+				m_materials[i].m_specularTexture->unbind(2);
+			}	
 		}
 	}
 }

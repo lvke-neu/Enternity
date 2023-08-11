@@ -1,5 +1,6 @@
 #version 440 core
 
+uniform int u_bUseTexture;
 uniform vec4 u_ambientColor;
 uniform vec4 u_diffuseColor;
 uniform vec4 u_specularColor;
@@ -13,8 +14,18 @@ layout (location = 0) out vec4 fragColor;
 
 void main()
 {
-	vec4 Ambient = u_ambientColor * texture(u_ambientTexture, v_texcoord); 
-	vec4 Diffuse = u_diffuseColor * texture(u_diffuseTexture, v_texcoord); 
+	vec4 Ambient; 
+	vec4 Diffuse; 
 
+	if(u_bUseTexture == 0)
+	{
+		Ambient = u_ambientColor;
+		Diffuse = u_diffuseColor;
+	}
+	else
+	{
+		Ambient = texture(u_ambientTexture, v_texcoord); 
+		Diffuse = texture(u_diffuseTexture, v_texcoord); ;
+	}
 	fragColor = Ambient + Diffuse;
 };

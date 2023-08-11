@@ -14,6 +14,7 @@
 #include "Scene/ECS/SunLightComponent.h"
 #include "Scene/ECS/SkeletonModelComponent.h"
 #include "Scene/ECS/StaticModelComponent.h"
+#include "Scene/ECS/ModelComponent.h"
 #include "Scene/Model/Model/Model.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/Texture/Texture.h"
@@ -376,40 +377,47 @@ namespace Enternity
 				});
 		}
 
-		if (entity.hasComponent<StaticModelComponent>())
+		if (entity.hasComponent<ModelComponent>())
 		{
-			//DrawComponent("StaticModelComponent",
-			//	[&]()
-			//	{
-			//		auto& saticModelComponent = entity.getComponent<StaticModelComponent>();
+			DrawComponent("ModelComponent",
+				[&]()
+				{
+					auto& modelComponent = entity.getComponent<ModelComponent>();
+					if (!modelComponent.model)
+					{
+						return;
+					}
 
-			//		char buffer[256];
-			//		memset(buffer, 0, 256);
-			//		if (saticModelComponent.model)
-			//		{
-			//			memcpy_s(buffer, saticModelComponent.model->getPath().size(), saticModelComponent.model->getPath().c_str(), saticModelComponent.model->getPath().size());
-			//		}
-			//		ImGui::InputText("##Path", buffer, 256, ImGuiInputTextFlags_ReadOnly);
-			//		if (ImGui::BeginDragDropTarget())
-			//		{
-			//			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
-			//			{
-			//				std::string path((char*)payload->Data);
-			//				path = path.substr(0, payload->DataSize);
-			//				LOG_INFO(path);
+					char buffer[256];
+					memset(buffer, 0, 256);
+					memcpy_s(buffer, modelComponent.model->getPath().size(), modelComponent.model->getPath().c_str(), modelComponent.model->getPath().size());
+					
+					ImGui::InputText("##Path", buffer, 256, ImGuiInputTextFlags_ReadOnly);
+					if (ImGui::BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
+						{
+							std::string path((char*)payload->Data);
+							path = path.substr(0, payload->DataSize);
+							LOG_INFO(path);
 
-			//				Engine::GetInstance().getAssetLoader()->getAsset(("model://" + path).c_str(),
-			//					[=](Asset* asset)
-			//					{
-			//						SAFE_DELETE_SET_NULL(entity.getComponent<StaticModelComponent>().model);
-			//						entity.getComponent<StaticModelComponent>().model = dynamic_cast<Model*>(asset);
-			//					});
-			//			}
-			//			ImGui::EndDragDropTarget();
-			//		}
-			//		ImGui::SameLine();
-			//		ImGui::Text("ath");
-			//	});
+							Engine::GetInstance().getAssetLoader()->getAsset(("model://" + path).c_str(),
+								[=](Asset* asset)
+								{
+									SAFE_DELETE_SET_NULL(entity.getComponent<ModelComponent>().model);
+									entity.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
+								});
+						}
+						ImGui::EndDragDropTarget();
+					}
+					ImGui::SameLine();
+					ImGui::Text("Path");
+					bool b =  modelComponent.model->getUseTexture();
+					if (ImGui::Checkbox("UseTexture", &b))
+					{
+						modelComponent.model->setUseTexture(b);
+					}
+				});
 		}
 
 		if (entity.hasComponent<SkeletonModelComponent>())

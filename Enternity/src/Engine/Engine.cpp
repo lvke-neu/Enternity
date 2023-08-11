@@ -17,7 +17,7 @@ namespace Enternity
 	void Engine::initialize()
 	{
 		Log::Init();
-		ThreadPool::GetInstance().initialize(8);
+		ThreadPool::GetInstance().initialize(16);
 
 		m_renderView = new RenderView;
 		m_timer = new Timer;

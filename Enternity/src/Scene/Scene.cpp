@@ -18,12 +18,10 @@
 #include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"
 #include "Scene/Model/Model/Model.h"
-#include "Scene/Model/Material/Material.h"
 #include "Common/Macro.h"
 
 namespace Enternity
 {
-	static Entity s_Entity;
 	Scene::Scene()
 	{
 		initPostProcess();
@@ -44,11 +42,6 @@ namespace Enternity
 			[=](Asset* asset)
 			{
 				entity.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
-			});
-		Engine::GetInstance().getAssetLoader()->getAsset("material://assets/models/animation/walk/Standard Walk.dae",
-			[=](Asset* asset)
-			{
-				entity.getComponent<ModelComponent>().material = dynamic_cast<Material*>(asset);
 			});
 		
 		//auto entity2 = createEntity();
@@ -314,25 +307,7 @@ namespace Enternity
 
 	void Scene::tick(float deltaTime)
 	{
-		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::Up))
-		{
-			s_Entity.getComponent<TransformComponent>().moveZAxis(10 * deltaTime);
-		}
-
-		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::Down))
-		{
-			s_Entity.getComponent<TransformComponent>().moveZAxis(-10 * deltaTime);
-		}
-
-		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::Left))
-		{
-			s_Entity.getComponent<TransformComponent>().rotateAlongYAxis(-100 * deltaTime);
-		}
-
-		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::Right))
-		{
-			s_Entity.getComponent<TransformComponent>().rotateAlongYAxis(100 * deltaTime);
-		}
+		
 	}
 
 	void Scene::initPostProcess()

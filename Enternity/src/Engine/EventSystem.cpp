@@ -48,7 +48,8 @@ namespace Enternity
 			type == Event::EventType::KeyReleased ||
 			type == Event::EventType::MousePressed ||
 			type == Event::EventType::MouseReleased ||
-			type == Event::EventType::MouseMoved))
+			type == Event::EventType::MouseMoved ||
+			type == Event::EventType::MouseScroll))
 		{
 			m_keyTriggers.clear();
 			return;
