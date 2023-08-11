@@ -1,11 +1,10 @@
 #pragma once
-#include <string>
 #include <glm/glm.hpp>
 
 namespace Enternity
 {
 	class Texture2DBlobHolder;
-	struct MaterialBlobHolder
+	struct MaterialProperty
 	{
 		glm::vec4 m_ambientColor{ 1.0f };
 		glm::vec4 m_diffuseColor{ 1.0f };
@@ -16,7 +15,7 @@ namespace Enternity
 	};
 
 	class Texture2D;
-	struct MaterialAsset
+	struct MaterialPropertyImpl
 	{
 		glm::vec4 m_ambientColor{ 1.0f };
 		glm::vec4 m_diffuseColor{ 1.0f };

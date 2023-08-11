@@ -5,12 +5,14 @@
 #include "Engine/BlobLoaderManager.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Model/Model/ModelBlobLoader.h"
+#include "Model/Material/MaterialBlobLoader.h"
 
 namespace Enternity
 {
 	SceneManager::SceneManager()
 	{
 		Engine::GetInstance().getBlobLoaderManager()->registerBlobLoader(new ModelBlobLoader);
+		Engine::GetInstance().getBlobLoaderManager()->registerBlobLoader(new MaterialBlobLoader);
 		m_currentScene = new Scene;	
 	}
 

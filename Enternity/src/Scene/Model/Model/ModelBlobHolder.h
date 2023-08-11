@@ -1,6 +1,5 @@
 #pragma once
 #include "Engine/BlobHolder.h"
-#include "Material.h"
 #include <vector>
 
 namespace Enternity
@@ -16,6 +15,5 @@ namespace Enternity
 		virtual Asset* createAsset() override;
 	private:
 		std::vector<MeshBlobHolder*> m_meshBlobHolders;
-		std::vector<MaterialBlobHolder> m_materialBlobHolders;
 	};
 }

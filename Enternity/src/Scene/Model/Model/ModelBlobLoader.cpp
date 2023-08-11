@@ -1,12 +1,8 @@
 #include "ModelBlobLoader.h"
-#include "Engine/Engine.h"
-#include "Engine/BlobLoaderManager.h"
-#include "Engine/BlobLoader.h"
 #include "Engine/Blob.h"
 #include "Engine/Log.h"
 #include "ModelBlobHolder.h"
 #include "Graphics/RHI/Mesh/MeshBlobHolder.h"
-#include "Graphics/RHI/Texture/TextureBlobHolder.h"
 #include "Common/Macro.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -120,43 +116,6 @@ namespace Enternity
 			SAFE_DELETE_SET_NULL(blob);
 
 			modelBlobHolder->m_meshBlobHolders.push_back(meshBlobHolder);
-
-
-			//material
-			MaterialBlobHolder materialBlobHolder;
-			aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-			aiString str;
-			aiColor4D color;
-			std::string tmpPath;
-
-			BlobLoader* blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader("texture://");
-
-			material->Get(AI_MATKEY_COLOR_AMBIENT, color);
-			material->GetTexture(aiTextureType_AMBIENT, 0, &str);
-			tmpPath = modelBlobHolder->getPath();
-			tmpPath = "texture://TEXTURE_2D?" + tmpPath.substr(0, tmpPath.rfind("/") + 1) + str.C_Str();
-			materialBlobHolder.m_ambientColor = glm::vec4(color.r, color.g, color.b, color.a);
-			materialBlobHolder.m_ambientTextureBlobHolder = (Texture2DBlobHolder*)blobLoader->createBlobHolder(tmpPath.c_str());
-			materialBlobHolder.m_ambientTextureBlobHolder->load(0);
-
-			material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
-			material->GetTexture(aiTextureType_DIFFUSE, 0, &str);
-			tmpPath = modelBlobHolder->getPath();
-			tmpPath = "texture://TEXTURE_2D?" + tmpPath.substr(0, tmpPath.rfind("/") + 1) + str.C_Str();
-			materialBlobHolder.m_diffuseColor = glm::vec4(color.r, color.g, color.b, color.a);
-			materialBlobHolder.m_diffuseTextureBlobHolder = (Texture2DBlobHolder*)blobLoader->createBlobHolder(tmpPath.c_str());
-			materialBlobHolder.m_diffuseTextureBlobHolder->load(0);
-
-
-			material->Get(AI_MATKEY_COLOR_SPECULAR, color);
-			material->GetTexture(aiTextureType_SPECULAR, 0, &str);
-			tmpPath = modelBlobHolder->getPath();
-			tmpPath = "texture://TEXTURE_2D?" + tmpPath.substr(0, tmpPath.rfind("/") + 1) + str.C_Str();
-			materialBlobHolder.m_specularColor = glm::vec4(color.r, color.g, color.b, color.a);
-			materialBlobHolder.m_specularTextureBlobHolder = (Texture2DBlobHolder*)blobLoader->createBlobHolder(tmpPath.c_str());
-			materialBlobHolder.m_specularTextureBlobHolder->load(0);
-
-			modelBlobHolder->m_materialBlobHolders.push_back(materialBlobHolder);
 		}
 
 		modelBlobHolder->loadSucceeded__(nullptr);

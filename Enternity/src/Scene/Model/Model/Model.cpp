@@ -32,27 +32,6 @@ namespace Enternity
 			m_meshs.push_back(mesh);
 		}
 
-		for (const auto& materialBlobHolder : modelBlobHolder->m_materialBlobHolders)
-		{
-			Texture2D* m_ambientTexture = new Texture2D;
-			Texture2D* m_diffuseTexture = new Texture2D;
-			Texture2D* m_specularTexture = new Texture2D;
-
-			m_ambientTexture->load((BlobHolder*)materialBlobHolder.m_ambientTextureBlobHolder);
-			m_diffuseTexture->load((BlobHolder*)materialBlobHolder.m_diffuseTextureBlobHolder);
-			m_specularTexture->load((BlobHolder*)materialBlobHolder.m_specularTextureBlobHolder);
-
-			m_materials.push_back(
-				{ 
-					materialBlobHolder.m_ambientColor, 
-					materialBlobHolder.m_diffuseColor, 
-					materialBlobHolder.m_specularColor,
-					m_ambientTexture,
-					m_diffuseTexture,
-					m_specularTexture
-				});
-		}
-
 		m_state = loading_state_succeeded;
 	}
 
@@ -63,14 +42,6 @@ namespace Enternity
 			SAFE_DELETE_SET_NULL(mesh);
 		}
 		m_meshs.clear();
-
-		for (auto& material : m_materials)
-		{
-			SAFE_DELETE_SET_NULL(material.m_ambientTexture);
-			SAFE_DELETE_SET_NULL(material.m_diffuseTexture);
-			SAFE_DELETE_SET_NULL(material.m_specularTexture);
-		}
-		m_materials.clear();
 	}
 
 	void Model::draw()

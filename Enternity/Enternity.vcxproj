@@ -14,19 +14,19 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{C07C824F-914A-4BAE-9E62-BBAB127FC59F}</ProjectGuid>
     <RootNamespace>Enternity</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -138,6 +138,9 @@
     <ClCompile Include="src\Scene\ECS\Visual3DComponent.cpp" />
     <ClCompile Include="src\Scene\Model\Animation\Animation.cpp" />
     <ClCompile Include="src\Scene\Model\Animation\Animator.cpp" />
+    <ClCompile Include="src\Scene\Model\Material\Material.cpp" />
+    <ClCompile Include="src\Scene\Model\Material\MaterialBlobHolder.cpp" />
+    <ClCompile Include="src\Scene\Model\Material\MaterialBlobLoader.cpp" />
     <ClCompile Include="src\Scene\Model\Model\Model.cpp" />
     <ClCompile Include="src\Scene\Model\Model\ModelBlobHolder.cpp" />
     <ClCompile Include="src\Scene\Model\Model\ModelBlobLoader.cpp" />
@@ -208,7 +211,10 @@
     <ClInclude Include="src\Scene\Model\Animation\Animator.h" />
     <ClInclude Include="src\Scene\Model\Animation\assimp_glm_helpers.h" />
     <ClInclude Include="src\Scene\Model\Animation\bone.h" />
-    <ClInclude Include="src\Scene\Model\Model\Material.h" />
+    <ClInclude Include="src\Scene\Model\Material\Material.h" />
+    <ClInclude Include="src\Scene\Model\Material\MaterialBlobHolder.h" />
+    <ClInclude Include="src\Scene\Model\Material\MaterialBlobLoader.h" />
+    <ClInclude Include="src\Scene\Model\Material\MaterialDefine.h" />
     <ClInclude Include="src\Scene\Model\Model\Model.h" />
     <ClInclude Include="src\Scene\Model\Model\ModelBlobHolder.h" />
     <ClInclude Include="src\Scene\Model\Model\ModelBlobLoader.h" />

@@ -19,14 +19,6 @@ namespace Enternity
 			SAFE_DELETE_SET_NULL(meshBlobHolder);
 		}
 		m_meshBlobHolders.clear();
-
-		for (auto& materialBlobHolder : m_materialBlobHolders)
-		{
-			SAFE_DELETE_SET_NULL(materialBlobHolder.m_ambientTextureBlobHolder);
-			SAFE_DELETE_SET_NULL(materialBlobHolder.m_diffuseTextureBlobHolder);
-			SAFE_DELETE_SET_NULL(materialBlobHolder.m_specularTextureBlobHolder);
-		}
-		m_materialBlobHolders.clear();
 	}
 
 	Asset* ModelBlobHolder::createAsset()

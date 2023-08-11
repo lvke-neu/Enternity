@@ -1,20 +1,18 @@
 #pragma once
 #include "Engine/Asset.h"
+#include "MaterialDefine.h"
 #include <vector>
 
 namespace Enternity
 {
-	class Mesh;
-	class Model : public Asset
+	class Material : public Asset
 	{
 	public:
-		virtual ~Model();
+		virtual ~Material();
 	public:
 		virtual void load(BlobHolder* blobHolder) override;
 		virtual void unload() override;
-
-		void draw();
 	private:
-		std::vector<Mesh*> m_meshs;
+		std::vector<MaterialPropertyImpl> m_materialPropertyImpls;
 	};
 }
