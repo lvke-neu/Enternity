@@ -1,5 +1,6 @@
 #pragma once
 #include <glm/glm.hpp>
+#include <string>
 
 namespace Enternity
 {
@@ -12,6 +13,7 @@ namespace Enternity
 		Texture2DBlobHolder* m_ambientTextureBlobHolder{ nullptr };
 		Texture2DBlobHolder* m_diffuseTextureBlobHolder{ nullptr };
 		Texture2DBlobHolder* m_specularTextureBlobHolder{ nullptr };
+		std::string m_name;
 	};
 
 	class Texture2D;
@@ -23,5 +25,6 @@ namespace Enternity
 		Texture2D* m_ambientTexture{ nullptr };
 		Texture2D* m_diffuseTexture{ nullptr };
 		Texture2D* m_specularTexture{ nullptr };
+		std::string m_name;
 	};
 }

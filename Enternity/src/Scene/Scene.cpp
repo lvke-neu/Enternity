@@ -33,7 +33,7 @@ namespace Enternity
 		entity.getComponent<NameComponent>().name = "test model";
 		entity.addComponent<TransformComponent>(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
 		entity.addComponent<ModelComponent>();
-		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/walk/Standard Walk.dae",
+		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/robot-max-animation.FBX",
 			[=](Asset* asset)
 			{
 				entity.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);

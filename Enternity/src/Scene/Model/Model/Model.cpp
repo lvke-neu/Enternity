@@ -49,7 +49,8 @@ namespace Enternity
 					material.m_specularColor,
 					m_ambientTexture,
 					m_diffuseTexture,
-					m_specularTexture
+					m_specularTexture,
+					material.m_name
 				});		
 		}
 

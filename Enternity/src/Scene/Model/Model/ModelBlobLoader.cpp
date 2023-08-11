@@ -154,6 +154,8 @@ namespace Enternity
 			materialProperty.m_specularTextureBlobHolder = (Texture2DBlobHolder*)blobLoader->createBlobHolder(tmpPath.c_str());
 			materialProperty.m_specularTextureBlobHolder->load(0);
 
+			materialProperty.m_name = mesh->mName.C_Str();
+
 			modelBlobHolder->m_materials.push_back(materialProperty);
 		}
 

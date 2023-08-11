@@ -417,6 +417,83 @@ namespace Enternity
 					{
 						modelComponent.model->setUseTexture(b);
 					}
+
+					int index = 0;
+					for (auto& material : modelComponent.model->getMaterials())
+					{
+						ImGui::PushID(std::to_string(index++).c_str());
+
+						ImGui::Separator();
+						ImGui::Text((material.m_name + " SubMesh's Material:").c_str());
+						ImGui::ColorEdit4("Ambient", &material.m_ambientColor[0]);
+						ImGui::ColorEdit4("Diffuse", &material.m_diffuseColor[0]);
+						ImGui::ColorEdit4("Specular", &material.m_specularColor[0]);
+
+						ImGui::ImageButton((void*)material.m_ambientTexture->getRenderId(), { 64, 64 }, { 0, 1 }, { 1, 0 });
+						if (ImGui::BeginDragDropTarget())
+						{
+							if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
+							{
+								std::string path((char*)payload->Data);
+								path = path.substr(0, payload->DataSize);
+								LOG_INFO(path);
+
+								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D?" + path).c_str(),
+									[&](Asset* asset)
+									{
+										SAFE_DELETE_SET_NULL(material.m_ambientTexture);
+										material.m_ambientTexture = dynamic_cast<Texture2D*>(asset);
+									});
+							}
+							ImGui::EndDragDropTarget();
+						}
+						ImGui::SameLine();
+						ImGui::Text("Ambient");
+
+						ImGui::ImageButton((void*)material.m_diffuseTexture->getRenderId(), { 64, 64 }, { 0, 1 }, { 1, 0 });
+						if (ImGui::BeginDragDropTarget())
+						{
+							if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
+							{
+								std::string path((char*)payload->Data);
+								path = path.substr(0, payload->DataSize);
+								LOG_INFO(path);
+
+								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D?" + path).c_str(),
+									[&](Asset* asset)
+									{
+										SAFE_DELETE_SET_NULL(material.m_diffuseTexture);
+										material.m_diffuseTexture = dynamic_cast<Texture2D*>(asset);
+									});
+							}
+							ImGui::EndDragDropTarget();
+						}
+						ImGui::SameLine();
+						ImGui::Text("Diffuse");
+
+						ImGui::ImageButton((void*)material.m_specularTexture->getRenderId(), { 64, 64 }, { 0, 1 }, { 1, 0 });
+						if (ImGui::BeginDragDropTarget())
+						{
+							if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
+							{
+								std::string path((char*)payload->Data);
+								path = path.substr(0, payload->DataSize);
+								LOG_INFO(path);
+
+								Engine::GetInstance().getAssetLoader()->getAsset(("texture://TEXTURE_2D?" + path).c_str(),
+									[&](Asset* asset)
+									{
+										SAFE_DELETE_SET_NULL(material.m_specularTexture);
+										material.m_specularTexture = dynamic_cast<Texture2D*>(asset);
+									});
+							}
+							ImGui::EndDragDropTarget();
+						}
+						ImGui::SameLine();
+						ImGui::Text("Specular");
+
+						ImGui::PopID();
+					}
 				});
 		}
 

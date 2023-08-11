@@ -19,6 +19,7 @@ namespace Enternity
 		void draw(Renderer* renderer);
 		void setUseTexture(bool b);
 		bool getUseTexture();
+		std::vector<MaterialPropertyImpl>& getMaterials();
 	private:
 		std::vector<Mesh*> m_meshs;
 		std::vector<MaterialPropertyImpl> m_materials;
@@ -33,5 +34,10 @@ namespace Enternity
 	inline bool Model::getUseTexture()
 	{
 		return m_bUseTexture;
+	}
+
+	inline std::vector<MaterialPropertyImpl>& Model::getMaterials()
+	{
+		return m_materials;
 	}
 }
