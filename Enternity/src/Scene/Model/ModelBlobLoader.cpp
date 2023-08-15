@@ -97,6 +97,46 @@ namespace Enternity
 				}
 			}
 
+			////process bone
+			//for (unsigned int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
+			//{
+			//	int boneID = -1;
+			//	std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
+			//	if (modelBlobHolder->m_boneInfoMap.find(boneName) == modelBlobHolder->m_boneInfoMap.end())
+			//	{
+			//		BoneInfo newBoneInfo;
+			//		newBoneInfo.id = modelBlobHolder->m_boneCounter;
+			//		newBoneInfo.offset = ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
+			//		modelBlobHolder->m_boneInfoMap[boneName] = newBoneInfo;
+			//		boneID = modelBlobHolder->m_boneCounter;
+			//		modelBlobHolder->m_boneCounter++;
+			//	}
+			//	else
+			//	{
+			//		boneID = modelBlobHolder->m_boneInfoMap[boneName].id;
+			//	}
+			//	assert(boneID != -1);
+			//	auto weights = mesh->mBones[boneIndex]->mWeights;
+			//	int numWeights = mesh->mBones[boneIndex]->mNumWeights;
+
+			//	for (int weightIndex = 0; weightIndex < numWeights; ++weightIndex)
+			//	{
+			//		int vertexId = weights[weightIndex].mVertexId;
+			//		float weight = weights[weightIndex].mWeight;
+
+			//		for (int i = 0; i < MAX_BONE_INFLUENCE; ++i)
+			//		{
+
+			//			if (meshData.vertices[vertexId].m_boneIDs[i] < 0)
+			//			{
+			//				meshData.vertices[vertexId].m_weights[i] = weight;
+			//				meshData.vertices[vertexId].m_boneIDs[i] = boneID;
+			//				break;
+			//			}
+			//		}
+			//	}
+			//}
+
 			meshDesc.indexDataOffset = offset;
 			meshDesc.indexDataSize = (unsigned int)meshData.indices.size() * sizeof(unsigned int);
 			offset += meshDesc.indexDataSize;

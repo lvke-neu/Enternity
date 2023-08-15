@@ -208,13 +208,13 @@
     <ClCompile Include="src\Scene\ECS\ModelComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\Model\Model\Model.cpp">
+    <ClCompile Include="src\Scene\Model\Model.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\Model\Model\ModelBlobHolder.cpp">
+    <ClCompile Include="src\Scene\Model\ModelBlobHolder.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\Model\Model\ModelBlobLoader.cpp">
+    <ClCompile Include="src\Scene\Model\ModelBlobLoader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\Model\Animation\Animation.cpp">
@@ -426,13 +426,13 @@
     <ClInclude Include="src\Scene\ECS\ModelComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\Model\Model\Model.h">
+    <ClInclude Include="src\Scene\Model\Model.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\Model\Model\ModelBlobHolder.h">
+    <ClInclude Include="src\Scene\Model\ModelBlobHolder.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\Model\Model\ModelBlobLoader.h">
+    <ClInclude Include="src\Scene\Model\ModelBlobLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\Model\Animation\Animation.h">
@@ -450,7 +450,7 @@
     <ClInclude Include="src\Scene\Model\Animation\bone.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\Model\Model\MaterialDefine.h">
+    <ClInclude Include="src\Scene\Model\MaterialDefine.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,5 @@
 #include "ModelComponent.h"
-#include "Scene/Model/Model/Model.h"
+#include "Scene/Model/Model.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
 #include "Common/Macro.h"
 

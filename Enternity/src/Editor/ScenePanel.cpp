@@ -15,7 +15,7 @@
 #include "Scene/ECS/SkeletonModelComponent.h"
 #include "Scene/ECS/StaticModelComponent.h"
 #include "Scene/ECS/ModelComponent.h"
-#include "Scene/Model/Model/Model.h"
+#include "Scene/Model/Model.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/Texture/Texture.h"
 #include "Pick/PickSystem.h"
