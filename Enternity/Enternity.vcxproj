@@ -104,6 +104,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Common\UnitTest.cpp" />
+    <ClCompile Include="src\Common\Utility.cpp" />
+    <ClCompile Include="src\Common\Utility.h" />
     <ClCompile Include="src\Editor\AssetPanel.cpp" />
     <ClCompile Include="src\Editor\Imgui\ImCurveEdit.cpp" />
     <ClCompile Include="src\Editor\Imgui\ImGradient.cpp" />
@@ -166,6 +168,10 @@
     <ClCompile Include="src\Graphics\RHI\Texture\stb_image.cpp" />
     <ClCompile Include="src\Graphics\RHI\Texture\Texture.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Scene\SceneGraph\Component.cpp" />
+    <ClCompile Include="src\Scene\SceneGraph\Node.cpp" />
+    <ClCompile Include="src\Scene\SceneGraph\Node3D.cpp" />
+    <ClCompile Include="src\Scene\SceneGraph\Transform3D.cpp" />
     <ClCompile Include="src\Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +250,10 @@
     <ClInclude Include="src\Graphics\RHI\Mesh\VertexDefine.h" />
     <ClInclude Include="src\Graphics\RHI\Texture\stb_image.h" />
     <ClInclude Include="src\Graphics\RHI\Texture\Texture.h" />
+    <ClInclude Include="src\Scene\SceneGraph\Component.h" />
+    <ClInclude Include="src\Scene\SceneGraph\Node.h" />
+    <ClInclude Include="src\Scene\SceneGraph\Node3D.h" />
+    <ClInclude Include="src\Scene\SceneGraph\Transform3D.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -223,6 +223,24 @@
     <ClCompile Include="src\Scene\Model\Animation\Animator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scene\SceneGraph\Node.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Utility.h">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Utility.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\SceneGraph\Node3D.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\SceneGraph\Transform3D.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\SceneGraph\Component.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Blob.h">
@@ -451,6 +469,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\Model\MaterialDefine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\SceneGraph\Node.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\SceneGraph\Node3D.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\SceneGraph\Transform3D.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\SceneGraph\Component.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

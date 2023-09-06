@@ -5,13 +5,29 @@
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/FrameBuffer/FrameBuffer.h"
 #include "Pick/PickSystem.h"
+#include "Scene/Scene.h"
+#include "Scene/SceneManager.h"
+#include "Scene/SceneGraph/Node3D.h"
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
 #include "Imgui/imgui_impl_glfw.h"
 #include "Imgui/imgui_impl_opengl3.h"
 
+
 namespace Enternity
 {
+	void StatePanel::treeNode(Node* node)
+	{
+		if (ImGui::TreeNode(node->getName().c_str()))
+		{
+			for (auto child : node->getChilds())
+			{
+				treeNode(child);
+			}
+			ImGui::TreePop();
+		}
+	}
+
 	void StatePanel::draw()
 	{
 		ImGui::Begin("State");
@@ -32,6 +48,13 @@ namespace Enternity
 
 		auto id = Engine::GetInstance().getGraphicsSystem()->getShadowMapFrameBuffer()->getTextureId();
 		//ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
+
+		ImGui::End();
+
+		ImGui::Begin("SceneGraph");
+
+		Node* rootNode = Engine::GetInstance().getSceneManager()->getCurrentScene()->getRootNode();
+		treeNode(rootNode);
 
 		ImGui::End();
 	}

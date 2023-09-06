@@ -19,6 +19,7 @@
 #include "Graphics/RHI/Texture/Texture.h"
 #include "Scene/Model/Model.h"
 #include "Common/Macro.h"
+#include "SceneGraph/Node3D.h"
 
 namespace Enternity
 {
@@ -29,51 +30,70 @@ namespace Enternity
 		initSkyBox();
 		initLight();
 
-		auto entity = createEntity();
-		entity.getComponent<NameComponent>().name = "plane";
-		entity.addComponent<TransformComponent>(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(100.0f));
-		entity.addComponent<ModelComponent>();
-		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/basic/Plane.fbx",
-			[=](Asset* asset)
-			{
-				entity.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
-				entity.getComponent<ModelComponent>().model->setUseTexture(false);
-			});
-		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/model/model.rdr",
-			[=](Asset* asset)
-			{
-				entity.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
-			});
+		m_rootNode = new Node3D;
+		m_rootNode->setName("RootNode");
 
-		auto entity1 = createEntity();
-		entity1.getComponent<NameComponent>().name = "test model1";
-		entity1.addComponent<TransformComponent>(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
-		entity1.addComponent<ModelComponent>();
-		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/walk/Standard Walk.dae",
-			[=](Asset* asset)
+		for (int i = 0; i < 5; i++)
+		{
+			Node3D* node = new Node3D;
+			node->setName(std::to_string(i).c_str());
+			node->addToParent(m_rootNode);
+
+			for (int j = 0; j < 5; j++)
 			{
-				entity1.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
-			});
-		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/model/model.rdr",
-			[=](Asset* asset)
-			{
-				entity1.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
-			});
-		
-		auto entity2 = createEntity();
-		entity2.getComponent<NameComponent>().name = "test model2";
-		entity2.addComponent<TransformComponent>(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
-		entity2.addComponent<ModelComponent>();
-		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/Ymca Dance/Ymca Dance.dae",
-			[=](Asset* asset)
-			{
-				entity2.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
-			});
-		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/model/model.rdr",
-			[=](Asset* asset)
-			{
-				entity2.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
-			});
+				Node3D* node2 = new Node3D;
+				node2->setName(std::to_string(i)+ "_" + std::to_string(j));
+				node2->addToParent(node);
+			}
+		}
+
+
+
+		//auto entity = createEntity();
+		//entity.getComponent<NameComponent>().name = "plane";
+		//entity.addComponent<TransformComponent>(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(100.0f));
+		//entity.addComponent<ModelComponent>();
+		//Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/basic/Plane.fbx",
+		//	[=](Asset* asset)
+		//	{
+		//		entity.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
+		//		entity.getComponent<ModelComponent>().model->setUseTexture(false);
+		//	});
+		//Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/model/model.rdr",
+		//	[=](Asset* asset)
+		//	{
+		//		entity.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
+		//	});
+
+		//auto entity1 = createEntity();
+		//entity1.getComponent<NameComponent>().name = "test model1";
+		//entity1.addComponent<TransformComponent>(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
+		//entity1.addComponent<ModelComponent>();
+		//Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/walk/Standard Walk.dae",
+		//	[=](Asset* asset)
+		//	{
+		//		entity1.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
+		//	});
+		//Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/model/model.rdr",
+		//	[=](Asset* asset)
+		//	{
+		//		entity1.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
+		//	});
+		//
+		//auto entity2 = createEntity();
+		//entity2.getComponent<NameComponent>().name = "test model2";
+		//entity2.addComponent<TransformComponent>(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
+		//entity2.addComponent<ModelComponent>();
+		//Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/Ymca Dance/Ymca Dance.dae",
+		//	[=](Asset* asset)
+		//	{
+		//		entity2.getComponent<ModelComponent>().model = dynamic_cast<Model*>(asset);
+		//	});
+		//Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/model/model.rdr",
+		//	[=](Asset* asset)
+		//	{
+		//		entity2.getComponent<ModelComponent>().renderer = dynamic_cast<Renderer*>(asset);
+		//	});
 	}
 
 	Scene::~Scene()
