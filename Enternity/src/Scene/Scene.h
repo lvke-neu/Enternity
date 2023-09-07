@@ -7,7 +7,6 @@ namespace Enternity
 	class FrameBuffer;
 	class CameraController;
 	class Mesh;
-	class Node;
 	class Scene
 	{
 		friend class RenderSystem;
@@ -22,7 +21,7 @@ namespace Enternity
 		void deleteEntityById(entt::entity id);
 		void deleteAllEntity();
 		void tick(float deltaTime);
-		Node* getRootNode();
+		
 	private:
 		void initPostProcess();
 		void initCamera();
@@ -38,8 +37,6 @@ namespace Enternity
 		Entity m_sceneSkybox;
 		Entity m_sceneSunlight;
 		CameraController* m_cameraController{ nullptr };
-
-		Node* m_rootNode;
 	};
 
 	inline Entity Scene::getSceneCamera()
@@ -52,8 +49,4 @@ namespace Enternity
 		return m_entities;
 	}
 
-	inline Node* Scene::getRootNode()
-	{
-		return m_rootNode;
-	}
 }

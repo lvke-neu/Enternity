@@ -1,14 +1,16 @@
 #pragma once
 #include <CRTDBG.H>
 
-//assert
+//*************************************************assert*************************************************
 #ifdef DEBUG
 	#define  ENTERNITY_ASSERT(expr)	_ASSERTE(expr)
 #else
 	#define  ENTERNITY_ASSERT(expr)	((void)0)
 #endif 
+//********************************************************************************************************
 
-// singleton
+
+//*************************************************singleton*************************************************
 #define SINGLETON(CLASS) \
 	public:\
 		static CLASS& GetInstance()\
@@ -22,8 +24,11 @@
 		virtual ~CLASS() = default; \
 		CLASS(const CLASS&) = default; \
 		CLASS& operator=(const CLASS&) = default;
+//********************************************************************************************************
 
-//safe delete
+
+
+//*************************************************delete*************************************************
 #define SAFE_DELETE_SET_NULL(p) \
 	if((p))\
 	{\
@@ -31,15 +36,15 @@
 		p = nullptr;\
 	}
 
-
-//safe delete arrat
 #define DELETE_ARRAY(p) \
 	delete[] p;
+//********************************************************************************************************
 
-//check gl function
+
+//*************************************************check gl function**************************************
 static bool Call_Gl_Function = true;
-static const char* error[8] = 
-{"GL_INVALID_ENUM", "GL_INVALID_VALUE", "GL_INVALID_OPERATION", "GL_STACK_OVERFLOW", "GL_STACK_UNDERFLOW", "GL_OUT_OF_MEMORY", "GL_INVALID_FRAMEBUFFER_OPERATION", "GL_CONTEXT_LOST", };
+static const char* error[8] =
+{ "GL_INVALID_ENUM", "GL_INVALID_VALUE", "GL_INVALID_OPERATION", "GL_STACK_OVERFLOW", "GL_STACK_UNDERFLOW", "GL_OUT_OF_MEMORY", "GL_INVALID_FRAMEBUFFER_OPERATION", "GL_CONTEXT_LOST", };
 static unsigned int errorCode;
 
 #define CHECK_GL_CALL(glFunction) \
@@ -51,3 +56,29 @@ static unsigned int errorCode;
 		LOG_ERROR("glFunction error:{0}", error[errorCode - 1280]);\
 		ENTERNITY_ASSERT(Call_Gl_Function == false);\
 	}
+//********************************************************************************************************
+
+
+
+//*************************************************get set************************************************
+#define GET(TYPE, NAME)\
+	const TYPE& get_##NAME() const\
+	{\
+		return m_##NAME;\
+	}\
+
+#define SET(TYPE, NAME)\
+	void set_##NAME(const TYPE& NAME)\
+	{\
+		m_##NAME = NAME;\
+	}
+
+#define GET_SET(TYPE, NAME)\
+	GET(TYPE, NAME);\
+	SET(TYPE, NAME);
+//********************************************************************************************************
+
+
+
+
+

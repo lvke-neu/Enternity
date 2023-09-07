@@ -1,4 +1,5 @@
 #pragma once
+#include "Common/Macro.h"
 #include <glm/gtc/quaternion.hpp>
 
 namespace Enternity
@@ -6,6 +7,9 @@ namespace Enternity
 	class Transform3D
 	{
 	public:
+		GET_SET(glm::vec3, translation);
+		GET_SET(glm::vec3, rotation);
+		GET_SET(glm::vec3, scale);
 		glm::mat4 getTranslationMatrix() const;
 		glm::mat4 getRotationMatrix() const;
 		glm::mat4 getScaleMatrix() const;
