@@ -30,19 +30,19 @@ namespace Enternity
 		initSkyBox();
 		initLight();
 
-		m_rootNode = new Node3D;
-		m_rootNode->setName("RootNode");
+		m_rootNode = new Node;
+		m_rootNode->set_name("RootNode");
 
 		for (int i = 0; i < 5; i++)
 		{
-			Node3D* node = new Node3D;
-			node->setName(std::to_string(i).c_str());
+			Node* node = new Node;
+			node->set_name(std::to_string(i).c_str());
 			node->addToParent(m_rootNode);
 
 			for (int j = 0; j < 5; j++)
 			{
-				Node3D* node2 = new Node3D;
-				node2->setName(std::to_string(i)+ "_" + std::to_string(j));
+				Node* node2 = new Node;
+				node2->set_name(std::to_string(i)+ "_" + std::to_string(j));
 				node2->addToParent(node);
 			}
 		}

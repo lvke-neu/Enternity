@@ -26,9 +26,4 @@ namespace Enternity
 			m_parent = node;
 		}
 	}
-
-	void Node::setName(const std::string& name)
-	{
-		m_name = name;
-	}
 }

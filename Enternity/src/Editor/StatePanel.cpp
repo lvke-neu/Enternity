@@ -12,21 +12,38 @@
 #include "Imgui/imgui_internal.h"
 #include "Imgui/imgui_impl_glfw.h"
 #include "Imgui/imgui_impl_opengl3.h"
-
+#include <rttr/type.h>
 
 namespace Enternity
 {
 	void StatePanel::treeNode(Node* node)
 	{
-		if (ImGui::TreeNode(node->getName().c_str()))
+		if (ImGui::TreeNode(node->get_name().c_str()))
 		{
-			for (auto child : node->getChilds())
+			rttr::type type = rttr::type::get_by_name("Node");
+
+			for (auto& prop : type.get_properties())
 			{
-				treeNode(child);
+				
+				ImGui::Separator();
+
+				ImGui::Text("name:%s, type:%s", prop.get_name().data(), prop.get_type().get_name().data());
+				for (auto& pp : prop.get_type().get_properties())
+				{
+					ImGui::Text("name2:%s, type2:%s", pp.get_name().data(), pp.get_type().get_name().data());
+				}
+				ImGui::Separator();
 			}
+			
+
+			//for (auto child : node->getChilds())
+			//{
+			//	treeNode(child);
+			//}
 			ImGui::TreePop();
 		}
 	}
+
 
 	void StatePanel::draw()
 	{

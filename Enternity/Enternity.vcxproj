@@ -57,15 +57,15 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\;$(SolutionDir)\Enternity\Engine\;$(SolutionDir)\Enternity\src\;$(SolutionDir)\3rdparty\rapidjson\include\;$(SolutionDir)\3rdparty\curl\x64\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\;$(SolutionDir)\Enternity\Engine\;$(SolutionDir)\Enternity\src\;$(SolutionDir)\3rdparty\rapidjson\include\;$(SolutionDir)\3rdparty\curl\x64\include\;$(SolutionDir)\3rdparty\rttr\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG;_DEBUG</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>NotSet</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdparty\glfw\lib-vc2017;$(SolutionDir)\3rdparty\yaml-cpp\lib\debug;$(SolutionDir)\3rdparty\box2d\lib\debug;$(SolutionDir)\3rdparty\bullet3\lib\debug;$(SolutionDir)\3rdparty\assimp\lib\debug;$(SolutionDir)\3rdparty\curl\x64\lib\debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;yaml-cpp_d.lib;box2d_d.lib;Bullet2FileLoader_Debug.lib;Bullet3Collision_Debug.lib;Bullet3Common_Debug.lib;Bullet3Dynamics_Debug.lib;Bullet3Geometry_Debug.lib;Bullet3OpenCL_clew_Debug.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;BulletFileLoader_Debug.lib;BulletInverseDynamicsUtils_Debug.lib;BulletInverseDynamics_Debug.lib;BulletRobotics_Debug.lib;BulletSoftBody_Debug.lib;BulletWorldImporter_Debug.lib;BulletXmlWorldImporter_Debug.lib;BussIK_Debug.lib;clsocket_Debug.lib;ConvexDecomposition_Debug.lib;GIMPACTUtils_Debug.lib;HACD_Debug.lib;LinearMath_Debug.lib;assimp_d.lib;libcurl-d.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdparty\glfw\lib-vc2017;$(SolutionDir)\3rdparty\yaml-cpp\lib\debug;$(SolutionDir)\3rdparty\box2d\lib\debug;$(SolutionDir)\3rdparty\bullet3\lib\debug;$(SolutionDir)\3rdparty\assimp\lib\debug;$(SolutionDir)\3rdparty\curl\x64\lib\debug;$(SolutionDir)\3rdparty\rttr\lib\debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;yaml-cpp_d.lib;box2d_d.lib;Bullet2FileLoader_Debug.lib;Bullet3Collision_Debug.lib;Bullet3Common_Debug.lib;Bullet3Dynamics_Debug.lib;Bullet3Geometry_Debug.lib;Bullet3OpenCL_clew_Debug.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;BulletFileLoader_Debug.lib;BulletInverseDynamicsUtils_Debug.lib;BulletInverseDynamics_Debug.lib;BulletRobotics_Debug.lib;BulletSoftBody_Debug.lib;BulletWorldImporter_Debug.lib;BulletXmlWorldImporter_Debug.lib;BussIK_Debug.lib;clsocket_Debug.lib;ConvexDecomposition_Debug.lib;GIMPACTUtils_Debug.lib;HACD_Debug.lib;LinearMath_Debug.lib;assimp_d.lib;libcurl-d.lib;zlibd.lib;rttr_core_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -76,7 +76,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\;$(SolutionDir)\Enternity\Engine\;$(SolutionDir)\Enternity\src\;$(SolutionDir)\3rdparty\rapidjson\include\;$(SolutionDir)\3rdparty\curl\x64\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glfw\include\;$(SolutionDir)\3rdparty\glad\include\;$(SolutionDir)\3rdparty\glm\include\;$(SolutionDir)\3rdparty\spdlog\include\;$(SolutionDir)\3rdparty\entt\include\;$(SolutionDir)\3rdparty\yaml-cpp\include\;$(SolutionDir)\3rdparty\box2d\include\;$(SolutionDir)\3rdparty\bullet3\include\;$(SolutionDir)\3rdparty\assimp\include\;$(SolutionDir)\Enternity\;$(SolutionDir)\Enternity\Engine\;$(SolutionDir)\Enternity\src\;$(SolutionDir)\3rdparty\rapidjson\include\;$(SolutionDir)\3rdparty\curl\x64\include\;$(SolutionDir)\3rdparty\rttr\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -84,8 +84,8 @@
       <SubSystem>NotSet</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdparty\glfw\lib-vc2017;$(SolutionDir)\3rdparty\yaml-cpp\lib\release;$(SolutionDir)\3rdparty\box2d\lib\release;$(SolutionDir)\3rdparty\bullet3\lib\release;$(SolutionDir)\3rdparty\assimp\lib\release;$(SolutionDir)\3rdparty\curl\x64\lib\release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;yaml-cpp.lib;box2d.lib;Bullet2FileLoader.lib;Bullet3Collision.lib;Bullet3Common.lib;Bullet3Dynamics.lib;Bullet3Geometry.lib;Bullet3OpenCL_clew.lib;BulletCollision.lib;BulletDynamics.lib;BulletExampleBrowserLib.lib;BulletFileLoader.lib;BulletInverseDynamicsUtils.lib;BulletInverseDynamics.lib;BulletRobotics.lib;BulletSoftBody.lib;BulletWorldImporter.lib;BulletXmlWorldImporter.lib;BussIK.lib;clsocket.lib;ConvexDecomposition.lib;GIMPACTUtils.lib;gtest.lib;gwen.lib;HACD.lib;LinearMath.lib;OpenGLWindow.lib;assimp.lib;libcurl.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdparty\glfw\lib-vc2017;$(SolutionDir)\3rdparty\yaml-cpp\lib\release;$(SolutionDir)\3rdparty\box2d\lib\release;$(SolutionDir)\3rdparty\bullet3\lib\release;$(SolutionDir)\3rdparty\assimp\lib\release;$(SolutionDir)\3rdparty\curl\x64\lib\release;$(SolutionDir)\3rdparty\rttr\lib\release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;yaml-cpp.lib;box2d.lib;Bullet2FileLoader.lib;Bullet3Collision.lib;Bullet3Common.lib;Bullet3Dynamics.lib;Bullet3Geometry.lib;Bullet3OpenCL_clew.lib;BulletCollision.lib;BulletDynamics.lib;BulletExampleBrowserLib.lib;BulletFileLoader.lib;BulletInverseDynamicsUtils.lib;BulletInverseDynamics.lib;BulletRobotics.lib;BulletSoftBody.lib;BulletWorldImporter.lib;BulletXmlWorldImporter.lib;BussIK.lib;clsocket.lib;ConvexDecomposition.lib;GIMPACTUtils.lib;gtest.lib;gwen.lib;HACD.lib;LinearMath.lib;OpenGLWindow.lib;assimp.lib;libcurl.lib;zlib.lib;rttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
