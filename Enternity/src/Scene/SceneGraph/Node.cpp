@@ -1,4 +1,5 @@
 #include "Node.h"
+#include "Component.h"
 #include "Common/Utility.h"
 #include "Common/Macro.h"
 
@@ -17,6 +18,7 @@ namespace Enternity
 			SAFE_DELETE_SET_NULL(child);
 		}
 		m_childs.clear();
+		m_components.clear();
 	}
 
 	void Node::addToParent(Node* node)
@@ -29,7 +31,7 @@ namespace Enternity
 		}
 	}
 
-	void Node::removeFromParent()
+	void Node::removeFromParent() 
 	{
 		if (m_parent)
 		{
@@ -41,5 +43,22 @@ namespace Enternity
 		}
 
 		m_parent = nullptr;
+	}
+
+	void Node::addComponent(std::shared_ptr<Component> component)
+	{
+		if (component)
+		{
+			m_components.insert(component);
+		}
+	}
+
+	void Node::removeComponent(std::shared_ptr<Component> component)
+	{
+		auto iter = m_components.find(component);
+		if (iter != m_components.end())
+		{
+			m_components.erase(iter);
+		}
 	}
 }

@@ -62,13 +62,13 @@ static unsigned int errorCode;
 
 //*************************************************get set************************************************
 #define GET(TYPE, NAME)\
-	const TYPE& get_##NAME() const\
+	TYPE get_##NAME() const\
 	{\
 		return m_##NAME;\
 	}\
 
 #define SET(TYPE, NAME)\
-	void set_##NAME(const TYPE& NAME)\
+	void set_##NAME(TYPE NAME)\
 	{\
 		m_##NAME = NAME;\
 	}

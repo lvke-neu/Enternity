@@ -6,6 +6,7 @@
 
 namespace Enternity
 {
+	class Component;
 	class Node
 	{
 	public:
@@ -18,11 +19,15 @@ namespace Enternity
 
 		void addToParent(Node* node);
 		void removeFromParent();
+
+		void addComponent(std::shared_ptr<Component> component);
+		void removeComponent(std::shared_ptr<Component> component);
 	private:
 		std::string m_uuid;
 		std::string m_name;
 
 		Node* m_parent;
 		std::set<Node*> m_childs;
+		std::set<std::shared_ptr<Component>> m_components;
 	};
 }
