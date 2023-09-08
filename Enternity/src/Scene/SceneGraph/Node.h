@@ -1,12 +1,11 @@
 #pragma once
 #include "Common/Macro.h"
+#include <vector>
 #include <string>
-#include <set>
 #include <memory>
 
 namespace Enternity
 {
-	class Component;
 	class Node
 	{
 	public:
@@ -15,19 +14,15 @@ namespace Enternity
 	public:
 		GET(std::string, uuid);
 		GET_SET(std::string, name);
-		GET(std::set<Node*>, childs);
-
-		void addToParent(Node* node);
+		GET(std::vector<std::shared_ptr<Node>>, childs);
+	public:
+		void addChild(std::shared_ptr<Node> child);
+		void removeChild(std::shared_ptr<Node> child);
 		void removeFromParent();
-
-		void addComponent(std::shared_ptr<Component> component);
-		void removeComponent(std::shared_ptr<Component> component);
 	private:
 		std::string m_uuid;
 		std::string m_name;
-
-		Node* m_parent;
-		std::set<Node*> m_childs;
-		std::set<std::shared_ptr<Component>> m_components;
+		std::shared_ptr<Node> m_parent;
+		std::vector<std::shared_ptr<Node>> m_childs;
 	};
 }

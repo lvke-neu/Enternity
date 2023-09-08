@@ -1,64 +1,60 @@
 #include "Node.h"
 #include "Component.h"
 #include "Common/Utility.h"
-#include "Common/Macro.h"
 
 namespace Enternity
 {
 	Node::Node() : m_name(""), m_parent(nullptr)
 	{
 		m_uuid = Utility::GenerateUUID();
+		m_childs.clear();
 	}
 
 	Node::~Node()
 	{
-		removeFromParent();
-		for (auto child : m_childs)
-		{
-			SAFE_DELETE_SET_NULL(child);
-		}
 		m_childs.clear();
-		m_components.clear();
 	}
 
-	void Node::addToParent(Node* node)
+	void Node::addChild(std::shared_ptr<Node> child)
 	{
-		if (node)
+		if (!child || this == child.get())
 		{
-			removeFromParent();
-			node->m_childs.insert(this);
-			m_parent = node;
+			return;
 		}
+
+		auto iter = std::find(m_childs.begin(), m_childs.end(), child);
+		if (iter != m_childs.end())
+		{
+			return;
+		}
+
+		child->removeFromParent();
+		m_childs.emplace_back(child);
+		child->m_parent = std::shared_ptr<Node>(this);
 	}
 
-	void Node::removeFromParent() 
+	void Node::removeChild(std::shared_ptr<Node> child)
+	{
+		if (!child)
+		{
+			return;
+		}
+
+		auto iter = std::find(m_childs.begin(), m_childs.end(), child);
+		if (iter == m_childs.end())
+		{
+			return;
+		}
+
+		m_childs.erase(iter);
+		child->m_parent = nullptr;
+	}
+
+	void Node::removeFromParent()
 	{
 		if (m_parent)
 		{
-			auto iter = m_parent->m_childs.find(this);
-			if (iter != m_parent->m_childs.end())
-			{
-				m_parent->m_childs.erase(iter);
-			}
-		}
-
-		m_parent = nullptr;
-	}
-
-	void Node::addComponent(std::shared_ptr<Component> component)
-	{
-		if (component)
-		{
-			m_components.insert(component);
-		}
-	}
-
-	void Node::removeComponent(std::shared_ptr<Component> component)
-	{
-		auto iter = m_components.find(component);
-		if (iter != m_components.end())
-		{
-			m_components.erase(iter);
+			m_parent->removeChild(std::shared_ptr<Node>(this));
 		}
 	}
 }

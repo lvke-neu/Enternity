@@ -17,20 +17,20 @@ namespace Enternity
 {
 	void StatePanel::treeNode(Node* node)
 	{
-		if (ImGui::TreeNode(node->get_name().c_str()))
+		/*if (ImGui::TreeNode(node->get_name().c_str()))
 		{
 			for (auto child : node->get_childs())
 			{
 				treeNode(child);
 			}
 			ImGui::TreePop();
-		}
+		}*/
 	}
 
 
 	StatePanel::StatePanel()
 	{
-		m_rootNode = new Node;
+	/*	m_rootNode = new Node;
 		m_rootNode->set_name("RootNode");
 
 		for (int i = 0; i < 5; i++)
@@ -45,7 +45,7 @@ namespace Enternity
 				node2->set_name(std::to_string(i) + "_" + std::to_string(j));
 				node2->addToParent(node);
 			}
-		}
+		}*/
 	}
 
 	void StatePanel::draw()
