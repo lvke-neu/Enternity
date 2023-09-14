@@ -26,6 +26,7 @@
 #include "Imgui/imgui_internal.h"
 #include "Imgui/imgui_impl_glfw.h"
 #include "Imgui/imgui_impl_opengl3.h"
+#include <rttr/type>
 
 namespace Enternity
 {
@@ -177,13 +178,27 @@ namespace Enternity
 			ImGui::Text(selectedNode->get_name().c_str());
 			for (const auto& comp : selectedNode->get_components())
 			{
-				ImGui::Text(comp->get_name().c_str());
 
-
-				if (ImGui::Button(("remove" + comp->get_name()).c_str()))
+				rttr::type type = rttr::type::get_by_name("Component");
+				for (auto& prop : type.get_properties())
 				{
-					comp->removeFromNode();
+					
+					ImGui::Text(prop.get_name().to_string().c_str());
+					ImGui::SameLine();
+					auto str = prop.get_type().get_name().to_string();
+					if (prop.get_type().get_name().to_string() == "bool")
+					{
+						bool b;
+						ImGui::Checkbox("sds", &b);
+					}
+					if (prop.get_type().get_name().to_string() == "classstd::basic_string<char,structstd::char_traits<char>,classstd::allocator<char> >")
+					{
+						ImGui::Text("hhh reflection");
+					}
+					
+					
 				}
+
 			}
 			if (ImGui::Button("add"))
 			{

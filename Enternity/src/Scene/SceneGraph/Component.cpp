@@ -3,7 +3,7 @@
 
 namespace Enternity
 {
-	Component::Component() : m_node(nullptr)
+	Component::Component() : m_node(nullptr), m_name(""), m_enable(true)
 	{
 
 	}
