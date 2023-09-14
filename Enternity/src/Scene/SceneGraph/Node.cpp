@@ -19,6 +19,12 @@ namespace Enternity
 			SAFE_DELETE_SET_NULL(child);
 		}
 		m_childs.clear();
+
+		for (auto& component : m_components)
+		{
+			SAFE_DELETE_SET_NULL(component);
+		}
+		m_components.clear();
 	}
 
 	void Node::addToParent(Node* parent)
@@ -54,6 +60,38 @@ namespace Enternity
 
 		m_parent->m_childs.erase(iter);
 		m_parent = nullptr;
+	}
+
+	void Node::addComponent(Component* component)
+	{
+		if (!component)
+		{
+			return;
+		}
+
+		auto iter = std::find(m_components.begin(), m_components.end(), component);
+		if (iter != m_components.end())
+		{
+			return;
+		}
+
+		m_components.emplace_back(component);
+	}
+
+	void Node::removeComponent(Component* component)
+	{
+		if (!component)
+		{
+			return;
+		}
+
+		auto iter = std::find(m_components.begin(), m_components.end(), component);
+		if (iter == m_components.end())
+		{
+			return;
+		}
+
+		m_components.erase(iter);
 	}
 
 }

@@ -6,6 +6,7 @@
 #include "Scene/SceneManager.h"
 #include "Scene/Scene3D.h"
 #include "Scene/Node3D.h"
+#include "Scene/SceneGraph/Component.h"
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/CameraComponent.h"
 #include "Scene/ECS/NameComponent.h"
@@ -119,6 +120,7 @@ namespace Enternity
 		
 	}
 
+	static Node* selectedNode = nullptr;
 	void TreeNode(Node* node)
 	{
 		if (!node)
@@ -128,10 +130,13 @@ namespace Enternity
 
 		if (ImGui::TreeNode(node->get_name().c_str()))
 		{
+			selectedNode = node;
+
 			for (auto child : node->get_childs())
 			{
 				TreeNode(child);
 			}
+
 
 			if (ImGui::Button("add"))
 			{
@@ -160,6 +165,33 @@ namespace Enternity
 		auto rootNode = Engine::GetInstance().getSceneManager()->getCurrentScene()->get_rootNode();
 		TreeNode(rootNode);
 		
+		ImGui::End();
+
+
+		ImGui::Begin("Node");
+		
+		if (selectedNode)
+		{
+			ImGui::Text(selectedNode->get_uuid().c_str());
+			ImGui::Text(selectedNode->get_name().c_str());
+			for (const auto& comp : selectedNode->get_components())
+			{
+				ImGui::Text(comp->get_name().c_str());
+
+
+				if (ImGui::Button(("remove" + comp->get_name()).c_str()))
+				{
+					comp->removeFromNode();
+				}
+			}
+			if (ImGui::Button("add"))
+			{
+				Component* comp = new Component;
+				comp->set_name("Comp_" + selectedNode->get_name() + "_" + std::to_string(selectedNode->get_components().size()));
+				comp->addToNode(selectedNode);
+			}
+		}
+
 		ImGui::End();
 	}
 }

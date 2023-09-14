@@ -1,25 +1,36 @@
 #include "Component.h"
-
+#include "Node.h"
 
 namespace Enternity
 {
-	Component::Component() : 
-		m_enable(true),
-		m_node(nullptr)
+	Component::Component() : m_node(nullptr)
 	{
 
 	}
 
-	void Component::set_node(Node* node)
+	Component::~Component()
+	{
+
+	}
+
+	void Component::addToNode(Node* node)
+	{
+		if (!node)
+		{
+			return;
+		}
+
+		removeFromNode();
+		node->addComponent(this);
+		m_node = node;
+	}
+
+	void Component::removeFromNode()
 	{
 		if (m_node)
 		{
-			//m_node->removeComponent(std::make_shared<Component>(this));
+			m_node->removeComponent(this);
+			m_node = nullptr;
 		}
-		if (node)
-		{
-
-		}
-		m_node = node;
 	}
 }

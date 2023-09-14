@@ -1,5 +1,6 @@
 #pragma once
 #include "Common/Macro.h"
+#include <string>
 
 namespace Enternity
 {
@@ -8,14 +9,15 @@ namespace Enternity
 	{
 	public:
 		Component();
+		virtual ~Component();
 	public:
-		GET_SET(bool, enable);
 		GET(Node*, node);
-
-		void set_node(Node* node);
-	private:
-		bool m_enable;
+		GET_SET(std::string, name);
+		void addToNode(Node* node);
+		void removeFromNode();
+	protected:
 		Node* m_node;
+		std::string m_name;
 	};
 }
 
