@@ -2,7 +2,6 @@
 #include "Common/Macro.h"
 #include <vector>
 #include <string>
-#include <memory>
 
 namespace Enternity
 {
@@ -14,15 +13,14 @@ namespace Enternity
 	public:
 		GET(std::string, uuid);
 		GET_SET(std::string, name);
-		GET(std::vector<std::shared_ptr<Node>>, childs);
+		GET(std::vector<Node*>, childs);
 	public:
-		void addChild(std::shared_ptr<Node> child);
-		void removeChild(std::shared_ptr<Node> child);
+		void addToParent(Node* parent);
 		void removeFromParent();
 	private:
 		std::string m_uuid;
 		std::string m_name;
-		std::shared_ptr<Node> m_parent;
-		std::vector<std::shared_ptr<Node>> m_childs;
+		Node* m_parent;
+		std::vector<Node*> m_childs;
 	};
 }

@@ -165,7 +165,7 @@ namespace Enternity
 
 	void ViewPortPanel::onSelectEntityInPanel()
 	{
-		int selectedEntityId = Engine::GetInstance().getPickSystem()->getPickEntityId();
+		/*int selectedEntityId = Engine::GetInstance().getPickSystem()->getPickEntityId();
 
 		Entity selectedEntity = Engine::GetInstance().getSceneManager()->getCurrentScene()->getEntity((entt::entity)selectedEntityId);
 		if (!selectedEntity.isValidEntity())
@@ -208,6 +208,6 @@ namespace Enternity
 				DecomposeTransform(modelMatrix, tc.translation, tc.rotation, tc.scale);
 				selectedEntity.getComponent<SunLightComponent>().direction = -tc.translation;
 			}
-		}
+		}*/
 	}
 }

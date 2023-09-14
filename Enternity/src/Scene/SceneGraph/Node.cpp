@@ -12,49 +12,50 @@ namespace Enternity
 
 	Node::~Node()
 	{
-		m_childs.clear();
+		removeFromParent();
+		for (auto& child : m_childs)
+		{
+			if (child)
+			{
+				delete child;
+				child = nullptr;
+			}
+		}
 	}
 
-	void Node::addChild(std::shared_ptr<Node> child)
+	void Node::addToParent(Node* parent)
 	{
-		if (!child || this == child.get())
+		if (!parent || this == parent)
 		{
 			return;
 		}
 
-		auto iter = std::find(m_childs.begin(), m_childs.end(), child);
-		if (iter != m_childs.end())
+		auto iter = std::find(parent->m_childs.begin(), parent->m_childs.end(), this);
+		if (iter != parent->m_childs.end())
 		{
 			return;
 		}
 
-		child->removeFromParent();
-		m_childs.emplace_back(child);
-		child->m_parent = std::shared_ptr<Node>(this);
-	}
-
-	void Node::removeChild(std::shared_ptr<Node> child)
-	{
-		if (!child)
-		{
-			return;
-		}
-
-		auto iter = std::find(m_childs.begin(), m_childs.end(), child);
-		if (iter == m_childs.end())
-		{
-			return;
-		}
-
-		m_childs.erase(iter);
-		child->m_parent = nullptr;
+		removeFromParent();
+		parent->m_childs.emplace_back(this);
+		m_parent = parent;
 	}
 
 	void Node::removeFromParent()
 	{
-		if (m_parent)
+		if (!m_parent)
 		{
-			m_parent->removeChild(std::shared_ptr<Node>(this));
+			return;
 		}
+
+		auto iter = std::find(m_parent->m_childs.begin(), m_parent->m_childs.end(), this);
+		if (iter == m_parent->m_childs.end())
+		{
+			return;
+		}
+
+		m_parent->m_childs.erase(iter);
+		m_parent = nullptr;
 	}
+
 }

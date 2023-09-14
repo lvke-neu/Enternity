@@ -106,7 +106,7 @@ namespace Enternity
 
 	void RenderSystem::colorPass(Scene* scene)
 	{
-		if (scene)
+		/*if (scene)
 		{
 			m_colorFrameBuffer->bind();
 
@@ -117,41 +117,41 @@ namespace Enternity
 			renderSkybox(scene);
 			
 			m_colorFrameBuffer->unbind();
-		}
+		}*/
 	}
 
 	void RenderSystem::renderModel(Scene* scene)
 	{
-		for (auto& entity : scene->m_entities)
-		{
-			if (entity.second.hasComponent<ModelComponent>())
-			{
-				auto& modelComponent = entity.second.getComponent<ModelComponent>();
+		//for (auto& entity : scene->m_entities)
+		//{
+		//	if (entity.second.hasComponent<ModelComponent>())
+		//	{
+		//		auto& modelComponent = entity.second.getComponent<ModelComponent>();
 
-				if (modelComponent.model && modelComponent.model->isLoadSucceeded() &&
-					modelComponent.renderer && modelComponent.renderer->isLoadSucceeded())
-				{
-					modelComponent.renderer->bind();
+		//		if (modelComponent.model && modelComponent.model->isLoadSucceeded() &&
+		//			modelComponent.renderer && modelComponent.renderer->isLoadSucceeded())
+		//		{
+		//			modelComponent.renderer->bind();
 
-					glm::mat4 model = entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : glm::mat4(1);
-					glm::mat4 view = scene->m_sceneCamera.getComponent<TransformComponent>().getInverseWorldMatrix();
-					glm::mat4 proj = scene->m_sceneCamera.getComponent<CameraComponent>().getProjectionMatrix();
+		//			glm::mat4 model = entity.second.hasComponent<TransformComponent>() ? entity.second.getComponent<TransformComponent>().getWorldMatrix() : glm::mat4(1);
+		//			glm::mat4 view = scene->m_sceneCamera.getComponent<TransformComponent>().getInverseWorldMatrix();
+		//			glm::mat4 proj = scene->m_sceneCamera.getComponent<CameraComponent>().getProjectionMatrix();
 
-					modelComponent.renderer->setMat4("u_m", model);
-					modelComponent.renderer->setMat4("u_v", view);
-					modelComponent.renderer->setMat4("u_p", proj);
+		//			modelComponent.renderer->setMat4("u_m", model);
+		//			modelComponent.renderer->setMat4("u_v", view);
+		//			modelComponent.renderer->setMat4("u_p", proj);
 
-					modelComponent.model->draw(modelComponent.renderer);
+		//			modelComponent.model->draw(modelComponent.renderer);
 
-					modelComponent.renderer->unbind();
-				}
-			}
-		}
+		//			modelComponent.renderer->unbind();
+		//		}
+		//	}
+		//}
 	}
 
 	void RenderSystem::renderSkybox(Scene* scene)
 	{
-		auto& skyBoxComponent = scene->m_sceneSkybox.getComponent<SkyBoxComponent>();
+		/*auto& skyBoxComponent = scene->m_sceneSkybox.getComponent<SkyBoxComponent>();
 		if (skyBoxComponent.renderer && skyBoxComponent.mesh && skyBoxComponent.textureCubeMapHDR && 
 			skyBoxComponent.renderer->isLoadSucceeded() && skyBoxComponent.mesh->isLoadSucceeded() && skyBoxComponent.textureCubeMapHDR->isLoadSucceeded())
 		{
@@ -169,12 +169,12 @@ namespace Enternity
 			skyBoxComponent.renderer->unbind();
 
 			glDepthFunc(GL_LESS);
-		}
+		}*/
 	}
 
 	void RenderSystem::postprocessPass(Scene* scene)
 	{
-		m_postprocessFrameBuffer->bind();
+		/*m_postprocessFrameBuffer->bind();
 
 		glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -191,7 +191,7 @@ namespace Enternity
 			ppc.renderer->unbind();
 		}
 
-		m_postprocessFrameBuffer->unbind();
+		m_postprocessFrameBuffer->unbind();*/
 	}
 
 	void RenderSystem::onWindowResize(void* data)
