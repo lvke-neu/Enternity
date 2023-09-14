@@ -4,6 +4,8 @@
 #include "Engine/Engine.h"
 #include "Engine/AssetLoader.h"
 #include "Scene/SceneManager.h"
+#include "Scene/Scene3D.h"
+#include "Scene/Node3D.h"
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/CameraComponent.h"
 #include "Scene/ECS/NameComponent.h"
@@ -117,37 +119,46 @@ namespace Enternity
 		
 	}
 
+	void TreeNode(Node* node)
+	{
+		if (!node)
+		{
+			return;
+		}
 
+		if (ImGui::TreeNode(node->get_name().c_str()))
+		{
+			for (auto child : node->get_childs())
+			{
+				TreeNode(child);
+			}
+
+			if (ImGui::Button("add"))
+			{
+				Node3D* nodeTmp = new Node3D;
+				nodeTmp->set_name(node->get_name() + "_" + std::to_string(node->get_childs().size()));
+				nodeTmp->addToParent(node);
+			}
+			if (node->get_name() != "RootNode")
+			{
+				if (ImGui::Button("remove"))
+				{
+					node->removeFromParent();
+					delete node;
+					node = nullptr;
+				}
+			}
+
+			ImGui::TreePop();
+		}
+	}
 
 	void ScenePanel::draw()
 	{
-		ImGui::Begin("Entity");
+		ImGui::Begin("SceneGraph");
 
-		//for (const auto& entity : Engine::GetInstance().getSceneManager()->getCurrentScene()->getEntities())
-		//{
-		//	ImGui::PushID((int)entity.first);
-		//	if (ImGui::Selectable(entity.second.getComponent<NameComponent>().name.c_str(), 
-		//		Engine::GetInstance().getPickSystem()->getPickEntityId() == (int)entity.first))
-		//	{
-		//		Engine::GetInstance().getPickSystem()->setPickEntityId((int)entity.first);
-		//	}
-		//	ImGui::PopID();
-		//}
-		//
-		////if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
-		////{
-		////	Engine::GetInstance().getPickSystem()->setPickEntityId(-1);
-		////}
-
-		//ImGui::End();
-
-		//ImGui::Begin("Component");
-
-		//Entity selectedEntity = Engine::GetInstance().getSceneManager()->getCurrentScene()->getEntity((entt::entity)Engine::GetInstance().getPickSystem()->getPickEntityId());
-		//if (selectedEntity.isValidEntity())
-		//{
-		//	DrawSelectedEntity(selectedEntity);
-		//}
+		auto rootNode = Engine::GetInstance().getSceneManager()->getCurrentScene()->get_rootNode();
+		TreeNode(rootNode);
 		
 		ImGui::End();
 	}

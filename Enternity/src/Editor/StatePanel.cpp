@@ -5,9 +5,6 @@
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/FrameBuffer/FrameBuffer.h"
 #include "Pick/PickSystem.h"
-#include "Scene/SceneManager.h"
-#include "Scene/Scene3D.h"
-#include "Scene/Node3D.h"
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
 #include "Imgui/imgui_impl_glfw.h"
@@ -15,41 +12,6 @@
 
 namespace Enternity
 {
-	void treeNode(Node* node)
-	{
-		if (!node)
-		{
-			return;
-		}
-
-		if (ImGui::TreeNode(node->get_name().c_str()))
-		{
-			for (auto child : node->get_childs())
-			{
-				treeNode(child);
-			}
-
-			if (ImGui::Button("add"))
-			{
-				Node3D* nodeTmp = new Node3D;
-				nodeTmp->set_name(node->get_name() + "_" + std::to_string(node->get_childs().size()));
-				nodeTmp->addToParent(node);
-			}
-			if (node->get_name() != "RootNode")
-			{
-				if (ImGui::Button("remove"))
-				{
-					node->removeFromParent();
-					delete node;
-					node = nullptr;
-				}
-			}
-
-			ImGui::TreePop();
-		}
-	}
-
-
 	StatePanel::StatePanel()
 	{
 
@@ -75,16 +37,6 @@ namespace Enternity
 
 		auto id = Engine::GetInstance().getGraphicsSystem()->getShadowMapFrameBuffer()->getTextureId();
 		//ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
-
-		ImGui::End();
-
-		ImGui::Begin("SceneGraph");
-
-		//Node* rootNode = Engine::GetInstance().getSceneManager()->getCurrentScene()->getRootNode();
-		auto rootNode = Engine::GetInstance().getSceneManager()->getCurrentScene()->get_rootNode();
-		treeNode(rootNode);
-
-
 
 		ImGui::End();
 	}
