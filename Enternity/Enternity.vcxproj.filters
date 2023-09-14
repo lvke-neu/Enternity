@@ -184,9 +184,6 @@
     <ClCompile Include="src\Scene\ECS\SkyBoxComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\ECS\Visual3DComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Scene\ECS\SkeletonModelComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -239,6 +236,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\SceneGraph\3D\Scene3D.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\SceneGraph\3D\Visual3DComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -420,9 +420,6 @@
     <ClInclude Include="src\Scene\ECS\SkyBoxComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\ECS\Visual3DComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Scene\ECS\SkeletonModelComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -481,6 +478,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\SceneGraph\3D\Scene3D.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\SceneGraph\3D\Visual3DComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

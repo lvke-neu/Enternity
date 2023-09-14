@@ -11,16 +11,16 @@ int main(int argc, const char** argv) {
 }
 
 
+//#include "Scene/SceneGraph/3D/Visual3DComponent.h"
 //#include <iostream>
-//#include "Scene/Scene3D.h"
+//#include <rttr/type>
+//
 //using namespace Enternity;
 //
 //
 //int main(int argc, const char** argv) {
 //
-//	Scene* sc3d = new Scene3D;
-//
-//	delete sc3d;
+//	auto type =rttr::type::get_by_name("Visual3DComponent");
 //
 //	return 0;
 //}

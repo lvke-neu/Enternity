@@ -8,30 +8,23 @@ namespace Enternity
 	class Node;
 	class Component
 	{
+		RTTR_ENABLE();
 	public:
 		Component();
 		virtual ~Component();
 	public:
-		GET(Node*, node);
-		GET_SET(std::string, name);
+		GET_CLASS_NAME(Component);
+	public:
+		GET(std::string, uuid);
 		GET_SET(bool, enable);
+		GET(Node*, node);
+	public:
 		void addToNode(Node* node);
 		void removeFromNode();
 	protected:
-		Node* m_node;
-		std::string m_name;
+		std::string m_uuid;
 		bool m_enable;
+		Node* m_node;
 	};
-
-	RTTR_REGISTRATION
-	{
-		rttr::registration::class_<Component>("Component")
-			.constructor<>()
-			(
-				rttr::policy::ctor::as_raw_ptr
-			)
-			.property("name", &Component::get_name, &Component::set_name)
-			.property("enable",&Component::get_enable, &Component::set_enable);
-	}
 }
 

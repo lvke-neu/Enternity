@@ -10,7 +10,6 @@
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/PostProcessComponent.h"
 #include "Scene/ECS/SkyBoxComponent.h"
-#include "Scene/ECS/Visual3DComponent.h"
 #include "Scene/ECS/SkeletonModelComponent.h"
 #include "Scene/ECS/StaticModelComponent.h"
 #include "Scene/ECS/ModelComponent.h"

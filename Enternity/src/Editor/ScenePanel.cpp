@@ -7,6 +7,7 @@
 #include "Scene/SceneGraph/3D/Scene3D.h"
 #include "Scene/SceneGraph/3D/Node3D.h"
 #include "Scene/SceneGraph/Component.h"
+#include "Scene/SceneGraph/3D/Visual3DComponent.h"
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/CameraComponent.h"
 #include "Scene/ECS/NameComponent.h"
@@ -160,6 +161,11 @@ namespace Enternity
 		}
 	}
 
+	void reflectProperty(const rttr::property& prop)
+	{
+
+	}
+
 	void ScenePanel::draw()
 	{
 		ImGui::Begin("SceneGraph");
@@ -174,36 +180,75 @@ namespace Enternity
 
 		if (selectedNode)
 		{
-			ImGui::Text(selectedNode->get_uuid().c_str());
-			ImGui::Text(selectedNode->get_name().c_str());
+			ImGui::Text("uuid:"); ImGui::SameLine();ImGui::Text(selectedNode->get_uuid().c_str());
+			ImGui::Text("name:"); ImGui::SameLine();ImGui::Text(selectedNode->get_name().c_str());
+			ImGui::Separator();
+
 			for (const auto& comp : selectedNode->get_components())
 			{
+				ImGui::PushID(comp->get_uuid().c_str());
 
-				rttr::type type = rttr::type::get_by_name("Component");
+				rttr::type type = rttr::type::get_by_name(comp->get_class_name());
+
+				ImGui::Text(("Type:" + type.get_name().to_string()).c_str());
+			
+				
 				for (auto& prop : type.get_properties())
 				{
-					
-					ImGui::Text(prop.get_name().to_string().c_str());
+					ImGui::Text((prop.get_name().to_string() + ":").c_str());
 					ImGui::SameLine();
-					auto str = prop.get_type().get_name().to_string();
-					if (prop.get_type().get_name().to_string() == "bool")
+
+					if (prop.get_type().get_name() == "bool")
 					{
-						bool b;
-						ImGui::Checkbox("sds", &b);
+
+						bool boolean = prop.get_value(comp).to_bool();
+
+						if (ImGui::Checkbox(prop.get_type().get_name().to_string().c_str(), &boolean))
+						{
+							prop.set_value(comp, boolean);
+						}
 					}
-					if (prop.get_type().get_name().to_string() == "classstd::basic_string<char,structstd::char_traits<char>,classstd::allocator<char> >")
+					if (prop.get_type().get_name() == "classstd::basic_string<char,structstd::char_traits<char>,classstd::allocator<char> >")
 					{
-						ImGui::Text("hhh reflection");
+						std::string str = prop.get_value(comp).to_string();
+
+						char buffer[256];
+						memset(buffer, 0, sizeof(buffer));
+						memcpy_s(buffer, sizeof(buffer), str.c_str(), sizeof(buffer));
+						if (ImGui::InputText(prop.get_type().get_name().to_string().c_str(), buffer, sizeof(buffer)))
+						{
+							prop.set_value(comp, std::string(buffer));
+						}
 					}
-					
-					
+
+					//ImGui::SameLine();
+
+					//if (prop.get_type().get_name().to_string() == "bool")
+					//{
+					//	bool b;
+					//	ImGui::Checkbox("sds", &b);
+					//}
+					//if (prop.get_type().get_name().to_string() == "")
+					//{
+					//	ImGui::Text("hhh reflection");
+					//}
 				}
 
+
+				ImGui::Separator();
+
+				ImGui::PopID();
 			}
+
 			if (ImGui::Button("add"))
 			{
 				Component* comp = new Component;
-				comp->set_name("Comp_" + selectedNode->get_name() + "_" + std::to_string(selectedNode->get_components().size()));
+				comp->addToNode(selectedNode);
+			}
+
+			if (ImGui::Button("add2"))
+			{
+				Visual3DComponent* comp = new Visual3DComponent;
 				comp->addToNode(selectedNode);
 			}
 		}
