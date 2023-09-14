@@ -17,12 +17,34 @@ namespace Enternity
 {
 	void treeNode(Node* node)
 	{
+		if (!node)
+		{
+			return;
+		}
+
 		if (ImGui::TreeNode(node->get_name().c_str()))
 		{
 			for (auto child : node->get_childs())
 			{
 				treeNode(child);
 			}
+
+			if (ImGui::Button("add"))
+			{
+				Node3D* nodeTmp = new Node3D;
+				nodeTmp->set_name(node->get_name() + "_" + std::to_string(node->get_childs().size()));
+				nodeTmp->addToParent(node);
+			}
+			if (node->get_name() != "RootNode")
+			{
+				if (ImGui::Button("remove"))
+				{
+					node->removeFromParent();
+					delete node;
+					node = nullptr;
+				}
+			}
+
 			ImGui::TreePop();
 		}
 	}
@@ -59,7 +81,10 @@ namespace Enternity
 		ImGui::Begin("SceneGraph");
 
 		//Node* rootNode = Engine::GetInstance().getSceneManager()->getCurrentScene()->getRootNode();
-		treeNode(Engine::GetInstance().getSceneManager()->getCurrentScene()->get_rootNode());
+		auto rootNode = Engine::GetInstance().getSceneManager()->getCurrentScene()->get_rootNode();
+		treeNode(rootNode);
+
+
 
 		ImGui::End();
 	}
