@@ -229,16 +229,16 @@
     <ClCompile Include="src\Common\Utility.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\Node3D.cpp">
+    <ClCompile Include="src\Scene\SceneGraph\3D\Node3D.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\Transform3D.cpp">
+    <ClCompile Include="src\Scene\SceneGraph\3D\Transform3D.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\SceneGraph\Component.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\Scene3D.cpp">
+    <ClCompile Include="src\Scene\SceneGraph\3D\Scene3D.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -471,16 +471,16 @@
     <ClInclude Include="src\Scene\SceneGraph\Node.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\Node3D.h">
+    <ClInclude Include="src\Scene\SceneGraph\3D\Node3D.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\Transform3D.h">
+    <ClInclude Include="src\Scene\SceneGraph\3D\Transform3D.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\SceneGraph\Component.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\Scene3D.h">
+    <ClInclude Include="src\Scene\SceneGraph\3D\Scene3D.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

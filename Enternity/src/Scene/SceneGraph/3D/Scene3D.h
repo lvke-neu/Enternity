@@ -1,5 +1,5 @@
 #pragma once
-#include "SceneGraph/Scene.h"
+#include "../Scene.h"
 
 namespace Enternity 
 {

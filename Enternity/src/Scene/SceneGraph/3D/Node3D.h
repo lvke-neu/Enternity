@@ -1,5 +1,5 @@
 #pragma once
-#include "SceneGraph/Node.h"
+#include "../Node.h"
 #include "Transform3D.h"
 #include "Common/Macro.h"
 

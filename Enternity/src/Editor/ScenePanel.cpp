@@ -4,8 +4,8 @@
 #include "Engine/Engine.h"
 #include "Engine/AssetLoader.h"
 #include "Scene/SceneManager.h"
-#include "Scene/Scene3D.h"
-#include "Scene/Node3D.h"
+#include "Scene/SceneGraph/3D/Scene3D.h"
+#include "Scene/SceneGraph/3D/Node3D.h"
 #include "Scene/SceneGraph/Component.h"
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/CameraComponent.h"
@@ -151,6 +151,7 @@ namespace Enternity
 					node->removeFromParent();
 					delete node;
 					node = nullptr;
+					selectedNode = nullptr;
 				}
 			}
 
@@ -169,7 +170,7 @@ namespace Enternity
 
 
 		ImGui::Begin("Node");
-		
+
 		if (selectedNode)
 		{
 			ImGui::Text(selectedNode->get_uuid().c_str());
