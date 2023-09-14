@@ -5,9 +5,9 @@
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/FrameBuffer/FrameBuffer.h"
 #include "Pick/PickSystem.h"
-#include "Scene/Scene.h"
 #include "Scene/SceneManager.h"
-#include "Scene/SceneGraph/Node3D.h"
+#include "Scene/Scene3D.h"
+#include "Scene/Node3D.h"
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
 #include "Imgui/imgui_impl_glfw.h"
@@ -15,37 +15,22 @@
 
 namespace Enternity
 {
-	void StatePanel::treeNode(Node* node)
+	void treeNode(Node* node)
 	{
-		/*if (ImGui::TreeNode(node->get_name().c_str()))
+		if (ImGui::TreeNode(node->get_name().c_str()))
 		{
 			for (auto child : node->get_childs())
 			{
 				treeNode(child);
 			}
 			ImGui::TreePop();
-		}*/
+		}
 	}
 
 
 	StatePanel::StatePanel()
 	{
-	/*	m_rootNode = new Node;
-		m_rootNode->set_name("RootNode");
 
-		for (int i = 0; i < 5; i++)
-		{
-			Node* node = new Node;
-			node->set_name(std::to_string(i).c_str());
-			node->addToParent(m_rootNode);
-
-			for (int j = 0; j < 5; j++)
-			{
-				Node* node2 = new Node;
-				node2->set_name(std::to_string(i) + "_" + std::to_string(j));
-				node2->addToParent(node);
-			}
-		}*/
 	}
 
 	void StatePanel::draw()
@@ -74,7 +59,7 @@ namespace Enternity
 		ImGui::Begin("SceneGraph");
 
 		//Node* rootNode = Engine::GetInstance().getSceneManager()->getCurrentScene()->getRootNode();
-		treeNode(m_rootNode);
+		treeNode(Engine::GetInstance().getSceneManager()->getCurrentScene()->get_rootNode());
 
 		ImGui::End();
 	}

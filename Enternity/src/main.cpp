@@ -12,12 +12,15 @@ int main(int argc, const char** argv) {
 
 
 //#include <iostream>
-//#include "Scene/SceneGraph/Node.h"
+//#include "Scene/Scene3D.h"
 //using namespace Enternity;
 //
 //
 //int main(int argc, const char** argv) {
 //
+//	Scene* sc3d = new Scene3D;
+//
+//	delete sc3d;
 //
 //	return 0;
 //}

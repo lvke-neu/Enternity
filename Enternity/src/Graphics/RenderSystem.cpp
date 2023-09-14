@@ -1,5 +1,4 @@
 #include "RenderSystem.h"
-#include "Scene/Scene.h"
 #include "RHI/FrameBuffer/FrameBuffer.h"
 #include "Engine/Engine.h"
 #include "Engine/Timer.h"

@@ -1,5 +1,5 @@
 #include "SceneManager.h"
-#include "Scene.h"
+#include "Scene3D.h"
 #include "Common/Macro.h"
 #include "Engine/Engine.h"
 #include "Engine/BlobLoaderManager.h"
@@ -10,7 +10,7 @@ namespace Enternity
 	SceneManager::SceneManager()
 	{
 		Engine::GetInstance().getBlobLoaderManager()->registerBlobLoader(new ModelBlobLoader);
-		m_currentScene = new Scene;	
+		m_currentScene = new Scene3D;
 	}
 
 	SceneManager::~SceneManager()

@@ -158,9 +158,9 @@
     <ClCompile Include="src\Graphics\RHI\Mesh\VertexDefine.cpp" />
     <ClCompile Include="src\Engine\AssetLoader.cpp" />
     <ClCompile Include="src\Pick\PickSystem.cpp" />
-    <ClCompile Include="src\Scene\CameraController.cpp" />
     <ClCompile Include="src\Scene\ECS\Entity.cpp" />
-    <ClCompile Include="src\Scene\Scene.cpp" />
+    <ClCompile Include="src\Scene\Scene3D.cpp" />
+    <ClCompile Include="src\Scene\SceneGraph\Scene.cpp" />
     <ClCompile Include="src\Engine\ThreadPool.cpp" />
     <ClCompile Include="src\Engine\Timer.cpp" />
     <ClCompile Include="src\Graphics\GraphicsSystem.cpp" />
@@ -170,8 +170,8 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Scene\SceneGraph\Component.cpp" />
     <ClCompile Include="src\Scene\SceneGraph\Node.cpp" />
-    <ClCompile Include="src\Scene\SceneGraph\Node3D.cpp" />
-    <ClCompile Include="src\Scene\SceneGraph\Transform3D.cpp" />
+    <ClCompile Include="src\Scene\Node3D.cpp" />
+    <ClCompile Include="src\Scene\Transform3D.cpp" />
     <ClCompile Include="src\Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -236,13 +236,13 @@
     <ClInclude Include="src\Graphics\RHI\FrameBuffer\FrameBufferDefine.h" />
     <ClInclude Include="src\Engine\AssetLoader.h" />
     <ClInclude Include="src\Pick\PickSystem.h" />
-    <ClInclude Include="src\Scene\CameraController.h" />
     <ClInclude Include="src\Scene\ECS\CameraComponent.h" />
     <ClInclude Include="src\Scene\ECS\Entity.h" />
     <ClInclude Include="src\Scene\ECS\NameComponent.h" />
     <ClInclude Include="src\Scene\ECS\PostProcessComponent.h" />
     <ClInclude Include="src\Scene\ECS\TransformComponent.h" />
-    <ClInclude Include="src\Scene\Scene.h" />
+    <ClInclude Include="src\Scene\Scene3D.h" />
+    <ClInclude Include="src\Scene\SceneGraph\Scene.h" />
     <ClInclude Include="src\Engine\ThreadPool.h" />
     <ClInclude Include="src\Engine\Timer.h" />
     <ClInclude Include="src\Graphics\GraphicsSystem.h" />
@@ -252,8 +252,8 @@
     <ClInclude Include="src\Graphics\RHI\Texture\Texture.h" />
     <ClInclude Include="src\Scene\SceneGraph\Component.h" />
     <ClInclude Include="src\Scene\SceneGraph\Node.h" />
-    <ClInclude Include="src\Scene\SceneGraph\Node3D.h" />
-    <ClInclude Include="src\Scene\SceneGraph\Transform3D.h" />
+    <ClInclude Include="src\Scene\Node3D.h" />
+    <ClInclude Include="src\Scene\Transform3D.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

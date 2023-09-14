@@ -13,14 +13,12 @@ namespace Enternity
 	Node::~Node()
 	{
 		removeFromParent();
-		for (auto& child : m_childs)
+		auto tmpChilds = m_childs;
+		for (auto& child : tmpChilds)
 		{
-			if (child)
-			{
-				delete child;
-				child = nullptr;
-			}
+			SAFE_DELETE_SET_NULL(child);
 		}
+		m_childs.clear();
 	}
 
 	void Node::addToParent(Node* parent)

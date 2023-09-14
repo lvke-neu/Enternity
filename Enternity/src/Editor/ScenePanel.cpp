@@ -3,7 +3,6 @@
 #include "ScenePanel.h"
 #include "Engine/Engine.h"
 #include "Engine/AssetLoader.h"
-#include "Scene/Scene.h"
 #include "Scene/SceneManager.h"
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/CameraComponent.h"

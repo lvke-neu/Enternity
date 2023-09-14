@@ -6,7 +6,6 @@
 #include "Engine/EventSystem.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/FrameBuffer/FrameBuffer.h"
-#include "Scene/Scene.h"
 #include "Scene/SceneManager.h"
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/CameraComponent.h"

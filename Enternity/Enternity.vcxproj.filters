@@ -106,16 +106,13 @@
     <ClCompile Include="src\Engine\Timer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\Scene.cpp">
+    <ClCompile Include="src\Scene\SceneGraph\Scene.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\ECS\Entity.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\SceneManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\CameraController.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Editor\ViewPortPanel.cpp">
@@ -232,13 +229,16 @@
     <ClCompile Include="src\Common\Utility.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\SceneGraph\Node3D.cpp">
+    <ClCompile Include="src\Scene\Node3D.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\SceneGraph\Transform3D.cpp">
+    <ClCompile Include="src\Scene\Transform3D.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\SceneGraph\Component.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Scene3D.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -324,7 +324,7 @@
     <ClInclude Include="src\Engine\Timer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\Scene.h">
+    <ClInclude Include="src\Scene\SceneGraph\Scene.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\SceneManager.h">
@@ -337,9 +337,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\ECS\CameraComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\CameraController.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Editor\ViewPortPanel.h">
@@ -474,13 +471,16 @@
     <ClInclude Include="src\Scene\SceneGraph\Node.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\SceneGraph\Node3D.h">
+    <ClInclude Include="src\Scene\Node3D.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\SceneGraph\Transform3D.h">
+    <ClInclude Include="src\Scene\Transform3D.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\SceneGraph\Component.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Scene3D.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
