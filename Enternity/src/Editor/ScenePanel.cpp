@@ -193,77 +193,83 @@ namespace Enternity
 
 				ImGui::Text(("Type:" + type.get_name().to_string()).c_str());
 			
-				
-				for (auto& prop : type.get_properties())
+	
+				if (ImGui::BeginTable("table1", 2, ImGuiTableFlags_SizingFixedFit | ImGuiTableFlags_RowBg | ImGuiTableFlags_Borders | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable | ImGuiTableFlags_Hideable))
 				{
-					ImGui::Text((prop.get_name().to_string() + ":").c_str());
-					ImGui::SameLine();
+					ImGui::TableSetupColumn("Property", ImGuiTableColumnFlags_WidthFixed);
+					ImGui::TableSetupColumn("Value", ImGuiTableColumnFlags_WidthStretch);
+					ImGui::TableHeadersRow();
 
-					if (prop.get_type().get_name() == "bool")
+
+					for (auto& prop : type.get_properties())
 					{
-						bool boolean = prop.get_value(comp).to_bool();
+						ImGui::TableNextRow();
 
-						if (ImGui::Checkbox(("##" + prop.get_name().to_string()).c_str(), &boolean))
-						{
-							prop.set_value(comp, boolean);
-						}
-					}
+						ImGui::TableSetColumnIndex(0);
+						ImGui::Text((prop.get_name().to_string() + ":").c_str());
 
-					if (prop.get_type().get_name() == "classstd::basic_string<char,structstd::char_traits<char>,classstd::allocator<char> >")
-					{
-						std::string str = prop.get_value(comp).to_string();
-
-						char buffer[256];
-						memset(buffer, 0, sizeof(buffer));
-						memcpy_s(buffer, sizeof(buffer), str.c_str(), sizeof(buffer));
-						if (ImGui::InputText(("##" + prop.get_name().to_string()).c_str(), buffer, sizeof(buffer)))
-						{
-							prop.set_value(comp, std::string(buffer));
-						}
-					}
+						ImGui::TableSetColumnIndex(1);
 					
-					if (prop.get_type().is_enumeration())
-					{
-						//auto type2 = prop.get_type();
-						//auto enummm = type2.get_enumeration();
-						//for (auto str : enummm.get_names())
-						//{
-						//	int i = 0;
-						//}
-						//int i = 0;
-
-						std::vector<std::string> enumString;
-						for (const auto& str : prop.get_type().get_enumeration().get_names())
+						if (prop.get_type().get_name() == "bool")
 						{
-							enumString.emplace_back(str);
+							bool boolean = prop.get_value(comp).to_bool();
+
+							if (ImGui::Checkbox(("##" + prop.get_name().to_string()).c_str(), &boolean))
+							{
+								prop.set_value(comp, boolean);
+							}
 						}
 
-						if (ImGui::BeginCombo(("##" + prop.get_name().to_string()).c_str(), prop.get_value(comp).to_string().c_str()))
+						if (prop.get_type().get_name() == "classstd::basic_string<char,structstd::char_traits<char>,classstd::allocator<char> >")
 						{
-							for (int i = 0; i < enumString.size(); i++)
+							std::string str = prop.get_value(comp).to_string();
+
+							char buffer[256];
+							memset(buffer, 0, sizeof(buffer));
+							memcpy_s(buffer, sizeof(buffer), str.c_str(), sizeof(buffer));
+							if (ImGui::InputText(("##" + prop.get_name().to_string()).c_str(), buffer, sizeof(buffer)))
 							{
-								bool isSelected = prop.get_value(comp).to_string() == enumString[i];
-								if (ImGui::Selectable(enumString[i].c_str(), isSelected))
-								{
-									prop.set_value(comp, prop.get_type().get_enumeration().name_to_value(enumString[i].c_str()));
-								}
+								prop.set_value(comp, std::string(buffer));
+							}
+						}
+
+						if (prop.get_type().is_enumeration())
+						{
+							std::vector<std::string> enumString;
+							for (const auto& str : prop.get_type().get_enumeration().get_names())
+							{
+								enumString.emplace_back(str);
 							}
 
-							ImGui::EndCombo();
+							if (ImGui::BeginCombo(("##" + prop.get_name().to_string()).c_str(), prop.get_value(comp).to_string().c_str()))
+							{
+								for (int i = 0; i < enumString.size(); i++)
+								{
+									bool isSelected = prop.get_value(comp).to_string() == enumString[i];
+									if (ImGui::Selectable(enumString[i].c_str(), isSelected))
+									{
+										prop.set_value(comp, prop.get_type().get_enumeration().name_to_value(enumString[i].c_str()));
+									}
+								}
+
+								ImGui::EndCombo();
+							}
 						}
+
+						if (prop.get_type().get_name() == "float")
+						{
+							float value = prop.get_value(comp).to_float();
+
+							if (ImGui::DragFloat(("##" + prop.get_name().to_string()).c_str(), &value))
+							{
+								prop.set_value(comp, value);
+							}
+						}
+	
 					}
 
-					if (prop.get_type().get_name() == "float")
-					{
-						float value = prop.get_value(comp).to_float();
-
-						if (ImGui::DragFloat(("##" + prop.get_name().to_string()).c_str(), &value))
-						{
-							prop.set_value(comp, value);
-						}
-					}	
+					ImGui::EndTable();
 				}
-
 
 				ImGui::Separator();
 
