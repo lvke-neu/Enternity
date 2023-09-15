@@ -200,7 +200,6 @@ namespace Enternity
 
 					if (prop.get_type().get_name() == "bool")
 					{
-
 						bool boolean = prop.get_value(comp).to_bool();
 
 						if (ImGui::Checkbox(prop.get_type().get_name().to_string().c_str(), &boolean))
@@ -221,17 +220,38 @@ namespace Enternity
 						}
 					}
 
-					//ImGui::SameLine();
+					if (prop.get_type().is_enumeration())
+					{
+						//auto type2 = prop.get_type();
+						//auto enummm = type2.get_enumeration();
+						//for (auto str : enummm.get_names())
+						//{
+						//	int i = 0;
+						//}
+						//int i = 0;
 
-					//if (prop.get_type().get_name().to_string() == "bool")
-					//{
-					//	bool b;
-					//	ImGui::Checkbox("sds", &b);
-					//}
-					//if (prop.get_type().get_name().to_string() == "")
-					//{
-					//	ImGui::Text("hhh reflection");
-					//}
+						std::vector<std::string> enumString;
+						for (const auto& str : prop.get_type().get_enumeration().get_names())
+						{
+							enumString.emplace_back(str);
+						}
+
+						if (ImGui::BeginCombo(prop.get_type().get_name().to_string().c_str(), prop.get_value(comp).to_string().c_str()))
+						{
+							for (int i = 0; i < enumString.size(); i++)
+							{
+								bool isSelected = prop.get_value(comp).to_string() == enumString[i];
+								if (ImGui::Selectable(enumString[i].c_str(), isSelected))
+								{
+									prop.set_value(comp, prop.get_type().get_enumeration().name_to_value(enumString[i].c_str()));
+								}
+							}
+
+							ImGui::EndCombo();
+						}
+					}
+
+					
 				}
 
 
