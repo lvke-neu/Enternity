@@ -162,9 +162,112 @@ namespace Enternity
 		}
 	}
 
-	void reflectProperty(const rttr::property& prop)
+	void reflect(Reference* reference)
 	{
+		rttr::type type = rttr::type::get_by_name(reference->get_class_name());
 
+		ImGui::Text(("Type:" + type.get_name().to_string()).c_str());
+
+
+		if (ImGui::BeginTable(("##" + reference->get_uuid()).c_str(), 2, ImGuiTableFlags_SizingFixedFit | ImGuiTableFlags_RowBg | ImGuiTableFlags_Borders | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable | ImGuiTableFlags_Hideable))
+		{
+			ImGui::TableSetupColumn("Property", ImGuiTableColumnFlags_WidthFixed);
+			ImGui::TableSetupColumn("Value", ImGuiTableColumnFlags_WidthStretch);
+			ImGui::TableHeadersRow();
+
+			int index = 0;
+			for (auto& prop : type.get_properties())
+			{
+				ImGui::TableNextRow();
+
+				ImGui::TableSetColumnIndex(0);
+				ImGui::Text((prop.get_name().to_string() + ":").c_str());
+
+				ImGui::TableSetColumnIndex(1);
+
+				if (prop.get_type().get_name() == "bool")
+				{
+					bool boolean = prop.get_value(reference).to_bool();
+
+					if (ImGui::Checkbox(("##" + reference->get_uuid() + std::to_string(index)).c_str(), &boolean))
+					{
+						prop.set_value(reference, boolean);
+					}
+				}
+
+				if (prop.get_type().get_name() == "classstd::basic_string<char,structstd::char_traits<char>,classstd::allocator<char> >")
+				{
+					std::string str = prop.get_value(reference).to_string();
+
+					char buffer[256];
+					memset(buffer, 0, sizeof(buffer));
+					memcpy_s(buffer, sizeof(buffer), str.c_str(), sizeof(buffer));
+					if (ImGui::InputText(("##" + reference->get_uuid() + std::to_string(index)).c_str(), buffer, sizeof(buffer)))
+					{
+						prop.set_value(reference, std::string(buffer));
+					}
+				}
+
+				if (prop.get_type().is_enumeration())
+				{
+					std::vector<std::string> enumString;
+					for (const auto& str : prop.get_type().get_enumeration().get_names())
+					{
+						enumString.emplace_back(str);
+					}
+
+					if (ImGui::BeginCombo(("##" + reference->get_uuid() + std::to_string(index)).c_str(), prop.get_value(reference).to_string().c_str()))
+					{
+						for (int i = 0; i < enumString.size(); i++)
+						{
+							bool isSelected = prop.get_value(reference).to_string() == enumString[i];
+							if (ImGui::Selectable(enumString[i].c_str(), isSelected))
+							{
+								prop.set_value(reference, prop.get_type().get_enumeration().name_to_value(enumString[i].c_str()));
+							}
+						}
+
+						ImGui::EndCombo();
+					}
+				}
+
+				if (prop.get_type().get_name() == "float")
+				{
+					float value = prop.get_value(reference).to_float();
+
+					if (ImGui::DragFloat(("##" + reference->get_uuid() + std::to_string(index)).c_str(), &value))
+					{
+						prop.set_value(reference, value);
+					}
+				}
+
+				if (prop.get_type().get_name() == "Transform3D")
+				{
+					Transform3D transform3D = prop.get_value(reference).get_value<Transform3D>();
+					glm::vec3 translation = transform3D.get_translation();
+					glm::vec3 rotation = transform3D.get_rotation();
+					glm::vec3 scale = transform3D.get_scale();
+
+					DrawVec3(("##trans" + reference->get_uuid() + std::to_string(index)).c_str(), translation);
+					DrawVec3(("##rot" + reference->get_uuid() + std::to_string(index)).c_str(), rotation);
+					DrawVec3(("##sca" + reference->get_uuid() + std::to_string(index)).c_str(), scale);
+
+					transform3D.set_translation(translation);
+					transform3D.set_rotation(rotation);
+					transform3D.set_scale(scale);
+
+					prop.set_value(reference, transform3D);
+					
+				}
+				auto str = prop.get_type().get_name();
+
+				index++;
+			}
+
+			ImGui::EndTable();
+		}
+
+		ImGui::Separator();
 	}
 
 	void ScenePanel::draw()
@@ -176,104 +279,22 @@ namespace Enternity
 		
 		ImGui::End();
 
-
 		ImGui::Begin("Node");
 
 		if (selectedNode)
 		{
-			ImGui::Text("uuid:"); ImGui::SameLine();ImGui::Text(selectedNode->get_uuid().c_str());
-			ImGui::Text("name:"); ImGui::SameLine();ImGui::Text(selectedNode->get_name().c_str());
-			ImGui::Separator();
+			//rttr::type type = rttr::type::get_by_name(selectedNode->get_class_name());
+			//ImGui::Text(("Type:" + type.get_name().to_string()).c_str());
+
+			//ImGui::Text("uuid:"); ImGui::SameLine();ImGui::Text(selectedNode->get_uuid().c_str());
+			//ImGui::Text("name:"); ImGui::SameLine();ImGui::Text(selectedNode->get_name().c_str());
+			//ImGui::Separator();
+
+			reflect(selectedNode);
 
 			for (const auto& comp : selectedNode->get_components())
 			{
-				ImGui::PushID(comp->get_uuid().c_str());
-
-				rttr::type type = rttr::type::get_by_name(comp->get_class_name());
-
-				ImGui::Text(("Type:" + type.get_name().to_string()).c_str());
-			
-	
-				if (ImGui::BeginTable("table1", 2, ImGuiTableFlags_SizingFixedFit | ImGuiTableFlags_RowBg | ImGuiTableFlags_Borders | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable | ImGuiTableFlags_Hideable))
-				{
-					ImGui::TableSetupColumn("Property", ImGuiTableColumnFlags_WidthFixed);
-					ImGui::TableSetupColumn("Value", ImGuiTableColumnFlags_WidthStretch);
-					ImGui::TableHeadersRow();
-
-
-					for (auto& prop : type.get_properties())
-					{
-						ImGui::TableNextRow();
-
-						ImGui::TableSetColumnIndex(0);
-						ImGui::Text((prop.get_name().to_string() + ":").c_str());
-
-						ImGui::TableSetColumnIndex(1);
-					
-						if (prop.get_type().get_name() == "bool")
-						{
-							bool boolean = prop.get_value(comp).to_bool();
-
-							if (ImGui::Checkbox(("##" + prop.get_name().to_string()).c_str(), &boolean))
-							{
-								prop.set_value(comp, boolean);
-							}
-						}
-
-						if (prop.get_type().get_name() == "classstd::basic_string<char,structstd::char_traits<char>,classstd::allocator<char> >")
-						{
-							std::string str = prop.get_value(comp).to_string();
-
-							char buffer[256];
-							memset(buffer, 0, sizeof(buffer));
-							memcpy_s(buffer, sizeof(buffer), str.c_str(), sizeof(buffer));
-							if (ImGui::InputText(("##" + prop.get_name().to_string()).c_str(), buffer, sizeof(buffer)))
-							{
-								prop.set_value(comp, std::string(buffer));
-							}
-						}
-
-						if (prop.get_type().is_enumeration())
-						{
-							std::vector<std::string> enumString;
-							for (const auto& str : prop.get_type().get_enumeration().get_names())
-							{
-								enumString.emplace_back(str);
-							}
-
-							if (ImGui::BeginCombo(("##" + prop.get_name().to_string()).c_str(), prop.get_value(comp).to_string().c_str()))
-							{
-								for (int i = 0; i < enumString.size(); i++)
-								{
-									bool isSelected = prop.get_value(comp).to_string() == enumString[i];
-									if (ImGui::Selectable(enumString[i].c_str(), isSelected))
-									{
-										prop.set_value(comp, prop.get_type().get_enumeration().name_to_value(enumString[i].c_str()));
-									}
-								}
-
-								ImGui::EndCombo();
-							}
-						}
-
-						if (prop.get_type().get_name() == "float")
-						{
-							float value = prop.get_value(comp).to_float();
-
-							if (ImGui::DragFloat(("##" + prop.get_name().to_string()).c_str(), &value))
-							{
-								prop.set_value(comp, value);
-							}
-						}
-	
-					}
-
-					ImGui::EndTable();
-				}
-
-				ImGui::Separator();
-
-				ImGui::PopID();
+				reflect(comp);
 			}
 
 			if (ImGui::Button("add"))

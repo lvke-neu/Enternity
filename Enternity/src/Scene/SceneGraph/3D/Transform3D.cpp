@@ -2,6 +2,14 @@
 
 namespace Enternity
 {
+	Transform3D::Transform3D() :
+		m_translation(glm::vec3(0.0f)),
+		m_rotation(glm::vec3(0.0f)),
+		m_scale(glm::vec3(1.0f))
+	{
+
+	}
+
 	glm::mat4 Transform3D::getTranslationMatrix() const
 	{
 		return glm::translate(glm::mat4(1.0f), m_translation);
@@ -26,5 +34,17 @@ namespace Enternity
 	glm::mat4 Transform3D::getInverseWorldMatrix() const
 	{
 		return glm::inverse(getWorldMatrix());
+	}
+
+	RTTR_REGISTRATION
+	{
+		rttr::registration::class_<Transform3D>("Transform3D")
+			.constructor<>()
+			(
+				rttr::policy::ctor::as_raw_ptr
+			)
+			.property("translation", &Transform3D::get_translation, &Transform3D::set_translation)
+			.property("rotation", &Transform3D::get_rotation, &Transform3D::set_rotation)
+			.property("scale", &Transform3D::get_scale, &Transform3D::set_scale);
 	}
 }

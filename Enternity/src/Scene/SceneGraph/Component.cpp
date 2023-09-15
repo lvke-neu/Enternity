@@ -1,12 +1,11 @@
 #include "Component.h"
 #include "Node.h"
-#include "Common/Utility.h"
 
 namespace Enternity
 {
 	Component::Component() : m_enable(true), m_node(nullptr)
 	{
-		m_uuid = Utility::GenerateUUID();
+
 	}
 
 	Component::~Component()

@@ -128,6 +128,7 @@
     <ClCompile Include="src\Engine\BlobLoaderManager.cpp" />
     <ClCompile Include="src\Engine\Detail\glad.c" />
     <ClCompile Include="src\Engine\Libcurl.cpp" />
+    <ClCompile Include="src\Engine\Reference.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobHolder.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobLoader.cpp" />
     <ClCompile Include="src\Scene\ECS\ModelComponent.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="src\Engine\BlobLoader.h" />
     <ClInclude Include="src\Engine\BlobLoaderManager.h" />
     <ClInclude Include="src\Engine\Libcurl.h" />
+    <ClInclude Include="src\Engine\Reference.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobHolder.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobLoader.h" />
     <ClInclude Include="src\Scene\ECS\ModelComponent.h" />

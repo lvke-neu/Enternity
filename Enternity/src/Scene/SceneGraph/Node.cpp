@@ -6,7 +6,6 @@ namespace Enternity
 {
 	Node::Node() : m_name(""), m_parent(nullptr)
 	{
-		m_uuid = Utility::GenerateUUID();
 		m_childs.clear();
 	}
 
@@ -94,4 +93,13 @@ namespace Enternity
 		m_components.erase(iter);
 	}
 
+	RTTR_REGISTRATION
+	{
+		rttr::registration::class_<Node>("Node")
+			.constructor<>()
+			(
+				rttr::policy::ctor::as_raw_ptr
+			)
+			.property("name", &Node::get_name, &Node::set_name);
+	}
 }

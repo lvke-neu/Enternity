@@ -1,18 +1,18 @@
 #pragma once
-#include "Common/Macro.h"
-#include <vector>
-#include <string>
+#include "Engine/Reference.h"
 
 namespace Enternity
 {
 	class Component;
-	class Node
+	class Node : public Reference
 	{
+		RTTR_ENABLE(Reference);
 	public:
 		Node();
 		virtual ~Node();
 	public:
-		GET(std::string, uuid);
+		GET_CLASS_NAME(Node);
+	public:
 		GET_SET(std::string, name);
 		GET(std::vector<Node*>, childs);
 		GET(std::vector<Component*>, components);
@@ -23,7 +23,6 @@ namespace Enternity
 		void addComponent(Component* component);
 		void removeComponent(Component* component);
 	private:
-		std::string m_uuid;
 		std::string m_name;
 		Node* m_parent;
 		std::vector<Node*> m_childs;

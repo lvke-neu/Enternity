@@ -1,11 +1,16 @@
 #pragma once
-#include "Common/Macro.h"
+#include "Engine/Reference.h"
 #include <glm/gtc/quaternion.hpp>
 
 namespace Enternity
 {
-	class Transform3D
+	class Transform3D : public Reference
 	{
+		RTTR_ENABLE(Reference);
+	public:
+		Transform3D();
+	public:
+		GET_CLASS_NAME(Component);
 	public:
 		GET_SET(glm::vec3, translation);
 		GET_SET(glm::vec3, rotation);
@@ -16,8 +21,8 @@ namespace Enternity
 		glm::mat4 getWorldMatrix() const;
 		glm::mat4 getInverseWorldMatrix() const;
 	private:
-		glm::vec3 m_translation{ 0.0f, 0.0f, 0.0f };
-		glm::vec3 m_rotation{ 0.0f, 0.0f, 0.0f };
-		glm::vec3 m_scale{ 1.0f, 1.0f, 1.0f };
+		glm::vec3 m_translation;
+		glm::vec3 m_rotation;
+		glm::vec3 m_scale;
 	};
 }

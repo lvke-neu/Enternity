@@ -1,14 +1,12 @@
 #pragma once
-#include "Common/Macro.h"
-#include <string>
-#include <rttr/registration>
+#include "Engine/Reference.h"
 
 namespace Enternity
 {
 	class Node;
-	class Component
+	class Component : public Reference
 	{
-		RTTR_ENABLE();
+		RTTR_ENABLE(Reference);
 	public:
 		Component();
 		virtual ~Component();
@@ -22,7 +20,6 @@ namespace Enternity
 		void addToNode(Node* node);
 		void removeFromNode();
 	protected:
-		std::string m_uuid;
 		bool m_enable;
 		Node* m_node;
 	};
