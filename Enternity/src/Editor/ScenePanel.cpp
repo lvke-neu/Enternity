@@ -8,6 +8,7 @@
 #include "Scene/SceneGraph/3D/Node3D.h"
 #include "Scene/SceneGraph/Component.h"
 #include "Scene/SceneGraph/3D/Visual3DComponent.h"
+#include "Scene/SceneGraph/3D/Camera3DComponent.h"
 #include "Scene/ECS/TransformComponent.h"
 #include "Scene/ECS/CameraComponent.h"
 #include "Scene/ECS/NameComponent.h"
@@ -202,11 +203,12 @@ namespace Enternity
 					{
 						bool boolean = prop.get_value(comp).to_bool();
 
-						if (ImGui::Checkbox(prop.get_type().get_name().to_string().c_str(), &boolean))
+						if (ImGui::Checkbox(("##" + prop.get_name().to_string()).c_str(), &boolean))
 						{
 							prop.set_value(comp, boolean);
 						}
 					}
+
 					if (prop.get_type().get_name() == "classstd::basic_string<char,structstd::char_traits<char>,classstd::allocator<char> >")
 					{
 						std::string str = prop.get_value(comp).to_string();
@@ -214,12 +216,12 @@ namespace Enternity
 						char buffer[256];
 						memset(buffer, 0, sizeof(buffer));
 						memcpy_s(buffer, sizeof(buffer), str.c_str(), sizeof(buffer));
-						if (ImGui::InputText(prop.get_type().get_name().to_string().c_str(), buffer, sizeof(buffer)))
+						if (ImGui::InputText(("##" + prop.get_name().to_string()).c_str(), buffer, sizeof(buffer)))
 						{
 							prop.set_value(comp, std::string(buffer));
 						}
 					}
-
+					
 					if (prop.get_type().is_enumeration())
 					{
 						//auto type2 = prop.get_type();
@@ -236,7 +238,7 @@ namespace Enternity
 							enumString.emplace_back(str);
 						}
 
-						if (ImGui::BeginCombo(prop.get_type().get_name().to_string().c_str(), prop.get_value(comp).to_string().c_str()))
+						if (ImGui::BeginCombo(("##" + prop.get_name().to_string()).c_str(), prop.get_value(comp).to_string().c_str()))
 						{
 							for (int i = 0; i < enumString.size(); i++)
 							{
@@ -251,7 +253,15 @@ namespace Enternity
 						}
 					}
 
-					
+					if (prop.get_type().get_name() == "float")
+					{
+						float value = prop.get_value(comp).to_float();
+
+						if (ImGui::DragFloat(("##" + prop.get_name().to_string()).c_str(), &value))
+						{
+							prop.set_value(comp, value);
+						}
+					}	
 				}
 
 
@@ -265,10 +275,15 @@ namespace Enternity
 				Component* comp = new Component;
 				comp->addToNode(selectedNode);
 			}
-
+			
 			if (ImGui::Button("add2"))
 			{
 				Visual3DComponent* comp = new Visual3DComponent;
+				comp->addToNode(selectedNode);
+			}
+			if (ImGui::Button("add3"))
+			{
+				Camera3DComponent* comp = new Camera3DComponent;
 				comp->addToNode(selectedNode);
 			}
 		}

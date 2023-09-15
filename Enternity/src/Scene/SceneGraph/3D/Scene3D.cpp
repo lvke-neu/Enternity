@@ -1,6 +1,6 @@
 #include "Scene3D.h"
 #include "Node3D.h"
-#include "../Component.h"
+#include "Camera3DComponent.h"
 
 namespace Enternity
 {

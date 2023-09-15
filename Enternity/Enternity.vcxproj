@@ -158,6 +158,7 @@
     <ClCompile Include="src\Engine\AssetLoader.cpp" />
     <ClCompile Include="src\Pick\PickSystem.cpp" />
     <ClCompile Include="src\Scene\ECS\Entity.cpp" />
+    <ClCompile Include="src\Scene\SceneGraph\3D\Camera3DComponent.cpp" />
     <ClCompile Include="src\Scene\SceneGraph\3D\Scene3D.cpp" />
     <ClCompile Include="src\Scene\SceneGraph\3D\Visual3DComponent.cpp" />
     <ClCompile Include="src\Scene\SceneGraph\Scene.cpp" />
@@ -240,6 +241,7 @@
     <ClInclude Include="src\Scene\ECS\NameComponent.h" />
     <ClInclude Include="src\Scene\ECS\PostProcessComponent.h" />
     <ClInclude Include="src\Scene\ECS\TransformComponent.h" />
+    <ClInclude Include="src\Scene\SceneGraph\3D\Camera3DComponent.h" />
     <ClInclude Include="src\Scene\SceneGraph\3D\Scene3D.h" />
     <ClInclude Include="src\Scene\SceneGraph\3D\Visual3DComponent.h" />
     <ClInclude Include="src\Scene\SceneGraph\Scene.h" />
