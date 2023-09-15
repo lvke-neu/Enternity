@@ -1,4 +1,6 @@
 #include "Camera3DComponent.h"
+#include "Engine/Engine.h"
+#include "Engine/EventSystem.h"
 #include <rttr/registration>
 
 namespace Enternity
@@ -10,7 +12,18 @@ namespace Enternity
 		m_farz(1000.0f),
 		m_speed(10.0f)
 	{
+		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::WindowResize, BIND(Camera3DComponent::onWindowResize));
+	}
 
+	Camera3DComponent::~Camera3DComponent()
+	{
+		Engine::GetInstance().getEventSystem()->unRegisterEvent(Event::EventType::WindowResize, BIND(Camera3DComponent::onWindowResize));
+	}
+
+	void Camera3DComponent::onWindowResize(void* data)
+	{
+		WindowSize ws = *(WindowSize*)(data);
+		m_aspect = static_cast<float>(ws.width) / ws.height;
 	}
 
 	RTTR_REGISTRATION

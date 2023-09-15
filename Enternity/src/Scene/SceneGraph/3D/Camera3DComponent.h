@@ -9,6 +9,7 @@ namespace Enternity
 		RTTR_ENABLE(Component);
 	public:
 		Camera3DComponent();
+		~Camera3DComponent();
 	public:
 		GET_CLASS_NAME(Camera3DComponent);
 	public:
@@ -22,6 +23,8 @@ namespace Enternity
 		{
 			return glm::perspective<float>(glm::radians(m_fovy), m_aspect, m_nearz, m_farz);
 		}
+	private:
+		void onWindowResize(void* data);
 	private:
 		float m_fovy;
 		float m_aspect;
