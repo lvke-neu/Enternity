@@ -4,6 +4,7 @@
 #include "CameraController.h"
 #include "Visual3DComponent.h"
 #include "SkyBoxComponent.h"
+#include "TerrainComponent.h"
 
 namespace Enternity
 {
@@ -41,9 +42,13 @@ namespace Enternity
 		Node3D* baseSceneNode = new Node3D;
 		baseSceneNode->set_name("BaseSceneNode");
 		baseSceneNode->addToParent(m_rootNode);
+		baseSceneNode->getTransform().set_translation({ 0.0f, -2.0f, 0.0f });
 
 		SkyBoxComponent* skyBoxComponent = new SkyBoxComponent;
 		skyBoxComponent->addToNode(baseSceneNode);
+
+		TerrainComponent* terrainComponent = new TerrainComponent;
+		terrainComponent->addToNode(baseSceneNode);
 	}
 
 	void Scene3D::initObjcet()

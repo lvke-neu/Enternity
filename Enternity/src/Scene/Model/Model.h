@@ -1,6 +1,7 @@
 #pragma once
 #include "Engine/Asset.h"
 #include "MaterialDefine.h"
+#include "Common/Macro.h"
 #include <vector>
 
 namespace Enternity
@@ -20,6 +21,7 @@ namespace Enternity
 		void setUseTexture(bool b);
 		bool getUseTexture();
 		std::vector<MaterialPropertyImpl>& getMaterials();
+		GET(std::vector<Mesh*>, meshs);
 	private:
 		std::vector<Mesh*> m_meshs;
 		std::vector<MaterialPropertyImpl> m_materials;

@@ -74,14 +74,9 @@ namespace Enternity
 				m_textureCubeMap->bind(0);
 			}
 			m_mesh->draw();
-			if (m_skyboxType == Type::HDR)
-			{
-				m_textureCubeMapHDR->unbind(0);
-			}
-			else if (m_skyboxType == Type::Image)
-			{
-				m_textureCubeMap->unbind(0);
-			}
+
+			m_textureCubeMapHDR->unbind(0);
+			m_textureCubeMap->unbind(0);
 			m_renderer->unbind();
 			glDepthFunc(GL_LESS);
 		}

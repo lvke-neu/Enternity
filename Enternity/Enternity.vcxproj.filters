@@ -29,6 +29,7 @@
     <None Include="assets\shaders\pbr\skeletonModelpbr.rdr" />
     <None Include="assets\shaders\light\lightgzmo.rdr" />
     <None Include="assets\shaders\shadowmap\shadowmap.rdr" />
+    <None Include="assets\shaders\terrain\terrain.rdr" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -251,6 +252,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\SceneGraph\3D\SkyBoxComponent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\SceneGraph\3D\TerrainComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -505,6 +509,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\SceneGraph\3D\SkyBoxComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\SceneGraph\3D\TerrainComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

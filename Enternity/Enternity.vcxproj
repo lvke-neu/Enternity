@@ -97,6 +97,7 @@
     <None Include="assets\shaders\postprocess\postprocess.rdr" />
     <None Include="assets\shaders\shadowmap\shadowmap.rdr" />
     <None Include="assets\shaders\skybox\skybox.rdr" />
+    <None Include="assets\shaders\terrain\terrain.rdr" />
     <None Include="assets\shaders\test\test2.rdr" />
     <None Include="assets\shaders\visual3d\visual3d.rdr" />
     <None Include="src\Editor\Imgui\LICENSE" />
@@ -176,6 +177,7 @@
     <ClCompile Include="src\Scene\SceneGraph\Node.cpp" />
     <ClCompile Include="src\Scene\SceneGraph\3D\Node3D.cpp" />
     <ClCompile Include="src\Scene\SceneGraph\3D\Transform3D.cpp" />
+    <ClCompile Include="src\Scene\SceneGraph\3D\TerrainComponent.cpp" />
     <ClCompile Include="src\Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -249,6 +251,7 @@
     <ClInclude Include="src\Scene\SceneGraph\3D\CameraController.h" />
     <ClInclude Include="src\Scene\SceneGraph\3D\SkyBoxComponent.h" />
     <ClInclude Include="src\Scene\SceneGraph\3D\Scene3D.h" />
+    <ClInclude Include="src\Scene\SceneGraph\3D\TerrainComponent.h" />
     <ClInclude Include="src\Scene\SceneGraph\3D\Visual3DComponent.h" />
     <ClInclude Include="src\Scene\SceneGraph\Scene.h" />
     <ClInclude Include="src\Engine\ThreadPool.h" />

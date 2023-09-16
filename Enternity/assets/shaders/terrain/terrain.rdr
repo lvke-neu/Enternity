@@ -1,0 +1,4 @@
+{
+  "VertexShader": "assets/shaders/terrain/terrain.vert",
+  "FragmentShader": "assets/shaders/terrain/terrain.frag"
+}

@@ -1,25 +1,29 @@
-#include "Visual3DComponent.h"
+#include "TerrainComponent.h"
 #include "Node3D.h"
 #include "Engine/Engine.h"
+#include "Engine/BlobLoader.h"
+#include "Engine/BlobLoaderManager.h"
 #include "Engine/AssetLoader.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"
-#include <rttr/registration>
+#include "Scene/Model/ModelBlobHolder.h"
+#include "Scene/Model/Model.h"
 #include <glad/glad.h>
+
 
 namespace Enternity
 {
-	Visual3DComponent::Visual3DComponent()
+	TerrainComponent::TerrainComponent()
 	{
-		m_meshPath = "mesh://primitive=cube";
-		m_rendererPath = "renderer://assets/shaders/visual3d/visual3d.rdr";
-		m_texturePath = "texture://TEXTURE_2D?assets/textures/box_diffuse.png";
+		m_meshPath = "model://assets/models/quad2.obj";
+		m_rendererPath = "renderer://assets/shaders/terrain/terrain.rdr";
+		m_texturePath = "texture://TEXTURE_2D?assets/textures/skybox.jpeg";
 
 		Engine::GetInstance().getAssetLoader()->getAsset(m_meshPath.c_str(),
 			[=](Asset* asset)
 			{
-				m_mesh = (Mesh*)asset;
+				m_mesh = ((Model*)asset)->get_meshs()[0];
 			});
 
 		Engine::GetInstance().getAssetLoader()->getAsset(m_rendererPath.c_str(),
@@ -35,22 +39,22 @@ namespace Enternity
 			});
 	}
 
-	Visual3DComponent::~Visual3DComponent()
+	TerrainComponent::~TerrainComponent()
 	{
 		SAFE_DELETE_SET_NULL(m_mesh);
 		SAFE_DELETE_SET_NULL(m_renderer);
 		SAFE_DELETE_SET_NULL(m_texture);
 	}
 
-	void Visual3DComponent::tick()
-	{	
+	void TerrainComponent::tick()
+	{
 		if (!m_enable)
 		{
 			return;
 		}
 
-		if (ASSET_LOAD_SUCCEED(m_mesh) &&
-			ASSET_LOAD_SUCCEED(m_renderer) &&
+		if (ASSET_LOAD_SUCCEED(m_mesh) && 
+			ASSET_LOAD_SUCCEED(m_renderer) && 
 			ASSET_LOAD_SUCCEED(m_texture))
 		{
 			if (m_wireFrame)
@@ -72,15 +76,10 @@ namespace Enternity
 
 	RTTR_REGISTRATION
 	{
-		rttr::registration::class_<Visual3DComponent>("Visual3DComponent")
-			.constructor<>()
-			(
-				rttr::policy::ctor::as_raw_ptr
-			)
-			.property("meshPath", &Visual3DComponent::get_meshPath, &Visual3DComponent::set_meshPath)
-			.property("rendererPath", &Visual3DComponent::get_rendererPath, &Visual3DComponent::set_rendererPath)
-			.property("texturePath", &Visual3DComponent::get_texturePath, &Visual3DComponent::set_texturePath)
-			.property("wireFrame", &Visual3DComponent::get_wireFrame, &Visual3DComponent::set_wireFrame);
-
+		rttr::registration::class_<TerrainComponent>("TerrainComponent")
+			.constructor<>()(rttr::policy::ctor::as_raw_ptr)
+			.property("meshPath", &TerrainComponent::get_meshPath, &TerrainComponent::set_meshPath)
+			.property("rendererPath", &TerrainComponent::get_rendererPath, &TerrainComponent::set_rendererPath)
+			.property("wireFrame", &TerrainComponent::get_wireFrame, &TerrainComponent::set_wireFrame);
 	}
 }

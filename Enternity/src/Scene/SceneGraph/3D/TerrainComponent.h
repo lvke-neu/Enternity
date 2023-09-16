@@ -6,14 +6,14 @@ namespace Enternity
 	class Mesh;
 	class Renderer;
 	class Texture2D;
-	class Visual3DComponent : public Component
+	class TerrainComponent : public Component
 	{
 		RTTR_ENABLE(Component);
 	public:
-		Visual3DComponent();
-		virtual ~Visual3DComponent();
+		TerrainComponent();
+		~TerrainComponent();
 	public:
-		GET_CLASS_NAME(Visual3DComponent);
+		GET_CLASS_NAME(TerrainComponent);
 	public:
 		GET_SET(std::string, meshPath);
 		GET_SET(std::string, rendererPath);
@@ -21,7 +21,7 @@ namespace Enternity
 		GET_SET(bool, wireFrame);
 	public:
 		virtual void tick() override;
-	protected:
+	private:
 		std::string m_meshPath;
 		std::string m_rendererPath;
 		std::string m_texturePath;
