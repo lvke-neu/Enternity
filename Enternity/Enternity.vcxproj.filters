@@ -181,9 +181,6 @@
     <ClCompile Include="src\Scene\ECS\PostProcessComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\ECS\SkyBoxComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Scene\ECS\SkeletonModelComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -253,7 +250,7 @@
     <ClCompile Include="src\Graphics\RHI\UniformBuffer\UniformBuffer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\SceneGraph\3D\HDRSkyBoxComponent.cpp">
+    <ClCompile Include="src\Scene\SceneGraph\3D\SkyBoxComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -432,9 +429,6 @@
     <ClInclude Include="src\Scene\ECS\PostProcessComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\ECS\SkyBoxComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Scene\ECS\SkeletonModelComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -510,7 +504,7 @@
     <ClInclude Include="src\Graphics\RHI\UniformBuffer\UniformBuffer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\SceneGraph\3D\HDRSkyBoxComponent.h">
+    <ClInclude Include="src\Scene\SceneGraph\3D\SkyBoxComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

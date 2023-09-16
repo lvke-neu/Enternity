@@ -3,7 +3,7 @@
 #include "Camera3DComponent.h"
 #include "CameraController.h"
 #include "Visual3DComponent.h"
-#include "HDRSkyBoxComponent.h"
+#include "SkyBoxComponent.h"
 
 namespace Enternity
 {
@@ -43,7 +43,7 @@ namespace Enternity
 		Visual3DComponent* visual3DComponent = new Visual3DComponent;
 		visual3DComponent->addToNode(baseScene);
 
-		HDRSkyBoxComponent* hDRSkyBoxComponent = new HDRSkyBoxComponent;
-		hDRSkyBoxComponent->addToNode(baseScene);
+		SkyBoxComponent* skyBoxComponent = new SkyBoxComponent;
+		skyBoxComponent->addToNode(baseScene);
 	}
 }
