@@ -10,6 +10,7 @@ namespace Enternity
 		~Scene3D();
 	private:
 		void initCamera();
+		void initBaseScene();
 		void initObjcet();
 	};
 }

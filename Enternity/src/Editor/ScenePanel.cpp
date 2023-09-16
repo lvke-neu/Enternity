@@ -131,22 +131,22 @@ namespace Enternity
 			}
 
 
-			if (ImGui::Button("add"))
-			{
-				Node3D* nodeTmp = new Node3D;
-				nodeTmp->set_name(node->get_name() + "_" + std::to_string(node->get_childs().size()));
-				nodeTmp->addToParent(node);
-			}
-			if (node->get_name() != "RootNode")
-			{
-				if (ImGui::Button("remove"))
-				{
-					node->removeFromParent();
-					delete node;
-					node = nullptr;
-					selectedNode = nullptr;
-				}
-			}
+			//if (ImGui::Button("add"))
+			//{
+			//	Node3D* nodeTmp = new Node3D;
+			//	nodeTmp->set_name(node->get_name() + "_" + std::to_string(node->get_childs().size()));
+			//	nodeTmp->addToParent(node);
+			//}
+			//if (node->get_name() != "RootNode")
+			//{
+			//	if (ImGui::Button("remove"))
+			//	{
+			//		node->removeFromParent();
+			//		delete node;
+			//		node = nullptr;
+			//		selectedNode = nullptr;
+			//	}
+			//}
 
 			ImGui::TreePop();
 		}
@@ -273,13 +273,6 @@ namespace Enternity
 
 		if (selectedNode)
 		{
-			//rttr::type type = rttr::type::get_by_name(selectedNode->get_class_name());
-			//ImGui::Text(("Type:" + type.get_name().to_string()).c_str());
-
-			//ImGui::Text("uuid:"); ImGui::SameLine();ImGui::Text(selectedNode->get_uuid().c_str());
-			//ImGui::Text("name:"); ImGui::SameLine();ImGui::Text(selectedNode->get_name().c_str());
-			//ImGui::Separator();
-
 			reflect(selectedNode);
 
 			for (const auto& comp : selectedNode->get_components())
@@ -287,22 +280,22 @@ namespace Enternity
 				reflect(comp);
 			}
 
-			if (ImGui::Button("add"))
-			{
-				Component* comp = new Component;
-				comp->addToNode(selectedNode);
-			}
-			
-			if (ImGui::Button("add2"))
-			{
-				Visual3DComponent* comp = new Visual3DComponent;
-				comp->addToNode(selectedNode);
-			}
-			if (ImGui::Button("add3"))
-			{
-				Camera3DComponent* comp = new Camera3DComponent;
-				comp->addToNode(selectedNode);
-			}
+			//if (ImGui::Button("add"))
+			//{
+			//	Component* comp = new Component;
+			//	comp->addToNode(selectedNode);
+			//}
+			//
+			//if (ImGui::Button("add2"))
+			//{
+			//	Visual3DComponent* comp = new Visual3DComponent;
+			//	comp->addToNode(selectedNode);
+			//}
+			//if (ImGui::Button("add3"))
+			//{
+			//	Camera3DComponent* comp = new Camera3DComponent;
+			//	comp->addToNode(selectedNode);
+			//}
 		}
 
 		ImGui::End();

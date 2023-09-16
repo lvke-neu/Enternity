@@ -15,9 +15,23 @@ namespace Enternity
 		m_rendererPath = "renderer://assets/shaders/visual3d/visual3d.rdr";
 		m_texturePath = "texture://TEXTURE_2D?assets/textures/box_diffuse.png";
 
-		m_mesh = (Mesh*)Engine::GetInstance().getAssetLoader()->getAsset(m_meshPath.c_str());
-		m_renderer = (Renderer*)Engine::GetInstance().getAssetLoader()->getAsset(m_rendererPath.c_str());
-		m_texture = (Texture2D*)Engine::GetInstance().getAssetLoader()->getAsset(m_texturePath.c_str());
+		Engine::GetInstance().getAssetLoader()->getAsset(m_meshPath.c_str(),
+			[=](Asset* asset)
+			{
+				m_mesh = (Mesh*)asset;
+			});
+
+		Engine::GetInstance().getAssetLoader()->getAsset(m_rendererPath.c_str(),
+			[=](Asset* asset)
+			{
+				m_renderer = (Renderer*)asset;
+			});
+
+		Engine::GetInstance().getAssetLoader()->getAsset(m_texturePath.c_str(),
+			[=](Asset* asset)
+			{
+				m_texture = (Texture2D*)asset;
+			});
 	}
 
 	Visual3DComponent::~Visual3DComponent()
@@ -34,13 +48,18 @@ namespace Enternity
 			return;
 		}
 
-		m_renderer->bind();
-		m_renderer->setMat4("u_model", getNode<Node3D>()->getTransform().getWorldMatrix());
-		m_texture->bind(0);
-		m_mesh->draw();
+		if (ASSET_LOAD_SUCCEED(m_mesh) &&
+			ASSET_LOAD_SUCCEED(m_renderer) &&
+			ASSET_LOAD_SUCCEED(m_texture))
+		{
+			m_renderer->bind();
+			m_renderer->setMat4("u_model", getNode<Node3D>()->getTransform().getWorldMatrix());
+			m_texture->bind(0);
+			m_mesh->draw();
 
-		m_texture->unbind(0);
-		m_renderer->unbind();
+			m_texture->unbind(0);
+			m_renderer->unbind();
+		}
 	}
 
 	RTTR_REGISTRATION
