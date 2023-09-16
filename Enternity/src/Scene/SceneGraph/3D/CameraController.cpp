@@ -1,6 +1,7 @@
 #include "CameraController.h"
 #include "Node3D.h"
 #include "Engine/Engine.h"
+#include "Engine/Timer.h"
 #include "Engine/EventSystem.h"
 
 namespace Enternity
@@ -110,7 +111,7 @@ namespace Enternity
 		}
 
 		float delta = *(float*)data;
-		getNode<Node3D>()->getTransform().moveZAxis(-delta * m_speed);
+		getNode<Node3D>()->getTransform().moveZAxis(-delta * 50.0f * m_speed * (*Engine::GetInstance().getTimer()->deltaTime()));
 	}
 
 	RTTR_REGISTRATION

@@ -170,9 +170,9 @@ namespace Enternity
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_renderId);
 	}
 
-	void TextureCubeMap::unbind()
+	void TextureCubeMap::unbind(unsigned int slot)
 	{
-		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, slot);
 	}
 
 	//#########################################################################################

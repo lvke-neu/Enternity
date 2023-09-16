@@ -3,6 +3,7 @@
 #include "Camera3DComponent.h"
 #include "CameraController.h"
 #include "Visual3DComponent.h"
+#include "HDRSkyBoxComponent.h"
 
 namespace Enternity
 {
@@ -35,11 +36,14 @@ namespace Enternity
 
 	void Scene3D::initObjcet()
 	{
-		Node3D* objectNode = new Node3D;
-		objectNode->set_name("SceneNode");
-		objectNode->addToParent(m_rootNode);
+		Node3D* baseScene = new Node3D;
+		baseScene->set_name("BaseScene");
+		baseScene->addToParent(m_rootNode);
 
 		Visual3DComponent* visual3DComponent = new Visual3DComponent;
-		visual3DComponent->addToNode(objectNode);
+		visual3DComponent->addToNode(baseScene);
+
+		HDRSkyBoxComponent* hDRSkyBoxComponent = new HDRSkyBoxComponent;
+		hDRSkyBoxComponent->addToNode(baseScene);
 	}
 }

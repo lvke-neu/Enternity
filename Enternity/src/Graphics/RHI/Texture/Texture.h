@@ -35,7 +35,7 @@ namespace Enternity
 			virtual void load(BlobHolder* blobHolder) override;
 			virtual void unload() override;
 			void bind(unsigned int slot);
-			void unbind();
+			void unbind(unsigned int slot);
 	};
 
 
