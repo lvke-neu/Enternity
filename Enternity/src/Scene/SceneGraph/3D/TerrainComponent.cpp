@@ -18,7 +18,7 @@ namespace Enternity
 	{
 		m_meshPath = "model://assets/models/quad2.obj";
 		m_rendererPath = "renderer://assets/shaders/terrain/terrain.rdr";
-		m_texturePath = "texture://TEXTURE_2D?assets/textures/skybox.jpeg";
+		m_texturePath = "texture://TEXTURE_2D?assets/textures/terrain/rock2.jpg";
 
 		Engine::GetInstance().getAssetLoader()->getAsset(m_meshPath.c_str(),
 			[=](Asset* asset)
