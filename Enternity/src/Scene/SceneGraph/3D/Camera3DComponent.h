@@ -4,6 +4,7 @@
 
 namespace Enternity
 {
+	class UniformBuffer;
 	class Camera3DComponent : public Component
 	{
 		RTTR_ENABLE(Component);
@@ -18,6 +19,7 @@ namespace Enternity
 		GET_SET(float, nearz);
 		GET_SET(float, farz);
 	public:
+		virtual void tick();
 		glm::mat4 getProjectionMatrix()
 		{
 			return glm::perspective<float>(glm::radians(m_fovy), m_aspect, m_nearz, m_farz);
@@ -29,5 +31,9 @@ namespace Enternity
 		float m_aspect;
 		float m_nearz;
 		float m_farz;
+
+		UniformBuffer* m_uniformBufferProjection;
+		UniformBuffer* m_uniformBufferView;
+
 	};
 }

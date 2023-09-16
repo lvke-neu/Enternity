@@ -250,6 +250,9 @@
     <ClCompile Include="src\Scene\SceneGraph\3D\CameraController.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Graphics\RHI\UniformBuffer\UniformBuffer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Blob.h">
@@ -499,6 +502,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\SceneGraph\3D\CameraController.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\RHI\UniformBuffer\UniformBuffer.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

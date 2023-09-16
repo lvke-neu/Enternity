@@ -1,15 +1,11 @@
 #include "Visual3DComponent.h"
+#include "Node3D.h"
 #include "Engine/Engine.h"
 #include "Engine/AssetLoader.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"
 #include <rttr/registration>
-
-#include "Scene3D.h"
-#include "Node3D.h"
-#include "../../SceneManager.h"
-#include "Camera3DComponent.h"
 
 namespace Enternity
 {
@@ -38,15 +34,11 @@ namespace Enternity
 			return;
 		}
 
-		auto rootNode = Engine::GetInstance().getSceneManager()->getCurrentScene()->get_rootNode();
-		auto model = getNode<Node3D>()->getTransform().getWorldMatrix();
-		auto view = ((Node3D*)rootNode->get_childs()[0])->get_transform().getInverseWorldMatrix();
-		auto proj = ((Camera3DComponent*)rootNode->get_childs()[0]->get_components()[0])->getProjectionMatrix();
-
 		m_renderer->bind();
-		m_renderer->setMat4("u_mvp", proj * view * model);
+		m_renderer->setMat4("u_model", getNode<Node3D>()->getTransform().getWorldMatrix());
 		m_texture->bind(0);
 		m_mesh->draw();
+
 		m_texture->unbind(0);
 		m_renderer->unbind();
 	}
