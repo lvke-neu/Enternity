@@ -12,7 +12,7 @@ namespace Enternity
 		RenderSystem();
 		virtual ~RenderSystem();
 	public:
-		void render(Scene* scene);
+		void tick();
 		FrameBufferShadowMap* getShadowMapFrameBuffer();
 		FrameBuffer* getColorFrameBuffer();
 		FrameBuffer* getPostprocessFrameBuffer();

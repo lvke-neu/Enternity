@@ -11,7 +11,6 @@ namespace Enternity
 		~SceneManager();
 	public:
 		Scene* getCurrentScene();
-		void tick(float deltaTime);
 	private:
 		Scene* m_currentScene{ nullptr };
 	};

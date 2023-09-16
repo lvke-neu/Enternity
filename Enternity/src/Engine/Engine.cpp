@@ -57,10 +57,8 @@ namespace Enternity
 			m_renderView->pollEvents();
 
 			m_timer->tick();
-			float deltaTime = m_timer->deltaTime();
-			m_eventSystem->dispatchEvent(Event::EventType::Tick, &deltaTime);
-
-			m_sceneManager->tick(deltaTime);
+			m_eventSystem->dispatchEvent(Event::EventType::Tick, m_timer->deltaTime());
+			m_graphicsSystem->tick();
 			m_uiRender->tick();
 			m_renderView->swapBuffers();
 		}

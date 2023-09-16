@@ -14,9 +14,9 @@ namespace Enternity
 
 		float totalTime()const;
 		//the unit is second
-		inline float deltaTime() const
+		inline float* deltaTime()
 		{
-			return (float)m_deltaTime;
+			return &m_deltaTime;
 		}
 
 		void reset();
@@ -26,7 +26,7 @@ namespace Enternity
 
 	private:
 		double m_secondsPerCount;
-		double m_deltaTime;
+		float m_deltaTime;
 
 		__int64 m_baseTime;
 		__int64 m_pausedTime;

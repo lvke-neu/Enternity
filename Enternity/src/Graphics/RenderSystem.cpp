@@ -1,27 +1,16 @@
 #include "RenderSystem.h"
-#include "RHI/FrameBuffer/FrameBuffer.h"
 #include "Engine/Engine.h"
-#include "Engine/Timer.h"
 #include "Engine/EventSystem.h"
 #include "Engine/RenderView.h"
-#include "Engine/AssetLoader.h"
 #include "Engine/BlobLoaderManager.h"
-#include "Scene/ECS/CameraComponent.h"
-#include "Scene/ECS/TransformComponent.h"
-#include "Scene/ECS/PostProcessComponent.h"
-#include "Scene/ECS/SkyBoxComponent.h"
-#include "Scene/ECS/SkeletonModelComponent.h"
-#include "Scene/ECS/StaticModelComponent.h"
-#include "Scene/ECS/ModelComponent.h"
-#include "Scene/ECS/PBRMaterialComponent.h"
-#include "Scene/ECS/SunLightComponent.h"
-#include "Scene/Model/Model.h"
-#include "Graphics/RHI/Mesh/Mesh.h"
-#include "Graphics/RHI/Renderer/Renderer.h"
-#include "Graphics/RHI/Texture/Texture.h"
-#include "Graphics/RHI/Renderer/RendererBlobLoader.h"
-#include "Graphics/RHI/Texture/TextureBlobLoader.h"
-#include "Graphics/RHI/Mesh/MeshBlobLoader.h"
+#include "Scene/SceneManager.h"
+#include "Scene/SceneGraph/Scene.h"
+#include "Scene/SceneGraph/Node.h"
+#include "Scene/SceneGraph/Component.h"
+#include "RHI/Renderer/RendererBlobLoader.h"
+#include "RHI/Texture/TextureBlobLoader.h"
+#include "RHI/Mesh/MeshBlobLoader.h"
+#include "RHI/FrameBuffer/FrameBuffer.h"
 #include <glad/glad.h>
 
 namespace Enternity
@@ -39,8 +28,8 @@ namespace Enternity
 		m_shadowMapFrameBuffer = new FrameBufferShadowMap(SHADOW_MAP_WIDTH, SHADOW_MAP_HEIGHT);
 		m_colorFrameBuffer = new FrameBuffer(100, 100, { ColorAttachmentFormat::RGBA8, ColorAttachmentFormat::RGB8, ColorAttachmentFormat::RED_INTEGER });
 		m_postprocessFrameBuffer = new FrameBuffer(100, 100, { ColorAttachmentFormat::RGBA8 });
-		m_shadowmapRenderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/shadowmap/shadowmap.rdr"));
-		m_shadowmapRenderer2 = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/shadowmap/shadowmap2.rdr"));
+		//m_shadowmapRenderer = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/shadowmap/shadowmap.rdr"));
+		//m_shadowmapRenderer2 = dynamic_cast<Renderer*>(Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/shadowmap/shadowmap2.rdr"));
 
 		Engine::GetInstance().getEventSystem()->registerEvent(Event::EventType::WindowResize, BIND(RenderSystem::onWindowResize));
 	}
@@ -51,15 +40,37 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(m_shadowMapFrameBuffer);
 		SAFE_DELETE_SET_NULL(m_colorFrameBuffer);
 		SAFE_DELETE_SET_NULL(m_postprocessFrameBuffer);	
-		SAFE_DELETE_SET_NULL(m_shadowmapRenderer);
-		SAFE_DELETE_SET_NULL(m_shadowmapRenderer2);
+		//SAFE_DELETE_SET_NULL(m_shadowmapRenderer);
+		//SAFE_DELETE_SET_NULL(m_shadowmapRenderer2);
 	}
 
-	void RenderSystem::render(Scene* scene)
+	static void TreeNode(Node* node)
 	{
-		shadowmapPass(scene);
-		colorPass(scene);
-		postprocessPass(scene);
+		if (!node)
+		{
+			return;
+		}
+		
+		for (const auto& comp : node->get_components())
+		{
+			comp->tick();
+		}
+
+		for (const auto& child : node->get_childs())
+		{
+			TreeNode(child);
+		}
+	}
+
+	void RenderSystem::tick()
+	{
+		ENTERNITY_ASSERT(Engine::GetInstance().getSceneManager()->getCurrentScene());
+
+		m_colorFrameBuffer->bind();
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		TreeNode(Engine::GetInstance().getSceneManager()->getCurrentScene()->get_rootNode());
+		m_colorFrameBuffer->unbind();
 	}
 
 	void RenderSystem::shadowmapPass(Scene* scene)

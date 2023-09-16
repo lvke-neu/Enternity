@@ -110,7 +110,7 @@ namespace Enternity
 		m_currTime = currTime;
 
 		// Time difference between this frame and the previous.
-		m_deltaTime = (m_currTime - m_prevTime) * m_secondsPerCount;
+		m_deltaTime =float( (m_currTime - m_prevTime) * m_secondsPerCount);
 
 		// Prepare for next frame.
 		m_prevTime = m_currTime;

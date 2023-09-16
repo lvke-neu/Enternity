@@ -16,8 +16,14 @@ namespace Enternity
 		GET_SET(bool, enable);
 		GET(Node*, node);
 	public:
+		virtual void tick() {};
 		void addToNode(Node* node);
 		void removeFromNode();
+		template<typename T>
+		T* getNode()
+		{
+			return (T*)m_node;
+		}
 	protected:
 		bool m_enable;
 		Node* m_node;

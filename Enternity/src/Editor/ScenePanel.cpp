@@ -124,7 +124,7 @@ namespace Enternity
 	}
 
 	static Node* selectedNode = nullptr;
-	void TreeNode(Node* node)
+	static void TreeNode(Node* node)
 	{
 		if (!node)
 		{
@@ -162,7 +162,7 @@ namespace Enternity
 		}
 	}
 
-	void reflect(Reference* reference)
+	static void reflect(Reference* reference)
 	{
 		rttr::type type = rttr::type::get_by_name(reference->get_class_name());
 

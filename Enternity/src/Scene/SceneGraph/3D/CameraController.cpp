@@ -35,28 +35,26 @@ namespace Enternity
 			return;
 		}
 
-		ENTERNITY_ASSERT(dynamic_cast<Node3D*>(m_node));
-
 		float deltaTime = *(float*)(data);
 
 		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::W))
 		{
-			((Node3D*)m_node)->getTransform().moveZAxis(-m_speed * deltaTime);
+			getNode<Node3D>()->getTransform().moveZAxis(-m_speed * deltaTime);
 		}
 
 		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::S))
 		{
-			((Node3D*)m_node)->getTransform().moveZAxis(m_speed * deltaTime);
+			getNode<Node3D>()->getTransform().moveZAxis(m_speed * deltaTime);
 		}
 
 		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::A))
 		{
-			((Node3D*)m_node)->getTransform().moveXAxis(-m_speed * deltaTime);
+			getNode<Node3D>()->getTransform().moveXAxis(-m_speed * deltaTime);
 		}
 
 		if (Engine::GetInstance().getEventSystem()->isKeyPressed(KeyCode::D))
 		{
-			((Node3D*)m_node)->getTransform().moveXAxis(m_speed * deltaTime);
+			getNode<Node3D>()->getTransform().moveXAxis(m_speed * deltaTime);
 		}
 	}
 
@@ -89,8 +87,6 @@ namespace Enternity
 			return;
 		}
 
-		ENTERNITY_ASSERT(dynamic_cast<Node3D*>(m_node));
-
 		Mouse mouse = *(Mouse*)data;
 	
 		if (mouse.code == MouseCode::ButtonRight)
@@ -98,8 +94,8 @@ namespace Enternity
 			m_deltaMousePosX = mouse.x - m_oldMousePosX;
 			m_deltaMousePosY = mouse.y - m_oldMousePosY;
 
-			((Node3D*)m_node)->getTransform().rotateAlongXAxis(m_deltaMousePosY * 0.1f);
-			((Node3D*)m_node)->getTransform().rotateAlongYAxis(m_deltaMousePosX * 0.1f);
+			getNode<Node3D>()->getTransform().rotateAlongXAxis(m_deltaMousePosY * 0.1f);
+			getNode<Node3D>()->getTransform().rotateAlongYAxis(m_deltaMousePosX * 0.1f);
 
 			m_oldMousePosX = mouse.x;
 			m_oldMousePosY = mouse.y;
@@ -113,10 +109,8 @@ namespace Enternity
 			return;
 		}
 
-		ENTERNITY_ASSERT(dynamic_cast<Node3D*>(m_node));
-
 		float delta = *(float*)data;
-		((Node3D*)m_node)->getTransform().moveZAxis(-delta * m_speed);
+		getNode<Node3D>()->getTransform().moveZAxis(-delta * m_speed);
 	}
 
 	RTTR_REGISTRATION
