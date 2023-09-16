@@ -1,6 +1,5 @@
 #include "Node.h"
 #include "Component.h"
-#include "Common/Utility.h"
 
 namespace Enternity
 {

@@ -13,7 +13,6 @@ namespace Enternity
 	public:
 		GET_CLASS_NAME(Component);
 	public:
-		GET(std::string, uuid);
 		GET_SET(bool, enable);
 		GET(Node*, node);
 	public:

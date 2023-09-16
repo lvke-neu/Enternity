@@ -8,5 +8,7 @@ namespace Enternity
 	public:
 		Scene3D();
 		~Scene3D();
+	private:
+		void initCamera();
 	};
 }

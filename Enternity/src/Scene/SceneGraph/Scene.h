@@ -10,7 +10,7 @@ namespace Enternity
 		Scene() = default;
 		virtual ~Scene() = default;
 	public:
-		GET_SET(Node*, rootNode);
+		GET(Node*, rootNode);
 	protected:
 		Node* m_rootNode;
 	};

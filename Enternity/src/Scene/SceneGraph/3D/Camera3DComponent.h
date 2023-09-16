@@ -17,7 +17,6 @@ namespace Enternity
 		GET_SET(float, aspect);
 		GET_SET(float, nearz);
 		GET_SET(float, farz);
-		GET_SET(float, speed);
 	public:
 		glm::mat4 getProjectionMatrix()
 		{
@@ -30,6 +29,5 @@ namespace Enternity
 		float m_aspect;
 		float m_nearz;
 		float m_farz;
-		float m_speed;
 	};
 }

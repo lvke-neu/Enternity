@@ -11,16 +11,16 @@ int main(int argc, const char** argv) {
 }
 
 
-//#include "Scene/SceneGraph/3D/Visual3DComponent.h"
-//#include <iostream>
-//#include <rttr/type>
+//#include "Scene/SceneGraph/3D/Node3D.h"
 //
 //using namespace Enternity;
 //
 //
 //int main(int argc, const char** argv) {
 //
-//	auto type =rttr::type::get_by_name("Visual3DComponent");
+//	Node* node = new Node;
+//	ENTERNITY_ASSERT(dynamic_cast<Node3D*>(node));
+//	auto p = (Node3D*)(node);
 //
 //	return 0;
 //}

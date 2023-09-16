@@ -13,6 +13,11 @@ namespace Enternity
 		GET_CLASS_NAME(Node3D);
 	public:
 		GET_SET(Transform3D, transform);
+	public:
+		Transform3D& getTransform()
+		{
+			return m_transform;
+		}
 	private:
 		Transform3D m_transform;
 	};

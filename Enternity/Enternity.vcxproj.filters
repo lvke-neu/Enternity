@@ -247,6 +247,9 @@
     <ClCompile Include="src\Engine\Reference.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scene\SceneGraph\3D\CameraController.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Blob.h">
@@ -493,6 +496,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Reference.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\SceneGraph\3D\CameraController.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

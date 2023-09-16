@@ -12,6 +12,4 @@ namespace Enternity
 	public:
 		GET_CLASS_NAME(Visual3DComponent);
 	};
-
-
 }
