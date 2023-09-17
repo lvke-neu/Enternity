@@ -7,10 +7,6 @@
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/FrameBuffer/FrameBuffer.h"
 #include "Scene/SceneManager.h"
-#include "Scene/ECS/TransformComponent.h"
-#include "Scene/ECS/CameraComponent.h"
-#include "Scene/ECS/SunLightComponent.h"
-#include "Pick/PickSystem.h"
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
 #include "Imgui/imgui_impl_glfw.h"
@@ -158,7 +154,6 @@ namespace Enternity
 		{
 			int id;
 			Engine::GetInstance().getGraphicsSystem()->getColorFrameBuffer()->readPixelInt(2, mouseX, mouseY, &id);
-			Engine::GetInstance().getPickSystem()->setPickEntityId(id);
 		}
 	}
 

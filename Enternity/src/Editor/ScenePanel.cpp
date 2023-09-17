@@ -2,22 +2,16 @@
 
 #include "ScenePanel.h"
 #include "Engine/Engine.h"
-#include "Engine/AssetLoader.h"
+#include "Engine/Node.h"
+#include "Engine/Scene.h"
+#include "Engine/Component.h"
 #include "Scene/SceneManager.h"
-#include "Scene/SceneGraph/3D/Scene3D.h"
-#include "Scene/SceneGraph/3D/Node3D.h"
-#include "Scene/SceneGraph/Component.h"
-#include "Scene/SceneGraph/3D/Visual3DComponent.h"
-#include "Scene/SceneGraph/3D/Camera3DComponent.h"
-#include "Scene/Model/Model.h"
-#include "Graphics/GraphicsSystem.h"
-#include "Graphics/RHI/Texture/Texture.h"
-#include "Pick/PickSystem.h"
-#include "Common/Macro.h"
+#include "Scene/SceneGraph/Transform3D.h"
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
 #include "Imgui/imgui_impl_glfw.h"
 #include "Imgui/imgui_impl_opengl3.h"
+#include <glm/vec3.hpp>
 #include <rttr/type>
 
 namespace Enternity

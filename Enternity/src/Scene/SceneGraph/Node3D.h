@@ -1,5 +1,5 @@
 #pragma once
-#include "../Node.h"
+#include "Engine/Node.h"
 #include "Transform3D.h"
 
 namespace Enternity

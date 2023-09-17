@@ -43,6 +43,7 @@ namespace Enternity
 		baseSceneNode->set_name("BaseSceneNode");
 		baseSceneNode->addToParent(m_rootNode);
 		baseSceneNode->getTransform().set_translation({ 0.0f, -2.0f, 0.0f });
+		baseSceneNode->getTransform().set_scale({ 10.0f, 10.0f, 10.0f });
 
 		SkyBoxComponent* skyBoxComponent = new SkyBoxComponent;
 		skyBoxComponent->addToNode(baseSceneNode);

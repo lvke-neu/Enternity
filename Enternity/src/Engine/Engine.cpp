@@ -8,7 +8,6 @@
 #include "NativeFileSystem.h"
 #include "AssetLoader.h"
 #include "Graphics/GraphicsSystem.h"
-#include "Pick/PickSystem.h"
 #include "Scene/SceneManager.h"
 #include "Editor/UiRender.h"
 
@@ -26,7 +25,6 @@ namespace Enternity
 		m_nativeFileSystem = new NativeFileSystem;
 		m_assetLoader = new AssetLoader;
 		m_graphicsSystem = new GraphicsSystem;
-		m_pickSystem = new PickSystem;
 		m_sceneManager = new SceneManager;
 		m_uiRender = new UiRender(m_renderView->getContext());
 
@@ -38,7 +36,6 @@ namespace Enternity
 		ThreadPool::GetInstance().uninitialize();
 
 		SAFE_DELETE_SET_NULL(m_sceneManager);
-		SAFE_DELETE_SET_NULL(m_pickSystem);
 		SAFE_DELETE_SET_NULL(m_graphicsSystem);
 		SAFE_DELETE_SET_NULL(m_assetLoader);
 		SAFE_DELETE_SET_NULL(m_nativeFileSystem);

@@ -4,7 +4,6 @@
 #include "Engine/Engine.h"
 #include "Graphics/GraphicsSystem.h"
 #include "Graphics/RHI/FrameBuffer/FrameBuffer.h"
-#include "Pick/PickSystem.h"
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
 #include "Imgui/imgui_impl_glfw.h"

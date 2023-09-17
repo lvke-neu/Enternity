@@ -10,7 +10,6 @@ namespace Enternity
 	class NativeFileSystem;
 	class AssetLoader;
 	class GraphicsSystem;
-	class PickSystem;
 	class SceneManager;
 	class UiRender;
 	class Engine
@@ -25,7 +24,6 @@ namespace Enternity
 	public:
 		GraphicsSystem* getGraphicsSystem();
 		EventSystem* getEventSystem();
-		PickSystem* getPickSystem();
 		SceneManager* getSceneManager();
 		RenderView* getRenderView();
 		BlobLoaderManager* getBlobLoaderManager();
@@ -34,7 +32,6 @@ namespace Enternity
 	private:
 		GraphicsSystem* m_graphicsSystem{ nullptr };
 		EventSystem* m_eventSystem{ nullptr };
-		PickSystem* m_pickSystem{ nullptr };
 		RenderView* m_renderView{ nullptr };
 		SceneManager* m_sceneManager{ nullptr };
 		BlobLoaderManager* m_blobLoaderManager{ nullptr };
@@ -52,11 +49,6 @@ namespace Enternity
 	inline EventSystem* Engine::getEventSystem()
 	{
 		return m_eventSystem;
-	}
-
-	inline PickSystem* Engine::getPickSystem()
-	{
-		return m_pickSystem;
 	}
 
 	inline SceneManager* Engine::getSceneManager()

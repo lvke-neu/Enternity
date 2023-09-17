@@ -1,5 +1,5 @@
 #include "SceneManager.h"
-#include "SceneGraph/3D/Scene3D.h"
+#include "SceneGraph/Scene3D.h"
 #include "Common/Macro.h"
 #include "Engine/Engine.h"
 #include "Engine/BlobLoaderManager.h"

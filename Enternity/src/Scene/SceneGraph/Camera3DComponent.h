@@ -1,5 +1,5 @@
 #pragma once
-#include "../Component.h"
+#include "Engine/Component.h"
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Enternity
