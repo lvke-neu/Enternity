@@ -2,6 +2,12 @@
 
 namespace Enternity
 {
+	Color Color::s_white = Color(1.0f, 1.0f, 1.0f, 1.0f);
+	Color Color::s_black = Color(0.0f, 0.0f, 0.0f, 1.0f);
+	Color Color::s_red = Color(1.0f, 0.0f, 0.0f, 1.0f);
+	Color Color::s_green = Color(0.0f, 1.0f, 0.0f, 1.0f);
+	Color Color::s_blue = Color(0.0f, 0.0f, 1.0f, 1.0f);
+
 	Color::Color() : m_r(1.0f), m_g(1.0f), m_b(1.0f), m_a(1.0f)
 	{
 

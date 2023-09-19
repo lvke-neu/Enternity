@@ -2,6 +2,7 @@
 #include "Node3D.h"
 #include "Engine/Engine.h"
 #include "Engine/AssetLoader.h"
+#include "Graphics/Material.h"
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"
@@ -13,7 +14,13 @@ namespace Enternity
 	{
 		m_meshPath = "mesh://primitive=cube";
 		m_rendererPath = "renderer://assets/shaders/visual3d/visual3d.rdr";
-		m_texturePath = "texture://TEXTURE_2D?assets/textures/box_diffuse.png";
+
+		m_material = new Material;
+		m_material->load();
+		m_material->set_ambientTexturePath("texture://TEXTURE_2D?assets/textures/box_diffuse.png");
+		m_material->set_diffuseTexturePath("texture://TEXTURE_2D?assets/textures/box_diffuse.png");
+		m_material->set_specularTexturePath("texture://TEXTURE_2D?assets/textures/box_diffuse.png");
+		
 
 		Engine::GetInstance().getAssetLoader()->getAsset(m_meshPath.c_str(),
 			[=](Asset* asset)
@@ -26,19 +33,13 @@ namespace Enternity
 			{
 				m_renderer = (Renderer*)asset;
 			});
-
-		Engine::GetInstance().getAssetLoader()->getAsset(m_texturePath.c_str(),
-			[=](Asset* asset)
-			{
-				m_texture = (Texture2D*)asset;
-			});
 	}
 
 	Visual3DComponent::~Visual3DComponent()
 	{
 		SAFE_DELETE_SET_NULL(m_mesh);
 		SAFE_DELETE_SET_NULL(m_renderer);
-		SAFE_DELETE_SET_NULL(m_texture);
+		SAFE_DELETE_SET_NULL(m_material);
 	}
 
 	void Visual3DComponent::command()
@@ -49,8 +50,7 @@ namespace Enternity
 		}
 
 		if (ASSET_LOAD_SUCCEED(m_mesh) &&
-			ASSET_LOAD_SUCCEED(m_renderer) &&
-			ASSET_LOAD_SUCCEED(m_texture))
+			ASSET_LOAD_SUCCEED(m_renderer))
 		{
 			if (m_wireFrame)
 			{
@@ -59,10 +59,18 @@ namespace Enternity
 
 			m_renderer->bind();
 			m_renderer->setMat4("u_model", getNode<Node3D>()->getTransform().getWorldMatrix());
-			m_texture->bind(0);
+			
+			if (ASSET_LOAD_SUCCEED(m_material->get_ambientTexture()))
+			{
+				m_material->get_ambientTexture()->bind(0);
+			}
+
 			m_mesh->draw();
 
-			m_texture->unbind(0);
+			if (ASSET_LOAD_SUCCEED(m_material->get_ambientTexture()))
+			{
+				m_material->get_ambientTexture()->unbind(0);
+			}
 			m_renderer->unbind();
 
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -78,9 +86,7 @@ namespace Enternity
 			)
 			.property("meshPath", &Visual3DComponent::get_meshPath, &Visual3DComponent::set_meshPath)
 			.property("rendererPath", &Visual3DComponent::get_rendererPath, &Visual3DComponent::set_rendererPath)
-			.property("texturePath", &Visual3DComponent::get_texturePath, &Visual3DComponent::set_texturePath)
 			.property("wireFrame", &Visual3DComponent::get_wireFrame, &Visual3DComponent::set_wireFrame)
-			.property("color", &Visual3DComponent::get_color, &Visual3DComponent::set_color)
 			.property("material", &Visual3DComponent::get_material, &Visual3DComponent::set_material);
 
 	}

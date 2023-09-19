@@ -18,6 +18,12 @@ namespace Enternity
 		GET_SET(float, a);
 	public:
 		float* toPointer();
+	public:
+		static Color s_white;
+		static Color s_black;
+		static Color s_red;
+		static Color s_green;
+		static Color s_blue;
 	private:
 		float m_r;
 		float m_g;

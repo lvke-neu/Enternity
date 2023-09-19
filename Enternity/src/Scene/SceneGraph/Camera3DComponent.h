@@ -14,10 +14,15 @@ namespace Enternity
 	public:
 		GET_CLASS_NAME(Camera3DComponent);
 	public:
-		GET_SET(float, fovy);
-		GET_SET(float, aspect);
-		GET_SET(float, nearz);
-		GET_SET(float, farz);
+		GET(float, fovy);
+		GET(float, aspect);
+		GET(float, nearz);
+		GET(float, farz);
+
+		void set_fovy(float fovy);
+		void set_aspect(float aspect);
+		void set_nearz(float nearz);
+		void set_farz(float farz);
 	public:
 		virtual void command();
 		glm::mat4 getProjectionMatrix()

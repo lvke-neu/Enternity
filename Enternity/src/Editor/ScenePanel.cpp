@@ -261,6 +261,13 @@ namespace Enternity
 					prop.set_value(reference, material);
 				}
 
+				if (prop.get_type().get_name() == "Material*")
+				{
+					Material* material = prop.get_value(reference).get_value<Material*>();
+					reflect(material);
+					prop.set_value(reference, material);
+				}
+
 				index++;
 			}
 

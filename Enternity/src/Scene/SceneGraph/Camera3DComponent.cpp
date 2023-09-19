@@ -27,6 +27,34 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(m_uniformBufferView);
 	}
 
+	void Camera3DComponent::set_fovy(float fovy)
+	{
+		m_fovy = fovy;
+		auto proj = getProjectionMatrix();
+		m_uniformBufferProjection->modify(glm::value_ptr(proj), sizeof(glm::mat4), 0);
+	}
+
+	void Camera3DComponent::set_aspect(float aspect)
+	{
+		m_aspect = aspect;
+		auto proj = getProjectionMatrix();
+		m_uniformBufferProjection->modify(glm::value_ptr(proj), sizeof(glm::mat4), 0);
+	}
+
+	void Camera3DComponent::set_nearz(float nearz)
+	{
+		m_nearz = nearz;
+		auto proj = getProjectionMatrix();
+		m_uniformBufferProjection->modify(glm::value_ptr(proj), sizeof(glm::mat4), 0);
+	}
+
+	void Camera3DComponent::set_farz(float farz)
+	{
+		m_farz = farz;
+		auto proj = getProjectionMatrix();
+		m_uniformBufferProjection->modify(glm::value_ptr(proj), sizeof(glm::mat4), 0);
+	}
+
 	void Camera3DComponent::command()
 	{
 		//projection matrix
