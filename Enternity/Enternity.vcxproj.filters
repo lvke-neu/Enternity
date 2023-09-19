@@ -257,6 +257,12 @@
     <ClCompile Include="src\Engine\Command.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Graphics\Color.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Material.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Blob.h">
@@ -512,6 +518,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Command.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Material.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Color.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

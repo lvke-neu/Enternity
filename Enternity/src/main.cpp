@@ -12,15 +12,19 @@ int main(int argc, const char** argv) {
 
 
 //#include "Scene/SceneGraph/3D/Node3D.h"
-//
-//using namespace Enternity;
-//
+
+
+//class hhh
+//{
+//public:
+//	int m_num = 0;
+//};
 //
 //int main(int argc, const char** argv) {
 //
-//	Node* node = new Node;
-//	ENTERNITY_ASSERT(dynamic_cast<Node3D*>(node));
-//	auto p = (Node3D*)(node);
+//	hhh* h = new hhh;
+//	
+//	auto p = &(h->m_num);
 //
 //	return 0;
 //}

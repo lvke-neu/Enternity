@@ -131,6 +131,8 @@
     <ClCompile Include="src\Engine\Detail\glad.c" />
     <ClCompile Include="src\Engine\Libcurl.cpp" />
     <ClCompile Include="src\Engine\Reference.cpp" />
+    <ClCompile Include="src\Graphics\Color.cpp" />
+    <ClCompile Include="src\Graphics\Material.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobHolder.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobLoader.cpp" />
     <ClCompile Include="src\Graphics\RHI\UniformBuffer\UniformBuffer.cpp" />
@@ -208,6 +210,8 @@
     <ClInclude Include="src\Engine\Command.h" />
     <ClInclude Include="src\Engine\Libcurl.h" />
     <ClInclude Include="src\Engine\Reference.h" />
+    <ClInclude Include="src\Graphics\Color.h" />
+    <ClInclude Include="src\Graphics\Material.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobHolder.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobLoader.h" />
     <ClInclude Include="src\Graphics\RHI\UniformBuffer\UniformBuffer.h" />

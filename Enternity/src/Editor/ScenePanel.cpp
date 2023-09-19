@@ -7,6 +7,8 @@
 #include "Engine/Component.h"
 #include "Scene/SceneManager.h"
 #include "Scene/SceneGraph/Transform3D.h"
+#include "Graphics/Color.h"
+#include "Graphics/Material.h"
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
 #include "Imgui/imgui_impl_glfw.h"
@@ -243,7 +245,21 @@ namespace Enternity
 					prop.set_value(reference, transform3D);
 					
 				}
-				auto str = prop.get_type().get_name();
+
+				if (prop.get_type().get_name() == "Color")
+				{
+					Color color = prop.get_value(reference).get_value<Color>();
+					ImGui::ColorEdit4(("##" + reference->get_uuid() + std::to_string(index)).c_str(), color.toPointer());
+					
+					prop.set_value(reference, color);
+				}
+
+				if (prop.get_type().get_name() == "Material")
+				{
+					Material material = prop.get_value(reference).get_value<Material>();
+					reflect(&material);
+					prop.set_value(reference, material);
+				}
 
 				index++;
 			}

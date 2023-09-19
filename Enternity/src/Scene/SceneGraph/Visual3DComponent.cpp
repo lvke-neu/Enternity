@@ -5,7 +5,6 @@
 #include "Graphics/RHI/Mesh/Mesh.h"
 #include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"
-#include <rttr/registration>
 #include <glad/glad.h>
 
 namespace Enternity
@@ -80,7 +79,9 @@ namespace Enternity
 			.property("meshPath", &Visual3DComponent::get_meshPath, &Visual3DComponent::set_meshPath)
 			.property("rendererPath", &Visual3DComponent::get_rendererPath, &Visual3DComponent::set_rendererPath)
 			.property("texturePath", &Visual3DComponent::get_texturePath, &Visual3DComponent::set_texturePath)
-			.property("wireFrame", &Visual3DComponent::get_wireFrame, &Visual3DComponent::set_wireFrame);
+			.property("wireFrame", &Visual3DComponent::get_wireFrame, &Visual3DComponent::set_wireFrame)
+			.property("color", &Visual3DComponent::get_color, &Visual3DComponent::set_color)
+			.property("material", &Visual3DComponent::get_material, &Visual3DComponent::set_material);
 
 	}
 }

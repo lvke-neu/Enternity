@@ -1,5 +1,7 @@
 #pragma once
 #include "Engine/Component.h"
+#include "Graphics/Color.h"
+#include "Graphics/Material.h"
 
 namespace Enternity
 {
@@ -19,6 +21,8 @@ namespace Enternity
 		GET_SET(std::string, rendererPath);
 		GET_SET(std::string, texturePath);
 		GET_SET(bool, wireFrame);
+		GET_SET(Color, color);
+		GET_SET(Material, material);
 	public:
 		virtual void command() override;
 	protected:
@@ -26,6 +30,8 @@ namespace Enternity
 		std::string m_rendererPath;
 		std::string m_texturePath;
 		bool m_wireFrame;
+		Color m_color;
+		Material m_material;
 
 		Mesh* m_mesh;
 		Renderer* m_renderer;
