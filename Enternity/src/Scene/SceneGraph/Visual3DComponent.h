@@ -15,19 +15,18 @@ namespace Enternity
 	public:
 		GET_CLASS_NAME(Visual3DComponent);
 	public:
-		GET_SET(std::string, meshPath);
-		GET_SET(std::string, rendererPath);
 		GET_SET(bool, wireFrame);
 		GET_SET(Material*, material);
+		void setMesh(Mesh* mesh);
+		void setRenderer(Renderer* renderer);
+		void setMaterial(Material* material);
 	public:
 		virtual void command() override;
 	protected:
-		std::string m_meshPath;
-		std::string m_rendererPath;
 		bool m_wireFrame;
-		Material* m_material;
 
 		Mesh* m_mesh;
 		Renderer* m_renderer;
+		Material* m_material;
 	};
 }

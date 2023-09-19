@@ -7,6 +7,11 @@
 #include "TerrainComponent.h"
 #include "Engine/Engine.h"
 #include "Engine/Command.h"
+#include "Engine/AssetLoader.h"
+#include "Graphics/Material.h"
+#include "Graphics/RHI/Texture/Texture.h"
+#include "Graphics/RHI/Mesh/Mesh.h"
+#include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/GraphicsSystem.h"
 
 namespace Enternity
@@ -79,6 +84,26 @@ namespace Enternity
 
 		Visual3DComponent* visual3DComponent1 = new Visual3DComponent;
 		visual3DComponent1->addToNode(sceneObjectNode1);
+		
+
+		Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube",
+			[=](Asset* asset)
+			{
+				visual3DComponent1->setMesh((Mesh*)asset);
+			});
+
+		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/visual3d/visual3d.rdr",
+			[=](Asset* asset)
+			{
+				visual3DComponent1->setRenderer((Renderer*)asset);
+			});
+
+		Material* material = new Material;
+		material->set_ambientTexturePath("texture://TEXTURE_2D?assets/textures/box_diffuse.png");
+		material->set_diffuseTexturePath("texture://TEXTURE_2D?assets/textures/box_diffuse.png");
+		material->set_specularTexturePath("texture://TEXTURE_2D?assets/textures/box_diffuse.png");
+		material->load();
+		visual3DComponent1->setMaterial(material);
 
 		//Node3D* sceneObjectNode2 = new Node3D;
 		//sceneObjectNode2->set_name("SceneObjectNode2");
