@@ -20,7 +20,7 @@ namespace Enternity
 	{
 		ImGui::Begin("State");
 		ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-		ImGui::Text("TriangleCount:%d", Engine::GetInstance().getGraphicsSystem()->getTriangleCount());
+		//ImGui::Text("TriangleCount:%d", Engine::GetInstance().getGraphicsSystem()->getTriangleCount());
 		//ImGui::Text("Picked Entity ID:%d", Engine::GetInstance().getPickSystem()->getPickEntityId());
 		ImGui::End();
 
@@ -34,7 +34,7 @@ namespace Enternity
 
 		ImGui::Begin("ShadowMap");
 
-		auto id = Engine::GetInstance().getGraphicsSystem()->getShadowMapFrameBuffer()->getTextureId();
+		//auto id = Engine::GetInstance().getGraphicsSystem()->getShadowMapFrameBuffer()->getTextureId();
 		//ImGui::Image((void*)id, ImGui::GetContentRegionAvail(), { 0, 1 }, { 1, 0 });
 
 		ImGui::End();

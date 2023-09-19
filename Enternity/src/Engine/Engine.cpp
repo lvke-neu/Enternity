@@ -55,6 +55,7 @@ namespace Enternity
 
 			m_timer->tick();
 			m_eventSystem->dispatchEvent(Event::EventType::Tick, m_timer->deltaTime());
+			m_sceneManager->tick();
 			m_graphicsSystem->tick();
 			m_uiRender->tick();
 			m_renderView->swapBuffers();

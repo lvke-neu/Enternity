@@ -5,6 +5,9 @@
 #include "Visual3DComponent.h"
 #include "SkyBoxComponent.h"
 #include "TerrainComponent.h"
+#include "Engine/Engine.h"
+#include "Engine/Command.h"
+#include "Graphics/GraphicsSystem.h"
 
 namespace Enternity
 {
@@ -21,6 +24,21 @@ namespace Enternity
 	Scene3D::~Scene3D()
 	{
 		SAFE_DELETE_SET_NULL(m_rootNode);
+	}
+
+	void Scene3D::tick()
+	{
+		TreeNode(m_rootNode,
+			[](Node* node)
+			{
+				for (const auto& comp : node->get_components())
+				{
+					if (comp)
+					{
+						Engine::GetInstance().getGraphicsSystem()->addCommand(comp->get_command());
+					}
+				}
+			});
 	}
 
 	void Scene3D::initCamera()
@@ -54,13 +72,13 @@ namespace Enternity
 
 	void Scene3D::initObjcet()
 	{
-		//Node3D* sceneObjectNode1 = new Node3D;
-		//sceneObjectNode1->set_name("SceneObjectNode1");
-		//sceneObjectNode1->addToParent(m_rootNode);
-		//sceneObjectNode1->getTransform().set_translation({ -2.0f, 0.0f, 0.0f });
+		Node3D* sceneObjectNode1 = new Node3D;
+		sceneObjectNode1->set_name("SceneObjectNode1");
+		sceneObjectNode1->addToParent(m_rootNode);
+		sceneObjectNode1->getTransform().set_translation({ -2.0f, 0.0f, 0.0f });
 
-		//Visual3DComponent* visual3DComponent1 = new Visual3DComponent;
-		//visual3DComponent1->addToNode(sceneObjectNode1);
+		Visual3DComponent* visual3DComponent1 = new Visual3DComponent;
+		visual3DComponent1->addToNode(sceneObjectNode1);
 
 		//Node3D* sceneObjectNode2 = new Node3D;
 		//sceneObjectNode2->set_name("SceneObjectNode2");

@@ -254,6 +254,9 @@
     <ClCompile Include="src\Scene\SceneGraph\Visual3DComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Command.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Blob.h">
@@ -506,6 +509,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\SceneGraph\Visual3DComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Command.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

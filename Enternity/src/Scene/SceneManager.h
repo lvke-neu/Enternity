@@ -11,6 +11,7 @@ namespace Enternity
 		~SceneManager();
 	public:
 		Scene* getCurrentScene();
+		void tick();
 	private:
 		Scene* m_currentScene{ nullptr };
 	};
