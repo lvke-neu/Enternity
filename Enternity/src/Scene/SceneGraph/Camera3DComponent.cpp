@@ -27,7 +27,7 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(m_uniformBufferView);
 	}
 
-	void Camera3DComponent::tick()
+	void Camera3DComponent::command()
 	{
 		//projection matrix
 		auto view = getNode<Node3D>()->getTransform().getInverseWorldMatrix();

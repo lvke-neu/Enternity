@@ -48,26 +48,26 @@ namespace Enternity
 		SkyBoxComponent* skyBoxComponent = new SkyBoxComponent;
 		skyBoxComponent->addToNode(baseSceneNode);
 
-		TerrainComponent* terrainComponent = new TerrainComponent;
-		terrainComponent->addToNode(baseSceneNode);
+		//TerrainComponent* terrainComponent = new TerrainComponent;
+		//terrainComponent->addToNode(baseSceneNode);
 	}
 
 	void Scene3D::initObjcet()
 	{
-		Node3D* sceneObjectNode1 = new Node3D;
-		sceneObjectNode1->set_name("SceneObjectNode1");
-		sceneObjectNode1->addToParent(m_rootNode);
-		sceneObjectNode1->getTransform().set_translation({ -2.0f, 0.0f, 0.0f });
+		//Node3D* sceneObjectNode1 = new Node3D;
+		//sceneObjectNode1->set_name("SceneObjectNode1");
+		//sceneObjectNode1->addToParent(m_rootNode);
+		//sceneObjectNode1->getTransform().set_translation({ -2.0f, 0.0f, 0.0f });
 
-		Visual3DComponent* visual3DComponent1 = new Visual3DComponent;
-		visual3DComponent1->addToNode(sceneObjectNode1);
+		//Visual3DComponent* visual3DComponent1 = new Visual3DComponent;
+		//visual3DComponent1->addToNode(sceneObjectNode1);
 
-		Node3D* sceneObjectNode2 = new Node3D;
-		sceneObjectNode2->set_name("SceneObjectNode2");
-		sceneObjectNode2->addToParent(m_rootNode);
-		sceneObjectNode2->getTransform().set_translation({ 2.0f, 0.0f, 0.0f });
+		//Node3D* sceneObjectNode2 = new Node3D;
+		//sceneObjectNode2->set_name("SceneObjectNode2");
+		//sceneObjectNode2->addToParent(m_rootNode);
+		//sceneObjectNode2->getTransform().set_translation({ 2.0f, 0.0f, 0.0f });
 
-		Visual3DComponent* visual3DComponent2 = new Visual3DComponent;
-		visual3DComponent2->addToNode(sceneObjectNode2);
+		//Visual3DComponent* visual3DComponent2 = new Visual3DComponent;
+		//visual3DComponent2->addToNode(sceneObjectNode2);
 	}
 }

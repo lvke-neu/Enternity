@@ -29,7 +29,7 @@ namespace Enternity
 		GET_SET(std::string, textureCubeMapPath);
 		GET_SET(Type, skyboxType);
 	public:
-		virtual void tick() override;
+		virtual void command() override;
 	private:
 		std::string m_meshPath;
 		std::string m_rendererPath;

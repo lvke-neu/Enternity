@@ -4,6 +4,7 @@
 namespace Enternity
 {
 	class Node;
+	class Command;
 	class Component : public Reference
 	{
 		RTTR_ENABLE(Reference);
@@ -15,10 +16,12 @@ namespace Enternity
 	public:
 		GET_SET(bool, enable);
 		GET(Node*, node);
+		GET(Command*, command);
 	public:
-		virtual void tick() {};
+		virtual void command() {};
 		void addToNode(Node* node);
 		void removeFromNode();
+
 		template<typename T>
 		T* getNode()
 		{
@@ -27,6 +30,7 @@ namespace Enternity
 	protected:
 		bool m_enable;
 		Node* m_node;
+		Command* m_command;
 	};
 }
 

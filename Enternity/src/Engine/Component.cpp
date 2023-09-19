@@ -1,9 +1,10 @@
 #include "Component.h"
 #include "Node.h"
+#include "Command.h"
 
 namespace Enternity
 {
-	Component::Component() : m_enable(true), m_node(nullptr)
+	Component::Component() : m_enable(true), m_node(nullptr), m_command(new Command(std::bind(&Component::command, this)))
 	{
 
 	}

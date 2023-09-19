@@ -48,7 +48,7 @@ namespace Enternity
 		SAFE_DELETE_SET_NULL(m_textureCubeMap);
 	}
 
-	void SkyBoxComponent::tick()
+	void SkyBoxComponent::command()
 	{
 		if (!m_enable)
 		{

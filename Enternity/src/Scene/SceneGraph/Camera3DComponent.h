@@ -19,7 +19,7 @@ namespace Enternity
 		GET_SET(float, nearz);
 		GET_SET(float, farz);
 	public:
-		virtual void tick();
+		virtual void command();
 		glm::mat4 getProjectionMatrix()
 		{
 			return glm::perspective<float>(glm::radians(m_fovy), m_aspect, m_nearz, m_farz);
