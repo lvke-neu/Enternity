@@ -20,6 +20,7 @@ namespace Enternity
 		void setVec1(const std::string& name, float value);
 		void setVec3(const std::string& name, const glm::vec3& vec3);
 		void setVec4(const std::string& name, const glm::vec4& vec4);
+		void setVec4(const std::string& name, float* value);
 		void setMat4(const std::string& name, const glm::mat4& mat4, bool normalize = false);
 	private:
 		bool compileShader(unsigned int& shader, unsigned int shaderType, const char* shaderSourceCode, const char* path);

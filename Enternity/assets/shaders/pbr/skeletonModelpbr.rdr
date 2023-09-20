@@ -1,4 +1,0 @@
-{
-  "VertexShader": "assets/shaders/pbr/skeletonModelpbr.vert",
-  "FragmentShader": "assets/shaders/pbr/skeletonModelpbr.frag"
-}

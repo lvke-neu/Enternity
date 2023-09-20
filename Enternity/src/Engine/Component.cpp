@@ -24,6 +24,8 @@ namespace Enternity
 		removeFromNode();
 		node->addComponent(this);
 		m_node = node;
+
+		onAttachToNode(m_node);
 	}
 
 	void Component::removeFromNode()

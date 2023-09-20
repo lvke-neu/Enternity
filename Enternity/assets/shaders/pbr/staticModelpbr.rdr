@@ -1,4 +1,0 @@
-{
-  "VertexShader": "assets/shaders/pbr/staticModelpbr.vert",
-  "FragmentShader": "assets/shaders/pbr/staticModelpbr.frag"
-}

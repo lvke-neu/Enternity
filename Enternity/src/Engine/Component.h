@@ -19,6 +19,7 @@ namespace Enternity
 		GET(Command*, command);
 	public:
 		virtual void command() {};
+		virtual void onAttachToNode(Node* node) {};
 		void addToNode(Node* node);
 		void removeFromNode();
 

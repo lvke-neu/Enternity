@@ -1,6 +1,7 @@
 #include "Material.h"
 #include "Engine/Engine.h"
 #include "Engine/AssetLoader.h"
+#include "Graphics/RHI/Renderer/Renderer.h"
 #include "Graphics/RHI/Texture/Texture.h"
 
 namespace Enternity
@@ -48,6 +49,48 @@ namespace Enternity
 				SAFE_DELETE_SET_NULL(m_specularTexture);
 				m_specularTexture = (Texture2D*)asset;
 			});
+	}
+
+	void Material::bind(Renderer* renderer)
+	{
+		ENTERNITY_ASSERT(renderer);
+
+		renderer->setVec4("u_ambientColor", m_ambientColor.toPointer());
+		renderer->setVec4("u_diffuseColor", m_diffuseColor.toPointer());
+		renderer->setVec4("u_specularColor", m_specularColor.toPointer());
+
+		if (ASSET_LOAD_SUCCEED(m_ambientTexture))
+		{
+			m_ambientTexture->bind(0);
+		}
+
+		if (ASSET_LOAD_SUCCEED(m_diffuseTexture))
+		{
+			m_diffuseTexture->bind(1);
+		}
+
+		if (ASSET_LOAD_SUCCEED(m_specularTexture))
+		{
+			m_specularTexture->bind(2);
+		}
+	}
+
+	void Material::unbind()
+	{
+		if (ASSET_LOAD_SUCCEED(m_ambientTexture))
+		{
+			m_ambientTexture->unbind(0);
+		}
+
+		if (ASSET_LOAD_SUCCEED(m_diffuseTexture))
+		{
+			m_diffuseTexture->unbind(1);
+		}
+
+		if (ASSET_LOAD_SUCCEED(m_specularTexture))
+		{
+			m_specularTexture->unbind(2);
+		}
 	}
 
 	RTTR_REGISTRATION

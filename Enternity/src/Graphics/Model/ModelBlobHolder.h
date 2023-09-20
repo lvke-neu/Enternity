@@ -1,12 +1,11 @@
 #pragma once
 #include "Engine/BlobHolder.h"
-#include "MaterialDefine.h"
-#include "Common/Macro.h"
 #include <vector>
 
 namespace Enternity
 {	
 	class MeshBlobHolder;
+	class Material;
 	class ModelBlobHolder : public BlobHolder
 	{
 		friend class Model;
@@ -15,9 +14,8 @@ namespace Enternity
 		ModelBlobHolder(BlobLoader* blobLoader, const std::string& path);
 		virtual ~ModelBlobHolder();
 		virtual Asset* createAsset() override;
-		GET(std::vector<MeshBlobHolder*>, meshBlobHolders);
 	private:
 		std::vector<MeshBlobHolder*> m_meshBlobHolders;
-		std::vector<MaterialProperty> m_materials;
+		std::vector<Material*> m_materials;//not delete when deconstructor, Assign to model
 	};
 }

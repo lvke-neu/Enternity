@@ -21,13 +21,10 @@
     </None>
     <None Include="src\Editor\Imgui\LICENSE" />
     <None Include="src\Editor\Imgui\README.md" />
-    <None Include="assets\shaders\test\test2.rdr" />
     <None Include="assets\shaders\postprocess\postprocess.rdr" />
     <None Include="assets\shaders\skybox\skybox.rdr" />
     <None Include="assets\shaders\visual3d\visual3d.rdr" />
     <None Include="assets\shaders\model\model.rdr" />
-    <None Include="assets\shaders\pbr\skeletonModelpbr.rdr" />
-    <None Include="assets\shaders\light\lightgzmo.rdr" />
     <None Include="assets\shaders\shadowmap\shadowmap.rdr" />
     <None Include="assets\shaders\terrain\terrain.rdr" />
   </ItemGroup>
@@ -176,9 +173,6 @@
     <ClCompile Include="src\Scene\ECS\PostProcessComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\ECS\SkeletonModelComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Scene\ECS\PBRMaterialComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -186,27 +180,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Libcurl.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\ECS\StaticModelComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\ECS\ModelComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Model\Model.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Model\ModelBlobHolder.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Model\ModelBlobLoader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Model\Animation\Animation.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Model\Animation\Animator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Common\Utility.h">
@@ -261,6 +234,24 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Graphics\Material.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Model\Animation\Animation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Model\Animation\Animator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Model\Model.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Model\ModelBlobHolder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Model\ModelBlobLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\SceneGraph\Model3DComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -433,9 +424,6 @@
     <ClInclude Include="src\Scene\ECS\PostProcessComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\ECS\SkeletonModelComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\Scene\ECS\PBRMaterialComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -443,39 +431,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Libcurl.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\ECS\StaticModelComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\ECS\ModelComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Model\Model.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Model\ModelBlobHolder.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Model\ModelBlobLoader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Model\Animation\Animation.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Model\Animation\AnimationDefine.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Model\Animation\Animator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Model\Animation\assimp_glm_helpers.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Model\Animation\bone.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Model\MaterialDefine.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Reference.h">
@@ -524,6 +479,33 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\Color.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Model\Animation\Animation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Model\Animation\AnimationDefine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Model\Animation\Animator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Model\Animation\assimp_glm_helpers.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Model\Animation\bone.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Model\Model.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Model\ModelBlobHolder.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Model\ModelBlobLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\SceneGraph\Model3DComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

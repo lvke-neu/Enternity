@@ -15,16 +15,15 @@ namespace Enternity
 	public:
 		GET_CLASS_NAME(Visual3DComponent);
 	public:
-		GET_SET(bool, wireFrame);
-		GET_SET(Material*, material);
-		void setMesh(Mesh* mesh);
-		void setRenderer(Renderer* renderer);
-		void setMaterial(Material* material);
+		GET(Mesh*, mesh);
+		GET(Renderer*, renderer);
+		GET(Material*, material);
+		void set_mesh(Mesh* mesh);
+		void set_renderer(Renderer* renderer);
+		void set_material(Material* material);
 	public:
 		virtual void command() override;
 	protected:
-		bool m_wireFrame;
-
 		Mesh* m_mesh;
 		Renderer* m_renderer;
 		Material* m_material;

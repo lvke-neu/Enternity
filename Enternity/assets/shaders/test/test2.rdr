@@ -1,4 +1,0 @@
-{
-  "VertexShader": "assets/shaders/test/test2.vert",
-  "FragmentShader": "assets/shaders/test/test2.frag"
-}

@@ -5,6 +5,7 @@
 #include "Engine/Blob.h"
 #include "Engine/Log.h"
 #include "ModelBlobHolder.h"
+#include "Graphics/Material.h"
 #include "Graphics/RHI/Mesh/MeshBlobHolder.h"
 #include "Graphics/RHI/Texture/TextureBlobHolder.h"
 #include "Common/Macro.h"
@@ -48,18 +49,17 @@ namespace Enternity
 			return;
 		}
 
+		struct MeshData
+		{
+			std::vector<Vertex_Skeleton> vertices;
+			std::vector<unsigned int> indices;
+		};
 		for (unsigned int i = 0; i < scene->mNumMeshes; i++)
 		{
 			aiMesh* mesh = scene->mMeshes[i];
 
 
 			//mesh
-			struct MeshData
-			{
-				std::vector<Vertex_Skeleton> vertices;
-				std::vector<unsigned int> indices;
-			};
-
 			MeshData meshData;
 			MeshBlobHolder::MeshDesc meshDesc;
 			unsigned int offset = 0;
@@ -162,41 +162,36 @@ namespace Enternity
 			modelBlobHolder->m_meshBlobHolders.push_back(meshBlobHolder);
 
 			//material
-			MaterialProperty materialProperty;
-			aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+			Material* material = new Material;
+			aiMaterial* aimaterial = scene->mMaterials[mesh->mMaterialIndex];
 			aiString str;
 			aiColor4D color;
 			std::string tmpPath;
 
-			BlobLoader* blobLoader = Engine::GetInstance().getBlobLoaderManager()->getBlobLoader("texture://");
-
-			material->Get(AI_MATKEY_COLOR_AMBIENT, color);
-			material->GetTexture(aiTextureType_AMBIENT, 0, &str);
+			aimaterial->Get(AI_MATKEY_COLOR_AMBIENT, color);
+			aimaterial->GetTexture(aiTextureType_AMBIENT, 0, &str);
 			tmpPath = modelBlobHolder->getPath();
 			tmpPath = "texture://TEXTURE_2D?" + tmpPath.substr(0, tmpPath.rfind("/") + 1) + str.C_Str();
-			materialProperty.m_ambientColor = glm::vec4(color.r, color.g, color.b, color.a);
-			materialProperty.m_ambientTextureBlobHolder = (Texture2DBlobHolder*)blobLoader->createBlobHolder(tmpPath.c_str());
-			materialProperty.m_ambientTextureBlobHolder->load(0);
-
-			material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
-			material->GetTexture(aiTextureType_DIFFUSE, 0, &str);
+			material->set_ambientColor({ color.r, color.g, color.b, color.a });
+			material->set_ambientTexturePath(tmpPath);
+		
+			aimaterial->Get(AI_MATKEY_COLOR_DIFFUSE, color);
+			aimaterial->GetTexture(aiTextureType_DIFFUSE, 0, &str);
 			tmpPath = modelBlobHolder->getPath();
 			tmpPath = "texture://TEXTURE_2D?" + tmpPath.substr(0, tmpPath.rfind("/") + 1) + str.C_Str();
-			materialProperty.m_diffuseColor = glm::vec4(color.r, color.g, color.b, color.a);
-			materialProperty.m_diffuseTextureBlobHolder = (Texture2DBlobHolder*)blobLoader->createBlobHolder(tmpPath.c_str());
-			materialProperty.m_diffuseTextureBlobHolder->load(0);
+			material->set_diffuseColor({ color.r, color.g, color.b, color.a });
+			material->set_diffuseTexturePath(tmpPath);
 
-			material->Get(AI_MATKEY_COLOR_SPECULAR, color);
-			material->GetTexture(aiTextureType_SPECULAR, 0, &str);
+			aimaterial->Get(AI_MATKEY_COLOR_SPECULAR, color);
+			aimaterial->GetTexture(aiTextureType_SPECULAR, 0, &str);
 			tmpPath = modelBlobHolder->getPath();
 			tmpPath = "texture://TEXTURE_2D?" + tmpPath.substr(0, tmpPath.rfind("/") + 1) + str.C_Str();
-			materialProperty.m_specularColor = glm::vec4(color.r, color.g, color.b, color.a);
-			materialProperty.m_specularTextureBlobHolder = (Texture2DBlobHolder*)blobLoader->createBlobHolder(tmpPath.c_str());
-			materialProperty.m_specularTextureBlobHolder->load(0);
+			material->set_specularColor({ color.r, color.g, color.b, color.a });
+			material->set_specularTexturePath(tmpPath);
 
-			materialProperty.m_name = mesh->mName.C_Str();
-
-			modelBlobHolder->m_materials.push_back(materialProperty);
+			//materialProperty.m_name = mesh->mName.C_Str();
+			material->load();
+			modelBlobHolder->m_materials.push_back(material);
 		}
 
 		modelBlobHolder->loadSucceeded__(nullptr);

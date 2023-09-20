@@ -28,6 +28,8 @@ namespace Enternity
 		GET(Texture2D*, specularTexture);
 	public:
 		void load();
+		void bind(Renderer* renderer);
+		void unbind();
 	private:
 		Color m_ambientColor;
 		Color m_diffuseColor;
