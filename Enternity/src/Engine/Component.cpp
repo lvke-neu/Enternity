@@ -11,7 +11,7 @@ namespace Enternity
 
 	Component::~Component()
 	{
-
+		SAFE_DELETE_SET_NULL(m_command);
 	}
 
 	void Component::addToNode(Node* node)
