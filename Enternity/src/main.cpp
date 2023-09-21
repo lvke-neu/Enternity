@@ -20,11 +20,26 @@ int main(int argc, const char** argv) {
 //	int m_num = 0;
 //};
 //
+
+//#include <Scene/SceneGraph/Visual3D.h>
+//#include "Graphics/Material.h"
+//#include "Graphics/RHI/Mesh/Mesh.h"
+//#include "Graphics/RHI/Renderer/Renderer.h"
+//
+//using namespace Enternity;
 //int main(int argc, const char** argv) {
 //
-//	hhh* h = new hhh;
-//	
-//	auto p = &(h->m_num);
+//	Mesh* mesh = new Mesh;
+//
+//
+//	std::shared_ptr<Mesh> sp(mesh);
+//
+//	Visual3D v3d;
+//	v3d.set_mesh(sp);
+//
+//
+//	Visual3D v3d2;
+//	v3d2.set_mesh(sp);
 //
 //	return 0;
 //}

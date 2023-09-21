@@ -110,12 +110,14 @@ namespace Enternity
 		Node3D* modelNode = new Node3D;
 		modelNode->set_name("ModelNode");
 		modelNode->addToParent(m_rootNode);
-
-		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/2nrtbod1out/2nrtbod1out.obj",
+		modelNode->getTransform().set_scale({ 0.1f ,.1f ,.1f});
+		modelNode->getTransform().set_translation({ 0.1f ,-5.0f ,.1f});
+		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/walk/Standard Walk.dae",
 		[=](Asset* asset)
 		{
 			Model3DComponent* model3DComponent = new Model3DComponent((Model*)asset);
 			model3DComponent->addToNode(modelNode);
+			//not delete this asset, visual3d shared_ptr manager it
 		});
 	}
 }

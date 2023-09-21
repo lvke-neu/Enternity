@@ -133,6 +133,7 @@
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobHolder.cpp" />
     <ClCompile Include="src\Graphics\RHI\Mesh\MeshBlobLoader.cpp" />
     <ClCompile Include="src\Graphics\RHI\UniformBuffer\UniformBuffer.cpp" />
+    <ClCompile Include="src\Scene\SceneGraph\Visual3D.cpp" />
     <ClCompile Include="src\Scene\ECS\PBRMaterialComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\SunLightComponent.cpp" />
     <ClCompile Include="src\Scene\ECS\PostProcessComponent.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobHolder.h" />
     <ClInclude Include="src\Graphics\RHI\Mesh\MeshBlobLoader.h" />
     <ClInclude Include="src\Graphics\RHI\UniformBuffer\UniformBuffer.h" />
+    <ClInclude Include="src\Scene\SceneGraph\Visual3D.h" />
     <ClInclude Include="src\Scene\ECS\SunLightComponent.h" />
     <ClInclude Include="src\Scene\ECS\PBRMaterialComponent.h" />
     <ClInclude Include="src\Graphics\Model\Animation\Animation.h" />

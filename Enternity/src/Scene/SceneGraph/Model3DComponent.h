@@ -4,7 +4,7 @@
 
 namespace Enternity
 {
-	class Visual3DComponent;
+	class Visual3D;
 	class Model;
 	class Model3DComponent : public Component
 	{
@@ -15,8 +15,9 @@ namespace Enternity
 	public:
 		GET_CLASS_NAME(Model3DComponent);
 	public:
+		virtual void command() override;
 		virtual void onAttachToNode(Node* node) override;
 	private:
-		std::vector<Visual3DComponent*> m_visual3DComponents;
+		std::vector<Visual3D*> m_visual3Ds;
 	};
 }
