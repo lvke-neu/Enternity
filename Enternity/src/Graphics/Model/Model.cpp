@@ -33,6 +33,7 @@ namespace Enternity
 		}
 
 		m_materials = modelBlobHolder->m_materials;
+		m_meshNames = modelBlobHolder->m_meshNames;
 		m_path = modelBlobHolder->m_path;
 		m_state = loading_state_succeeded;
 	}

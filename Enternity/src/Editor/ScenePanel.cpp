@@ -9,6 +9,7 @@
 #include "Scene/SceneGraph/Transform3D.h"
 #include "Graphics/Color.h"
 #include "Graphics/Material.h"
+#include "Scene/SceneGraph/Visual3D.h"
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_internal.h"
 #include "Imgui/imgui_impl_glfw.h"
@@ -254,18 +255,27 @@ namespace Enternity
 					prop.set_value(reference, color);
 				}
 
-				if (prop.get_type().get_name() == "Material")
+				
+				if (prop.get_type().get_name() == "classstd::shared_ptr<classEnternity::Material>")
 				{
-					Material material = prop.get_value(reference).get_value<Material>();
-					reflect(&material);
-					prop.set_value(reference, material);
+					std::shared_ptr<Material> material = prop.get_value(reference).get_value<std::shared_ptr<Material>>();
+					reflect(material.get());
 				}
 
-				if (prop.get_type().get_name() == "Material*")
+				if (prop.get_type().get_name() == "classstd::vector<classEnternity::Visual3D*,classstd::allocator<classEnternity::Visual3D*> >")
 				{
-					Material* material = prop.get_value(reference).get_value<Material*>();
-					reflect(material);
-					prop.set_value(reference, material);
+					std::vector<Visual3D*> visual3Ds = prop.get_value(reference).get_value<std::vector<Visual3D*>>();
+					
+					for (auto& visual3D : visual3Ds)
+					{
+						reflect(visual3D);
+					}
+				}
+
+				if (prop.get_type().get_name() == "Visual3D*")
+				{
+					Visual3D* visual3D = prop.get_value(reference).get_value<Visual3D*>();
+					reflect(visual3D);
 				}
 
 				index++;

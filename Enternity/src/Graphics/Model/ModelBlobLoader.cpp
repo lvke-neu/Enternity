@@ -144,6 +144,7 @@ namespace Enternity
 			MeshBlobHolder* meshBlobHolder = new MeshBlobHolder(nullptr, "");
 			meshBlobHolder->m_layout = Vertex_Skeleton::s_layout;
 			meshBlobHolder->m_meshDesc = meshDesc;
+			modelBlobHolder->m_meshNames.push_back(mesh->mName.C_Str());
 
 			Blob* blob = new Blob(offset);
 
@@ -189,7 +190,7 @@ namespace Enternity
 			material->set_specularColor({ color.r, color.g, color.b, color.a });
 			material->set_specularTexturePath(tmpPath);
 
-			//materialProperty.m_name = mesh->mName.C_Str();
+			
 			material->load();
 			modelBlobHolder->m_materials.push_back(material);
 		}

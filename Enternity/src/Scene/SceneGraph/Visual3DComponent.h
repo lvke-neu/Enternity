@@ -3,29 +3,23 @@
 
 namespace Enternity
 {
-	class Mesh;
-	class Renderer;
-	class Material;
+	class Visual3D;
+	class Model;
 	class Visual3DComponent : public Component
 	{
 		RTTR_ENABLE(Component);
 	public:
-		Visual3DComponent();
+		Visual3DComponent() = default;
+		Visual3DComponent(Visual3D* visual3D);
 		virtual ~Visual3DComponent();
 	public:
 		GET_CLASS_NAME(Visual3DComponent);
 	public:
-		GET(Mesh*, mesh);
-		GET(Renderer*, renderer);
-		GET(Material*, material);
-		void set_mesh(Mesh* mesh);
-		void set_renderer(Renderer* renderer);
-		void set_material(Material* material);
+		GET_SET(Visual3D*, visual3D);
 	public:
 		virtual void command() override;
+		virtual void onAttachToNode(Node* node) override;
 	protected:
-		Mesh* m_mesh;
-		Renderer* m_renderer;
-		Material* m_material;
+		Visual3D* m_visual3D;
 	};
 }

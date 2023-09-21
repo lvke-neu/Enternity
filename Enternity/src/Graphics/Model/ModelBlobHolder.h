@@ -17,5 +17,6 @@ namespace Enternity
 	private:
 		std::vector<MeshBlobHolder*> m_meshBlobHolders;
 		std::vector<Material*> m_materials;//not delete when deconstructor, Assign to model
+		std::vector<std::string> m_meshNames;
 	};
 }

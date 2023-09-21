@@ -17,5 +17,6 @@ namespace Enternity
 	private:
 		std::vector<Mesh*> m_meshs;
 		std::vector<Material*> m_materials;
+		std::vector<std::string> m_meshNames;
 	};
 }
