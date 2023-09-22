@@ -4,7 +4,6 @@
 namespace Enternity
 {
 	class Visual3D;
-	class Model;
 	class Visual3DComponent : public Component
 	{
 		RTTR_ENABLE(Component);

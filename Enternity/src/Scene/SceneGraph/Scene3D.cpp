@@ -8,7 +8,6 @@
 #include "Model3DComponent.h"
 #include "Visual3D.h"
 #include "Engine/Engine.h"
-#include "Engine/Command.h"
 #include "Engine/AssetLoader.h"
 #include "Graphics/Material.h"
 #include "Graphics/RHI/Texture/Texture.h"
@@ -31,21 +30,6 @@ namespace Enternity
 	Scene3D::~Scene3D()
 	{
 		SAFE_DELETE_SET_NULL(m_rootNode);
-	}
-
-	void Scene3D::tick()
-	{
-		TreeNode(m_rootNode,
-			[](Node* node)
-			{
-				for (const auto& comp : node->get_components())
-				{
-					if (comp)
-					{
-						Engine::GetInstance().getGraphicsSystem()->addCommand(comp->get_command());
-					}
-				}
-			});
 	}
 
 	void Scene3D::initCamera()
@@ -108,18 +92,18 @@ namespace Enternity
 		//material->load();
 		//visual3DComponent1->set_material(material);
 		
-		Node3D* modelNode1 = new Node3D;
-		modelNode1->set_name("ModelNode1");
-		modelNode1->addToParent(m_rootNode);
-		modelNode1->getTransform().set_scale({ 0.1f ,.1f ,.1f});
-		modelNode1->getTransform().set_translation({ 0.1f ,-5.0f ,.1f});
-		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/walk/Standard Walk.dae",
-		[=](Asset* asset)
-		{
-			Model3DComponent* model3DComponent = new Model3DComponent((Model*)asset);
-			model3DComponent->addToNode(modelNode1);
-			//not delete this asset, visual3d shared_ptr manager it
-		});
+		//Node3D* modelNode1 = new Node3D;
+		//modelNode1->set_name("ModelNode1");
+		//modelNode1->addToParent(m_rootNode);
+		//modelNode1->getTransform().set_scale({ 0.1f ,.1f ,.1f});
+		//modelNode1->getTransform().set_translation({ 0.1f ,-5.0f ,.1f});
+		//Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/animation/walk/Standard Walk.dae",
+		//[=](Asset* asset)
+		//{
+		//	Model3DComponent* model3DComponent = new Model3DComponent((Model*)asset);
+		//	model3DComponent->addToNode(modelNode1);
+		//	//not delete this asset, visual3d shared_ptr manager it
+		//});
 
 
 		Node3D* modelNode2 = new Node3D;
@@ -134,38 +118,38 @@ namespace Enternity
 				model3DComponent->addToNode(modelNode2);
 				//not delete this asset, visual3d shared_ptr manager it
 			});
-		Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/2nrtbod1out/2nrtbod1out.obj",
-			[=](Asset* asset)
-			{
-				Model3DComponent* model3DComponent = new Model3DComponent((Model*)asset);
-				model3DComponent->addToNode(modelNode2);
-				//not delete this asset, visual3d shared_ptr manager it
-			});
+		//Engine::GetInstance().getAssetLoader()->getAsset("model://assets/models/2nrtbod1out/2nrtbod1out.obj",
+		//	[=](Asset* asset)
+		//	{
+		//		Model3DComponent* model3DComponent = new Model3DComponent((Model*)asset);
+		//		model3DComponent->addToNode(modelNode2);
+		//		//not delete this asset, visual3d shared_ptr manager it
+		//	});
 
-		Node3D* visual3DNode = new Node3D;
-		visual3DNode->set_name("Visual3DNode");
-		visual3DNode->addToParent(m_rootNode);
-		
-		Visual3D* visual3D = new Visual3D;
-		Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube",
-		[=](Asset* asset)
-		{
-			visual3D->set_mesh(std::shared_ptr<Mesh>((Mesh*)asset));
-		});
+		//Node3D* visual3DNode = new Node3D;
+		//visual3DNode->set_name("Visual3DNode");
+		//visual3DNode->addToParent(m_rootNode);
+		//
+		//Visual3D* visual3D = new Visual3D;
+		//Engine::GetInstance().getAssetLoader()->getAsset("mesh://primitive=cube",
+		//[=](Asset* asset)
+		//{
+		//	visual3D->set_mesh(std::shared_ptr<Mesh>((Mesh*)asset));
+		//});
 
-		Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/visual3d/visual3d.rdr",
-		[=](Asset* asset)
-		{
-			visual3D->set_renderer(std::shared_ptr<Renderer>((Renderer*)asset));
-		});
-		Material* material = new Material;
-		material->set_ambientColor(Color::s_black);
-		material->set_diffuseTexturePath("texture://TEXTURE_2D?assets/textures/box_diffuse.png");
-		material->load();
-		visual3D->set_material(std::shared_ptr<Material>(material));
+		//Engine::GetInstance().getAssetLoader()->getAsset("renderer://assets/shaders/visual3d/visual3d.rdr",
+		//[=](Asset* asset)
+		//{
+		//	visual3D->set_renderer(std::shared_ptr<Renderer>((Renderer*)asset));
+		//});
+		//Material* material = new Material;
+		//material->set_ambientColor(Color::s_black);
+		//material->set_diffuseTexturePath("texture://TEXTURE_2D?assets/textures/box_diffuse.png");
+		//material->load();
+		//visual3D->set_material(std::shared_ptr<Material>(material));
 
-		Visual3DComponent* visual3DComponent = new Visual3DComponent(visual3D);
+		//Visual3DComponent* visual3DComponent = new Visual3DComponent(visual3D);
 
-		visual3DComponent->addToNode(visual3DNode);
+		//visual3DComponent->addToNode(visual3DNode);
 	}
 }

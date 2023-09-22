@@ -1,5 +1,4 @@
 #include "SkyBoxComponent.h"
-#include "Node3D.h"
 #include "Engine/Engine.h"
 #include "Engine/AssetLoader.h"
 #include "Graphics/RHI/Mesh/Mesh.h"

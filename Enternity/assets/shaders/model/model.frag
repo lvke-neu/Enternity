@@ -17,5 +17,5 @@ void main()
 	vec4 ambient = texture(u_ambientTexture, v_texcoord) * u_ambientColor;
 	vec4 diffuse = texture(u_diffuseTexture, v_texcoord) * u_diffuseColor;
 	vec4 specular = texture(u_specularTexture, v_texcoord) * u_specularColor;
-	fragColor = ambient + diffuse;
+	fragColor = ambient + diffuse + specular;
 };

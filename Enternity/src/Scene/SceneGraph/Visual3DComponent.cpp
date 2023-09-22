@@ -1,7 +1,6 @@
 #include "Visual3DComponent.h"
 #include "Node3D.h"
 #include "Visual3D.h"
-#include <glad/glad.h>
 
 namespace Enternity
 {

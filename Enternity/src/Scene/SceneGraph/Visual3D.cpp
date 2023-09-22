@@ -7,7 +7,6 @@
 
 namespace Enternity
 {
-
 	Visual3D::Visual3D() : 
 		m_enable(true), 
 		m_name(""), 

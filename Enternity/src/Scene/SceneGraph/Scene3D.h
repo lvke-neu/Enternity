@@ -8,8 +8,6 @@ namespace Enternity
 	public:
 		Scene3D();
 		~Scene3D();
-	public:
-		virtual void tick() override;
 	private:
 		void initCamera();
 		void initBaseScene();

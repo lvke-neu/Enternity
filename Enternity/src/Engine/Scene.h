@@ -13,7 +13,7 @@ namespace Enternity
 	public:
 		GET(Node*, rootNode);
 
-		virtual void tick() {};
+		virtual void tick();
 	public:
 		static void TreeNode(Node* node, std::function<void (Node* node)> callback);
 	protected:
